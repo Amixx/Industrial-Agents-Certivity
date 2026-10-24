@@ -60,11 +60,7 @@ const kindStyle: Record<ChangeKind, string> = {
 	</AssessmentHeader>
 {/if}
 
-{#snippet row(
-	c: RequirementChange,
-	u: RegulationUpdate,
-	latest: string | null,
-)}
+{#snippet row(c: RequirementChange, u: RegulationUpdate, latest: string | null)}
 	<li
 		class="ui-rule-soft grid grid-cols-10 gap-x-4 border-b py-4 xl:gap-x-6 {c.change === 'added' &&
 		!c.relevant

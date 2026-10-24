@@ -261,9 +261,7 @@ function toggle(id: string, on: boolean) {
 									aria-label="Mark {req.id} reviewed"
 									class="mt-1 ml-1 flex size-4 items-center justify-center border border-black bg-white data-[state=checked]:bg-cv-ink-950"
 								>
-									{#snippet children({
-										checked,
-									})}
+									{#snippet children({ checked })}
 										{#if checked}
 											<svg viewBox="0 0 12 12" class="size-3 text-white" aria-hidden="true">
 												<path
