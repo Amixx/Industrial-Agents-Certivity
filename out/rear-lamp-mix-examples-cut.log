@@ -1,0 +1,8 @@
+[brain 21:59:59] profile: Rear lamp (combined rear lighting and signalling module with rear position lamp, stop lamp, reversing lamp, outer lens and retro-reflector in a single housing); 30 terms; electronics=True
+[brain 21:59:59] regulations: UN R148 0.95, UN R48 0.92, UN R150 0.88, UN R10 0.85
+[brain 22:00:00] paragraphs selected: 267
+[brain 22:00:32] requirements: 341 kept, 7 dropped
+[brain 22:00:32] wrote ../out/rear-lamp-mix-examples-cut.json (341 requirements)
+[cost] claude-sonnet-5-5: 23 new calls, 266,688 in / 59,448 out / 8,421 cache-read; $1.13
+[cost] claude-opus-5-5: 115 cache hits
+[cost] total new spend $1.13

@@ -1,8 +1,32 @@
 # Benchmarks
 
 How well the requirement engine (`brain/`) does on the rear lamp case with different language
-models, and what each run costs. Add a row whenever you benchmark a new model or a change
-that affects the score.
+models, and what each run costs. Every benchmark run gets a row in the run log below, on any
+branch, and a dated section under Results that says what changed. When a file is uploaded,
+add the platform's scores and the upload time to its row and section (see `AGENTS.md`).
+
+## Run log
+
+All times 24 Oct 2026, CEST. Local scores use `brain/eval/score.py` (matched of 190 expert
+rows, requirement F2). Platform matched is recall times 190. Code names the commit or branch
+that produced the file; branch code is not on `main` unless it says so.
+
+| Run | File | Method | Code | Rows | Local matched / F2 | Platform (upload): matched / F2 | Spend |
+|---|---|---|---|---|---|---|---|
+| before 18:45 | `brain/out/dev-upload.json` | gpt-5.5 relevance, gpt-5.4-mini rewrite; cited R26 too | `main` | 407 | 138 / 0.591 | (18:45) 145 / 0.621 | not logged |
+| 19:49 to 19:57 | `rear-lamp-sonnet.json` | Sonnet 5.5 on every step | `brain-claude-models` @ `fd2777b` | 344 | 131 / 0.593 | (20:10) 140 / 0.634 | $3.08 |
+| 19:49 to 19:57 | `rear-lamp-opus.json` | Opus 5.5 on every step | `brain-claude-models` @ `fd2777b` | 338 | 139 / 0.633 | (20:06) 143 / 0.651 | $6.36 |
+| 19:49 to 19:57 | `rear-lamp-fable.json` | Fable 5.1 on every step | `brain-claude-models` @ `fd2777b` | 332 | 141 / 0.646 | (20:05) **149 / 0.682**; (20:04, as team-00) 142 / 0.650 | $16.52 |
+| | `rear-lamp-deterministic.json` | No LLM | `edc8f1f` | 778 | 112 / 0.364 | (20:23) 107 / 0.348 | $0 |
+| | `rear-lamp-main-cli.json` | `main` at `7644efe`: Opus relevance, Sonnet rewrite, through `claude -p` | `kb-stack` | 368 | | (21:05 to 22:16) 143 / 0.634 | subscription |
+| | `rear-lamp-kb-deterministic.json` | Obligation base, no LLM | `kb-stack` | 864 | | (21:05 to 22:16) 108 / 0.333 | $0 |
+| | `rear-lamp-kb-jev.json` | Obligation base, Jev blend cut 0.25, Opus everywhere | `kb-stack` @ `5f6e476` | 389 | | (21:05 to 22:16) 154 / 0.670 | subscription |
+| | `rear-lamp-kb-jev-filter-v4.json` | The above plus requirement filter and minimal-edit rewrite | `kb-stack` @ `1d8b22e` | 342 | / 0.717 | (21:05 to 22:16) 140 / 0.635 | subscription |
+| | `rear-lamp-kb-sol-rewrite.json` | Paragraphs of `kb-jev` rewritten by GPT-6.1 Sol | `kb-stack` | 420 | | (21:05 to 22:16) 143 / 0.606 | subscription |
+| | `rear-lamp-qwen-split-rewrite.json` | Fable's 208 paragraphs rewritten by qwen3.5:9b, split prompt of `0ccae35` | `dcf1740` | 446 | 137 / 0.568 | (21:47) 133 / 0.551 | $0 |
+| 22:00 | `rear-lamp-mix-examples-cut.json` | Opus relevance, Sonnet rewrite with expert examples and the obligation cut | `brain-model-mix-examples` @ `e5e0d25` | 341 | 145 / 0.658 | (22:14) 138 / 0.627 | $1.13 |
+
+Empty cells were not recorded when the run was made.
 
 ## What is measured
 
@@ -123,6 +147,34 @@ not a bill. Code is on branch `kb-stack` (not merged).
   selection with the same light-source rule. Without the LLM it keeps R150 on synth-a06 and R42
   on the plain bumper, which the lexical ranking alone drops.
 
+### Branch `brain-model-mix-examples`: expert examples and the obligation cut
+
+Run at 22:00, uploaded at 22:14 CEST. Code is on branch `brain-model-mix-examples` at
+`e5e0d25` (not merged); the file is `rear-lamp-mix-examples-cut.json` with its log.
+
+Configuration: `main`'s default models at `b7d6ee2` (Opus 5.5 for profile, regulation review
+and relevance; Sonnet 5.5 for the rewrite), plus two rewrite changes behind flags:
+- `BRAIN_REWRITE_EXAMPLES=1`: each paragraph comes with the three most similar paragraphs the
+  dev experts cite (TF-IDF over the text) and the exact expert rows written from them, leaving
+  out the paragraph's own regulation so it never sees its own answer.
+- `BRAIN_REWRITE_CUT=obligation`: replaces the split-everything rule of `0ccae35` with one row
+  per obligation, splitting only table rows, list items with their own values and optional
+  cases.
+
+| | Requirements | Requirement P / R / F1 / F2 | Matched of 190 | Page P / R / F1 | Regulation P / R |
+|---|---|---|---|---|---|
+| Platform | 341 | 0.405 / 0.726 / 0.520 / **0.627** | 138 | 0.831 / 0.925 / 0.875 | 1.00 / 1.00 |
+| Local judge | 341 | 0.425 / 0.763 / 0.546 / 0.658 | 145 | 0.831 / 0.925 / 0.875 | 1.00 / 1.00 |
+
+- 11 matches and 0.055 below Fable, and below the plain Opus run.
+- The platform found 7 fewer matches than the local judge, where the Claude runs above scored 4
+  to 9 more. The cut merges rows the experts keep apart; word overlap still counts a merged row,
+  but the platform judge wants the same scope, condition and constraint. Like the minimal-edit
+  rewrite on `kb-stack`, a style change that the local judge rewards lost on the platform.
+- Relevance answers came from the cache of the Opus run, so the run paid only for the Sonnet
+  rewrite ($1.13). From an empty cache it costs about $5.50.
+- One upload; identical files have scored up to 7 matches apart.
+
 ### Cost per run
 
 From the pipeline logs (`rear-lamp-<model>.log`).
@@ -148,6 +200,7 @@ rewrite).
 | `rear-lamp-fable.json` | 149 | 141 | 0.682 | 0.646 |
 | `brain/out/dev-upload.json` | 145 | 138 | 0.621 | 0.591 |
 | `rear-lamp-qwen-split-rewrite.json` | 133 | 137 | 0.551 | 0.568 |
+| `rear-lamp-mix-examples-cut.json` | 138 | 145 | 0.627 | 0.658 |
 
 The local judge ranks the three Claude runs in the platform's order. On their rewrites it finds
 4 to 9 fewer matches than the platform. It finds more than the platform on the deterministic
