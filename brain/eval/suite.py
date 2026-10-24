@@ -9,31 +9,37 @@ from __future__ import annotations
 
 import argparse
 import csv
+import fnmatch
 import json
 import time
 from pathlib import Path
 
-from brain.paths import CASES, PROJECT
+from brain.paths import CASES, PROJECT, ROOT
 from brain.pipeline import run
 
 from .score import score
 from .synth import cases as synthetic_cases
 
 RESULTS = PROJECT / "eval" / "results.csv"
+TIER_A = ROOT / "synthetic" / "cases"  # synthetic/README.md
 
 
 def labelled_cases() -> list[Path]:
     dev = [p for p in sorted(CASES.iterdir()) if (p / "expected.json").exists()]
-    return dev + synthetic_cases()
+    tier_a = sorted(p for p in TIER_A.glob("*") if (p / "expected.json").exists())
+    return dev + synthetic_cases() + tier_a
 
 
 def main(argv: list[str] | None = None) -> int:
     ap = argparse.ArgumentParser(description=__doc__.splitlines()[0])
     ap.add_argument("--no-llm", action="store_true")
     ap.add_argument("--tag", default="")
+    ap.add_argument("--cases", default="*", help="glob on case names, e.g. 'synth-a*'")
     args = ap.parse_args(argv)
     rows = []
     for case in labelled_cases():
+        if not fnmatch.fnmatch(case.name, args.cases):
+            continue
         image = case / "exploded_view.png"
         sub = run(
             (case / "spec.md").read_text(),

@@ -136,7 +136,7 @@ def build_profile(
     if use_llm is False or (use_llm is None and not llm.available()):
         return base
     content: list[dict[str, object]] = []
-    if image is not None and image.exists():
+    if image is not None and image.exists() and llm.reads_images():
         content.append(llm.image_block(image))
     content.append({"type": "text", "text": f"Specification:\n\n{spec}"})
     data = llm.complete_json(_SYSTEM, content, _SCHEMA, tier="strong")  # type: ignore[arg-type]

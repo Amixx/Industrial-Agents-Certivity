@@ -29,3 +29,10 @@ time,tag,case,n,regulation_p,regulation_r,regulation_f2,page_p,page_r,page_f2,re
 2026-10-24 18:05,llm-strong-cut0.08,tierA-reversing-filament,250,0.5,1.0,0.833,0.537,0.957,0.827,0.204,0.593,0.429
 2026-10-24 18:06,llm-strong-cut0.08,tierA-stop-lamp-led,305,1.0,1.0,1.0,0.596,0.939,0.842,0.311,0.785,0.602
 2026-10-24 18:07,llm-strong-cut0.08,tierA-stop-position-filament,278,0.5,1.0,0.833,0.587,0.964,0.854,0.255,0.67,0.506
+2026-10-24 18:39,deterministic-tierA-francisca,synth-a01-stop-tail-lamp,440,1.0,1.0,1.0,0.425,0.861,0.714,0.166,0.537,0.371
+2026-10-24 18:39,deterministic-tierA-francisca,synth-a02-reversing-lamp,521,0.75,1.0,0.938,0.272,0.862,0.601,0.106,0.545,0.297
+2026-10-24 18:39,deterministic-tierA-francisca,synth-a03-rear-retro-reflector,170,1.0,0.5,0.556,0.235,0.4,0.351,0.071,0.211,0.151
+2026-10-24 18:39,deterministic-tierA-francisca,synth-a04-position-lamp-retro,870,0.8,1.0,0.952,0.295,0.867,0.625,0.109,0.576,0.31
+2026-10-24 18:39,deterministic-tierA-francisca,synth-a05-position-reversing-lamp,695,0.75,1.0,0.938,0.263,0.882,0.6,0.104,0.537,0.292
+2026-10-24 18:39,deterministic-tierA-francisca,synth-a06-rear-combination-rfq,264,1.0,0.5,0.556,0.333,0.302,0.308,0.14,0.195,0.181
+2026-10-24 18:39,deterministic-tierA-francisca,synth-a07-rear-position-lamp,522,0.75,1.0,0.938,0.302,0.839,0.619,0.121,0.529,0.316

@@ -88,6 +88,8 @@ Other settings:
 - `BRAIN_RELEVANCE_TIER=bulk` runs paragraph relevance on the cheap model. On dev this scored
   requirement F2 0.58 instead of 0.62, at a fraction of the cost.
 - `BRAIN_LLM_TIMEOUT` sets the per-request timeout in seconds (default 180, with 3 retries).
+- Local models get no image unless `BRAIN_LOCAL_VISION=1`, and think only on the regulation review
+  (`BRAIN_LOCAL_REASONING=none|low|high` sets it for every call).
 
 **Cost.** The strong model reads every candidate paragraph of every selected regulation, which
 is about 2,800 paragraphs on dev. One afternoon of experiments (several dev runs, relevance
@@ -120,6 +122,7 @@ file.
 uv run python -m eval.score out/dev.json                 # F2 at three levels against dev gold
 uv run python -m eval.score out/x.json --expected path/to/expected.json
 uv run python -m eval.suite --no-llm --tag note          # dev + synthetic cases, appends eval/results.csv (local)
+uv run python -m eval.suite --no-llm --cases 'synth-a*'  # only the cases in ../synthetic/cases
 uv run python -m eval.gold_check                         # every dev gold citation resolves on its page
 uv run python -m eval.synth                              # regenerate the Tier A synthetic cases
 uv run python -m eval.relevance_check                    # LLM relevance vs decision model (paid calls)
