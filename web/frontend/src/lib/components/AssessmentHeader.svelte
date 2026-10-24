@@ -9,6 +9,7 @@ let { assessment, children }: { assessment: Assessment; children?: Snippet } = $
 const tabs = $derived([
 	{ href: `/a/${assessment.id}`, label: 'Requirements' },
 	{ href: `/a/${assessment.id}/graph`, label: 'Graph' },
+	{ href: `/a/${assessment.id}/exploded`, label: 'Exploded view' },
 ]);
 </script>
 
@@ -33,7 +34,9 @@ const tabs = $derived([
 	{#each tabs as tab (tab.href)}
 		<a
 			href={tab.href}
-			class="flex items-center gap-2 {page.url.pathname === tab.href ? 'font-bold' : 'hover:underline'}"
+			class="flex items-center gap-2 {page.url.pathname === tab.href
+				? 'font-bold'
+				: 'hover:underline'}"
 			aria-current={page.url.pathname === tab.href ? 'page' : undefined}
 		>
 			{#if page.url.pathname === tab.href}
