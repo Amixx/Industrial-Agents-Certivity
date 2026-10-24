@@ -26,7 +26,7 @@ that produced the file; branch code is not on `main` unless it says so.
 | | `rear-lamp-qwen-split-rewrite.json` | Fable's 208 paragraphs rewritten by qwen3.5:9b, split prompt of `0ccae35` | `dcf1740` | 446 | 137 / 0.568 | (21:47) 133 / 0.551 | $0 |
 | 22:00 | `rear-lamp-mix-examples-cut.json` | Opus relevance, Sonnet rewrite with expert examples and the obligation cut | `brain-model-mix-examples` @ `e5e0d25` | 341 | 145 / 0.658 | (22:14) 138 / 0.627 | $1.13 |
 | 22:45 | `rear-lamp-kb-v5-rewrite.json` | Paragraphs of `kb-jev` rewritten by Opus; prompt names the device and repeats the condition in every row | `kb-stack` @ `1d8b22e` plus an uncommitted prompt | 363 | 158 / 0.703 | (22:48) 148 / 0.659 | subscription |
-| 21:55 | `rear-lamp-deterministic-sibling.json` | No LLM, with sibling routing and the regulation-title rule; decision model refit | `main` @ `b7d6ee2` (reproduced at `a39acab`) | 647 | 111 / 0.394 | | $0 |
+| 21:55 | `rear-lamp-deterministic-sibling.json` | No LLM, with sibling routing and the regulation-title rule; decision model refit | `main` @ `b7d6ee2` (reproduced at `a39acab`) | 647 | 111 / 0.394 | (22:57) 106 / 0.377 | $0 |
 | 21:33 to 22:14 | `rear-lamp-qwen-split2-rewrite.json` | Fable's 208 paragraphs rewritten by qwen3.5:9b, narrowed table rule and empty-answer fallback | `main` @ `d7683cd`, `eval.rewrite_pass` | 411 | 143 / 0.611 | | $0 |
 | 22:15 to 22:28 | `rear-lamp-gemini-relevance.log` | Relevance only: gemini-3.8-flash (free tier) on 425 dev paragraphs; AUC 0.998 (gpt-5.5 0.987) | `main` @ `bb829ec`, `out/scripts/gemini_relevance.py` | n/a | | | $0 |
 | 22:30 to 22:49 | `rear-lamp-gemini-relevance.log` | Relevance only: gemini-3.5-flash (free tier) on 1,100 dev paragraphs; AUC 0.974 (gpt-5.5 0.968) | `main` @ `bb829ec`, `out/scripts/gemini_relevance.py` | n/a | | | $0 |
@@ -199,7 +199,13 @@ and relevance; Sonnet 5.5 for the rewrite), plus two rewrite changes behind flag
   feature changes of `b7d6ee2`: sections next to one that names the product count as other
   devices, and a regulation whose title names the product (R42) counts as about it. On dev 647
   rows instead of 778, page F2 0.758 instead of 0.723, local requirement F2 0.394 instead of
-  0.364. This is the Sunday fallback when no model is available. Not uploaded yet.
+  0.364. This is the Sunday fallback when no model is available. Uploaded 22:57: requirement
+  P 0.164 / R 0.558 / F2 0.377 (106 matches), page P 0.480 / R 0.887 / F2 0.758, regulations
+  1.00 / 1.00. Against the old deterministic file (0.348, 107 matches from 778 rows) it keeps
+  the same matches with 131 fewer rows. The local judge counted 5 too many, as it does on
+  verbatim text, so the upload confirmed the expected floor and added no new information.
+  Without a model the path stays at about 0.35 to 0.38; the model-backed runs score 0.62 to
+  0.68.
 - **Gemini relevance** (`rear-lamp-gemini-relevance.log`, write-up in `brain/docs/gemini.md`).
   Paragraph level only, no submission. Gemini 3.5 Flash reaches AUC 0.974 on 1,100 dev
   paragraphs (gpt-5.5 0.968 on the same ones), but the free tier allows about 20 requests per
