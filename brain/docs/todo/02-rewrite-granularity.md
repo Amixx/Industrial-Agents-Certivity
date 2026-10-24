@@ -30,8 +30,8 @@ it is about how the gold is written, not about lamps.
 **State of the prompt.** `brain/rewrite.py` (`_SYSTEM`, `_EXAMPLES`) already has split rules
 and few-shot examples from regulations outside the dev case (R48 6.2.4.2 dipped-beam, R127
 5.1.2, GTR 9 8.3.2.1, R42 6.1.4). A first version told the model to split every table row; on
-qwen3.5:9b that turned R148 5.5.1 into 25 rows with garbled cell values (local judge F2 0.568
-against Fable's own rewrite at 0.646 on the same paragraphs). It now says to split a table only
+qwen3.5:9b that turned R148 5.5.1 into 25 rows with garbled cell values (platform F2 0.551 against
+0.682 for Fable's own rewrite of the same paragraphs; `../out/rear-lamp-qwen-split-rewrite.json`). It now says to split a table only
 when the paragraph text states each row's limit. A selected paragraph the model answers with
 nothing keeps its deterministic rows. A qwen rerun with this version is in
 `../out/README.md` once scored.

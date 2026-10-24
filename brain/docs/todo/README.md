@@ -45,6 +45,7 @@ Paths are relative to `brain/` unless they start with `../`.
 | `../out/rear-lamp-sonnet.json` | 344 | 0.407 / 0.737 / 0.634 | 140 | $3.08 |
 | `../out/rear-lamp-opus.json` | 338 | 0.423 / 0.753 / 0.651 | 143 | $6.36 |
 | `../out/rear-lamp-fable.json` | 332 | 0.449 / 0.784 / 0.682 | 149 | $16.52 |
+| `../out/rear-lamp-qwen-split-rewrite.json` (qwen3.5:9b rewrite of Fable's paragraphs, first split prompt) | 446 | 0.298 / 0.700 / 0.551 | 133 | $0 |
 
 The leader is at 0.762 (recall 0.895, about 360 rows). Details, provenance and costs are in
 `../out/README.md`.
@@ -95,6 +96,7 @@ bigger model does not fix granularity; the prompt has to.
 | `uv run python -m eval.model_judge <file>` | Model judge through `claude -p` (task 01 calibrates it) |
 | `uv run python ../tools/validate.py <file>` | The platform's own format check |
 
-The local lexical judge finds 4 to 9 fewer matches than the platform on model-written text and
-5 more on verbatim text. It ranks runs in the platform's order, so use it for changes worth
-more than about 5 matches until task 01 delivers a calibrated judge.
+The local lexical judge finds 4 to 9 fewer matches than the platform on the Claude and gpt
+rewrites, but 5 more on verbatim text and 4 more on qwen's short split rows. Its error depends on
+the writing style, so it cannot compare two rewrite styles: use a dev upload for that until
+task 01 delivers a calibrated judge.

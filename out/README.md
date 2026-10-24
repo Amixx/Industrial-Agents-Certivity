@@ -77,6 +77,25 @@ The misses on selected paragraphs stay at 26 to 37 for every model. Those come f
 rewrite splitting less finely than the gold (one gold row per table row, list item or optional
 case), which a larger model does not fix.
 
+### Rewrite-only runs
+
+These hold paragraph selection fixed: they rewrite exactly the 208 paragraphs that
+`rear-lamp-fable.json` cites, with a different model or prompt (`brain/eval/rewrite_pass.py`),
+so the gap to the Fable row is the rewrite alone.
+
+| File | Rewrite | Requirements | Requirement P / R / F2 | Matched of 190 | Page P / R / F2 | Uploaded |
+|---|---|---|---|---|---|---|
+| `rear-lamp-qwen-split-rewrite.json` | qwen3.5:9b on Ollama, split prompt of `0ccae35` | 446 | 0.298 / 0.700 / **0.551** | 133 | 0.820 / 0.943 / 0.916 | 24 Oct 21:47 CEST |
+
+- Against Fable's own rewrite of the same paragraphs (0.682, 149 matches) it loses 0.131. It
+  writes 34% more rows and matches 16 fewer requirements.
+- The prompt of `0ccae35` told the model to split every row of a table. On qwen that turned
+  table references into dozens of rows with garbled cell values (UN R148 5.5.1, one gold row,
+  became 25) and left 30 of the 208 paragraphs empty, five of them gold. `d7683cd` keeps table
+  references whole and falls back to the deterministic rows for an empty answer.
+- The run took 37 minutes on an M5 with 16 GB (52 batches of 4 paragraphs, temperature 0,
+  thinking off) and cost nothing.
+
 ### Cost per run
 
 From the pipeline logs (`rear-lamp-<model>.log`).
@@ -101,11 +120,13 @@ rewrite).
 | `rear-lamp-opus.json` | 143 | 139 | 0.651 | 0.633 |
 | `rear-lamp-fable.json` | 149 | 141 | 0.682 | 0.646 |
 | `brain/out/dev-upload.json` | 145 | 138 | 0.621 | 0.591 |
+| `rear-lamp-qwen-split-rewrite.json` | 133 | 137 | 0.551 | 0.568 |
 
-The local judge ranks the three Claude runs in the platform's order. On model-written text it
-finds 4 to 9 fewer matches than the platform; on the deterministic file's verbatim sentences it
-finds 5 more. Use it to rank changes worth more than about 5 matches, and upload to the dev case
-for closer calls. Regulation and page levels match the platform, since both use
+The local judge ranks the three Claude runs in the platform's order. On their rewrites it finds
+4 to 9 fewer matches than the platform. It finds more than the platform on the deterministic
+file's verbatim sentences (5 more) and on qwen's short split rows (4 more). Its error depends on
+the writing style, so it cannot compare two rewrite styles; upload to the dev case for that, or
+use a model judge calibrated against these rows (`brain/docs/todo/01-model-judge.md`). Regulation and page levels match the platform, since both use
 `tools/score_local.py`.
 
 ### Which code produced the files
@@ -120,6 +141,11 @@ for closer calls. Regulation and page levels match the platform, since both use
   rewrite prompt with parent clauses. Three of that rewrite prompt's four few-shot examples are
   dev gold answers (UN R48 6.4.4.2, UN R48 5.7.1, UN R150 4.1.1), which flatters the dev score by
   a few rows.
+
+- **Rewrite-only qwen run:** the rewrite prompt and `llm.py` of `0ccae35` (split rules,
+  temperature 0 for local models), qwen3.5:9b through Ollama 0.40.10 at a 16k context, on the
+  paragraphs of `rear-lamp-fable.json`. The harness became `brain/eval/rewrite_pass.py` in
+  `dcf1740`.
 
 Each run's submission and log are in this folder: `rear-lamp-deterministic.json`, and
 `rear-lamp-<model>.json` with `rear-lamp-<model>.log` (the pipeline log, which ends with the

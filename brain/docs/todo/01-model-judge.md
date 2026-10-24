@@ -13,7 +13,7 @@ is too coarse: against the platform it is off by -5 to +9 matches. A model judge
 (`eval/model_judge.py`, through `claude -p` on the subscription, cached) exists but has never
 been checked against the platform.
 
-**Ground truth you have.** Five dev files scored by the platform, with the number of gold
+**Ground truth you have.** Six dev files scored by the platform, with the number of gold
 requirements each matched (recall times 190):
 
 | File | Rows | Platform matches | Local lexical judge |
@@ -23,14 +23,17 @@ requirements each matched (recall times 190):
 | `../out/rear-lamp-opus.json` | 338 | 143 | 139 |
 | `out/dev-upload.json` | 407 | 145 | 138 |
 | `../out/rear-lamp-fable.json` | 332 | 149 | 141 |
+| `../out/rear-lamp-qwen-split-rewrite.json` | 446 | 133 | 137 |
 
-A sixth arrives tonight: a qwen3.5:9b rewrite of Fable's paragraphs; its platform score will
-be added to `../out/README.md`. Hold one file out as a check; do not tune on all of them.
+The lexical judge's error changes sign with the writing style: it undercounts the Claude and
+gpt rewrites and overcounts verbatim text and qwen's short split rows. A good model judge has
+to be right across styles, because task 02 compares exactly that. Hold one file out as a
+check; do not tune on all of them. Later dev uploads are added to `../out/README.md`.
 
 **What to do.**
 1. Read `eval/model_judge.py`, `eval/judge.py` and the platform's rule in
    `../docs/CHALLENGE.md` ("same scope, condition and constraint").
-2. Run the model judge on the five files as it is. Report matches per file next to the
+2. Run the model judge on the six files as it is. Report matches per file next to the
    platform. The calls go through `claude -p` on the logged-in subscription; confirm that this
    costs nothing extra before running, and estimate the number of calls first.
 3. Find where it disagrees. Typical causes to check:
