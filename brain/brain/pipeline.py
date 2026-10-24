@@ -63,9 +63,8 @@ def select_paragraphs(
             relevance.blend(float(a), llm_p.get(p.id))
             for p, a in zip(paragraphs, probs, strict=True)
         ]
-        cut = relevance.THRESHOLD if threshold is None else threshold
         scored = list(zip(paragraphs, map(float, probs), strict=True))
-        keep = relevance.floor(scored, cut)
+        keep = relevance.select(scored, threshold)
         return [(p, pr) for p, pr in scored if p.id in keep], graph
     cut = cut if threshold is None else threshold
     chosen = [(p, float(pr)) for p, pr in zip(paragraphs, probs, strict=True) if pr >= cut]
