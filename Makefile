@@ -12,7 +12,7 @@ define step
 else s=$$?; printf 'FAIL %s\n' '$(1)'; cat $$out; rm -f $$out; exit $$s; fi
 endef
 
-.PHONY: help check fix test dev-backend dev-frontend
+.PHONY: help check fix test test-slow dev-backend dev-frontend
 
 help: ## Show this help.
 	@awk 'BEGIN{FS=":.*## "} /^[a-zA-Z0-9_-]+:.*## / {printf "  \033[36m%-14s\033[0m %s\n", $$1, $$2}' $(MAKEFILE_LIST)
@@ -36,6 +36,9 @@ fix: ## Apply ruff and biome fixes.
 
 test: ## Brain tests (some need the corpus from brain.ingest).
 	$(call step,brain pytest,cd $(BRAIN) && $(UV) pytest -q)
+
+test-slow: ## Brain tests that build the obligation base from the whole corpus (minutes).
+	$(call step,brain pytest slow,cd $(BRAIN) && $(UV) pytest -q -m slow)
 
 dev-backend: ## API on :8000.
 	cd $(BACKEND) && uv run uvicorn app.main:app --reload

@@ -39,3 +39,5 @@ disallow_untyped_defs = true
 testpaths = ["tests"]
 pythonpath = ["."]
 filterwarnings = ["ignore::DeprecationWarning:importlib._bootstrap"]
+addopts = "-m 'not slow'"
+markers = ["slow: builds the obligation base from the whole corpus (minutes); run with -m slow"]

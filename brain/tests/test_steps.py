@@ -234,7 +234,7 @@ def test_jev_combines_judgements_and_caches(
 
     def post(body: dict[str, Any]) -> dict[str, Any]:
         calls.append(body)
-        technical = {k: {"noul": 0.9 if k.endswith("__0") else 0.1} for k in body["questions"]}
+        technical = {k: {"noul": 0.9 if k == "technical__0" else 0.1} for k in body["questions"]}
         return {"answers": technical, "usage": {"input_tokens": 1000}}
 
     monkeypatch.setattr(jev, "_post", post)
