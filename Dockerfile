@@ -16,6 +16,7 @@ COPY regulations/ regulations/
 COPY cases/ cases/
 COPY schemas/ schemas/
 COPY data/regulation-updates/ data/regulation-updates/
+COPY data/briefs/ data/briefs/
 WORKDIR /app/web/backend
 ENV PATH="/app/web/backend/.venv/bin:$PATH"
 CMD uvicorn app.main:app --host 0.0.0.0 --port ${PORT:-8000}
