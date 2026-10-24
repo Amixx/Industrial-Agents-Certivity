@@ -1,0 +1,69 @@
+"""JSON-schema completions through the Claude Code CLI (`claude -p`) on the logged-in
+subscription, with a disk cache so reruns cost nothing.
+
+Meant for offline work (evaluation, corpus tagging), not for the pipeline at runtime. The API key
+is removed from the child's environment so calls never bill the API. Claude Code's own system
+prompt, tools, settings and MCP servers are switched off, so a call carries only the prompt.
+"""
+
+from __future__ import annotations
+
+import hashlib
+import json
+import os
+import subprocess
+from pathlib import Path
+from typing import Any
+
+from .paths import CACHE
+
+DEFAULT_MODEL = "claude-sonnet-5-5"
+TIMEOUT = 600  # seconds per call
+ATTEMPTS = 3
+
+
+def _cache_path(payload: dict[str, Any]) -> Path:
+    digest = hashlib.sha256(json.dumps(payload, sort_keys=True).encode()).hexdigest()
+    return CACHE / "claude_cli" / f"{digest}.json"
+
+
+def complete_json(
+    system: str, prompt: str, schema: dict[str, Any], model: str = DEFAULT_MODEL
+) -> dict[str, Any]:
+    """A JSON object matching `schema`. Raises RuntimeError after ATTEMPTS failed calls."""
+    cached = _cache_path({"system": system, "prompt": prompt, "schema": schema, "model": model})
+    if cached.exists():
+        result: dict[str, Any] = json.loads(cached.read_text())
+        return result
+    env = {k: v for k, v in os.environ.items() if k != "ANTHROPIC_API_KEY"}
+    cmd = [
+        "claude", "-p", prompt,
+        "--model", model,
+        "--system-prompt", system,
+        "--tools", "",
+        "--strict-mcp-config",
+        "--setting-sources", "",
+        "--disable-slash-commands",
+        "--no-session-persistence",
+        "--output-format", "json",
+        "--json-schema", json.dumps(schema),
+    ]  # fmt: skip
+    error = ""
+    for _ in range(ATTEMPTS):
+        done = subprocess.run(cmd, capture_output=True, text=True, timeout=TIMEOUT, env=env)
+        out = done.stdout
+        try:
+            reply = json.loads(out[out.find("{") : out.rfind("}") + 1])
+        except json.JSONDecodeError:
+            error = f"unparseable output: {out[:200]!r} {done.stderr[:200]!r}"
+            continue
+        if reply.get("is_error"):
+            error = str(reply.get("result"))[:300]
+            continue
+        result = reply.get("structured_output") or json.loads(reply["result"])
+        cached.parent.mkdir(parents=True, exist_ok=True)
+        tmp = cached.with_suffix(f".{os.getpid()}.tmp")
+        tmp.write_text(json.dumps(result))
+        tmp.replace(cached)
+        return result
+    raise RuntimeError(f"claude -p failed {ATTEMPTS} times: {error}")
