@@ -19,6 +19,7 @@
 		"@sveltejs/kit": "^3.0.0",
 		"@sveltejs/vite-plugin-svelte": "^7.2.0",
 		"@tailwindcss/vite": "^4.3.3",
+		"@types/three": "^0.186.0",
 		"svelte": "^5.57.1",
 		"svelte-check": "^4.6.0",
 		"tailwindcss": "^4.3.3",
@@ -36,6 +37,7 @@
 		"codemirror-markdown-hybrid": "^1.2.2",
 		"dompurify": "^3.4.17",
 		"marked": "^18.1.1",
-		"pdfjs-dist": "^6.4.299"
+		"pdfjs-dist": "^6.4.299",
+		"three": "^0.186.1"
 	}
 }
