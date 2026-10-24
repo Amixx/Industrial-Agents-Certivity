@@ -105,9 +105,10 @@ Every response is cached in `data/cache/llm/`, keyed on the provider, model, pro
 Rerunning an identical step is free. Changing a prompt or the set of selected regulations makes
 new calls.
 
-If an LLM batch fails after its retries, that batch falls back to the deterministic path: the
-deterministic rewrite, or the decision model's score for relevance. The run still produces a
-file.
+If a rewrite batch fails after its retries, it falls back to the deterministic rewrite. Paragraphs
+that relevance leaves unscored (a failed batch or a skipped id) get one more pass; if any are
+still unscored, the run stops with an error naming their regulations. Rerun it: the cache keeps
+the batches that succeeded.
 
 ## Sunday runbook (hybrid mode)
 

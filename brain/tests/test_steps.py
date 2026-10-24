@@ -117,3 +117,42 @@ def test_judge_maximises_acceptable_matches_and_respects_polarity() -> None:
     exp = [{"text": t, "source": {"regulation": "R"}} for t in ("x", "y")]
     pairs = match(sub, exp, threshold=0.45, sim=lambda s, e: sims[(s, e)])
     assert len(pairs) == 2
+
+
+def _para(i: int) -> Paragraph:
+    return Paragraph(
+        id=f"UN R42|0|{i}",
+        regulation="UN R42",
+        version="0",
+        role="base",
+        label=str(i),
+        number=str(i),
+        page=1,
+        page_end=1,
+        text="The device shall ...",
+    )
+
+
+def test_relevance_retries_unscored_then_fails_loudly(monkeypatch: pytest.MonkeyPatch) -> None:
+    from brain import relevance
+    from brain.models import ProductProfile
+
+    paragraphs = [_para(i) for i in range(4)]
+    graph = build({"UN R42": paragraphs}, {"UN R42"})
+    calls: list[int] = []
+
+    def flaky(chunk: list[Paragraph], *_: object) -> dict[str, float]:
+        calls.append(len(chunk))
+        if len(calls) == 1:
+            raise TimeoutError
+        return {p.id: 0.5 for p in chunk}
+
+    monkeypatch.setattr(relevance, "_batch", flaky)
+    scores = relevance.score(
+        paragraphs, graph, ProductProfile(product="bumper"), batch=2, workers=1
+    )
+    assert set(scores) == {p.id for p in paragraphs}
+
+    monkeypatch.setattr(relevance, "_batch", lambda chunk, *_: {chunk[0].id: 0.5})
+    with pytest.raises(RuntimeError, match="unscored after a retry"):
+        relevance.score(paragraphs, graph, ProductProfile(product="bumper"), batch=2, workers=1)

@@ -128,20 +128,29 @@ def score(
     )
     size, n_workers = llm.batching(25, 8, 12)
     batch, workers = batch or size, workers or n_workers
-    chunks = [paragraphs[i : i + batch] for i in range(0, len(paragraphs), batch)]
 
     def safe(chunk: list[Paragraph]) -> dict[str, float]:
         try:
             return _batch(chunk, graph, product, tier)
-        except Exception as e:  # missing ids fall back to the decision model alone (`blend`)
-            print(f"[relevance] batch failed ({e!r:.200}); model score only", file=sys.stderr)
+        except Exception as e:
+            print(f"[relevance] batch failed ({e!r:.200})", file=sys.stderr)
             return {}
 
-    with ThreadPoolExecutor(workers) as pool:
-        out: dict[str, float] = {}
-        for part in pool.map(safe, chunks):
-            out |= part
-    return out
+    out: dict[str, float] = {}
+    todo = paragraphs
+    # A failed batch or a skipped id gets one more pass; anything still unscored stops the run,
+    # because the decision model alone would quietly drop paragraphs on a product unlike the lamp.
+    for _ in range(2):
+        chunks = [todo[i : i + batch] for i in range(0, len(todo), batch)]
+        with ThreadPoolExecutor(workers) as pool:
+            for part in pool.map(safe, chunks):
+                out |= part
+        todo = [p for p in todo if p.id not in out]
+        if not todo:
+            return out
+        print(f"[relevance] {len(todo)} paragraphs unscored, retrying", file=sys.stderr)
+    regs = sorted({p.regulation for p in todo})
+    raise RuntimeError(f"relevance: {len(todo)} paragraphs unscored after a retry, in {regs}")
 
 
 def blend(model_p: float, llm_p: float | None, weight: float = WEIGHT) -> float:
