@@ -133,16 +133,16 @@ def run(
     chosen, graph = select_paragraphs(profile, corpus, choices, threshold, use_llm)
     log(f"paragraphs selected: {len(chosen)}")
     confidence = {p.id: pr for p, pr in chosen}
-    drafts = rewrite([p for p, _ in chosen], graph, profile.product, use_llm=use_llm)
+    product = profile.model_dump_json(
+        include={"product", "vehicle_categories", "functions", "parts"}
+    )
+    drafts = rewrite([p for p, _ in chosen], graph, product, use_llm=use_llm)
     kept, dropped = clean(drafts, graph.paragraphs)
     log(f"requirements: {len(kept)} kept, {len(dropped)} dropped")
     n = len(kept)
     kept = boilerplate.drop(kept)
     log(f"pointer and approval-mark rows: {n - len(kept)} dropped")
     if use_llm and kept:
-        product = profile.model_dump_json(
-            include={"product", "vehicle_categories", "functions", "parts"}
-        )
         p_keep = keep.scores(kept, product)
         scored = [(d, pk) for d, pk in zip(kept, p_keep, strict=True) if pk >= keep.THRESHOLD]
         kept = [d for d, _ in scored]
@@ -168,6 +168,8 @@ def run(
                 "quote": d.quote[:1000],
             }
         )
+        if d.atomic:
+            requirements[-1]["atomic"] = d.atomic
     submission = {
         "team_id": team_id,
         "case_id": case_id,

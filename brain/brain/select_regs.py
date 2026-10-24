@@ -185,7 +185,10 @@ Rules learned from expert answers:
 - Prefer the newer consolidated regulation over the legacy regulations it combines (e.g. R148
   over R6/R7/R23/R38, R149 over R19, R150 over R3/R104).
 - Do not cite regulations about other systems of the vehicle, other vehicle categories, or
-  test equipment only. Recall matters more than precision, but do not pad."""
+  test equipment only. Recall matters more than precision, but do not pad.
+- Cite a light-source regulation (filament or LED light sources) only when the product is, or
+  ships with, a replaceable light source of a category that regulation approves. Light sources
+  built into the lamp are approved with the lamp under its device regulation."""
 
 _SCHEMA = {
     "type": "object",
