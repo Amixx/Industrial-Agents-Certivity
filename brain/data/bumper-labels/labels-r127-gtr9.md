@@ -6,7 +6,7 @@ Product: plain front bumper for an M1 car (cover, EPP absorber, beam, lower gril
 
 | Regulation | Cited | Total rows | Unsure (`sure` = n) |
 | --- | --- | --- | --- |
-| UN R127 | 17 (16 paragraphs + whole regulation) | 286 | 19 |
+| UN R127 | 17 (16 paragraphs + whole regulation) | 286 | 17 |
 | UN GTR 9 | 16 paragraphs (whole regulation = n) | 249 | 19 |
 
 ## UN R127
@@ -17,13 +17,13 @@ Product: plain front bumper for an M1 car (cover, EPP absorber, beam, lower gril
 - **5.1.2: cited, unsure.** These are the upper legform to bumper limits (7.5 kN, 510 Nm). They apply only when the lower bumper height is 425 mm or more, and the spec gives no height.
 - **5.2 Headform: not cited.** It covers the bonnet top and windscreen.
 - **5.3 ARHSS: not cited.** It applies only to vehicles with adjustable ride height. 5.3, 5.3.2 and 5.3.3 are marked unsure because they would re-apply the legform limits.
-- **7 Conformity of production: not cited.** 7.2 only points back to paragraph 5 and has no number of its own, so it is marked unsure.
+- **7 Conformity of production: not cited.** 7.2 only points back to paragraph 5 and has no number of its own.
 - **Annex 3 General test conditions: cited.**
   - 1.1: temperature and humidity.
   - 2.1: test site slope of 1 % or less (unsure).
   - 3.1.1: test in normal ride attitude (unsure).
   - 3.1.2: the cut-body includes the full front structure (unsure).
-  - 3.2 (active devices) and 3.3 (parts with several positions) are not cited, as unsure. A plain bumper has neither.
+  - 3.2 (active devices) and 3.3 (parts with several positions) are not cited; 3.3 is unsure. A plain bumper has neither.
 - **Annex 4 Impactor specifications: not cited.** These are lab equipment specifications.
 - **Annex 5 section 1, flexible lower legform: these test parameters are cited.**
   - 1.4: test points in the bumper test area.

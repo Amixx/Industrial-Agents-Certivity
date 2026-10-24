@@ -10,7 +10,7 @@ UN R42,3.1.2,n,y,
 UN R42,3.1.3,n,y,
 UN R42,3.1.4,n,y,
 UN R42,3.1.5,n,y,definition; used to bound the protected zone between corners
-UN R42,3.1.6,n,n,"definition, but it sets where the vehicle must embody protective devices"
+UN R42,3.1.6,n,y,"definition, but it sets where the vehicle must embody protective devices"
 UN R42,3.1.7,n,y,
 UN R42,4,n,y,
 UN R42,4.1,n,y,
@@ -38,7 +38,7 @@ UN R42,7,n,y,
 UN R42,7.1,n,y,
 UN R42,7.2,n,y,
 UN R42,8,n,y,
-UN R42,8.1,n,n,CoP on features influencing impact behaviour; no number
+UN R42,8.1,n,y,CoP on features influencing impact behaviour; no number
 UN R42,8.2,n,y,
 UN R42,8.3,n,y,
 UN R42,9,n,y,
@@ -81,7 +81,7 @@ UN R42,Annex 3 2.8.2,y,y,impactor at 445 mm
 UN R42,Annex 3 2.8.3,y,n,"60 +/- 5 deg corner angle, +/- 25 mm contact point"
 UN R42,Annex 3 2.8.4,y,y,2.5 km/h corner impact
 UN R42,Annex 3 3,n,y,
-UN R42,Annex 3 3.1,n,n,repair/replacement of protective device between tests
+UN R42,Annex 3 3.1,n,y,permission to repair or replace between tests; not an obligation
 UN R42,Annex 3 3.2,n,n,recovery time for self-restoring materials (EPP absorber); no fixed limit
 UN R42,Annex 3 3.3,n,y,
 UN R42,Annex 3 3.4,n,y,
@@ -109,14 +109,14 @@ UN R26,2.7.5,n,y,
 UN R26,2.8,n,y,
 UN R26,2.9,n,y,
 UN R26,2.10,n,y,
-UN R26,2.11,n,n,definition of bumper; decides which provisions apply
-UN R26,2.12,n,n,definition of bumper cover; triggers the 6.5.4 exemption
+UN R26,2.11,n,y,definition of bumper; decides which provisions apply
+UN R26,2.12,n,y,definition of bumper cover; triggers the 6.5.4 exemption
 UN R26,3,n,y,
 UN R26,3.1,n,y,
 UN R26,3.1.1,n,y,
 UN R26,3.1.2,n,y,
 UN R26,3.1.2.1,n,y,
-UN R26,3.1.2.2,n,n,application document: dimensioned bumper drawings
+UN R26,3.1.2.2,n,y,application document: dimensioned bumper drawings
 UN R26,3.1.2.3,n,y,
 UN R26,3.1.3,n,y,
 UN R26,3.2,n,y,
@@ -153,8 +153,8 @@ UN R26,5.1.1,y,n,"also carries 5.1.2/5.1.3 (floor line, 100 mm sphere)"
 UN R26,5.2,y,y,"no pointed/sharp parts; applies to fascia, grille, towing eye cover"
 UN R26,5.3,y,y,no parts that catch pedestrians/cyclists
 UN R26,5.4,y,y,"min radius 2.5 mm; <5 mm protrusions blunted, <1.5 mm exempt"
-UN R26,5.5,y,n,soft-material alternative (<=60 Shore A); fascia PP/EPDM and ABS grille are harder
-UN R26,5.6,n,n,states 5.1-5.5 apply alongside section 6
+UN R26,5.5,n,n,"soft-material alternative (<=60 Shore A); PP/EPDM fascia and ABS grille are harder, so the permission does not apply"
+UN R26,5.6,n,y,states 5.1-5.5 apply alongside section 6
 UN R26,6,n,y,
 UN R26,6.1,n,y,
 UN R26,6.1.1,n,n,only if badges/ornaments are mounted on the bumper; grille ornaments fall back to para 5
@@ -230,7 +230,7 @@ UN R26,8.3.1,n,y,
 UN R26,8.3.2,n,y,
 UN R26,8.3.3,n,y,
 UN R26,8.3.4,n,y,
-UN R26,8.3.5,n,n,CoP: Annex 3 tests carried out; no number
+UN R26,8.3.5,n,y,CoP: Annex 3 tests carried out; no number
 UN R26,8.3.6,n,y,
 UN R26,8.4,n,y,
 UN R26,8.4.1,n,y,

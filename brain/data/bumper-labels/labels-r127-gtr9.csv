@@ -95,7 +95,7 @@ UN R127,6.2,n,y,
 UN R127,6.3,n,y,
 UN R127,7,n,y,
 UN R127,7.1,n,y,
-UN R127,7.2,n,n,CoP refers back to para 5 without a number of its own
+UN R127,7.2,n,y,CoP refers back to para 5 without a number of its own
 UN R127,7.3,n,y,
 UN R127,8,n,y,
 UN R127,8.1,n,y,
@@ -134,7 +134,7 @@ UN R127,Annex 3 3,n,y,
 UN R127,Annex 3 3.1,n,y,
 UN R127,Annex 3 3.1.1,y,n,test in normal ride attitude
 UN R127,Annex 3 3.1.2,y,n,cut-body must include the whole front structure (bumper system tested as installed)
-UN R127,Annex 3 3.2,n,n,active VRU devices; the plain bumper is passive
+UN R127,Annex 3 3.2,n,y,active VRU devices; the plain bumper is passive
 UN R127,Annex 3 3.3,n,n,components with several fixed positions (e.g. active grille shutters); none in the spec
 UN R127,Annex 4 1,n,y,
 UN R127,Annex 4 1.2,n,y,

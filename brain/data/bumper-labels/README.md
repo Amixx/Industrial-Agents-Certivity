@@ -4,7 +4,7 @@ A small expert answer key for a front bumper, so the engine can be checked on a 
 
 `bumper-labels.csv` lists every numbered paragraph of UN R42, R127, R26 and GTR 9 in document order, without the approval communication forms (Annex 1).
 
-`labels-r42-r26.csv` and `labels-r127-gtr9.csv` are silver labels: Claude Opus read every row against the plain bumper spec (`data/synthetic/bumper-plain/spec.md`), calibrated on what the lamp expert cited. The `.md` files next to them give the reasoning per section. 67 paragraphs are cited; GTR 9 as a whole is marked not cited, with its paragraphs labelled as if it were. An expert's corrections replace them row by row.
+`labels-r42-r26.csv` and `labels-r127-gtr9.csv` are silver labels: Claude Opus read every row against the plain bumper spec (`data/synthetic/bumper-plain/spec.md`), calibrated on what the lamp expert cited. The `.md` files next to them give the reasoning per section. 66 paragraphs are cited; GTR 9 as a whole is marked not cited, with its paragraphs labelled as if it were. An expert's corrections replace them row by row.
 
 ## How to label
 
