@@ -109,6 +109,7 @@ def run(
     include: Sequence[str] = (),
     exclude: Sequence[str] = (),
 ) -> dict[str, Any]:  # type: ignore[assignment]
+    started, spent = time.monotonic(), llm.usage()
     if not any(CORPUS.glob("*_base.jsonl")):
         from .ingest import main as ingest_main
 
@@ -156,6 +157,11 @@ def run(
         "regulations": [c.model_dump() for c in choices if c.selected]
         + [c.model_dump() for c in choices if not c.selected][:10],
         "profile": profile.model_dump(),
+        "run": {
+            "wall_s": round(time.monotonic() - started, 1),
+            "provider": llm.provider(),
+            **llm.usage_since(spent),
+        },
     }
     problems = validate(submission)
     if problems:
@@ -188,7 +194,12 @@ def main(argv: list[str] | None = None) -> int:
     out = Path(args.out) if args.out else Path("out") / f"{case.name}.json"
     out.parent.mkdir(parents=True, exist_ok=True)
     out.write_text(json.dumps(submission, indent=1, ensure_ascii=False))
-    log(f"wrote {out} ({len(submission['requirements'])} requirements)")
+    r = submission["run"]
+    log(
+        f"wrote {out} ({len(submission['requirements'])} requirements); {r['wall_s']}s, "
+        f"{r['calls']} LLM calls + {r['cache_hits']} cached, ${r['cost_usd']:.2f} "
+        f"(${r['cold_cost_usd']:.2f} with a cold cache)"
+    )
     return 0
 
 

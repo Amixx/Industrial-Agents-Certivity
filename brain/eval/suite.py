@@ -65,18 +65,43 @@ def main(argv: list[str] | None = None) -> int:
                 f"{level}_r": round(m["recall"], 3),
                 f"{level}_f2": round(m["f2"], 3),
             }
+        stats = sub["run"]
+        row |= {
+            "wall_s": stats["wall_s"],
+            "llm": stats["provider"],
+            "llm_calls": stats["calls"],
+            "cache_hits": stats["cache_hits"],
+            "input_tokens": stats["input_tokens"],
+            "output_tokens": stats["output_tokens"],
+            "cost_usd": round(stats["cost_usd"], 4),
+            "cold_cost_usd": round(stats["cold_cost_usd"], 4),
+            "unpriced_calls": stats["unpriced_calls"],
+        }
         rows.append(row)
         print(
             f"{case.name:32s} n={row['n']:4d}  reg F2 {row['regulation_f2']:.3f}  "
             f"page F2 {row['page_f2']:.3f}  req F2 {row['requirement_f2']:.3f}"
         )
-    new = not RESULTS.exists()
-    with RESULTS.open("a", newline="") as f:
-        writer = csv.DictWriter(f, fieldnames=list(rows[0]))
-        if new:
-            writer.writeheader()
-        writer.writerows(rows)
+    append(rows)
     return 0
+
+
+def append(rows: list[dict[str, object]]) -> None:
+    """Add rows to RESULTS; older rows get empty cells for columns added since."""
+    old: list[dict[str, str]] = []
+    fields = list(rows[0])
+    if RESULTS.exists():
+        with RESULTS.open(newline="") as f:
+            reader = csv.DictReader(f)
+            old = list(reader)
+            fields = list(reader.fieldnames or []) + [
+                k for k in rows[0] if k not in (reader.fieldnames or [])
+            ]
+    with RESULTS.open("w", newline="") as f:
+        writer = csv.DictWriter(f, fieldnames=fields)
+        writer.writeheader()
+        writer.writerows(old)
+        writer.writerows(rows)
 
 
 if __name__ == "__main__":
