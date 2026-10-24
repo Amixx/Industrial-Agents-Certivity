@@ -1,6 +1,6 @@
 # Complex strategies: status
 
-Updated: 24 Oct 23:56 CEST (system clock, `date`) by master (Cursor).
+Updated: 25 Oct 00:01 CEST (system clock, `date`) by master (Cursor).
 Task: brain/docs/todo/08-complex.md. Branch: big-swings. Setup done: yes (07 setup commit "swing master: setup"; this ledger created at 23:29).
 Lanes A to G are finished. Do not edit their files except to read them. Do not edit `out/experiments/STATUS.md`.
 
@@ -33,6 +33,7 @@ Score with `tools/validate.py`, `tools/score_local.py`, and `uv run python -m ev
 
 ## Log
 
+- 00:01 Master checked lane L on the weight-0.85 file with `eval.errors`. Unfiltered 403 rows, 136 matched, F2 0.585. Best cut drop 1+2: 345 rows, 130 matched, F2 0.588. Biggest gap to 1.0 is 34 gold rows on paragraphs never cited (adding one row each reaches F2 0.720). Not uploaded. This step spent $0.
 - 23:59 Lane H done. Three selections do not reach votes7. Run 1 reused 388/146/0.636. Sonnet weight 0.85: 403/136/0.585 ($3.16). Haiku relevance: 520/138/0.539 ($1.17). Vote 2 of 3: 388/144/0.627. Vote 3 of 3: 253/111/0.548. Both votes lose to run 1. Spend $4.34. Not nominated.
 - 23:58 Lane L step 5 done. Weight-0.85 file 403 rows, 136 matched, F2 0.585. Best cut drop 1+2: 345 / 130 / 0.588. Biggest gap to 1.0 is the 34 gold rows on paragraphs never cited (adding one row each reaches F2 0.720). Not within 5 of votes7. Not nominated. Spend $0.
 - 23:58 Lane J step 3. No cut still matches 151. Read 15 deleted and 10 unmatched kept rows from drop 1+2 (271 / 142 / 0.689), not adopted. The matched deletions name a test, a level, or a count. Spend $0.
