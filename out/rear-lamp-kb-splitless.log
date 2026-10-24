@@ -1,7 +1,0 @@
-[profile] BRAIN_LLM=claude-cli reads no images; exploded_view.png is not used
-[brain 23:56:06] profile: Rear lamp: an exterior lighting and signalling module that combines a rear position lamp, stop lamp, reversing lamp, outer lens and retro-reflector in one housing; 20 terms; electronics=True
-[brain 23:56:07] regulations: UN R148 0.97, UN R48 0.93, UN R150 0.92, UN R10 0.85
-[brain 23:56:08] paragraphs selected: 330
-[brain 23:59:11] requirements: 392 kept, 2 dropped
-[brain 23:59:38] expert filter: 392 kept of 392
-[brain 23:59:38] wrote /Users/imantsliepins/Personal/bench-out/splitless-all.json (392 requirements); 212.0s, 42 LLM calls + 228 cached, $4.38 ($13.45 with a cold cache)
