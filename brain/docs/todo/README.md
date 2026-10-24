@@ -10,7 +10,7 @@ files, so they can run in parallel without merge conflicts.
 | [02-rewrite-granularity.md](02-rewrite-granularity.md) | Split obligations the way the gold does, with a strong model | `brain/rewrite.py`, `eval/rewrite_pass.py` | done on branch `kb-stack`, see Results |
 | [03-selection-stack.md](03-selection-stack.md) | Fewer paragraphs outside the gold: Jev, LLM and decision model combined | `brain/relevance.py`, `brain/features.py`, `brain/decide.py`, `data/decision_model.json`, a new `brain/jev.py` | done on branch `kb-stack`, see Results |
 | [04-bumper-regulations.md](04-bumper-regulations.md) | Decide the regulation list for every likely bumper spec | `brain/select_regs.py`, `data/bumper-labels/`, a new `docs/bumper-regulations.md` | open; `kb-stack` adds an obligation-base ranking and a light-source rule to `select_regs.py` |
-| [05-subgoal.md](05-subgoal.md) | The sub-goal submission (15% of the jury score) | `scripts/diff_regulation.py` or a new `brain/subgoal.py` | open |
+| [05-subgoal.md](05-subgoal.md) | The sub-goal: architecture, then an exact diff of two regulation versions (15% of the jury score) | `../docs/regulation-change.md`, `../scripts/diff_regulation.py` or a new `brain/subgoal.py`, `eval/subgoal_score.py` | open |
 | [06-sunday-rehearsal.md](06-sunday-rehearsal.md) | Dry-run the whole Sunday path and freeze the configuration | the runbook in `brain/README.md`, `brain/pipeline.py` for wiring fixes only | open |
 
 Paths are relative to `brain/` unless they start with `../`.
