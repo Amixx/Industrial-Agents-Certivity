@@ -107,7 +107,9 @@ Tell the owner the recommendation and which lanes' files are worth keeping.
    without the lane's approved spend in `STATUS.md`.
 4. **After every step:** check it off with the time, the files it wrote, the numbers it found and
    the spend so far, and write the next step in "Next". Then commit your own paths only:
-   `git add out/experiments/<lane>.md out/rear-lamp-swing-<lane>-* brain/swing/<lane>* && git commit -m "swing <lane>: step <n>, <what>"`.
+   `git add out/experiments/<X>.md out/experiments/<X>-* out/rear-lamp-swing-<X>-* brain/swing/<x>_* && git commit -m "swing <X>: step <n>, <what>"`
+   (for lane A: `out/experiments/A.md out/experiments/A-* out/rear-lamp-swing-A-* brain/swing/a_*`).
+   Add only paths that exist; `git add` fails on a pattern that matches nothing.
    Never `git add -A`, never switch branches, stash, reset or rebase: other agents share the
    checkout. On `index.lock`, wait and retry.
 5. **Uploads.** When you nominate a file, write its predicted matched count and F2 in your upload
@@ -267,12 +269,12 @@ the prompt of `d7683cd`; 388 rows, 146 matched locally, not uploaded). Never swi
 1. **No dev gold text in any prompt or few-shot example**, not even from other regulations.
    `BRAIN_REWRITE_EXAMPLES` on branch `brain-model-mix-examples` breaks this rule (it shows dev
    gold rows from the other three regulations); do not build on it.
-2. **Stay in your files.** A lane writes only `brain/swing/<lane>*` (code; `<lane>` is the
-   lowercase letter, for example `brain/swing/a_votes.py`), `out/rear-lamp-swing-<lane>-*`
-   (submissions and logs) and `out/experiments/<lane>.md` (plus `out/experiments/<lane>-*` for
-   data such as A's pool). Do not edit `brain/brain/*.py`, `brain/eval/*.py` or any shared file:
+2. **Stay in your files.** Lane X writes only: `out/experiments/X.md` (its progress file),
+   `out/experiments/X-*` (its data, such as `A-pool.json`), `out/rear-lamp-swing-X-*`
+   (submissions and logs, for example `out/rear-lamp-swing-A-votes5.json`) and
+   `brain/swing/x_*` (Python, lowercase letter, for example `brain/swing/a_votes.py`). Do not edit `brain/brain/*.py`, `brain/eval/*.py` or any shared file:
    import from them, or copy what you need into your own module and patch at runtime.
-3. **Record every run** (the `AGENTS.md` rule): save `out/rear-lamp-swing-<lane>-<variant>.json`
+3. **Record every run** (the `AGENTS.md` rule): save `out/rear-lamp-swing-X-<variant>.json`
    with its `.log`, and keep run-log rows in your lane file in the same columns as the table in
    `out/README.md` (time CEST, file, method, commit, rows, local matched and F2, platform
    matched and F2 with upload time, spend). Do not edit `out/README.md`: the master folds your
