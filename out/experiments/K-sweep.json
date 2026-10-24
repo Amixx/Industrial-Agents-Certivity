@@ -1,0 +1,56 @@
+[
+ {
+  "file": "rear-lamp-swing-K-drop1.json",
+  "dropped_classes": [
+   1
+  ],
+  "rows": 407,
+  "matched": 158,
+  "f2": 0.677,
+  "deleted": 56,
+  "deleted_matched": 3,
+  "deleted_unmatched": 53
+ },
+ {
+  "file": "rear-lamp-swing-K-drop12.json",
+  "dropped_classes": [
+   1,
+   2
+  ],
+  "rows": 395,
+  "matched": 156,
+  "f2": 0.675,
+  "deleted": 68,
+  "deleted_matched": 5,
+  "deleted_unmatched": 63
+ },
+ {
+  "file": "rear-lamp-swing-K-drop123.json",
+  "dropped_classes": [
+   1,
+   2,
+   3
+  ],
+  "rows": 299,
+  "matched": 124,
+  "f2": 0.585,
+  "deleted": 164,
+  "deleted_matched": 42,
+  "deleted_unmatched": 122
+ },
+ {
+  "file": "rear-lamp-swing-K-drop1234.json",
+  "dropped_classes": [
+   1,
+   2,
+   3,
+   4
+  ],
+  "rows": 281,
+  "matched": 113,
+  "f2": 0.543,
+  "deleted": 182,
+  "deleted_matched": 54,
+  "deleted_unmatched": 128
+ }
+]

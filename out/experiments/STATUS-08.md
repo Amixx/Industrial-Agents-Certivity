@@ -16,7 +16,7 @@ A lane that would pass its planned cap stops, writes the estimate, and waits. Th
 | Lane | State | Last update | Current step | Spend so far | Lane file |
 |---|---|---|---|---|---|
 | J skip classes on votes7 | running | 23:33 | rules first; $1 approved if a model call is required | $0 | out/experiments/J.md |
-| K same filter on votes4 | running | 23:48 | K1 tagged, sweep next, no model call | $0 | out/experiments/K.md |
+| K same filter on votes4 | running | 23:52 | K2 scored, five extra matches next | $0 | out/experiments/K.md |
 | I table split into votes7 | done | 23:47 | I3 scored, 163 matched, F2 0.716, not nominated | $0 | out/experiments/I.md |
 | H vote of three new runs | running | 23:33 | dry-run, then the three runs if the estimate is within $6 | $0 | out/experiments/H.md |
 | L Sonnet 0.85 plus filter | running | 23:51 | L3 scored on the weight-0.7 file: best cut 315 rows, 138 matched, F2 0.642 | $0 | out/experiments/L.md |
@@ -33,6 +33,7 @@ Score with `tools/validate.py`, `tools/score_local.py`, and `uv run python -m ev
 
 ## Log
 
+- 23:52 Lane K step 2. Four cuts of votes4. Best is drop class 1: 407 rows, 158 matched, F2 0.677. None beats votes7 (351 / 156 / 0.702). Spend $0.
 - 23:51 Lane L step 3. Weight-0.7 file 388/146/0.636. Best cut is classes 1+2: 315/138/0.642, 18 matches behind votes7. Spend $0. Weight-0.85 lamp file still absent.
 - 23:50 Master checked lane I with `eval.errors`: 379 rows, 163 matched, F2 0.716. Biggest gap to 1.0 is the 151 rows outside gold paragraphs (dropping them reaches F2 0.825). Not uploaded.
 - 23:48 Lane K step 1. Tagged votes4 with lexical class rules. 112 extra rows flagged. Spend $0. No model call.

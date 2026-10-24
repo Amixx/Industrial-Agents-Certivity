@@ -1,22 +1,27 @@
 # Lane K: the four classes on the 4-vote file
 
-State: running. Updated: 24 Oct 23:48 CEST.
+State: running. Updated: 24 Oct 23:52 CEST.
 Approved spend: $0 for this run. The ledger at 23:33 allows a planned $1. This run does not use it. Spent: $0.
 
 ## Checklist
 
 - [x] K1 Tag `out/rear-lamp-swing-A-votes4.json`. The 112 rows votes7 does not contain are flagged `in_votes7: false`. Done 24 Oct 23:48 CEST. Files: `brain/swing/k_filter.py`, `out/experiments/K-tags.json`.
       Found: 463 rows, classes 1 / 2 / 3 / 4 on 56 / 12 / 100 / 22 rows. Of the 112 extra rows, 63 carry a class, 7 are ambiguous, 43 are neither. Ambiguous rows are not dropped. No model call.
-- [ ] K2 Sweep drop 1, drop 1+2, drop 1+2+3, drop all four. Score each against votes7 (156 matched, F2 0.702).
+- [x] K2 Sweep drop 1, drop 1+2, drop 1+2+3, drop all four. Score each against votes7 (156 matched, F2 0.702). Done 24 Oct 23:52 CEST. Files: `out/rear-lamp-swing-K-drop1.json`, `drop12`, `drop123`, `drop1234`, logs, `out/experiments/K-sweep.json`.
+      Found: drop1 407 / 158 / 0.677 (deleted 56, of which 3 matched and 53 unmatched). drop12 395 / 156 / 0.675 (deleted 68: 5 matched, 63 unmatched). drop123 299 / 124 / 0.585 (deleted 164: 42 matched, 122 unmatched). drop1234 281 / 113 / 0.543 (deleted 182: 54 matched, 128 unmatched). None beats 0.702. Spend $0.
 - [ ] K3 The matches votes4 has and votes7 lacks: which class would delete them.
 - [ ] K4 Say whether a filtered votes4 beats votes7 with those matches still present.
 
-Next: `BRAIN_LLM= PYTHONPATH=. uv run python swing/k_filter.py sweep` from `brain/`, then `tools/validate.py`, `tools/score_local.py`, and `uv run python -m eval.score`.
+Next: write K3 from `out/experiments/K-extras.json` and close the report.
 
 ## Run log rows
 
 | Run | File | Method | Code | Rows | Local matched / F2 | Platform (upload): matched / F2 | Spend |
 |---|---|---|---|---|---|---|---|
+| 23:52 | `rear-lamp-swing-K-drop1.json` | votes4, drop class 1 (test procedure) | `big-swings` `k_filter.py sweep` | 407 | 158 / 0.677 | not uploaded | $0 |
+| 23:52 | `rear-lamp-swing-K-drop12.json` | votes4, drop classes 1 and 2 | `big-swings` `k_filter.py sweep` | 395 | 156 / 0.675 | not uploaded | $0 |
+| 23:52 | `rear-lamp-swing-K-drop123.json` | votes4, drop classes 1, 2 and 3 | `big-swings` `k_filter.py sweep` | 299 | 124 / 0.585 | not uploaded | $0 |
+| 23:52 | `rear-lamp-swing-K-drop1234.json` | votes4, drop all four classes | `big-swings` `k_filter.py sweep` | 281 | 113 / 0.543 | not uploaded | $0 |
 
 ## Uploads
 
