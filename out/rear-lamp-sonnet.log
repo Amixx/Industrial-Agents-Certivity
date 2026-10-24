@@ -1,0 +1,6 @@
+[brain 19:49:28] profile: Rear lamp; 26 terms; electronics=True
+[brain 19:49:43] regulations: UN R148 0.97, UN R48 0.90, UN R10 0.80, UN R150 0.80
+[brain 19:50:41] paragraphs selected: 255
+[brain 19:51:08] requirements: 344 kept, 7 dropped
+[brain 19:51:08] wrote out/dev-sonnet.json (344 requirements)
+[brain 19:51:08] LLM usage: claude-sonnet-5-5 137 calls, 844,158 in / 158,429 out; $3.08

@@ -1,0 +1,6 @@
+[brain 19:54:46] profile: Rear lamp — exterior lighting & signalling module combining rear position lamp, stop lamp, reversing lamp, outer lens and retro-reflector in a single housing; 29 terms; electronics=True
+[brain 19:55:24] regulations: UN R148 0.97, UN R150 0.92, UN R48 0.90, UN R10 0.90
+[brain 19:56:46] paragraphs selected: 245
+[brain 19:57:55] requirements: 332 kept, 8 dropped
+[brain 19:57:55] wrote out/dev-fable.json (332 requirements)
+[brain 19:57:55] LLM usage: claude-fable-5-1 136 calls, 860,315 in / 173,020 out; $16.52
