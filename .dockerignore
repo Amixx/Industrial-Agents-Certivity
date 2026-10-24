@@ -3,3 +3,4 @@
 .git
 web/frontend/.svelte-kit
 web/frontend/build
+web/frontend/static/mesh3d
