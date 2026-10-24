@@ -1,6 +1,6 @@
 # Big swings: status
 
-Updated: 24 Oct 23:09 CEST (system clock, `date`) by master (Cursor).
+Updated: 24 Oct 23:10 CEST (system clock, `date`) by master (Cursor).
 Task: brain/docs/todo/07-big-swings.md. Branch: big-swings. Setup done: yes, commit "swing master: setup".
 
 ## Handover to Cursor (22:48)
@@ -44,9 +44,9 @@ Total about $9.82 of the $70 ceiling.
 | B maximum recall | done locally; upload held | 22:58 (commit b58b7d9) | five files scored. ceiling 1,116 rows, 169 matched, F2 0.450. cut 0.20: 358 rows, 142 matched, F2 0.635. | $3.71 | out/experiments/B.md |
 | C maximum precision | done; upload held | 22:58 (commit b04b377) | local scores added to the five precision files. No platform upload. | $0 | out/experiments/C.md |
 | D hedged cuts | done | 23:03 (commit 50d1b04) | best hedge 360 rows, 155 matched, F2 0.692. Hand read: the extra matches are shorter copies, not new obligations. | $0.82 | out/experiments/D.md |
-| E verbatim rows | restarted at 23:07 after an abort | E.md still at 22:47; v3 file written, not committed | v3 finished: 311 rows, 137 matched, F2 0.640, $0.63. The agent died while scoring. Restarted to score v1–v3, write the report, and commit. No second paid run. | $1.79 | out/experiments/E.md |
+| E verbatim rows | done | 23:10 (commit b1465bd) | v3: 311 rows, 137 matched, F2 0.640. Fable on the same paragraphs: 141 / 0.646. Valid. No upload. | $1.79 | out/experiments/E.md |
 | F row selector | done | 23:02 (commit 959a605) | votes-logit: 356 rows, 154 matched, F2 0.690. AUC 0.892. Word share left out. | $1.25 | out/experiments/F.md |
-| G Sunday feasibility | restarted at 23:09 after an abort | 23:02 (commit b77e297); fog files written, not committed | Four fog Haiku runs finished ($0.25 to $0.27 each, 492 to 717 rows). Plain Sonnet weight 0.85 also written. Agent aborted before scoring them. Restarted to score, write G2 and G3, and commit. | about $2.75 | out/experiments/G.md |
+| G Sunday feasibility | running | 23:10 (transcript); G.md not yet updated | Scoring the four fog Haiku files. A fog Sonnet run at blend weight 0.85 is in progress (`g_runs.py --name sonnet-w85`). Leave it. G2 and G3 still open. | about $2.75 plus that run | out/experiments/G.md |
 
 ## Upload queue (held)
 
@@ -65,6 +65,7 @@ matched count and F2). The rows below stay as candidates, not as a request to up
 
 ## Log
 
+- 23:10 Lane E done, commit b1465bd. v3 is 137 matched, F2 0.640, behind Fable's 141 / 0.646 on the same paragraphs. Spend $1.79. No upload. Lane G is still scoring and has a fog Sonnet run in progress.
 - 23:09 Four fog Haiku runs finished (base seed 0 and 1, alt seed 0, verbatim seed 3). Lane G had aborted before scoring them, so it was restarted. No new paid run.
 - 23:07 Lane E's agent aborted during scoring, before the report. Restarted it on the existing v3 file. Lane G's fog Haiku runs are still in progress; left alone. B and C completions were already recorded.
 - 23:05 A, B, C, D and F have local validate, score_local and requirement F2 in their reports.
