@@ -1,6 +1,6 @@
 # Complex strategies: status
 
-Updated: 24 Oct 23:50 CEST (system clock, `date`) by master (Cursor).
+Updated: 24 Oct 23:55 CEST (system clock, `date`) by master (Cursor).
 Task: brain/docs/todo/08-complex.md. Branch: big-swings. Setup done: yes (07 setup commit "swing master: setup"; this ledger created at 23:29).
 Lanes A to G are finished. Do not edit their files except to read them. Do not edit `out/experiments/STATUS.md`.
 
@@ -33,6 +33,7 @@ Score with `tools/validate.py`, `tools/score_local.py`, and `uv run python -m ev
 
 ## Log
 
+- 23:55 Master checked lane L with `eval.errors`. Base is the weight-0.7 file: 388 rows, 146 matched, F2 0.636. Best cut drop 1+2: 315 rows, 138 matched, F2 0.642. Biggest gap to 1.0 on the unfiltered file is 177 rows outside gold paragraphs (dropping them reaches F2 0.747). Not uploaded. The weight-0.85 lamp file is still absent. If lane H writes it, restart L to filter that file only. Do not pay for a second copy.
 - 23:53 Lane J step 1. Tagged votes7 with text rules: class hits 63 / 17 / 43 / 24, 139 rows in any class, 40 left ambiguous and not dropped. Spend $0. No model call.
 - 23:53 Lane K done. Best cut drop class 1: 407 rows, 158 matched, F2 0.677, against votes7 351 / 156 / 0.702. Five extra matches: one untagged, one class 1, one class 2, two class 3. Not nominated. Spend $0.
 - 23:53 Lane L done. Base `out/rear-lamp-main-a39acab.json` (weight 0.7): 388 rows, 146 matched, F2 0.636. Best filter drop 1+2: 315 / 138 / 0.642. votes7 is 351 / 156 / 0.702. Not within 5 matches. Not nominated. Spend $0. The weight-0.85 lamp file was not scored.
