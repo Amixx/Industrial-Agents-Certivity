@@ -25,6 +25,7 @@ that produced the file; branch code is not on `main` unless it says so.
 | | `rear-lamp-kb-sol-rewrite.json` | Paragraphs of `kb-jev` rewritten by GPT-6.1 Sol | `kb-stack` | 420 | | (21:05 to 22:16) 143 / 0.606 | subscription |
 | | `rear-lamp-qwen-split-rewrite.json` | Fable's 208 paragraphs rewritten by qwen3.5:9b, split prompt of `0ccae35` | `dcf1740` | 446 | 137 / 0.568 | (21:47) 133 / 0.551 | $0 |
 | 22:00 | `rear-lamp-mix-examples-cut.json` | Opus relevance, Sonnet rewrite with expert examples and the obligation cut | `brain-model-mix-examples` @ `e5e0d25` | 341 | 145 / 0.658 | (22:14) 138 / 0.627 | $1.13 |
+| 22:45 | `rear-lamp-kb-v5-rewrite.json` | Paragraphs of `kb-jev` rewritten by Opus; prompt names the device and repeats the condition in every row | `kb-stack` @ `1d8b22e` plus an uncommitted prompt | 363 | 158 / 0.703 | (22:48) 148 / 0.659 | subscription |
 
 Empty cells were not recorded when the run was made.
 
@@ -133,6 +134,7 @@ not a bill. Code is on branch `kb-stack` (not merged).
 | `rear-lamp-kb-jev.json` | `5f6e476`: obligation base, Jev blend cut 0.25, Opus everywhere | 389 | 0.396 / 0.811 / **0.670** | 154 | 0.781 / 0.943 / 0.855 |
 | `rear-lamp-kb-jev-filter-v4.json` | `1d8b22e`: the above plus the requirement filter and the minimal-edit rewrite | 342 | 0.409 / 0.737 / **0.635** | 140 | 0.785 / 0.962 / 0.864 |
 | `rear-lamp-kb-sol-rewrite.json` | the 214 paragraphs of `rear-lamp-kb-jev.json` rewritten by GPT-6.1 Sol with a prompt that names the device in every row | 420 | 0.340 / 0.753 / **0.606** | 143 | 0.794 / 0.943 / 0.862 |
+| `rear-lamp-kb-v5-rewrite.json` | the same 214 paragraphs rewritten by Opus with that prompt | 363 | 0.408 / 0.779 / **0.659** | 148 | 0.781 / 0.943 / 0.855 |
 
 - The minimal-edit rewrite lost 14 matches. Its rows drop the subject and the condition ("Test
   pulse 1 shall be applied ...", "In each direction a tolerance of ±3° shall be allowed."),
@@ -142,6 +144,10 @@ not a bill. Code is on branch `kb-stack` (not merged).
   over-split a few paragraphs (UN R150 5.1.4.4.1 into 6 extra rows) and left 7 paragraphs
   without a requirement. The model and the prompt both changed, so this does not isolate the
   prompt.
+- The same prompt on Opus lost 6 matches against the `kb-jev` rewrite, with 26 fewer rows,
+  while the local judge counted 5 more. Both minimal-edit prompts (v4 and this one) scored
+  higher locally and lower on the platform: the local judge rewards the regulation's own
+  wording, the platform judge does not.
 - With the LLM regulation review on, the obligation base changes no selected regulation on dev,
   synth-a06, the plain bumper or the bumper with sensors and fog lamp, against `main`'s
   selection with the same light-source rule. Without the LLM it keeps R150 on synth-a06 and R42
