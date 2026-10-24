@@ -1,7 +1,8 @@
 # Lane B: maximum recall, then measure the tail
 
-State: waiting for upload (B4, B6); transfer check running. Updated: 24 Oct 22:47 CEST.
-Approved spend: $12. Spent: $2.03 (plus the bumper transfer check, about $1.5, running).
+State: waiting for upload (B4, B6); every step and the transfer check done; stopped at the
+master's hand-off to Cursor. Updated: 24 Oct 22:48 CEST.
+Approved spend: $12. Spent: $3.71 ($2.03 lamp rewrite, $1.68 bumper-plain Opus relevance).
 
 ## Checklist
 
@@ -37,11 +38,22 @@ Approved spend: $12. Spent: $2.03 (plus the bumper transfer check, about $1.5, r
       `out/rear-lamp-swing-B-cut020.json` (358 rows, local 142, F2 0.635). Predicted platform
       147 matched, F2 0.657.
 
-Next: transfer check on the bumper silver labels (running, log
-`out/experiments/B-transfer-bumper-plain.log`; rerun: from `brain/`,
-`B_MODE=run B_CASE=data/synthetic/bumper-plain PYTHONPATH=. uv run python swing/b_transfer.py`,
-cached after the first run). Then the report. When the platform numbers for B4 and B6 come back,
-fill the calibration line under Notes: platform matches in the tail = ceiling minus cut020.
+- [x] Transfer check (bumper silver labels, paragraph level). Done 22:47. Files:
+      `brain/swing/b_transfer.py`, `out/experiments/B-transfer-bumper-plain.log`. Spend $1.68
+      (39 Opus calls: profile, regulation choice, relevance over 923 bumper paragraphs; now
+      cached). Found: the lamp's cut does not transfer; see Report.
+
+Next: nothing to run. When the owner uploads B4 and B6, write the platform numbers into the
+Uploads table and the run-log rows, then fill the calibration line under Notes (platform
+matches in the tail = ceiling minus cut020; local 27) and adjust the Report's last paragraph if
+the platform tail is clearly richer than local. All commands rerun free from the cache, from
+`brain/`:
+`PYTHONPATH=. uv run python swing/b_recall.py run --cut 0.03 --approved -o ../out/rear-lamp-swing-B-full.json`
+(0 new calls), then `BRAIN_LLM= PYTHONPATH=. uv run python swing/b_tail.py union|curve|cut ...` as
+in that file's docstring, and
+`B_CASE=data/synthetic/bumper-plain PYTHONPATH=. uv run python swing/b_transfer.py` (cache only by
+default; `B_MODE=run` would make missing calls). A half-finished paid run resumes by rerunning
+the same command: finished batches come back from `brain/data/cache/llm/`.
 
 ## Run log rows
 
@@ -108,7 +120,58 @@ fill the calibration line under Notes: platform matches in the tail = ceiling mi
   finds clearly more (say 35 or more), its P(match) in the 0.15 to 0.20 bucket clears 0.13 and
   the optimal cut moves down to about 0.15.
 - `claude -p` is not logged in for lane agents (master, 22:43); everything here ran on the API.
+- Transfer check, bumper-plain (4 regulations chosen by the pipeline: R42, R127, R26, GTR 9;
+  923 candidates; 67 silver-cited paragraphs), same blend score:
+
+  | Blend >= | Paragraphs | Silver-cited | Paragraph recall | Paragraph precision |
+  |---|---|---|---|---|
+  | 0.30 | 28 | 27 | 0.40 | 0.96 |
+  | 0.20 | 44 | 38 | 0.57 | 0.86 |
+  | 0.15 | 84 | 49 | 0.73 | 0.58 |
+  | 0.10 | 142 | 61 | 0.91 | 0.43 |
+  | 0.07 | 202 | 66 | 0.99 | 0.33 |
+  | 0.05 | 282 | 67 | 1.00 | 0.24 |
+  | pipeline (0.20 + floor) | 64 | 46 | 0.69 | 0.72 |
+
+  On the lamp the F2-optimal cut 0.20 sits at paragraph recall 0.90 and precision 0.44 (107 of
+  245 gold paragraphs at 0.20, all 119 at 0.05). On the bumper the same recall and precision
+  are at blend 0.10, and 0.05 again holds every cited paragraph.
 - The tail is rewritten in score order in batches of 12, so the 0.05 file is the 0.03 file
   filtered by `confidence >= 0.05` (only one boundary batch mixes the two).
 
 ## Report
+
+**Answer.** With `main`'s rewrite, writing every paragraph that holds a gold row (blend >= 0.05,
+862 rows) reaches 158 matched locally, 169 with every other run's uncovered rows added (1,116
+rows), against 142 at the pipeline's cut; but the chance of a match falls from 0.42 per row at
+blend 0.3 to 0.4, to about 0.2 at 0.2 to 0.3, to 0.1 or less below 0.2, so the F2-optimal file
+stops at blend 0.20 (358 rows, local F2 0.635) and the tail is not worth writing on the lamp.
+The cut-off itself does not transfer: on the bumper the blend scores sit lower, and the same
+paragraph recall (0.90) needs blend 0.10, so for Sunday the cut should be set by paragraph count
+or recall, not by the number 0.20.
+
+**Curve.** See B5 under Notes: P(match) per row 0.60 (>= 0.4), 0.42 (0.3 to 0.4), 0.16 to 0.21
+(0.2 to 0.3), 0.07 to 0.10 (0.15 to 0.2), 0.02 or less below 0.15, zero below 0.05. Local F2 is
+flat within 0.02 between 320 and 440 rows. Pool rows from other runs match at 0.04 per row.
+
+**Nominated uploads.**
+
+| File | Rows | Local matched / F2 | Predicted platform matched / F2 | Platform |
+|---|---|---|---|---|
+| `out/rear-lamp-swing-B-ceiling.json` | 1,116 | 169 / 0.450 | 174 / 0.464 | not uploaded |
+| `out/rear-lamp-swing-B-cut020.json` | 358 | 142 / 0.635 | 147 / 0.657 | not uploaded |
+
+The pair measures the platform's matches in the tail (local: 27 over 758 rows). The ceiling is
+the recall ceiling for this rewrite; neither is expected to beat Fable's 0.682.
+
+**Transfer.** Bumper-plain silver labels (paragraph level, table under Notes): blend 0.20 keeps
+57% of the cited paragraphs, the pipeline's floor lifts it to 69%; 0.10 keeps 91% at precision
+0.43, which is where the lamp's optimum sits. The synthetic lamp case was not run (it would
+share the lamp's regulations and scores, so it tests nothing new for the cut).
+
+**Sunday.** Feasible and cheap: relevance is already one Opus pass ($1.68 for the 923 bumper
+paragraphs, about 2 minutes), and a Sonnet rewrite of the selected paragraphs costs about
+$0.003 per paragraph and ran 70 batches in 58 s. Recommendation for task 06: do not write the
+tail; choose the cut so that the kept paragraphs are about the top 15 to 20% by blend, or
+around blend 0.10 to 0.15 on a bumper-like score scale, instead of the fixed 0.20. On
+bumper-plain, 0.10 means 142 paragraphs, about $0.45 of Sonnet rewrite.
