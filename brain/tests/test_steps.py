@@ -1,4 +1,5 @@
 import json
+import re
 from pathlib import Path
 from typing import Any
 
@@ -262,3 +263,49 @@ def test_jev_combines_judgements_and_caches(
     again = jev.score(paragraphs, graph, ProductProfile(product="rear lamp"))
     assert len(calls) == 2 and first == again
     assert first["UN R48|0|0"] > first["UN R48|0|1"]
+
+
+def test_sections_group_split_score_and_cut(monkeypatch: pytest.MonkeyPatch) -> None:
+    from brain import sections
+    from brain.rewrite import Draft
+
+    def para(label: str) -> Paragraph:
+        return Paragraph(
+            id=f"UN R42|0|{label}",
+            regulation="UN R42",
+            version="0",
+            role="base",
+            label=label,
+            number=label.split()[-1],
+            annex="Annex 3" if label.startswith("Annex") else None,
+            page=1,
+            page_end=1,
+            text=f"Paragraph {label} shall ...",
+        )
+
+    big = [para(f"6.{i}.{j}") for i in range(1, 4) for j in range(1, 11)]
+    small = [para("2.1"), para("Annex 3 1"), para("Annex 3 2.4")]
+    graph = build({"UN R42": small[:1] + big + small[1:]}, {"UN R42"})
+    names = sorted(name for _, name in sections.groups(big + small))
+    assert names == ["2", "6.1-6.2", "6.3", "annex 3"]
+
+    asked: list[str] = []
+
+    def answer(system: str, prompt: str, schema: object, **_: object) -> dict[str, object]:
+        labels = re.findall(r"^\[([^\]]+)\]", prompt, re.M)
+        asked.append(prompt.split("section ")[1].split("\n")[0])
+        # The first answer for Annex 3 skips a paragraph; it is asked again on its own.
+        if len(labels) == 2 and labels[0] == "Annex 3 1":
+            labels = labels[:1]
+        return {
+            "paragraphs": [{"label": f"{x}.", "p": 0.25 if x == "2.1" else 0.9} for x in labels]
+        }
+
+    monkeypatch.setattr(sections.llm, "complete_json", answer)
+    drafts = [Draft(p, p.text, p.text) for p in [small[0], big[0], *small[1:]]]
+    p_section = sections.scores(drafts, graph, "bumper")
+    assert p_section == {small[0].id: 0.25, big[0].id: 0.9, small[1].id: 0.9, small[2].id: 0.9}
+    assert sorted(asked) == ["2", "6", "annex 3", "annex 3"]
+
+    kept = sections.cut(drafts, [0.6, 0.6, 0.3, 0.5], p_section)
+    assert [d.paragraph for d in kept] == [big[0], small[2]]

@@ -4,7 +4,8 @@
     uv run python -m brain.pipeline ../cases/heldout-front-bumper --team-id team-07 --no-llm
 
 Steps: profile -> regulation selection -> graph -> decision model over paragraphs -> rewrite
--> verify. Extra fields (confidence, quote, rationale) are allowed by the format and feed the UI.
+-> verify; with an LLM, the requirement filter and the section cut follow. Extra fields
+(confidence, quote, rationale) are allowed by the format and feed the UI.
 `run(spec, image)` is the entry point for the backend.
 """
 
@@ -19,7 +20,7 @@ from pathlib import Path
 from typing import Any
 
 from . import features as F
-from . import jev, keep, llm, relevance
+from . import jev, keep, llm, relevance, sections
 from .decide import MODEL_PATH, Model
 from .graph import build
 from .ingest import load_all
@@ -139,8 +140,13 @@ def run(
             include={"product", "vehicle_categories", "functions", "parts"}
         )
         p_keep = keep.scores(kept, product)
-        kept = [d for d, pk in zip(kept, p_keep, strict=True) if pk >= keep.THRESHOLD]
+        scored = [(d, pk) for d, pk in zip(kept, p_keep, strict=True) if pk >= keep.THRESHOLD]
+        kept = [d for d, _ in scored]
         log(f"expert filter: {len(kept)} kept of {len(p_keep)}")
+        if sections.ENABLED and kept:
+            p_section = sections.scores(kept, graph, product)
+            kept = sections.cut(kept, [pk for _, pk in scored], p_section)
+            log(f"section cut: {len(kept)} kept of {len(scored)}")
     requirements = []
     for i, d in enumerate(kept, start=1):
         p = d.paragraph
