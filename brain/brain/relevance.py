@@ -118,14 +118,16 @@ def score(
     paragraphs: list[Paragraph],
     graph: Graph,
     profile: ProductProfile,
-    batch: int = 25,
-    workers: int = 12,
+    batch: int | None = None,
+    workers: int | None = None,
     tier: llm.Tier | None = None,
 ) -> dict[str, float]:
     tier = tier or ("bulk" if os.environ.get("BRAIN_RELEVANCE_TIER") == "bulk" else "strong")
     product = profile.model_dump_json(
         include={"product", "vehicle_categories", "functions", "parts", "electronics"}
     )
+    size, n_workers = llm.batching(25, 8, 12)
+    batch, workers = batch or size, workers or n_workers
     chunks = [paragraphs[i : i + batch] for i in range(0, len(paragraphs), batch)]
 
     def safe(chunk: list[Paragraph]) -> dict[str, float]:

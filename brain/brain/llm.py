@@ -70,6 +70,15 @@ def reads_images() -> bool:
     return provider() != "local" or os.environ.get("BRAIN_LOCAL_VISION") == "1"
 
 
+def batching(cloud_batch: int, local_batch: int, cloud_workers: int) -> tuple[int, int]:
+    """(batch size, workers). A local server answers one request at a time within a 16k
+    context (OLLAMA_CONTEXT_LENGTH), so it gets small batches and no parallel requests that
+    would queue past the timeout."""
+    if provider() == "local":
+        return int(os.environ.get("BRAIN_LOCAL_BATCH", local_batch)), 1
+    return cloud_batch, cloud_workers
+
+
 def model_for(tier: Tier) -> str:
     if provider() == "local":
         return os.environ.get("BRAIN_LOCAL_MODEL", "qwen3:14b")
@@ -213,7 +222,14 @@ def _openai_compatible(
     else:
         request["max_tokens"] = max_tokens
         request["reasoning_effort"] = local_reasoning()
-    response = client.chat.completions.create(**request)
+    try:
+        response = client.chat.completions.create(**request)
+    except Exception as e:
+        # Ollama's MLX runner (qwen3.5, gemma4) rejects constrained decoding with
+        # "structured output is unavailable"; ask for JSON in the prompt instead.
+        if prov != "local" or "structured output" not in str(e):
+            raise
+        return _prompted_json(client, request, schema)
     choice = response.choices[0]
     if choice.finish_reason == "length":
         raise RuntimeError(f"{model} hit the token limit")
@@ -221,3 +237,46 @@ def _openai_compatible(
         raise RuntimeError(f"model refused: {choice.message.refusal}")
     parsed: dict[str, Any] = json.loads(choice.message.content or "{}")
     return parsed
+
+
+def _extract_json(text: str) -> Any:
+    """The first JSON object in a reply that may wrap it in a code fence, prose or a second
+    object."""
+    start = text.find("{")
+    if start < 0:
+        raise ValueError("no JSON object in the reply")
+    obj, _ = json.JSONDecoder().raw_decode(text[start:])
+    return obj
+
+
+def _prompted_json(client: Any, request: dict[str, Any], schema: dict[str, Any]) -> dict[str, Any]:
+    """Unconstrained call with the schema in the system prompt; validated, one corrective retry."""
+    import jsonschema
+
+    request = dict(request)
+    request.pop("response_format", None)
+    messages = [dict(m) for m in request["messages"]]
+    messages[0]["content"] += (
+        "\n\nReply with only one JSON object, no prose, that matches this JSON Schema:\n"
+        + json.dumps(schema)
+    )
+    for attempt in range(2):
+        response = client.chat.completions.create(**{**request, "messages": messages})
+        text = response.choices[0].message.content or ""
+        try:
+            parsed = _extract_json(text)
+            jsonschema.validate(parsed, schema)
+            result: dict[str, Any] = parsed
+            return result
+        except (ValueError, jsonschema.ValidationError) as e:
+            if attempt:
+                raise RuntimeError(f"{request['model']} returned invalid JSON: {e}") from e
+            messages += [
+                {"role": "assistant", "content": text},
+                {
+                    "role": "user",
+                    "content": f"That reply was not valid: {str(e)[:300]}. "
+                    "Reply with the corrected JSON object only.",
+                },
+            ]
+    raise AssertionError("unreachable")

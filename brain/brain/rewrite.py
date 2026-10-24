@@ -218,8 +218,14 @@ def _batch(chunk: list[Paragraph], graph: Graph, product: str) -> list[Draft]:
 
 
 def with_llm(
-    paragraphs: list[Paragraph], graph: Graph, product: str, batch: int = 12, workers: int = 16
+    paragraphs: list[Paragraph],
+    graph: Graph,
+    product: str,
+    batch: int | None = None,
+    workers: int | None = None,
 ) -> list[Draft]:
+    size, n_workers = llm.batching(12, 4, 16)
+    batch, workers = batch or size, workers or n_workers
     chunks = [paragraphs[i : i + batch] for i in range(0, len(paragraphs), batch)]
 
     def safe(chunk: list[Paragraph]) -> list[Draft]:

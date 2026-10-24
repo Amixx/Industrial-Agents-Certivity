@@ -48,6 +48,18 @@ Stopped after 69 of 113 relevance batches; no full-pipeline score.
   prompt tokens each); a full dev run would take about 3 hours. Four parallel slots did not
   raise throughput, because the batches are mostly prompt reading, which is compute-bound.
 
+## M5 with 16 GB, Ollama 0.40.10 (Vlad)
+
+- The default `qwen3.5:9b` and `gemma4:12b` tags are NVFP4 builds on Ollama's MLX runner. They
+  reject constrained JSON ("structured output is unavailable", HTTP 501) and default to
+  temperature 1 with thinking on; `llm.py` falls back to prompted, validated JSON.
+- With free memory, a cold relevance batch of 8 paragraphs took about 2 s per paragraph on
+  qwen3.5:9b and 3 s on gemma4:12b, writing about 40 tokens/s. Under swap it was 3 to 6 times
+  slower.
+- `ollama ps` showed qwen3.5:9b reserving 16 GB at a 16k context, which pushed the Mac into
+  swap. Close memory-heavy apps first, or use a smaller context or a GGUF build.
+- Thinking on: one small batch took 90 to 100 s, and Qwen used its whole 3,000-token budget.
+
 ## Takeaways
 
 - A 9B model with thinking off adds nothing over the decision model for relevance. Try a larger

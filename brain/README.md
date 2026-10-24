@@ -90,6 +90,11 @@ Other settings:
 - `BRAIN_LLM_TIMEOUT` sets the per-request timeout in seconds (default 180, with 3 retries).
 - Local models get no image unless `BRAIN_LOCAL_VISION=1`, and answer without thinking unless
   `BRAIN_LOCAL_REASONING=low|high`. Setup and results: [docs/local-models.md](docs/local-models.md).
+- Local mode sends small batches (8 paragraphs for relevance, 4 for the rewrite) one at a time;
+  `BRAIN_LOCAL_BATCH` overrides the batch size.
+- Where a local runner has no constrained JSON output (Ollama's MLX runner for Qwen 3.5 and
+  Gemma 4), `llm.py` puts the schema in the prompt, validates the reply with `jsonschema`, and
+  retries once.
 
 **Cost.** The strong model reads every candidate paragraph of every selected regulation, which
 is about 2,800 paragraphs on dev. One afternoon of experiments (several dev runs, relevance
@@ -165,7 +170,7 @@ uv run pytest -q && uv run ruff check . && uv run mypy
 | 3b | `brain/relevance.py` | LLM path: the strong model reads every candidate paragraph in document order, with its heading path and parent clause, and estimates P(cited). Geometric blend with the decision model (weight 0.7 on the LLM), cut-off 0.20, plus a floor of each selected regulation's top 6% so a product unlike the lamp still gets its core regulation. |
 | 4 | `brain/rewrite.py` | Rewrites each paragraph as minimal-edit EARS requirements. Deterministic path: split at "shall", fold "However" into "except that", turn telegraphic lines ("In height: …") into shall-statements using the subject from the heading path. LLM path: few-shot EARS rewrite with the parent clause, so child items keep the parent's condition. |
 | 5 | `brain/verify.py` | Base version only; every number must appear in the source paragraph or its ancestors; dedupe; Certivity's `validate.py`. |
-| – | `brain/llm.py` | One interface for OpenAI, Anthropic and local OpenAI-compatible servers: structured JSON output, timeouts and retries, an atomic disk cache. |
+| – | `brain/llm.py` | One interface for OpenAI, Anthropic and local OpenAI-compatible servers (Ollama): structured JSON output, or prompted and validated JSON where a local runner lacks it; timeouts and retries; an atomic disk cache. |
 
 ## Results on dev
 
