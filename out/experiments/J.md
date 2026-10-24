@@ -1,6 +1,6 @@
 # Lane J: Delete the expert-skip classes from the 7-vote file
 
-State: done. Updated: 24 Oct 23:59 CEST.
+State: done. Updated: 25 Oct 00:00 CEST.
 Approved spend: $1 (STATUS-08 at 23:33). Spent: $0. No model call.
 
 ## Checklist
