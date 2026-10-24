@@ -1,12 +1,13 @@
 <script lang="ts">
 	import { tick } from 'svelte';
-	import { Collapsible } from 'bits-ui';
+	import { Collapsible, Dialog } from 'bits-ui';
 	import { page } from '$app/state';
 	import { api } from '#lib/api/client.ts';
 	import { pdfUrl } from '#lib/api/regulations.ts';
 	import { downloadSubmission } from '#lib/api/submission.ts';
 	import type { Assessment, RegulationUpdate } from '#lib/api/types.ts';
 	import AssessmentHeader from '#lib/components/AssessmentHeader.svelte';
+	import Markdown from '#lib/components/Markdown.svelte';
 	import SourceViewer from '#lib/components/SourceViewer.svelte';
 	import Citation from '#lib/ui/Citation.svelte';
 	import Panel from '#lib/ui/Panel.svelte';
@@ -18,6 +19,7 @@
 	let query = $state('');
 	let regulationFilter: string | null = $state(null);
 	let excludedOpen = $state(false);
+	let specOpen = $state(false);
 
 	$effect(() => {
 		const id = page.params.id!;
@@ -58,7 +60,9 @@
 	const selectedUrl = $derived(selected ? pdfUrl(selected.source) : null);
 
 	const pending = $derived(updates.filter((u) => !u.applied));
-	const affected = $derived(pending.reduce((n, u) => n + u.changes.length, 0));
+	const affected = $derived(
+		pending.reduce((n, u) => n + u.changes.filter((c) => c.change !== 'added' || c.relevant).length, 0)
+	);
 
 	async function select(id: string) {
 		selectedId = id;
@@ -93,8 +97,29 @@
 		{:else if updates.length}
 			<a href="/a/{assessment.id}/updates" class="ui-link text-xs">Up to date · update log</a>
 		{/if}
+		<button class="ui-btn" onclick={() => (specOpen = true)}>Spec</button>
 		<button class="ui-btn" onclick={() => assessment && downloadSubmission(assessment)}>Download JSON</button>
 	</AssessmentHeader>
+
+	<Dialog.Root bind:open={specOpen}>
+		<Dialog.Portal>
+			<Dialog.Overlay class="fixed inset-0 z-40 bg-cv-ink-800/40" />
+			<Dialog.Content
+				class="ui-rule fixed top-1/2 left-1/2 z-50 flex max-h-[85vh] w-[min(52rem,92vw)] -translate-x-1/2 -translate-y-1/2 flex-col border bg-white"
+			>
+				<header class="ui-rule flex items-baseline justify-between border-b px-4 py-2">
+					<Dialog.Title class="ui-label font-medium opacity-100">
+						Spec <span class="ui-mono opacity-60">{assessment.caseName ?? ''}</span>
+					</Dialog.Title>
+					<Dialog.Close class="ui-link text-xs">close</Dialog.Close>
+				</header>
+				<Dialog.Description class="sr-only">The product spec this assessment was run on.</Dialog.Description>
+				<div class="min-h-0 flex-1 overflow-auto p-5">
+					<Markdown source={assessment.spec} />
+				</div>
+			</Dialog.Content>
+		</Dialog.Portal>
+	</Dialog.Root>
 
 	<div class="grid min-h-0 flex-1 grid-cols-[19rem_minmax(0,1fr)_minmax(26rem,38%)]">
 		<aside class="ui-rule min-h-0 overflow-auto border-r">
