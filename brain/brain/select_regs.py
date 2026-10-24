@@ -4,6 +4,9 @@ Deterministic scoring (always available):
   * product terms found in the regulation's title, scope, section headings and definitions;
   * vehicle-category compatibility with the scope ("applies to vehicles of category M1");
   * EMC: a product with electronics pulls in the regulation on electromagnetic compatibility;
+    its electrical make-up ("wiring harness", "PCB") is evidence for EMC only;
+  * the vehicle category ("M1", "passenger car") is checked against the scope, never matched as
+    a product term, which would pull in every whole-vehicle regulation for that category;
   * consolidation: a regulation that "combines the provisions of individual UN Regulations Nos.
     3, 27, 69, 70 and 104" demotes those legacy regulations (R150 over R3, R148 over R7).
 With an LLM configured, a model reviews the shortlist with the scope texts and decides.
@@ -19,11 +22,16 @@ from dataclasses import dataclass, field
 from . import llm
 from .ingest import sources
 from .models import Paragraph, ProductProfile, RegulationChoice
+from .profile import ELECTRONICS
 
 COMBINES = re.compile(r"combines the provisions of[^.]*?Nos?\.\s*([\d,\sand]+)", re.I)
 CATEGORY = re.compile(r"\b([LMNOTRS])(\d)?\b")
 EMC = re.compile(r"electromagnetic compatibility", re.I)
 _STOP = frozenset("and or of the for with a an to in on".split())
+VEHICLE = re.compile(
+    r"(?:passenger|motor) car|(?:light )?(?:commercial |goods )?vehicle|"
+    r"truck|bus|coach|trailer|motorcycle|moped|tractor"
+)
 
 
 @dataclass
@@ -97,9 +105,16 @@ def _categories_ok(profile: ProductProfile, scope: str) -> bool:
     return False
 
 
+def _product_term(phrase: str) -> bool:
+    if VEHICLE.fullmatch(phrase):
+        return False
+    words = [w for w in phrase.split() if w not in _STOP]
+    return not all(ELECTRONICS.fullmatch(w) for w in words)
+
+
 def lexical_scores(profile: ProductProfile, docs: dict[str, RegulationDoc]) -> dict[str, float]:
     phrases = [_norm(k).strip() for k in profile.keywords + profile.parts + profile.functions]
-    phrases = [p for p in dict.fromkeys(phrases) if len(p) > 3]
+    phrases = [p for p in dict.fromkeys(phrases) if len(p) > 3 and _product_term(p)]
     scores = {}
     for reg, d in docs.items():
         title, scope = _norm(d.title), _norm(d.scope)

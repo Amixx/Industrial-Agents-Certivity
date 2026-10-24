@@ -92,6 +92,24 @@ def test_dev_regulation_selection_matches_gold() -> None:
 
 
 @needs_corpus
+def test_vehicle_category_and_wiring_are_not_product_terms() -> None:
+    from brain.select_regs import choose
+
+    corpus = load_all("base")
+    profile = ProductProfile(
+        product="Front bumper",
+        vehicle_categories=["M1"],
+        functions=["Low-speed impact protection", "front protective device"],
+        parts=["Bumper cover", "Bumper beam", "Wiring harness"],
+        electronics=True,
+        keywords=["front bumper", "bumper cover", "passenger car", "m1", "wiring harness"],
+    )
+    picked = {c.regulation for c in choose(profile, corpus, use_llm=False) if c.selected}
+    assert {"UN R42", "UN R10"} <= picked
+    assert not picked & {"UN R114", "UN R152", "UN R157", "UN R171"}
+
+
+@needs_corpus
 def test_pipeline_dev_case_is_valid_and_scores() -> None:
     from brain.pipeline import run
     from eval.score import score
