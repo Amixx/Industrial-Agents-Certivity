@@ -1,0 +1,71 @@
+{
+ "base": "rear-lamp-swing-H-sonnet-w85.json",
+ "cuts": [
+  {
+   "deleted": 45,
+   "deleted_matched": 6,
+   "deleted_unmatched": 39,
+   "deleted_outside_gold_paragraphs": 35,
+   "deleted_inside_gold_unmatched": 4,
+   "file": "out/rear-lamp-swing-L-w85-drop1.json",
+   "base": "out/rear-lamp-swing-H-sonnet-w85.json",
+   "drop": [
+    1
+   ],
+   "rows": 358,
+   "matched": 131,
+   "f2": 0.586
+  },
+  {
+   "deleted": 58,
+   "deleted_matched": 7,
+   "deleted_unmatched": 51,
+   "deleted_outside_gold_paragraphs": 47,
+   "deleted_inside_gold_unmatched": 4,
+   "file": "out/rear-lamp-swing-L-w85-drop12.json",
+   "base": "out/rear-lamp-swing-H-sonnet-w85.json",
+   "drop": [
+    1,
+    2
+   ],
+   "rows": 345,
+   "matched": 130,
+   "f2": 0.588
+  },
+  {
+   "deleted": 87,
+   "deleted_matched": 15,
+   "deleted_unmatched": 72,
+   "deleted_outside_gold_paragraphs": 61,
+   "deleted_inside_gold_unmatched": 11,
+   "file": "out/rear-lamp-swing-L-w85-drop123.json",
+   "base": "out/rear-lamp-swing-H-sonnet-w85.json",
+   "drop": [
+    1,
+    2,
+    3
+   ],
+   "rows": 316,
+   "matched": 122,
+   "f2": 0.567
+  },
+  {
+   "deleted": 97,
+   "deleted_matched": 21,
+   "deleted_unmatched": 76,
+   "deleted_outside_gold_paragraphs": 64,
+   "deleted_inside_gold_unmatched": 12,
+   "file": "out/rear-lamp-swing-L-w85-drop1234.json",
+   "base": "out/rear-lamp-swing-H-sonnet-w85.json",
+   "drop": [
+    1,
+    2,
+    3,
+    4
+   ],
+   "rows": 306,
+   "matched": 116,
+   "f2": 0.544
+  }
+ ]
+}

@@ -1,0 +1,14 @@
+file: rear-lamp-swing-L-w85-drop12.json
+base: rear-lamp-swing-H-sonnet-w85.json
+drop classes: [1, 2]
+rows: 345
+local matched: 130
+local F2: 0.588
+deleted: 58
+deleted matched on the unfiltered file: 7
+deleted unmatched: 51
+deleted outside gold paragraphs: 47
+spend: $0
+method: brain/swing/l_filter.py text rules, no API call
+paid by: lane H, 92 s, $3.16, this filter step $0
+scored: 24 Oct 23:58 CEST, eval.score
