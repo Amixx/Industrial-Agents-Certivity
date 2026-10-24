@@ -20,6 +20,7 @@ import hashlib
 import json
 import os
 import threading
+from dataclasses import asdict, dataclass
 from pathlib import Path
 from typing import Any, Literal
 
@@ -29,6 +30,83 @@ Tier = Literal["strong", "bulk"]
 
 TIMEOUT = float(os.environ.get("BRAIN_LLM_TIMEOUT", "180"))  # seconds per request
 RETRIES = 3  # SDK retries with backoff on timeouts, rate limits and 5xx
+
+
+# USD per million tokens: input, output, cache read. Models not listed are reported as unpriced.
+PRICES = {
+    "claude-opus-5-5": (4.00, 20.00, 0.20),
+    "claude-sonnet-5-5": (2.00, 10.00, 0.20),
+}
+
+
+@dataclass
+class Usage:
+    """LLM calls and spend of this process. `cold_cost_usd` adds what the cached answers cost
+    when they were first made, so runs with and without a warm cache compare."""
+
+    calls: int = 0
+    cache_hits: int = 0
+    input_tokens: int = 0
+    output_tokens: int = 0
+    cost_usd: float = 0.0
+    cold_cost_usd: float = 0.0
+    unpriced_calls: int = 0
+
+
+_usage = Usage()
+_usage_lock = threading.Lock()
+
+
+def usage() -> dict[str, Any]:
+    with _usage_lock:
+        return asdict(_usage)
+
+
+def usage_since(start: dict[str, Any]) -> dict[str, Any]:
+    now = usage()
+    return {k: round(now[k] - start[k], 4) for k in now}
+
+
+def price(model: str, input_tokens: int, output_tokens: int, cache_read: int = 0) -> float | None:
+    if model not in PRICES:
+        return None
+    per_in, per_out, per_read = PRICES[model]
+    return (input_tokens * per_in + output_tokens * per_out + cache_read * per_read) / 1e6
+
+
+def record(
+    model: str,
+    input_tokens: int,
+    output_tokens: int,
+    cache_read: int = 0,
+    cost: float | None = None,
+) -> float | None:
+    """Count one model call; `cost` overrides the price table (a provider that reports it).
+    `input_tokens` excludes the `cache_read` tokens."""
+    if cost is None:
+        cost = price(model, input_tokens, output_tokens, cache_read)
+    input_tokens += cache_read
+    with _usage_lock:
+        _usage.calls += 1
+        _usage.input_tokens += input_tokens
+        _usage.output_tokens += output_tokens
+        if cost is None:
+            _usage.unpriced_calls += 1
+        else:
+            _usage.cost_usd += cost
+            _usage.cold_cost_usd += cost
+    return cost
+
+
+def _record_hit(meta: Path) -> None:
+    cost = json.loads(meta.read_text()).get("cost_usd") if meta.exists() else None
+    with _usage_lock:
+        _usage.cache_hits += 1
+        if cost is not None:
+            _usage.cold_cost_usd += cost
+
+
+_local = threading.local()
 
 
 def _load_dotenv(path: Path = PROJECT / ".env") -> None:
@@ -132,9 +210,11 @@ def complete_json(
         try:
             result: dict[str, Any] = json.loads(cached.read_text())
             if isinstance(result, dict):
+                _record_hit(cached.with_suffix(".usage.json"))
                 return result
         except json.JSONDecodeError:
             pass  # a corrupt entry is recomputed and overwritten
+    _local.cost = None
     if prov == "anthropic":
         result = _anthropic(model, system, content, schema, effort, max_tokens)
     elif prov in ("openai", "local"):
@@ -142,6 +222,7 @@ def complete_json(
     else:
         raise RuntimeError(f"unknown BRAIN_LLM={prov}")
     cached.parent.mkdir(parents=True, exist_ok=True)
+    write_atomic(cached.with_suffix(".usage.json"), {"cost_usd": getattr(_local, "cost", None)})
     write_atomic(cached, result)
     return result
 
@@ -176,6 +257,13 @@ def _anthropic(
     response = client.beta.messages.create(**request)
     if response.stop_reason == "refusal":
         raise RuntimeError(f"model refused: {response.stop_details}")
+    u = response.usage
+    _local.cost = record(
+        model,
+        u.input_tokens + (u.cache_creation_input_tokens or 0),
+        u.output_tokens,
+        u.cache_read_input_tokens or 0,
+    )
     text = next(b.text for b in response.content if b.type == "text")
     parsed: dict[str, Any] = json.loads(text)
     return parsed
@@ -236,6 +324,7 @@ def _openai_compatible(
         if prov != "local" or "structured output" not in str(e):
             raise
         return _prompted_json(client, request, schema)
+    _record_openai(model, response)
     choice = response.choices[0]
     if choice.finish_reason == "length":
         raise RuntimeError(f"{model} hit the token limit")
@@ -243,6 +332,11 @@ def _openai_compatible(
         raise RuntimeError(f"model refused: {choice.message.refusal}")
     parsed: dict[str, Any] = json.loads(choice.message.content or "{}")
     return parsed
+
+
+def _record_openai(model: str, response: Any) -> None:
+    u = response.usage
+    _local.cost = record(model, u.prompt_tokens if u else 0, u.completion_tokens if u else 0)
 
 
 def _extract_json(text: str, schema: dict[str, Any] | None = None) -> Any:
@@ -273,6 +367,7 @@ def _prompted_json(client: Any, request: dict[str, Any], schema: dict[str, Any])
     )
     for attempt in range(2):
         response = client.chat.completions.create(**{**request, "messages": messages})
+        _record_openai(request["model"], response)
         text = response.choices[0].message.content or ""
         try:
             parsed = _extract_json(text, schema)
