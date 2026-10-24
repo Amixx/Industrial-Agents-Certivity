@@ -1,6 +1,6 @@
 # Lane I: one row per value in a table, added to the 7-vote file
 
-State: running. Updated: 24 Oct 23:45 CEST.
+State: done. Updated: 24 Oct 23:47 CEST.
 Approved spend: $0 at launch. The ledger at 23:33 allows a planned $1; this lane does not use it. Spent: $0.
 No paid calls. No Sonnet. Rows come from the source text of the table.
 
@@ -13,23 +13,23 @@ A value line is one cell that states a number: one pulse, polarity, or test meth
 ## Checklist
 
 - [x] I1 List candidate paragraphs before spending. Done 23:37. Files: `out/experiments/I.md`.
-      Commit: this commit. Found: four EMC paragraphs in votes7, listed below. Two are collapsed
+      Commit: `42e51cf`. Found: four EMC paragraphs in votes7, listed below. Two are collapsed
       tables (6.9.1, 6.8.2.1), one is a table with the 12 V lines missing (6.7.1), and Annex 9 3.1
       is already one row per modulation line. Photometric tables were seen and left alone.
       Spend $0.
 - [x] I2 Emit one row per value line. Drop paraphrases. Union with votes7. Done 23:45. Files:
       `brain/swing/i_tables.py`, `out/rear-lamp-swing-I-tables.json`,
-      `out/rear-lamp-swing-I-tables.log`, `out/experiments/I-lines.json`. Commit: this commit.
+      `out/rear-lamp-swing-I-tables.log`, `out/experiments/I-lines.json`. Commit: `406da3b`.
       Found: 33 value lines parsed, 28 kept, 5 dropped. Kept 12 on 6.9.1, 14 on 6.8.2.1, 2 on
       6.7.1 (the 12 V lines). Dropped the two 6.7.1 24 V lines (Jaccard 1.0, same numbers) and
       all three Annex 9 3.1 modulation lines (Jaccard 1.0 against votes7). Union is 379 rows.
       Spend $0.
-- [ ] I3 Score the union. Matches gained on those paragraphs, rows added, F2, and missed-on-cited
-      against 23.
+- [x] I3 Score the union. Done 23:47. `tools/validate.py` OK (379 requirements).
+      `tools/score_local.py`: regulation 4/4/4, page 59/53/49, same as votes7.
+      `eval.score`: 163 matched, F2 0.716. `eval.errors`: missed on a cited paragraph 16
+      (votes7 was 23). Matches gained: 7, all on UN R10 6.9.1. Spend $0.
 
-Next: `python tools/validate.py out/rear-lamp-swing-I-tables.json`,
-`python tools/score_local.py out/rear-lamp-swing-I-tables.json`, and from `brain/`
-`uv run python -m eval.score` and `uv run python -m eval.errors` on the union and on votes7.
+Next: none.
 
 ## Candidates
 
@@ -121,18 +121,35 @@ These cited paragraphs are not a collapsed pulse, voltage, frequency-band, or mo
 
 | Run | File | Method | Code | Rows | Local matched / F2 | Platform (upload): matched / F2 | Spend |
 |---|---|---|---|---|---|---|---|
+| 23:47 | `rear-lamp-swing-I-tables.json` | votes7 plus one row per value line of UN R10 Tables 1, 2a, 2b, 3a, 3b. Annex 9 3.1 already split, so not added. No model. | `406da3b`, `brain/swing/i_tables.py` | 379 | 163 / 0.716 | not uploaded | $0 |
 
 ## Uploads
 
 | File | Question | Predicted matched / F2 | Uploaded at | Platform matched / F2 |
 |---|---|---|---|---|
 
-No nomination unless the union's local F2 beats 0.702 by more than about 5 matches.
+Not nominated. The local result clears the lane bar (163 matched against votes7's 156, F2 0.716 against 0.702). The owner closed the platform queue at 23:36, so this lane does not nominate and does not mark the file waiting for upload.
 
 ## Notes
 
 Gold is used only at scoring. The lines above were taken from the regulation text. Paragraphs that would need a model to split are none: the four candidates are readable from the source. Approved spend is $0, so a paragraph that had needed a model would have stayed listed and unsplit.
 
+The 16 added rows on 6.8.2.1 and 6.7.1 matched nothing. Leaving them out would be 363 rows and the same 163 matches, F2 0.726. That file was not written: dropping them would be a decision taken from the gold score.
+
 ## Report
 
-Filled in at the end.
+Expanding the collapsed pulse and voltage lines of UN R10 6.9.1 recovers 7 matches the local judge can see, from 3 of 10 gold rows to 10 of 10, at 12 extra rows. The same split on Tables 2a and 2b (14 rows) and the two missing 12 V lines of Table 1 (2 rows) matches nothing, and Annex 9 3.1 was already one row per modulation, so the union is 379 rows, 163 matched, F2 0.716, and missed-on-cited falls from 23 to 16.
+
+| Paragraph | Value lines kept | Gold rows | votes7 matched | Union matched | Gained |
+|---|---|---|---|---|---|
+| UN R10 6.9.1 | 12 | 10 | 3 | 10 | 7 |
+| UN R10 6.8.2.1 | 14 | 3 | 3 | 3 | 0 |
+| UN R10 6.7.1 | 2 | 1 | 1 | 1 | 0 |
+| UN R10 Annex 9 3.1 | 0 (already split) | 4 | 1 | 1 | 0 |
+| Union | 28 added | 190 | 156 | 163 | 7 |
+
+`eval.errors` on the union: 151 rows outside gold paragraphs (0 matched), 16 gold rows missed on a cited paragraph, 11 on paragraphs never cited. F2 if the outside rows are dropped: 0.825. F2 if the 16 on-cited misses were recovered at the same 379 rows: 0.786. F2 if one matching row were added for each of the 11 skipped gold rows: 0.757. The largest lift is the 151 outside rows, so that is why F2 is not 1.0.
+
+No upload. The file that would have been named, had the queue been open, is `out/rear-lamp-swing-I-tables.json`, local 163 / 0.716.
+
+Transfer: this is a parser for three UN R10 tables on the lamp dev file. It does not choose paragraphs, and a bumper that does not cite these tables gains nothing from it. It is not a Sunday method. Cost $0, no API call, under a second.
