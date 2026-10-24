@@ -1,0 +1,10 @@
+208 paragraphs in 26 calls to claude-sonnet-5-5
+wrote out/rear-lamp-swing-E-v1.json
+paragraphs answered 208 of 208; missing []
+segments {'verbatim': 413, 'snapped': 0, 'unverified': 8, 'added': 398}
+word share vs paragraph: median 1.000, with parent: 1.000; gold 0.966
+rows with added words: 57
+rear-lamp-swing-E-v1.json: rows 316 matched 133 F2 0.618 (local lexical judge)
+rear-lamp-fable.json: rows 332 matched 141
+[cost] claude-sonnet-5-5: 26 new calls, 97,299 in / 37,463 out / 51,524 cache read; $0.58
+[cost] total new spend $0.58
