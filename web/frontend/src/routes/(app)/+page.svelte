@@ -3,8 +3,8 @@ import { api } from '#lib/api/client.ts';
 import exampleImage from '#lib/api/fixtures/exploded_view.png';
 import exampleSpec from '#lib/api/fixtures/spec.md?raw';
 import type { PipelineEvent } from '#lib/api/types.ts';
-import Markdown from '#lib/components/Markdown.svelte';
 import PipelineProgress from '#lib/components/PipelineProgress.svelte';
+import SpecEditor from '#lib/components/SpecEditor.svelte';
 import { extractPdfText } from '#lib/spec/pdfText.ts';
 import { goto } from '$app/navigation';
 
@@ -19,7 +19,6 @@ let dragging = $state(false);
 let running = $state(false);
 let error = $state('');
 let pdfNote = $state('');
-let view: 'edit' | 'preview' = $state('edit');
 let events: PipelineEvent[] = $state([]);
 
 async function setSpecFile(file: File | null | undefined) {
@@ -40,7 +39,6 @@ async function setSpecFile(file: File | null | undefined) {
 	}
 	specName = file.name;
 	caseName = file.name.replace(/\.(md|txt|pdf)$/i, '');
-	view = 'edit';
 }
 
 async function loadExamplePdf() {
@@ -126,7 +124,8 @@ function onDrop(e: DragEvent) {
 			</p>
 		</div>
 
-		<label
+		<section
+			aria-label="Product spec"
 			class="col-span-7 flex min-h-0 flex-col"
 			ondragover={(e) => {
 				e.preventDefault();
@@ -135,22 +134,9 @@ function onDrop(e: DragEvent) {
 			ondragleave={() => (dragging = false)}
 			ondrop={onDrop}
 		>
-			<div class="flex items-end justify-between border-b-2 border-black pb-1.5">
-				<div>
-					<span class="ui-label">Product spec</span>
-					<span class="text-xs">{specName || 'Markdown'}</span>
-				</div>
-				<div class="flex gap-1">
-					{#each ['edit', 'preview'] as const as v (v)}
-						<button
-							type="button"
-							class="ui-toggle capitalize {view === v ? 'ui-toggle-on' : ''}"
-							onclick={() => (view = v)}
-						>
-							{v}
-						</button>
-					{/each}
-				</div>
+			<div class="border-b-2 border-black pb-1.5">
+				<span class="ui-label">Product spec</span>
+				<span class="text-xs">{specName || 'Markdown'}</span>
 			</div>
 			{#if pdfNote}
 				<p class="ui-rule-soft border-b py-1.5 text-xs">
@@ -158,24 +144,12 @@ function onDrop(e: DragEvent) {
 					Review and edit before running.
 				</p>
 			{/if}
-			{#if view === 'preview'}
-				<div class="min-h-0 flex-1 overflow-auto border-b-2 border-black py-4">
-					{#if spec.trim()}
-						<Markdown source={spec} class="max-w-3xl" />
-					{:else}
-						<p class="text-xs">Nothing to preview yet.</p>
-					{/if}
-				</div>
-			{:else}
-				<textarea
-					bind:value={spec}
-					placeholder={'# spec: Product name\n\n## Product Type\n…\n\n## Vehicle Category\n…\n\n## Function\n- …\n\n## Main Parts\n- …\n\n## Materials\n| Component | Material |'}
-					class="min-h-0 flex-1 resize-none border-b-2 border-black py-3 text-[13px] leading-relaxed outline-none placeholder:text-black/40 focus:bg-cv-mint-50/60 {dragging
-						? 'bg-cv-mint-50'
-						: 'bg-white'}"
-				></textarea>
-			{/if}
-		</label>
+			<SpecEditor
+				bind:value={spec}
+				placeholder="Paste or drop a product spec. Click any line to edit it."
+				class="min-h-0 flex-1 overflow-auto border-b-2 border-black py-3 {dragging ? 'bg-cv-mint-50' : 'bg-white'}"
+			/>
+		</section>
 
 		<aside class="col-span-3 flex min-h-0 flex-col gap-8">
 			<div class="flex flex-col gap-3">
