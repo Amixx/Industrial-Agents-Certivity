@@ -15,11 +15,11 @@ stays under $70, and must ask the owner above that.
 | Lane | State | Last update | Current step | Spend so far | Lane file |
 |---|---|---|---|---|---|
 | A votes | not started | | | $0 | out/experiments/A.md |
-| B maximum recall | not started | | | $0 | out/experiments/B.md |
+| B maximum recall | running | 22:55 | B1 | $0 | out/experiments/B.md |
 | C maximum precision | running | 22:40 | C1 | $0 | out/experiments/C.md |
-| D hedged cuts | not started | | | $0 | out/experiments/D.md |
-| E verbatim rows | not started | | | $0 | out/experiments/E.md |
-| F row selector | not started | | | $0 | out/experiments/F.md |
+| D hedged cuts | running | 22:50 | D1 | $0 | out/experiments/D.md |
+| E verbatim rows | running | 22:40 | E1 | $0 | out/experiments/E.md |
+| F row selector | running | 22:45 | F1 | $0 | out/experiments/F.md |
 | G Sunday feasibility | not started | | | $0 | out/experiments/G.md |
 
 ## Upload queue (owner uploads by hand, at most 5 per hour)
@@ -29,6 +29,9 @@ stays under $70, and must ask the owner above that.
 
 ## Log
 
+- 23:00 Lane G: `claude -p` answers "Not logged in" from lane agents, so the $0 route through
+  `brain/brain/claude_cli.py` is closed until the owner runs `claude /login` in a terminal.
+  Lanes use the API within their caps instead. Told B, E, F.
 - 22:44 Master started lane agents D, E, F, B, G. All seven lanes have an agent.
 - 22:42 Master started lanes A and C ($0), asked the budget, owner answered: caps as written,
   $70 total ceiling. Starting D, E, F, B, G.
