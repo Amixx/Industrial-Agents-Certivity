@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>sudo brand directions</title>
+<link rel="icon" href="favicon-section.svg" type="image/svg+xml">
+<style>
+  :root {
+    --ink: #11504B; --deep: #02312F; --mid: #0B7A70; --pale: #F0FDFA; --mint: #79F2DE;
+    --line: #cfe9e4;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; background: #fff; color: var(--ink);
+    font: 15px/1.5 -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+  }
+  header, section { max-width: 1180px; margin: 0 auto; padding: 32px 24px; }
+  header h1 { margin: 0 0 4px; font-size: 22px; letter-spacing: -0.01em; }
+  header p { margin: 0; color: var(--mid); }
+  .rec {
+    margin-top: 20px; padding: 14px 18px; border-left: 4px solid #0EBEA9; background: var(--pale);
+  }
+  section { border-top: 1px solid var(--line); }
+  section h2 { margin: 0; font-size: 18px; }
+  section h2 small { font-weight: 400; color: var(--mid); font-size: 13px; margin-left: 8px; font-family: ui-monospace, Menlo, monospace; }
+  section > p { margin: 4px 0 18px; max-width: 760px; }
+  .tag { display: inline-block; margin-left: 8px; padding: 1px 8px; border-radius: 99px; background: #0EBEA9; color: var(--deep); font-size: 12px; font-weight: 600; vertical-align: 2px; }
+  .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  .panel { border-radius: 10px; padding: 28px; display: flex; flex-direction: column; gap: 22px; align-items: flex-start; }
+  .light { background: #fff; border: 1px solid var(--line); }
+  .dark { background: var(--deep); }
+  .panel img { display: block; max-width: 100%; height: auto; }
+  .lg { height: 96px !important; width: auto !important; }
+  .lock { height: 110px !important; width: auto !important; }
+  .sm { height: 24px !important; width: auto !important; }
+  .row { display: flex; align-items: center; gap: 24px; flex-wrap: wrap; }
+  .fav { display: flex; align-items: flex-end; gap: 18px; margin-top: 12px; padding: 14px 18px; border-radius: 10px; background: #eef3f2; }
+  .fav.dk { background: #1d1f21; }
+  .fav figure { margin: 0; display: flex; flex-direction: column; align-items: center; gap: 4px; font-size: 11px; color: #6b7c7a; }
+  .tab { display: flex; align-items: center; gap: 8px; padding: 7px 12px; border-radius: 8px 8px 0 0; background: #fff; font-size: 12px; color: #333; }
+  .fav.dk .tab { background: #35363a; color: #e8eaed; }
+  @media (max-width: 760px) { .grid { grid-template-columns: 1fr; } .panel { padding: 18px; } }
+</style>
+</head>
+<body>
+<header>
+  <h1>sudo — wordmark, lockup and favicon directions</h1>
+  <p>Hand-built monoline geometry, no webfonts. Certivity palette: #02312F · #11504B · #0B7A70 · #0EBEA9 · #27DAC2 · #79F2DE · #F0FDFA.</p>
+  <div class="rec"><strong>Recommendation: B, Section sign.</strong> It is the only direction whose mark is the product itself: sudo answers with § citations, and the § grows out of the s. It works as a single glyph at 16px and stays clear of Certivity's asterisk while using their colours.</div>
+</header>
+
+<main id="directions"></main>
+
+<script>
+  const dirs = [
+    { key: "prompt", letter: "A", name: "Root prompt", why: "<code>#</code> is the root shell prompt, so the mark says “superuser” twice. Monospaced and blunt, at home in an engineer's terminal; the joke lands only with people who know Unix." },
+    { key: "section", letter: "B", name: "Section sign", why: "The s grows a mint lower loop into §, the symbol every citation sudo returns starts with: the product's output, in the logo.", rec: true },
+    { key: "drawing", letter: "C", name: "Drawing sheet", why: "Stencil lettering in an ISO title block speaks the automotive engineer's own paperwork. It has the most character, but is the heaviest and loses its detail when small." },
+    { key: "citation", letter: "D", name: "Citation", why: "Typewriter slab serifs in square brackets read as a cited legal reference. Quiet and document-like, though brackets are a common motif." },
+    { key: "ascent", letter: "E", name: "Ascent", why: "Three rising steps stand for elevated privileges, next to a neutral wordmark. The cleanest app icon, but the mark could belong to any product." },
+  ];
+  const sizes = [16, 32, 64];
+  document.getElementById("directions").innerHTML = dirs.map((d) => `
+    <section id="${d.key}">
+      <h2>${d.letter} · ${d.name}${d.rec ? '<span class="tag">recommended</span>' : ""}<small>sudo-${d.key}.svg</small></h2>
+      <p>${d.why}</p>
+      <div class="grid">
+        <div class="panel light">
+          <img class="lg" src="sudo-${d.key}.svg" alt="sudo, ${d.name}, light">
+          <img class="lock" src="sudo-lockup-${d.key}.svg" alt="sudo lockup, light">
+          <div class="row"><img class="sm" src="sudo-${d.key}.svg" alt=""><img class="sm" src="sudo-lockup-${d.key}.svg" alt=""></div>
+        </div>
+        <div class="panel dark">
+          <img class="lg" src="sudo-${d.key}-dark.svg" alt="sudo, ${d.name}, dark">
+          <img class="lock" src="sudo-lockup-${d.key}-dark.svg" alt="sudo lockup, dark">
+          <div class="row"><img class="sm" src="sudo-${d.key}-dark.svg" alt=""><img class="sm" src="sudo-lockup-${d.key}-dark.svg" alt=""></div>
+        </div>
+      </div>
+      <div class="grid">
+        ${["", "dk"].map((c) => `
+        <div class="fav ${c}">
+          ${sizes.map((s) => `<figure><img src="favicon-${d.key}.svg" width="${s}" height="${s}" alt=""><figcaption>${s}px</figcaption></figure>`).join("")}
+          <div class="tab"><img src="favicon-${d.key}.svg" width="16" height="16" alt="">sudo · UN R 48 check</div>
+        </div>`).join("")}
+      </div>
+    </section>`).join("");
+</script>
+</body>
+</html>
