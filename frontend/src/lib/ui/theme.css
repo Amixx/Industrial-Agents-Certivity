@@ -1,0 +1,40 @@
+@reference '../../routes/layout.css';
+
+@layer components {
+	.ui-app {
+		@apply min-h-screen bg-cv-mint-50 font-['IBM_Plex_Sans'] text-sm text-cv-ink-800;
+	}
+	.ui-mono {
+		@apply font-['IBM_Plex_Mono'];
+	}
+	.ui-label {
+		@apply text-[10px] tracking-wider uppercase opacity-70;
+	}
+	.ui-rule {
+		@apply border-cv-ink-800;
+	}
+	.ui-rule-soft {
+		@apply border-cv-ink-800/25;
+	}
+	.ui-surface {
+		@apply bg-white;
+	}
+	.ui-btn {
+		@apply inline-flex h-8 cursor-pointer items-center justify-center gap-2 border border-cv-ink-800 px-4 text-xs tracking-wider uppercase hover:bg-cv-mint-300 disabled:cursor-default disabled:opacity-40 disabled:hover:bg-transparent;
+	}
+	.ui-btn-primary {
+		@apply bg-cv-ink-800 font-medium text-cv-mint-50 hover:bg-cv-ink-950 disabled:hover:bg-cv-ink-800;
+	}
+	.ui-input {
+		@apply h-7 border border-cv-ink-800 bg-white px-2 text-xs outline-none focus:ring-2 focus:ring-cv-teal-400;
+	}
+	.ui-tag {
+		@apply inline-block border border-cv-ink-800/40 px-1.5 py-px font-['IBM_Plex_Mono'] text-[10px] tracking-wide uppercase;
+	}
+	.ui-link {
+		@apply underline decoration-cv-ink-800/40 underline-offset-2 hover:decoration-cv-ink-800;
+	}
+	.ui-row-selected {
+		@apply bg-white outline outline-1 -outline-offset-1 outline-cv-ink-800;
+	}
+}
