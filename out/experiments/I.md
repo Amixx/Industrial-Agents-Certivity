@@ -121,14 +121,15 @@ These cited paragraphs are not a collapsed pulse, voltage, frequency-band, or mo
 
 | Run | File | Method | Code | Rows | Local matched / F2 | Platform (upload): matched / F2 | Spend |
 |---|---|---|---|---|---|---|---|
-| 23:47 | `rear-lamp-swing-I-tables.json` | votes7 plus one row per value line of UN R10 Tables 1, 2a, 2b, 3a, 3b. Annex 9 3.1 already split, so not added. No model. | `406da3b`, `brain/swing/i_tables.py` | 379 | 163 / 0.716 | not uploaded | $0 |
+| 23:47 | `rear-lamp-swing-I-tables.json` | votes7 plus one row per value line of UN R10 Tables 1, 2a, 2b, 3a, 3b. Annex 9 3.1 already split, so not added. No model. | `406da3b`, `brain/swing/i_tables.py` | 379 | 163 / 0.716 | (25 Oct 00:22) 146 / 0.641 | $0 |
 
 ## Uploads
 
 | File | Question | Predicted matched / F2 | Uploaded at | Platform matched / F2 |
 |---|---|---|---|---|
+| `out/rear-lamp-swing-I-tables.json` | Does splitting the collapsed UN R10 tables raise the platform score? | 163 / 0.716 | 25 Oct 00:22:08 | 146 / 0.641 |
 
-Not nominated. The local result clears the lane bar (163 matched against votes7's 156, F2 0.716 against 0.702). The owner closed the platform queue at 23:36, so this lane does not nominate and does not mark the file waiting for upload.
+Requirements P 0.385, R 0.768, F1 0.513, F2 0.641. Pages P 0.831, R 0.925, F1 0.875. Regulations 1.00 / 1.00 / 1.00. Scored 00:22:51.
 
 ## Notes
 

@@ -79,7 +79,7 @@ that produced the file; branch code is not on `main` unless it says so.
 | 23:08 | `experiments/G-bumper-sensors-fog-vote3-anchor-4.json` | Min 3 of 4. Paragraph P/R/F2 | `g_runs.py vote` | 461 | 0.65 / 0.48 / 0.505 | none | $0 |
 | 23:08 | `experiments/G-bumper-sensors-fog-vote4-anchor-4.json` | Min 4 of 4. Paragraph P/R/F2 | `g_runs.py vote` | 249 | 0.74 / 0.30 / 0.339 | none | $0 |
 | 23:11 | `experiments/G-bumper-sensors-fog-sonnet-w85.json` | Sonnet, blend weight 0.85, fog bumper. Paragraph P/R/F2 on the 4 labelled regulations | `g_runs.py` | 519 | 0.74 / 0.79 / 0.779 | none | $4.330 |
-| 23:47 | `rear-lamp-swing-I-tables.json` | votes7 plus one row per value line of UN R10 Tables 1, 2a, 2b, 3a and 3b | `swing/i_tables.py` | 379 | 163 / 0.716 | not uploaded | $0 |
+| 23:47 | `rear-lamp-swing-I-tables.json` | votes7 plus one row per value line of UN R10 Tables 1, 2a, 2b, 3a and 3b | `swing/i_tables.py` | 379 | 163 / 0.716 | (25 Oct 00:22) 146 / 0.641 | $0 |
 | 23:50 | `rear-lamp-swing-L-drop12.json` | Weight-0.7 file, drop test-procedure and installation classes | `swing/l_filter.py` | 315 | 138 / 0.642 | not uploaded | $0 |
 | 23:52 | `rear-lamp-swing-K-drop1.json` | votes4, drop the test-procedure class | `swing/k_filter.py` | 407 | 158 / 0.677 | not uploaded | $0 |
 | 23:55 | `rear-lamp-swing-J-drop12.json` | votes7, drop test-procedure and installation classes. Not adopted: 142 matches, under the 151 floor | `swing/j_classes.py` | 271 | 142 / 0.689 | not uploaded | $0 |
@@ -311,7 +311,9 @@ Agreement across existing runs is the lamp result that moves requirement F2: vot
 
 Five lanes on branch `big-swings`, scored locally. The owner closed the platform queue at 23:36. Full write-up: the Results section of `brain/docs/todo/08-complex.md`.
 
-Splitting the collapsed pulse and voltage lines of UN R10 6.9.1 is the only gain: votes7 plus those table rows is 379 rows, 163 matched, F2 0.716. The four expert-skip classes do not beat votes7 on the 7-vote file (best cut 271 / 142 / 0.689) or on the 4-vote file (best cut 407 / 158 / 0.677). A vote of three new runs loses to the reused Opus file (144 / 0.627 against 146 / 0.636). Sonnet at blend weight 0.85 on the lamp is 136 / 0.585, and the skip filter leaves it at 130 / 0.588. Sunday stays one Sonnet run at weight 0.85 on the bumper. Spend for this task: $4.34, all of it lane H. Event total $19.26 of the $70 ceiling.
+Splitting the collapsed pulse and voltage lines of UN R10 6.9.1 is the only local gain: votes7 plus those table rows is 379 rows, 163 matched, F2 0.716. The four expert-skip classes do not beat votes7 on the 7-vote file (best cut 271 / 142 / 0.689) or on the 4-vote file (best cut 407 / 158 / 0.677). A vote of three new runs loses to the reused Opus file (144 / 0.627 against 146 / 0.636). Sonnet at blend weight 0.85 on the lamp is 136 / 0.585, and the skip filter leaves it at 130 / 0.588. Sunday stays one Sonnet run at weight 0.85 on the bumper. Spend for this task: $4.34, all of it lane H. Event total $19.26 of the $70 ceiling.
+
+The owner uploaded `rear-lamp-swing-I-tables.json` at 25 Oct 00:22:08 CEST (379 requirements, 224.5 KB). Scored at 00:22:51. Requirements: precision 0.385, recall 0.768, F1 0.513, F2 0.641, which is 146 of 190. Pages: precision 0.831, recall 0.925, F1 0.875. Regulations: 1.00 / 1.00. The platform is 17 matches and 0.075 F2 under the local judge, and 3 matches and 0.041 F2 under Fable's platform score of 149 / 0.682.
 
 ## Run-to-run variance
 

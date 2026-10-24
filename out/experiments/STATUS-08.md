@@ -1,6 +1,6 @@
 # Complex strategies: status
 
-Updated: 25 Oct 00:03 CEST (system clock, `date`) by master (Cursor). All five lanes checked. Results written.
+Updated: 25 Oct 00:24 CEST (system clock, `date`) by master (Cursor). All five lanes checked. The table-split file was uploaded.
 Task: brain/docs/todo/08-complex.md. Branch: big-swings. Setup done: yes (07 setup commit "swing master: setup"; this ledger created at 23:29).
 Lanes A to G are finished. Do not edit their files except to read them. Do not edit `out/experiments/STATUS.md`.
 
@@ -29,10 +29,11 @@ Score with `tools/validate.py`, `tools/score_local.py`, and `uv run python -m ev
 
 | Order | File | Lane | Question it answers | Predicted matched / F2 | Uploaded at | Platform matched / F2 |
 |---|---|---|---|---|---|---|
-| — | none | — | queue closed by the owner | — | — | — |
+| 1 | `out/rear-lamp-swing-I-tables.json` (379 rows) | I | Does splitting the collapsed UN R10 tables raise the platform score? | 163 / 0.716 | 25 Oct 00:22:08 | 146 / 0.641 |
 
 ## Log
 
+- 00:24 Owner uploaded `rear-lamp-swing-I-tables.json` at 00:22:08. Platform requirements F2 0.641 (P 0.385, R 0.768, 146 of 190). Pages F1 0.875. Regulations 1.00. Scored 00:22:51. Local had been 163 / 0.716.
 - 00:03 Master checked lane J with `eval.errors`. Best cut drop 1+2: 271 rows, 142 matched, F2 0.689. Not adopted: under 151 matches and under votes7. On votes7 the biggest gap to 1.0 is 151 rows outside gold paragraphs (dropping them reaches F2 0.813). On the cut, the biggest remaining gap is 30 on-cited misses (recovering them reaches 0.834). Spend $0. Not uploaded. All five lanes are checked. Results written in `brain/docs/todo/08-complex.md` and `out/README.md`. Task spend $4.34. Event total $19.26 of $70.
 - 00:02 Master checked lane H with `eval.errors`. Vote 2 of 3: 388 rows, 144 matched, F2 0.627. Vote 3 of 3: 253 rows, 111 matched, F2 0.548. Haiku run: 520 / 138 / 0.539. Both votes lose to the reused Opus run (388 / 146 / 0.636). On the 2-of-3 vote the biggest gap to 1.0 is 28 gold rows missed on a cited paragraph (recovering them reaches F2 0.749). Spend $4.34. Not uploaded.
 - 00:00 Lane J done. Classes catch 86 of 151 outside rows and destroy 43 matches. No cut keeps 151 matches. Best votes7 cut is drop 1+2: 271 / 142 / 0.689. Same rules lower F2 on Fable, main weight 0.7, and Sonnet weight 0.85. Not a Sunday filter. Not nominated. Spend $0.

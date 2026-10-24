@@ -245,7 +245,7 @@ Say which base file the final number uses.
 
 ## Results
 
-Written 25 Oct 00:02 CEST, from the lane reports, after `eval.errors` on each headline file. Every score is local. Nothing was uploaded. Spend is $4.34, all of it lane H (Sonnet weight 0.85 $3.16, Haiku relevance $1.17). J, K, I and L spent $0. With the swings' $14.92, the event total is $19.26 of the $70 ceiling.
+Written 25 Oct 00:02 CEST, from the lane reports, after `eval.errors` on each headline file. Local scores are below. Spend is $4.34, all of it lane H (Sonnet weight 0.85 $3.16, Haiku relevance $1.17). J, K, I and L spent $0. With the swings' $14.92, the event total is $19.26 of the $70 ceiling. The owner uploaded `rear-lamp-swing-I-tables.json` at 25 Oct 00:22: requirements F2 0.641 (146 of 190), pages F1 0.875, regulations 1.00. The local judge had said 163 / 0.716.
 
 A perfect local score is F2 1.0: 190 matched rows and 190 submitted rows. The lift named for each file is the larger of three counterfactuals: drop every row on a paragraph the experts never cite, turn the misses on a cited paragraph into matches without adding rows, or add one matching row for each gold row on a paragraph the file never cites.
 
