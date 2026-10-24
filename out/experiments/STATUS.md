@@ -1,6 +1,6 @@
 # Big swings: status
 
-Updated: 24 Oct 22:49 CEST (system clock) by master (Claude Code desktop, Opus 5.5), at the
+Updated: 24 Oct 22:50 CEST (system clock) by master (Claude Code desktop, Opus 5.5), at the
 handover to Cursor.
 Task: brain/docs/todo/07-big-swings.md. Branch: big-swings. Setup done: yes, commit "swing master: setup".
 
@@ -40,12 +40,12 @@ lane (lane B's B2 run may have spent some; read its log).
 | Lane | State | Last update | Current step | Spend so far | Lane file |
 |---|---|---|---|---|---|
 | A votes | stopped at 22:47 for the handover | 22:47 (commit c3a0495) | A1 to A4 done; next A5: write the two nominations (files exist, predictions in A.md "Next") and the report | $0 | out/experiments/A.md |
-| B maximum recall | waiting for upload (B4, B6); bumper transfer check (about $1.5) was running at 22:47 | 22:47 (commit 64c667d) | B1 to B6 done; transfer check and report open | $2.03 (+ about $1.5 running) | out/experiments/B.md |
+| B maximum recall | waiting for upload (B4, B6); all steps, transfer check and report done | 22:48 (commit d4110af) | done except the platform numbers | $3.71 | out/experiments/B.md |
 | C maximum precision | waiting for upload: out/rear-lamp-swing-C-votes12.json, predicted 101 / 0.556 | 22:45 (commit 24d12c1) | C1 to C4 done, report written; agent finished | $0 | out/experiments/C.md |
-| D hedged cuts | running, told to stop at 22:48 | 22:46 (commit 7ef691b) | D1, D2 done; next D3 (rebuild the coarse side without examples, `brain/swing/d_cut.py`, about $1) | $0 | out/experiments/D.md |
+| D hedged cuts | stopped for the handover, before D4 | 22:48 (commit 87d64e5) | D1 to D3 done (cut without examples, $0.82); next D4 nominate | $0.82 | out/experiments/D.md |
 | E verbatim rows | stopped at 22:46 for the handover | 22:46 (commit 214998a) | E1, E2 done (v1 316 rows, local 133; v2 300 rows, local 130); next a v3 that fixes four problems (about $0.60), see E.md "Next"; no nomination yet | $1.16 | out/experiments/E.md |
-| F row selector | running, told to stop at 22:48 | 22:46 (commit a769e68) | F1 done; next F2, the LLM keep feature (`brain/swing/f_keep.py`, Opus, about $0.75) | $0 | out/experiments/F.md |
-| G Sunday feasibility | running, told to stop at 22:48 | 22:42 | G1 in progress (`brain/swing/g_runs.py`, untracked), on the API with Haiku 5.5 | $0 | out/experiments/G.md |
+| F row selector | stopped at 22:48 for the handover | 22:48 (commit db8d5ee) | F1, F2 done, F3 mostly (votes + Opus keep + word share: local 158 / 342 rows, F2 0.717; log-scale sets still in a scratch script); next F3 finish, F4, F5, see F.md "Next" | $1.25 | out/experiments/F.md |
+| G Sunday feasibility | told to stop at 22:48; no stop report received by the Claude Code master | check G.md and git log | G1 in progress | check G.md | out/experiments/G.md |
 
 ## Upload queue (owner uploads by hand, at most 5 per hour)
 
@@ -61,6 +61,9 @@ that answer a question.
 | 5 | `out/rear-lamp-swing-A-votes4.json` (463 rows) | A | Does the platform find more matches in the 112 rows of a lower vote cut than the local judge does? | 163 / 0.669 (local 161 / 0.658) | | |
 
 ## Log
+
+- 22:50 Lanes B (done, $3.71), D (after D3, $0.82), F (after most of F3, $1.25) stopped. Lane G's
+  stop not confirmed. Claude Code master hit its usage limit here; Cursor takes over.
 
 - 22:49 Lanes A (after A4, $0), E (after E2, $1.16) stopped for the handover. Lane B finished B1
   to B6 ($2.03) and nominated two files; its bumper transfer check was still running. Queue
