@@ -23,7 +23,7 @@ from brain.ingest import parse_pdf
 from brain.paths import INDEX, TOOLS
 
 from .align import Kind, Link, Span, align, kind, units
-from .changes import added_changes, fuse, map_requirements, obligations, top
+from .changes import added_changes, fuse, map_requirements, obligations, system_name, top
 from .text import Op, bare, describe, fit, quote, sentences, shorten, substantive, word_ops
 
 __all__ = [
@@ -46,6 +46,7 @@ __all__ = [
     "sentences",
     "shorten",
     "substantive",
+    "system_name",
     "top",
     "units",
     "validate",
@@ -81,9 +82,10 @@ def diff_assessment(
     new = parse_pdf(new_pdf, regulation, to_version, "latest")
     links = align(old, new)
     sections = {top(r["source"]["paragraph"]) for r in requirements}
-    return map_requirements(requirements, old, links, regulation, to_version) + added_changes(
-        links, sections, regulation, to_version
+    modified = map_requirements(
+        requirements, old, links, regulation, to_version, new=new, system=system_name(new)
     )
+    return modified + added_changes(links, sections, regulation, to_version)
 
 
 def run(

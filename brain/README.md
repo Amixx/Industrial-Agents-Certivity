@@ -210,7 +210,7 @@ uv run python -m brain.subgoal.survey               # every base and latest pair
 | `brain/subgoal/score.py`, `survey.py` | Local scorer; survey and synthetic edits. |
 
 On dev (UN R175 0.1.0 to 1.0.0) the platform scores flag recall 100.0%, flag precision 100.0%
-and change accuracy 95.7% (`../out/subgoal-dev-det-v4.json`, which the code reproduces byte for
+and change accuracy 100.0% (`../out/subgoal-dev-det-v6.json`, which the code reproduces byte for
 byte).
 
 ## Evaluate

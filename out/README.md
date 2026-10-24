@@ -124,6 +124,7 @@ use `brain/brain/subgoal/score.py` (at the time `brain/eval/subgoal_score.py`).
 | 25 Oct 00:07 | `subgoal-dev-det-v3.json` | As v2, plus: a long or cut-off modified text drops its unfinished last fragment and unchanged sub-lists before its end; an item with its own modal keeps a procedure lead-in as "During …"; run-in headings read "For …, …" | `main` @ `d8e9235` plus staged changes | 24 (6 modified, 1 removed, 17 added) | 1.000 / 1.000 / 0.667 (new_text similarity 0.926; R-021 now equals the gold) | (00:08:18) flag recall 100.0%, flag precision 100.0%, change accuracy 95.7% | $0 |
 | 25 Oct 00:11 | `subgoal-dev-det-v4.json` | As v3, but a modified requirement always keeps its own text with the edits applied (the task's rule); the new sentence only when an edit finds no place | `main` @ `d8e9235` plus staged changes | 24 (6 modified, 1 removed, 17 added) | 1.000 / 1.000 / 0.667 (new_text similarity 0.910) | (00:12:40) flag recall 100.0%, flag precision 100.0%, change accuracy 95.7% | $0 |
 | 25 Oct 00:16 | `subgoal-dev-det-v5.json` | As v4, but a run-in heading stays in the quote and out of `new_text` (only 5.1.6.2 differs from v4): a one-row test | `main` @ `d8e9235` plus staged changes | 24 (6 modified, 1 removed, 17 added) | 1.000 / 1.000 / 0.667 (new_text similarity 0.909) | (00:18:03) flag recall 100.0%, flag precision 100.0%, change accuracy 95.7% | $0 |
+| 25 Oct 00:41 | `subgoal-dev-det-v6.json` | As v4, plus: a name the new version no longer has (the old heading "Accelerator control misapplication test") becomes the system named in the scope ("ACPE test") | `main` @ `8a75a2a` plus the commit that adds the stale-name rule | 24 (6 modified, 1 removed, 17 added) | 1.000 / 1.000 / 0.667 (new_text similarity 0.915) | (00:44:21) flag recall 100.0%, flag precision 100.0%, **change accuracy 100.0%** | $0 |
 
 ## What is measured
 
@@ -399,12 +400,33 @@ heading. Only (3) has a general fix, so `subgoal-dev-det-v5.json` tests it: it d
 in that one row. Uploaded at 00:18:03: still 95.7%, so (3) is ruled out and the v5 rule is
 reverted; the code again writes v4's file byte for byte.
 
-**Where this leaves the sub-goal on dev:** flag recall and flag precision 100%, change accuracy
+**Where this left the sub-goal on dev at 00:18** (overtaken at 00:44, see the next section):
+flag recall and flag precision 100%, change accuracy
 95.7% (22 of 23), with general rules only. The last row is most likely R-085: the gold drops
 "both in a forward and rearward direction", which the old requirement and the new paragraph
 both contain and which its own reason does not list as an edit. Matching it would mean deleting
 regulation text, which no general rule should do, so the 22 of 23 stands. The final dev file is
 `subgoal-dev-det-v4.json`.
+
+### 25 Oct, 00:41: names the new version no longer has
+
+`subgoal-dev-det-v6.json` tests a second explanation for R-085: its subject. v3 sent "The test
+procedures shall …" (the new sentence, no scope) and v4 "The accelerator control misapplication
+test procedures shall …" (the old name); both scored 95.7%. The gold says "The ACPE test
+procedures". The old name comes from the heading of old 6.5, and the words "accelerator control
+misapplication test" appear nowhere in the new version, so the name is stale. The rule: when the
+heading of a requirement's old paragraph (or of its parents) appears nowhere in the new version,
+its name in the modified text becomes the system the regulation's scope defines ("ACPE", from
+"… (ACPE)" in section 1) plus the head noun: "ACPE test". Without a system defined in the scope,
+only the head noun stays. On dev it changes R-084 ("For the ACPE test, …"), R-085 ("The ACPE test
+procedures …") and R-086 ("The procedure for each ACPE test …"); on R148, R10 and R48 with the
+main goal's rows it changes nothing.
+
+Uploaded at 00:44:21: flag recall 100.0%, flag precision 100.0%, change accuracy 100.0%. So the
+last row was R-085's subject, not the clause "both in a forward and rearward direction" that the
+gold drops: the judge accepts the extra clause but not a scope it cannot place. The earlier
+reading (a gold inconsistency, not worth a rule) was wrong; the rule is general and costs
+nothing elsewhere. v6 is the dev file of record.
 
 ### Cost per run
 
