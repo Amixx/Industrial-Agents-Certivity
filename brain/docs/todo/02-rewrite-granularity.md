@@ -97,4 +97,7 @@ selected), Opus through `claude -p`, local judge. Scripts and outputs:
 - No dev or a03 sentence in the prompt; the examples are main's R48 headlamp, R127, R42 and
   GTR 9 ones.
 - Full pipeline with v4 plus task 03's stack (`fin-dev-rear-lamp`): local judge 158/190, F2
-  0.717 on 342 rows; synth-a03 49/57, F2 0.648. Platform score: pending upload.
+  0.717 on 342 rows; synth-a03 49/57, F2 0.648. Platform: F2 0.635, 140 matched, below the
+  v3 run's 0.670. v4's rows drop the subject and condition, which the local judge rewards and
+  the platform judge does not (`../out/README.md`, branch `kb-stack` runs). v4 is not the
+  rewrite to use.

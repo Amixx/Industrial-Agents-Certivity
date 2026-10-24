@@ -108,7 +108,7 @@ Full runs, Opus everywhere through `claude -p`, local judge:
 | main at `7644efe` (Opus relevance, Sonnet rewrite) | 368 / 145 / 0.643 | 0.566 | 0.650 | 0.634 |
 | obligation base + Jev cut 0.25 | 389 / 153 / 0.666 | 0.606 | 0.664 | **0.670** (recall 0.811) |
 | plus the requirement filter | 349 / 150 / 0.676 | 0.630 | 0.659 | not uploaded |
-| plus task 02's v4 rewrite | 342 / 158 / 0.717 | 0.648 | pending | pending |
+| plus task 02's v4 rewrite | 342 / 158 / 0.717 | 0.648 | not scored | 0.635 (recall 0.737) |
 
 Not yet checked: `eval.transfer` and `eval.suite --no-llm` on the branch, and the full pipeline
 on the bumper cases against the silver labels (running).

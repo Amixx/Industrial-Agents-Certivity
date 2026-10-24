@@ -96,6 +96,33 @@ so the gap to the Fable row is the rewrite alone.
 - The run took 37 minutes on an M5 with 16 GB (52 batches of 4 paragraphs, temperature 0,
   thinking off) and cost nothing.
 
+### Branch `kb-stack` runs
+
+Uploaded on 24 Oct between 21:05 and 22:16 CEST. Every LLM step ran through `claude -p` or
+`codex exec` on a subscription, so the dollar figures in the logs are what `claude -p` reports,
+not a bill. Code is on branch `kb-stack` (not merged).
+
+| File | Configuration | Requirements | Requirement P / R / F2 | Matched of 190 | Page P / R / F1 |
+|---|---|---|---|---|---|
+| `rear-lamp-main-cli.json` | `main` at `7644efe`: Opus relevance, Sonnet rewrite | 368 | 0.389 / 0.753 / **0.634** | 143 | 0.806 / 0.943 / 0.870 |
+| `rear-lamp-kb-deterministic.json` | obligation base, no LLM | 864 | 0.125 / 0.568 / **0.333** | 108 | 0.418 / 0.925 / 0.576 |
+| `rear-lamp-kb-jev.json` | `5f6e476`: obligation base, Jev blend cut 0.25, Opus everywhere | 389 | 0.396 / 0.811 / **0.670** | 154 | 0.781 / 0.943 / 0.855 |
+| `rear-lamp-kb-jev-filter-v4.json` | `1d8b22e`: the above plus the requirement filter and the minimal-edit rewrite | 342 | 0.409 / 0.737 / **0.635** | 140 | 0.785 / 0.962 / 0.864 |
+| `rear-lamp-kb-sol-rewrite.json` | the 214 paragraphs of `rear-lamp-kb-jev.json` rewritten by GPT-6.1 Sol with a prompt that names the device in every row | 420 | 0.340 / 0.753 / **0.606** | 143 | 0.794 / 0.943 / 0.862 |
+
+- The minimal-edit rewrite lost 14 matches. Its rows drop the subject and the condition ("Test
+  pulse 1 shall be applied ...", "In each direction a tolerance of ±3° shall be allowed."),
+  which the platform judge does not match. The local judge scored the same file 0.717, its
+  largest error so far.
+- Sol's rewrite of the same paragraphs lost 11 matches against Opus's. It wrote 31 more rows,
+  over-split a few paragraphs (UN R150 5.1.4.4.1 into 6 extra rows) and left 7 paragraphs
+  without a requirement. The model and the prompt both changed, so this does not isolate the
+  prompt.
+- With the LLM regulation review on, the obligation base changes no selected regulation on dev,
+  synth-a06, the plain bumper or the bumper with sensors and fog lamp, against `main`'s
+  selection with the same light-source rule. Without the LLM it keeps R150 on synth-a06 and R42
+  on the plain bumper, which the lexical ranking alone drops.
+
 ### Cost per run
 
 From the pipeline logs (`rear-lamp-<model>.log`).
