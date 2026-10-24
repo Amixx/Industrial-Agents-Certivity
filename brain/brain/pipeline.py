@@ -5,7 +5,8 @@
 
 Steps: profile -> regulation selection -> graph -> decision model over paragraphs -> rewrite
 -> verify -> boilerplate rows dropped; with an LLM, the requirement filter and the section cut
-follow. Extra fields (confidence, quote, rationale) are allowed by the format and feed the UI.
+follow. Last, each requirement takes its quote as its text where that quote is its own. Extra
+fields (confidence, quote, rationale) are allowed by the format and feed the UI.
 `run(spec, image)` is the entry point for the backend.
 """
 
@@ -19,7 +20,7 @@ from collections.abc import Sequence
 from pathlib import Path
 from typing import Any
 
-from . import boilerplate, jev, keep, llm, relevance, sections
+from . import boilerplate, jev, keep, llm, relevance, sections, verbatim
 from . import features as F
 from .decide import MODEL_PATH, Model
 from .graph import build
@@ -151,6 +152,7 @@ def run(
             p_section = sections.scores(kept, graph, product)
             kept = sections.cut(kept, [pk for _, pk in scored], p_section)
             log(f"section cut: {len(kept)} kept of {len(scored)}")
+    kept = verbatim.apply(kept)
     requirements = []
     for i, d in enumerate(kept, start=1):
         p = d.paragraph

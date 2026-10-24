@@ -331,3 +331,34 @@ def test_boilerplate_drops_pointers_umbrellas_and_approval_marks() -> None:
         "Lamps shall bear the trade name or mark of the applicant.",
     ]
     assert [q for q in dropped + kept if not boilerplate.matches(q)] == kept
+
+
+def test_verbatim_takes_the_quote_unless_shared() -> None:
+    from brain import verbatim
+    from brain.models import Paragraph
+    from brain.rewrite import Draft
+
+    p = Paragraph(
+        id="UN R1|1|5.1",
+        regulation="UN R1",
+        version="1",
+        role="base",
+        label="5.1",
+        number="5.1",
+        page=3,
+        page_end=3,
+        text="",
+    )
+    own = Draft(
+        p, "The rear lamp shall emit red light.", "The colour of the light emitted shall be red."
+    )
+    a = Draft(p, "S1 lamps: 60 cd minimum.", "Table: S1 60 cd, S2 30 cd")
+    b = Draft(p, "S2 lamps: 30 cd minimum.", "Table: S1 60 cd, S2 30 cd")
+    short = Draft(p, "Lamps shall be red.", "Red.")
+    out = verbatim.apply([own, a, b, short])
+    assert [d.text for d in out] == [
+        "The colour of the light emitted shall be red.",
+        "S1 lamps: 60 cd minimum.",
+        "S2 lamps: 30 cd minimum.",
+        "Lamps shall be red.",
+    ]
