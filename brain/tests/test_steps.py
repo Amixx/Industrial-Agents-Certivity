@@ -1,10 +1,12 @@
 import json
+from pathlib import Path
+from typing import Any
 
 import pytest
 
 from brain.graph import build
 from brain.ingest import CORPUS, Line, load_all, parse_lines
-from brain.models import Paragraph
+from brain.models import Paragraph, ProductProfile
 from brain.obligations import condition, modality, sentences
 from brain.paths import CASES
 from brain.profile import parse_spec
@@ -206,3 +208,39 @@ def test_relevance_select_cuts_each_regulation_on_its_own_scale() -> None:
     assert {p.id for p, s in bumper if s == 0.3} == {i for i in kept if i.startswith("UN R42")}
     absolute = relevance.select(lamp + bumper, cut=0.5)
     assert len([i for i in absolute if i.startswith("UN R42")]) == 6  # only the FLOOR share
+
+
+def test_jev_combines_judgements_and_caches(
+    monkeypatch: pytest.MonkeyPatch, tmp_path: Path
+) -> None:
+    from brain import jev
+    from brain.graph import Graph
+
+    paragraphs = [
+        Paragraph(
+            id=f"UN R48|0|{i}",
+            regulation="UN R48",
+            version="0",
+            role="base",
+            label=str(i),
+            number=str(i),
+            page=1,
+            page_end=1,
+            text=f"text {i}",
+        )  # fmt: skip
+        for i in range(30)
+    ]
+    calls = []
+
+    def post(body: dict[str, Any]) -> dict[str, Any]:
+        calls.append(body)
+        technical = {k: {"noul": 0.9 if k.endswith("__0") else 0.1} for k in body["questions"]}
+        return {"answers": technical, "usage": {"input_tokens": 1000}}
+
+    monkeypatch.setattr(jev, "_post", post)
+    monkeypatch.setattr(jev, "CACHE", tmp_path)
+    graph = Graph(paragraphs={p.id: p for p in paragraphs})
+    first = jev.score(paragraphs, graph, ProductProfile(product="rear lamp"))
+    again = jev.score(paragraphs, graph, ProductProfile(product="rear lamp"))
+    assert len(calls) == 2 and first == again
+    assert first["UN R48|0|0"] > first["UN R48|0|1"]

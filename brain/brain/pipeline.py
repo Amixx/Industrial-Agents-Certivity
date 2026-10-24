@@ -19,7 +19,7 @@ from pathlib import Path
 from typing import Any
 
 from . import features as F
-from . import llm, relevance
+from . import jev, llm, relevance
 from .decide import MODEL_PATH, Model
 from .graph import build
 from .ingest import load_all
@@ -56,6 +56,9 @@ def select_paragraphs(
     ]
     model = Model.load(MODEL_PATH)
     probs: Any = model.predict(F.matrix(paragraphs, ctx)) if paragraphs else []
+    if jev.enabled() and paragraphs:
+        jev_p = jev.score(paragraphs, graph, profile)
+        probs = [jev_p[p.id] for p in paragraphs]
     cut = model.threshold
     if use_llm and paragraphs:
         llm_p = relevance.score(paragraphs, graph, profile)
@@ -128,7 +131,10 @@ def run(
     chosen, graph = select_paragraphs(profile, corpus, choices, threshold, use_llm)
     log(f"paragraphs selected: {len(chosen)}")
     confidence = {p.id: pr for p, pr in chosen}
-    drafts = rewrite([p for p, _ in chosen], graph, profile.product, use_llm=use_llm)
+    product = profile.model_dump_json(
+        include={"product", "vehicle_categories", "functions", "parts"}
+    )
+    drafts = rewrite([p for p, _ in chosen], graph, product, use_llm=use_llm)
     kept, dropped = clean(drafts, graph.paragraphs)
     log(f"requirements: {len(kept)} kept, {len(dropped)} dropped")
     requirements = []
@@ -148,6 +154,8 @@ def run(
                 "quote": d.quote[:1000],
             }
         )
+        if d.atomic:
+            requirements[-1]["atomic"] = d.atomic
     submission = {
         "team_id": team_id,
         "case_id": case_id,
