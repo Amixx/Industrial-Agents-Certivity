@@ -1,81 +1,97 @@
 # Lane H: a vote of three runs we can produce
 
-State: blocked: approved spend is $0, and runs 2 and 3 are not in the cache. Updated: 24 Oct 23:49 CEST.
-Approved spend: $0. Spent: $0. No API call was made.
+State: done. Updated: 24 Oct 23:59 CEST.
+Approved spend: $6 (owner, 23:33, planned cap; lane maximum $20). Spent: $4.34.
 
 ## Checklist
 
 - [x] H1 Reuse Opus relevance, blend weight 0.7, the pipeline cut, if the prompt matches.
-      Done 24 Oct 23:49 CEST. File: `out/rear-lamp-main-a39acab.json` (reused, not rewritten).
-      Commit: this step. Found: the current Sonnet prompt matches. 388 rows, 146 matched, F2 0.636.
-      Opus relevance 113/113 cache hits. Sonnet rewrite of those 267 paragraphs 23/23 cache hits.
-- [x] H2 Dry-run Sonnet relevance and rewrite, blend weight 0.85. No call made.
-      Done 24 Oct 23:49 CEST. Files: `brain/swing/h_dry.py`, `out/experiments/H-dry.json`.
-      Found: Sonnet relevance 0/113 cache hits, estimated $2.241. Rewrite set is unknown;
-      the Opus weight-0.85 proxy (362 paragraphs) has 0/31 rewrite hits, estimated $1.116.
-- [x] H3 Dry-run Haiku relevance at weight 0.85, Sonnet rewrite of the paragraphs Haiku selects.
-      Done 24 Oct 23:49 CEST. Same files. Found: Haiku relevance 0/113 cache hits, estimated $0.112.
-      Rewrite is a second cold set of about the same size, $1.116 on the same proxy.
-- [ ] H4 Vote at 2 of 3 and at 3 of 3, representative text from run 2.
-      Not run. `out/rear-lamp-swing-H-sonnet-w85.json` and `out/rear-lamp-swing-H-haiku-rel.json`
-      do not exist. The historical 14 files were not added to this vote.
+      Done 24 Oct 23:49 CEST. File: `out/rear-lamp-main-a39acab.json` (reused).
+      Commit: `0b1c87a`. Found: prompt matches. 388 rows, 146 matched, F2 0.636.
+      Opus relevance 113/113 cache hits. Sonnet rewrite 23/23 cache hits. Spend $0.
+- [x] H2 Sonnet relevance and rewrite, blend weight 0.85.
+      Dry-run 23:49, commit `0b1c87a`: 0/113 relevance hits, estimate $2.241 plus about $1.12 rewrite.
+      Run 23:55, commit `69e9927`. 301 paragraphs, 403 rows, 136 matched, F2 0.585. Spend $3.162. 92 s.
+- [x] H3 Haiku relevance, blend weight 0.85, Sonnet rewrite of the paragraphs Haiku selected.
+      Dry-run 23:49: 0/113 relevance hits, estimate $0.112 plus about $1.12 rewrite.
+      Run 23:56, commit `a07209e`. 348 paragraphs, 520 rows, 138 matched, F2 0.539. Spend $1.174. 70 s.
+- [x] H4 Vote at 2 of 3 and at 3 of 3, representative text from run 2.
+      Done 24 Oct 23:57 CEST. Commit: `e28ffbe`. Jaccard 0.5, the votes7 setting.
+      2 of 3: 388 rows, 144 matched, F2 0.627. 3 of 3: 253 rows, 111 matched, F2 0.548.
+      The historical 14 files are not in this vote. Spend $0.
 
-Next: when the ledger shows an approved spend for lane H of at least $4.59 (the cap in the brief is $6), produce runs 2 and 3 into `out/rear-lamp-swing-H-*`, then vote. Do not use `g_runs.py` for that: it writes `out/experiments/G-*`. Keep the Opus profile and the four regulations (they are cached). Set the relevance model only for `relevance.score`, wrap `relevance.blend` at weight 0.85 (assigning `WEIGHT` does nothing), and rewrite with `claude-sonnet-5-5` and main's current prompt. Dry-run again first; cache hits stay free.
+Next: none. The question is answered below.
 
 ## Run log rows
 
 | Run | File | Method | Code | Rows | Local matched / F2 | Platform (upload): matched / F2 | Spend |
 |---|---|---|---|---|---|---|---|
 | 24 Oct 23:49 | out/rear-lamp-main-a39acab.json | reused: Opus relevance, blend 0.7, Sonnet rewrite, main's prompt (`d7683cd`) | pipeline, already on disk | 388 | 146 / 0.636 | not uploaded | $0 |
-| 24 Oct 23:49 | (not written) | Sonnet relevance + Sonnet rewrite, blend 0.85 | h_dry.py | — | — | — | est. $3.36 |
-| 24 Oct 23:49 | (not written) | Haiku relevance, blend 0.85, Sonnet rewrite | h_dry.py | — | — | — | est. $1.23 |
+| 24 Oct 23:55 | out/rear-lamp-swing-H-sonnet-w85.json | Sonnet 5.5 relevance and rewrite, blend 0.85, Opus profile kept | h_run.py | 403 | 136 / 0.585 | not uploaded | $3.162 |
+| 24 Oct 23:56 | out/rear-lamp-swing-H-haiku-rel.json | Haiku 5.5 relevance, blend 0.85, Sonnet rewrite | h_run.py | 520 | 138 / 0.539 | not uploaded | $1.174 |
+| 24 Oct 23:57 | out/rear-lamp-swing-H-vote2.json | row vote, 2 of these 3, Jaccard 0.5, text from run 2 | h_vote.py | 388 | 144 / 0.627 | not uploaded | $0 |
+| 24 Oct 23:57 | out/rear-lamp-swing-H-vote3.json | row vote, 3 of these 3, same representative | h_vote.py | 253 | 111 / 0.548 | not uploaded | $0 |
 
 ## Uploads
 
-None. Run 1 is 10 matches behind votes7 (156 / 0.702). No file from this lane is ahead of it.
+None. The best file in this lane is the reused Opus run, 146 matched, F2 0.636. votes7 is 156 / 0.702. Nothing here beats 0.702. The owner closed the upload queue at 23:36.
 
 ## Notes
 
-Run 1 is `out/rear-lamp-main-a39acab.json`. The log at 22:35 CEST already recorded 115 Opus cache hits, 23 Sonnet cache hits, 267 paragraphs, 388 requirements, and $0. `brain/brain/rewrite.py` last changed in `d7683cd` at 21:44, before that file was written. The dry run, which refuses any network call, reproduces the log: regulations UN R148 0.95, UN R48 0.92, UN R150 0.88, UN R10 0.85; weight 0.7 keeps 267 paragraphs; the Sonnet rewrite of that list is 23 cache hits and $0. The prompt matches. The file was not regenerated.
+The ledger still said $0 when this lane started. The dry run was finished before any call. At 23:50 the ledger showed the owner's 23:33 answer: lane H may spend, planned cap $6. The dry-run total was $4.59, under that cap, so runs 2 and 3 were made. Actual spend $4.336.
 
-Scored at 23:39 CEST with no model call:
+Run 1 was not regenerated. `rewrite.py` last changed in `d7683cd` at 21:44, and the file was written at 22:35. The dry run reproduces that log: UN R148 0.95, UN R48 0.92, UN R150 0.88, UN R10 0.85; weight 0.7 keeps 267 paragraphs; the Sonnet rewrite of that list is 23 cache hits. Profile and regulation review are 2 cached Opus calls. They were hits again on both paid runs.
 
-- `tools/validate.py`: valid, 388 requirements.
-- `tools/score_local.py`: regulation 4/4/4, F1 1.000. Page 62/53/49, precision 0.790, recall 0.925, F1 0.852.
-- `eval.score`: requirement 388/190/146, precision 0.376, recall 0.768, F2 0.636. Page F2 0.894.
+`h_dry.py` refuses the network and was calibrated to `out/rear-lamp-mix-noimage.log` ($4.65; the rebuild came out $4.689). Haiku rates are `g_runs.py`: $0.10 / $0.50 / $0.01 per million. The paid runs landed next to the estimate:
 
-votes7, from the brief, is 351 rows, 156 matched, F2 0.702. Run 1 is the only one of the three that can be scored today. It is the best single run this lane has, and it loses to votes7 by 10 matches.
-
-`brain/swing/h_dry.py` builds the real prompts and reads `brain/data/cache/llm/`. A miss raises before the SDK, and `_anthropic` is replaced so a bug cannot spend. Profile and regulation review stay on the cached Opus answers (2 calls, both hits, inside the 115). Relevance is 2,805 candidate paragraphs in batches of 25 (113 calls). The token estimate is calibrated to `out/rear-lamp-mix-noimage.log` (115 Opus calls, 667,122 in / 98,058 out / 77,770 cache read, $4.65). Rebuilding that log from the same prompts came out $4.689. Haiku rates are the ones in `g_runs.py`: $0.10 / $0.50 / $0.01 per million tokens. They are not in the run-log price table.
-
-Rewrite dollars scale `out/rear-lamp-mix.log`: 23 Sonnet calls, $0.854, the same prompt, about $0.0032 per paragraph. Weight 0.85 with the cached Opus scores keeps 362 paragraphs. Those 31 batches are all cache misses ($1.116 by prompt characters, $1.158 by the per-paragraph rate). Sonnet and Haiku scores are not cached, so their paragraph lists are not known. The 362 figure is a size proxy, not their selection. It already shares no rewrite batch with the cached 267, so a different list does not get cheaper. Relevance does not depend on that list: every candidate is scored, and that cost is fixed.
-
-| Piece | Cache | Estimate |
+| Piece | Dry-run | Paid |
 |---|---|---|
-| Run 1, whole file | reused | $0 |
-| Run 2, Sonnet relevance, 113 batches | 0 hits | $2.241 |
-| Run 2, Sonnet rewrite, ~362 paragraphs | 0 hits on the proxy | $1.116 |
-| Run 3, Haiku relevance, 113 batches | 0 hits | $0.112 |
-| Run 3, Sonnet rewrite, ~362 paragraphs | 0 hits on the proxy | $1.116 |
-| Both new runs | | $4.59 |
+| Sonnet relevance, 113 batches (114 with one retry) | $2.241, 0 hits | $2.287, 0 hits |
+| Sonnet rewrite of the Sonnet selection | $1.12 at the 362-paragraph Opus proxy | $0.875, 301 paragraphs, 0 hits |
+| Haiku relevance, 113 batches | $0.112, 0 hits | $0.115, 0 hits |
+| Sonnet rewrite of the Haiku selection | $1.12 on the same proxy | $1.059, 348 paragraphs, 0 hits |
 
-$4.59 is under the $6 cap in the brief. The approved amount is $0, so nothing was run. Relevance is fixed. Rewrite is about $0.0032 per selected paragraph, paid twice because the two lists will not share batches. Both rewrites stay inside the leftover $3.65 of the cap unless each list is larger than about 570 paragraphs. The Opus weight change itself, 267 to 362, is the only size this lane could measure without spending.
+Weight 0.85 with cached Opus scores would have kept 362 paragraphs, and those 31 rewrite batches were all misses. The real selections were smaller and still missed every rewrite batch. The cached rewrites are exactly the weight-0.7 list.
 
-Swapping the strong model for the whole pipeline, which is what `g_runs.py` does, is a different call. Sonnet's profile for this spec and drawing is already cached. Sonnet regulation review, using the Opus profile text, is one miss at about $0.08. Haiku profile and regulation review are both misses, together under $0.01. Those calls are not in the $4.59. This lane keeps the Opus profile so the three runs differ only in paragraph selection.
+Scored with `tools/validate.py` (all four new files valid) and `uv run python -m eval.score`, which includes the regulation and page levels from `tools/score_local.py`. `eval.errors` at 23:57:
+
+| File | Rows | Outside gold paragraphs | Missed on a cited paragraph | Gold rows on paragraphs never cited | F2 | F2 if outside rows are dropped |
+|---|---|---|---|---|---|---|
+| Run 1, Opus 0.7 | 388 | 177 | 25 | 19 | 0.636 | 0.747 |
+| Run 2, Sonnet 0.85 | 403 | 204 | 23 | 31 | 0.585 | 0.693 |
+| Run 3, Haiku 0.85 | 520 | 327 | 22 | 30 | 0.539 | 0.714 |
+| Vote, 2 of 3 | 388 | 177 | 28 | 18 | 0.627 | 0.742 |
+| Vote, 3 of 3 | 253 | 95 | 24 | 55 | 0.548 | 0.605 |
+
+Why F2 is not 1.0. The three lifts are: drop every row outside a gold paragraph (the oracle printed above); turn the on-cited misses into matches without adding rows; add one matching row for each gold row on a paragraph the file never cites.
+
+| File | Lift from dropping outside rows | Lift from recovering on-cited misses | Lift from citing the skipped gold rows | Largest |
+|---|---|---|---|---|
+| Run 1 | 0.111 | 0.109 | 0.071 | outside rows |
+| Run 2 | 0.108 | 0.099 | 0.114 | paragraphs never cited |
+| Run 3 | 0.175 | 0.086 | 0.102 | outside rows |
+| 2 of 3 | 0.115 | 0.122 | 0.068 | on-cited misses |
+| 3 of 3 | 0.057 | 0.118 | 0.230 | paragraphs never cited |
 
 ## Report
 
-The vote was not run. Two of the three files do not exist, and making them is about $4.59 of new API spend against an approved cap of $0. Run 1, reused from cache, scores 146 matched and F2 0.636, which is 10 matches behind votes7 (156 / 0.702). Whether three runs we produce ourselves reach most of the 14-run gain is still open.
+Three runs we can produce on Sunday do not reach most of the 14-run gain. votes7 is 156 matched and F2 0.702. The 2-of-3 vote is 144 / 0.627, and the 3-of-3 vote is 111 / 0.548. The best of the three single runs is the reused Opus file at weight 0.7, 146 / 0.636, and both votes lose to it. The 0.702 figure is a property of that 14-file pool. It is not what these three selections produce.
 
-| File | Rows | Matched | F2 | New spend |
+| File | Rows | Matched | F2 | Against votes7 |
 |---|---|---|---|---|
-| votes7 (lane A) | 351 | 156 | 0.702 | $0, already on disk |
-| Run 1, Opus relevance, weight 0.7 | 388 | 146 | 0.636 | $0, reused |
-| Run 2, Sonnet, weight 0.85 | not written | | | $3.36 estimated |
-| Run 3, Haiku relevance, Sonnet rewrite, weight 0.85 | not written | | | $1.23 estimated |
+| votes7 (lane A, not in this vote) | 351 | 156 | 0.702 | — |
+| Run 1, Opus relevance, weight 0.7 | 388 | 146 | 0.636 | −10 matches |
+| Run 2, Sonnet relevance and rewrite, weight 0.85 | 403 | 136 | 0.585 | −20 matches |
+| Run 3, Haiku relevance, Sonnet rewrite, weight 0.85 | 520 | 138 | 0.539 | −18 matches |
+| Vote, 2 of 3, text from run 2 | 388 | 144 | 0.627 | −12 matches |
+| Vote, 3 of 3, text from run 2 | 253 | 111 | 0.548 | −45 matches |
+
+From run 1 (0.636) to votes7 (0.702) is 0.066 F2 and 10 matches. The 2-of-3 vote is below run 1, so it takes none of that gain. From run 2 (0.585) the same distance is 0.117 and 20 matches. The 2-of-3 vote picks up 8 matches and 0.042 F2, about a third of the way, not most of it. The 3-of-3 vote loses to run 2 alone (111 against 136). The 2-of-3 vote does not: 144 beats run 2's 136. Beating the Sonnet run is not the same as beating the best run. Agreement here mostly copied run 1 (388 rows, 177 of them outside gold paragraphs, two fewer matches).
+
+On the lamp, Sonnet at blend weight 0.85 is worse than Opus at 0.7. It cites 31 gold rows' paragraphs that it never reaches, against 19 for the Opus file, and it adds outside rows (204 against 177). That is the flood the relevance comment already estimated for weight 0.85 on this product. Lane G's weight 0.85 result was on the bumper, where the decision model is weak. These two cases disagree. A three-run vote is not the Sunday method, and on the lamp the single run to beat is still Opus relevance at weight 0.7, not the Sonnet weight-0.85 run.
 
 **Uploads.** None.
 
-**Transfer.** Not run. There is no voted file to take to the bumper.
+**Transfer.** Not run again. The lamp result does not by itself change the bumper recommendation in lane G. It does say that a vote of one rewrite prompt across three relevance settings failed to move the lamp.
 
-**Sunday.** Not answered. The lamp vote of these three runs does not exist, so this lane cannot say that diversity of this kind fails, and it cannot say that it reaches 0.702. If the spend is approved, the two new runs are about $4.59 together at a selection near 362 paragraphs, on top of run 1 which is free. The commands and the cache counts are in Notes.
+**Sunday.** One Sonnet run at weight 0.85 remains lane G's bumper command. This lane does not replace it with a vote. Building the vote on the lamp cost $4.34 and about three minutes (92 s and 70 s), because Opus relevance and the weight-0.7 rewrite were cached and the other two relevance passes were not. On a cold bumper those relevance passes are the expensive part, and the vote still lost to the best single file.

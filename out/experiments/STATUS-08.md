@@ -18,7 +18,7 @@ A lane that would pass its planned cap stops, writes the estimate, and waits. Th
 | J skip classes on votes7 | running | 23:58 | J3 read the least-bad cut, sunday scores next | $0 | out/experiments/J.md |
 | K same filter on votes4 | done | 23:53 | K4: filter does not beat votes7, not nominated | $0 | out/experiments/K.md |
 | I table split into votes7 | done | 23:47 | I3 scored, 163 matched, F2 0.716, not nominated | $0 | out/experiments/I.md |
-| H vote of three new runs | running | 23:33 | dry-run, then the three runs if the estimate is within $6 | $0 | out/experiments/H.md |
+| H vote of three new runs | done | 23:59 | H4: 2 of 3 is 144/0.627, loses to run 1 and to votes7 | $4.34 | out/experiments/H.md |
 | L Sonnet 0.85 plus filter | done | 23:58 | L5 scored the weight-0.85 file: 403/136/0.585, best cut 345/130/0.588, not within 5 of votes7 | $0 | out/experiments/L.md |
 
 ## Upload queue
@@ -33,6 +33,7 @@ Score with `tools/validate.py`, `tools/score_local.py`, and `uv run python -m ev
 
 ## Log
 
+- 23:59 Lane H done. Three selections do not reach votes7. Run 1 reused 388/146/0.636. Sonnet weight 0.85: 403/136/0.585 ($3.16). Haiku relevance: 520/138/0.539 ($1.17). Vote 2 of 3: 388/144/0.627. Vote 3 of 3: 253/111/0.548. Both votes lose to run 1. Spend $4.34. Not nominated.
 - 23:58 Lane L step 5 done. Weight-0.85 file 403 rows, 136 matched, F2 0.585. Best cut drop 1+2: 345 / 130 / 0.588. Biggest gap to 1.0 is the 34 gold rows on paragraphs never cited (adding one row each reaches F2 0.720). Not within 5 of votes7. Not nominated. Spend $0.
 - 23:58 Lane J step 3. No cut still matches 151. Read 15 deleted and 10 unmatched kept rows from drop 1+2 (271 / 142 / 0.689), not adopted. The matched deletions name a test, a level, or a count. Spend $0.
 - 23:55 Lane J step 2. Four cuts all lose to votes7. Best is drop 1+2: 271 rows, 142 matched, F2 0.689. Classes catch 86 of 151 outside rows and destroy 43 matches. No cut still matches 151. Spend $0.
