@@ -67,7 +67,8 @@ def select_paragraphs(
             for p, a in zip(paragraphs, probs, strict=True)
         ]
         scored = list(zip(paragraphs, map(float, probs), strict=True))
-        keep = relevance.select(scored, threshold)
+        relative = relevance.RELATIVE_JEV if jev.enabled() else relevance.RELATIVE
+        keep = relevance.select(scored, threshold, relative)
         return [(p, pr) for p, pr in scored if p.id in keep], graph
     cut = cut if threshold is None else threshold
     chosen = [(p, float(pr)) for p, pr in zip(paragraphs, probs, strict=True) if pr >= cut]
