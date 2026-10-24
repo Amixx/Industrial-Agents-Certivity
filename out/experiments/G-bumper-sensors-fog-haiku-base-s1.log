@@ -1,0 +1,12 @@
+[g 23:06:00] profile took 0 s
+[brain 23:06:00] profile: Front bumper front-end module with integrated front fog lamps, front position lamps and parking-assist ultrasonic sensors; 18 terms; electronics=True
+[g 23:06:00] regulations took 0 s
+[brain 23:06:00] regulations: UN R42 0.95, UN GTR 9 0.85, UN R127 0.85, UN R48 0.85, UN R149 0.85, UN R148 0.80, UN R26 0.60, UN R10 0.00
+[g 23:06:58] relevance took 57 s
+[brain 23:06:58] paragraphs selected: 299
+[g 23:08:16] rewrite took 78 s
+[brain 23:08:16] requirements: 717 kept, 17 dropped
+[brain 23:08:16] wrote /Users/troy/Documents/Projects/Industrial-Agents-Certivity/out/experiments/G-bumper-sensors-fog-haiku-base-s1.json (717 requirements)
+[g 23:08:16] claude-haiku-5-5: 181 calls, 1,046,861 in / 318,825 out / 149,870 cache read; $0.266
+[g 23:08:16] claude-haiku-5-5: 2 cache hits
+[g 23:08:16] wall clock 136 s, new spend $0.266

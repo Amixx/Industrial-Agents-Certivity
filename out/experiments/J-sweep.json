@@ -1,0 +1,142 @@
+{
+ "scored_at": "24 Oct 23:55 CEST",
+ "spend_usd": 0,
+ "baseline": {
+  "rows": 351,
+  "matched": 156,
+  "f2": 0.702,
+  "outside_gold_paragraphs": 151,
+  "lifts": {
+   "drop rows outside gold paragraphs": 0.11,
+   "recover gold rows missed on a cited paragraph": 0.104,
+   "cite gold paragraphs the file skips": 0.042
+  },
+  "why_f2_is_not_1": "drop rows outside gold paragraphs"
+ },
+ "of_outside_rows_classes_catch": 86,
+ "of_matches_classes_destroy": 43,
+ "by_class": {
+  "1": {
+   "outside": 46,
+   "matched": 12,
+   "other_unmatched": 5
+  },
+  "2": {
+   "outside": 14,
+   "matched": 2,
+   "other_unmatched": 1
+  },
+  "3": {
+   "outside": 21,
+   "matched": 19,
+   "other_unmatched": 3
+  },
+  "4": {
+   "outside": 10,
+   "matched": 13,
+   "other_unmatched": 1
+  }
+ },
+ "cuts": [
+  {
+   "name": "drop1",
+   "file": "out/rear-lamp-swing-J-drop1.json",
+   "drop": [
+    1
+   ],
+   "rows": 288,
+   "matched": 144,
+   "f2": 0.687,
+   "deleted": 63,
+   "matched_deleted": 12,
+   "unmatched_deleted": 51,
+   "outside_gold_paragraphs": 105,
+   "on_cited_misses": 29,
+   "off_cited_misses": 17,
+   "lifts": {
+    "drop rows outside gold paragraphs": 0.076,
+    "recover gold rows missed on a cited paragraph": 0.138,
+    "cite gold paragraphs the file skips": 0.069
+   },
+   "why_f2_is_not_1": "recover gold rows missed on a cited paragraph",
+   "log": "out/rear-lamp-swing-J-drop1.log"
+  },
+  {
+   "name": "drop12",
+   "file": "out/rear-lamp-swing-J-drop12.json",
+   "drop": [
+    1,
+    2
+   ],
+   "rows": 271,
+   "matched": 142,
+   "f2": 0.689,
+   "deleted": 80,
+   "matched_deleted": 14,
+   "unmatched_deleted": 66,
+   "outside_gold_paragraphs": 91,
+   "on_cited_misses": 30,
+   "off_cited_misses": 18,
+   "lifts": {
+    "drop rows outside gold paragraphs": 0.067,
+    "recover gold rows missed on a cited paragraph": 0.145,
+    "cite gold paragraphs the file skips": 0.074
+   },
+   "why_f2_is_not_1": "recover gold rows missed on a cited paragraph",
+   "log": "out/rear-lamp-swing-J-drop12.log"
+  },
+  {
+   "name": "drop123",
+   "file": "out/rear-lamp-swing-J-drop123.json",
+   "drop": [
+    1,
+    2,
+    3
+   ],
+   "rows": 232,
+   "matched": 124,
+   "f2": 0.625,
+   "deleted": 119,
+   "matched_deleted": 33,
+   "unmatched_deleted": 86,
+   "outside_gold_paragraphs": 74,
+   "on_cited_misses": 31,
+   "off_cited_misses": 35,
+   "lifts": {
+    "drop rows outside gold paragraphs": 0.05,
+    "recover gold rows missed on a cited paragraph": 0.156,
+    "cite gold paragraphs the file skips": 0.149
+   },
+   "why_f2_is_not_1": "recover gold rows missed on a cited paragraph",
+   "log": "out/rear-lamp-swing-J-drop123.log"
+  },
+  {
+   "name": "drop1234",
+   "file": "out/rear-lamp-swing-J-drop1234.json",
+   "drop": [
+    1,
+    2,
+    3,
+    4
+   ],
+   "rows": 212,
+   "matched": 114,
+   "f2": 0.586,
+   "deleted": 139,
+   "matched_deleted": 43,
+   "unmatched_deleted": 96,
+   "outside_gold_paragraphs": 65,
+   "on_cited_misses": 33,
+   "off_cited_misses": 43,
+   "lifts": {
+    "drop rows outside gold paragraphs": 0.042,
+    "recover gold rows missed on a cited paragraph": 0.17,
+    "cite gold paragraphs the file skips": 0.187
+   },
+   "why_f2_is_not_1": "cite gold paragraphs the file skips",
+   "log": "out/rear-lamp-swing-J-drop1234.log"
+  }
+ ],
+ "winner": null,
+ "winner_rule": "best F2 among cuts that still match at least 151"
+}

@@ -1,0 +1,348 @@
+{
+ "scored_at": "24 Oct 23:58 CEST",
+ "spend_usd": 0,
+ "cuts": [
+  {
+   "name": "fable-drop1",
+   "file": "out/rear-lamp-swing-J-fable-drop1.json",
+   "drop": [
+    1
+   ],
+   "rows": 278,
+   "matched": 129,
+   "f2": 0.621,
+   "deleted": 54,
+   "matched_deleted": 12,
+   "unmatched_deleted": 42,
+   "outside_gold_paragraphs": 116,
+   "on_cited_misses": 40,
+   "off_cited_misses": 21,
+   "lifts": {
+    "drop rows outside gold paragraphs": 0.078,
+    "recover gold rows missed on a cited paragraph": 0.193,
+    "cite gold paragraphs the file skips": 0.087
+   },
+   "why_f2_is_not_1": "recover gold rows missed on a cited paragraph",
+   "log": "out/rear-lamp-swing-J-fable-drop1.log",
+   "base": "fable",
+   "base_rows": 332,
+   "base_matched": 141,
+   "base_f2": 0.646
+  },
+  {
+   "name": "fable-drop12",
+   "file": "out/rear-lamp-swing-J-fable-drop12.json",
+   "drop": [
+    1,
+    2
+   ],
+   "rows": 262,
+   "matched": 127,
+   "f2": 0.621,
+   "deleted": 70,
+   "matched_deleted": 14,
+   "unmatched_deleted": 56,
+   "outside_gold_paragraphs": 103,
+   "on_cited_misses": 41,
+   "off_cited_misses": 22,
+   "lifts": {
+    "drop rows outside gold paragraphs": 0.07,
+    "recover gold rows missed on a cited paragraph": 0.201,
+    "cite gold paragraphs the file skips": 0.092
+   },
+   "why_f2_is_not_1": "recover gold rows missed on a cited paragraph",
+   "log": "out/rear-lamp-swing-J-fable-drop12.log",
+   "base": "fable",
+   "base_rows": 332,
+   "base_matched": 141,
+   "base_f2": 0.646
+  },
+  {
+   "name": "fable-drop123",
+   "file": "out/rear-lamp-swing-J-fable-drop123.json",
+   "drop": [
+    1,
+    2,
+    3
+   ],
+   "rows": 238,
+   "matched": 114,
+   "f2": 0.571,
+   "deleted": 94,
+   "matched_deleted": 27,
+   "unmatched_deleted": 67,
+   "outside_gold_paragraphs": 93,
+   "on_cited_misses": 39,
+   "off_cited_misses": 37,
+   "lifts": {
+    "drop rows outside gold paragraphs": 0.059,
+    "recover gold rows missed on a cited paragraph": 0.195,
+    "cite gold paragraphs the file skips": 0.158
+   },
+   "why_f2_is_not_1": "recover gold rows missed on a cited paragraph",
+   "log": "out/rear-lamp-swing-J-fable-drop123.log",
+   "base": "fable",
+   "base_rows": 332,
+   "base_matched": 141,
+   "base_f2": 0.646
+  },
+  {
+   "name": "fable-drop1234",
+   "file": "out/rear-lamp-swing-J-fable-drop1234.json",
+   "drop": [
+    1,
+    2,
+    3,
+    4
+   ],
+   "rows": 217,
+   "matched": 106,
+   "f2": 0.542,
+   "deleted": 115,
+   "matched_deleted": 35,
+   "unmatched_deleted": 80,
+   "outside_gold_paragraphs": 82,
+   "on_cited_misses": 39,
+   "off_cited_misses": 45,
+   "lifts": {
+    "drop rows outside gold paragraphs": 0.05,
+    "recover gold rows missed on a cited paragraph": 0.2,
+    "cite gold paragraphs the file skips": 0.196
+   },
+   "why_f2_is_not_1": "recover gold rows missed on a cited paragraph",
+   "log": "out/rear-lamp-swing-J-fable-drop1234.log",
+   "base": "fable",
+   "base_rows": 332,
+   "base_matched": 141,
+   "base_f2": 0.646
+  },
+  {
+   "name": "main-drop1",
+   "file": "out/rear-lamp-swing-J-main-drop1.json",
+   "drop": [
+    1
+   ],
+   "rows": 328,
+   "matched": 135,
+   "f2": 0.62,
+   "deleted": 60,
+   "matched_deleted": 11,
+   "unmatched_deleted": 49,
+   "outside_gold_paragraphs": 132,
+   "on_cited_misses": 28,
+   "off_cited_misses": 27,
+   "lifts": {
+    "drop rows outside gold paragraphs": 0.086,
+    "recover gold rows missed on a cited paragraph": 0.129,
+    "cite gold paragraphs the file skips": 0.106
+   },
+   "why_f2_is_not_1": "recover gold rows missed on a cited paragraph",
+   "log": "out/rear-lamp-swing-J-main-drop1.log",
+   "base": "main",
+   "base_rows": 388,
+   "base_matched": 146,
+   "base_f2": 0.636
+  },
+  {
+   "name": "main-drop12",
+   "file": "out/rear-lamp-swing-J-main-drop12.json",
+   "drop": [
+    1,
+    2
+   ],
+   "rows": 317,
+   "matched": 135,
+   "f2": 0.627,
+   "deleted": 71,
+   "matched_deleted": 12,
+   "unmatched_deleted": 59,
+   "outside_gold_paragraphs": 123,
+   "on_cited_misses": 27,
+   "off_cited_misses": 28,
+   "lifts": {
+    "drop rows outside gold paragraphs": 0.076,
+    "recover gold rows missed on a cited paragraph": 0.125,
+    "cite gold paragraphs the file skips": 0.111
+   },
+   "why_f2_is_not_1": "recover gold rows missed on a cited paragraph",
+   "log": "out/rear-lamp-swing-J-main-drop12.log",
+   "base": "main",
+   "base_rows": 388,
+   "base_matched": 146,
+   "base_f2": 0.636
+  },
+  {
+   "name": "main-drop123",
+   "file": "out/rear-lamp-swing-J-main-drop123.json",
+   "drop": [
+    1,
+    2,
+    3
+   ],
+   "rows": 283,
+   "matched": 121,
+   "f2": 0.58,
+   "deleted": 105,
+   "matched_deleted": 28,
+   "unmatched_deleted": 77,
+   "outside_gold_paragraphs": 109,
+   "on_cited_misses": 34,
+   "off_cited_misses": 35,
+   "lifts": {
+    "drop rows outside gold paragraphs": 0.062,
+    "recover gold rows missed on a cited paragraph": 0.163,
+    "cite gold paragraphs the file skips": 0.144
+   },
+   "why_f2_is_not_1": "recover gold rows missed on a cited paragraph",
+   "log": "out/rear-lamp-swing-J-main-drop123.log",
+   "base": "main",
+   "base_rows": 388,
+   "base_matched": 146,
+   "base_f2": 0.636
+  },
+  {
+   "name": "main-drop1234",
+   "file": "out/rear-lamp-swing-J-main-drop1234.json",
+   "drop": [
+    1,
+    2,
+    3,
+    4
+   ],
+   "rows": 261,
+   "matched": 112,
+   "f2": 0.548,
+   "deleted": 127,
+   "matched_deleted": 38,
+   "unmatched_deleted": 89,
+   "outside_gold_paragraphs": 98,
+   "on_cited_misses": 39,
+   "off_cited_misses": 39,
+   "lifts": {
+    "drop rows outside gold paragraphs": 0.053,
+    "recover gold rows missed on a cited paragraph": 0.191,
+    "cite gold paragraphs the file skips": 0.164
+   },
+   "why_f2_is_not_1": "recover gold rows missed on a cited paragraph",
+   "log": "out/rear-lamp-swing-J-main-drop1234.log",
+   "base": "main",
+   "base_rows": 388,
+   "base_matched": 146,
+   "base_f2": 0.636
+  },
+  {
+   "name": "sonnet-drop1",
+   "file": "out/rear-lamp-swing-J-sonnet-drop1.json",
+   "drop": [
+    1
+   ],
+   "rows": 347,
+   "matched": 128,
+   "f2": 0.578,
+   "deleted": 56,
+   "matched_deleted": 9,
+   "unmatched_deleted": 47,
+   "outside_gold_paragraphs": 164,
+   "on_cited_misses": 27,
+   "off_cited_misses": 35,
+   "lifts": {
+    "drop rows outside gold paragraphs": 0.079,
+    "recover gold rows missed on a cited paragraph": 0.122,
+    "cite gold paragraphs the file skips": 0.136
+   },
+   "why_f2_is_not_1": "cite gold paragraphs the file skips",
+   "log": "out/rear-lamp-swing-J-sonnet-drop1.log",
+   "base": "sonnet",
+   "base_rows": 403,
+   "base_matched": 136,
+   "base_f2": 0.585
+  },
+  {
+   "name": "sonnet-drop12",
+   "file": "out/rear-lamp-swing-J-sonnet-drop12.json",
+   "drop": [
+    1,
+    2
+   ],
+   "rows": 337,
+   "matched": 128,
+   "f2": 0.583,
+   "deleted": 66,
+   "matched_deleted": 9,
+   "unmatched_deleted": 57,
+   "outside_gold_paragraphs": 154,
+   "on_cited_misses": 27,
+   "off_cited_misses": 35,
+   "lifts": {
+    "drop rows outside gold paragraphs": 0.074,
+    "recover gold rows missed on a cited paragraph": 0.123,
+    "cite gold paragraphs the file skips": 0.137
+   },
+   "why_f2_is_not_1": "cite gold paragraphs the file skips",
+   "log": "out/rear-lamp-swing-J-sonnet-drop12.log",
+   "base": "sonnet",
+   "base_rows": 403,
+   "base_matched": 136,
+   "base_f2": 0.585
+  },
+  {
+   "name": "sonnet-drop123",
+   "file": "out/rear-lamp-swing-J-sonnet-drop123.json",
+   "drop": [
+    1,
+    2,
+    3
+   ],
+   "rows": 318,
+   "matched": 125,
+   "f2": 0.58,
+   "deleted": 85,
+   "matched_deleted": 15,
+   "unmatched_deleted": 70,
+   "outside_gold_paragraphs": 145,
+   "on_cited_misses": 29,
+   "off_cited_misses": 36,
+   "lifts": {
+    "drop rows outside gold paragraphs": 0.069,
+    "recover gold rows missed on a cited paragraph": 0.135,
+    "cite gold paragraphs the file skips": 0.143
+   },
+   "why_f2_is_not_1": "cite gold paragraphs the file skips",
+   "log": "out/rear-lamp-swing-J-sonnet-drop123.log",
+   "base": "sonnet",
+   "base_rows": 403,
+   "base_matched": 136,
+   "base_f2": 0.585
+  },
+  {
+   "name": "sonnet-drop1234",
+   "file": "out/rear-lamp-swing-J-sonnet-drop1234.json",
+   "drop": [
+    1,
+    2,
+    3,
+    4
+   ],
+   "rows": 292,
+   "matched": 115,
+   "f2": 0.547,
+   "deleted": 111,
+   "matched_deleted": 26,
+   "unmatched_deleted": 85,
+   "outside_gold_paragraphs": 132,
+   "on_cited_misses": 34,
+   "off_cited_misses": 41,
+   "lifts": {
+    "drop rows outside gold paragraphs": 0.057,
+    "recover gold rows missed on a cited paragraph": 0.162,
+    "cite gold paragraphs the file skips": 0.167
+   },
+   "why_f2_is_not_1": "cite gold paragraphs the file skips",
+   "log": "out/rear-lamp-swing-J-sonnet-drop1234.log",
+   "base": "sonnet",
+   "base_rows": 403,
+   "base_matched": 136,
+   "base_f2": 0.585
+  }
+ ]
+}

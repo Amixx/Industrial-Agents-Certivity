@@ -1,0 +1,133 @@
+scored Sat Oct 24 23:49:59 CEST 2026
+======== VALIDATE ../out/rear-lamp-main-a39acab.json
+OK: rear-lamp-main-a39acab.json is valid (388 requirements).
+======== SCORE_LOCAL ../out/rear-lamp-main-a39acab.json
+Scored against expected.json (offline: regulation and page level only)
+
+level        precision   recall      F1   cited / expected / matched
+regulation       1.000    1.000   1.000   4 / 4 / 4
+page             0.790    0.925   0.852   62 / 53 / 49
+
+The requirement-level score (do your requirements say what the expected ones say?) is computed on the submission platform.
+======== EVAL.SCORE ../out/rear-lamp-main-a39acab.json
+level              P      R     F2   cited/expected/matched
+regulation     1.000  1.000  1.000   4/4/4
+page           0.790  0.925  0.894   62/53/49
+requirement    0.376  0.768  0.636   388/190/146
+======== EVAL.ERRORS ../out/rear-lamp-main-a39acab.json
+== ../out/rear-lamp-main-a39acab.json
+   rows 388: in gold paragraphs 211 (matched 145), outside 177 (matched 1)
+   gold rows missed: 25 on cited paragraphs, 19 on paragraphs never cited
+   gold paragraphs where we have fewer / equal / more rows than gold: 3 / 70 / 35
+   local judge: matched 146, P 0.376 R 0.768 F2 0.636
+   rows outside gold paragraphs dropped: P 0.687 R 0.763 F2 0.747
+======== VALIDATE ../out/rear-lamp-swing-L-drop1.json
+OK: rear-lamp-swing-L-drop1.json is valid (333 requirements).
+======== SCORE_LOCAL ../out/rear-lamp-swing-L-drop1.json
+Scored against expected.json (offline: regulation and page level only)
+
+level        precision   recall      F1   cited / expected / matched
+regulation       1.000    1.000   1.000   4 / 4 / 4
+page             0.787    0.906   0.842   61 / 53 / 48
+
+The requirement-level score (do your requirements say what the expected ones say?) is computed on the submission platform.
+======== EVAL.SCORE ../out/rear-lamp-swing-L-drop1.json
+level              P      R     F2   cited/expected/matched
+regulation     1.000  1.000  1.000   4/4/4
+page           0.787  0.906  0.879   61/53/48
+requirement    0.420  0.737  0.640   333/190/140
+======== EVAL.ERRORS ../out/rear-lamp-swing-L-drop1.json
+== ../out/rear-lamp-swing-L-drop1.json
+   rows 333: in gold paragraphs 200 (matched 139), outside 133 (matched 1)
+   gold rows missed: 27 on cited paragraphs, 23 on paragraphs never cited
+   gold paragraphs where we have fewer / equal / more rows than gold: 4 / 70 / 31
+   local judge: matched 140, P 0.420 R 0.737 F2 0.640
+   rows outside gold paragraphs dropped: P 0.695 R 0.732 F2 0.724
+======== VALIDATE ../out/rear-lamp-swing-L-drop12.json
+OK: rear-lamp-swing-L-drop12.json is valid (315 requirements).
+======== SCORE_LOCAL ../out/rear-lamp-swing-L-drop12.json
+Scored against expected.json (offline: regulation and page level only)
+
+level        precision   recall      F1   cited / expected / matched
+regulation       1.000    1.000   1.000   4 / 4 / 4
+page             0.787    0.906   0.842   61 / 53 / 48
+
+The requirement-level score (do your requirements say what the expected ones say?) is computed on the submission platform.
+======== EVAL.SCORE ../out/rear-lamp-swing-L-drop12.json
+level              P      R     F2   cited/expected/matched
+regulation     1.000  1.000  1.000   4/4/4
+page           0.787  0.906  0.879   61/53/48
+requirement    0.438  0.726  0.642   315/190/138
+======== EVAL.ERRORS ../out/rear-lamp-swing-L-drop12.json
+== ../out/rear-lamp-swing-L-drop12.json
+   rows 315: in gold paragraphs 196 (matched 137), outside 119 (matched 1)
+   gold rows missed: 28 on cited paragraphs, 24 on paragraphs never cited
+   gold paragraphs where we have fewer / equal / more rows than gold: 5 / 70 / 29
+   local judge: matched 138, P 0.438 R 0.726 F2 0.642
+   rows outside gold paragraphs dropped: P 0.699 R 0.721 F2 0.717
+======== VALIDATE ../out/rear-lamp-swing-L-drop123.json
+OK: rear-lamp-swing-L-drop123.json is valid (259 requirements).
+======== SCORE_LOCAL ../out/rear-lamp-swing-L-drop123.json
+Scored against expected.json (offline: regulation and page level only)
+
+level        precision   recall      F1   cited / expected / matched
+regulation       1.000    1.000   1.000   4 / 4 / 4
+page             0.780    0.868   0.821   59 / 53 / 46
+
+The requirement-level score (do your requirements say what the expected ones say?) is computed on the submission platform.
+======== EVAL.SCORE ../out/rear-lamp-swing-L-drop123.json
+level              P      R     F2   cited/expected/matched
+regulation     1.000  1.000  1.000   4/4/4
+page           0.780  0.868  0.849   59/53/46
+requirement    0.444  0.605  0.564   259/190/115
+======== EVAL.ERRORS ../out/rear-lamp-swing-L-drop123.json
+== ../out/rear-lamp-swing-L-drop123.json
+   rows 259: in gold paragraphs 163 (matched 114), outside 96 (matched 1)
+   gold rows missed: 30 on cited paragraphs, 45 on paragraphs never cited
+   gold paragraphs where we have fewer / equal / more rows than gold: 7 / 61 / 26
+   local judge: matched 115, P 0.444 R 0.605 F2 0.564
+   rows outside gold paragraphs dropped: P 0.699 R 0.600 F2 0.618
+======== VALIDATE ../out/rear-lamp-swing-L-drop1234.json
+OK: rear-lamp-swing-L-drop1234.json is valid (247 requirements).
+======== SCORE_LOCAL ../out/rear-lamp-swing-L-drop1234.json
+Scored against expected.json (offline: regulation and page level only)
+
+level        precision   recall      F1   cited / expected / matched
+regulation       1.000    1.000   1.000   4 / 4 / 4
+page             0.789    0.849   0.818   57 / 53 / 45
+
+The requirement-level score (do your requirements say what the expected ones say?) is computed on the submission platform.
+======== EVAL.SCORE ../out/rear-lamp-swing-L-drop1234.json
+level              P      R     F2   cited/expected/matched
+regulation     1.000  1.000  1.000   4/4/4
+page           0.789  0.849  0.836   57/53/45
+requirement    0.445  0.579  0.546   247/190/110
+======== EVAL.ERRORS ../out/rear-lamp-swing-L-drop1234.json
+== ../out/rear-lamp-swing-L-drop1234.json
+   rows 247: in gold paragraphs 157 (matched 109), outside 90 (matched 1)
+   gold rows missed: 29 on cited paragraphs, 51 on paragraphs never cited
+   gold paragraphs where we have fewer / equal / more rows than gold: 7 / 57 / 26
+   local judge: matched 110, P 0.445 R 0.579 F2 0.546
+   rows outside gold paragraphs dropped: P 0.694 R 0.574 F2 0.594
+======== VALIDATE ../out/rear-lamp-swing-A-votes7.json
+OK: rear-lamp-swing-A-votes7.json is valid (351 requirements).
+======== SCORE_LOCAL ../out/rear-lamp-swing-A-votes7.json
+Scored against expected.json (offline: regulation and page level only)
+
+level        precision   recall      F1   cited / expected / matched
+regulation       1.000    1.000   1.000   4 / 4 / 4
+page             0.831    0.925   0.875   59 / 53 / 49
+
+The requirement-level score (do your requirements say what the expected ones say?) is computed on the submission platform.
+======== EVAL.SCORE ../out/rear-lamp-swing-A-votes7.json
+level              P      R     F2   cited/expected/matched
+regulation     1.000  1.000  1.000   4/4/4
+page           0.831  0.925  0.904   59/53/49
+requirement    0.444  0.821  0.702   351/190/156
+======== EVAL.ERRORS ../out/rear-lamp-swing-A-votes7.json
+== ../out/rear-lamp-swing-A-votes7.json
+   rows 351: in gold paragraphs 200 (matched 156), outside 151 (matched 0)
+   gold rows missed: 23 on cited paragraphs, 11 on paragraphs never cited
+   gold paragraphs where we have fewer / equal / more rows than gold: 7 / 77 / 27
+   local judge: matched 156, P 0.444 R 0.821 F2 0.702
+   rows outside gold paragraphs dropped: P 0.780 R 0.821 F2 0.813

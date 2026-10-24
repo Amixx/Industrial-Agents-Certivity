@@ -1,0 +1,6 @@
+lane K filter on votes4
+dropped classes [1, 2]
+rows 395, matched 156, F2 0.675
+deleted 68: matched 5, unmatched 63
+votes7 baseline: 351 rows, 156 matched, F2 0.702
+spend: $0 (no model call)

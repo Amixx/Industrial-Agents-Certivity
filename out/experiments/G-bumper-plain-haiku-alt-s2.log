@@ -1,0 +1,12 @@
+[g 22:46:22] profile took 0 s
+[brain 22:46:22] profile: Front bumper; 14 terms; electronics=False
+[g 22:46:22] regulations took 0 s
+[brain 22:46:22] regulations: UN R42 0.97, UN R127 0.85, UN R26 0.85, UN GTR 9 0.60
+[g 22:46:37] relevance took 15 s
+[brain 22:46:37] paragraphs selected: 86
+[g 22:47:05] rewrite took 28 s
+[brain 22:47:05] requirements: 197 kept, 1 dropped
+[brain 22:47:05] wrote /Users/troy/Documents/Projects/Industrial-Agents-Certivity/out/experiments/G-bumper-plain-haiku-alt-s2.json (197 requirements)
+[g 22:47:05] claude-haiku-5-5: 70 calls, 263,412 in / 79,679 out / 50,055 cache read; $0.067
+[g 22:47:05] claude-haiku-5-5: 2 cache hits
+[g 22:47:05] wall clock 43 s, new spend $0.067

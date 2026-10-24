@@ -1,0 +1,31 @@
+24 Oct 22:42 CEST, big-swings, BRAIN_LLM= PYTHONPATH=. uv run python swing/c_precision.py build votes12 (after: swing/c_precision.py pool). No model calls, $0.
+variant                rows match      P     F2 notcit excess wording in-gold
+votes10                 217   118  0.544  0.604     82     12       5     133
+  wrote out/rear-lamp-swing-C-votes10.json
+votes10-kbjev           217   116  0.535  0.594     83     12       6     133
+votes11                 181   110  0.608  0.584     58      8       5     122
+votes11-kbjev           181   109  0.602  0.579     58      8       6     122
+votes12                 149    99  0.664  0.545     46      1       3     102
+  wrote out/rear-lamp-swing-C-votes12.json
+votes12-kbjev           149    98  0.658  0.539     46      1       4     102
+votes13                 105    71  0.676  0.410     32      0       2      72
+  wrote out/rear-lamp-swing-C-votes13.json
+votes13-kbjev           105    70  0.667  0.405     32      0       3      72
+conf06                   97    52  0.536  0.303     14     26       5      83
+kbjev-top120            120    65  0.542  0.369     21     29       5      99
+kbjev-top150            150    82  0.547  0.451     27     34       7     122
+  wrote out/rear-lamp-swing-C-kbjev-top150.json
+kbjev-top180            180   102  0.567  0.543     36     35       7     143
+both-v8-c06              63    47  0.746  0.286     12      3       1      51
+both-v10-c06             54    41  0.759  0.252     10      2       1      44
+both-v10-c05             98    69  0.704  0.402     18      9       2      79
+both-v8-c05             113    76  0.673  0.435     21     14       2      91
+both-v6-c05             120    78  0.650  0.443     21     18       3      98
+  wrote out/rear-lamp-swing-C-both-v6-c05.json
+votes10-kbtop150        150    97  0.647  0.533     47      3       3     103
+
+level              P      R     F2   cited/expected/matched
+regulation     1.000  1.000  1.000   4/4/4
+page           0.917  0.830  0.846   48/53/44
+requirement    0.664  0.521  0.545   149/190/99
+OK: rear-lamp-swing-C-votes12.json is valid (149 requirements).

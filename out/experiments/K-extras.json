@@ -1,0 +1,168 @@
+{
+ "gold_rows_matched_by_votes4_not_votes7": 5,
+ "matches": [
+  {
+   "gold_index": 24,
+   "gold_regulation": "UN R150",
+   "gold_paragraph": "5.1.4.4.1. Table 3",
+   "gold_text": "The Class IA and IB retro-reflectors of Red colour shall have minimum RI values in mcd∙lx-1 of 3.00∙10² at angle of divergence α = 20' (Vertical β1 = 0°, Horizontal β2 = 0°), 2.00∙10² at angle of divergence α = 20' (Vertical β1 = ±10°, Horizontal β2 = 0°), 1.00∙10² at angle of divergence α = 20' (Vertical β1 = ±5°, Horizontal β2 = ±20°), 5∙10⁰ at angle of divergence α = 1°30' (Vertical β1 = 0°, Horizontal β2 = 0°), 2.8∙10⁰ at angle of divergence α = 1°30' (Vertical β1 = ±10°, Horizontal β2 = 0°), and 2.5∙10⁰ at angle of divergence α = 1°30' (Vertical β1 = ±5°, Horizontal β2 = ±20°).",
+   "submitted_id": "R-0259",
+   "submitted_paragraph": "5.1.4.4.1",
+   "submitted_in_votes7": false,
+   "similarity": 0.512,
+   "classes": [],
+   "ambiguous": [],
+   "reasons": [],
+   "deleted_by": [],
+   "submitted_text": "When measured as described in paragraph 3 of Part 1 of Annex 4, the RI values for red retro-reflectors of Class IA and Class IB at an angle of divergence α of 1°30' shall be equal to or greater than those in Table 3: 5∙10^0 mcd∙lx-1 at β1 = 0°, β2 = 0°; 2.8∙10^0 mcd∙lx-1 at β1 = ±10°, β2 = 0°; 2.5∙10^0 mcd∙lx-1 at β1 = ±5°, β2 = ±20°."
+  },
+  {
+   "gold_index": 37,
+   "gold_regulation": "UN R150",
+   "gold_paragraph": "Annex 6 Part 6 3",
+   "gold_text": "The samples shall be exposed in accordance with EN ISO 4892-2:2013 using the parameters given in Table A6-1.",
+   "submitted_id": "R-0300",
+   "submitted_paragraph": "Annex 6 Part 6 3",
+   "submitted_in_votes7": false,
+   "similarity": 0.667,
+   "classes": [
+    1,
+    4
+   ],
+   "ambiguous": [],
+   "reasons": [
+    "procedure: shall be exposed",
+    "pointer: given in Table"
+   ],
+   "deleted_by": [
+    "drop1",
+    "drop12",
+    "drop123",
+    "drop1234"
+   ],
+   "submitted_text": "The samples shall be exposed in accordance with EN ISO 4892-2:2013 using the parameters given in Table A6-1, for a period of 500 hours in case of retro-reflective devices."
+  },
+  {
+   "gold_index": 63,
+   "gold_regulation": "UN R48",
+   "gold_paragraph": "6.4.4.3",
+   "gold_text": "The reversing lamps shall be at the rear of the vehicle in length.",
+   "submitted_id": "R-0430",
+   "submitted_paragraph": "6.4.4.3",
+   "submitted_in_votes7": false,
+   "similarity": 0.571,
+   "classes": [
+    2
+   ],
+   "ambiguous": [],
+   "reasons": [
+    "at the rear"
+   ],
+   "deleted_by": [
+    "drop12",
+    "drop123",
+    "drop1234"
+   ],
+   "submitted_text": "The reversing lamp shall be positioned in length at the rear of the vehicle."
+  },
+  {
+   "gold_index": 70,
+   "gold_regulation": "UN R48",
+   "gold_paragraph": "6.7.4.2.1",
+   "gold_text": "Where the optional lamps are installed, the optional lamps shall be positioned at a height compatible with the requirements of the width and the symmetry of the lamps.",
+   "submitted_id": "R-0453",
+   "submitted_paragraph": "6.7.4.2.1",
+   "submitted_in_votes7": false,
+   "similarity": 0.818,
+   "classes": [
+    3
+   ],
+   "ambiguous": [],
+   "reasons": [
+    "variant: optional lamps"
+   ],
+   "deleted_by": [
+    "drop123",
+    "drop1234"
+   ],
+   "submitted_text": "If the optional lamps are installed, the optional lamps shall be positioned at a height compatible with the requirements of the width and the symmetry of the lamps."
+  },
+  {
+   "gold_index": 155,
+   "gold_regulation": "UN R148",
+   "gold_paragraph": "4.5.5",
+   "gold_text": "The internal structure of the optical components and/or the texture of the outer lens inside of the apparent surface of a lamp (function) shall fulfill all requirements for the specific function of this Regulation when incorporating only one manufacturer logo built by transparent or non-transparent components on request of the applicant.",
+   "submitted_id": "R-0125",
+   "submitted_paragraph": "4.5.5",
+   "submitted_in_votes7": false,
+   "similarity": 0.71,
+   "classes": [
+    3
+   ],
+   "ambiguous": [],
+   "reasons": [
+    "variant: logo"
+   ],
+   "deleted_by": [
+    "drop123",
+    "drop1234"
+   ],
+   "submitted_text": "When the internal structure of the optical components and/or the texture of the outer lens inside of the apparent surface of a lamp (function) incorporates a manufacturer logo, the lamp shall incorporate only one manufacturer logo build by transparent or non-transparent components and shall fulfil all requirements for the specific function of this Regulation."
+  }
+ ],
+ "extra_submitted_rows_matched_in_votes4": [
+  {
+   "id": "R-0125",
+   "paragraph": "4.5.5",
+   "classes": [
+    3
+   ],
+   "ambiguous": [],
+   "text": "When the internal structure of the optical components and/or the texture of the outer lens inside of the apparent surface of a lamp (function) incorporates a manufacturer logo, the lamp shall incorporate only one manufacturer logo build by transparent or non-transparent components and shall fulfil all requirements for the specific function of this Regulation."
+  },
+  {
+   "id": "R-0259",
+   "paragraph": "5.1.4.4.1",
+   "classes": [],
+   "ambiguous": [],
+   "text": "When measured as described in paragraph 3 of Part 1 of Annex 4, the RI values for red retro-reflectors of Class IA and Class IB at an angle of divergence α of 1°30' shall be equal to or greater than those in Table 3: 5∙10^0 mcd∙lx-1 at β1 = 0°, β2 = 0°; 2.8∙10^0 mcd∙lx-1 at β1 = ±10°, β2 = 0°; 2.5∙10^0 mcd∙lx-1 at β1 = ±5°, β2 = ±20°."
+  },
+  {
+   "id": "R-0300",
+   "paragraph": "Annex 6 Part 6 3",
+   "classes": [
+    1,
+    4
+   ],
+   "ambiguous": [],
+   "text": "The samples shall be exposed in accordance with EN ISO 4892-2:2013 using the parameters given in Table A6-1, for a period of 500 hours in case of retro-reflective devices."
+  },
+  {
+   "id": "R-0354",
+   "paragraph": "5.28.4",
+   "classes": [
+    3
+   ],
+   "ambiguous": [],
+   "text": "When the vertical angle of geometric visibility below the horizontal may be reduced to 5º (lamp at less than 750 mm above the ground measured according to the provisions of paragraph 5.8.1. above) the photometric field of measurements of the installed optical unit may be reduced to 5º below the horizontal."
+  },
+  {
+   "id": "R-0430",
+   "paragraph": "6.4.4.3",
+   "classes": [
+    2
+   ],
+   "ambiguous": [],
+   "text": "The reversing lamp shall be positioned in length at the rear of the vehicle."
+  },
+  {
+   "id": "R-0453",
+   "paragraph": "6.7.4.2.1",
+   "classes": [
+    3
+   ],
+   "ambiguous": [],
+   "text": "If the optional lamps are installed, the optional lamps shall be positioned at a height compatible with the requirements of the width and the symmetry of the lamps."
+  }
+ ]
+}

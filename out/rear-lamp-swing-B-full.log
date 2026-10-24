@@ -1,0 +1,5 @@
+core 267 paragraphs (pipeline selection), tail 830 at blend >= 0.03
+rewrite batches: 23 cached, 70 new (~263k in, ~70k out, ~$1.23 at list price); drafts 1438, kept 1382, dropped 56, 58s
+[cost] claude-sonnet-5-5: 70 calls, 314,045 in / 138,987 out / 64,260 cache read; $2.03
+[cost] total new spend $2.03
+wrote ../out/rear-lamp-swing-B-full.json (1382 rows)

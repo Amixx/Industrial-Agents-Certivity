@@ -1,0 +1,23 @@
+[brain 22:09:56] profile: Rear lamp (combined rear lighting and signalling module with rear position lamp, stop lamp, reversing lamp, outer lens and retro-reflector in a single housing); 30 terms; electronics=True
+[brain 22:09:56] regulations: UN R148 0.95, UN R48 0.92, UN R150 0.88, UN R10 0.85
+[brain 22:09:56] paragraphs selected: 267
+[brain 22:09:58] requirements: 341 kept, 7 dropped
+[brain 22:10:05] consolidated: 328 kept, 13 merged or dropped
+[brain 22:10:05]   UN R148 3.3.2.2: merged into Q4 | The four to six-digit sequential number being part of the approval number prescribed in pa
+[brain 22:10:05]   UN R148 4.1: covered by Q30, Q32, Q68, Q71, Q75: Umbrella row stating only that the lamp shall conform to paragraphs 4 and 5, which are covered by the individual rows. | Each lamp submitted for approval shall conform to the requirements set forth in paragraphs
+[brain 22:10:05]   UN R148 4.7.2.1: merged into Q40 | In case a light source category or categories or type(s) is restricted for use in lamps on
+[brain 22:10:05]   UN R148 5.5.6: covered by Q36, Q37, Q38: Umbrella row stating only that the stop lamp shall comply with paragraph 4.6, which is covered by the rows from 4.6. | The stop lamp shall comply with the failure provisions of paragraph 4.6.
+[brain 22:10:05]   UN R48 5.1: merged into Q87 | The lighting and light-signalling devices shall be so fitted that under normal conditions 
+[brain 22:10:05]   UN R48 5.17: covered by Q118, Q123, Q124: Umbrella row that only requires the conditions of paragraphs 5.18., 5.19. and 5.20., which are stated by the kept rows. | Any lamp may be installed on movable components only if the conditions specified in paragr
+[brain 22:10:05]   UN R48 5.30: covered by Q145, Q158, Q175, Q195: Umbrella row requiring type approval per the device Regulations, which the kept rows state. | When installed on a vehicle, the rear lamp, where applicable, shall be type approved accor
+[brain 22:10:05]   UN R48 6.4.6.2: covered by Q151: Only says that paragraph 6.4.5.2. applies; the content is stated in Q151. | If the two optional devices mentioned in paragraph 6.4.2.2. are fitted on the side of the 
+[brain 22:10:05]   UN R48 6.4.7.1: merged into Q153 | The reversing lamp shall not switch ON or remain ON if either of the above conditions is n
+[brain 22:10:05]   UN R150 4.1.1: merged into Q220 | The retro-reflective devices shall not have any defect in design or manufacture that is de
+[brain 22:10:05]   UN R150 4.1.4: merged into Q223 | The outer surface of retro-reflective devices shall not be rough, and any protuberances th
+[brain 22:10:05]   UN R150 5.1.1: covered by Q247, Q248, Q249, Q250, Q251, Q252, Q253, Q254, Q255: Umbrella row that only requires compliance with the photometric and colorimetric requirements stated in the kept rows from paragraphs 5.1.4 and 5.1.5. | Every retro-reflector of the Classes IA and IB, when tested according to paragraph 5.1.7.,
+[brain 22:10:05]   UN R150 Annex 6 Part 2 1.2: merged into Q267 | If visual inspection clearly reveals the presence of water, the retro-reflective device sh
+[brain 22:10:05] wrote ../out/rear-lamp-mix-examples-cut-consolidated.json (328 requirements)
+[cost] claude-sonnet-5-5: 4 new calls, 42,521 in / 1,421 out / 0 cache-read; $0.10
+[cost] claude-opus-5-5: 115 cache hits
+[cost] claude-sonnet-5-5: 23 cache hits
+[cost] total new spend $0.10

@@ -1,0 +1,2183 @@
+{
+ "team_id": "team-06",
+ "case_id": "bumper-plain",
+ "requirements": [
+  {
+   "id": "R-0001",
+   "text": "The application for approval shall be accompanied by the undermentioned documents in triplicate and the following particulars: a detailed description of the vehicle type with respect to its structure, dimensions, lines and constituent materials;",
+   "source": {
+    "regulation": "UN R42",
+    "version": "0.2.0",
+    "page": 2,
+    "paragraph": "4.2"
+   },
+   "confidence": 0.266,
+   "quote": "4.2.1. a detailed description of the vehicle type with respect to its structure, dimensions, lines and constituent materials;"
+  },
+  {
+   "id": "R-0002",
+   "text": "The application for approval shall be accompanied by the undermentioned documents in triplicate and the following particulars: drawings of the vehicle showing the vehicle type in front, side and rear elevation and design details of the forward and rear parts of the structure; and",
+   "source": {
+    "regulation": "UN R42",
+    "version": "0.2.0",
+    "page": 2,
+    "paragraph": "4.2"
+   },
+   "confidence": 0.266,
+   "quote": "drawings of the vehicle showing the vehicle type in front, side and rear elevation and design details of the forward and rear parts of the structure; and"
+  },
+  {
+   "id": "R-0003",
+   "text": "The application for approval shall be accompanied by the undermentioned documents in triplicate and the following particulars: particulars of the vehicle's unladen weight;",
+   "source": {
+    "regulation": "UN R42",
+    "version": "0.2.0",
+    "page": 2,
+    "paragraph": "4.2"
+   },
+   "confidence": 0.266,
+   "quote": "particulars of the vehicle's unladen weight;"
+  },
+  {
+   "id": "R-0004",
+   "text": "The application for approval shall be accompanied by the undermentioned documents in triplicate and the following particulars: a detailed description of the protective devices: their dimensions, lines, constituent materials and position on the vehicle.",
+   "source": {
+    "regulation": "UN R42",
+    "version": "0.2.0",
+    "page": 2,
+    "paragraph": "4.2"
+   },
+   "confidence": 0.266,
+   "quote": "a detailed description of the protective devices: their dimensions, lines, constituent materials and position on the vehicle."
+  },
+  {
+   "id": "R-0005",
+   "text": "There shall be affixed, conspicuously and in a readily accessible place specified on the approval form, to every vehicle conforming to a vehicle type approved under this Regulation, an international approval mark consisting of: a circle surrounding the letter \"E” followed by the distinguishing number of the country which has granted approval.",
+   "source": {
+    "regulation": "UN R42",
+    "version": "0.2.0",
+    "page": 2,
+    "paragraph": "5.4"
+   },
+   "confidence": 0.247,
+   "quote": "a circle surrounding the letter \"E” followed by the distinguishing number of the country which has granted approval"
+  },
+  {
+   "id": "R-0006",
+   "text": "There shall be affixed, conspicuously and in a readily accessible place specified on the approval form, to every vehicle conforming to a vehicle type approved under this Regulation, an international approval mark consisting of: the number of this Regulation, followed by the letter “R\", a dash and the approval number to the right of the circle prescribed in paragraph 5.4.1.",
+   "source": {
+    "regulation": "UN R42",
+    "version": "0.2.0",
+    "page": 2,
+    "paragraph": "5.4"
+   },
+   "confidence": 0.247,
+   "quote": "the number of this Regulation, followed by the letter “R\", a dash and the approval number to the right of the circle prescribed in paragraph 5.4.1."
+  },
+  {
+   "id": "R-0007",
+   "text": "The approval mark shall be placed close to or on the vehicle data plate affixed by the manufacturer.",
+   "source": {
+    "regulation": "UN R42",
+    "version": "0.2.0",
+    "page": 3,
+    "paragraph": "5.7"
+   },
+   "confidence": 0.312,
+   "quote": "The approval mark shall be placed close to or on the vehicle data plate affixed by the manufacturer."
+  },
+  {
+   "id": "R-0008",
+   "text": "After each impact test made in accordance with the conditions and procedure specified in annex 3 to this Regulation, the lighting and signalling devices shall continue to operate correctly and to remain visible.",
+   "source": {
+    "regulation": "UN R42",
+    "version": "0.2.0",
+    "page": 3,
+    "paragraph": "6.1.1"
+   },
+   "confidence": 0.267,
+   "quote": "The lighting and signalling devices shall continue to operate correctly and to remain visible."
+  },
+  {
+   "id": "R-0009",
+   "text": "After each impact test made in accordance with the conditions and procedure specified in annex 3 to this Regulation, should the adjustment of the factory-fitted lighting devices be disturbed, it may be corrected to conform to the required specifications, provided this can be done by the normal means of adjustment.",
+   "source": {
+    "regulation": "UN R42",
+    "version": "0.2.0",
+    "page": 3,
+    "paragraph": "6.1.1"
+   },
+   "confidence": 0.267,
+   "quote": "Should the adjustment of the factory-fitted lighting devices be disturbed, it may be corrected to conform to the required specifications, provided this can be done by the normal means of adjustment."
+  },
+  {
+   "id": "R-0010",
+   "text": "After each impact test made in accordance with the conditions and procedure specified in annex 3 to this Regulation, bulbs may be replaced in the event of filament failure.",
+   "source": {
+    "regulation": "UN R42",
+    "version": "0.2.0",
+    "page": 3,
+    "paragraph": "6.1.1"
+   },
+   "confidence": 0.267,
+   "quote": "Bulbs may be replaced in the event of filament failure."
+  },
+  {
+   "id": "R-0011",
+   "text": "After each impact test made in accordance with the conditions and procedure specified in annex 3 to this Regulation, the vehicle's bonnet (hood), boot lid (trunk lid) and doors shall be operable in the normal manner; in addition, the side doors of the vehicle shall not be able to open under the effect of the impact.",
+   "source": {
+    "regulation": "UN R42",
+    "version": "0.2.0",
+    "page": 3,
+    "paragraph": "6.1.2"
+   },
+   "confidence": 0.355,
+   "quote": "The vehicle's bonnet (hood), boot lid (trunk lid) and doors shall be operable in the normal manner; in addition, the side doors of the vehicle shall not be able to open under the effect of the impact."
+  },
+  {
+   "id": "R-0012",
+   "text": "After each impact test made in accordance with the conditions and procedure specified in annex 3 to this Regulation, the vehicle’s fuel and cooling systems shall have neither leaks nor constricted fluid passages which prevent normal functioning; their sealing devices and caps shall be operable in the normal manner.",
+   "source": {
+    "regulation": "UN R42",
+    "version": "0.2.0",
+    "page": 3,
+    "paragraph": "6.1.3"
+   },
+   "confidence": 0.355,
+   "quote": "The vehicle’s fuel and cooling systems shall have neither leaks nor constricted fluid passages which prevent normal functioning; their sealing devices and caps shall be operable in the normal manner."
+  },
+  {
+   "id": "R-0013",
+   "text": "After each impact test made in accordance with the conditions and procedure specified in annex 3 to this Regulation, the vehicle's exhaust system shall not suffer any damage or displacement which would prevent its normal function.",
+   "source": {
+    "regulation": "UN R42",
+    "version": "0.2.0",
+    "page": 3,
+    "paragraph": "6.1.4"
+   },
+   "confidence": 0.296,
+   "quote": "The vehicle's exhaust system shall not suffer any damage or displacement which would prevent its normal function."
+  },
+  {
+   "id": "R-0014",
+   "text": "After each impact test made in accordance with the conditions and procedure specified in annex 3 to this Regulation, the vehicle's propulsion, suspension (including tyres), steering and braking systems shall remain in adjustment and shall operate in a normal manner.",
+   "source": {
+    "regulation": "UN R42",
+    "version": "0.2.0",
+    "page": 3,
+    "paragraph": "6.1.5"
+   },
+   "confidence": 0.269,
+   "quote": "The vehicle's propulsion, suspension (including tyres), steering and braking systems shall remain in adjustment and shall operate in a normal manner."
+  },
+  {
+   "id": "R-0015",
+   "text": "Every vehicle bearing an approval mark as prescribed under this Regulation shall conform to the vehicle type approved, particularly as regards features which influence the behaviour of the parts of the structure and the components affected by impact.",
+   "source": {
+    "regulation": "UN R42",
+    "version": "0.2.0",
+    "page": 4,
+    "paragraph": "8.1"
+   },
+   "confidence": 0.327,
+   "quote": "Every vehicle bearing an approval mark as prescribed under this Regulation shall conform to the vehicle type approved, particularly as regards features which influence the behaviour of the parts of the structure and the components affected by impact."
+  },
+  {
+   "id": "R-0016",
+   "text": "The front wheels shall be in the straight-ahead position.",
+   "source": {
+    "regulation": "UN R42",
+    "version": "0.2.0",
+    "page": 7,
+    "paragraph": "Annex 3 2.2.2"
+   },
+   "confidence": 0.234,
+   "quote": "The front wheels shall be in the straight-ahead position."
+  },
+  {
+   "id": "R-0017",
+   "text": "After each impact test made in accordance with the conditions and procedure specified in annex 3 to this Regulation, the vehicle shall meet the following requirements:.",
+   "source": {
+    "regulation": "UN R42",
+    "version": "0.2.0",
+    "page": 3,
+    "paragraph": "6.1"
+   },
+   "confidence": 0.428,
+   "quote": "After each impact test made in accordance with the conditions and procedure specified in annex 3 to this Regulation, the vehicle shall meet the following requirements:"
+  },
+  {
+   "id": "R-0018",
+   "text": "Vehicles equipped with hydro pneumatic, hydraulic or pneumatic suspension or a device for automatic levelling according to load shall be tested in the normal running conditions specified by the manufacturer.",
+   "source": {
+    "regulation": "UN R42",
+    "version": "0.2.0",
+    "page": 7,
+    "paragraph": "Annex 3 2.2.5"
+   },
+   "confidence": 0.236,
+   "quote": "Vehicles equipped with hydro pneumatic, hydraulic or pneumatic suspension or a device for automatic levelling according to load shall be tested in the normal running conditions specified by the manufacturer."
+  },
+  {
+   "id": "R-0019",
+   "text": "The impactor shall be of rigid construction, the impact contour being of hardened steel.",
+   "source": {
+    "regulation": "UN R42",
+    "version": "0.2.0",
+    "page": 7,
+    "paragraph": "Annex 3 2.3.1"
+   },
+   "confidence": 0.261,
+   "quote": "The impactor shall be of rigid construction, the impact contour being of hardened steel."
+  },
+  {
+   "id": "R-0020",
+   "text": "The impacting surface shall conform to the diagram in the figure.",
+   "source": {
+    "regulation": "UN R42",
+    "version": "0.2.0",
+    "page": 7,
+    "paragraph": "Annex 3 2.3.2"
+   },
+   "confidence": 0.261,
+   "quote": "The impacting surface shall conform to the diagram in the figure."
+  },
+  {
+   "id": "R-0021",
+   "text": "The first contact of the impactor with the vehicle shall be by the impact contour on the protective device.",
+   "source": {
+    "regulation": "UN R42",
+    "version": "0.2.0",
+    "page": 7,
+    "paragraph": "Annex 3 2.3.5"
+   },
+   "confidence": 0.314,
+   "quote": "The first contact of the impactor with the vehicle shall be by the impact contour on the protective device."
+  },
+  {
+   "id": "R-0022",
+   "text": "In the two vehicle-loading conditions the protective device between the corners, as defined in paragraph 3.1.5. of this Regulation, shall be intersected by the horizontal plane passing through the reference line.",
+   "source": {
+    "regulation": "UN R42",
+    "version": "0.2.0",
+    "page": 7,
+    "paragraph": "Annex 3 2.3.5"
+   },
+   "confidence": 0.314,
+   "quote": "In the two vehicle-loading conditions the protective device between the corners, as defined in paragraph 3.1.5. of this Regulation, shall be intersected by the horizontal plane passing through the reference line."
+  },
+  {
+   "id": "R-0023",
+   "text": "If the impactor is secured to a carriage (moving barrier) by a restraining element, the latter must be rigid and be incapable of being deformed by the impact.",
+   "source": {
+    "regulation": "UN R42",
+    "version": "0.2.0",
+    "page": 7,
+    "paragraph": "Annex 3 2.5.1"
+   },
+   "confidence": 0.315,
+   "quote": "If the impactor is secured to a carriage (moving barrier) by a restraining element, the latter must be rigid and be incapable of being deformed by the impact;"
+  },
+  {
+   "id": "R-0024",
+   "text": "If the impactor is secured to a carriage (moving barrier) by a restraining element, the carriage shall at the moment of impact be capable of moving freely and no longer be subject to the action of the propelling device.",
+   "source": {
+    "regulation": "UN R42",
+    "version": "0.2.0",
+    "page": 7,
+    "paragraph": "Annex 3 2.5.1"
+   },
+   "confidence": 0.315,
+   "quote": "the carriage shall at the moment of impact be capable of moving freely and no longer be subject to the action of the propelling device."
+  },
+  {
+   "id": "R-0025",
+   "text": "For the impacts on the front and rear surfaces, the choice of location of the impactor for the first impact is free, but for the second impact the median plane of the impactor shall be at a distance at least 300 mm from the first, provided that during these impacts the extremities of the impactor do not pass outside a zone defined by two planes parallel to the longitudinal median plane and passing through the corners of the vehicle.",
+   "source": {
+    "regulation": "UN R42",
+    "version": "0.2.0",
+    "page": 7,
+    "paragraph": "Annex 3 2.7.2"
+   },
+   "confidence": 0.31,
+   "quote": "For the impacts on the front and rear surfaces, the choice of location of the impactor for the first impact is free, but for the second impact the median plane of the impactor shall be at a distance at least 300 mm from the first, provided that during these impacts the extremities of the impactor do not pass outside a zone defined by two planes parallel to the longitudinal median plane and passing through the corners of the vehicle."
+  },
+  {
+   "id": "R-0026",
+   "text": "The impactor shown in the figure should be placed so that plane A is vertical and the reference line is horizontal at the reference height of 445 mm.",
+   "source": {
+    "regulation": "UN R42",
+    "version": "0.2.0",
+    "page": 7,
+    "paragraph": "Annex 3 2.7.3"
+   },
+   "confidence": 0.209,
+   "quote": "The impactor shown in the figure should be placed so that plane A is vertical and the reference line is horizontal at the reference height of 445 mm."
+  },
+  {
+   "id": "R-0027",
+   "text": "The impactor shown in the figure should be placed so that plane A is vertical and the reference line is horizontal and at the reference height of 445 mm.",
+   "source": {
+    "regulation": "UN R42",
+    "version": "0.2.0",
+    "page": 8,
+    "paragraph": "Annex 3 2.8.2"
+   },
+   "confidence": 0.278,
+   "quote": "The impactor shown in the figure should be placed so that plane A is vertical and the reference line is horizontal and at the reference height of 445 mm."
+  },
+  {
+   "id": "R-0028",
+   "text": "If the protective devices include self-restoring materials, the permitted recovery time between tests shall be as stated by the manufacturer.",
+   "source": {
+    "regulation": "UN R42",
+    "version": "0.2.0",
+    "page": 8,
+    "paragraph": "Annex 3 3.2"
+   },
+   "confidence": 0.235,
+   "quote": "If the protective devices include self-restoring materials, the permitted recovery time between tests shall be as stated by the manufacturer."
+  },
+  {
+   "id": "R-0029",
+   "text": "The external devices for indirect vision and the tyres shall not be considered.",
+   "source": {
+    "regulation": "UN R127",
+    "version": "4.3.0",
+    "page": 5,
+    "paragraph": "2.17"
+   },
+   "confidence": 0.25,
+   "quote": "The external devices for indirect vision and the tyres shall not be considered."
+  },
+  {
+   "id": "R-0030",
+   "text": "For vehicles with a lower bumper height at the test position of less than 425 mm the requirements of paragraph 5.1.1. shall be applied.",
+   "source": {
+    "regulation": "UN R127",
+    "version": "4.3.0",
+    "page": 18,
+    "paragraph": "5.1"
+   },
+   "confidence": 0.632,
+   "quote": "For vehicles with a lower bumper height at the test position of less than 425 mm the requirements of paragraph 5.1.1. shall be applied."
+  },
+  {
+   "id": "R-0031",
+   "text": "For vehicles with a lower bumper height at the test position which is greater than, or equal to, 425 mm and less than 500 mm the requirements of either paragraph 5.1.1. or 5.1.2., at the choice of the manufacturer, shall be applied.",
+   "source": {
+    "regulation": "UN R127",
+    "version": "4.3.0",
+    "page": 18,
+    "paragraph": "5.1"
+   },
+   "confidence": 0.632,
+   "quote": "For vehicles with a lower bumper height at the test position which is greater than, or equal to, 425 mm and less than 500 mm the requirements of either paragraph 5.1.1. or 5.1.2., at the choice of the manufacturer, shall be applied."
+  },
+  {
+   "id": "R-0032",
+   "text": "For vehicles with a lower bumper height at the test position of greater than, or equal to, 500 mm the requirements of paragraph 5.1.2. shall be applied.",
+   "source": {
+    "regulation": "UN R127",
+    "version": "4.3.0",
+    "page": 18,
+    "paragraph": "5.1"
+   },
+   "confidence": 0.632,
+   "quote": "For vehicles with a lower bumper height at the test position of greater than, or equal to, 500 mm the requirements of paragraph 5.1.2. shall be applied."
+  },
+  {
+   "id": "R-0033",
+   "text": "When tested in accordance with Annex 5, paragraph 1. (Flexible lower legform impactor), the absolute value of the maximum dynamic medial collateral ligament elongation at the knee shall not exceed 22 mm.",
+   "source": {
+    "regulation": "UN R127",
+    "version": "4.3.0",
+    "page": 18,
+    "paragraph": "5.1.1"
+   },
+   "confidence": 0.678,
+   "quote": "When tested in accordance with Annex 5, paragraph 1. (Flexible lower legform impactor), the absolute value of the maximum dynamic medial collateral ligament elongation at the knee shall not exceed 22 mm, and the maximum dynamic anterior cruciate ligament and posterior cruciate ligament elongation shall not exceed 13 mm."
+  },
+  {
+   "id": "R-0034",
+   "text": "When tested in accordance with Annex 5, paragraph 1. (Flexible lower legform impactor), the maximum dynamic anterior cruciate ligament and posterior cruciate ligament elongation shall not exceed 13 mm.",
+   "source": {
+    "regulation": "UN R127",
+    "version": "4.3.0",
+    "page": 18,
+    "paragraph": "5.1.1"
+   },
+   "confidence": 0.678,
+   "quote": "When tested in accordance with Annex 5, paragraph 1. (Flexible lower legform impactor), the absolute value of the maximum dynamic medial collateral ligament elongation at the knee shall not exceed 22 mm, and the maximum dynamic anterior cruciate ligament and posterior cruciate ligament elongation shall not exceed 13 mm."
+  },
+  {
+   "id": "R-0035",
+   "text": "When tested in accordance with Annex 5, paragraph 1. (Flexible lower legform impactor), the absolute value of dynamic bending moments at the tibia shall not exceed 340 Nm.",
+   "source": {
+    "regulation": "UN R127",
+    "version": "4.3.0",
+    "page": 18,
+    "paragraph": "5.1.1"
+   },
+   "confidence": 0.678,
+   "quote": "The absolute value of dynamic bending moments at the tibia shall not exceed 340 Nm."
+  },
+  {
+   "id": "R-0036",
+   "text": "When tested in accordance with Annex 5, paragraph 1. (Flexible lower legform impactor), where the manufacturer nominates bumper test widths up to a maximum of 264 mm in total, the absolute value of the tibia bending moment shall not exceed 380 Nm.",
+   "source": {
+    "regulation": "UN R127",
+    "version": "4.3.0",
+    "page": 18,
+    "paragraph": "5.1.1"
+   },
+   "confidence": 0.678,
+   "quote": "In addition, the manufacturer may nominate bumper test widths up to a maximum of 264 mm in total where the absolute value of the tibia bending moment shall not exceed 380 Nm."
+  },
+  {
+   "id": "R-0037",
+   "text": "The flexible lower legform impactor shall be certified pursuant to Annex 6, paragraph 1.",
+   "source": {
+    "regulation": "UN R127",
+    "version": "4.3.0",
+    "page": 18,
+    "paragraph": "5.1.1"
+   },
+   "confidence": 0.678,
+   "quote": "The flexible lower legform impactor shall be certified pursuant to Annex 6, paragraph 1."
+  },
+  {
+   "id": "R-0038",
+   "text": "When tested in accordance with Annex 5, paragraph 2. (upper legform to bumper), the instantaneous sum of the impact forces with respect to time shall not exceed 7.5 kN.",
+   "source": {
+    "regulation": "UN R127",
+    "version": "4.3.0",
+    "page": 19,
+    "paragraph": "5.1.2"
+   },
+   "confidence": 0.532,
+   "quote": "When tested in accordance with Annex 5, paragraph 2. (upper legform to bumper), the instantaneous sum of the impact forces with respect to time shall not exceed 7.5 kN and the bending moment on the test impactor shall not exceed 510 Nm."
+  },
+  {
+   "id": "R-0039",
+   "text": "When tested in accordance with Annex 5, paragraph 2. (upper legform to bumper), the bending moment on the test impactor shall not exceed 510 Nm.",
+   "source": {
+    "regulation": "UN R127",
+    "version": "4.3.0",
+    "page": 19,
+    "paragraph": "5.1.2"
+   },
+   "confidence": 0.532,
+   "quote": "When tested in accordance with Annex 5, paragraph 2. (upper legform to bumper), the instantaneous sum of the impact forces with respect to time shall not exceed 7.5 kN and the bending moment on the test impactor shall not exceed 510 Nm."
+  },
+  {
+   "id": "R-0040",
+   "text": "The upper legform impactor shall be certified pursuant to Annex 6, paragraph 2.",
+   "source": {
+    "regulation": "UN R127",
+    "version": "4.3.0",
+    "page": 19,
+    "paragraph": "5.1.2"
+   },
+   "confidence": 0.532,
+   "quote": "The upper legform impactor shall be certified pursuant to Annex 6, paragraph 2."
+  },
+  {
+   "id": "R-0041",
+   "text": "In the case of a vehicle fitted with an ARHSS, which could change the vehicle height at the front axle more than 20 mm from the nominal for any vehicle speed between 25 and 40 km/h, the provisions of paragraphs 5.1. and 5.2. shall, in addition to the normal running condition as specified by the manufacturer for a vehicle speed of 40 km/h, be met for all adjustable vehicle steady heights corresponding to vehicle speeds from 25 up to 40 km/h.",
+   "source": {
+    "regulation": "UN R127",
+    "version": "4.3.0",
+    "page": 19,
+    "paragraph": "5.3"
+   },
+   "confidence": 0.305,
+   "quote": "In the case of a vehicle fitted with an ARHSS, which could change the vehicle height at the front axle more than 20 mm from the nominal for any vehicle speed between 25 and 40 km/h, the provisions of paragraphs 5.1. and 5.2. shall, in addition to the normal running condition as specified by the manufacturer for a vehicle speed of 40 km/h, be met for all adjustable vehicle steady heights corresponding to vehicle speeds from 25 up to 40 km/h."
+  },
+  {
+   "id": "R-0042",
+   "text": "For these tests, on request of the manufacturer and agreed by the technical service, either the impact speeds defined in paragraphs 5.1. and 5.2. or the impact speed corresponding to the adjusted vehicle height shall be used.",
+   "source": {
+    "regulation": "UN R127",
+    "version": "4.3.0",
+    "page": 19,
+    "paragraph": "5.3"
+   },
+   "confidence": 0.305,
+   "quote": "For these tests, on request of the manufacturer and agreed by the technical service, either the impact speeds defined in paragraphs 5.1. and 5.2. or the impact speed corresponding to the adjusted vehicle height shall be used."
+  },
+  {
+   "id": "R-0043",
+   "text": "In the latter case, the ratio of the head impact vs. the corresponding vehicle velocity shall be 0.9.",
+   "source": {
+    "regulation": "UN R127",
+    "version": "4.3.0",
+    "page": 19,
+    "paragraph": "5.3"
+   },
+   "confidence": 0.305,
+   "quote": "In the latter case, the ratio of the head impact vs. the corresponding vehicle velocity shall be 0.9."
+  },
+  {
+   "id": "R-0044",
+   "text": "The selected measuring points shall be in the bumper test area as defined in paragraph 2.14. of this Regulation.",
+   "source": {
+    "regulation": "UN R127",
+    "version": "4.3.0",
+    "page": 33,
+    "paragraph": "Annex 5 1.4"
+   },
+   "confidence": 0.286,
+   "quote": "The selected measuring points shall be in the bumper test area as defined in paragraph 2.14. of this Regulation."
+  },
+  {
+   "id": "R-0045",
+   "text": "Figure 8A Measuring point in the vertical longitudinal plane through the center of the headform impactor (see paragraph 2.28.1.)2 2Remark: due to the spatial geometry of the bonnet top, the first contact may not occur in the same vertical longitudinal or transverse plane which contains measuring point A.",
+   "source": {
+    "regulation": "UN R127",
+    "version": "4.3.0",
+    "page": 9,
+    "paragraph": "2.28.2"
+   },
+   "confidence": 0.215,
+   "quote": "Figure 8A Measuring point in the vertical longitudinal plane through the center of the headform impactor (see paragraph 2.28.1.)2 2Remark: due to the spatial geometry of the bonnet top, the first contact may not occur in the same vertical longitudinal or transverse plane which contains measuring point A."
+  },
+  {
+   "id": "R-0046",
+   "text": "Where necessary the straight edge shall be shortened to avoid any contact with structures above the bumper.",
+   "source": {
+    "regulation": "UN R127",
+    "version": "4.3.0",
+    "page": 11,
+    "paragraph": "2.38"
+   },
+   "confidence": 0.274,
+   "quote": "Where necessary the straight edge shall be shortened to avoid any contact with structures above the bumper."
+  },
+  {
+   "id": "R-0047",
+   "text": "A minimum of three lower legform to bumper tests shall be carried out, one each to the middle and the outer thirds of the bumper test area at positions judged to be the most likely to cause injury.",
+   "source": {
+    "regulation": "UN R127",
+    "version": "4.3.0",
+    "page": 33,
+    "paragraph": "Annex 5 1.5"
+   },
+   "confidence": 0.311,
+   "quote": "A minimum of three lower legform to bumper tests shall be carried out, one each to the middle and the outer thirds of the bumper test area at positions judged to be the most likely to cause injury."
+  },
+  {
+   "id": "R-0048",
+   "text": "Tests shall be to different types of structure, where they vary throughout the area to be assessed.",
+   "source": {
+    "regulation": "UN R127",
+    "version": "4.3.0",
+    "page": 33,
+    "paragraph": "Annex 5 1.5"
+   },
+   "confidence": 0.311,
+   "quote": "Tests shall be to different types of structure, where they vary throughout the area to be assessed."
+  },
+  {
+   "id": "R-0049",
+   "text": "The selected test points shall be a minimum of 84 mm apart as measured horizontally and perpendicular to the longitudinal median plane of the vehicle.",
+   "source": {
+    "regulation": "UN R127",
+    "version": "4.3.0",
+    "page": 33,
+    "paragraph": "Annex 5 1.5"
+   },
+   "confidence": 0.311,
+   "quote": "The selected test points shall be a minimum of 84 mm apart as measured horizontally and perpendicular to the longitudinal median plane of the vehicle."
+  },
+  {
+   "id": "R-0050",
+   "text": "The positions tested by the laboratories shall be indicated in the test report.",
+   "source": {
+    "regulation": "UN R127",
+    "version": "4.3.0",
+    "page": 33,
+    "paragraph": "Annex 5 1.5"
+   },
+   "confidence": 0.311,
+   "quote": "The positions tested by the laboratories shall be indicated in the test report."
+  },
+  {
+   "id": "R-0051",
+   "text": "The direction of the impact velocity vector shall be in the horizontal plane and parallel to the longitudinal vertical plane of the vehicle.",
+   "source": {
+    "regulation": "UN R127",
+    "version": "4.3.0",
+    "page": 33,
+    "paragraph": "Annex 5 1.6"
+   },
+   "confidence": 0.245,
+   "quote": "The direction of the impact velocity vector shall be in the horizontal plane and parallel to the longitudinal vertical plane of the vehicle."
+  },
+  {
+   "id": "R-0052",
+   "text": "The tolerance for the direction of the velocity vector in the horizontal plane and in the longitudinal plane shall be ±2° at the time of first contact.",
+   "source": {
+    "regulation": "UN R127",
+    "version": "4.3.0",
+    "page": 33,
+    "paragraph": "Annex 5 1.6"
+   },
+   "confidence": 0.245,
+   "quote": "The tolerance for the direction of the velocity vector in the horizontal plane and in the longitudinal plane shall be ±2° at the time of first contact."
+  },
+  {
+   "id": "R-0053",
+   "text": "The axis of the impactor shall be perpendicular to the horizontal plane with a roll and pitch angle tolerance of ±2° in the lateral and longitudinal plane.",
+   "source": {
+    "regulation": "UN R127",
+    "version": "4.3.0",
+    "page": 33,
+    "paragraph": "Annex 5 1.6"
+   },
+   "confidence": 0.245,
+   "quote": "The axis of the impactor shall be perpendicular to the horizontal plane with a roll and pitch angle tolerance of ±2° in the lateral and longitudinal plane."
+  },
+  {
+   "id": "R-0054",
+   "text": "The bottom of the impactor (without parts needed for the purposes of launching and/or protection) shall be at 75 mm above ground reference plane at the time of first contact with the bumper (see Figure 4), with a ±10 mm tolerance.",
+   "source": {
+    "regulation": "UN R127",
+    "version": "4.3.0",
+    "page": 33,
+    "paragraph": "Annex 5 1.7"
+   },
+   "confidence": 0.306,
+   "quote": "The bottom of the impactor (without parts needed for the purposes of launching and/or protection) shall be at 75 mm above ground reference plane at the time of first contact with the bumper (see Figure 4), with a ±10 mm tolerance."
+  },
+  {
+   "id": "R-0055",
+   "text": "When setting the height of the propulsion system, an allowance shall be made for the influence of gravity during the period of free flight of the impactor.",
+   "source": {
+    "regulation": "UN R127",
+    "version": "4.3.0",
+    "page": 33,
+    "paragraph": "Annex 5 1.7"
+   },
+   "confidence": 0.306,
+   "quote": "When setting the height of the propulsion system, an allowance shall be made for the influence of gravity during the period of free flight of the impactor."
+  },
+  {
+   "id": "R-0056",
+   "text": "The lower legform impactor for the bumper tests shall be in \"free flight\" at the moment of impact.",
+   "source": {
+    "regulation": "UN R127",
+    "version": "4.3.0",
+    "page": 33,
+    "paragraph": "Annex 5 1.8"
+   },
+   "confidence": 0.289,
+   "quote": "The lower legform impactor for the bumper tests shall be in \"free flight\" at the moment of impact."
+  },
+  {
+   "id": "R-0057",
+   "text": "The impactor shall be released to free flight at such a distance from the vehicle that the test results are not influenced by contact of the impactor with the propulsion system during rebound of the impactor.",
+   "source": {
+    "regulation": "UN R127",
+    "version": "4.3.0",
+    "page": 33,
+    "paragraph": "Annex 5 1.8"
+   },
+   "confidence": 0.289,
+   "quote": "The impactor shall be released to free flight at such a distance from the vehicle that the test results are not influenced by contact of the impactor with the propulsion system during rebound of the impactor."
+  },
+  {
+   "id": "R-0058",
+   "text": "The impactor may be propelled by any means that can be shown to meet the requirements of the test.",
+   "source": {
+    "regulation": "UN R127",
+    "version": "4.3.0",
+    "page": 33,
+    "paragraph": "Annex 5 1.8"
+   },
+   "confidence": 0.289,
+   "quote": "The impactor may be propelled by any means that can be shown to meet the requirements of the test."
+  },
+  {
+   "id": "R-0059",
+   "text": "The impact velocity of the impactor when striking the bumper shall be 11.1 m/s ± 0.2 m/s.",
+   "source": {
+    "regulation": "UN R127",
+    "version": "4.3.0",
+    "page": 33,
+    "paragraph": "Annex 5 1.12"
+   },
+   "confidence": 0.499,
+   "quote": "The impact velocity of the impactor when striking the bumper shall be 11.1 m/s ± 0.2 m/s."
+  },
+  {
+   "id": "R-0060",
+   "text": "The effect of gravity shall be taken into account when the impact velocity is obtained from measurements taken before the time of first contact.",
+   "source": {
+    "regulation": "UN R127",
+    "version": "4.3.0",
+    "page": 33,
+    "paragraph": "Annex 5 1.12"
+   },
+   "confidence": 0.499,
+   "quote": "The effect of gravity shall be taken into account when the impact velocity is obtained from measurements taken before the time of first contact."
+  },
+  {
+   "id": "R-0061",
+   "text": "For each test the foam flesh shall be two new sheets of 25 mm thick foam type CF-45 or equivalent, which shall be cut from the sheet of material used for the dynamic certification test.",
+   "source": {
+    "regulation": "UN R127",
+    "version": "4.3.0",
+    "page": 36,
+    "paragraph": "Annex 5 2.1"
+   },
+   "confidence": 0.214,
+   "quote": "For each test the foam flesh shall be two new sheets of 25 mm thick foam type CF-45 or equivalent, which shall be cut from the sheet of material used for the dynamic certification test."
+  },
+  {
+   "id": "R-0062",
+   "text": "The skin shall be a 1.5 mm thick fibre reinforced rubber sheet.",
+   "source": {
+    "regulation": "UN R127",
+    "version": "4.3.0",
+    "page": 36,
+    "paragraph": "Annex 5 2.1"
+   },
+   "confidence": 0.214,
+   "quote": "The skin shall be a 1.5 mm thick fibre reinforced rubber sheet."
+  },
+  {
+   "id": "R-0063",
+   "text": "The mass of the foam and the rubber skin together shall be 0.6 kg ± 0.1 kg (this excludes any reinforcement, mountings, etc. which are used to attach the rear edges of the rubber skin to the rear member).",
+   "source": {
+    "regulation": "UN R127",
+    "version": "4.3.0",
+    "page": 36,
+    "paragraph": "Annex 5 2.1"
+   },
+   "confidence": 0.214,
+   "quote": "The mass of the foam and the rubber skin together shall be 0.6 kg ± 0.1 kg (this excludes any reinforcement, mountings, etc. which are used to attach the rear edges of the rubber skin to the rear member)."
+  },
+  {
+   "id": "R-0064",
+   "text": "The foam and rubber skin shall be folded back towards the rear, with the rubber skin attached via spacers to the rear member so that the sides of the rubber skin are held parallel.",
+   "source": {
+    "regulation": "UN R127",
+    "version": "4.3.0",
+    "page": 36,
+    "paragraph": "Annex 5 2.1"
+   },
+   "confidence": 0.214,
+   "quote": "The foam and rubber skin shall be folded back towards the rear, with the rubber skin attached via spacers to the rear member so that the sides of the rubber skin are held parallel."
+  },
+  {
+   "id": "R-0065",
+   "text": "The foam shall be of such a size and shape that an adequate gap is maintained between the foam and components behind the front member, to avoid significant load paths between the foam and these components.",
+   "source": {
+    "regulation": "UN R127",
+    "version": "4.3.0",
+    "page": 36,
+    "paragraph": "Annex 5 2.1"
+   },
+   "confidence": 0.214,
+   "quote": "The foam shall be of such a size and shape that an adequate gap is maintained between the foam and components behind the front member, to avoid significant load paths between the foam and these components."
+  },
+  {
+   "id": "R-0066",
+   "text": "A minimum of three upper legform to bumper tests shall be carried out, one each to the middle and the outer thirds of the bumper test area at positions judged to be the most likely to cause injury.",
+   "source": {
+    "regulation": "UN R127",
+    "version": "4.3.0",
+    "page": 36,
+    "paragraph": "Annex 5 2.5"
+   },
+   "confidence": 0.454,
+   "quote": "A minimum of three upper legform to bumper tests shall be carried out, one each to the middle and the outer thirds of the bumper test area at positions judged to be the most likely to cause injury."
+  },
+  {
+   "id": "R-0067",
+   "text": "The selected measuring points shall be a minimum of 84 mm apart as measured horizontally and perpendicular to the longitudinal median plane of the vehicle.",
+   "source": {
+    "regulation": "UN R127",
+    "version": "4.3.0",
+    "page": 36,
+    "paragraph": "Annex 5 2.5"
+   },
+   "confidence": 0.454,
+   "quote": "The selected measuring points shall be a minimum of 84 mm apart as measured horizontally and perpendicular to the longitudinal median plane of the vehicle."
+  },
+  {
+   "id": "R-0068",
+   "text": "The direction of impact shall be parallel to the longitudinal axis of the vehicle, with the axis of the upper legform vertical at the time of first contact.",
+   "source": {
+    "regulation": "UN R127",
+    "version": "4.3.0",
+    "page": 36,
+    "paragraph": "Annex 5 2.6"
+   },
+   "confidence": 0.275,
+   "quote": "The direction of impact shall be parallel to the longitudinal axis of the vehicle, with the axis of the upper legform vertical at the time of first contact."
+  },
+  {
+   "id": "R-0069",
+   "text": "The tolerance to this direction is ±2°.",
+   "source": {
+    "regulation": "UN R127",
+    "version": "4.3.0",
+    "page": 36,
+    "paragraph": "Annex 5 2.6"
+   },
+   "confidence": 0.275,
+   "quote": "The tolerance to this direction is ±2°."
+  },
+  {
+   "id": "R-0070",
+   "text": "At the time of first contact the impactor centre line shall be vertically midway between the upper bumper reference line and the lower bumper reference line with a ±10 mm tolerance and the impactor vertical centre line shall be positioned laterally with the selected impact location with a tolerance of ±10 mm.",
+   "source": {
+    "regulation": "UN R127",
+    "version": "4.3.0",
+    "page": 36,
+    "paragraph": "Annex 5 2.6"
+   },
+   "confidence": 0.275,
+   "quote": "At the time of first contact the impactor centre line shall be vertically midway between the upper bumper reference line and the lower bumper reference line with a ±10 mm tolerance and the impactor vertical centre line shall be positioned laterally with the selected impact location with a tolerance of ±10 mm."
+  },
+  {
+   "id": "R-0071",
+   "text": "The impact velocity of the upper legform impactor when striking the bumper shall be 11.1 m/s ± 0.2 m/s.",
+   "source": {
+    "regulation": "UN R127",
+    "version": "4.3.0",
+    "page": 36,
+    "paragraph": "Annex 5 2.7"
+   },
+   "confidence": 0.206,
+   "quote": "The impact velocity of the upper legform impactor when striking the bumper shall be 11.1 m/s ± 0.2 m/s."
+  },
+  {
+   "id": "R-0072",
+   "text": "A minimum of nine tests shall be carried out with the child headform impactor over the areas prescribed by the child bonnet top test area and the child windscreen test area together, with three tests each to the middle and the outer thirds of the child/small adult test areas, at positions judged to be the most likely to cause injury.",
+   "source": {
+    "regulation": "UN R127",
+    "version": "4.3.0",
+    "page": 38,
+    "paragraph": "Annex 5 4.2"
+   },
+   "confidence": 0.262,
+   "quote": "A minimum of nine tests shall be carried out with the child headform impactor over the areas prescribed by the child bonnet top test area and the child windscreen test area together, with three tests each to the middle and the outer thirds of the child/small adult test areas, at positions judged to be the most likely to cause injury."
+  },
+  {
+   "id": "R-0073",
+   "text": "Where possible, at least one of these nine tests shall be carried out on the windscreen test area.",
+   "source": {
+    "regulation": "UN R127",
+    "version": "4.3.0",
+    "page": 38,
+    "paragraph": "Annex 5 4.2"
+   },
+   "confidence": 0.262,
+   "quote": "Where possible, at least one of these nine tests shall be carried out on the windscreen test area."
+  },
+  {
+   "id": "R-0074",
+   "text": "For each test on the windscreen an undamaged and untested windscreen shall be used.",
+   "source": {
+    "regulation": "UN R127",
+    "version": "4.3.0",
+    "page": 38,
+    "paragraph": "Annex 5 4.2"
+   },
+   "confidence": 0.262,
+   "quote": "For each test on the windscreen an undamaged and untested windscreen shall be used."
+  },
+  {
+   "id": "R-0075",
+   "text": "Tests shall be to different types of structure, where these vary throughout the area to be assessed and at positions judged to be the most likely to cause injury.",
+   "source": {
+    "regulation": "UN R127",
+    "version": "4.3.0",
+    "page": 38,
+    "paragraph": "Annex 5 4.2"
+   },
+   "confidence": 0.262,
+   "quote": "Tests shall be to different types of structure, where these vary throughout the area to be assessed and at positions judged to be the most likely to cause injury."
+  },
+  {
+   "id": "R-0076",
+   "text": "The direction of impact shall be in the longitudinal vertical plane of the vehicle to be tested at an angle of 50° ± 2° to the horizontal.",
+   "source": {
+    "regulation": "UN R127",
+    "version": "4.3.0",
+    "page": 39,
+    "paragraph": "Annex 5 4.7"
+   },
+   "confidence": 0.242,
+   "quote": "The direction of impact shall be in the longitudinal vertical plane of the vehicle to be tested at an angle of 50° ± 2° to the horizontal."
+  },
+  {
+   "id": "R-0077",
+   "text": "The direction of impact of tests to the front structure shall be downward and rearward.",
+   "source": {
+    "regulation": "UN R127",
+    "version": "4.3.0",
+    "page": 39,
+    "paragraph": "Annex 5 4.7"
+   },
+   "confidence": 0.242,
+   "quote": "The direction of impact of tests to the front structure shall be downward and rearward."
+  },
+  {
+   "id": "R-0078",
+   "text": "The maximum number of repetitions on a measuring point is 3 (i.e. 4 tests total) in this case.",
+   "source": {
+    "regulation": "UN R127",
+    "version": "4.3.0",
+    "page": 39,
+    "paragraph": "Annex 5 4.8"
+   },
+   "confidence": 0.238,
+   "quote": "The maximum number of repetitions on a measuring point is 3 (i.e. 4 tests total) in this case."
+  },
+  {
+   "id": "R-0079",
+   "text": "Tests with atypical windscreen fracture shall be duly recorded in the test report.",
+   "source": {
+    "regulation": "UN R127",
+    "version": "4.3.0",
+    "page": 39,
+    "paragraph": "Annex 5 4.8"
+   },
+   "confidence": 0.238,
+   "quote": "Tests with atypical windscreen fracture shall be duly recorded in the test report."
+  },
+  {
+   "id": "R-0080",
+   "text": "A minimum of nine tests shall be carried out with the adult headform impactor, over the adult areas prescribed by the adult bonnet top test area and the adult windscreen test area together, with three tests each to the middle and the outer thirds of the adult test areas, at positions judged to be the most likely to cause injury.",
+   "source": {
+    "regulation": "UN R127",
+    "version": "4.3.0",
+    "page": 39,
+    "paragraph": "Annex 5 5.2"
+   },
+   "confidence": 0.301,
+   "quote": "A minimum of nine tests shall be carried out with the adult headform impactor, over the adult areas prescribed by the adult bonnet top test area and the adult windscreen test area together, with three tests each to the middle and the outer thirds of the adult test areas, at positions judged to be the most likely to cause injury."
+  },
+  {
+   "id": "R-0081",
+   "text": "The direction of impact shall be in the longitudinal vertical plane of the vehicle to be tested at an angle of 65° ± 2° to the horizontal.",
+   "source": {
+    "regulation": "UN R127",
+    "version": "4.3.0",
+    "page": 40,
+    "paragraph": "Annex 5 5.7"
+   },
+   "confidence": 0.302,
+   "quote": "The direction of impact shall be in the longitudinal vertical plane of the vehicle to be tested at an angle of 65° ± 2° to the horizontal."
+  },
+  {
+   "id": "R-0082",
+   "text": "The provisions of this Regulation shall not apply to those parts of the external surface which, with the vehicle in the laden condition, with all doors, windows and access lids etc., in the closed position, are at a height of more than 2 metres.",
+   "source": {
+    "regulation": "UN R26",
+    "version": "4.0.0",
+    "page": 4,
+    "paragraph": "5.1.1"
+   },
+   "confidence": 0.21,
+   "quote": "At a height of more than 2 metres"
+  },
+  {
+   "id": "R-0083",
+   "text": "The provisions of this Regulation shall not apply to those parts of the external surface which, with the vehicle in the laden condition, with all doors, windows and access lids etc., in the closed position, are below the floor line.",
+   "source": {
+    "regulation": "UN R26",
+    "version": "4.0.0",
+    "page": 4,
+    "paragraph": "5.1.1"
+   },
+   "confidence": 0.21,
+   "quote": "Below the floor line"
+  },
+  {
+   "id": "R-0084",
+   "text": "The provisions of this Regulation shall not apply to those parts of the external surface which, with the vehicle in the laden condition, with all doors, windows and access lids etc., in the closed position, are so located that, in their static condition as well as when in operation, they cannot be contacted by a sphere 100 mm in diameter.",
+   "source": {
+    "regulation": "UN R26",
+    "version": "4.0.0",
+    "page": 4,
+    "paragraph": "5.1.1"
+   },
+   "confidence": 0.21,
+   "quote": "So located that, in their static condition as well as when in operation, they cannot be contacted by a sphere 100 mm in diameter."
+  },
+  {
+   "id": "R-0085",
+   "text": "The external surface of vehicles shall not exhibit, directed outwards, any pointed or sharp parts or any projections of such shape, dimensions, direction or hardness as to be likely to increase the risk or seriousness of bodily injury to a person hit by the external surface or brushing against it in the event of a collision.",
+   "source": {
+    "regulation": "UN R26",
+    "version": "4.0.0",
+    "page": 4,
+    "paragraph": "5.2"
+   },
+   "confidence": 0.307,
+   "quote": "The external surface of vehicles shall not exhibit, directed outwards, any pointed or sharp parts or any projections of such shape, dimensions, direction or hardness as to be likely to increase the risk or seriousness of bodily injury to a person hit by the external surface or brushing against it in the event of a collision."
+  },
+  {
+   "id": "R-0086",
+   "text": "The external surface of vehicles shall not exhibit, directed outwards, any part likely to catch on pedestrians, cyclists or motor cyclists.",
+   "source": {
+    "regulation": "UN R26",
+    "version": "4.0.0",
+    "page": 4,
+    "paragraph": "5.3"
+   },
+   "confidence": 0.267,
+   "quote": "The external surface of vehicles shall not exhibit, directed outwards, any part likely to catch on pedestrians, cyclists or motor cyclists."
+  },
+  {
+   "id": "R-0087",
+   "text": "No protruding part of the external surface shall have a radius of curvature less than 2.5 mm, except that this requirement shall not apply to parts of the external surface which protrude less than 5 mm, but the outward facing angles of such parts shall be blunted, save where such parts protrude less than 1.5 mm.",
+   "source": {
+    "regulation": "UN R26",
+    "version": "4.0.0",
+    "page": 4,
+    "paragraph": "5.4"
+   },
+   "confidence": 0.197,
+   "quote": "No protruding part of the external surface shall have a radius of curvature less than 2.5 mm. This requirement shall not apply to parts of the external surface which protrude less than 5 mm, but the outward facing angles of such parts shall be blunted, save where such parts protrude less than 1.5 mm."
+  },
+  {
+   "id": "R-0088",
+   "text": "Added ornaments which project more than 10 mm from their support shall retract, become detached or bend over under a force of 10 daN exerted at their most salient point in any direction in a plane approximately parallel to the surface on which they are mounted.",
+   "source": {
+    "regulation": "UN R26",
+    "version": "4.0.0",
+    "page": 5,
+    "paragraph": "6.1.1"
+   },
+   "confidence": 0.288,
+   "quote": "Added ornaments which project more than 10 mm from their support shall retract, become detached or bend over under a force of 10 daN exerted at their most salient point in any direction in a plane approximately parallel to the surface on which they are mounted."
+  },
+  {
+   "id": "R-0089",
+   "text": "These provisions shall not apply to ornaments on radiator grilles, to which only the general requirements of paragraph 5. shall apply.",
+   "source": {
+    "regulation": "UN R26",
+    "version": "4.0.0",
+    "page": 5,
+    "paragraph": "6.1.1"
+   },
+   "confidence": 0.288,
+   "quote": "These provisions shall not apply to ornaments on radiator grilles, to which only the general requirements of paragraph 5. shall apply."
+  },
+  {
+   "id": "R-0090",
+   "text": "To apply the 10 daN force a flat-ended ram of not more than 50 mm diameter shall be used.",
+   "source": {
+    "regulation": "UN R26",
+    "version": "4.0.0",
+    "page": 5,
+    "paragraph": "6.1.1"
+   },
+   "confidence": 0.288,
+   "quote": "To apply the 10 daN force a flat-ended ram of not more than 50 mm diameter shall be used."
+  },
+  {
+   "id": "R-0091",
+   "text": "Where this is not possible, an equivalent method shall be used.",
+   "source": {
+    "regulation": "UN R26",
+    "version": "4.0.0",
+    "page": 5,
+    "paragraph": "6.1.1"
+   },
+   "confidence": 0.288,
+   "quote": "Where this is not possible, an equivalent method shall be used."
+  },
+  {
+   "id": "R-0092",
+   "text": "After the ornaments are retracted, detached or bent over, the remaining projections shall not project more than 10 mm.",
+   "source": {
+    "regulation": "UN R26",
+    "version": "4.0.0",
+    "page": 5,
+    "paragraph": "6.1.1"
+   },
+   "confidence": 0.288,
+   "quote": "After the ornaments are retracted, detached or bent over, the remaining projections shall not project more than 10 mm."
+  },
+  {
+   "id": "R-0093",
+   "text": "These projections shall in any case satisfy the provisions of paragraph 5.2.",
+   "source": {
+    "regulation": "UN R26",
+    "version": "4.0.0",
+    "page": 5,
+    "paragraph": "6.1.1"
+   },
+   "confidence": 0.288,
+   "quote": "These projections shall in any case satisfy the provisions of paragraph 5.2."
+  },
+  {
+   "id": "R-0094",
+   "text": "The requirements of paragraph 5.4. above shall not apply to gaps between fixed or movable elements, including those forming part of air intake or outlet grilles and radiator grilles, provided that the distance between consecutive elements does not exceed 40 mm and provided that the grilles and gaps have a functional purpose.",
+   "source": {
+    "regulation": "UN R26",
+    "version": "4.0.0",
+    "page": 5,
+    "paragraph": "6.3.1"
+   },
+   "confidence": 0.415,
+   "quote": "The requirements of paragraph 5.4. above shall not apply to gaps between fixed or movable elements, including those forming part of air intake or outlet grilles and radiator grilles, provided that the distance between consecutive elements does not exceed 40 mm and provided that the grilles and gaps have a functional purpose."
+  },
+  {
+   "id": "R-0095",
+   "text": "For gaps of between 40 mm and 25 mm the radii of curvature shall be 1 mm or more, except that if the distance between two consecutive elements is equal to or less than 25 mm, the radii of curvature of external faces of the elements shall not be less than 0.5 mm.",
+   "source": {
+    "regulation": "UN R26",
+    "version": "4.0.0",
+    "page": 5,
+    "paragraph": "6.3.1"
+   },
+   "confidence": 0.415,
+   "quote": "For gaps of between 40 mm and 25 mm the radii of curvature shall be 1 mm or more. However, if the distance between two consecutive elements is equal to or less than 25 mm, the radii of curvature of external faces of the elements shall not be less than 0.5 mm."
+  },
+  {
+   "id": "R-0096",
+   "text": "The distance between two consecutive elements of grilles and gaps shall be determined according to the method described in paragraph 4. of Annex 3 to this Regulation.",
+   "source": {
+    "regulation": "UN R26",
+    "version": "4.0.0",
+    "page": 5,
+    "paragraph": "6.3.1"
+   },
+   "confidence": 0.415,
+   "quote": "The distance between two consecutive elements of grilles and gaps shall be determined according to the method described in paragraph 4. of Annex 3 to this Regulation."
+  },
+  {
+   "id": "R-0097",
+   "text": "The junction of the front with the side faces of each element forming a grille or gap shall be blunted.",
+   "source": {
+    "regulation": "UN R26",
+    "version": "4.0.0",
+    "page": 5,
+    "paragraph": "6.3.2"
+   },
+   "confidence": 0.53,
+   "quote": "The junction of the front with the side faces of each element forming a grille or gap shall be blunted."
+  },
+  {
+   "id": "R-0098",
+   "text": "The ends of the bumpers shall be turned in towards the external surface in order to minimize the risk of fouling.",
+   "source": {
+    "regulation": "UN R26",
+    "version": "4.0.0",
+    "page": 6,
+    "paragraph": "6.5.1"
+   },
+   "confidence": 0.562,
+   "quote": "The ends of the bumpers shall be turned in towards the external surface in order to minimize the risk of fouling."
+  },
+  {
+   "id": "R-0099",
+   "text": "If the line of the bumper which corresponds to the outline contour of the car vertical projection is on a rigid surface, that surface shall have a minimum radius of curvature of 5 mm at all its points lying from the contour line to 20 mm inward.",
+   "source": {
+    "regulation": "UN R26",
+    "version": "4.0.0",
+    "page": 6,
+    "paragraph": "6.5.2"
+   },
+   "confidence": 0.629,
+   "quote": "If the line of the bumper which corresponds to the outline contour of the car vertical projection is on a rigid surface, that surface shall have a minimum radius of curvature of 5 mm at all its points lying from the contour line to 20 mm inward"
+  },
+  {
+   "id": "R-0100",
+   "text": "If the line of the bumper which corresponds to the outline contour of the car vertical projection is on a rigid surface, that surface shall have a minimum radius of curvature of 2.5 mm in all other cases.",
+   "source": {
+    "regulation": "UN R26",
+    "version": "4.0.0",
+    "page": 6,
+    "paragraph": "6.5.2"
+   },
+   "confidence": 0.629,
+   "quote": "a minimum radius of curvature of 2.5 mm in all other cases"
+  },
+  {
+   "id": "R-0101",
+   "text": "The requirement of paragraph 6.5.2. above shall not apply to parts on or of the bumper or to bumper insets which have a projection of less than 5 mm, with special reference to joint covers and jets for headlamp washers; but the outward facing angles of such parts shall be blunted, save where such parts protrude less than 1.5 mm.",
+   "source": {
+    "regulation": "UN R26",
+    "version": "4.0.0",
+    "page": 7,
+    "paragraph": "6.5.3"
+   },
+   "confidence": 0.415,
+   "quote": "The requirement of paragraph 6.5.2. above shall not apply to parts on or of the bumper or to bumper insets which have a projection of less than 5 mm, with special reference to joint covers and jets for headlamp washers; but the outward facing angles of such parts shall be blunted, save where such parts protrude less than 1.5 mm."
+  },
+  {
+   "id": "R-0102",
+   "text": "For vehicles with a lower bumper height of less than 425 mm the requirements of paragraph 4.1.1. shall be applied.",
+   "source": {
+    "regulation": "UN GTR 9",
+    "version": "0.3.0",
+    "page": 85,
+    "paragraph": "4.1"
+   },
+   "confidence": 0.604,
+   "quote": "For vehicles with a lower bumper height of less than 425 mm the requirements of paragraph 4.1.1. shall be applied."
+  },
+  {
+   "id": "R-0103",
+   "text": "For vehicles with a lower bumper height which is greater than, or equal to 425 mm and less than 500 mm the requirements of either paragraph 4.1.1. or 4.1.2., at the choice of the manufacturer, shall be applied.",
+   "source": {
+    "regulation": "UN GTR 9",
+    "version": "0.3.0",
+    "page": 85,
+    "paragraph": "4.1"
+   },
+   "confidence": 0.604,
+   "quote": "For vehicles with a lower bumper height which is greater than, or equal to 425 mm and less than 500 mm the requirements of either paragraph 4.1.1. or 4.1.2., at the choice of the manufacturer, shall be applied."
+  },
+  {
+   "id": "R-0104",
+   "text": "For vehicles with a lower bumper height of greater than, or equal to, 500 mm the requirements of paragraph 4.1.2. shall be applied.",
+   "source": {
+    "regulation": "UN GTR 9",
+    "version": "0.3.0",
+    "page": 85,
+    "paragraph": "4.1"
+   },
+   "confidence": 0.604,
+   "quote": "For vehicles with a lower bumper height of greater than, or equal to, 500 mm the requirements of paragraph 4.1.2. shall be applied."
+  },
+  {
+   "id": "R-0105",
+   "text": "To verify compliance with the performance requirements as specified in paragraph 5.1.1., both the test impactor specified in paragraph 6.3.1.1. and the test procedures specified in paragraph 7.1.1. shall be used.",
+   "source": {
+    "regulation": "UN GTR 9",
+    "version": "0.3.0",
+    "page": 85,
+    "paragraph": "4.1.1"
+   },
+   "confidence": 0.386,
+   "quote": "To verify compliance with the performance requirements as specified in paragraph 5.1.1., both the test impactor specified in paragraph 6.3.1.1. and the test procedures specified in paragraph 7.1.1. shall be used."
+  },
+  {
+   "id": "R-0106",
+   "text": "To verify compliance with the performance requirements as specified in paragraph 5.1.2., both the test impactor specified in paragraph 6.3.1.2. and the test procedures specified in paragraph 7.1.2. shall be used.",
+   "source": {
+    "regulation": "UN GTR 9",
+    "version": "0.3.0",
+    "page": 85,
+    "paragraph": "4.1.2"
+   },
+   "confidence": 0.386,
+   "quote": "To verify compliance with the performance requirements as specified in paragraph 5.1.2., both the test impactor specified in paragraph 6.3.1.2. and the test procedures specified in paragraph 7.1.2. shall be used."
+  },
+  {
+   "id": "R-0107",
+   "text": "When tested in accordance with paragraph 7.1.1. (flexible lower legform to bumper), the absolute value of the maximum dynamic medial collateral ligament elongation at the knee shall not exceed 22 mm.",
+   "source": {
+    "regulation": "UN GTR 9",
+    "version": "0.3.0",
+    "page": 85,
+    "paragraph": "5.1.1"
+   },
+   "confidence": 0.508,
+   "quote": "When tested in accordance with paragraph 7.1.1. (flexible lower legform to bumper), the absolute value of the maximum dynamic medial collateral ligament elongation at the knee shall not exceed 22 mm"
+  },
+  {
+   "id": "R-0108",
+   "text": "When tested in accordance with paragraph 7.1.1. (flexible lower legform to bumper), the maximum dynamic anterior cruciate ligament and posterior cruciate ligament elongation shall not exceed 13 mm.",
+   "source": {
+    "regulation": "UN GTR 9",
+    "version": "0.3.0",
+    "page": 85,
+    "paragraph": "5.1.1"
+   },
+   "confidence": 0.508,
+   "quote": "the maximum dynamic anterior cruciate ligament and posterior cruciate ligament elongation shall not exceed 13 mm"
+  },
+  {
+   "id": "R-0109",
+   "text": "When tested in accordance with paragraph 7.1.1. (flexible lower legform to bumper), the absolute value of dynamic bending moments at the tibia shall not exceed 340 Nm.",
+   "source": {
+    "regulation": "UN GTR 9",
+    "version": "0.3.0",
+    "page": 85,
+    "paragraph": "5.1.1"
+   },
+   "confidence": 0.508,
+   "quote": "The absolute value of dynamic bending moments at the tibia shall not exceed 340 Nm."
+  },
+  {
+   "id": "R-0110",
+   "text": "When tested in accordance with paragraph 7.1.1. (flexible lower legform to bumper), where the manufacturer nominates bumper test widths up to a maximum of 264 mm in total, the absolute value of the tibia bending moment shall not exceed 380 Nm.",
+   "source": {
+    "regulation": "UN GTR 9",
+    "version": "0.3.0",
+    "page": 85,
+    "paragraph": "5.1.1"
+   },
+   "confidence": 0.508,
+   "quote": "the manufacturer may nominate bumper test widths up to a maximum of 264 mm in total where the absolute value of the tibia bending moment shall not exceed 380 Nm"
+  },
+  {
+   "id": "R-0111",
+   "text": "The top edge of the bumper shall also be regarded as the bonnet leading edge if it is contacted by the straight edge during this procedure.",
+   "source": {
+    "regulation": "UN GTR 9",
+    "version": "0.3.0",
+    "page": 72,
+    "paragraph": "3.6"
+   },
+   "confidence": 0.208,
+   "quote": "The top edge of the bumper shall also be regarded as the bonnet leading edge if it is contacted by the straight edge during this procedure."
+  },
+  {
+   "id": "R-0112",
+   "text": "When tested in accordance with paragraph 7.1.2. (upper legform to bumper), the instantaneous sum of the impact forces with respect to time shall not exceed 7.5 kN.",
+   "source": {
+    "regulation": "UN GTR 9",
+    "version": "0.3.0",
+    "page": 85,
+    "paragraph": "5.1.2"
+   },
+   "confidence": 0.605,
+   "quote": "When tested in accordance with paragraph 7.1.2. (upper legform to bumper), the instantaneous sum of the impact forces with respect to time shall not exceed 7.5 kN"
+  },
+  {
+   "id": "R-0113",
+   "text": "When tested in accordance with paragraph 7.1.2. (upper legform to bumper), the bending moment on the test impactor shall not exceed 510 Nm.",
+   "source": {
+    "regulation": "UN GTR 9",
+    "version": "0.3.0",
+    "page": 85,
+    "paragraph": "5.1.2"
+   },
+   "confidence": 0.605,
+   "quote": "the bending moment on the test impactor shall not exceed 510 Nm"
+  },
+  {
+   "id": "R-0114",
+   "text": "Headform tests: When tested as a DPPS, the test conditions and requirements in Annex 1 shall apply.",
+   "source": {
+    "regulation": "UN GTR 9",
+    "version": "0.3.0",
+    "page": 85,
+    "paragraph": "5.2"
+   },
+   "confidence": 0.218,
+   "quote": "When tested as a DPPS, the test conditions and requirements in Annex 1 shall apply."
+  },
+  {
+   "id": "R-0115",
+   "text": "When tested in accordance with paragraphs 7.2., 7.3. and, if applicable, Annex 1, the HIC shall comply with paragraph 5.2.3.",
+   "source": {
+    "regulation": "UN GTR 9",
+    "version": "0.3.0",
+    "page": 85,
+    "paragraph": "5.2.1"
+   },
+   "confidence": 0.226,
+   "quote": "When tested in accordance with paragraphs 7.2., 7.3. and, if applicable, Annex 1, the HIC shall comply with paragraph 5.2.3."
+  },
+  {
+   "id": "R-0116",
+   "text": "The HIC recorded shall not exceed 1,000 over a minimum of one half of the child headform test area.",
+   "source": {
+    "regulation": "UN GTR 9",
+    "version": "0.3.0",
+    "page": 85,
+    "paragraph": "5.2.3"
+   },
+   "confidence": 0.255,
+   "quote": "The HIC recorded shall not exceed 1,000 over a minimum of one half of the child headform test area"
+  },
+  {
+   "id": "R-0117",
+   "text": "The HIC recorded shall not exceed 1,000 over two thirds of the combined child and adult headform test areas.",
+   "source": {
+    "regulation": "UN GTR 9",
+    "version": "0.3.0",
+    "page": 85,
+    "paragraph": "5.2.3"
+   },
+   "confidence": 0.255,
+   "quote": "1,000 over two thirds of the combined child and adult headform test areas"
+  },
+  {
+   "id": "R-0118",
+   "text": "The HIC for the remaining areas shall not exceed 1,700 for both headforms.",
+   "source": {
+    "regulation": "UN GTR 9",
+    "version": "0.3.0",
+    "page": 85,
+    "paragraph": "5.2.3"
+   },
+   "confidence": 0.255,
+   "quote": "The HIC for the remaining areas shall not exceed 1,700 for both headforms"
+  },
+  {
+   "id": "R-0119",
+   "text": "In case there is only a child headform test area, the HIC recorded shall not exceed 1,000 over two thirds of the test area.",
+   "source": {
+    "regulation": "UN GTR 9",
+    "version": "0.3.0",
+    "page": 85,
+    "paragraph": "5.2.3"
+   },
+   "confidence": 0.255,
+   "quote": "In case there is only a child headform test area, the HIC recorded shall not exceed 1,000 over two thirds of the test area"
+  },
+  {
+   "id": "R-0120",
+   "text": "In case there is only a child headform test area, the HIC for the remaining area shall not exceed 1,700.",
+   "source": {
+    "regulation": "UN GTR 9",
+    "version": "0.3.0",
+    "page": 85,
+    "paragraph": "5.2.3"
+   },
+   "confidence": 0.255,
+   "quote": "For the remaining area the HIC shall not exceed 1,700"
+  },
+  {
+   "id": "R-0121",
+   "text": "A sufficient number of x and y co-ordinates shall be supplied by the manufacturer to mark up the areas on the actual vehicle while considering the vehicle outer contour in the z direction.",
+   "source": {
+    "regulation": "UN GTR 9",
+    "version": "0.3.0",
+    "page": 86,
+    "paragraph": "5.2.4.2"
+   },
+   "confidence": 0.215,
+   "quote": "A sufficient number of x and y co-ordinates shall be supplied by the manufacturer to mark up the areas on the actual vehicle while considering the vehicle outer contour in the z direction."
+  },
+  {
+   "id": "R-0122",
+   "text": "All devices designed to protect vulnerable road users when impacted by the vehicle shall be correctly activated before and/or be active during the relevant test.",
+   "source": {
+    "regulation": "UN GTR 9",
+    "version": "0.3.0",
+    "page": 87,
+    "paragraph": "6.2.2"
+   },
+   "confidence": 0.296,
+   "quote": "All devices designed to protect vulnerable road users when impacted by the vehicle shall be correctly activated before and/or be active during the relevant test."
+  },
+  {
+   "id": "R-0123",
+   "text": "It shall be the responsibility of the manufacturer to show that any devices will act as intended in a pedestrian impact.",
+   "source": {
+    "regulation": "UN GTR 9",
+    "version": "0.3.0",
+    "page": 87,
+    "paragraph": "6.2.2"
+   },
+   "confidence": 0.296,
+   "quote": "It shall be the responsibility of the manufacturer to show that any devices will act as intended in a pedestrian impact."
+  },
+  {
+   "id": "R-0124",
+   "text": "For vehicle components which could change shape or position, other than active devices to protect pedestrians, and which have more than one fixed shape or position shall require the vehicle to comply with the components in each fixed shape or position.",
+   "source": {
+    "regulation": "UN GTR 9",
+    "version": "0.3.0",
+    "page": 87,
+    "paragraph": "6.2.3"
+   },
+   "confidence": 0.247,
+   "quote": "For vehicle components which could change shape or position, other than active devices to protect pedestrians, and which have more than one fixed shape or position shall require the vehicle to comply with the components in each fixed shape or position."
+  },
+  {
+   "id": "R-0125",
+   "text": "The flexible lower legform impactor shall consist of the flesh and skin, flexible long bone segments (representing femur bone and tibia bone), and the knee joint as shown in Figure 12.",
+   "source": {
+    "regulation": "UN GTR 9",
+    "version": "0.3.0",
+    "page": 87,
+    "paragraph": "6.3.1.1"
+   },
+   "confidence": 0.376,
+   "quote": "The flexible lower legform impactor shall consist of the flesh and skin, flexible long bone segments (representing femur bone and tibia bone), and the knee joint as shown in Figure 12."
+  },
+  {
+   "id": "R-0126",
+   "text": "The assembled impactor shall have a total mass of 13.2 ± 0.4 kg.",
+   "source": {
+    "regulation": "UN GTR 9",
+    "version": "0.3.0",
+    "page": 87,
+    "paragraph": "6.3.1.1"
+   },
+   "confidence": 0.376,
+   "quote": "The assembled impactor shall have a total mass of 13.2 ± 0.4 kg."
+  },
+  {
+   "id": "R-0127",
+   "text": "The dimensions of the fully assembled impactor shall be as defined in Figure 12, measured at the vertical centre line.",
+   "source": {
+    "regulation": "UN GTR 9",
+    "version": "0.3.0",
+    "page": 87,
+    "paragraph": "6.3.1.1"
+   },
+   "confidence": 0.376,
+   "quote": "The dimensions of the fully assembled impactor shall be as defined in Figure 12, measured at the vertical centre line."
+  },
+  {
+   "id": "R-0128",
+   "text": "The upper legform impactor shall be rigid, foam covered at the impact side, and 350 ± 5 mm long (see Figure 17).",
+   "source": {
+    "regulation": "UN GTR 9",
+    "version": "0.3.0",
+    "page": 92,
+    "paragraph": "6.3.1.2"
+   },
+   "confidence": 0.228,
+   "quote": "The upper legform impactor shall be rigid, foam covered at the impact side, and 350 ± 5 mm long (see Figure 17)."
+  },
+  {
+   "id": "R-0129",
+   "text": "The total mass of the upper legform impactor including those propulsion and guidance components which are effectively part of the impactor during the impact shall be 9.5 kg ± 0.1 kg.",
+   "source": {
+    "regulation": "UN GTR 9",
+    "version": "0.3.0",
+    "page": 92,
+    "paragraph": "6.3.1.2.1"
+   },
+   "confidence": 0.348,
+   "quote": "The total mass of the upper legform impactor including those propulsion and guidance components which are effectively part of the impactor during the impact shall be 9.5 kg ± 0.1 kg."
+  },
+  {
+   "id": "R-0130",
+   "text": "The centre of gravity of those parts of the impactor which are effectively forward of the torque limiting joint, including any weights fitted, shall lie on the longitudinal centre line of the impactor, with a tolerance of ± 10 mm.",
+   "source": {
+    "regulation": "UN GTR 9",
+    "version": "0.3.0",
+    "page": 92,
+    "paragraph": "6.3.1.2.5"
+   },
+   "confidence": 0.244,
+   "quote": "The centre of gravity of those parts of the impactor which are effectively forward of the torque limiting joint, including any weights fitted, shall lie on the longitudinal centre line of the impactor, with a tolerance of ± 10 mm."
+  },
+  {
+   "id": "R-0131",
+   "text": "For each test the foam flesh shall be two new sheets of 25 mm thick foam type CF45 or equivalent, which shall be cut from the sheet of material used for the dynamic certification test.",
+   "source": {
+    "regulation": "UN GTR 9",
+    "version": "0.3.0",
+    "page": 92,
+    "paragraph": "6.3.1.2.7"
+   },
+   "confidence": 0.237,
+   "quote": "For each test the foam flesh shall be two new sheets of 25 mm thick foam type CF45 or equivalent, which shall be cut from the sheet of material used for the dynamic certification test."
+  },
+  {
+   "id": "R-0132",
+   "text": "The skin shall be a 1.5 mm thick fibre reinforced rubber sheet.",
+   "source": {
+    "regulation": "UN GTR 9",
+    "version": "0.3.0",
+    "page": 92,
+    "paragraph": "6.3.1.2.7"
+   },
+   "confidence": 0.237,
+   "quote": "The skin shall be a 1.5 mm thick fibre reinforced rubber sheet."
+  },
+  {
+   "id": "R-0133",
+   "text": "The mass of the foam and the rubber skin together shall be 0.6 + 0.1 kg (this excludes any reinforcement, mountings, etc. which are used to attach the rear edges of the rubber skin to the rear member).",
+   "source": {
+    "regulation": "UN GTR 9",
+    "version": "0.3.0",
+    "page": 92,
+    "paragraph": "6.3.1.2.7"
+   },
+   "confidence": 0.237,
+   "quote": "The mass of the foam and the rubber skin together shall be 0.6 + 0.1 kg (this excludes any reinforcement, mountings, etc. which are used to attach the rear edges of the rubber skin to the rear member)."
+  },
+  {
+   "id": "R-0134",
+   "text": "The foam and rubber skin shall be folded back towards the rear, with the rubber skin attached via spacers to the rear member so that the sides of the rubber skin are held parallel.",
+   "source": {
+    "regulation": "UN GTR 9",
+    "version": "0.3.0",
+    "page": 92,
+    "paragraph": "6.3.1.2.7"
+   },
+   "confidence": 0.237,
+   "quote": "The foam and rubber skin shall be folded back towards the rear, with the rubber skin attached via spacers to the rear member so that the sides of the rubber skin are held parallel."
+  },
+  {
+   "id": "R-0135",
+   "text": "The foam shall be of such a size and shape that an adequate gap is maintained between the foam and components behind the front member, to avoid significant load paths between the foam and these components.",
+   "source": {
+    "regulation": "UN GTR 9",
+    "version": "0.3.0",
+    "page": 92,
+    "paragraph": "6.3.1.2.7"
+   },
+   "confidence": 0.237,
+   "quote": "The foam shall be of such a size and shape that an adequate gap is maintained between the foam and components behind the front member, to avoid significant load paths between the foam and these components."
+  },
+  {
+   "id": "R-0136",
+   "text": "The test impactor or at least the foam flesh shall be stored during a period of at least four hours in a controlled storage area with a stabilized humidity of 35 percent ± 15 percent and a stabilized temperature of 20 ± 4 °C prior to impactor removal for test.",
+   "source": {
+    "regulation": "UN GTR 9",
+    "version": "0.3.0",
+    "page": 93,
+    "paragraph": "6.3.1.2.8"
+   },
+   "confidence": 0.233,
+   "quote": "The test impactor or at least the foam flesh shall be stored during a period of at least four hours in a controlled storage area with a stabilized humidity of 35 percent ± 15 percent and a stabilized temperature of 20 ± 4 °C prior to impactor removal for test."
+  },
+  {
+   "id": "R-0137",
+   "text": "After removal from the storage the impactor shall not be subjected to conditions other than those pertaining in the test area.",
+   "source": {
+    "regulation": "UN GTR 9",
+    "version": "0.3.0",
+    "page": 93,
+    "paragraph": "6.3.1.2.8"
+   },
+   "confidence": 0.233,
+   "quote": "After removal from the storage the impactor shall not be subjected to conditions other than those pertaining in the test area."
+  },
+  {
+   "id": "R-0138",
+   "text": "Each test shall be completed within two hours of when the impactor to be used is removed from the controlled storage area.",
+   "source": {
+    "regulation": "UN GTR 9",
+    "version": "0.3.0",
+    "page": 100,
+    "paragraph": "7.1.1"
+   },
+   "confidence": 0.322,
+   "quote": "Each test shall be completed within two hours of when the impactor to be used is removed from the controlled storage area."
+  },
+  {
+   "id": "R-0139",
+   "text": "The selected target points shall be in the bumper test area.",
+   "source": {
+    "regulation": "UN GTR 9",
+    "version": "0.3.0",
+    "page": 100,
+    "paragraph": "7.1.1.1"
+   },
+   "confidence": 0.351,
+   "quote": "The selected target points shall be in the bumper test area."
+  },
+  {
+   "id": "R-0140",
+   "text": "The direction of the impact velocity vector shall be in the horizontal plane and parallel to the longitudinal vertical plane of the vehicle.",
+   "source": {
+    "regulation": "UN GTR 9",
+    "version": "0.3.0",
+    "page": 100,
+    "paragraph": "7.1.1.2"
+   },
+   "confidence": 0.36,
+   "quote": "The direction of the impact velocity vector shall be in the horizontal plane and parallel to the longitudinal vertical plane of the vehicle."
+  },
+  {
+   "id": "R-0141",
+   "text": "The tolerance for the direction of the velocity vector in the horizontal plane and in the longitudinal plane shall be ± 2° at the time of first contact.",
+   "source": {
+    "regulation": "UN GTR 9",
+    "version": "0.3.0",
+    "page": 100,
+    "paragraph": "7.1.1.2"
+   },
+   "confidence": 0.36,
+   "quote": "The tolerance for the direction of the velocity vector in the horizontal plane and in the longitudinal plane shall be ± 2° at the time of first contact."
+  },
+  {
+   "id": "R-0142",
+   "text": "The axis of the impactor shall be perpendicular to the horizontal plane, with a roll and pitch angle tolerance of ± 2° in the lateral and longitudinal plane.",
+   "source": {
+    "regulation": "UN GTR 9",
+    "version": "0.3.0",
+    "page": 100,
+    "paragraph": "7.1.1.2"
+   },
+   "confidence": 0.36,
+   "quote": "The axis of the impactor shall be perpendicular to the horizontal plane, with a roll and pitch angle tolerance of ± 2° in the lateral and longitudinal plane."
+  },
+  {
+   "id": "R-0143",
+   "text": "The bottom of the impactor (without parts needed for the purposes of launching and/or protection) shall be 75 mm above the ground reference plane at the time of the first contact with the bumper (see Figure 21), with a tolerance of ± 10 mm.",
+   "source": {
+    "regulation": "UN GTR 9",
+    "version": "0.3.0",
+    "page": 100,
+    "paragraph": "7.1.1.3"
+   },
+   "confidence": 0.404,
+   "quote": "The bottom of the impactor (without parts needed for the purposes of launching and/or protection) shall be 75 mm above the ground reference plane at the time of the first contact with the bumper (see Figure 21), with a tolerance of ± 10 mm."
+  },
+  {
+   "id": "R-0144",
+   "text": "When setting the height of the propulsion system, an allowance shall be made for the influence of gravity during the period of free flight of the impactor.",
+   "source": {
+    "regulation": "UN GTR 9",
+    "version": "0.3.0",
+    "page": 100,
+    "paragraph": "7.1.1.3"
+   },
+   "confidence": 0.404,
+   "quote": "When setting the height of the propulsion system, an allowance shall be made for the influence of gravity during the period of free flight of the impactor."
+  },
+  {
+   "id": "R-0145",
+   "text": "The lower legform impactor for the bumper tests shall be in 'free flight' at the moment of impact.",
+   "source": {
+    "regulation": "UN GTR 9",
+    "version": "0.3.0",
+    "page": 100,
+    "paragraph": "7.1.1.3.1"
+   },
+   "confidence": 0.327,
+   "quote": "The lower legform impactor for the bumper tests shall be in 'free flight' at the moment of impact."
+  },
+  {
+   "id": "R-0146",
+   "text": "The impactor shall be released to free flight at such a distance from the vehicle that the test results are not influenced by contact of the impactor with the propulsion system during the rebound of the impactor.",
+   "source": {
+    "regulation": "UN GTR 9",
+    "version": "0.3.0",
+    "page": 100,
+    "paragraph": "7.1.1.3.1"
+   },
+   "confidence": 0.327,
+   "quote": "The impactor shall be released to free flight at such a distance from the vehicle that the test results are not influenced by contact of the impactor with the propulsion system during the rebound of the impactor."
+  },
+  {
+   "id": "R-0147",
+   "text": "At the time of first contact the impactor shall have the intended orientation about its vertical axis, for the correct operation of its knee joint, with a yaw angle tolerance of ± 5° (see Figure 20).",
+   "source": {
+    "regulation": "UN GTR 9",
+    "version": "0.3.0",
+    "page": 100,
+    "paragraph": "7.1.1.3.2"
+   },
+   "confidence": 0.436,
+   "quote": "At the time of first contact the impactor shall have the intended orientation about its vertical axis, for the correct operation of its knee joint, with a yaw angle tolerance of ± 5° (see Figure 20)."
+  },
+  {
+   "id": "R-0148",
+   "text": "At the time of first contact the centre line of the impactor shall be within a ± 10 mm tolerance to the selected impact location.",
+   "source": {
+    "regulation": "UN GTR 9",
+    "version": "0.3.0",
+    "page": 100,
+    "paragraph": "7.1.1.3.3"
+   },
+   "confidence": 0.378,
+   "quote": "At the time of first contact the centre line of the impactor shall be within a ± 10 mm tolerance to the selected impact location."
+  },
+  {
+   "id": "R-0149",
+   "text": "During contact between the impactor and the vehicle, the impactor shall not contact the ground or any object which is not part of the vehicle.",
+   "source": {
+    "regulation": "UN GTR 9",
+    "version": "0.3.0",
+    "page": 100,
+    "paragraph": "7.1.1.3.4"
+   },
+   "confidence": 0.236,
+   "quote": "During contact between the impactor and the vehicle, the impactor shall not contact the ground or any object which is not part of the vehicle."
+  },
+  {
+   "id": "R-0150",
+   "text": "The impact velocity of the impactor when striking the bumper shall be 11.1 ± 0.2 m/s.",
+   "source": {
+    "regulation": "UN GTR 9",
+    "version": "0.3.0",
+    "page": 100,
+    "paragraph": "7.1.1.4"
+   },
+   "confidence": 0.501,
+   "quote": "The impact velocity of the impactor when striking the bumper shall be 11.1 ± 0.2 m/s."
+  },
+  {
+   "id": "R-0151",
+   "text": "The effect of gravity shall be taken into account when the impact velocity is obtained from measurements taken before the time of first contact.",
+   "source": {
+    "regulation": "UN GTR 9",
+    "version": "0.3.0",
+    "page": 100,
+    "paragraph": "7.1.1.4"
+   },
+   "confidence": 0.501,
+   "quote": "The effect of gravity shall be taken into account when the impact velocity is obtained from measurements taken before the time of first contact."
+  },
+  {
+   "id": "R-0152",
+   "text": "The tibia bending moments shall not exceed ± 15 Nm within an evaluation interval of 30 ms immediately prior to impact.",
+   "source": {
+    "regulation": "UN GTR 9",
+    "version": "0.3.0",
+    "page": 101,
+    "paragraph": "7.1.1.5"
+   },
+   "confidence": 0.461,
+   "quote": "The tibia bending moments shall not exceed ± 15 Nm within an evaluation interval of 30 ms immediately prior to impact."
+  },
+  {
+   "id": "R-0153",
+   "text": "The offset compensation shall be done with the flexible lower legform impactor in resting position prior to the test / acceleration phase.",
+   "source": {
+    "regulation": "UN GTR 9",
+    "version": "0.3.0",
+    "page": 102,
+    "paragraph": "7.1.1.6"
+   },
+   "confidence": 0.327,
+   "quote": "The offset compensation shall be done with the flexible lower legform impactor in resting position prior to the test / acceleration phase."
+  },
+  {
+   "id": "R-0154",
+   "text": "The selected target points shall be in the bumper test area as defined in paragraph 3.10.",
+   "source": {
+    "regulation": "UN GTR 9",
+    "version": "0.3.0",
+    "page": 102,
+    "paragraph": "7.1.2.1"
+   },
+   "confidence": 0.321,
+   "quote": "The selected target points shall be in the bumper test area as defined in paragraph 3.10."
+  },
+  {
+   "id": "R-0155",
+   "text": "The direction of impact shall be parallel to the longitudinal axis of the vehicle, with the axis of the upper legform vertical at the time of first contact.",
+   "source": {
+    "regulation": "UN GTR 9",
+    "version": "0.3.0",
+    "page": 102,
+    "paragraph": "7.1.2.2"
+   },
+   "confidence": 0.439,
+   "quote": "The direction of impact shall be parallel to the longitudinal axis of the vehicle, with the axis of the upper legform vertical at the time of first contact."
+  },
+  {
+   "id": "R-0156",
+   "text": "The tolerance to this direction is ± 2°.",
+   "source": {
+    "regulation": "UN GTR 9",
+    "version": "0.3.0",
+    "page": 102,
+    "paragraph": "7.1.2.2"
+   },
+   "confidence": 0.439,
+   "quote": "The tolerance to this direction is ± 2°."
+  },
+  {
+   "id": "R-0157",
+   "text": "At the time of first contact the impactor centre line shall be vertically midway between the upper bumper reference line and the lower bumper reference line with a + 10 mm tolerance and the impactor vertical centre line shall be positioned laterally with the selected impact location with a tolerance of ± 10 mm.",
+   "source": {
+    "regulation": "UN GTR 9",
+    "version": "0.3.0",
+    "page": 102,
+    "paragraph": "7.1.2.2"
+   },
+   "confidence": 0.439,
+   "quote": "At the time of first contact the impactor centre line shall be vertically midway between the upper bumper reference line and the lower bumper reference line with a + 10 mm tolerance and the impactor vertical centre line shall be positioned laterally with the selected impact location with a tolerance of ± 10 mm."
+  },
+  {
+   "id": "R-0158",
+   "text": "The impact velocity of the upper legform impactor when striking the bumper shall be 11.1 ± 0.2 m/s.",
+   "source": {
+    "regulation": "UN GTR 9",
+    "version": "0.3.0",
+    "page": 102,
+    "paragraph": "7.1.2.3"
+   },
+   "confidence": 0.468,
+   "quote": "The impact velocity of the upper legform impactor when striking the bumper shall be 11.1 ± 0.2 m/s."
+  },
+  {
+   "id": "R-0159",
+   "text": "No impact point shall be located so that the impactor will impact the test area with a glancing blow resulting in a more severe second impact outside the test area.",
+   "source": {
+    "regulation": "UN GTR 9",
+    "version": "0.3.0",
+    "page": 102,
+    "paragraph": "7.3.2"
+   },
+   "confidence": 0.204,
+   "quote": "No impact point shall be located so that the impactor will impact the test area with a glancing blow resulting in a more severe second impact outside the test area."
+  },
+  {
+   "id": "R-0160",
+   "text": "Selected impact points on the bonnet for the child headform impactor shall be, at the time of first contact: a minimum of 82.5 mm inside the defined side reference lines.",
+   "source": {
+    "regulation": "UN GTR 9",
+    "version": "0.3.0",
+    "page": 102,
+    "paragraph": "7.3.2"
+   },
+   "confidence": 0.204,
+   "quote": "Selected impact points on the bonnet for the child headform impactor shall be, at the time of first contact: (1) a minimum of 82.5 mm inside the defined side reference lines, and; (2) forward of the WAD1700 line, or, a minimum of 82.5 mm forwards of the bonnet rear reference line, - whichever is most forward at the point of measurement, and; (3) be rearward of the WAD1000 line, or, a minimum of 82.5 mm rearwards of the bonnet leading edge reference line, - whichever is most rearward at the point of measurement."
+  },
+  {
+   "id": "R-0161",
+   "text": "Selected impact points on the bonnet for the child headform impactor shall be, at the time of first contact: forward of the WAD1700 line, or, a minimum of 82.5 mm forwards of the bonnet rear reference line, whichever is most forward at the point of measurement.",
+   "source": {
+    "regulation": "UN GTR 9",
+    "version": "0.3.0",
+    "page": 102,
+    "paragraph": "7.3.2"
+   },
+   "confidence": 0.204,
+   "quote": "Selected impact points on the bonnet for the child headform impactor shall be, at the time of first contact: (1) a minimum of 82.5 mm inside the defined side reference lines, and; (2) forward of the WAD1700 line, or, a minimum of 82.5 mm forwards of the bonnet rear reference line, - whichever is most forward at the point of measurement, and; (3) be rearward of the WAD1000 line, or, a minimum of 82.5 mm rearwards of the bonnet leading edge reference line, - whichever is most rearward at the point of measurement."
+  },
+  {
+   "id": "R-0162",
+   "text": "Selected impact points on the bonnet for the child headform impactor shall be, at the time of first contact: rearward of the WAD1000 line, or, a minimum of 82.5 mm rearwards of the bonnet leading edge reference line, whichever is most rearward at the point of measurement.",
+   "source": {
+    "regulation": "UN GTR 9",
+    "version": "0.3.0",
+    "page": 102,
+    "paragraph": "7.3.2"
+   },
+   "confidence": 0.204,
+   "quote": "Selected impact points on the bonnet for the child headform impactor shall be, at the time of first contact: (1) a minimum of 82.5 mm inside the defined side reference lines, and; (2) forward of the WAD1700 line, or, a minimum of 82.5 mm forwards of the bonnet rear reference line, - whichever is most forward at the point of measurement, and; (3) be rearward of the WAD1000 line, or, a minimum of 82.5 mm rearwards of the bonnet leading edge reference line, - whichever is most rearward at the point of measurement."
+  },
+  {
+   "id": "R-0163",
+   "text": "These minimum distances are to be set with a flexible tape held tautly along the outer surface of the vehicle.",
+   "source": {
+    "regulation": "UN GTR 9",
+    "version": "0.3.0",
+    "page": 102,
+    "paragraph": "7.3.2"
+   },
+   "confidence": 0.204,
+   "quote": "These minimum distances are to be set with a flexible tape held tautly along the outer surface of the vehicle."
+  },
+  {
+   "id": "R-0164",
+   "text": "Selected impact points on the bonnet for the adult headform impactor shall be, at the time of first contact: a minimum of 82.5 mm inside the defined side reference lines.",
+   "source": {
+    "regulation": "UN GTR 9",
+    "version": "0.3.0",
+    "page": 103,
+    "paragraph": "7.4.2"
+   },
+   "confidence": 0.247,
+   "quote": "Selected impact points on the bonnet for the adult headform impactor shall be, at the time of first contact: (1) a minimum of 82.5 mm inside the defined side reference lines, and; (2) forward of the WAD2100 line, or, a minimum of 82.5 mm forward of the bonnet rear reference line, whichever is most forward at the point of measurement, and; (3) rearward of the WAD1700 line."
+  },
+  {
+   "id": "R-0165",
+   "text": "Selected impact points on the bonnet for the adult headform impactor shall be, at the time of first contact: forward of the WAD2100 line, or, a minimum of 82.5 mm forward of the bonnet rear reference line, whichever is most forward at the point of measurement.",
+   "source": {
+    "regulation": "UN GTR 9",
+    "version": "0.3.0",
+    "page": 103,
+    "paragraph": "7.4.2"
+   },
+   "confidence": 0.247,
+   "quote": "Selected impact points on the bonnet for the adult headform impactor shall be, at the time of first contact: (1) a minimum of 82.5 mm inside the defined side reference lines, and; (2) forward of the WAD2100 line, or, a minimum of 82.5 mm forward of the bonnet rear reference line, whichever is most forward at the point of measurement, and; (3) rearward of the WAD1700 line."
+  },
+  {
+   "id": "R-0166",
+   "text": "Selected impact points on the bonnet for the adult headform impactor shall be, at the time of first contact: rearward of the WAD1700 line.",
+   "source": {
+    "regulation": "UN GTR 9",
+    "version": "0.3.0",
+    "page": 103,
+    "paragraph": "7.4.2"
+   },
+   "confidence": 0.247,
+   "quote": "Selected impact points on the bonnet for the adult headform impactor shall be, at the time of first contact: (1) a minimum of 82.5 mm inside the defined side reference lines, and; (2) forward of the WAD2100 line, or, a minimum of 82.5 mm forward of the bonnet rear reference line, whichever is most forward at the point of measurement, and; (3) rearward of the WAD1700 line."
+  },
+  {
+   "id": "R-0167",
+   "text": "The headform velocity at the time of impact shall be 9.7 ± 0.2 m/s.",
+   "source": {
+    "regulation": "UN GTR 9",
+    "version": "0.3.0",
+    "page": 103,
+    "paragraph": "7.4.4"
+   },
+   "confidence": 0.204,
+   "quote": "The headform velocity at the time of impact shall be 9.7 ± 0.2 m/s."
+  },
+  {
+   "id": "R-0168",
+   "text": "The direction of impact shall be in the longitudinal vertical plane of the paragraph of the vehicle to be tested at an angle of 65° ± 2° to the horizontal.",
+   "source": {
+    "regulation": "UN GTR 9",
+    "version": "0.3.0",
+    "page": 103,
+    "paragraph": "7.4.5"
+   },
+   "confidence": 0.233,
+   "quote": "The direction of impact shall be in the longitudinal vertical plane of the paragraph of the vehicle to be tested at an angle of 65° ± 2° to the horizontal."
+  },
+  {
+   "id": "R-0169",
+   "text": "The direction of impact of tests to the front structure shall be downward and rearward.",
+   "source": {
+    "regulation": "UN GTR 9",
+    "version": "0.3.0",
+    "page": 103,
+    "paragraph": "7.4.5"
+   },
+   "confidence": 0.233,
+   "quote": "The direction of impact of tests to the front structure shall be downward and rearward."
+  }
+ ],
+ "regulations": [
+  {
+   "regulation": "UN R42",
+   "version": "0.2.0",
+   "probability": 0.97,
+   "selected": true,
+   "rationale": "R42 governs the low-speed collision behaviour of the front protective device of M1 vehicles, which this front bumper is. (lexical: term match score 2.4)"
+  },
+  {
+   "regulation": "UN R127",
+   "version": "4.3.0",
+   "probability": 0.85,
+   "selected": true,
+   "rationale": "Pedestrian safety for M1 vehicles requires the front bumper lower leg impact zone to meet legform and energy-absorption performance, so this product must fulfil it. (lexical: term match score 9.6)"
+  },
+  {
+   "regulation": "UN R26",
+   "version": "4.0.0",
+   "probability": 0.85,
+   "selected": true,
+   "rationale": "External projections of M1 vehicles cover bodywork such as the bumper cover, so the bumper must limit injury risk from contact with its surface. (lexical: term match score 5.7)"
+  },
+  {
+   "regulation": "UN GTR 9",
+   "version": "0.3.0",
+   "probability": 0.6,
+   "selected": true,
+   "rationale": "Pedestrian safety GTR covers the lower legform and bumper impact zone of M1 vehicles, which this bumper's lower leg impact zone must meet in markets using GTR 9 rather than R127. (lexical: term match score 15.7)"
+  },
+  {
+   "regulation": "UN R94",
+   "version": "5.1.0",
+   "probability": 0.25,
+   "selected": false,
+   "rationale": "Frontal collision regulation addresses occupant protection in the vehicle, and the bumper is only a contributing structure. (lexical: term match score 0.7)"
+  },
+  {
+   "regulation": "UN R149",
+   "version": "1.6.0",
+   "probability": 0.15,
+   "selected": false,
+   "rationale": "Road illumination devices are not part of this bumper, though fog lamp housings could be integrated. (lexical: term match score 0.0)"
+  },
+  {
+   "regulation": "UN R19",
+   "version": "4.10.0",
+   "probability": 0.12,
+   "selected": false,
+   "rationale": "Front fog lamp requirements apply only if fog lamps are integrated, which the profile does not state. (lexical: term match score 0.0)"
+  },
+  {
+   "regulation": "UN R48",
+   "version": "9.3.0",
+   "probability": 0.12,
+   "selected": false,
+   "rationale": "R48 governs lighting installation, and the lower grille does not carry lighting functions in the profile. (lexical: term match score 0.0)"
+  },
+  {
+   "regulation": "UN R150",
+   "version": "1.2.1",
+   "probability": 0.12,
+   "selected": false,
+   "rationale": "Retro-reflective device requirements apply only if reflectors are integrated in the bumper, which the profile does not state. (lexical: term match score 0.0)"
+  },
+  {
+   "regulation": "UN R3",
+   "version": "2.17.0",
+   "probability": 0.1,
+   "selected": false,
+   "rationale": "Retro-reflector requirements apply only if reflectors are integrated in the bumper, which the profile does not state. (lexical: term match score 0.0)"
+  },
+  {
+   "regulation": "UN R148",
+   "version": "1.6.0",
+   "probability": 0.08,
+   "selected": false,
+   "rationale": "Light-signalling device consolidation is not relevant because the bumper carries no lamps as a product function. (lexical: term match score 0.0)"
+  },
+  {
+   "regulation": "UN R104",
+   "version": "0.9.0",
+   "probability": 0.05,
+   "selected": false,
+   "rationale": "Retro-reflective markings apply to M2, M3, N and O2-O4 vehicles, not M1, and the bumper carries no such markings in the profile. (lexical: term match score 0.0)"
+  },
+  {
+   "regulation": "UN R137",
+   "version": "4.0.0",
+   "probability": 0.05,
+   "selected": false,
+   "rationale": "Frontal occupant restraint systems are interior devices, not the bumper. (lexical: term match score 0.0)"
+  },
+  {
+   "regulation": "UN R152",
+   "version": "2.5.0",
+   "probability": 0.05,
+   "selected": false,
+   "rationale": "AEBS for M1 vehicles covers sensors and braking functions, not the passive bumper structure. (lexical: term match score 0.0)"
+  }
+ ],
+ "profile": {
+  "product": "Front bumper",
+  "vehicle_categories": [
+   "M1"
+  ],
+  "functions": [
+   "Low-speed impact protection",
+   "front protective device",
+   "Pedestrian protection",
+   "lower leg impact zone",
+   "Aerodynamic and styling cover",
+   "Low-speed impact protection (front protective device)",
+   "Pedestrian protection (lower leg impact zone)"
+  ],
+  "parts": [
+   "Bumper cover",
+   "fascia",
+   "Energy absorber",
+   "foam",
+   "Bumper beam",
+   "Lower grille",
+   "Towing eye cover",
+   "Bumper cover (fascia)",
+   "Energy absorber (foam)"
+  ],
+  "materials": [
+   "Bumper cover: PP/EPDM-T20, painted",
+   "Energy absorber: EPP foam",
+   "Bumper beam: Aluminium extrusion or HSS",
+   "Lower grille: ABS / PC-ABS"
+  ],
+  "electronics": false,
+  "keywords": [
+   "front bumper",
+   "low-speed impact protection",
+   "front protective device",
+   "pedestrian protection",
+   "lower leg impact zone",
+   "aerodynamic and styling cover",
+   "bumper cover",
+   "fascia",
+   "energy absorber",
+   "foam",
+   "bumper beam",
+   "lower grille",
+   "towing eye cover",
+   "bumper"
+  ]
+ }
+}

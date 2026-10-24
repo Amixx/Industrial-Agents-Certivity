@@ -1,0 +1,12 @@
+[g 23:03:08] profile took 0 s
+[brain 23:03:08] profile: Front bumper; 17 terms; electronics=False
+[g 23:03:09] regulations took 0 s
+[brain 23:03:09] regulations: UN R42 0.97, UN R127 0.90, UN R26 0.70, UN GTR 9 0.60
+[g 23:03:09] relevance took 0 s
+[brain 23:03:09] paragraphs selected: 80
+[g 23:03:29] rewrite took 20 s
+[brain 23:03:29] requirements: 143 kept, 0 dropped
+[brain 23:03:29] wrote /Users/troy/Documents/Projects/Industrial-Agents-Certivity/out/experiments/G-bumper-plain-sonnet-w85.json (143 requirements)
+[g 23:03:29] claude-sonnet-5-5: 7 calls, 26,994 in / 20,109 out / 8,330 cache read; $0.257
+[g 23:03:29] claude-sonnet-5-5: 39 cache hits
+[g 23:03:29] wall clock 21 s, new spend $0.257

@@ -1,0 +1,16 @@
+{'strong miss': 39, 'strong miss chars': 644788}
+[cost] claude-opus-5-5: 39 calls, 243,645 in / 34,903 out / 19,250 cache read; $1.68
+[cost] total new spend $1.68
+case data/synthetic/bumper-plain; regulations ['UN GTR 9', 'UN R127', 'UN R26', 'UN R42']; 923 candidates; 67 silver-cited paragraphs in them; pipeline keeps 64
+   cut  paras  cited  recall precision
+ 0.500     11     11    0.16      1.00
+ 0.300     28     27    0.40      0.96
+ 0.250     40     36    0.54      0.90
+ 0.200     44     38    0.57      0.86
+ 0.175     62     46    0.69      0.74
+ 0.150     84     49    0.73      0.58
+ 0.100    142     61    0.91      0.43
+ 0.070    202     66    0.99      0.33
+ 0.050    282     67    1.00      0.24
+ 0.030    537     67    1.00      0.12
+pipeline (0.20 + floor): 64 paragraphs, recall 0.69

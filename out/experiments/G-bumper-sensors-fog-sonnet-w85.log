@@ -1,0 +1,11 @@
+[g 23:08:55] profile took 3 s
+[brain 23:08:55] profile: Front bumper (front-end module) with integrated front fog lamps, front position lamps and ultrasonic parking-assist sensors; 22 terms; electronics=True
+[g 23:09:11] regulations took 16 s
+[brain 23:09:11] regulations: UN R42 0.93, UN R149 0.92, UN R148 0.92, UN R48 0.90, UN R127 0.85, UN R10 0.80, UN GTR 9 0.50, UN R26 0.50
+[g 23:10:31] relevance took 80 s
+[brain 23:10:32] paragraphs selected: 310
+[g 23:11:05] rewrite took 34 s
+[brain 23:11:05] requirements: 519 kept, 12 dropped
+[brain 23:11:06] wrote /Users/troy/Documents/Projects/Industrial-Agents-Certivity/out/experiments/G-bumper-sensors-fog-sonnet-w85.json (519 requirements)
+[g 23:11:06] claude-sonnet-5-5: 184 calls, 1,078,881 in / 214,802 out / 122,780 cache read; $4.330
+[g 23:11:06] wall clock 134 s, new spend $4.330

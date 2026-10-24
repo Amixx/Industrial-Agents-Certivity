@@ -1,0 +1,182 @@
+{
+ "votes10": {
+  "rows": 217,
+  "matched": 118,
+  "not_cited": 82,
+  "excess": 12,
+  "wording": 5,
+  "precision": 0.544,
+  "f2": 0.604,
+  "gold_paragraph_rows": 133
+ },
+ "votes10-kbjev": {
+  "rows": 217,
+  "matched": 116,
+  "not_cited": 83,
+  "excess": 12,
+  "wording": 6,
+  "precision": 0.535,
+  "f2": 0.594,
+  "gold_paragraph_rows": 133
+ },
+ "votes11": {
+  "rows": 181,
+  "matched": 110,
+  "not_cited": 58,
+  "excess": 8,
+  "wording": 5,
+  "precision": 0.608,
+  "f2": 0.584,
+  "gold_paragraph_rows": 122
+ },
+ "votes11-kbjev": {
+  "rows": 181,
+  "matched": 109,
+  "not_cited": 58,
+  "excess": 8,
+  "wording": 6,
+  "precision": 0.602,
+  "f2": 0.579,
+  "gold_paragraph_rows": 122
+ },
+ "votes12": {
+  "rows": 149,
+  "matched": 99,
+  "not_cited": 46,
+  "excess": 1,
+  "wording": 3,
+  "precision": 0.664,
+  "f2": 0.545,
+  "gold_paragraph_rows": 102
+ },
+ "votes12-kbjev": {
+  "rows": 149,
+  "matched": 98,
+  "not_cited": 46,
+  "excess": 1,
+  "wording": 4,
+  "precision": 0.658,
+  "f2": 0.539,
+  "gold_paragraph_rows": 102
+ },
+ "votes13": {
+  "rows": 105,
+  "matched": 71,
+  "not_cited": 32,
+  "excess": 0,
+  "wording": 2,
+  "precision": 0.676,
+  "f2": 0.41,
+  "gold_paragraph_rows": 72
+ },
+ "votes13-kbjev": {
+  "rows": 105,
+  "matched": 70,
+  "not_cited": 32,
+  "excess": 0,
+  "wording": 3,
+  "precision": 0.667,
+  "f2": 0.405,
+  "gold_paragraph_rows": 72
+ },
+ "conf06": {
+  "rows": 97,
+  "matched": 52,
+  "not_cited": 14,
+  "excess": 26,
+  "wording": 5,
+  "precision": 0.536,
+  "f2": 0.303,
+  "gold_paragraph_rows": 83
+ },
+ "kbjev-top120": {
+  "rows": 120,
+  "matched": 65,
+  "not_cited": 21,
+  "excess": 29,
+  "wording": 5,
+  "precision": 0.542,
+  "f2": 0.369,
+  "gold_paragraph_rows": 99
+ },
+ "kbjev-top150": {
+  "rows": 150,
+  "matched": 82,
+  "not_cited": 27,
+  "excess": 34,
+  "wording": 7,
+  "precision": 0.547,
+  "f2": 0.451,
+  "gold_paragraph_rows": 122
+ },
+ "kbjev-top180": {
+  "rows": 180,
+  "matched": 102,
+  "not_cited": 36,
+  "excess": 35,
+  "wording": 7,
+  "precision": 0.567,
+  "f2": 0.543,
+  "gold_paragraph_rows": 143
+ },
+ "both-v8-c06": {
+  "rows": 63,
+  "matched": 47,
+  "not_cited": 12,
+  "excess": 3,
+  "wording": 1,
+  "precision": 0.746,
+  "f2": 0.286,
+  "gold_paragraph_rows": 51
+ },
+ "both-v10-c06": {
+  "rows": 54,
+  "matched": 41,
+  "not_cited": 10,
+  "excess": 2,
+  "wording": 1,
+  "precision": 0.759,
+  "f2": 0.252,
+  "gold_paragraph_rows": 44
+ },
+ "both-v10-c05": {
+  "rows": 98,
+  "matched": 69,
+  "not_cited": 18,
+  "excess": 9,
+  "wording": 2,
+  "precision": 0.704,
+  "f2": 0.402,
+  "gold_paragraph_rows": 79
+ },
+ "both-v8-c05": {
+  "rows": 113,
+  "matched": 76,
+  "not_cited": 21,
+  "excess": 14,
+  "wording": 2,
+  "precision": 0.673,
+  "f2": 0.435,
+  "gold_paragraph_rows": 91
+ },
+ "both-v6-c05": {
+  "rows": 120,
+  "matched": 78,
+  "not_cited": 21,
+  "excess": 18,
+  "wording": 3,
+  "precision": 0.65,
+  "f2": 0.443,
+  "gold_paragraph_rows": 98
+ },
+ "votes10-kbtop150": {
+  "rows": 150,
+  "matched": 97,
+  "not_cited": 47,
+  "excess": 3,
+  "wording": 3,
+  "precision": 0.647,
+  "f2": 0.533,
+  "gold_paragraph_rows": 103
+ }
+}

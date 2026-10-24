@@ -1,0 +1,27 @@
+24 Oct 23:58 CEST
+file rear-lamp-swing-J-sonnet-drop1234.json
+drop classes [1, 2, 3, 4]
+rows 292 matched 115 F2 0.547
+matched_deleted 26 unmatched_deleted 85
+
+OK: rear-lamp-swing-J-sonnet-drop1234.json is valid (292 requirements).
+
+Scored against expected.json (offline: regulation and page level only)
+
+level        precision   recall      F1   cited / expected / matched
+regulation       1.000    1.000   1.000   4 / 4 / 4
+page             0.746    0.887   0.810   63 / 53 / 47
+
+The requirement-level score (do your requirements say what the expected ones say?) is computed on the submission platform.
+
+level              P      R     F2   cited/expected/matched
+regulation     1.000  1.000  1.000   4/4/4
+page           0.746  0.887  0.855   63/53/47
+requirement    0.394  0.605  0.547   292/190/115
+
+== /Users/troy/Documents/Projects/Industrial-Agents-Certivity/out/rear-lamp-swing-J-sonnet-drop1234.json
+   rows 292: in gold paragraphs 160 (matched 111), outside 132 (matched 4)
+   gold rows missed: 34 on cited paragraphs, 41 on paragraphs never cited
+   gold paragraphs where we have fewer / equal / more rows than gold: 8 / 62 / 26
+   local judge: matched 115, P 0.394 R 0.605 F2 0.547
+   rows outside gold paragraphs dropped: P 0.694 R 0.584 F2 0.603

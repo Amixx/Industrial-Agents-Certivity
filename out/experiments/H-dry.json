@@ -1,0 +1,119 @@
+{
+ "calibrated_to_opus_log": true,
+ "chars_per_token": 2.534,
+ "opus_log_rebuild_dollars": 4.689,
+ "out_scale": 1.624,
+ "strong_calls_seen": 115,
+ "image_tokens": 7268,
+ "candidates": 2805,
+ "relevance_batch": 25,
+ "rewrite_batch": 12,
+ "regulations": [
+  {
+   "regulation": "UN R148",
+   "p": 0.95,
+   "selected": true
+  },
+  {
+   "regulation": "UN R48",
+   "p": 0.92,
+   "selected": true
+  },
+  {
+   "regulation": "UN R150",
+   "p": 0.88,
+   "selected": true
+  },
+  {
+   "regulation": "UN R10",
+   "p": 0.85,
+   "selected": true
+  }
+ ],
+ "relevance": {
+  "opus": {
+   "model": "claude-opus-5-5",
+   "hits": 113,
+   "misses": 0,
+   "scored": 2805,
+   "errors": []
+  },
+  "sonnet": {
+   "model": "claude-sonnet-5-5",
+   "hits": 0,
+   "misses": 113,
+   "scored": 0,
+   "errors": []
+  },
+  "haiku": {
+   "model": "claude-haiku-5-5",
+   "hits": 0,
+   "misses": 113,
+   "scored": 0,
+   "errors": []
+  }
+ },
+ "selection_paragraphs": {
+  "opus-w70": 267,
+  "opus-w85": 362
+ },
+ "rewrite": {
+  "opus-w70": {
+   "paragraphs": 267,
+   "hits": 23,
+   "misses": 0,
+   "dollars": 0.0,
+   "errors": []
+  },
+  "opus-w85": {
+   "paragraphs": 362,
+   "hits": 0,
+   "misses": 31,
+   "dollars": 1.116,
+   "errors": []
+  }
+ },
+ "cold_rewrite_of_opus_w85": {
+  "paragraphs": 362,
+  "dollars": 1.158
+ },
+ "run2_relevance": {
+  "hits": 0,
+  "misses": 113,
+  "dollars": 2.241,
+  "in_tokens": 653667,
+  "out_tokens": 92040,
+  "cache_read_tokens": 66301
+ },
+ "run3_relevance": {
+  "hits": 0,
+  "misses": 113,
+  "dollars": 0.112,
+  "in_tokens": 653667,
+  "out_tokens": 92040,
+  "cache_read_tokens": 66301
+ },
+ "side_if_strong_model_changes": {
+  "claude-sonnet-5-5": {
+   "hits": 1,
+   "misses": 1,
+   "profile_misses": 0,
+   "regs_misses": 1,
+   "profile_dollars": 0.0,
+   "regs_dollars": 0.084
+  },
+  "claude-haiku-5-5": {
+   "hits": 0,
+   "misses": 2,
+   "profile_misses": 1,
+   "regs_misses": 1,
+   "profile_dollars": 0.001,
+   "regs_dollars": 0.004
+  }
+ },
+ "files": {
+  "run1": true,
+  "run2": false,
+  "run3": false
+ }
+}

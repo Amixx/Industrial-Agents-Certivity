@@ -1,0 +1,4 @@
+lane H sonnet: relevance claude-sonnet-5-5, blend 0.85, Sonnet rewrite, main's prompt
+paragraphs selected 301, rows 403, dropped 3
+wall 92s, new spend $3.162, already $0.000, lane $3.162
+wrote /Users/troy/Documents/Projects/Industrial-Agents-Certivity/out/rear-lamp-swing-H-sonnet-w85.json
