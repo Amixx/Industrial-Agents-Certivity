@@ -1,0 +1,7 @@
+[brain 21:49:28] profile: Rear combination lamp (RCL), LH and RH, complete assembly with electronics and harness connector, for a compact passenger car; 26 terms; electronics=True
+[brain 21:49:28] regulations: UN R148 0.97, UN R150 0.92, UN R48 0.90, UN R10 0.88
+[relevance] 1 paragraphs unscored, retrying
+[brain 21:49:31] paragraphs selected: 266
+[brain 21:52:37] requirements: 362 kept, 2 dropped
+[brain 21:52:59] expert filter: 322 kept of 362
+[brain 21:53:00] wrote /Users/imantsliepins/Personal/bench-out/fin-synth-a06-rear-combination-rfq.json (322 requirements); 212.1s, 36 LLM calls + 229 cached, $3.86 ($13.02 with a cold cache)

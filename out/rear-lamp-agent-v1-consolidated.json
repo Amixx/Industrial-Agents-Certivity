@@ -1,0 +1,1996 @@
+{
+  "team_id": "team-06",
+  "case_id": "dev-rear-lamp",
+  "requirements": [
+    {
+      "id": "R-0001",
+      "text": "The rear lamp shall have a separate type approval under UN R148 for each lamp function it provides (rear position lamp, stop lamp, reversing lamp).",
+      "source": {
+        "regulation": "UN R148",
+        "version": "1.6.0",
+        "page": 4,
+        "paragraph": "3.2.1"
+      }
+    },
+    {
+      "id": "R-0002",
+      "text": "The rear lamp, as a unit of grouped, combined or reciprocally incorporated lamps (position, stop, reversing, retro-reflector), may be approved only if each of its lamps meets UN R148 or another applicable Regulation. A lamp that meets none of them shall not be part of the unit.",
+      "source": {
+        "regulation": "UN R148",
+        "version": "1.6.0",
+        "page": 4,
+        "paragraph": "3.2.2"
+      }
+    },
+    {
+      "id": "R-0003",
+      "text": "The UN R148 approval application for the rear lamp shall include drawings showing the mounting position(s) on the vehicle, the reference axis (H=0°, V=0°) and centre of reference, the limit of the apparent surface of each function, and the space reserved for the approval marking. Where applicable, the drawings shall also show the light source module(s) and their identification-code space, the interdependent lamp configuration and any vehicle manufacturer logo.",
+      "source": {
+        "regulation": "UN R148",
+        "version": "1.6.0",
+        "page": 2,
+        "paragraph": "3.1.2.1"
+      }
+    },
+    {
+      "id": "R-0004",
+      "text": "The UN R148 application for the rear lamp shall include a brief technical description stating the light source category (for replaceable sources) or the light source module identification code. It shall also give the make and type of any electronic light source control gear or variable intensity control that is not part of the lamp.",
+      "source": {
+        "regulation": "UN R148",
+        "version": "1.6.0",
+        "page": 3,
+        "paragraph": "3.1.2.2"
+      }
+    },
+    {
+      "id": "R-0005",
+      "text": "If any function of the rear lamp has variable luminous intensity (R2/S2), the application shall include a concise description of the variable intensity control, an arrangement diagram, and a specification of the system characteristics over the whole intensity range.",
+      "source": {
+        "regulation": "UN R148",
+        "version": "1.6.0",
+        "page": 3,
+        "paragraph": "3.1.2.4"
+      }
+    },
+    {
+      "id": "R-0006",
+      "text": "Two complete samples of the rear lamp shall be submitted for UN R148 approval. A left/right symmetrical pair may be submitted as two identical samples for one side. For a variable-intensity lamp, a sample of the variable intensity control or a generator providing the same signals shall also be submitted.",
+      "source": {
+        "regulation": "UN R148",
+        "version": "1.6.0",
+        "page": 3,
+        "paragraph": "3.1.2.7"
+      }
+    },
+    {
+      "id": "R-0007",
+      "text": "The rear lamp shall have a space of sufficient size for the approval marking and the other required markings.",
+      "source": {
+        "regulation": "UN R148",
+        "version": "1.6.0",
+        "page": 6,
+        "paragraph": "3.3.1.1"
+      }
+    },
+    {
+      "id": "R-0008",
+      "text": "All markings on the rear lamp (approval marking, trade name, voltage, module codes) shall be clearly legible and indelible.",
+      "source": {
+        "regulation": "UN R148",
+        "version": "1.6.0",
+        "page": 6,
+        "paragraph": "3.3.1.1.1"
+      }
+    },
+    {
+      "id": "R-0009",
+      "text": "The dimension 'a' of the approval marking on the rear lamp shall be at least 5 mm.",
+      "source": {
+        "regulation": "UN R148",
+        "version": "1.6.0",
+        "page": 6,
+        "paragraph": "3.3.1.2"
+      }
+    },
+    {
+      "id": "R-0010",
+      "text": "The approval marking of the rear lamp shall include the approval mark: a circle surrounding the letter 'E' followed by the distinguishing number of the approving country.",
+      "source": {
+        "regulation": "UN R148",
+        "version": "1.6.0",
+        "page": 7,
+        "paragraph": "3.3.2.1"
+      }
+    },
+    {
+      "id": "R-0011",
+      "text": "The approval marking of the rear lamp shall include the four- to six-digit sequential number of the approval number, placed close to the approval mark.",
+      "source": {
+        "regulation": "UN R148",
+        "version": "1.6.0",
+        "page": 7,
+        "paragraph": "3.3.2.2"
+      }
+    },
+    {
+      "id": "R-0012",
+      "text": "The approval marking of the rear lamp shall include the function symbols of UN R148 Table 1: 'R1' or 'R2' (rear position lamp), 'S1' or 'S2' (stop lamp) and 'AR' (reversing lamp).",
+      "source": {
+        "regulation": "UN R148",
+        "version": "1.6.0",
+        "page": 7,
+        "paragraph": "3.3.2.3"
+      }
+    },
+    {
+      "id": "R-0013",
+      "text": "The approval marking of the rear lamp shall include '148R' followed by the two digits of the series of amendments in force when the approval is issued.",
+      "source": {
+        "regulation": "UN R148",
+        "version": "1.6.0",
+        "page": 7,
+        "paragraph": "3.3.2.4"
+      }
+    },
+    {
+      "id": "R-0014",
+      "text": "If the rear lamp cannot be mounted on either side of the vehicle indiscriminately, it shall bear a horizontal arrow showing its mounting position. For rear position lamps, and for reversing lamps with reduced light distribution of two lamps, the arrow shall point outwards from the vehicle.",
+      "source": {
+        "regulation": "UN R148",
+        "version": "1.6.0",
+        "page": 7,
+        "paragraph": "3.3.2.5.1.1"
+      }
+    },
+    {
+      "id": "R-0015",
+      "text": "If the rear lamp is used as one of an assembly of two independent lamps, it shall bear the additional letter 'D' to the right of the function symbol. If it is part of an interdependent lamp system, it shall bear the letter 'Y'.",
+      "source": {
+        "regulation": "UN R148",
+        "version": "1.6.0",
+        "page": 7,
+        "paragraph": "3.3.2.5.2"
+      }
+    },
+    {
+      "id": "R-0016",
+      "text": "If the rear lamp has reduced light distribution (mounting height of 750 mm or less, verified only down to 5° below horizontal), it shall bear a vertical arrow that starts from a horizontal segment and points downwards.",
+      "source": {
+        "regulation": "UN R148",
+        "version": "1.6.0",
+        "page": 8,
+        "paragraph": "3.3.2.5.3"
+      }
+    },
+    {
+      "id": "R-0017",
+      "text": "The rear lamp shall bear the trade name or mark of the applicant.",
+      "source": {
+        "regulation": "UN R148",
+        "version": "1.6.0",
+        "page": 8,
+        "paragraph": "3.3.3.2"
+      }
+    },
+    {
+      "id": "R-0018",
+      "text": "If the rear lamp uses replaceable light sources, it shall be marked with the prescribed light source category or categories. Lamps with non-replaceable LED light sources are exempt.",
+      "source": {
+        "regulation": "UN R148",
+        "version": "1.6.0",
+        "page": 8,
+        "paragraph": "3.3.3.3"
+      }
+    },
+    {
+      "id": "R-0019",
+      "text": "Because the rear lamp uses non-replaceable LED light sources and/or an electronic light source control gear or variable intensity control, it shall be marked with its rated voltage (6 V, 12 V or 24 V) or range of voltage.",
+      "source": {
+        "regulation": "UN R148",
+        "version": "1.6.0",
+        "page": 8,
+        "paragraph": "3.3.3.4"
+      }
+    },
+    {
+      "id": "R-0020",
+      "text": "If the rear lamp uses replaceable light source modules (e.g. the LED PCB module), each module shall bear the applicant's trade name, a specific identification code starting with 'MD' followed by the approval mark without the circle, and its rated voltage. The lamp shall also bear the module identification code and rated voltage.",
+      "source": {
+        "regulation": "UN R148",
+        "version": "1.6.0",
+        "page": 8,
+        "paragraph": "3.3.3.5"
+      }
+    },
+    {
+      "id": "R-0021",
+      "text": "Any electronic light source control gear or variable intensity control that is part of the rear lamp but outside the lamp body shall be marked with its identification number and the manufacturer's name.",
+      "source": {
+        "regulation": "UN R148",
+        "version": "1.6.0",
+        "page": 8,
+        "paragraph": "3.3.3.6"
+      }
+    },
+    {
+      "id": "R-0022",
+      "text": "The approval marking shall be placed on an inner or outer part of the rear lamp (transparent or not) that is not designed to be separated from the light-emitting transparent part (outer lens).",
+      "source": {
+        "regulation": "UN R148",
+        "version": "1.6.0",
+        "page": 8,
+        "paragraph": "3.3.4.1"
+      }
+    },
+    {
+      "id": "R-0023",
+      "text": "The approval marking of the rear lamp shall be visible when the lamp is fitted on the vehicle, or when a movable part such as the boot lid or tailgate is opened.",
+      "source": {
+        "regulation": "UN R148",
+        "version": "1.6.0",
+        "page": 8,
+        "paragraph": "3.3.4.2"
+      }
+    },
+    {
+      "id": "R-0024",
+      "text": "If the outer lens of the rear lamp is designed to be separated from the main body, the approval marking shall be placed on both the detachable lens and the main body.",
+      "source": {
+        "regulation": "UN R148",
+        "version": "1.6.0",
+        "page": 8,
+        "paragraph": "3.3.4.3"
+      }
+    },
+    {
+      "id": "R-0025",
+      "text": "If one outer lens is used for several devices with different approval markings, the main body of each device shall bear only the approval marking of its own function(s).",
+      "source": {
+        "regulation": "UN R148",
+        "version": "1.6.0",
+        "page": 8,
+        "paragraph": "3.3.4.4"
+      }
+    },
+    {
+      "id": "R-0026",
+      "text": "If a single approval mark is used for the grouped/combined/reciprocally incorporated rear lamp, it shall be visible after installation.",
+      "source": {
+        "regulation": "UN R148",
+        "version": "1.6.0",
+        "page": 9,
+        "paragraph": "3.3.5.1.1"
+      }
+    },
+    {
+      "id": "R-0027",
+      "text": "If a single approval mark is used for the grouped/combined/reciprocally incorporated rear lamp, no light-transmitting part of the lamp shall be removable without also removing the approval mark.",
+      "source": {
+        "regulation": "UN R148",
+        "version": "1.6.0",
+        "page": 9,
+        "paragraph": "3.3.5.1.2"
+      }
+    },
+    {
+      "id": "R-0028",
+      "text": "The components of a single approval mark on the combined rear lamp shall be no smaller than the minimum size required for the smallest of the individual marks under the applicable Regulations.",
+      "source": {
+        "regulation": "UN R148",
+        "version": "1.6.0",
+        "page": 9,
+        "paragraph": "3.3.5.2"
+      }
+    },
+    {
+      "id": "R-0029",
+      "text": "Every modification of the approved rear lamp type shall be notified to the Type Approval Authority that approved it. The Authority may require a further test report.",
+      "source": {
+        "regulation": "UN R148",
+        "version": "1.6.0",
+        "page": 9,
+        "paragraph": "3.4.1"
+      }
+    },
+    {
+      "id": "R-0030",
+      "text": "The rear lamp shall meet the general requirements of UN R148 paragraph 4 and the function-specific requirements of paragraph 5.",
+      "source": {
+        "regulation": "UN R148",
+        "version": "1.6.0",
+        "page": 10,
+        "paragraph": "4.1"
+      }
+    },
+    {
+      "id": "R-0031",
+      "text": "The rear lamp shall meet the general and individual specifications of UN R48 (sections 5 and 6) relevant to M1 vehicles wherever they can be verified at lamp type approval.",
+      "source": {
+        "regulation": "UN R148",
+        "version": "1.6.0",
+        "page": 10,
+        "paragraph": "4.2"
+      }
+    },
+    {
+      "id": "R-0032",
+      "text": "The rear lamp (housing, fasteners/clips, LED PCB, lens) shall be designed and built so that, in normal use and despite vibration, it keeps operating satisfactorily and retains its prescribed photometric and colorimetric characteristics.",
+      "source": {
+        "regulation": "UN R148",
+        "version": "1.6.0",
+        "page": 10,
+        "paragraph": "4.3"
+      }
+    },
+    {
+      "id": "R-0033",
+      "text": "If the rear position lamp is reciprocally incorporated with the stop lamp, the two functions shall either be provided by multiple light sources or be intended for a vehicle with a failure tell-tale for these lamps. The choice shall be noted in the communication document.",
+      "source": {
+        "regulation": "UN R148",
+        "version": "1.6.0",
+        "page": 10,
+        "paragraph": "4.5.3.1"
+      }
+    },
+    {
+      "id": "R-0034",
+      "text": "If a manufacturer logo is incorporated in the rear lamp, it shall be the logo of the vehicle or body manufacturer only, and its enclosed light-emitting surface shall not exceed 100 cm². The stop lamp and reversing lamp functions shall not incorporate a logo.",
+      "source": {
+        "regulation": "UN R148",
+        "version": "1.6.0",
+        "page": 11,
+        "paragraph": "4.5.5"
+      }
+    },
+    {
+      "id": "R-0035",
+      "text": "Within a rear lamp function containing several LEDs, a group of light sources wired so that the failure of any one stops all of them shall be treated as one light source.",
+      "source": {
+        "regulation": "UN R148",
+        "version": "1.6.0",
+        "page": 11,
+        "paragraph": "4.6.1.1"
+      }
+    },
+    {
+      "id": "R-0036",
+      "text": "If any one light source fails in a rear position, stop or reversing lamp function containing more than one light source, either (a) the function shall still meet the minimum standard light distribution of Annex 3, without exceeding the maximum intensities with all sources lit, or (b) the lamp shall produce a signal to activate a failure tell-tale. In case (b) the lamp shall be noted as only for vehicles fitted with such a tell-tale.",
+      "source": {
+        "regulation": "UN R148",
+        "version": "1.6.0",
+        "page": 11,
+        "paragraph": "4.6.1.2"
+      }
+    },
+    {
+      "id": "R-0037",
+      "text": "If the variable intensity control of an R2 rear position lamp or S2 stop lamp fails while the lamp emits more than the maximum of the steady category (R1/S1), the steady-category intensity requirements shall be met automatically.",
+      "source": {
+        "regulation": "UN R148",
+        "version": "1.6.0",
+        "page": 12,
+        "paragraph": "4.6.2"
+      }
+    },
+    {
+      "id": "R-0038",
+      "text": "The rear lamp shall use only replaceable light sources approved to UN R37, R99 and/or R128 (with no use restriction), light source modules, and/or non-replaceable light sources (e.g. LEDs on PCB).",
+      "source": {
+        "regulation": "UN R148",
+        "version": "1.6.0",
+        "page": 12,
+        "paragraph": "4.7.1"
+      }
+    },
+    {
+      "id": "R-0039",
+      "text": "If the rear lamp uses replaceable UN-approved light sources, it shall be designed so that each light source can be fixed only in the correct position, and the holder shall conform to IEC 60061.",
+      "source": {
+        "regulation": "UN R148",
+        "version": "1.6.0",
+        "page": 12,
+        "paragraph": "4.7.2.2"
+      }
+    },
+    {
+      "id": "R-0040",
+      "text": "The rear lamp, including its LED drivers and electronics, shall not generate radiated or power-line disturbances that cause other electric/electronic systems of the vehicle to malfunction.",
+      "source": {
+        "regulation": "UN R148",
+        "version": "1.6.0",
+        "page": 13,
+        "paragraph": "4.7.2.3"
+      }
+    },
+    {
+      "id": "R-0041",
+      "text": "If the rear lamp uses replaceable light source modules, each module shall: fit only in its designated correct position; be removable only with tools; be tamperproof; and not be interchangeable (even with tools) with any replaceable approved light source or with a module of different characteristics in the same housing. Replacing a module with another one of the same identification code shall still meet the photometric requirements.",
+      "source": {
+        "regulation": "UN R148",
+        "version": "1.6.0",
+        "page": 13,
+        "paragraph": "4.7.2.4"
+      }
+    },
+    {
+      "id": "R-0042",
+      "text": "Because the rear lamp uses light source modules or non-replaceable LEDs, all photometric and colorimetric measurements shall be made with the light sources present in the lamp.",
+      "source": {
+        "regulation": "UN R148",
+        "version": "1.6.0",
+        "page": 13,
+        "paragraph": "4.8.1.2"
+      }
+    },
+    {
+      "id": "R-0043",
+      "text": "If the rear lamp can be installed in more than one position or a field of positions, the photometric measurements shall be repeated for each position, or for the extreme positions of the reference axis field specified by the manufacturer.",
+      "source": {
+        "regulation": "UN R148",
+        "version": "1.6.0",
+        "page": 13,
+        "paragraph": "4.8.1.5"
+      }
+    },
+    {
+      "id": "R-0044",
+      "text": "The limits of the apparent surface of each rear lamp function in the direction of the reference axis shall be determined.",
+      "source": {
+        "regulation": "UN R148",
+        "version": "1.6.0",
+        "page": 14,
+        "paragraph": "4.8.1.9"
+      }
+    },
+    {
+      "id": "R-0045",
+      "text": "Unless otherwise specified, the rear lamp shall be tested at 13.5 V for a 12 V system (6.75 V for 6 V, 28 V for 24 V). If it has an electronic light source control gear or variable intensity control, it shall be operated as specified by the applicant.",
+      "source": {
+        "regulation": "UN R148",
+        "version": "1.6.0",
+        "page": 14,
+        "paragraph": "4.8.2"
+      }
+    },
+    {
+      "id": "R-0046",
+      "text": "The identification of the rear lamp's electronic light source control gear and/or variable intensity control, and the applied voltage including tolerances, shall be recorded in the communication form.",
+      "source": {
+        "regulation": "UN R148",
+        "version": "1.6.0",
+        "page": 14,
+        "paragraph": "4.8.2.4"
+      }
+    },
+    {
+      "id": "R-0047",
+      "text": "For each of the two samples and each function: the luminous intensity on the reference axis (HV) shall be at least the minimum in the function table of paragraph 5; it shall not exceed the maximum in any direction where the lamp is visible; outside the axis it shall be at least the Annex 3 percentage of the minimum; and within the Annex 2 geometric visibility angles it shall be at least the specified minimum.",
+      "source": {
+        "regulation": "UN R148",
+        "version": "1.6.0",
+        "page": 14,
+        "paragraph": "4.8.3.1"
+      }
+    },
+    {
+      "id": "R-0048",
+      "text": "At the applicant's request, the rear lamp may be tested to show that the maximum intensity in the field from 165° to 180° outboard horizontally and -2.5° to +5° vertically does not exceed 0.25 cd. This verifies that no red light is visible towards the front and no white light from the reversing lamp is misdirected.",
+      "source": {
+        "regulation": "UN R148",
+        "version": "1.6.0",
+        "page": 15,
+        "paragraph": "4.8.3.1.1"
+      }
+    },
+    {
+      "id": "R-0049",
+      "text": "If the rear lamp is used as one of a 'D'-marked assembly of two independent lamps treated as a single lamp, the assembly shall meet the maximum intensity with all lamps lit and the minimum intensity with either lamp failed.",
+      "source": {
+        "regulation": "UN R148",
+        "version": "1.6.0",
+        "page": 15,
+        "paragraph": "4.8.3.2"
+      }
+    },
+    {
+      "id": "R-0050",
+      "text": "If the rear position lamp is an interdependent lamp system split between the fixed body and a movable component (e.g. tailgate), the interdependent lamp(s) specified by the applicant shall meet the outboard geometric visibility, colorimetric and photometric requirements at all fixed positions of the movable component.",
+      "source": {
+        "regulation": "UN R148",
+        "version": "1.6.0",
+        "page": 15,
+        "paragraph": "4.8.3.3"
+      }
+    },
+    {
+      "id": "R-0051",
+      "text": "The variable intensity control of the rear lamp (if any) shall not generate signals that produce intensities outside the range in paragraph 5. Nor shall the signals exceed the steady-category maximum under night-time conditions (for day/night systems) or under standard conditions (for other systems).",
+      "source": {
+        "regulation": "UN R148",
+        "version": "1.6.0",
+        "page": 15,
+        "paragraph": "4.8.3.4"
+      }
+    },
+    {
+      "id": "R-0052",
+      "text": "If the rear position lamp is reciprocally incorporated with the stop lamp, the ratio of the intensity with both lit to the intensity of the rear position lamp alone should be at least 5:1 within the field ±5° V and ±10° H.",
+      "source": {
+        "regulation": "UN R148",
+        "version": "1.6.0",
+        "page": 16,
+        "paragraph": "4.8.3.5"
+      }
+    },
+    {
+      "id": "R-0053",
+      "text": "The colour of light emitted by each rear lamp function shall be measured inside the light distribution grid of Annex 3, using the test conditions of paragraph 4.8 with the LEDs present in the lamp. No sharp variation of colour shall be observable outside that field.",
+      "source": {
+        "regulation": "UN R148",
+        "version": "1.6.0",
+        "page": 16,
+        "paragraph": "4.9"
+      }
+    },
+    {
+      "id": "R-0054",
+      "text": "If a rear lamp function uses different light source technologies, its colorimetric characteristics shall be checked separately for each technology.",
+      "source": {
+        "regulation": "UN R148",
+        "version": "1.6.0",
+        "page": 16,
+        "paragraph": "4.9.1"
+      }
+    },
+    {
+      "id": "R-0055",
+      "text": "The rear position lamp shall emit, on the reference axis, at least 4 cd. Its maximum in any direction shall be 17 cd for category R1 (8.5 cd if marked 'D') and 42 cd for category R2 (21 cd if marked 'D'). Up to 60 cd is permitted below 5° downward when it is reciprocally incorporated with a stop lamp.",
+      "source": {
+        "regulation": "UN R148",
+        "version": "1.6.0",
+        "page": 17,
+        "paragraph": "5.2.1"
+      }
+    },
+    {
+      "id": "R-0056",
+      "text": "The rear position lamp shall emit at least 0.05 cd throughout the angles of geometric visibility of Annex 2, Table A2-1.",
+      "source": {
+        "regulation": "UN R148",
+        "version": "1.6.0",
+        "page": 17,
+        "paragraph": "5.2.2"
+      }
+    },
+    {
+      "id": "R-0057",
+      "text": "The light emitted by the rear position lamp shall be red.",
+      "source": {
+        "regulation": "UN R148",
+        "version": "1.6.0",
+        "page": 17,
+        "paragraph": "5.2.7"
+      }
+    },
+    {
+      "id": "R-0058",
+      "text": "The stop lamp shall emit, on the reference axis, at least 60 cd. Its maximum in any direction shall be 260 cd for category S1 (130 cd if marked 'D') and 730 cd for category S2 (365 cd if marked 'D'). Its light distribution shall follow Figure A3-I.",
+      "source": {
+        "regulation": "UN R148",
+        "version": "1.6.0",
+        "page": 19,
+        "paragraph": "5.5.1"
+      }
+    },
+    {
+      "id": "R-0059",
+      "text": "The stop lamp shall emit at least 0.3 cd throughout the angles of geometric visibility of Annex 2, Table A2-1. For category S2 at night, the minimum is 0.07 cd.",
+      "source": {
+        "regulation": "UN R148",
+        "version": "1.6.0",
+        "page": 20,
+        "paragraph": "5.5.2"
+      }
+    },
+    {
+      "id": "R-0060",
+      "text": "The light emitted by the stop lamp shall be red.",
+      "source": {
+        "regulation": "UN R148",
+        "version": "1.6.0",
+        "page": 20,
+        "paragraph": "5.5.7"
+      }
+    },
+    {
+      "id": "R-0061",
+      "text": "The reversing lamp (AR) shall emit at least 80 cd on the reference axis and shall meet the minimum values of Figure A3-V. Its intensity shall not exceed 300 cd in or above the H-plane, 600 cd between the H-plane and 5°D, and 8,000 cd below 5°D.",
+      "source": {
+        "regulation": "UN R148",
+        "version": "1.6.0",
+        "page": 23,
+        "paragraph": "5.8.1"
+      }
+    },
+    {
+      "id": "R-0062",
+      "text": "If the reversing lamp is intended to be installed only as one of a pair, its photometry may be verified only up to 30° inwards, where it shall give at least 25 cd. This condition shall be explained in the application, and the communication form shall state that the lamp may be installed only in a pair.",
+      "source": {
+        "regulation": "UN R148",
+        "version": "1.6.0",
+        "page": 23,
+        "paragraph": "5.8.1"
+      }
+    },
+    {
+      "id": "R-0063",
+      "text": "The light emitted by the reversing lamp shall be white.",
+      "source": {
+        "regulation": "UN R148",
+        "version": "1.6.0",
+        "page": 23,
+        "paragraph": "5.8.7"
+      }
+    },
+    {
+      "id": "R-0064",
+      "text": "The rear position lamp (R1/R2) shall meet its photometric minimum over geometric visibility angles of 45° inboard and 80° outboard horizontally and 15° above/below vertically. For a mounting height below 750 mm, the inboard angle below the H-plane may be reduced to 20° and the downward angle to 5°.",
+      "source": {
+        "regulation": "UN R148",
+        "version": "1.6.0",
+        "page": 32,
+        "paragraph": "Annex 2 Part A"
+      }
+    },
+    {
+      "id": "R-0065",
+      "text": "The stop lamp (S1/S2) shall meet its photometric minimum over geometric visibility angles of 45° inboard and 45° outboard horizontally and 15° above/below vertically. For a mounting height below 750 mm, the inboard angle below the H-plane may be reduced to 20° and the downward angle to 5°.",
+      "source": {
+        "regulation": "UN R148",
+        "version": "1.6.0",
+        "page": 32,
+        "paragraph": "Annex 2 Part A"
+      }
+    },
+    {
+      "id": "R-0066",
+      "text": "The rear lamp's reference axis (H=0°, V=0°) shall be horizontal on the vehicle, parallel to the median longitudinal plane, facing the required direction of visibility and passing through the centre of reference. If the rear position or stop lamp is mounted at 750 mm or less (H-plane), its photometry is verified only down to 5° below horizontal.",
+      "source": {
+        "regulation": "UN R148",
+        "version": "1.6.0",
+        "page": 35,
+        "paragraph": "Annex 3 1.1"
+      }
+    },
+    {
+      "id": "R-0067",
+      "text": "Within the light distribution grid, the light pattern of each rear lamp function should be substantially uniform: the intensity in any direction within a grid cell shall be at least the lowest minimum on the surrounding grid lines. For the reversing lamp, no intensity between two measuring directions shall fall below 50 % of the lower of the two prescribed minima.",
+      "source": {
+        "regulation": "UN R148",
+        "version": "1.6.0",
+        "page": 35,
+        "paragraph": "Annex 3 1.2"
+      }
+    },
+    {
+      "id": "R-0068",
+      "text": "Outside the reference axis, the rear position lamp and stop lamp shall meet the minimum intensity percentages of the standard light distribution in Figure A3-I.",
+      "source": {
+        "regulation": "UN R148",
+        "version": "1.6.0",
+        "page": 36,
+        "paragraph": "Annex 3 2.1"
+      }
+    },
+    {
+      "id": "R-0069",
+      "text": "The reversing lamp shall meet the minimum intensities in cd at the measuring points of Figure A3-V.",
+      "source": {
+        "regulation": "UN R148",
+        "version": "1.6.0",
+        "page": 38,
+        "paragraph": "Annex 3 2.5"
+      }
+    },
+    {
+      "id": "R-0070",
+      "text": "The LED reversing lamp shall meet the minimum and maximum intensity requirements both 1 minute and 10 minutes after switch-on.",
+      "source": {
+        "regulation": "UN R148",
+        "version": "1.6.0",
+        "page": 47,
+        "paragraph": "Annex 8 1.2.1"
+      }
+    },
+    {
+      "id": "R-0071",
+      "text": "The LED rear position lamp and stop lamp shall meet the minimum and maximum intensity requirements 1 minute after switch-on and also either after 30 minutes of operation or after photometric stability is reached.",
+      "source": {
+        "regulation": "UN R148",
+        "version": "1.6.0",
+        "page": 47,
+        "paragraph": "Annex 8 1.2.2"
+      }
+    },
+    {
+      "id": "R-0072",
+      "text": "Depending on light source technology, the rear lamp shall also meet its intensity requirements at the start-up times of Table A8-1: 4 s after switch-on for the rear position lamp, and 0.2 s for the stop lamp and the reversing lamp (reference HV). LED-only functions are deemed compliant if the paragraph 1.2 measurements comply.",
+      "source": {
+        "regulation": "UN R148",
+        "version": "1.6.0",
+        "page": 47,
+        "paragraph": "Annex 8 2.1"
+      }
+    },
+    {
+      "id": "R-0073",
+      "text": "The rear lamp shall be manufactured to conform to the approved type. Conformity with the paragraph 5 requirements shall be verified under the CoP control procedures of Annex 4 and inspector sampling of Annex 5.",
+      "source": {
+        "regulation": "UN R148",
+        "version": "1.6.0",
+        "page": 27,
+        "paragraph": "6.1"
+      }
+    },
+    {
+      "id": "R-0074",
+      "text": "In conformity of production, no measured photometric value of the rear lamp shall deviate unfavourably by more than 20 % from the prescribed values. For low minima, the absolute equivalents of Table 12 apply (e.g. 0.3 cd → 0.2 cd; 0.05 cd → 0.03 cd).",
+      "source": {
+        "regulation": "UN R148",
+        "version": "1.6.0",
+        "page": 27,
+        "paragraph": "6.1.3"
+      }
+    },
+    {
+      "id": "R-0075",
+      "text": "Mass-produced rear lamps shall comply with the chromaticity coordinates when tested under the conditions of paragraph 4.9.",
+      "source": {
+        "regulation": "UN R148",
+        "version": "1.6.0",
+        "page": 42,
+        "paragraph": "Annex 4 1.3"
+      }
+    },
+    {
+      "id": "R-0076",
+      "text": "The approval holder shall carry out photometric and colorimetric conformity tests on each rear lamp type at appropriate intervals. If any sampling shows non-conformity, further samples shall be taken and tested, and steps taken to ensure production conformity.",
+      "source": {
+        "regulation": "UN R148",
+        "version": "1.6.0",
+        "page": 42,
+        "paragraph": "Annex 4 2"
+      }
+    },
+    {
+      "id": "R-0077",
+      "text": "The manufacturer's CoP test equipment for the rear lamp shall be calibrated regularly and correlated with measurements made by a competent authority.",
+      "source": {
+        "regulation": "UN R148",
+        "version": "1.6.0",
+        "page": 43,
+        "paragraph": "Annex 4 2.2.3"
+      }
+    },
+    {
+      "id": "R-0078",
+      "text": "Sampled production rear lamps shall be measured for the minimum photometric values at the Annex 3 points and for the required chromaticity coordinates.",
+      "source": {
+        "regulation": "UN R148",
+        "version": "1.6.0",
+        "page": 43,
+        "paragraph": "Annex 4 2.4"
+      }
+    },
+    {
+      "id": "R-0079",
+      "text": "The manufacturer shall carry out a statistical study of the rear lamp CoP results and define acceptance criteria that give at least a 0.95 probability, at 95 % confidence, of passing an Annex 5 first-sampling spot check.",
+      "source": {
+        "regulation": "UN R148",
+        "version": "1.6.0",
+        "page": 43,
+        "paragraph": "Annex 4 2.5"
+      }
+    },
+    {
+      "id": "R-0080",
+      "text": "In inspector sampling of the rear lamp, four lamps are selected at random (samples A and B). Conformity is not contested if no specimen deviates by more than 20 %. A deviation above 20 % requires alignment and repeated sampling within two months.",
+      "source": {
+        "regulation": "UN R148",
+        "version": "1.6.0",
+        "page": 44,
+        "paragraph": "Annex 5 2"
+      }
+    },
+    {
+      "id": "R-0081",
+      "text": "In repeated inspector sampling after alignment (samples C/D), approval of the rear lamp shall be withdrawn if any specimen deviates by more than 30 %, or if any second-repeat specimen (E/F) deviates by more than 20 %.",
+      "source": {
+        "regulation": "UN R148",
+        "version": "1.6.0",
+        "page": 44,
+        "paragraph": "Annex 5 3.2.2"
+      }
+    },
+    {
+      "id": "R-0082",
+      "text": "The red light emitted by the rear position lamp and stop lamp shall have chromaticity coordinates within the UN R48 red area: yellow boundary y = 0.335, purple boundary y = 0.980 − x, with corner points (0.645, 0.335), (0.665, 0.335), (0.735, 0.265), (0.721, 0.259).",
+      "source": {
+        "regulation": "UN R48",
+        "version": "9.3.0",
+        "page": 13,
+        "paragraph": "2.11.1.4"
+      }
+    },
+    {
+      "id": "R-0083",
+      "text": "The white light emitted by the reversing lamp shall have chromaticity coordinates within the UN R48 white area with corner points (0.310, 0.348), (0.453, 0.440), (0.500, 0.440), (0.500, 0.382), (0.443, 0.382), (0.310, 0.283).",
+      "source": {
+        "regulation": "UN R48",
+        "version": "9.3.0",
+        "page": 12,
+        "paragraph": "2.11.1.1"
+      }
+    },
+    {
+      "id": "R-0084",
+      "text": "The night-time colour of light retro-reflected by the red rear retro-reflector shall lie within the UN R48 red area: yellow boundary y = 0.335, purple boundary y = 0.978 − x, with corner points (0.643, 0.335), (0.665, 0.335), (0.735, 0.265), (0.720, 0.258).",
+      "source": {
+        "regulation": "UN R48",
+        "version": "9.3.0",
+        "page": 15,
+        "paragraph": "2.11.2.4"
+      }
+    },
+    {
+      "id": "R-0085",
+      "text": "The rear lamp shall be fitted so that, under normal conditions of use and despite vibration, it retains its prescribed characteristics. It shall not be possible to maladjust the lamp inadvertently, e.g. through its fasteners/clips.",
+      "source": {
+        "regulation": "UN R48",
+        "version": "9.3.0",
+        "page": 19,
+        "paragraph": "5.1"
+      }
+    },
+    {
+      "id": "R-0086",
+      "text": "When fitted, the reference axis of each rear lamp function (position, stop, reversing, retro-reflector) shall be parallel to the vehicle's bearing plane on the road and to the median longitudinal plane, within ±3°. Any manufacturer fitting instructions shall be complied with.",
+      "source": {
+        "regulation": "UN R48",
+        "version": "9.3.0",
+        "page": 19,
+        "paragraph": "5.3"
+      }
+    },
+    {
+      "id": "R-0087",
+      "text": "Left and right rear lamps forming a pair shall be fitted symmetrically to the vehicle's median longitudinal plane, based on their exterior geometrical form.",
+      "source": {
+        "regulation": "UN R48",
+        "version": "9.3.0",
+        "page": 19,
+        "paragraph": "5.5.1"
+      }
+    },
+    {
+      "id": "R-0088",
+      "text": "Left and right rear lamps forming a pair shall be symmetrical to one another about the median longitudinal plane. This does not apply to their interior structure.",
+      "source": {
+        "regulation": "UN R48",
+        "version": "9.3.0",
+        "page": 19,
+        "paragraph": "5.5.2"
+      }
+    },
+    {
+      "id": "R-0089",
+      "text": "Left and right rear lamps forming a pair shall satisfy the same colorimetric requirements.",
+      "source": {
+        "regulation": "UN R48",
+        "version": "9.3.0",
+        "page": 19,
+        "paragraph": "5.5.3"
+      }
+    },
+    {
+      "id": "R-0090",
+      "text": "Left and right rear lamps forming a pair shall have substantially identical photometric characteristics.",
+      "source": {
+        "regulation": "UN R48",
+        "version": "9.3.0",
+        "page": 19,
+        "paragraph": "5.5.4"
+      }
+    },
+    {
+      "id": "R-0091",
+      "text": "If the rear lamps incorporate a manufacturer logo, only two lateral logos (one per side) or one central logo may be fitted on the rear of the vehicle, and only vehicle or body manufacturer logos are allowed.",
+      "source": {
+        "regulation": "UN R48",
+        "version": "9.3.0",
+        "page": 19,
+        "paragraph": "5.5.5"
+      }
+    },
+    {
+      "id": "R-0092",
+      "text": "The functions grouped, combined or reciprocally incorporated in the rear lamp shall each still meet all requirements for colour, position, orientation, geometric visibility, electrical connections and any other requirements.",
+      "source": {
+        "regulation": "UN R48",
+        "version": "9.3.0",
+        "page": 19,
+        "paragraph": "5.7.1"
+      }
+    },
+    {
+      "id": "R-0093",
+      "text": "Each rear lamp function shall meet its photometric and colorimetric requirements with all other grouped/combined/incorporated functions switched off. Where the rear position lamp is reciprocally incorporated with the stop lamp, the stop lamp's colour requirements shall also be met with both switched on.",
+      "source": {
+        "regulation": "UN R48",
+        "version": "9.3.0",
+        "page": 20,
+        "paragraph": "5.7.1.1"
+      }
+    },
+    {
+      "id": "R-0094",
+      "text": "If a rear lamp function's apparent surface consists of two or more distinct parts, either the projected parts shall occupy at least 60 % of the smallest circumscribing quadrilateral, or the facing edges of adjacent parts shall be no more than 75 mm apart, measured perpendicular to the reference axis.",
+      "source": {
+        "regulation": "UN R48",
+        "version": "9.3.0",
+        "page": 20,
+        "paragraph": "5.7.2.1"
+      }
+    },
+    {
+      "id": "R-0095",
+      "text": "Two or more lamps or separate apparent surfaces within the same rear lamp body or behind a common outer lens shall not be considered an interdependent lamp system.",
+      "source": {
+        "regulation": "UN R48",
+        "version": "9.3.0",
+        "page": 20,
+        "paragraph": "5.7.2.3"
+      }
+    },
+    {
+      "id": "R-0096",
+      "text": "Unless specifically permitted, the photometric characteristics (intensity, colour, apparent surface) of the rear lamp functions shall not be intentionally varied while the lamp is switched on.",
+      "source": {
+        "regulation": "UN R48",
+        "version": "9.3.0",
+        "page": 21,
+        "paragraph": "5.9"
+      }
+    },
+    {
+      "id": "R-0097",
+      "text": "The photometric characteristics of the rear lamp functions may vary only with ambient light, with other lamps being switched on or off, or when the lamp provides another function, and any such variation shall remain within the technical provisions for that lamp.",
+      "source": {
+        "regulation": "UN R48",
+        "version": "9.3.0",
+        "page": 21,
+        "paragraph": "5.9.2"
+      }
+    },
+    {
+      "id": "R-0098",
+      "text": "Red light emitted by the rear lamp shall not be visible from the front of the vehicle.",
+      "source": {
+        "regulation": "UN R48",
+        "version": "9.3.0",
+        "page": 21,
+        "paragraph": "5.10.1"
+      }
+    },
+    {
+      "id": "R-0099",
+      "text": "There shall be no direct visibility of the red apparent surfaces of the rear lamp to an observer moving within Zone 1 of a transverse plane 25 m in front of the vehicle. In case of doubt, compliance is accepted if the red intensity towards the front is at most 0.25 cd per lamp.",
+      "source": {
+        "regulation": "UN R48",
+        "version": "9.3.0",
+        "page": 22,
+        "paragraph": "5.10.4.1"
+      }
+    },
+    {
+      "id": "R-0100",
+      "text": "The electrical connections shall be such that the rear position lamps are switched on and off only simultaneously with the front position lamps (and end-outline, side-marker and registration plate lamps, if fitted).",
+      "source": {
+        "regulation": "UN R48",
+        "version": "9.3.0",
+        "page": 22,
+        "paragraph": "5.11"
+      }
+    },
+    {
+      "id": "R-0101",
+      "text": "The rear lamp shall emit red light for the rear position lamp and stop lamp, white light for the reversing lamp, and red reflected light for the rear non-triangular retro-reflector.",
+      "source": {
+        "regulation": "UN R48",
+        "version": "9.3.0",
+        "page": 23,
+        "paragraph": "5.15"
+      }
+    },
+    {
+      "id": "R-0102",
+      "text": "If the rear position lamp or rear retro-reflector is installed on a movable component (e.g. tailgate or boot lid), it shall meet all position, geometric visibility, colorimetric and photometric requirements at every fixed position of that component.",
+      "source": {
+        "regulation": "UN R48",
+        "version": "9.3.0",
+        "page": 25,
+        "paragraph": "5.18.1"
+      }
+    },
+    {
+      "id": "R-0103",
+      "text": "When a movable component carrying the rear lamp is in a position other than its normal position of use, the lamp shall not cause undue discomfort to road users.",
+      "source": {
+        "regulation": "UN R48",
+        "version": "9.3.0",
+        "page": 25,
+        "paragraph": "5.19"
+      }
+    },
+    {
+      "id": "R-0104",
+      "text": "If the rear lamp is on a movable component, it shall always return to the position specified by the manufacturer when the component is in its normal position of use.",
+      "source": {
+        "regulation": "UN R48",
+        "version": "9.3.0",
+        "page": 25,
+        "paragraph": "5.20"
+      }
+    },
+    {
+      "id": "R-0105",
+      "text": "In any fixed position other than the normal position of use, a movable component shall not hide more than 50 % of the apparent surface of the rear position lamp or rear retro-reflector. Otherwise, additional compliant lamps shall be switched on.",
+      "source": {
+        "regulation": "UN R48",
+        "version": "9.3.0",
+        "page": 25,
+        "paragraph": "5.21"
+      }
+    },
+    {
+      "id": "R-0106",
+      "text": "With the exception of the retro-reflector, each rear lamp function shall be operable by the sole installation of a light source and/or fuse; otherwise it is deemed not present.",
+      "source": {
+        "regulation": "UN R48",
+        "version": "9.3.0",
+        "page": 26,
+        "paragraph": "5.22"
+      }
+    },
+    {
+      "id": "R-0107",
+      "text": "Any temporary fail-safe replacement of the rear position lamp function shall be similar in colour, main intensity and position, and the replacement device shall keep its original safety function. A tell-tale shall indicate the temporary replacement and the need for repair.",
+      "source": {
+        "regulation": "UN R48",
+        "version": "9.3.0",
+        "page": 26,
+        "paragraph": "5.24"
+      }
+    },
+    {
+      "id": "R-0108",
+      "text": "If the rear lamp has variable intensity (R2/S2), the intensity may vary only within the limits of the device Regulation, according to ambient lighting, fog, snowfall, rain, spray, dust or lens contamination, with no sharp variation during transitions.",
+      "source": {
+        "regulation": "UN R48",
+        "version": "9.3.0",
+        "page": 26,
+        "paragraph": "5.26.1"
+      }
+    },
+    {
+      "id": "R-0109",
+      "text": "Under the vehicle's constant-voltage operating condition, the voltage at the rear lamp terminals shall not exceed the voltage at which the lamp was approved if it was tested with a special supply or at an applicant-requested voltage. Otherwise it shall not exceed 13.5 V by more than 3 % for a 12 V system. This does not apply if the lamp includes electronic light source control gear or a variable intensity control.",
+      "source": {
+        "regulation": "UN R48",
+        "version": "9.3.0",
+        "page": 27,
+        "paragraph": "5.27"
+      }
+    },
+    {
+      "id": "R-0110",
+      "text": "There shall be no obstacle within the geometric visibility angles to light from any part of the rear lamp's apparent surface, observed from infinity, unless the obstacle was already present at lamp type approval.",
+      "source": {
+        "regulation": "UN R48",
+        "version": "9.3.0",
+        "page": 27,
+        "paragraph": "5.28.1"
+      }
+    },
+    {
+      "id": "R-0111",
+      "text": "If any part of the rear lamp's apparent surface is hidden by other vehicle parts when installed, proof shall be furnished that the unhidden part still meets the photometric values prescribed for approval of the device.",
+      "source": {
+        "regulation": "UN R48",
+        "version": "9.3.0",
+        "page": 27,
+        "paragraph": "5.28.3"
+      }
+    },
+    {
+      "id": "R-0112",
+      "text": "The LED module of the rear lamp need not be replaceable only if this is stated in the communication sheet of the component type approval.",
+      "source": {
+        "regulation": "UN R48",
+        "version": "9.3.0",
+        "page": 28,
+        "paragraph": "5.29"
+      }
+    },
+    {
+      "id": "R-0113",
+      "text": "Each rear lamp function installed on the vehicle shall be type-approved under the corresponding device Regulation. If the rear lamp incorporates a manufacturer logo, it shall be approved under UN R148.",
+      "source": {
+        "regulation": "UN R48",
+        "version": "9.3.0",
+        "page": 28,
+        "paragraph": "5.30"
+      }
+    },
+    {
+      "id": "R-0114",
+      "text": "On an M1 vehicle, one reversing lamp is mandatory and a second is optional. It shall be type-approved under UN R23 or UN R148.",
+      "source": {
+        "regulation": "UN R48",
+        "version": "9.3.0",
+        "page": 39,
+        "paragraph": "6.4.2.1"
+      }
+    },
+    {
+      "id": "R-0115",
+      "text": "The reversing lamp shall be mounted between 250 mm and 1,200 mm above the ground.",
+      "source": {
+        "regulation": "UN R48",
+        "version": "9.3.0",
+        "page": 39,
+        "paragraph": "6.4.4.2"
+      }
+    },
+    {
+      "id": "R-0116",
+      "text": "The reversing lamp shall be located at the rear of the vehicle.",
+      "source": {
+        "regulation": "UN R48",
+        "version": "9.3.0",
+        "page": 39,
+        "paragraph": "6.4.4.3"
+      }
+    },
+    {
+      "id": "R-0117",
+      "text": "The rear-mounted reversing lamp shall have geometric visibility of 15° upwards and 5° downwards. Horizontally it shall be visible 45° to the right and left if one device is fitted, or 45° outwards and 30° inwards if two are fitted.",
+      "source": {
+        "regulation": "UN R48",
+        "version": "9.3.0",
+        "page": 39,
+        "paragraph": "6.4.5.1"
+      }
+    },
+    {
+      "id": "R-0118",
+      "text": "The reversing lamp shall face rearwards.",
+      "source": {
+        "regulation": "UN R48",
+        "version": "9.3.0",
+        "page": 39,
+        "paragraph": "6.4.6.1"
+      }
+    },
+    {
+      "id": "R-0119",
+      "text": "The reversing lamp shall switch on only when reverse gear is engaged and the propulsion system can operate. It shall not switch on, or remain on, if either condition is not met.",
+      "source": {
+        "regulation": "UN R48",
+        "version": "9.3.0",
+        "page": 40,
+        "paragraph": "6.4.7.1"
+      }
+    },
+    {
+      "id": "R-0120",
+      "text": "A reversing lamp tell-tale is optional, but a failure tell-tale is mandatory if the component regulation requires it (e.g. under the failure provisions for multi-source lamps).",
+      "source": {
+        "regulation": "UN R48",
+        "version": "9.3.0",
+        "page": 40,
+        "paragraph": "6.4.8"
+      }
+    },
+    {
+      "id": "R-0121",
+      "text": "Two S1 or S2 stop lamps are required on the vehicle, type-approved under the 02 or later series of UN R7 or under UN R148.",
+      "source": {
+        "regulation": "UN R48",
+        "version": "9.3.0",
+        "page": 45,
+        "paragraph": "6.7.2"
+      }
+    },
+    {
+      "id": "R-0122",
+      "text": "For M1 vehicles, the point of the S1/S2 stop lamp's apparent surface farthest from the median longitudinal plane shall be no more than 400 mm from the vehicle's extreme outer edge.",
+      "source": {
+        "regulation": "UN R48",
+        "version": "9.3.0",
+        "page": 46,
+        "paragraph": "6.7.4.1"
+      }
+    },
+    {
+      "id": "R-0123",
+      "text": "The S1/S2 stop lamp shall be mounted between 350 mm and 1,500 mm above the ground (up to 2,100 mm if the bodywork shape makes 1,500 mm impossible).",
+      "source": {
+        "regulation": "UN R48",
+        "version": "9.3.0",
+        "page": 46,
+        "paragraph": "6.7.4.2.1"
+      }
+    },
+    {
+      "id": "R-0124",
+      "text": "The S1/S2 stop lamp shall be located at the rear of the vehicle.",
+      "source": {
+        "regulation": "UN R48",
+        "version": "9.3.0",
+        "page": 46,
+        "paragraph": "6.7.4.4"
+      }
+    },
+    {
+      "id": "R-0125",
+      "text": "The S1/S2 stop lamp shall be geometrically visible 45° to the left and right of the longitudinal axis and 15° above and below horizontal. If mounted below 750 mm, the inward angle may be reduced to 20° under the H-plane and the downward angle to 5°.",
+      "source": {
+        "regulation": "UN R48",
+        "version": "9.3.0",
+        "page": 46,
+        "paragraph": "6.7.5"
+      }
+    },
+    {
+      "id": "R-0126",
+      "text": "The stop lamp shall face towards the rear of the vehicle.",
+      "source": {
+        "regulation": "UN R48",
+        "version": "9.3.0",
+        "page": 47,
+        "paragraph": "6.7.6"
+      }
+    },
+    {
+      "id": "R-0127",
+      "text": "All stop lamps shall switch on simultaneously when the braking system provides the relevant signal defined in UN R13/R13-H.",
+      "source": {
+        "regulation": "UN R48",
+        "version": "9.3.0",
+        "page": 47,
+        "paragraph": "6.7.7.1"
+      }
+    },
+    {
+      "id": "R-0128",
+      "text": "A stop lamp tell-tale is optional, but a failure tell-tale is mandatory if the component regulation requires it.",
+      "source": {
+        "regulation": "UN R48",
+        "version": "9.3.0",
+        "page": 47,
+        "paragraph": "6.7.8"
+      }
+    },
+    {
+      "id": "R-0129",
+      "text": "Two R/R1/R2 rear position lamps are required on the vehicle, type-approved under the 02 or later series of UN R7 or under UN R148.",
+      "source": {
+        "regulation": "UN R48",
+        "version": "9.3.0",
+        "page": 50,
+        "paragraph": "6.10.2"
+      }
+    },
+    {
+      "id": "R-0130",
+      "text": "The point of the rear position lamp's apparent surface farthest from the median longitudinal plane shall be no more than 400 mm from the vehicle's extreme outer edge. For M1 there is no requirement on the inner-edge separation.",
+      "source": {
+        "regulation": "UN R48",
+        "version": "9.3.0",
+        "page": 50,
+        "paragraph": "6.10.4.1"
+      }
+    },
+    {
+      "id": "R-0131",
+      "text": "The rear position lamp shall be mounted between 350 mm and 1,500 mm above the ground (up to 2,100 mm if the bodywork shape makes 1,500 mm impossible).",
+      "source": {
+        "regulation": "UN R48",
+        "version": "9.3.0",
+        "page": 50,
+        "paragraph": "6.10.4.2"
+      }
+    },
+    {
+      "id": "R-0132",
+      "text": "The rear position lamp shall be located at the rear of the vehicle.",
+      "source": {
+        "regulation": "UN R48",
+        "version": "9.3.0",
+        "page": 50,
+        "paragraph": "6.10.4.3"
+      }
+    },
+    {
+      "id": "R-0133",
+      "text": "The rear position lamp shall be geometrically visible 45° inwards and 80° outwards horizontally, and 15° above and below horizontal. If mounted below 750 mm, the inward angle may be reduced to 20° under the H-plane and the downward angle to 5°.",
+      "source": {
+        "regulation": "UN R48",
+        "version": "9.3.0",
+        "page": 50,
+        "paragraph": "6.10.5.1"
+      }
+    },
+    {
+      "id": "R-0134",
+      "text": "Alternatively, for M1 vehicles fitted with a rear side-marker lamp, the rear position lamp may provide visibility of 45° outwards to 45° inwards (20° inwards under the H-plane if below 750 mm) and 15° up/down. To count as visible, it shall show an unobstructed apparent surface of at least 12.5 cm², excluding any non-light-transmitting retro-reflector area.",
+      "source": {
+        "regulation": "UN R48",
+        "version": "9.3.0",
+        "page": 51,
+        "paragraph": "6.10.5.2"
+      }
+    },
+    {
+      "id": "R-0135",
+      "text": "The rear position lamp shall face rearwards.",
+      "source": {
+        "regulation": "UN R48",
+        "version": "9.3.0",
+        "page": 51,
+        "paragraph": "6.10.6"
+      }
+    },
+    {
+      "id": "R-0136",
+      "text": "The rear position lamp shall be wired per paragraph 5.11, switching simultaneously with the front position lamps.",
+      "source": {
+        "regulation": "UN R48",
+        "version": "9.3.0",
+        "page": 51,
+        "paragraph": "6.10.7"
+      }
+    },
+    {
+      "id": "R-0137",
+      "text": "A closed-circuit tell-tale, combined with that of the front position lamps, is mandatory for the rear position lamps. A failure tell-tale is also mandatory where the component Regulation requires it.",
+      "source": {
+        "regulation": "UN R48",
+        "version": "9.3.0",
+        "page": 51,
+        "paragraph": "6.10.8"
+      }
+    },
+    {
+      "id": "R-0138",
+      "text": "Two rear non-triangular retro-reflectors are mandatory on the motor vehicle, type-approved as Class IA or IB under the 02 or later series of UN R3 or under UN R150.",
+      "source": {
+        "regulation": "UN R48",
+        "version": "9.3.0",
+        "page": 55,
+        "paragraph": "6.14.2"
+      }
+    },
+    {
+      "id": "R-0139",
+      "text": "The point of the rear retro-reflector's illuminating surface farthest from the median longitudinal plane shall be no more than 400 mm from the vehicle's extreme outer edge.",
+      "source": {
+        "regulation": "UN R48",
+        "version": "9.3.0",
+        "page": 55,
+        "paragraph": "6.14.4.1"
+      }
+    },
+    {
+      "id": "R-0140",
+      "text": "The rear retro-reflector shall be mounted between 250 mm and 900 mm above the ground. The upper limit is 1,200 mm if it is grouped with a rear lamp, as in this combined lamp, or 1,500 mm if the bodywork shape makes the lower limits impossible.",
+      "source": {
+        "regulation": "UN R48",
+        "version": "9.3.0",
+        "page": 55,
+        "paragraph": "6.14.4.2"
+      }
+    },
+    {
+      "id": "R-0141",
+      "text": "The rear retro-reflector shall be located at the rear of the vehicle.",
+      "source": {
+        "regulation": "UN R48",
+        "version": "9.3.0",
+        "page": 55,
+        "paragraph": "6.14.4.3"
+      }
+    },
+    {
+      "id": "R-0142",
+      "text": "The rear retro-reflector shall be geometrically visible 30° inwards and outwards horizontally, and 10° above and below horizontal (downward angle reducible to 5° if mounted below 750 mm).",
+      "source": {
+        "regulation": "UN R48",
+        "version": "9.3.0",
+        "page": 55,
+        "paragraph": "6.14.5"
+      }
+    },
+    {
+      "id": "R-0143",
+      "text": "The rear retro-reflector shall face rearwards.",
+      "source": {
+        "regulation": "UN R48",
+        "version": "9.3.0",
+        "page": 55,
+        "paragraph": "6.14.6"
+      }
+    },
+    {
+      "id": "R-0144",
+      "text": "The illuminating surface of the rear retro-reflector may share parts with the apparent surface of the other rear lamp functions (position, stop, reversing).",
+      "source": {
+        "regulation": "UN R48",
+        "version": "9.3.0",
+        "page": 56,
+        "paragraph": "6.14.7"
+      }
+    },
+    {
+      "id": "R-0145",
+      "text": "Electronic sub-assemblies (ESA) of the rear lamp, such as the LED driver PCB, shall be designed, built and fitted so that the vehicle complies with UN R10 in normal use.",
+      "source": {
+        "regulation": "UN R10",
+        "version": "7.2.0",
+        "page": 8,
+        "paragraph": "6.1.1"
+      }
+    },
+    {
+      "id": "R-0146",
+      "text": "If submitted as an ESA, the LED/electronic module of the rear lamp shall be tested for radiated and conducted emissions and for immunity to radiated and conducted disturbances.",
+      "source": {
+        "regulation": "UN R10",
+        "version": "7.2.0",
+        "page": 9,
+        "paragraph": "6.1.1.2"
+      }
+    },
+    {
+      "id": "R-0147",
+      "text": "The rear lamp ESA sample shall be clearly and indelibly marked with the manufacturer's trade name or mark and the type designation.",
+      "source": {
+        "regulation": "UN R10",
+        "version": "7.2.0",
+        "page": 6,
+        "paragraph": "3.2.6"
+      }
+    },
+    {
+      "id": "R-0148",
+      "text": "If the rear lamp ESA is (part of) a light source, the applicant shall either give its R37/R99/R128 approval number, or provide a Technical Service report stating that it is not mechanically interchangeable with any R37/R99/R128 light source.",
+      "source": {
+        "regulation": "UN R10",
+        "version": "7.2.0",
+        "page": 7,
+        "paragraph": "3.2.10"
+      }
+    },
+    {
+      "id": "R-0149",
+      "text": "Broadband radiated emissions from the rear lamp ESA (Annex 7 method) shall be below 62–52 dBµV/m (30–75 MHz, decreasing logarithmically), 52–63 dBµV/m (75–400 MHz, increasing logarithmically) and 63 dBµV/m (400–1,000 MHz).",
+      "source": {
+        "regulation": "UN R10",
+        "version": "7.2.0",
+        "page": 10,
+        "paragraph": "6.5.2.1"
+      }
+    },
+    {
+      "id": "R-0150",
+      "text": "Narrowband radiated emissions from the rear lamp ESA (Annex 8 method) shall be below 52–42 dBµV/m (30–75 MHz), 42–53 dBµV/m (75–400 MHz) and 53 dBµV/m (400–1,000 MHz). ESAs without an oscillator above 9 kHz are deemed compliant.",
+      "source": {
+        "regulation": "UN R10",
+        "version": "7.2.0",
+        "page": 10,
+        "paragraph": "6.6.2.1"
+      }
+    },
+    {
+      "id": "R-0151",
+      "text": "Transient conducted emissions from the switched rear lamp ESA on the 12 V supply line (ISO 7637-2) shall not exceed +75 V or −100 V (+150 V / −450 V for 24 V systems).",
+      "source": {
+        "regulation": "UN R10",
+        "version": "7.2.0",
+        "page": 10,
+        "paragraph": "6.7.1"
+      }
+    },
+    {
+      "id": "R-0152",
+      "text": "During radiated immunity tests (Annex 9; e.g. ALSE at 30 V/m for 80–2,000 MHz and 10 V/m for 2–6 GHz, BCI at 60 mA), the rear lamp ESA shall show no degradation of performance of immunity-related functions, such as stop lamp and rear position lamp operation.",
+      "source": {
+        "regulation": "UN R10",
+        "version": "7.2.0",
+        "page": 11,
+        "paragraph": "6.8.2.1"
+      }
+    },
+    {
+      "id": "R-0153",
+      "text": "The rear lamp ESA shall withstand conducted transient immunity tests on the 12/24 V supply lines (ISO 7637-2 pulses 1, 2a, 2b, 3a, 3b and the ISO 16750-2 starting profile) at the Table 3a/3b levels and meet the required functional status classes.",
+      "source": {
+        "regulation": "UN R10",
+        "version": "7.2.0",
+        "page": 12,
+        "paragraph": "6.9.1"
+      }
+    },
+    {
+      "id": "R-0154",
+      "text": "Once installed, the rear lamp shall not present outward-facing pointed or sharp parts, or projections whose shape, dimensions, direction or hardness are likely to increase the risk or seriousness of injury to a person struck by or brushing against the vehicle. This applies unless it is above 2 m, below the floor line, or unreachable by a 100 mm sphere.",
+      "source": {
+        "regulation": "UN R26",
+        "version": "4.0.0",
+        "page": 4,
+        "paragraph": "5.2"
+      }
+    },
+    {
+      "id": "R-0155",
+      "text": "Once installed, the rear lamp shall not present any outward-facing part likely to catch on pedestrians, cyclists or motorcyclists.",
+      "source": {
+        "regulation": "UN R26",
+        "version": "4.0.0",
+        "page": 4,
+        "paragraph": "5.3"
+      }
+    },
+    {
+      "id": "R-0156",
+      "text": "Any protruding part of the installed rear lamp (lens edges, housing) shall have a radius of curvature of at least 2.5 mm, unless it protrudes less than 5 mm (outward-facing angles blunted) or less than 1.5 mm, or is made of material of hardness 60 Shore A or less.",
+      "source": {
+        "regulation": "UN R26",
+        "version": "4.0.0",
+        "page": 4,
+        "paragraph": "5.4"
+      }
+    },
+    {
+      "id": "R-0157",
+      "text": "The UN R150 application for the rear retro-reflector shall include drawings (fitting positions, Class IB installation details, position of the approval number and class indicator), a description of the materials of the optical unit, and samples with their means of fixation.",
+      "source": {
+        "regulation": "UN R150",
+        "version": "1.2.1",
+        "page": 3,
+        "paragraph": "3.1.1.1"
+      }
+    },
+    {
+      "id": "R-0158",
+      "text": "The rear retro-reflector shall have a space of sufficient size for the Unique Identifier, or for the approval marking and other markings.",
+      "source": {
+        "regulation": "UN R150",
+        "version": "1.2.1",
+        "page": 7,
+        "paragraph": "3.3.1.1"
+      }
+    },
+    {
+      "id": "R-0159",
+      "text": "All markings on the rear retro-reflector shall be clearly legible and indelible.",
+      "source": {
+        "regulation": "UN R150",
+        "version": "1.2.1",
+        "page": 7,
+        "paragraph": "3.3.1.2"
+      }
+    },
+    {
+      "id": "R-0160",
+      "text": "The dimension 'a' of the approval marking on the Class IA/IB rear retro-reflector shall be at least 5 mm (Table 1).",
+      "source": {
+        "regulation": "UN R150",
+        "version": "1.2.1",
+        "page": 7,
+        "paragraph": "3.3.1.3"
+      }
+    },
+    {
+      "id": "R-0161",
+      "text": "The approval marking of the rear retro-reflector shall comprise: the E-in-circle approval mark with the country number; the four- to six-digit sequential number; the device symbol 'IA' or 'IB'; and '150R' followed by the series-of-amendments digits. A Unique Identifier may replace it where available.",
+      "source": {
+        "regulation": "UN R150",
+        "version": "1.2.1",
+        "page": 7,
+        "paragraph": "3.3.2"
+      }
+    },
+    {
+      "id": "R-0162",
+      "text": "The rear retro-reflector shall bear the trade name or mark of the applicant.",
+      "source": {
+        "regulation": "UN R150",
+        "version": "1.2.1",
+        "page": 8,
+        "paragraph": "3.3.4.1"
+      }
+    },
+    {
+      "id": "R-0163",
+      "text": "If needed to fix the prescribed angle of rotation unambiguously, the Class IA/IB rear retro-reflector shall bear the word 'TOP' horizontally on the highest part of its illuminating surface.",
+      "source": {
+        "regulation": "UN R150",
+        "version": "1.2.1",
+        "page": 8,
+        "paragraph": "3.3.4.2"
+      }
+    },
+    {
+      "id": "R-0164",
+      "text": "The approval marking (or Unique Identifier) and other markings shall be clearly legible on the rear retro-reflector.",
+      "source": {
+        "regulation": "UN R150",
+        "version": "1.2.1",
+        "page": 8,
+        "paragraph": "3.3.5.1"
+      }
+    },
+    {
+      "id": "R-0165",
+      "text": "If a single approval mark covers the rear lamp assembly incorporating the retro-reflector, it shall be visible after installation and shall not be removable separately from any light-transmitting part.",
+      "source": {
+        "regulation": "UN R150",
+        "version": "1.2.1",
+        "page": 8,
+        "paragraph": "3.3.6.1"
+      }
+    },
+    {
+      "id": "R-0166",
+      "text": "Every modification of the approved retro-reflector type shall be notified to the Type Approval Authority that approved it.",
+      "source": {
+        "regulation": "UN R150",
+        "version": "1.2.1",
+        "page": 9,
+        "paragraph": "3.4.1"
+      }
+    },
+    {
+      "id": "R-0167",
+      "text": "Production rear retro-reflectors approved under UN R150 shall conform to the approved type by meeting paragraphs 4 and 5, under the CoP control procedures of Annex 2 and inspector sampling of Annex 3.",
+      "source": {
+        "regulation": "UN R150",
+        "version": "1.2.1",
+        "page": 9,
+        "paragraph": "3.5.1"
+      }
+    },
+    {
+      "id": "R-0168",
+      "text": "The rear retro-reflector shall meet the general and individual specifications of UN R48 (sections 5 and 6) relevant to M1 vehicles wherever they can be verified at device approval.",
+      "source": {
+        "regulation": "UN R150",
+        "version": "1.2.1",
+        "page": 10,
+        "paragraph": "4"
+      }
+    },
+    {
+      "id": "R-0169",
+      "text": "The rear retro-reflector shall be built to function satisfactorily and keep doing so in normal use, with no design or manufacturing defect detrimental to its efficient operation or maintenance.",
+      "source": {
+        "regulation": "UN R150",
+        "version": "1.2.1",
+        "page": 10,
+        "paragraph": "4.1.1"
+      }
+    },
+    {
+      "id": "R-0170",
+      "text": "The components of the rear retro-reflector, or parts of them, shall not be easily dismantled.",
+      "source": {
+        "regulation": "UN R150",
+        "version": "1.2.1",
+        "page": 10,
+        "paragraph": "4.1.2"
+      }
+    },
+    {
+      "id": "R-0171",
+      "text": "The outer surface of the rear retro-reflector shall be easy to clean: not rough, and with no protuberances that prevent easy cleaning.",
+      "source": {
+        "regulation": "UN R150",
+        "version": "1.2.1",
+        "page": 10,
+        "paragraph": "4.1.4"
+      }
+    },
+    {
+      "id": "R-0172",
+      "text": "There shall be no access to the inner surface of the rear retro-reflector in normal use.",
+      "source": {
+        "regulation": "UN R150",
+        "version": "1.2.1",
+        "page": 11,
+        "paragraph": "4.1.5"
+      }
+    },
+    {
+      "id": "R-0173",
+      "text": "If the rear retro-reflector combines an optical unit and a filter, they shall be designed so that they cannot be separated under normal conditions of use.",
+      "source": {
+        "regulation": "UN R150",
+        "version": "1.2.1",
+        "page": 11,
+        "paragraph": "4.1.6.1"
+      }
+    },
+    {
+      "id": "R-0174",
+      "text": "The retro-reflecting optical units and filters of the rear retro-reflector shall not be coloured with paint or varnish.",
+      "source": {
+        "regulation": "UN R150",
+        "version": "1.2.1",
+        "page": 11,
+        "paragraph": "4.1.6.2"
+      }
+    },
+    {
+      "id": "R-0175",
+      "text": "When illuminated by CIE Standard Illuminant A at 1/3° divergence and β1 = β2 = 0° (or the alternative angle if colourless surface reflection occurs), the light reflected by the rear retro-reflector shall have trichromatic coordinates within the UN R48 night-time red limits.",
+      "source": {
+        "regulation": "UN R150",
+        "version": "1.2.1",
+        "page": 11,
+        "paragraph": "4.2.1.2"
+      }
+    },
+    {
+      "id": "R-0176",
+      "text": "The Class IA/IB rear retro-reflector shall meet the Annex 5 dimension and shape requirements, the photometric and colorimetric requirements of paragraphs 5.1.4 and 5.1.5, and the physical and mechanical test requirements of paragraph 5.1.7.",
+      "source": {
+        "regulation": "UN R150",
+        "version": "1.2.1",
+        "page": 11,
+        "paragraph": "5.1.1"
+      }
+    },
+    {
+      "id": "R-0177",
+      "text": "Ten samples of the Class IA/IB rear retro-reflector shall be submitted and tested in the chronological order of paragraph 5.1.7 (Table 4).",
+      "source": {
+        "regulation": "UN R150",
+        "version": "1.2.1",
+        "page": 11,
+        "paragraph": "5.1.2"
+      }
+    },
+    {
+      "id": "R-0178",
+      "text": "After the heat test, all ten retro-reflector samples shall be checked for colour and RI. The minimum and maximum samples shall be fully tested photometrically. The remaining pairs shall undergo water penetration followed by fuel/oil resistance, corrosion followed by rear-face abrasion, stability over time, and weathering.",
+      "source": {
+        "regulation": "UN R150",
+        "version": "1.2.1",
+        "page": 11,
+        "paragraph": "5.1.3.1"
+      }
+    },
+    {
+      "id": "R-0179",
+      "text": "After the environmental test sequence, each group of rear retro-reflector samples shall still meet the paragraph 5.1.5 colour requirement and the paragraph 5.1.4 RI at 20' divergence and β1 = β2 = 0°.",
+      "source": {
+        "regulation": "UN R150",
+        "version": "1.2.1",
+        "page": 12,
+        "paragraph": "5.1.3.2"
+      }
+    },
+    {
+      "id": "R-0180",
+      "text": "The applicant shall specify one or more reference axes, or a range of them, for the rear retro-reflector. RI measurements shall be repeated for each axis or for the extreme axes of the range.",
+      "source": {
+        "regulation": "UN R150",
+        "version": "1.2.1",
+        "page": 12,
+        "paragraph": "5.1.4.1"
+      }
+    },
+    {
+      "id": "R-0181",
+      "text": "For photometry of the Class IA/IB rear retro-reflector, only the illuminating surface within a 200 mm diameter circle and limited to 100 cm² shall be considered. The manufacturer shall specify the perimeter.",
+      "source": {
+        "regulation": "UN R150",
+        "version": "1.2.1",
+        "page": 12,
+        "paragraph": "5.1.4.3"
+      }
+    },
+    {
+      "id": "R-0182",
+      "text": "The red Class IA/IB rear retro-reflector shall have at least the following RI (mcd/lx). At 20' divergence: 300 at β1=β2=0°, 200 at β1=±10°/β2=0°, and 100 at β1=±5°/β2=±20°. At 1°30' divergence: 5, 2.8 and 2.5 respectively. Lower values are not permitted within the solid angle bounded by those directions.",
+      "source": {
+        "regulation": "UN R150",
+        "version": "1.2.1",
+        "page": 12,
+        "paragraph": "5.1.4.4.1"
+      }
+    },
+    {
+      "id": "R-0183",
+      "text": "If the rear retro-reflector's H-plane is mounted lower than 750 mm, its RI is verified only down to 5° downwards.",
+      "source": {
+        "regulation": "UN R150",
+        "version": "1.2.1",
+        "page": 13,
+        "paragraph": "5.1.4.5"
+      }
+    },
+    {
+      "id": "R-0184",
+      "text": "The trichromatic coordinates of the light reflected by the rear retro-reflector shall lie within the UN R48 night-time red limits.",
+      "source": {
+        "regulation": "UN R150",
+        "version": "1.2.1",
+        "page": 13,
+        "paragraph": "5.1.5.2"
+      }
+    },
+    {
+      "id": "R-0185",
+      "text": "During RI measurement of the rear retro-reflector at β1 = β2 = 0°, any mirror effect shall be checked by turning the device slightly. If present, the reading shall be taken at β1 = -5°, β2 = 0°.",
+      "source": {
+        "regulation": "UN R150",
+        "version": "1.2.1",
+        "page": 28,
+        "paragraph": "Annex 4 Part 1 1.1"
+      }
+    },
+    {
+      "id": "R-0186",
+      "text": "A rear retro-reflector not marked 'TOP' shall meet the RI minimum at its position of minimum RI when rotated about its axis. One marked 'TOP' shall not fall below the prescribed RI at any rotation within ±5°.",
+      "source": {
+        "regulation": "UN R150",
+        "version": "1.2.1",
+        "page": 28,
+        "paragraph": "Annex 4 Part 1 1.2"
+      }
+    },
+    {
+      "id": "R-0187",
+      "text": "The illuminating surface of the Class IA/IB rear retro-reflector shall not be easily confused with the triangular shape of Class III retro-reflectors at an observation distance of 10 m.",
+      "source": {
+        "regulation": "UN R150",
+        "version": "1.2.1",
+        "page": 33,
+        "paragraph": "Annex 5 1.1"
+      }
+    },
+    {
+      "id": "R-0188",
+      "text": "After 48 consecutive hours in dry air at 65 ± 2 °C and 1 h of cooling at 23 ± 2 °C, the moulded-plastic (PMMA) rear retro-reflector, and in particular its optical component, shall show no cracking or appreciable distortion.",
+      "source": {
+        "regulation": "UN R150",
+        "version": "1.2.1",
+        "page": 42,
+        "paragraph": "Annex 6 Part 1 1"
+      }
+    },
+    {
+      "id": "R-0189",
+      "text": "The rear retro-reflector, stripped of removable parts, shall be immersed for 10 minutes in water at 50 ± 5 °C (20 mm below the surface), repeated inverted, then immersed at 25 ± 5 °C. No water shall penetrate to the reflecting surface, and in case of doubt the RI shall comply.",
+      "source": {
+        "regulation": "UN R150",
+        "version": "1.2.1",
+        "page": 42,
+        "paragraph": "Annex 6 Part 2 1.2"
+      }
+    },
+    {
+      "id": "R-0190",
+      "text": "If the alternative Class IB moisture test is used, the rear lamp incorporating the retro-reflector (drain holes open, lamp functions cycled 5 min on / 55 min off) shall, after 12 h of water spray and 1 h of draining, show no standing pool of water, including when tapped or tilted, and its RI shall comply.",
+      "source": {
+        "regulation": "UN R150",
+        "version": "1.2.1",
+        "page": 44,
+        "paragraph": "Annex 6 Part 3 2.2.6"
+      }
+    },
+    {
+      "id": "R-0191",
+      "text": "If the alternative Class IB test is used, the rear lamp with retro-reflector shall be exposed to 5 h of agitated cement dust (ASTM C 150-84), and its RI shall still comply after the exterior is cleaned.",
+      "source": {
+        "regulation": "UN R150",
+        "version": "1.2.1",
+        "page": 45,
+        "paragraph": "Annex 6 Part 3 2.3.7"
+      }
+    },
+    {
+      "id": "R-0192",
+      "text": "The rear retro-reflector shall retain its photometric and colorimetric characteristics despite humidity and corrosion. After 50 h of salt mist (ISO 9227; two 24 h periods with a 2 h dry interval), it shall show no excessive corrosion that impairs its efficiency.",
+      "source": {
+        "regulation": "UN R150",
+        "version": "1.2.1",
+        "page": 45,
+        "paragraph": "Annex 6 Part 4 4.1"
+      }
+    },
+    {
+      "id": "R-0193",
+      "text": "If the moulded-plastic rear retro-reflector has an accessible mirror-backed rear face, the RI shall still comply after the rear face is brushed with a hard nylon brush, exposed to the fuel mixture for 1 minute, brushed again and covered with Indian ink.",
+      "source": {
+        "regulation": "UN R150",
+        "version": "1.2.1",
+        "page": 45,
+        "paragraph": "Annex 6 Part 5 3"
+      }
+    },
+    {
+      "id": "R-0194",
+      "text": "The rear retro-reflector shall withstand 500 h of accelerated artificial weathering to EN ISO 4892-2 (102 min dry / 18 min water spray cycles, 60 W/m² at 300–400 nm). Afterwards it shall still meet the colour and RI requirements.",
+      "source": {
+        "regulation": "UN R150",
+        "version": "1.2.1",
+        "page": 46,
+        "paragraph": "Annex 6 Part 6 3"
+      }
+    },
+    {
+      "id": "R-0195",
+      "text": "After its outer illuminating surface is wiped with a 70 % n-heptane / 30 % toluol mixture, the rear retro-reflector shall show no apparent surface change after about 5 minutes; slight surface cracks are tolerated.",
+      "source": {
+        "regulation": "UN R150",
+        "version": "1.2.1",
+        "page": 47,
+        "paragraph": "Annex 7 Part 1 1.1"
+      }
+    },
+    {
+      "id": "R-0196",
+      "text": "After its outer surface is wiped with detergent lubricating oil and cleaned, the rear retro-reflector's RI shall still comply.",
+      "source": {
+        "regulation": "UN R150",
+        "version": "1.2.1",
+        "page": 47,
+        "paragraph": "Annex 7 Part 2 1.1"
+      }
+    },
+    {
+      "id": "R-0197",
+      "text": "In CoP, no measured RI of a randomly chosen production rear retro-reflector shall deviate unfavourably by more than 20 % from the prescribed minimum, and the chromaticity coordinates shall be met.",
+      "source": {
+        "regulation": "UN R150",
+        "version": "1.2.1",
+        "page": 25,
+        "paragraph": "Annex 2 1.2"
+      }
+    },
+    {
+      "id": "R-0198",
+      "text": "The manufacturer's CoP tests on the rear retro-reflector shall cover photometric and colorimetric characteristics and resistance to water penetration, using calibrated equipment and statistically defined acceptance criteria (0.95 probability at 95 % confidence of passing a first spot check).",
+      "source": {
+        "regulation": "UN R150",
+        "version": "1.2.1",
+        "page": 25,
+        "paragraph": "Annex 2 2.1"
+      }
+    },
+    {
+      "id": "R-0199",
+      "text": "In inspector CoP sampling, one retro-reflector of sample A shall pass the water penetration test. If it fails, both retro-reflectors of sample B shall pass.",
+      "source": {
+        "regulation": "UN R150",
+        "version": "1.2.1",
+        "page": 27,
+        "paragraph": "Annex 3 6.1"
+      }
+    }
+  ]
+}

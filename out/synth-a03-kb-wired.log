@@ -1,0 +1,8 @@
+[brain 21:06:19] profile: Rear retro-reflector (non-triangular, Class IA, red). A passive device with no light source and no electrical connection. Two units are fitted, one at each rear corner of the bumper.; 12 terms; electronics=False
+[brain 21:06:48] regulations: UN R150 0.97, UN R48 0.92
+[brain 21:06:48] paragraphs selected: 140
+[brain 21:07:12] requirements: 148 kept, 14 dropped
+[brain 21:07:12] wrote /Users/imantsliepins/Personal/bench-out/wired-synth-a03-rear-retro-reflector.json (148 requirements); 53.1s, 10 LLM calls + 68 cached, $0.54 ($5.59 with a cold cache)
+real 56.59
+user 13.13
+sys 3.61

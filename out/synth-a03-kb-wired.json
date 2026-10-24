@@ -1,0 +1,1910 @@
+{
+  "team_id": "team-06",
+  "case_id": "synth-a03-rear-retro-reflector",
+  "requirements": [
+    {
+      "id": "R-0001",
+      "text": "Where the applicant chooses that the rear retro-reflector may be installed on a vehicle with different inclinations of the reference axis in respect to the vehicle reference planes and to the ground or, in the case of Classes IA, IB and IVA retro-reflectors, rotate around its reference axis, the application for type approval shall specify these different conditions of installation, and these different conditions of installation shall be indicated in the communication form.",
+      "source": {
+        "regulation": "UN R150",
+        "version": "1.2.1",
+        "page": 4,
+        "paragraph": "3.1.1.1"
+      },
+      "confidence": 0.24,
+      "quote": "(a) At the choice of the applicant, the application for type approval will specify that the device may be installed on a vehicle with different inclinations of the reference axis in respect to the vehicle reference planes and to the ground or, in the case of Classes IA, IB and IVA retro-reflectors, rotate around its reference axis; these different conditions of installation shall be indicated in the communication form;"
+    },
+    {
+      "id": "R-0002",
+      "text": "The application for type approval shall be accompanied by drawings of the rear retro-reflector, in triplicate, in sufficient detail to permit identification of the type, showing geometrically the position(s) in which the retro-reflecting device may be fitted to the vehicle, and in case of class IB or IIIB-retro-reflectors details of installation.",
+      "source": {
+        "regulation": "UN R150",
+        "version": "1.2.1",
+        "page": 4,
+        "paragraph": "3.1.1.1"
+      },
+      "confidence": 0.24,
+      "quote": "(b) Drawings, in triplicate, in sufficient detail to permit identification of the type, showing geometrically the position(s) in which the retro-reflecting device may be fitted to the vehicle, and in case of class IB or IIIB-retro-reflectors details of installation."
+    },
+    {
+      "id": "R-0003",
+      "text": "The application for type approval shall be accompanied by drawings that show the position intended for the approval number and class indicator in relation to the circle of the approval mark.",
+      "source": {
+        "regulation": "UN R150",
+        "version": "1.2.1",
+        "page": 4,
+        "paragraph": "3.1.1.1"
+      },
+      "confidence": 0.24,
+      "quote": "The drawings must show the position intended for the approval number and class indicator in relation to the circle of the approval mark;"
+    },
+    {
+      "id": "R-0004",
+      "text": "The rear retro-reflector belonging to an approved type shall comprise a space of sufficient size for the Unique Identifier as referred to in the 1958 Agreement and other markings as defined in paragraph 3.3.4.2. or, the approval marking and other markings as defined in paragraph 3.3.4.2.",
+      "source": {
+        "regulation": "UN R150",
+        "version": "1.2.1",
+        "page": 7,
+        "paragraph": "3.3.1.1"
+      },
+      "confidence": 0.445,
+      "quote": "Every device belonging to an approved type shall comprise a space of sufficient size for the Unique Identifier as referred to in the 1958 Agreement and other markings as defined in paragraph 3.3.4.2. or, the approval marking and other markings as defined in paragraph 3.3.4.2."
+    },
+    {
+      "id": "R-0005",
+      "text": "All markings on the rear retro-reflector shall be clearly legible and indelible.",
+      "source": {
+        "regulation": "UN R150",
+        "version": "1.2.1",
+        "page": 7,
+        "paragraph": "3.3.1.2"
+      },
+      "confidence": 0.462,
+      "quote": "All markings shall be clearly legible and indelible."
+    },
+    {
+      "id": "R-0006",
+      "text": "The sequential number of the approval number prescribed in paragraph 3.2.3.2. shall be placed close to the approval mark on the rear retro-reflector.",
+      "source": {
+        "regulation": "UN R150",
+        "version": "1.2.1",
+        "page": 7,
+        "paragraph": "3.3.2.2"
+      },
+      "confidence": 0.421,
+      "quote": "This sequential number shall be placed close to the approval mark."
+    },
+    {
+      "id": "R-0007",
+      "text": "Where the Unique Identifier is available, the approval marking as defined in paragraph 3.3.2. on the rear retro-reflector may be replaced by the Unique Identifier.",
+      "source": {
+        "regulation": "UN R150",
+        "version": "1.2.1",
+        "page": 8,
+        "paragraph": "3.3.3.1"
+      },
+      "confidence": 0.331,
+      "quote": "The approval marking as defined in paragraph 3.3.2. may be replaced by the Unique Identifier, if available."
+    },
+    {
+      "id": "R-0008",
+      "text": "The rear retro-reflector shall bear the trade name or mark of the applicant.",
+      "source": {
+        "regulation": "UN R150",
+        "version": "1.2.1",
+        "page": 8,
+        "paragraph": "3.3.4.1"
+      },
+      "confidence": 0.506,
+      "quote": "Retro-reflective devices shall bear the trade name or mark of the applicant."
+    },
+    {
+      "id": "R-0009",
+      "text": "If the word \"TOP\" is necessary to determine without ambiguity the angle or angles of rotation prescribed by the manufacturer, the rear retro-reflector of Class IA shall bear the word \"TOP\" inscribed horizontally on the highest part of the illuminating surface.",
+      "source": {
+        "regulation": "UN R150",
+        "version": "1.2.1",
+        "page": 8,
+        "paragraph": "3.3.4.2"
+      },
+      "confidence": 0.514,
+      "quote": "Retro-reflective devices shall bear 3.3.4.2.1. in case of a retro-reflector of Class IA, IIIA, IB, IIIB or IVA, the word “TOP” inscribed horizontally on the highest part of the illuminating surface, if such an indication is necessary to determine without ambiguity the angle or angles of rotation prescribed by the manufacturer. 3.3.4.2.2. in case of retro-reflective marking material of Class C, D, E or F an orientation mark \"TOP\" on any marking material whose retro-reflective system is not omni-rotational. 3.3.4.2.3. in case of retro-reflective marking plates of Class 1, 2, 3, 4 or 5, on the plates whose retro-reflective system is not omni-rotational, the word \"TOP\" inscribed horizontally on the part of the plates which is intended to be the highest part of the plate when mounted on the vehicle."
+    },
+    {
+      "id": "R-0010",
+      "text": "The approval marking or the Unique Identifier and the markings in paragraphs 3.3.4. shall be clearly legible on the rear retro-reflector.",
+      "source": {
+        "regulation": "UN R150",
+        "version": "1.2.1",
+        "page": 8,
+        "paragraph": "3.3.5.1"
+      },
+      "confidence": 0.486,
+      "quote": "The approval marking or the Unique Identifier and the markings in paragraphs 3.3.4. shall be clearly legible on the retroreflective device."
+    },
+    {
+      "id": "R-0011",
+      "text": "The rear retro-reflector shall comply with the requirements contained in sections 5. \"General specifications\" and 6. \"Individual specifications\" and in the Annexes referenced in the said sections of UN Regulations Nos. 48, 53, 74 or 86, and their series of amendments in force at the time of application for the retro-reflecting device type approval.",
+      "source": {
+        "regulation": "UN R150",
+        "version": "1.2.1",
+        "page": 10,
+        "paragraph": "4"
+      },
+      "confidence": 0.436,
+      "quote": "\"Individual specifications\" and in the Annexes referenced in the said sections of UN Regulations Nos. 48, 53, 74 or 86, and their series of amendments in force at the time of application for the retro-reflecting device type approval shall apply to this Regulation."
+    },
+    {
+      "id": "R-0012",
+      "text": "Where verification at the moment of retro-reflecting device type approval is feasible, the rear retro-reflector shall meet the requirements pertinent to the retro-reflecting device and to the category/ies of vehicle on which the retro-reflecting device is intended to be installed.",
+      "source": {
+        "regulation": "UN R150",
+        "version": "1.2.1",
+        "page": 10,
+        "paragraph": "4"
+      },
+      "confidence": 0.436,
+      "quote": "The requirements pertinent to each retro-reflecting device and to the category/ies of vehicle on which the retro-reflecting device is intended to be installed shall be applied, where its verification at the moment of retro-reflecting device type approval is feasible."
+    },
+    {
+      "id": "R-0013",
+      "text": "The rear retro-reflector shall be so constructed that it functions satisfactorily and will continue to do so in normal use.",
+      "source": {
+        "regulation": "UN R150",
+        "version": "1.2.1",
+        "page": 10,
+        "paragraph": "4.1.1"
+      },
+      "confidence": 0.443,
+      "quote": "Retro-reflective devices shall be so constructed that they function satisfactorily and will continue to do so in normal use."
+    },
+    {
+      "id": "R-0014",
+      "text": "The rear retro-reflector shall not have any defect in design or manufacture that is detrimental to its efficient operation or to its maintenance in good condition.",
+      "source": {
+        "regulation": "UN R150",
+        "version": "1.2.1",
+        "page": 10,
+        "paragraph": "4.1.1"
+      },
+      "confidence": 0.443,
+      "quote": "In addition, they must not have any defect in design or manufacture that is detrimental to their efficient operation or to their maintenance in good condition."
+    },
+    {
+      "id": "R-0015",
+      "text": "The components of the retro-reflector or parts thereof shall not be capable of being easily dismantled.",
+      "source": {
+        "regulation": "UN R150",
+        "version": "1.2.1",
+        "page": 10,
+        "paragraph": "4.1.2"
+      },
+      "confidence": 0.434,
+      "quote": "The components of retro-reflective devices or parts thereof shall not be capable of being easily dismantled."
+    },
+    {
+      "id": "R-0016",
+      "text": "The outer surface of the retro-reflector shall be easy to clean.",
+      "source": {
+        "regulation": "UN R150",
+        "version": "1.2.1",
+        "page": 10,
+        "paragraph": "4.1.4"
+      },
+      "confidence": 0.444,
+      "quote": "The outer surface of retro-reflective devices shall be easy to clean."
+    },
+    {
+      "id": "R-0017",
+      "text": "The outer surface of the retro-reflector shall not be rough, and any protuberances the retro-reflector may exhibit shall not prevent easy cleaning.",
+      "source": {
+        "regulation": "UN R150",
+        "version": "1.2.1",
+        "page": 10,
+        "paragraph": "4.1.4"
+      },
+      "confidence": 0.444,
+      "quote": "The surface shall therefore not be rough and any protuberances they may exhibit shall not prevent easy cleaning."
+    },
+    {
+      "id": "R-0018",
+      "text": "When the retro-reflector is in normal use, the retro-reflector shall allow no access to its inner surface.",
+      "source": {
+        "regulation": "UN R150",
+        "version": "1.2.1",
+        "page": 11,
+        "paragraph": "4.1.5"
+      },
+      "confidence": 0.477,
+      "quote": "There shall be no access to the inner surface of the retro-reflectors when in normal use."
+    },
+    {
+      "id": "R-0019",
+      "text": "Where the retro-reflector consists of a combined retro-reflecting optical unit and filter, the retro-reflector shall be so designed that the retro-reflecting optical unit and filter cannot be separated under normal conditions of use.",
+      "source": {
+        "regulation": "UN R150",
+        "version": "1.2.1",
+        "page": 11,
+        "paragraph": "4.1.6.1"
+      },
+      "confidence": 0.479,
+      "quote": "Retro-reflectors may consist of a combined retro-reflecting optical unit and filter, which must be so designed that they cannot be separated under normal conditions of use."
+    },
+    {
+      "id": "R-0020",
+      "text": "The retro-reflector shall not have the retro-reflecting optical unit or filter coloured by means of paint or varnish.",
+      "source": {
+        "regulation": "UN R150",
+        "version": "1.2.1",
+        "page": 11,
+        "paragraph": "4.1.6.2"
+      },
+      "confidence": 0.395,
+      "quote": "The colouring of retro-reflecting optical units and filters by means of paint or varnish is not permitted."
+    },
+    {
+      "id": "R-0021",
+      "text": "The colorimetric specifications for night time colours shall apply only to white, red or amber retro-reflective devices, and the retro-reflector shall therefore be red.",
+      "source": {
+        "regulation": "UN R150",
+        "version": "1.2.1",
+        "page": 11,
+        "paragraph": "4.2.1.1"
+      },
+      "confidence": 0.35,
+      "quote": "These specifications shall apply only to white, red or amber retro-reflective devices"
+    },
+    {
+      "id": "R-0022",
+      "text": "When the colour of the retro-reflector is tested, the retro-reflector shall be illuminated by CIE Standard Illuminant A, with an angle of divergence of 1/3° and an illumination angle of β1= β2= 0° or, if this produces a colourless surface reflection, an angle as specified in Annex 4, Part 1, paragraph 1.1. shall be used.",
+      "source": {
+        "regulation": "UN R150",
+        "version": "1.2.1",
+        "page": 11,
+        "paragraph": "4.2.1.2"
+      },
+      "confidence": 0.441,
+      "quote": "For testing the colour of the retro-reflective device, the device shall be illuminated by CIE Standard Illuminant A, with an angle of divergence of 1/3° and an illumination angle of β1= β2= 0° or, if this produces a colourless surface reflection, an angle as specified in Annex 4, Part 1, paragraph 1.1. shall be used."
+    },
+    {
+      "id": "R-0023",
+      "text": "The trichromatic coordinates of the reflected luminous intensity of the retro-reflector shall be within the limits for the night-time colour of the light retro-reflected from the retro-reflector, as defined in UN Regulation No. 48.",
+      "source": {
+        "regulation": "UN R150",
+        "version": "1.2.1",
+        "page": 11,
+        "paragraph": "4.2.1.2"
+      },
+      "confidence": 0.441,
+      "quote": "The trichromatic coordinates of the reflected luminous intensity shall be within the limits for the night-time colour of the light retro-reflected from that device, as defined in UN Regulation No. 48."
+    },
+    {
+      "id": "R-0024",
+      "text": "The applicant shall submit ten samples of the retro-reflector for approval, and the samples shall be tested in the chronological order as indicated in paragraph 5.1.7.",
+      "source": {
+        "regulation": "UN R150",
+        "version": "1.2.1",
+        "page": 11,
+        "paragraph": "5.1.2"
+      },
+      "confidence": 0.271,
+      "quote": "The applicant shall submit ten samples for approval which shall be tested in the chronological order as indicated in paragraph 5.1.7."
+    },
+    {
+      "id": "R-0025",
+      "text": "After verification of the general specifications (paragraph 4.) and the specifications of shape and dimensions (Annex 5), the ten samples of the retro-reflector shall be subjected to the heat resistance test described in Part 1 of Annex 6 and at least one hour after this test examined as to their colorimetric characteristics in paragraph 5.1.5. and RI in paragraph 5.1.4., for an angle of divergence of 20' and an illumination angle β1 = β2 = 0° or if necessary, in the position defined in Part 1 of Annex 4, paragraphs 1.1. and 1.2.",
+      "source": {
+        "regulation": "UN R150",
+        "version": "1.2.1",
+        "page": 11,
+        "paragraph": "5.1.3.1"
+      },
+      "confidence": 0.489,
+      "quote": "After verification of the general specifications (paragraph 4.) and the specifications of shape and dimensions (Annex 5), the ten samples shall be subjected to the heat resistance test described in Part 1 of Annex 6 and at least one hour after this test examined as to their colorimetric characteristics in paragraph 5.1.5. and RI in paragraph 5.1.4., for an angle of divergence of 20' and an illumination angle β1 = β2 = 0° or if necessary, in the position defined in Part 1 of Annex 4, paragraphs 1.1. and 1.2."
+    },
+    {
+      "id": "R-0026",
+      "text": "After the heat resistance test and examination, the two retro-reflectors giving the minimum and maximum values shall then be fully tested as shown in paragraph 5.1.4.",
+      "source": {
+        "regulation": "UN R150",
+        "version": "1.2.1",
+        "page": 11,
+        "paragraph": "5.1.3.1"
+      },
+      "confidence": 0.489,
+      "quote": "The two retro-reflectors giving the minimum and maximum values shall then be fully tested as shown in paragraph 5.1.4."
+    },
+    {
+      "id": "R-0027",
+      "text": "The laboratories shall keep the two retro-reflector samples giving the minimum and maximum values for any further checks which may be found necessary.",
+      "source": {
+        "regulation": "UN R150",
+        "version": "1.2.1",
+        "page": 11,
+        "paragraph": "5.1.3.1"
+      },
+      "confidence": 0.489,
+      "quote": "These two samples shall be kept by the laboratories for any further checks which may be found necessary."
+    },
+    {
+      "id": "R-0028",
+      "text": "Four retro-reflector samples out of the remaining eight samples shall be selected at random and divided into two groups of two in each group.",
+      "source": {
+        "regulation": "UN R150",
+        "version": "1.2.1",
+        "page": 12,
+        "paragraph": "5.1.3.1"
+      },
+      "confidence": 0.489,
+      "quote": "Four samples out of the remaining eight samples shall be selected at random and divided into two groups of two in each group."
+    },
+    {
+      "id": "R-0029",
+      "text": "The other eight retro-reflector samples shall be divided into four groups of two.",
+      "source": {
+        "regulation": "UN R150",
+        "version": "1.2.1",
+        "page": 12,
+        "paragraph": "5.1.3.1"
+      },
+      "confidence": 0.489,
+      "quote": "The other eight samples shall be divided into four groups of two:"
+    },
+    {
+      "id": "R-0030",
+      "text": "In the first group, the two retro-reflector samples shall be subjected successively to the water penetration test (Part 2 of Annex 6) and then, if this test is satisfactory, to the tests for resistance to fuels and lubricants (Parts 1 and 2 of Annex 7).",
+      "source": {
+        "regulation": "UN R150",
+        "version": "1.2.1",
+        "page": 12,
+        "paragraph": "5.1.3.1"
+      },
+      "confidence": 0.489,
+      "quote": "The two samples shall be subjected successively to the water penetration test (Part 2 of Annex 6) and then, if this test is satisfactory, to the tests for resistance to fuels and lubricants (Parts 1 and 2 of Annex 7)."
+    },
+    {
+      "id": "R-0031",
+      "text": "In the second group, the two retro-reflector samples shall, if necessary, be subjected to the corrosion test in Part 4 of Annex 6, and then to the abrasive-strength test of the rear face of the retro-reflector in Part 5 of Annex 6.",
+      "source": {
+        "regulation": "UN R150",
+        "version": "1.2.1",
+        "page": 12,
+        "paragraph": "5.1.3.1"
+      },
+      "confidence": 0.489,
+      "quote": "The two samples shall, if necessary, be subjected to the corrosion test in Part 4 of Annex 6, and then to the abrasive-strength test of the rear face of the retro-reflective device in Part 5 of Annex 6."
+    },
+    {
+      "id": "R-0032",
+      "text": "In the third group, the two retro-reflector samples shall be subjected to the test for stability in time of the optical properties of the retro-reflector in Part 3 of Annex 4.",
+      "source": {
+        "regulation": "UN R150",
+        "version": "1.2.1",
+        "page": 12,
+        "paragraph": "5.1.3.1"
+      },
+      "confidence": 0.489,
+      "quote": "The two samples shall be subjected to the test for stability in time of the optical properties of retro-reflective device in Part 3 of Annex 4."
+    },
+    {
+      "id": "R-0033",
+      "text": "In the fourth group, the two retro-reflector samples shall be subjected to the resistance to weathering test (Part 6 of Annex 6).",
+      "source": {
+        "regulation": "UN R150",
+        "version": "1.2.1",
+        "page": 12,
+        "paragraph": "5.1.3.1"
+      },
+      "confidence": 0.489,
+      "quote": "The two samples shall be subjected to the resistance to weathering test (Part 6 of Annex 6)."
+    },
+    {
+      "id": "R-0034",
+      "text": "After undergoing the tests referred to in the paragraph 5.1.3.1., the verification of the retro-reflector's RI shall be performed only for an angle of divergence of 20' and an illumination angle of β1 = β2 = 0° or, if necessary, in all positions specified in Part 1 of Annex 4, paragraphs 1.1. and 1.2.",
+      "source": {
+        "regulation": "UN R150",
+        "version": "1.2.1",
+        "page": 12,
+        "paragraph": "5.1.3.2.2"
+      },
+      "confidence": 0.508,
+      "quote": "The verification shall be performed only for an angle of divergence of 20' and an illumination angle of β1 = β2 = 0° or, if necessary, in all positions specified in Part 1 of Annex 4, paragraphs 1.1. and 1.2."
+    },
+    {
+      "id": "R-0035",
+      "text": "When applying for approval, the applicant shall specify one or more or a range of axis of reference for the rear retro-reflector, corresponding to the illumination angle β1 = β2 = 0° in the table of coefficients of luminous intensity RI.",
+      "source": {
+        "regulation": "UN R150",
+        "version": "1.2.1",
+        "page": 12,
+        "paragraph": "5.1.4.1"
+      },
+      "confidence": 0.387,
+      "quote": "When applying for approval, the applicant shall specify one or more or a range of axis of reference, corresponding to the illumination angle β1 = β2 = 0° in the table of coefficients of luminous intensity RI."
+    },
+    {
+      "id": "R-0036",
+      "text": "Where more than one or a range of different axis of reference are specified by the manufacturer, the photometric measurements of the rear retro-reflector shall be repeated making reference each time to a different axis of reference or to the extreme axis of reference of the range specified by the manufacturer.",
+      "source": {
+        "regulation": "UN R150",
+        "version": "1.2.1",
+        "page": 12,
+        "paragraph": "5.1.4.2"
+      },
+      "confidence": 0.362,
+      "quote": "In the case where more than one or a range of different axis of reference are specified by the manufacturer, the photometric measurements shall be repeated making reference each time to a different axis of reference or to the extreme axis of reference of the range specified by the manufacturer."
+    },
+    {
+      "id": "R-0037",
+      "text": "For photometric measurements, only the illuminating surface of the rear retro-reflector, defined by the planes contiguous to the outermost parts of the optical system of the retro-reflective device as indicated by the manufacturer and contained within a circle of 200 mm diameter for Class IA or IB, shall be considered, and the illuminating surface itself shall be limited to 100 cm2 though the surfaces of the retro-reflecting optical units need not necessarily attain this area.",
+      "source": {
+        "regulation": "UN R150",
+        "version": "1.2.1",
+        "page": 12,
+        "paragraph": "5.1.4.3"
+      },
+      "confidence": 0.525,
+      "quote": "For photometric measurements, only the illuminating surface defined by the planes contiguous to the outermost parts of the optical system of the retro-reflective device as indicated by the manufacturer and contained within a circle of 200 mm diameter for Class IA or IB shall be considered, and the illuminating surface itself shall be limited to 100 cm2 though the surfaces of the retro-reflecting optical units need not necessarily attain this area."
+    },
+    {
+      "id": "R-0038",
+      "text": "The manufacturer shall specify the perimeter of the area of the rear retro-reflector to be used for photometric measurements.",
+      "source": {
+        "regulation": "UN R150",
+        "version": "1.2.1",
+        "page": 12,
+        "paragraph": "5.1.4.3"
+      },
+      "confidence": 0.525,
+      "quote": "The manufacturer shall specify the perimeter of the area to be used."
+    },
+    {
+      "id": "R-0039",
+      "text": "When measured as described in paragraph 3 of Part 1 of Annex 4, the RI values of the rear retro-reflector shall be equal to or greater than those in Table 3, expressed in millicandelas per lux, for the angles of divergence and illumination shown.",
+      "source": {
+        "regulation": "UN R150",
+        "version": "1.2.1",
+        "page": 12,
+        "paragraph": "5.1.4.4.1"
+      },
+      "confidence": 0.667,
+      "quote": "When measured as described in paragraph 3 of Part 1 of Annex 4, the RI values for red retro-reflectors must be equal to or greater than those in Table 3, expressed in millicandelas per lux, for the angles of divergence and illumination shown."
+    },
+    {
+      "id": "R-0040",
+      "text": "The rear retro-reflector shall have RI values not lower than those shown in Table 3 for Class IA red, and RI values lower than those shown in the last two columns of Table 3 shall not be permissible within the solid angle having the centre of reference as its apex and bounded by the planes intersecting along the following lines: (β1 = ±10°, β2 = 0°) (β1 = ±5°, β2 = ±20°).",
+      "source": {
+        "regulation": "UN R150",
+        "version": "1.2.1",
+        "page": 12,
+        "paragraph": "5.1.4.4.1"
+      },
+      "confidence": 0.667,
+      "quote": "Table 3 Requirements for RI values of Retro-reflectors Angles in degrees Class Colour Illumination angles [º] Vertical β1 0° ±10° ±5° 0° 0° 0° Horizontal β2 0° 0° ±20° ±30° ±40° ±50° Minimum requirements for RI values in mcd∙lx-1 IA, IB White Angle of divergence α 20' 1.20∙103 8.00∙102 4.00∙102 -- -- -- 1°30' 2.0∙101 1.12∙101 1.0∙101 -- -- -- Amber 20' 7.50∙102 5.00∙102 2.50∙102 -- -- -- 1°30' 1.25∙101 7∙100 6.25∙100 -- -- -- Red 20' 3.00∙102 2.00∙102 1.00∙102 -- -- -- 1°30' 5∙100 2.8∙100 2.5∙100 -- -- -- IIIA, IIIB White 20' 1.80∙103 8.00∙102 6.00∙102 -- -- -- 1°30' 4.8∙101 3.2∙101 3.2∙101 -- -- -- Amber 20' 1.13∙103 5.00∙102 3.75∙102 -- -- -- 1°30' 3.0∙101 2.0∙101 2.0∙101 -- -- -- Red 20' 4.50∙102 2.00∙102 1.50∙102 -- -- -- 1°30' 1.2∙101 8∙100 8∙100 -- -- -- IV White 20' 1.80∙103 1.20∙103 -- 5.40∙102 4.70∙102 4.00∙102 1°30' 3.4∙101 2.4∙101 -- 1.5∙101 1.5∙101 1.5∙101 Amber 20' 1.13∙103 7.50∙102 -- 3.35∙102 2.90∙102 2.50∙102 1°30' 2.1∙101 1.5∙101 -- 1.0∙101 1.0∙101 1.0∙101 Red 20' 4.50"
+    },
+    {
+      "id": "R-0041",
+      "text": "The testing of the colour of the rear retro-reflector (night-time colour) shall be carried out according to the method described in paragraph 4.2.1.",
+      "source": {
+        "regulation": "UN R150",
+        "version": "1.2.1",
+        "page": 13,
+        "paragraph": "5.1.5.1"
+      },
+      "confidence": 0.491,
+      "quote": "The testing of the colour for retro-reflector (night-time colour) shall be carried out according to the method described in paragraph 4.2.1."
+    },
+    {
+      "id": "R-0042",
+      "text": "The trichromatic coordinates of the luminous flux reflected by the rear retro-reflector shall be within the limits for the night-time colour red as specified in UN Regulation No. 48.",
+      "source": {
+        "regulation": "UN R150",
+        "version": "1.2.1",
+        "page": 13,
+        "paragraph": "5.1.5.2"
+      },
+      "confidence": 0.561,
+      "quote": "The trichromatic coordinates of the reflected luminous flux must be within the limits for the night-time colours red, amber or white as specified in UN Regulation No. 48."
+    },
+    {
+      "id": "R-0043",
+      "text": "Where the Type Approval Authorities authorize laboratories to omit certain unnecessary tests depending on the nature of the materials of which the rear retro-reflector and, in particular, its optical units, are made, the omission shall be mentioned under \"Remarks\" on the form notifying approval.",
+      "source": {
+        "regulation": "UN R150",
+        "version": "1.2.1",
+        "page": 13,
+        "paragraph": "5.1.6"
+      },
+      "confidence": 0.377,
+      "quote": "Special specification (tests) / resistance to external agents Depending on the nature of the materials of which the retro-reflectors and, in particular, their optical units, are made, the Type Approval Authorities may authorize laboratories to omit certain unnecessary tests, subject to the express reservation that such omission must be mentioned under \"Remarks\" on the form notifying approval."
+    },
+    {
+      "id": "R-0044",
+      "text": "The rear retro-reflector shall be tested in the chronological order of tests given in Table 4, including colorimetry (visual inspection, trichromatic coordinates in case of doubt), photometry limited to 20' and β1 = β2 = 0°, complete photometry per Part 1 of Annex 4, and the water test per Part 3 of Annex 6 (10 min. in normal position, 10 min. in inverted position, visual inspection).",
+      "source": {
+        "regulation": "UN R150",
+        "version": "1.2.1",
+        "page": 14,
+        "paragraph": "5.1.7"
+      },
+      "confidence": 0.382,
+      "quote": "Colorimetry: visual inspection Trichromatic coordinates in case of doubt x x x x x x x x x x x Part 1 of Annex 4 Photometry: limited to 20' and β1 = β2 = 0° x x x x x x x x x x Part 1 of Annex 4 Complete photometry x x Part 3 of Annex 6 Water: 10 min. in normal position 10 min. in inverted position visual inspection x x x x x x Par. 4.2."
+    },
+    {
+      "id": "R-0045",
+      "text": "The rear retro-reflector shall be tested in the chronological order of tests given in Table 4, including colorimetry, photometry limited to 20' and β1 = β2 = 0°, the motor fuels test (5 min., visual inspection) per Part 1 of Annex 7, and the oils test (5 min., visual inspection) per Part 2 of Annex 7.",
+      "source": {
+        "regulation": "UN R150",
+        "version": "1.2.1",
+        "page": 14,
+        "paragraph": "5.1.7"
+      },
+      "confidence": 0.382,
+      "quote": "Colorimetry: visual inspection Trichromatic coordinates in case of doubt x x x x Part 1 of Annex 4 Photometry: limited to 20' and β1 = β2 = 0° x x Part 1 of Annex 7 Motor fuels: 5 min. visual inspection x x x x Part 2 of Annex 7 Oils: 5 min. visual inspection x x x x Par. 4.2."
+    },
+    {
+      "id": "R-0046",
+      "text": "The rear retro-reflector shall be tested in the chronological order of tests given in Table 4, including colorimetry, photometry limited to 20' and β1 = β2 = 0°, the corrosion test per Part 4 of Annex 6 (24 hours, 2 hours interval, 24 hours, visual inspection), and the rear face test per Part 4 of Annex 6 (1 min., visual inspection).",
+      "source": {
+        "regulation": "UN R150",
+        "version": "1.2.1",
+        "page": 14,
+        "paragraph": "5.1.7"
+      },
+      "confidence": 0.382,
+      "quote": "Colorimetry: visual inspection Trichromatic coordinates in case of doubt x x x x Part 1 of Annex 4 Photometry: limited to 20' and β1 = β2 = 0° x x Part 4 of Annex 6 Corrosion: 24 hours 2 hours interval 24 hours visual inspection x x x x x x x x Part 4 of Annex 6 Rear face: 1 min. visual inspection x x x x Par. 4.2."
+    },
+    {
+      "id": "R-0047",
+      "text": "The rear retro-reflector shall be tested in the chronological order of tests given in Table 4, including colorimetry, photometry limited to 20' and β1 = β2 = 0°, and the stability in time test per Part 3 of Annex 4.",
+      "source": {
+        "regulation": "UN R150",
+        "version": "1.2.1",
+        "page": 14,
+        "paragraph": "5.1.7"
+      },
+      "confidence": 0.382,
+      "quote": "Colorimetry: visual inspection Trichromatic coordinates in case of doubt x x x x Part 1 of Annex 4 Photometry: limited to 20' and β1 = β2 = 0° x x Reference Tests Samples a b c d e f g h i j Part 3 of Annex 4 Stability in time Par. 4.2."
+    },
+    {
+      "id": "R-0048",
+      "text": "The rear retro-reflector shall be tested in the chronological order of tests given in Table 5, including colorimetry, photometry limited to 20' and β1 = β2 = 0°, complete photometry, the water test per Part 2 of Annex 6, the motor fuels test per Part 1 of Annex 7 and the oils test per Part 2 of Annex 7.",
+      "source": {
+        "regulation": "UN R150",
+        "version": "1.2.1",
+        "page": 15,
+        "paragraph": "5.1.7"
+      },
+      "confidence": 0.382,
+      "quote": "Colorimetry: visual inspection Trichromatic coordinates in case of doubt x x x x x x x x x x x Part 1 of Annex 4 Photometry: limited to 20' and β1 = β2 = 0° x x x x x x x x x x Part 1 of Annex 4 Complete photometry x x Part 2 of Annex 6 Water: 10 min. in normal position 10 min. in inverted position visual inspection x x x x x x Part 1 of Annex 7 Motor fuels: 5 min. visual inspection x x x x Part 2 of Annex 7 Oils: 5 min. visual inspection x x x x Par. 4.2."
+    },
+    {
+      "id": "R-0049",
+      "text": "The rear retro-reflector shall be tested in the chronological order of tests given in Table 5, including colorimetry, photometry limited to 20' and β1 = β2 = 0°, the corrosion test per Part 4 of Annex 6, the rear face test (1 min.) per Part 4 of Annex 6, and the impact test per Part 4 of Annex 8 with visual inspection.",
+      "source": {
+        "regulation": "UN R150",
+        "version": "1.2.1",
+        "page": 15,
+        "paragraph": "5.1.7"
+      },
+      "confidence": 0.382,
+      "quote": "Colorimetry: visual inspection Trichromatic coordinates in case of doubt x x x x Part 1 of Annex 4 Photometry: limited to 20' and β1 = β2 = 0° x x Part 4 of Annex 6 Corrosion: 24 hours 2 hours' interval 24 hours visual inspection x x x x x x x x Part 4 of Annex 6 Rear face: 1 min. x x Reference Tests Samples a b c d e f g h i j visual inspection x x Part 4 of Annex 8 Impact visual inspection x x x x Par. 4.2."
+    },
+    {
+      "id": "R-0050",
+      "text": "The rear retro-reflector shall be subjected to colorimetry (visual inspection, trichromatic coordinates in case of doubt) and photometry limited to 20' and β1 = β2 = 0° in the chronological order of tests.",
+      "source": {
+        "regulation": "UN R150",
+        "version": "1.2.1",
+        "page": 16,
+        "paragraph": "5.1.7"
+      },
+      "confidence": 0.382,
+      "quote": "Colorimetry: visual inspection Trichromatic coordinates in case of doubt x x x x Part 1 of Annex 4 Photometry: limited to 20' and β1 = β2 = 0° x x"
+    },
+    {
+      "id": "R-0051",
+      "text": "When the RI of the rear retro-reflector is measured for an angle β of β1 = β2 = 0°, it shall be ascertained whether any mirror effect is produced by slightly turning the device.",
+      "source": {
+        "regulation": "UN R150",
+        "version": "1.2.1",
+        "page": 28,
+        "paragraph": "Annex 4 Part 1 1.1"
+      },
+      "confidence": 0.238,
+      "quote": "When the RI of a retro-reflective device is measured for an angle β of β1 = β2 = 0°, it shall be ascertained whether any mirror effect is produced by slightly turning the device."
+    },
+    {
+      "id": "R-0052",
+      "text": "If a mirror effect is produced, a reading of the rear retro-reflector shall be taken with an angle β of β1 = -5°, β2 = 0°.",
+      "source": {
+        "regulation": "UN R150",
+        "version": "1.2.1",
+        "page": 28,
+        "paragraph": "Annex 4 Part 1 1.1"
+      },
+      "confidence": 0.238,
+      "quote": "If there is any such effect, a reading shall be taken with an angle β of β1 = -5°, β2 = 0°."
+    },
+    {
+      "id": "R-0053",
+      "text": "With an illumination angle β of β1 = β2 = 0°, or the angle specified in paragraph 5. of this Regulation, and an angle of divergence of 20', the rear retro-reflector, which is not marked \"TOP\", shall be rotated about its axis of reference to the position of minimum RI, which shall conform to the value specified in paragraph 5. of this Regulation.",
+      "source": {
+        "regulation": "UN R150",
+        "version": "1.2.1",
+        "page": 28,
+        "paragraph": "Annex 4 Part 1 1.2"
+      },
+      "confidence": 0.283,
+      "quote": "With an illumination angle β of β1 = β2 = 0°, or the angle specified in paragraph 5. of this Regulation, and an angle of divergence of 20', retro-reflective devices which are not marked \"TOP\" shall be rotated about their axes of reference to the position of minimum RI, which must conform to the value specified in paragraph 5. of this Regulation."
+    },
+    {
+      "id": "R-0054",
+      "text": "When the RI is measured for the other angles of illumination and divergence, the rear retro-reflector shall be placed in the position corresponding to this value of ε.",
+      "source": {
+        "regulation": "UN R150",
+        "version": "1.2.1",
+        "page": 28,
+        "paragraph": "Annex 4 Part 1 1.2"
+      },
+      "confidence": 0.283,
+      "quote": "When the RI is measured for the other angles of illumination and divergence, the retro-reflective device shall be placed in the position corresponding to this value of ε."
+    },
+    {
+      "id": "R-0055",
+      "text": "If the specified values are not attained, the rear retro-reflector may be rotated about its axis of reference ±5° from that position.",
+      "source": {
+        "regulation": "UN R150",
+        "version": "1.2.1",
+        "page": 28,
+        "paragraph": "Annex 4 Part 1 1.2"
+      },
+      "confidence": 0.283,
+      "quote": "If the specified values are not attained, the device may be rotated about its axis of reference ±5° from that position."
+    },
+    {
+      "id": "R-0056",
+      "text": "With an illumination angle β of β1 = β2 = 0°, or the angle specified in paragraph 4. of this Regulation, and an angle of divergence of 20', the rear retro-reflector, where marked \"TOP\", shall be rotated about its axis ±5°.",
+      "source": {
+        "regulation": "UN R150",
+        "version": "1.2.1",
+        "page": 28,
+        "paragraph": "Annex 4 Part 1 1.3"
+      },
+      "confidence": 0.238,
+      "quote": "With an illumination angle β of β1 = β2 = 0°, or the angle specified in paragraph 4. of this Regulation, and an angle of divergence of 20', retro-reflective devices marked \"TOP\" shall be rotated about their axes ±5°."
+    },
+    {
+      "id": "R-0057",
+      "text": "The RI of the rear retro-reflector shall not fall below the prescribed value in any position assumed by the device during this rotation.",
+      "source": {
+        "regulation": "UN R150",
+        "version": "1.2.1",
+        "page": 28,
+        "paragraph": "Annex 4 Part 1 1.3"
+      },
+      "confidence": 0.238,
+      "quote": "The RI must not fall below the prescribed value in any position assumed by the device during this rotation."
+    },
+    {
+      "id": "R-0058",
+      "text": "If for the direction β1 = β2 = 0° and for ε = 0° the RI of the rear retro-reflector exceeds the specified value by 50 per cent or more, all measurements for all angles of illumination and divergence shall be made for ε = 0°.",
+      "source": {
+        "regulation": "UN R150",
+        "version": "1.2.1",
+        "page": 28,
+        "paragraph": "Annex 4 Part 1 1.4"
+      },
+      "confidence": 0.25,
+      "quote": "If for the direction β1 = β2 = 0°, and for ε = 0° the RI exceeds the specified value by 50 per cent or more, all measurements for all angles of illumination and divergence shall be made for ε = 0°."
+    },
+    {
+      "id": "R-0059",
+      "text": "The shape of the illuminating surfaces of the retro-reflective device shall not be easily confused with the triangular shape, as prescribed for retro-reflectors mentioned in paragraph 2.1., from an observation distance of 10 metres.",
+      "source": {
+        "regulation": "UN R150",
+        "version": "1.2.1",
+        "page": 33,
+        "paragraph": "Annex 5 1.1"
+      },
+      "confidence": 0.539,
+      "quote": "The shape of the illuminating surfaces shall not be easily confused with the triangular shape, as prescribed for retro-reflectors mentioned in paragraph 2.1., from an observation distance of 10 metres."
+    },
+    {
+      "id": "R-0060",
+      "text": "In the case of moulded plastics reflectors of retro-reflecting devices as Classes IA, IB, IIIA, IIIB, IVA, SMV and advance warning triangle of type 1, the retro-reflective device shall be kept for 48 consecutive hours in a dry atmosphere at a temperature of 65 °C ± 2 °C after which the sample shall be allowed to cool for 1 hour at 23 °C ± 2 ºC.",
+      "source": {
+        "regulation": "UN R150",
+        "version": "1.2.1",
+        "page": 42,
+        "paragraph": "Annex 6 Part 1 1"
+      },
+      "confidence": 0.41,
+      "quote": "The retro-reflective device shall be kept for 48 consecutive hours in a dry atmosphere at a temperature of 65 °C ± 2 °C after which the sample shall be allowed to cool for 1 hour at 23 °C ± 2 ºC."
+    },
+    {
+      "id": "R-0061",
+      "text": "After the resistance to heat test, no cracking or appreciable distortion of the retro-reflective device and, in particular, of its optical component shall be visible.",
+      "source": {
+        "regulation": "UN R150",
+        "version": "1.2.1",
+        "page": 42,
+        "paragraph": "Annex 6 Part 1 3"
+      },
+      "confidence": 0.378,
+      "quote": "After this test, no cracking or appreciable distortion of the retro-reflective device and, in particular, of its optical component must be visible."
+    },
+    {
+      "id": "R-0062",
+      "text": "The retro-reflective device, whether part of a lamp or not, shall be stripped of all removable parts and immersed for 10 minutes in water at a temperature of 50 °C ± 5 °C, the highest point of the upper part of the illuminating surface being 20 mm below the surface of the water.",
+      "source": {
+        "regulation": "UN R150",
+        "version": "1.2.1",
+        "page": 42,
+        "paragraph": "Annex 6 Part 2 1.1"
+      },
+      "confidence": 0.533,
+      "quote": "Retro-reflective devices whether part of a lamp or not, or a sample unit of retro-reflective marking, shall be stripped of all removable parts and immersed for 10 minutes in water at a temperature of 50 °C ± 5 °C, the highest point of the upper part of the illuminating surface being 20 mm below the surface of the water."
+    },
+    {
+      "id": "R-0063",
+      "text": "The water penetration test shall be repeated after turning the retro-reflective device through 180°, so that the illuminating surface is at the bottom and the rear face is covered by about 20 mm of water.",
+      "source": {
+        "regulation": "UN R150",
+        "version": "1.2.1",
+        "page": 42,
+        "paragraph": "Annex 6 Part 2 1.1"
+      },
+      "confidence": 0.533,
+      "quote": "This test shall be repeated after turning the retro-reflective device through 180°, so that the illuminating surface is at the bottom and the rear face is covered by about 20 mm of water."
+    },
+    {
+      "id": "R-0064",
+      "text": "The retro-reflective device sample units shall then be immediately immersed in the same conditions in water at a temperature of 25 °C ± 5 °C.",
+      "source": {
+        "regulation": "UN R150",
+        "version": "1.2.1",
+        "page": 42,
+        "paragraph": "Annex 6 Part 2 1.1"
+      },
+      "confidence": 0.533,
+      "quote": "These sample units shall then be immediately immersed in the same conditions in water at a temperature of 25 °C ± 5 °C."
+    },
+    {
+      "id": "R-0065",
+      "text": "No water shall penetrate to the reflecting surface of the retro-reflecting optical unit of the retro-reflective device.",
+      "source": {
+        "regulation": "UN R150",
+        "version": "1.2.1",
+        "page": 42,
+        "paragraph": "Annex 6 Part 2 1.2"
+      },
+      "confidence": 0.547,
+      "quote": "No water shall penetrate to the reflecting surface of the retro-reflecting optical unit."
+    },
+    {
+      "id": "R-0066",
+      "text": "If visual inspection clearly reveals the presence of water, the retro-reflective device shall not be considered to have passed the test.",
+      "source": {
+        "regulation": "UN R150",
+        "version": "1.2.1",
+        "page": 42,
+        "paragraph": "Annex 6 Part 2 1.2"
+      },
+      "confidence": 0.547,
+      "quote": "If visual inspection clearly reveals the presence of water, the device shall not be considered to have passed the test."
+    },
+    {
+      "id": "R-0067",
+      "text": "If visual inspection does not reveal the presence of water or in case of doubt, the RI of the retro-reflector shall be measured by the method described in paragraph 5.1.3.2.2. of this Regulation, the retro-reflective device being first lightly shaken to remove excess water from the outside.",
+      "source": {
+        "regulation": "UN R150",
+        "version": "1.2.1",
+        "page": 42,
+        "paragraph": "Annex 6 Part 2 1.3.1"
+      },
+      "confidence": 0.491,
+      "quote": "In the case of retro-reflectors, the RI shall be measured by the method described in paragraph 5.1.3.2.2. of this Regulation, the retro-reflective device being first lightly shaken to remove excess water from the outside."
+    },
+    {
+      "id": "R-0068",
+      "text": "In the dust exposure test procedure, a sample retro-reflective device, mounted on a test fixture, with the initial RI measured and recorded, shall be exposed to dust as follows:",
+      "source": {
+        "regulation": "UN R150",
+        "version": "1.2.1",
+        "page": 44,
+        "paragraph": "Annex 6 Part 3 2.3.4"
+      },
+      "confidence": 0.254,
+      "quote": "Dust exposure test procedure A sample device, mounted on a test fixture, with the initial RI measured and recorded, shall be exposed to dust as follows:"
+    },
+    {
+      "id": "R-0069",
+      "text": "In the dust exposure test, the mounted retro-reflective device shall be placed in the dust chamber no closer than 150 mm from a wall.",
+      "source": {
+        "regulation": "UN R150",
+        "version": "1.2.1",
+        "page": 45,
+        "paragraph": "Annex 6 Part 3 2.3.6"
+      },
+      "confidence": 0.238,
+      "quote": "Dust exposure The mounted device shall be placed in the dust chamber no closer than 150 mm from a wall."
+    },
+    {
+      "id": "R-0070",
+      "text": "In the dust exposure test, the retro-reflective device with a length exceeding 600 mm shall be horizontally centred in the test chamber.",
+      "source": {
+        "regulation": "UN R150",
+        "version": "1.2.1",
+        "page": 45,
+        "paragraph": "Annex 6 Part 3 2.3.6"
+      },
+      "confidence": 0.238,
+      "quote": "Devices with a length exceeding 600 mm shall be horizontally centred in the test chamber."
+    },
+    {
+      "id": "R-0071",
+      "text": "In the dust exposure test, the test dust shall be agitated as completely as possible by compressed air or blower(s) at intervals of 15 min for a period of 2 to 15 s for the duration of 5 hours.",
+      "source": {
+        "regulation": "UN R150",
+        "version": "1.2.1",
+        "page": 45,
+        "paragraph": "Annex 6 Part 3 2.3.6"
+      },
+      "confidence": 0.238,
+      "quote": "The test dust shall be agitated as completely as possible by compressed air or blower(s) at intervals of 15 min for a period of 2 to 15 s for the duration of 5 hours."
+    },
+    {
+      "id": "R-0072",
+      "text": "In the dust exposure test, the dust shall be allowed to settle between the agitation periods.",
+      "source": {
+        "regulation": "UN R150",
+        "version": "1.2.1",
+        "page": 45,
+        "paragraph": "Annex 6 Part 3 2.3.6"
+      },
+      "confidence": 0.238,
+      "quote": "The dust shall be allowed to settle between the agitation periods."
+    },
+    {
+      "id": "R-0073",
+      "text": "Upon completion of the dust exposure test, the exterior of the retro-reflective device shall be cleaned and dried with a dry cotton cloth and the RI shall be measured according to the method specified in paragraph 5.1.3.2.2. of this Regulation.",
+      "source": {
+        "regulation": "UN R150",
+        "version": "1.2.1",
+        "page": 45,
+        "paragraph": "Annex 6 Part 3 2.3.7"
+      },
+      "confidence": 0.274,
+      "quote": "Measured sample evaluation Upon completion of the dust exposure test, the exterior of the device shall be cleaned and dried with a dry cotton cloth and the RI measured according to the method specified in paragraph 5.1.3.2.2. of this Regulation."
+    },
+    {
+      "id": "R-0074",
+      "text": "The retro-reflective devices shall be so designed that they retain the prescribed photometric and colorimetric characteristics despite the humidity and corrosive influences to which they are normally exposed.",
+      "source": {
+        "regulation": "UN R150",
+        "version": "1.2.1",
+        "page": 45,
+        "paragraph": "Annex 6 Part 4 1"
+      },
+      "confidence": 0.352,
+      "quote": "Retro-reflective devices must be so designed that they retain the prescribed photometric and colorimetric characteristics despite the humidity and corrosive influences to which they are normally exposed."
+    },
+    {
+      "id": "R-0075",
+      "text": "The resistance of the front surface of the retro-reflective device to tarnishing and of the protection of the rear face to deterioration shall be checked, particularly when an essential metal component seems liable to be attacked.",
+      "source": {
+        "regulation": "UN R150",
+        "version": "1.2.1",
+        "page": 45,
+        "paragraph": "Annex 6 Part 4 1"
+      },
+      "confidence": 0.352,
+      "quote": "The resistance of the front surface to tarnishing and of the protection of the rear face to deterioration shall be checked, particularly when an essential metal component seems liable to be attacked."
+    },
+    {
+      "id": "R-0076",
+      "text": "The retro-reflective device, or the lamp if the device is combined with a light, shall be stripped of all removable parts and subjected to the action of a saline mist for a period of 50 hours, comprising two periods of exposure of 24 hours each, separated by an interval of two hours during which the sample is allowed to dry.",
+      "source": {
+        "regulation": "UN R150",
+        "version": "1.2.1",
+        "page": 45,
+        "paragraph": "Annex 6 Part 4 2"
+      },
+      "confidence": 0.292,
+      "quote": "The retro-reflective device, or the lamp if the device is combined with a light, shall be stripped of all removable parts and subjected to the action of a saline mist for a period of 50 hours, comprising two periods of exposure of 24 hours each, separated by an interval of two hours during which the sample is allowed to dry."
+    },
+    {
+      "id": "R-0077",
+      "text": "In the case of retro-reflective devices with essential metal components susceptible to corrosion, the saline mist shall be produced by atomizing, at a temperature of 35 °C ± 2 °C, a saline solution obtained by dissolving 5 parts by weight of sodium chloride in 95 parts of distilled water containing not more than 0.02 per cent of impurities.",
+      "source": {
+        "regulation": "UN R150",
+        "version": "1.2.1",
+        "page": 45,
+        "paragraph": "Annex 6 Part 4 3"
+      },
+      "confidence": 0.229,
+      "quote": "In the case of retro-reflective devices with essential metal components susceptible to corrosion, the saline mist shall be produced by atomizing, at a temperature of 35 °C ± 2 °C, a saline solution obtained by dissolving 5 parts by weight of sodium chloride in 95 parts of distilled water containing not more than 0.02 per cent of impurities."
+    },
+    {
+      "id": "R-0078",
+      "text": "Immediately after completion of the corrosion test, the rear retro-reflector sample shall not show signs of excessive corrosion liable to impair the efficiency of the device.",
+      "source": {
+        "regulation": "UN R150",
+        "version": "1.2.1",
+        "page": 45,
+        "paragraph": "Annex 6 Part 4 4.1"
+      },
+      "confidence": 0.345,
+      "quote": "Immediately after completion of the test, the sample shall not show signs of excessive corrosion liable to impair the efficiency of the device."
+    },
+    {
+      "id": "R-0079",
+      "text": "After the corrosion test, when measured after a recovery period of 48 hours as specified in Part 2 of Annex 6, at an entrance angle of β2 = 5° and an observation angle of α = 20', the coefficient of retro-reflection RA of the retro-reflective areas of the rear retro-reflector shall be not less than the value in Table 9 or more than the value in Table 10 respectively.",
+      "source": {
+        "regulation": "UN R150",
+        "version": "1.2.1",
+        "page": 45,
+        "paragraph": "Annex 6 Part 4 4.2"
+      },
+      "confidence": 0.318,
+      "quote": "The coefficient of retro-reflection RA of the retro-reflective areas, when measured after a recovery period of 48 hours as specified in Part 2 of Annex 6, at an entrance angle of β2 = 5° and an observation angle of α = 20', shall be not less than the value in Table 9 or more than the value in Table 10 respectively."
+    },
+    {
+      "id": "R-0080",
+      "text": "After the corrosion test and before measuring, the surface of the rear retro-reflector shall be cleaned to remove salt deposits from the saline mist.",
+      "source": {
+        "regulation": "UN R150",
+        "version": "1.2.1",
+        "page": 45,
+        "paragraph": "Annex 6 Part 4 4.2"
+      },
+      "confidence": 0.318,
+      "quote": "Before measuring, the surface shall be cleaned to remove salt deposits from the saline mist."
+    },
+    {
+      "id": "R-0081",
+      "text": "For the test of resistance of the accessible rear face of mirror-backed retro-reflective devices, the reverse side of the rear retro-reflector shall be brushed with a hard nylon brush.",
+      "source": {
+        "regulation": "UN R150",
+        "version": "1.2.1",
+        "page": 45,
+        "paragraph": "Annex 6 Part 5 2"
+      },
+      "confidence": 0.271,
+      "quote": "The reverse side of the retro-reflective device shall be brushed with a hard nylon brush."
+    },
+    {
+      "id": "R-0082",
+      "text": "After having brushed the rear face of the rear retro-reflector (a moulded plastics reflector of Class IA), a cotton cloth soaked in the mixture defined in Part 1 of Annex 7 shall be applied to the said rear face for one minute.",
+      "source": {
+        "regulation": "UN R150",
+        "version": "1.2.1",
+        "page": 45,
+        "paragraph": "Annex 6 Part 5 3"
+      },
+      "confidence": 0.293,
+      "quote": "After having brushed in the case of moulded plastics reflectors as Classes IA, IB, IIIA, IIIB and IVA the rear face of the retro-reflective device, a cotton cloth soaked in the mixture, defined in Part 1 of Annex 7 shall be applied to the said rear face for one minute."
+    },
+    {
+      "id": "R-0083",
+      "text": "As soon as evaporation is completed, the reverse side of the rear retro-reflector shall be brushed with the same brush as before.",
+      "source": {
+        "regulation": "UN R150",
+        "version": "1.2.1",
+        "page": 46,
+        "paragraph": "Annex 6 Part 5 5"
+      },
+      "confidence": 0.271,
+      "quote": "As soon as evaporation is completed, the reverse side shall be brushed with the same brush as before."
+    },
+    {
+      "id": "R-0084",
+      "text": "After the whole surface of the mirror-backed rear face has been covered with Indian ink, the RI of the rear retro-reflector shall be measured according to paragraph 5.1.3.2.2. of this Regulation.",
+      "source": {
+        "regulation": "UN R150",
+        "version": "1.2.1",
+        "page": 46,
+        "paragraph": "Annex 6 Part 5 6"
+      },
+      "confidence": 0.291,
+      "quote": "The RI shall then be measured, according to paragraph 5.1.3.2.2. of this Regulation, after the whole surface of the mirror-backed rear face has been covered with Indian ink."
+    },
+    {
+      "id": "R-0085",
+      "text": "For the resistance to fuels test, a test mixture of 70 vol. per cent of n-heptane and 30 vol. per cent of toluol shall be applied to the rear retro-reflector.",
+      "source": {
+        "regulation": "UN R150",
+        "version": "1.2.1",
+        "page": 47,
+        "paragraph": "Annex 7 Part 1 1"
+      },
+      "confidence": 0.252,
+      "quote": "A test mixture of 70 vol. per cent of n-heptane and 30 vol. per cent of toluol shall be applied for either:"
+    },
+    {
+      "id": "R-0086",
+      "text": "For the resistance to fuels test, the outer surface of the rear retro-reflector and, in particular, of the illuminating surface, shall be lightly wiped with a cotton cloth soaked in the test mixture.",
+      "source": {
+        "regulation": "UN R150",
+        "version": "1.2.1",
+        "page": 47,
+        "paragraph": "Annex 7 Part 1 1.1"
+      },
+      "confidence": 0.408,
+      "quote": "(a) The outer surface of the retro-reflective device and, in particular, of the illuminating surface, shall be lightly wiped with a cotton cloth soaked in the test mixture."
+    },
+    {
+      "id": "R-0087",
+      "text": "After about five minutes following the wiping with the test mixture, the surface of the rear retro-reflector shall be inspected visually.",
+      "source": {
+        "regulation": "UN R150",
+        "version": "1.2.1",
+        "page": 47,
+        "paragraph": "Annex 7 Part 1 1.1"
+      },
+      "confidence": 0.408,
+      "quote": "(b) After about five minutes, the surface shall be inspected visually."
+    },
+    {
+      "id": "R-0088",
+      "text": "After the resistance to fuels test, the surface of the rear retro-reflector shall not show any apparent surface changes, except that slight surface cracks will not be objected to.",
+      "source": {
+        "regulation": "UN R150",
+        "version": "1.2.1",
+        "page": 47,
+        "paragraph": "Annex 7 Part 1 1.1"
+      },
+      "confidence": 0.408,
+      "quote": "It must not show any apparent surface changes, except that slight surface cracks will not be objected to. or;"
+    },
+    {
+      "id": "R-0089",
+      "text": "For the resistance to lubricating oils test, the outer surface of the rear retro-reflector and, in particular, the illuminating surface, shall be lightly wiped with a cotton cloth soaked in a detergent lubricating oil.",
+      "source": {
+        "regulation": "UN R150",
+        "version": "1.2.1",
+        "page": 47,
+        "paragraph": "Annex 7 Part 2 1.1"
+      },
+      "confidence": 0.408,
+      "quote": "The outer surface of the retro-reflective device and, in particular, the illuminating surface, shall be lightly wiped with a cotton cloth soaked in a detergent lubricating oil."
+    },
+    {
+      "id": "R-0090",
+      "text": "After about 5 minutes following the wiping with detergent lubricating oil, the surface of the rear retro-reflector shall be cleaned.",
+      "source": {
+        "regulation": "UN R150",
+        "version": "1.2.1",
+        "page": 47,
+        "paragraph": "Annex 7 Part 2 1.1"
+      },
+      "confidence": 0.408,
+      "quote": "After about 5 minutes, the surface shall be cleaned."
+    },
+    {
+      "id": "R-0091",
+      "text": "After the surface has been cleaned following the resistance to lubricating oils test, the RI of the rear retro-reflector shall be measured according to paragraph 5.1.3.2.2. of this Regulation.",
+      "source": {
+        "regulation": "UN R150",
+        "version": "1.2.1",
+        "page": 47,
+        "paragraph": "Annex 7 Part 2 1.1"
+      },
+      "confidence": 0.408,
+      "quote": "The RI shall then be measured according to paragraph 5.1.3.2.2. of this Regulation."
+    },
+    {
+      "id": "R-0092",
+      "text": "The light emitting surface of the rear retro-reflector shall be declared according to one of the following conditions:",
+      "source": {
+        "regulation": "UN R48",
+        "version": "9.3.0",
+        "page": 10,
+        "paragraph": "2.10.2"
+      },
+      "confidence": 0.108,
+      "quote": "This shall be declared according to one of the following conditions:"
+    },
+    {
+      "id": "R-0093",
+      "text": "Where the outer lens of the rear retro-reflector is textured, the declared light emitting surface shall be all or part of the exterior surface of the outer lens.",
+      "source": {
+        "regulation": "UN R48",
+        "version": "9.3.0",
+        "page": 10,
+        "paragraph": "2.10.2"
+      },
+      "confidence": 0.108,
+      "quote": "(a) In the case where the outer lens is textured, the declared light emitting surface shall be all or part of the exterior surface of the outer lens;"
+    },
+    {
+      "id": "R-0094",
+      "text": "Where the outer lens of the rear retro-reflector is non-textured, the outer lens may be disregarded and the light emitting surface shall be as declared on the drawing, see Annex 3.",
+      "source": {
+        "regulation": "UN R48",
+        "version": "9.3.0",
+        "page": 10,
+        "paragraph": "2.10.2"
+      },
+      "confidence": 0.108,
+      "quote": "(b) In the case where the outer lens is non-textured the outer lens may be disregarded and the light emitting surface shall be as declared on the drawing, see Annex 3 (see e.g."
+    },
+    {
+      "id": "R-0095",
+      "text": "For the purposes of determining the lower, upper and lateral edges of the rear retro-reflector, only horizontal and vertical planes shall be considered.",
+      "source": {
+        "regulation": "UN R48",
+        "version": "9.3.0",
+        "page": 10,
+        "paragraph": "2.10.3.3"
+      },
+      "confidence": 0.156,
+      "quote": "For the purposes of determining the lower, upper and lateral edges of the device, only horizontal and vertical planes shall be considered."
+    },
+    {
+      "id": "R-0096",
+      "text": "If the vehicle type submitted for approval pursuant to this Regulation meets the requirements of the Regulation in respect of all the devices specified in the list, approval of that vehicle type shall be granted.",
+      "source": {
+        "regulation": "UN R48",
+        "version": "9.3.0",
+        "page": 18,
+        "paragraph": "4.1"
+      },
+      "confidence": 0.101,
+      "quote": "If the vehicle type submitted for approval pursuant to this Regulation meets the requirements of the Regulation in respect of all the devices specified in the list, approval of that vehicle type shall be granted."
+    },
+    {
+      "id": "R-0097",
+      "text": "The rear retro-reflectors shall be so fitted that under normal conditions of use as defined in paragraphs 2.3.10., 2.3.10.1. and 2.3.10.2. and notwithstanding any vibrations to which the rear retro-reflectors may be subjected, the rear retro-reflectors retain the characteristics prescribed by this Regulation and enable the vehicle to comply with the requirements of this Regulation.",
+      "source": {
+        "regulation": "UN R48",
+        "version": "9.3.0",
+        "page": 19,
+        "paragraph": "5.1"
+      },
+      "confidence": 0.44,
+      "quote": "The lighting and light-signalling devices shall be so fitted that under normal conditions of use as defined in paragraphs 2.3.10., 2.3.10.1. and 2.3.10.2. and notwithstanding any vibrations to which they may be subjected, they retain the characteristics prescribed by this Regulation and enable the vehicle to comply with the requirements of this Regulation."
+    },
+    {
+      "id": "R-0098",
+      "text": "The rear retro-reflectors shall be fitted such that it is not possible for the rear retro-reflectors to be inadvertently maladjusted.",
+      "source": {
+        "regulation": "UN R48",
+        "version": "9.3.0",
+        "page": 19,
+        "paragraph": "5.1"
+      },
+      "confidence": 0.44,
+      "quote": "In particular, it shall not be possible for the lamps to be inadvertently maladjusted."
+    },
+    {
+      "id": "R-0099",
+      "text": "The reference axis of each rear retro-reflector when fitted to the vehicle shall be parallel to the bearing plane of the vehicle on the road and parallel to the median longitudinal plane of the vehicle.",
+      "source": {
+        "regulation": "UN R48",
+        "version": "9.3.0",
+        "page": 19,
+        "paragraph": "5.3"
+      },
+      "confidence": 0.481,
+      "quote": "For all light-signalling devices, including those mounted on the side panels, the reference axis of the lamp when fitted to the vehicle shall be parallel to the bearing plane of the vehicle on the road; in addition it shall be perpendicular to the median longitudinal plane of the vehicle in the case of side retro-reflectors and of side-marker lamps and parallel to that plane in the case of all other signalling devices."
+    },
+    {
+      "id": "R-0100",
+      "text": "In each direction, a tolerance of ±3° shall be allowed for the orientation of the reference axis of each rear retro-reflector.",
+      "source": {
+        "regulation": "UN R48",
+        "version": "9.3.0",
+        "page": 19,
+        "paragraph": "5.3"
+      },
+      "confidence": 0.481,
+      "quote": "In each direction a tolerance of ±3° shall be allowed."
+    },
+    {
+      "id": "R-0101",
+      "text": "Any specific instructions as regards fitting laid down by the manufacturer shall be complied with for the rear retro-reflectors.",
+      "source": {
+        "regulation": "UN R48",
+        "version": "9.3.0",
+        "page": 19,
+        "paragraph": "5.3"
+      },
+      "confidence": 0.481,
+      "quote": "In addition, any specific instructions as regards fitting laid down by the manufacturer shall be complied with."
+    },
+    {
+      "id": "R-0102",
+      "text": "In the absence of specific instructions, the height and orientation of the rear retro-reflectors shall be verified with the vehicle unladen and placed on a flat, horizontal surface, in the condition defined in paragraphs 2.3.10., 2.3.10.1. and 2.3.10.2. and, in the case where an AFS is installed, with the system in its neutral state.",
+      "source": {
+        "regulation": "UN R48",
+        "version": "9.3.0",
+        "page": 19,
+        "paragraph": "5.4"
+      },
+      "confidence": 0.352,
+      "quote": "In the absence of specific instructions, the height and orientation of the lamps shall be verified with the vehicle unladen and placed on a flat, horizontal surface, in the condition defined in paragraphs 2.3.10., 2.3.10.1. and 2.3.10.2. and, in the case where an AFS is installed, with the system in its neutral state."
+    },
+    {
+      "id": "R-0103",
+      "text": "In the absence of specific instructions, the requirement that the rear retro-reflectors constituting a pair have substantially identical photometric characteristics shall not apply to a matched pair of a function and/or an AFS.",
+      "source": {
+        "regulation": "UN R48",
+        "version": "9.3.0",
+        "page": 19,
+        "paragraph": "5.5.4"
+      },
+      "confidence": 0.35,
+      "quote": "This shall not apply to a matched pair of a function and/or an AFS."
+    },
+    {
+      "id": "R-0104",
+      "text": "On vehicles whose external shape is asymmetrical, the rear retro-reflectors shall satisfy the above requirements so far as is possible.",
+      "source": {
+        "regulation": "UN R48",
+        "version": "9.3.0",
+        "page": 19,
+        "paragraph": "5.6"
+      },
+      "confidence": 0.264,
+      "quote": "On vehicles whose external shape is asymmetrical the above requirements shall be satisfied so far as is possible."
+    },
+    {
+      "id": "R-0105",
+      "text": "While the rear retro-reflectors are grouped, combined or reciprocally incorporated with other lamps, the rear retro-reflectors shall fulfil all requirements regarding colour, position, orientation, geometric visibility, electrical connections and other requirements, if any.",
+      "source": {
+        "regulation": "UN R48",
+        "version": "9.3.0",
+        "page": 19,
+        "paragraph": "5.7.1"
+      },
+      "confidence": 0.226,
+      "quote": "Lamps may be grouped, combined or reciprocally incorporated with one another provided that all requirements regarding colour, position, orientation, geometric visibility, electrical connections and other requirements, if any, are fulfilled."
+    },
+    {
+      "id": "R-0106",
+      "text": "When all other functions with which the rear retro-reflector is grouped, combined or reciprocally incorporated are switched OFF, the rear retro-reflector shall fulfil its photometric and colorimetric requirements.",
+      "source": {
+        "regulation": "UN R48",
+        "version": "9.3.0",
+        "page": 20,
+        "paragraph": "5.7.1.1"
+      },
+      "confidence": 0.193,
+      "quote": "The photometric and colorimetric requirements of a lamp shall be fulfilled when all other functions with which this lamp is grouped, combined or reciprocally incorporated are switched OFF."
+    },
+    {
+      "id": "R-0107",
+      "text": "When a front or rear position lamp is reciprocally incorporated with one or more other function(s) which can be switched ON together with them, and the reciprocally incorporated function(s) and the front or rear position lamps are switched ON, the requirements regarding colour of each of these other functions shall be fulfilled.",
+      "source": {
+        "regulation": "UN R48",
+        "version": "9.3.0",
+        "page": 20,
+        "paragraph": "5.7.1.1"
+      },
+      "confidence": 0.193,
+      "quote": "However, when a front or rear position lamp is reciprocally incorporated with one or more other function(s) which can be switched ON together with them, the requirements regarding colour of each of these other functions shall be fulfilled when the reciprocally incorporated function(s) and the front or rear position lamps are switched ON."
+    },
+    {
+      "id": "R-0108",
+      "text": "Where a rear retro-reflector is a single lamp as defined in paragraph 2.4.11.1., subparagraph (d), the rear retro-reflector shall fulfil the requirements of paragraph 5.7.2.1.",
+      "source": {
+        "regulation": "UN R48",
+        "version": "9.3.0",
+        "page": 20,
+        "paragraph": "5.7.2.3"
+      },
+      "confidence": 0.087,
+      "quote": "(d) shall fulfil the requirements of paragraph 5.7.2.1."
+    },
+    {
+      "id": "R-0109",
+      "text": "Where two or more lamps and/or two or more separate apparent surfaces are included into the same lamp body and/or have a common outer lens, the rear retro-reflector shall not be considered as an interdependent lamp system.",
+      "source": {
+        "regulation": "UN R48",
+        "version": "9.3.0",
+        "page": 20,
+        "paragraph": "5.7.2.3"
+      },
+      "confidence": 0.087,
+      "quote": "Where two or more lamps and/or two or more separate apparent surfaces are included into the same lamp body and/or have a common outer lens these shall not be considered as an interdependent lamp system."
+    },
+    {
+      "id": "R-0110",
+      "text": "A rear retro-reflector in the shape of a band or strip may be part of an interdependent lamp system.",
+      "source": {
+        "regulation": "UN R48",
+        "version": "9.3.0",
+        "page": 20,
+        "paragraph": "5.7.2.3"
+      },
+      "confidence": 0.087,
+      "quote": "However, a lamp in the shape of a band or strip may be part of an interdependent lamp system."
+    },
+    {
+      "id": "R-0111",
+      "text": "The maximum height of the rear retro-reflector above the ground shall be measured from the highest point, and the minimum height from the lowest point, of the apparent surface in the direction of the reference axis.",
+      "source": {
+        "regulation": "UN R48",
+        "version": "9.3.0",
+        "page": 21,
+        "paragraph": "5.8"
+      },
+      "confidence": 0.323,
+      "quote": "The maximum height above the ground shall be measured from the highest point and the minimum height from the lowest point of the apparent surface in the direction of the reference axis."
+    },
+    {
+      "id": "R-0112",
+      "text": "For the purposes of reducing the geometric visibility angles, the position of the rear retro-reflector with regard to height above the ground shall be measured from the H plane.",
+      "source": {
+        "regulation": "UN R48",
+        "version": "9.3.0",
+        "page": 21,
+        "paragraph": "5.8.1"
+      },
+      "confidence": 0.185,
+      "quote": "For the purposes of reducing the geometric visibility angles, the position of a lamp with regard to height above the ground, shall be measured from the H plane."
+    },
+    {
+      "id": "R-0113",
+      "text": "In the absence of specific instructions, the photometric characteristics (e.g. intensity, colour, apparent surface, etc.) of the rear retro-reflector shall not be intentionally varied during the period when the lamp is switched ON.",
+      "source": {
+        "regulation": "UN R48",
+        "version": "9.3.0",
+        "page": 21,
+        "paragraph": "5.9"
+      },
+      "confidence": 0.1,
+      "quote": "In the absence of specific instructions, the photometric characteristics (e.g. intensity, colour, apparent surface, etc.) of a lamp shall not be intentionally varied during the period when the lamp is switched ON."
+    },
+    {
+      "id": "R-0114",
+      "text": "The red light emitted by the rear retro-reflector fitted on the rear of the vehicle (as defined in paragraph 2.1.5.) shall not be visible from the front of the vehicle.",
+      "source": {
+        "regulation": "UN R48",
+        "version": "9.3.0",
+        "page": 21,
+        "paragraph": "5.10.1"
+      },
+      "confidence": 0.266,
+      "quote": "Red light emitted by a lamp fitted on the rear of the vehicle (as defined in paragraph 2.1.5.) shall not be visible from the front of the vehicle."
+    },
+    {
+      "id": "R-0115",
+      "text": "The white light emitted by a lamp fitted on the front of the vehicle (as defined in paragraph 2.1.5.) shall not be visible from the rear of the vehicle.",
+      "source": {
+        "regulation": "UN R48",
+        "version": "9.3.0",
+        "page": 21,
+        "paragraph": "5.10.2"
+      },
+      "confidence": 0.101,
+      "quote": "White light emitted by a lamp fitted on the front of the vehicle (as defined in paragraph 2.1.5.) shall not be visible from the rear of the vehicle."
+    },
+    {
+      "id": "R-0116",
+      "text": "When verifying light which could give rise to confusion, no account shall be taken of lighting devices fitted for the interior lighting of the vehicle nor of reversing projections.",
+      "source": {
+        "regulation": "UN R48",
+        "version": "9.3.0",
+        "page": 21,
+        "paragraph": "5.10.3"
+      },
+      "confidence": 0.1,
+      "quote": "No account shall be taken of lighting devices fitted for the interior lighting of the vehicle nor of reversing projections."
+    },
+    {
+      "id": "R-0117",
+      "text": "To verify paragraphs 5.10.1. and 5.10.2., for the visibility of red light towards the front of a vehicle, with the exception of a red rearmost side-marker lamp, there shall be no direct visibility of the apparent surface of the rear retro-reflector if viewed by an observer moving within Zone 1 in a transverse plane situated 25 m in front of the vehicle (see Annex 4).",
+      "source": {
+        "regulation": "UN R48",
+        "version": "9.3.0",
+        "page": 22,
+        "paragraph": "5.10.4.1"
+      },
+      "confidence": 0.257,
+      "quote": "For the visibility of red light towards the front of a vehicle, with the exception of a red rearmost side-marker lamp, there shall be no direct visibility of the apparent surface of a red lamp if viewed by an observer moving within Zone 1 in a transverse plane situated 25 m in front of the vehicle (see Annex 4);"
+    },
+    {
+      "id": "R-0118",
+      "text": "To verify paragraphs 5.10.1. and 5.10.2., for the visibility of white light towards the rear of a vehicle, with the exception of reversing lamps and white side conspicuity markings, there shall be no direct visibility of the apparent surface of a white lamp if viewed by an observer moving within Zone 2 in a transverse plane situated 25 m behind the vehicle (see Annex 4).",
+      "source": {
+        "regulation": "UN R48",
+        "version": "9.3.0",
+        "page": 22,
+        "paragraph": "5.10.4.2"
+      },
+      "confidence": 0.091,
+      "quote": "For the visibility of white light towards the rear of a vehicle, with the exception of reversing lamps and white side conspicuity markings, there shall be no direct visibility of the apparent surface of a white lamp if viewed by an observer moving within Zone 2 in a transverse plane situated 25 m behind the vehicle (see Annex 4);"
+    },
+    {
+      "id": "R-0119",
+      "text": "To verify paragraphs 5.10.1. and 5.10.2., in case of doubt, the requirement above shall be deemed fulfilled if the luminous intensity of the red light emitted to the front and/or the white light emitted to the rear, as verified during type approval of the lamps, is not more than 0.25 cd per lamp taking into account the influence of the vehicle body if applicable.",
+      "source": {
+        "regulation": "UN R48",
+        "version": "9.3.0",
+        "page": 22,
+        "paragraph": "5.10.4.3"
+      },
+      "confidence": 0.205,
+      "quote": "In case of doubt, the requirement above shall be deemed fulfilled if the luminous intensity of the red light emitted to the front and/or the white light emitted to the rear, as verified during type approval of the lamps, is not more than 0.25 cd per lamp taking into account the influence of the vehicle body if applicable."
+    },
+    {
+      "id": "R-0120",
+      "text": "The rear retro-reflector shall not be concealed.",
+      "source": {
+        "regulation": "UN R48",
+        "version": "9.3.0",
+        "page": 22,
+        "paragraph": "5.14.1"
+      },
+      "confidence": 0.149,
+      "quote": "The concealment of lamps shall be prohibited, with the exception of the main-beam headlamps, the dipped-beam headlamps and the front fog lamps, which may be concealed when they are not in use."
+    },
+    {
+      "id": "R-0121",
+      "text": "The rear retro-reflector, non-triangular, shall emit red light.",
+      "source": {
+        "regulation": "UN R48",
+        "version": "9.3.0",
+        "page": 24,
+        "paragraph": "5.15"
+      },
+      "confidence": 0.46,
+      "quote": "White 8Also known as white or colourless retro-reflector. 9Nothing in this Regulation shall preclude the Contracting Parties applying this Regulation from allowing the use of white conspicuity markings to the rear in their territories."
+    },
+    {
+      "id": "R-0122",
+      "text": "The number of rear retro-reflectors mounted on the vehicle shall be equal to the number indicated in the individual specifications of this Regulation.",
+      "source": {
+        "regulation": "UN R48",
+        "version": "9.3.0",
+        "page": 24,
+        "paragraph": "5.16.1"
+      },
+      "confidence": 0.372,
+      "quote": "The number of lamps mounted on the vehicle shall be equal to the number indicated in the individual specifications of this Regulation."
+    },
+    {
+      "id": "R-0123",
+      "text": "Where the rear retro-reflector is installed on movable components, the conditions specified in paragraphs 5.18., 5.19. and 5.20. shall be fulfilled.",
+      "source": {
+        "regulation": "UN R48",
+        "version": "9.3.0",
+        "page": 24,
+        "paragraph": "5.17"
+      },
+      "confidence": 0.125,
+      "quote": "Any lamp may be installed on movable components provided that the conditions specified in paragraphs 5.18., 5.19. and 5.20. are fulfilled."
+    },
+    {
+      "id": "R-0124",
+      "text": "Where the rear retro-reflectors, triangular as well as non-triangular, are installed on movable components, the rear retro-reflectors shall be installed on movable components only.",
+      "source": {
+        "regulation": "UN R48",
+        "version": "9.3.0",
+        "page": 25,
+        "paragraph": "5.18"
+      },
+      "confidence": 0.154,
+      "quote": "Rear position lamps, rear direction-indicators and rear retro-reflectors, triangular as well as non-triangular, may be installed on movable components only:"
+    },
+    {
+      "id": "R-0125",
+      "text": "When the movable components are in a position other than a \"normal position of use\", the rear retro-reflectors installed on them shall not cause undue discomfort to road users.",
+      "source": {
+        "regulation": "UN R48",
+        "version": "9.3.0",
+        "page": 25,
+        "paragraph": "5.19"
+      },
+      "confidence": 0.101,
+      "quote": "When the movable components are in a position other than a \"normal position of use\", the devices installed on them shall not cause undue discomfort to road users."
+    },
+    {
+      "id": "R-0126",
+      "text": "When a rear retro-reflector is installed on a movable component and the movable component is in the \"normal position(s) of use\", the rear retro-reflector shall always return to the position(s) specified by the manufacturer in accordance with this Regulation.",
+      "source": {
+        "regulation": "UN R48",
+        "version": "9.3.0",
+        "page": 25,
+        "paragraph": "5.20"
+      },
+      "confidence": 0.111,
+      "quote": "When a lamp is installed on a movable component and the movable component is in the \"normal position(s) of use\", the lamp shall always return to the position(s) specified by the manufacturer in accordance with this Regulation."
+    },
+    {
+      "id": "R-0127",
+      "text": "If the value of 0.15 per cent is exceeded for a dipped-beam headlamp or front fog lamp, each limit specified in paragraph 6.2.6.1.1. shall be modified by this excess to decrease the allowed range of inclinations when checking the vehicle according to Annex 6; this requirement is not applicable to the rear retro-reflector.",
+      "source": {
+        "regulation": "UN R48",
+        "version": "9.3.0",
+        "page": 25,
+        "paragraph": "5.20"
+      },
+      "confidence": 0.111,
+      "quote": "If this value is exceeded each limit specified in paragraph 6.2.6.1.1. shall then be modified by this excess to decrease the allowed range of inclinations when checking the vehicle according to Annex 6."
+    },
+    {
+      "id": "R-0128",
+      "text": "The apparent surface of the rear retro-reflector in the direction of the reference axis shall not be hidden more than 50 per cent by any movable component, with or without a light-signalling device installed on it, in any fixed position different from the \"normal position of use\".",
+      "source": {
+        "regulation": "UN R48",
+        "version": "9.3.0",
+        "page": 25,
+        "paragraph": "5.21"
+      },
+      "confidence": 0.303,
+      "quote": "The apparent surface in the direction of the reference axis of front and rear position lamps, front and rear direction-indicator lamps and retro-reflectors shall not be hidden more than 50 per cent by any movable component, with or without a light-signalling device installed on it, in any fixed position different from the \"normal position of use\"."
+    },
+    {
+      "id": "R-0129",
+      "text": "If the requirement of paragraph 5.21 is not practicable, additional lamps satisfying all the position, geometric visibility, colorimetric and photometric requirements for the above indicated lamps shall be switched ON when the apparent surface of the rear retro-reflector in the direction of the reference axis is more than 50 per cent hidden by the movable component.",
+      "source": {
+        "regulation": "UN R48",
+        "version": "9.3.0",
+        "page": 26,
+        "paragraph": "5.21.1"
+      },
+      "confidence": 0.147,
+      "quote": "Additional lamps satisfying all the position, geometric visibility, colorimetric and photometric requirements for the above indicated lamps shall be switched ON when the apparent surface in the direction of the reference axis of these lamps is more than 50 per cent hidden by the movable component; or 5.21.2."
+    },
+    {
+      "id": "R-0130",
+      "text": "If the requirement of paragraph 5.21 is not practicable, a remark in the communication form (item 10.1. of Annex 1) shall inform other Administrations that more than 50 per cent of the apparent surface of the rear retro-reflector in the direction of the reference axis can be hidden by the movable components, and a notice in the vehicle shall inform the user that in certain position(s) of the movable components other road users shall be warned of the presence of the vehicle on the road; for example by means of a warning triangle or other devices according to national requirements for use on the road.",
+      "source": {
+        "regulation": "UN R48",
+        "version": "9.3.0",
+        "page": 26,
+        "paragraph": "5.21.1"
+      },
+      "confidence": 0.147,
+      "quote": "A remark in the communication form (item 10.1. of Annex 1) shall inform other Administrations that more than 50 per cent of the apparent surface in the direction of the reference axis can be hidden by the movable components; and A notice in the vehicle shall inform the user that in certain position(s) of the movable components other road users shall be warned of the presence of the vehicle on the road; for example by means of a warning triangle or other devices according to national requirements for use on the road."
+    },
+    {
+      "id": "R-0131",
+      "text": "There shall be no obstacle on the inside of the angles of geometric visibility of the rear retro-reflector to the propagation of light from any part of the apparent surface of the rear retro-reflector observed from infinity.",
+      "source": {
+        "regulation": "UN R48",
+        "version": "9.3.0",
+        "page": 27,
+        "paragraph": "5.28.1"
+      },
+      "confidence": 0.37,
+      "quote": "There shall be no obstacle on the inside of the angles of geometric visibility to the propagation of light from any part of the apparent surface of the lamp observed from infinity."
+    },
+    {
+      "id": "R-0132",
+      "text": "If measurements are taken closer to the rear retro-reflector, the direction of observation shall be shifted parallel to achieve the same accuracy.",
+      "source": {
+        "regulation": "UN R48",
+        "version": "9.3.0",
+        "page": 27,
+        "paragraph": "5.28.2"
+      },
+      "confidence": 0.256,
+      "quote": "If measurements are taken closer to the lamp, the direction of observation shall be shifted parallel to achieve the same accuracy."
+    },
+    {
+      "id": "R-0133",
+      "text": "If, when the rear retro-reflector is installed, any part of the apparent surface of the rear retro-reflector is hidden by any further parts of the vehicle, proof shall be furnished that the part of the rear retro-reflector not hidden by obstacles still conforms to the photometric values prescribed for the approval of the device.",
+      "source": {
+        "regulation": "UN R48",
+        "version": "9.3.0",
+        "page": 27,
+        "paragraph": "5.28.3"
+      },
+      "confidence": 0.331,
+      "quote": "If, when the lamp is installed, any part of the apparent surface of the lamp is hidden by any further parts of the vehicle, proof shall be furnished that the part of the lamp not hidden by obstacles still conforms to the photometric values prescribed for the approval of the device."
+    },
+    {
+      "id": "R-0134",
+      "text": "When the vertical angle of geometric visibility below the horizontal of the rear retro-reflector is reduced to 5º (rear retro-reflector at less than 750 mm above the ground measured according to the provisions of paragraph 5.8.1. above), the photometric field of measurements of the installed rear retro-reflector may be reduced to 5º below the horizontal.",
+      "source": {
+        "regulation": "UN R48",
+        "version": "9.3.0",
+        "page": 28,
+        "paragraph": "5.28.4"
+      },
+      "confidence": 0.199,
+      "quote": "When the vertical angle of geometric visibility below the horizontal may be reduced to 5º (lamp at less than 750 mm above the ground measured according to the provisions of paragraph 5.8.1. above) the photometric field of measurements of the installed optical unit may be reduced to 5º below the horizontal."
+    },
+    {
+      "id": "R-0135",
+      "text": "When installed on a vehicle, the rear retro-reflector shall, where applicable, be type approved according to the corresponding device Regulation as specified in the relevant subparagraphs of paragraph 6 of this Regulation.",
+      "source": {
+        "regulation": "UN R48",
+        "version": "9.3.0",
+        "page": 28,
+        "paragraph": "5.30"
+      },
+      "confidence": 0.351,
+      "quote": "All lamps (devices) shall, where applicable, be type approved according to the corresponding device Regulations as specified in the relevant subparagraphs of paragraph 6 of this Regulation when installed on a vehicle."
+    },
+    {
+      "id": "R-0136",
+      "text": "Where the rear retro-reflector incorporates a manufacturer logo, the rear retro-reflector shall be type approved according to the requirements of the UN Regulation No. 148.",
+      "source": {
+        "regulation": "UN R48",
+        "version": "9.3.0",
+        "page": 28,
+        "paragraph": "5.30.1"
+      },
+      "confidence": 0.1,
+      "quote": "Especially in case of light-signalling lamps incorporating a manufacturer logo, the lamp shall be type approved according to the requirements of the UN Regulation No. 148."
+    },
+    {
+      "id": "R-0137",
+      "text": "Where the rear retro-reflector was type approved according to a preceding series of amendments to UN Regulation No. 150 and the change indexes (defined in paragraph 2.1.6.) related to each individual lamp (function) do not differ, the rear retro-reflector may be fitted on the vehicle to be type approved without any update of the device type approval documents and device markings.",
+      "source": {
+        "regulation": "UN R48",
+        "version": "9.3.0",
+        "page": 28,
+        "paragraph": "5.33"
+      },
+      "confidence": 0.226,
+      "quote": "In this case such a device may be fitted on the vehicle to be type approved without any update of the device type approval documents and device markings."
+    },
+    {
+      "id": "R-0138",
+      "text": "The rear retro-reflector shall be positioned in width such that the point on the illuminating surface which is farthest from the vehicle's median longitudinal plane is not more than 400 mm from the extreme outer edge of the vehicle.",
+      "source": {
+        "regulation": "UN R48",
+        "version": "9.3.0",
+        "page": 55,
+        "paragraph": "6.14.4.1"
+      },
+      "confidence": 0.633,
+      "quote": "In width: that point on the illuminating surface which is farthest from the vehicle's median longitudinal plane shall not be more than 400 mm from the extreme outer edge of the vehicle."
+    },
+    {
+      "id": "R-0139",
+      "text": "For all vehicle categories other than M1 and N1, the rear retro-reflectors shall be positioned such that the distance between the inner edges of the two apparent surfaces in the direction of the reference axes is not less than 600 mm.",
+      "source": {
+        "regulation": "UN R48",
+        "version": "9.3.0",
+        "page": 55,
+        "paragraph": "6.14.4.1"
+      },
+      "confidence": 0.633,
+      "quote": "For all other categories of vehicles: be not less than 600 mm."
+    },
+    {
+      "id": "R-0140",
+      "text": "Where the overall width of the vehicle is less than 1,300 mm, the distance between the inner edges of the two apparent surfaces of the rear retro-reflectors in the direction of the reference axes may be reduced to 400 mm.",
+      "source": {
+        "regulation": "UN R48",
+        "version": "9.3.0",
+        "page": 55,
+        "paragraph": "6.14.4.1"
+      },
+      "confidence": 0.633,
+      "quote": "This distance may be reduced to 400 mm where the overall width of the vehicle is less than 1,300 mm."
+    },
+    {
+      "id": "R-0141",
+      "text": "The rear retro-reflector shall have a geometric visibility horizontal angle of 30° inwards and outwards.",
+      "source": {
+        "regulation": "UN R48",
+        "version": "9.3.0",
+        "page": 55,
+        "paragraph": "6.14.5"
+      },
+      "confidence": 0.62,
+      "quote": "Geometric visibility Horizontal angle: 30° inwards and outwards."
+    },
+    {
+      "id": "R-0142",
+      "text": "The rear retro-reflector shall have a geometric visibility vertical angle of 10° above and below horizontal.",
+      "source": {
+        "regulation": "UN R48",
+        "version": "9.3.0",
+        "page": 55,
+        "paragraph": "6.14.5"
+      },
+      "confidence": 0.62,
+      "quote": "Vertical angle: 10° above and below horizontal."
+    },
+    {
+      "id": "R-0143",
+      "text": "Where the rear retro-reflector is mounted below 750 mm (measured according to the provisions of paragraph 5.8.1. above), the downward angle of 10° of the geometric visibility of the rear retro-reflector may be reduced to 5°.",
+      "source": {
+        "regulation": "UN R48",
+        "version": "9.3.0",
+        "page": 55,
+        "paragraph": "6.14.5"
+      },
+      "confidence": 0.62,
+      "quote": "However, where a retro-reflector is mounted below 750 mm (measured according to the provisions of paragraph 5.8.1. above), the downward angle of 10° may be reduced to 5°."
+    },
+    {
+      "id": "R-0144",
+      "text": "The illuminating surface of the rear retro-reflector may have parts in common with the apparent surface of any other lamp situated at the rear.",
+      "source": {
+        "regulation": "UN R48",
+        "version": "9.3.0",
+        "page": 56,
+        "paragraph": "6.14.7"
+      },
+      "confidence": 0.506,
+      "quote": "Other requirements The illuminating surface of the retro-reflector may have parts in common with the apparent surface of any other lamp situated at the rear."
+    },
+    {
+      "id": "R-0145",
+      "text": "The rear retro-reflector shall have a geometric visibility vertical angle of 15° above and below the horizontal.",
+      "source": {
+        "regulation": "UN R48",
+        "version": "9.3.0",
+        "page": 56,
+        "paragraph": "6.15.5"
+      },
+      "confidence": 0.082,
+      "quote": "Vertical angle: 15° above and below the horizontal."
+    },
+    {
+      "id": "R-0146",
+      "text": "Where the rear retro-reflector is mounted below 750 mm (measured according to the provisions of paragraph 5.8.1. above), the downward angle of 15° of the geometric visibility of the rear retro-reflector may be reduced to 5°.",
+      "source": {
+        "regulation": "UN R48",
+        "version": "9.3.0",
+        "page": 56,
+        "paragraph": "6.15.5"
+      },
+      "confidence": 0.082,
+      "quote": "However, where a retro-reflector is mounted below 750 mm (measured according to the provisions of paragraph 5.8.1. above), the downward angle of 15° may be reduced to 5°."
+    },
+    {
+      "id": "R-0147",
+      "text": "The position of the rear retro-reflector, as defined in paragraph 2.1.6. of this Regulation, in width, in height and in length shall be checked in accordance with the general requirements set out in paragraphs 2.10.2., 2.10.3., 2.10.4., 2.3.3. and 5.4. of this Regulation.",
+      "source": {
+        "regulation": "UN R48",
+        "version": "9.3.0",
+        "page": 114,
+        "paragraph": "Annex 9 1.1"
+      },
+      "confidence": 0.088,
+      "quote": "Position of lamps The position of lamps, as defined in paragraph 2.1.6. of this Regulation, in width, in height and in length shall be checked in accordance with the general requirements set out in paragraphs 2.10.2., 2.10.3., 2.10.4., 2.3.3. and 5.4. of this Regulation."
+    },
+    {
+      "id": "R-0148",
+      "text": "The values measured for the distances of the rear retro-reflector shall be such that the individual specifications applicable to the rear retro-reflector are fulfilled.",
+      "source": {
+        "regulation": "UN R48",
+        "version": "9.3.0",
+        "page": 114,
+        "paragraph": "Annex 9 1.1"
+      },
+      "confidence": 0.088,
+      "quote": "The values measured for the distances shall be such that the individual specifications applicable to each lamp are fulfilled."
+    }
+  ],
+  "regulations": [
+    {
+      "regulation": "UN R150",
+      "version": "1.2.1",
+      "probability": 0.97,
+      "selected": true,
+      "rationale": "Device approval regulation covering retro-reflectors Class IA; directly approves this product. (Device approval. Scope: This Regulation applies to retro-reflective devices as: • Retro-reflectors of the Classes IA, IB, IIIA, IIIB and IVA • Retro-reflective Marking Materials of the Classes C, D, E and F, D/E • Retro-reflective Marking Plates for Heavy and L... Spec terms 4.4, obligation base 16.3.)"
+    },
+    {
+      "regulation": "UN R48",
+      "version": "9.3.0",
+      "probability": 0.92,
+      "selected": true,
+      "rationale": "Installation regulation for lighting and light-signalling devices including rear retro-reflectors on M1 vehicles. (Installation regulation. Scope: This Regulation applies to vehicles of categories M, N, and to their trailers (category O) with regard to the installation of lighting and light-signalling devices. Spec terms 8.7, obligation base 11.9.)"
+    },
+    {
+      "regulation": "UN R3",
+      "version": "2.17.0",
+      "probability": 0.3,
+      "selected": false,
+      "rationale": "Legacy retro-reflector regulation consolidated into R150; prefer R150. (Device approval. Scope: This Regulation applies to retro-reflecting devices for vehicles of categories L, M, N, O, and T. Consolidated into UN R150. Spec terms 0.8, obligation base 1.7.)"
+    },
+    {
+      "regulation": "UN R26",
+      "version": "4.0.0",
+      "probability": 0.1,
+      "selected": false,
+      "rationale": "External projections is a vehicle-level regulation; the bumper-mounted reflector could be checked at vehicle level, but it puts no device requirements on the reflector. (Vehicle approval. Scope: This Regulation applies to external projections of category M1 vehicles. It does not apply to exterior devices for indirect vision or to the ball of towing devices. The purpose of this Regulation is to reduce the risk or seriousness of b... Spec terms 0.0, obligation base 0.0.)"
+    },
+    {
+      "regulation": "UN R148",
+      "version": "1.6.0",
+      "probability": 0.05,
+      "selected": false,
+      "rationale": "Covers lamps with light sources; a passive reflector is not covered. (Device approval. Scope: This Regulation applies to the following light-signalling devices (lamps): • Rear-registration plate illuminating lamps • Direction indicator lamps • Position lamps • Stop lamps • End-outline marker lamps • Reversing lamps • Manoeuvring... Spec terms 0.7, obligation base 0.0.)"
+    },
+    {
+      "regulation": "UN R104",
+      "version": "0.9.0",
+      "probability": 0.03,
+      "selected": false,
+      "rationale": "Retro-reflective markings for heavy vehicles, consolidated into R150; not this product nor M1. (Device approval. Scope: This Regulation applies to retro-reflective markings for vehicles of category M2, M3, N, O2, O3 and O4. Consolidated into UN R150. Spec terms 0.0, obligation base 0.1.)"
+    },
+    {
+      "regulation": "UN R42",
+      "version": "0.2.0",
+      "probability": 0.03,
+      "selected": false,
+      "rationale": "Bumper protective devices behaviour; concerns the bumper system, not the reflector. (Vehicle approval. Scope: This Regulation applies to vehicles of category M1 with regard to the behaviour of their front and rear protective devices when involved in a collision at low speed. Spec terms 0.0, obligation base 0.0.)"
+    },
+    {
+      "regulation": "UN R7",
+      "version": "3.0.0",
+      "probability": 0.02,
+      "selected": false,
+      "rationale": "Position/stop lamps; not this product. (Device approval. Scope: This Regulation applies to: Front and rear position lamps and stop lamps for vehicles of categories L, M, N, O and T; and, End-outline marker lamps for vehicles of categories M, N, O and T. Consolidated into UN R148. Spec terms 0.0, obligation base 0.5.)"
+    },
+    {
+      "regulation": "UN R10",
+      "version": "7.2.0",
+      "probability": 0.02,
+      "selected": false,
+      "rationale": "EMC; the product is passive with no electronics. (Electromagnetic compatibility. Scope: This Regulation applies to: Vehicles of categories L, M, N O, T, R and S1 with regard to electromagnetic compatibility; Components and separate technical units intended to be fitted in these vehicles with the limitation given in paragrap... Spec terms 0.0, obligation base 0.0.)"
+    },
+    {
+      "regulation": "UN R53",
+      "version": "4.0.0",
+      "probability": 0.01,
+      "selected": false,
+      "rationale": "Installation for L3 vehicles; wrong category. (Installation regulation. Scope: This Regulation applies to vehicles of category L3 with regard to the installation of lighting and light-signalling devices. Spec terms 0.3, obligation base 0.3.)"
+    },
+    {
+      "regulation": "UN R23",
+      "version": "0.22.0",
+      "probability": 0.01,
+      "selected": false,
+      "rationale": "Reversing lamps; not this product. (Device approval. Scope: This Regulation applies to: (a) Reversing lamps for vehicles of categories M, N, O, and T; (b) Manoeuvring lamps for vehicles of categories M and N. Consolidated into UN R148. Spec terms 0.0, obligation base 0.5.)"
+    },
+    {
+      "regulation": "UN R123",
+      "version": "2.1.0",
+      "probability": 0.01,
+      "selected": false,
+      "rationale": "AFS headlamps; not relevant. (Device approval. Scope: This Regulation applies to adaptive front-lighting systems (AFS) for motor vehicles of categories M and N1. Consolidated into UN R149. Spec terms 0.0, obligation base 0.5.)"
+    }
+  ],
+  "profile": {
+    "product": "Rear retro-reflector (non-triangular, Class IA, red). A passive device with no light source and no electrical connection. Two units are fitted, one at each rear corner of the bumper.",
+    "vehicle_categories": [
+      "M1"
+    ],
+    "functions": [
+      "Passive conspicuity",
+      "retro-reflection of incident light",
+      "Colour definition",
+      "red",
+      "Passive conspicuity: reflects light from other vehicles' headlamps back towards its source",
+      "Colour definition: red"
+    ],
+    "parts": [
+      "Retro-reflecting optical unit",
+      "moulded prism optics",
+      "Backing plate",
+      "Mounting clips",
+      "Retro-reflecting optical unit (moulded prism optics, moulded as one part with the red filter)",
+      "Backing plate (ultrasonically welded)"
+    ],
+    "materials": [
+      "Retro-reflector optics: PMMA (red, molded prism optics)",
+      "Backing plate: ABS or ASA, ultrasonically welded",
+      "Mounting clips: POM"
+    ],
+    "electronics": false,
+    "keywords": [
+      "rear retro-reflector",
+      "passive conspicuity",
+      "retro-reflection of incident light",
+      "colour definition",
+      "red",
+      "retro-reflecting optical unit",
+      "moulded prism optics",
+      "backing plate",
+      "mounting clips",
+      "retro-reflector",
+      "non-triangular retro-reflector",
+      "class ia"
+    ]
+  }
+}
