@@ -1,6 +1,6 @@
 # Complex strategies: status
 
-Updated: 24 Oct 23:55 CEST (system clock, `date`) by master (Cursor).
+Updated: 24 Oct 23:56 CEST (system clock, `date`) by master (Cursor).
 Task: brain/docs/todo/08-complex.md. Branch: big-swings. Setup done: yes (07 setup commit "swing master: setup"; this ledger created at 23:29).
 Lanes A to G are finished. Do not edit their files except to read them. Do not edit `out/experiments/STATUS.md`.
 
@@ -19,7 +19,7 @@ A lane that would pass its planned cap stops, writes the estimate, and waits. Th
 | K same filter on votes4 | done | 23:53 | K4: filter does not beat votes7, not nominated | $0 | out/experiments/K.md |
 | I table split into votes7 | done | 23:47 | I3 scored, 163 matched, F2 0.716, not nominated | $0 | out/experiments/I.md |
 | H vote of three new runs | running | 23:33 | dry-run, then the three runs if the estimate is within $6 | $0 | out/experiments/H.md |
-| L Sonnet 0.85 plus filter | done | 23:53 | L4 report on the weight-0.7 file; 0.85 lamp file was not scored; not nominated | $0 | out/experiments/L.md |
+| L Sonnet 0.85 plus filter | running | 23:56 | L5: filter `rear-lamp-swing-H-sonnet-w85.json` (403 rows). The weight-0.7 numbers stand. | $0 | out/experiments/L.md |
 
 ## Upload queue
 
@@ -33,6 +33,8 @@ Score with `tools/validate.py`, `tools/score_local.py`, and `uv run python -m ev
 
 ## Log
 
+- 23:56 Master checked lane K with `eval.errors`. Best cut drop class 1: 407 rows, 158 matched, F2 0.677. Biggest gap to 1.0 is 172 rows outside gold paragraphs (dropping them reaches F2 0.794). Does not beat votes7. Not uploaded. Spend $0.
+- 23:56 Lane H wrote `out/rear-lamp-swing-H-sonnet-w85.json` (403 rows, 92 s, $3.16). Restarting lane L to filter that file only. No second paid copy.
 - 23:55 Master checked lane L with `eval.errors`. Base is the weight-0.7 file: 388 rows, 146 matched, F2 0.636. Best cut drop 1+2: 315 rows, 138 matched, F2 0.642. Biggest gap to 1.0 on the unfiltered file is 177 rows outside gold paragraphs (dropping them reaches F2 0.747). Not uploaded. The weight-0.85 lamp file is still absent. If lane H writes it, restart L to filter that file only. Do not pay for a second copy.
 - 23:53 Lane J step 1. Tagged votes7 with text rules: class hits 63 / 17 / 43 / 24, 139 rows in any class, 40 left ambiguous and not dropped. Spend $0. No model call.
 - 23:53 Lane K done. Best cut drop class 1: 407 rows, 158 matched, F2 0.677, against votes7 351 / 156 / 0.702. Five extra matches: one untagged, one class 1, one class 2, two class 3. Not nominated. Spend $0.
