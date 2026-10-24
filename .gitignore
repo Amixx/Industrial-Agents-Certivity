@@ -16,3 +16,4 @@ frontend/.svelte-kit/
 !.env.example
 
 .DS_Store
+.playwright-mcp/
