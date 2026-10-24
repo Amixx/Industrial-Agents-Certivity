@@ -1,6 +1,6 @@
 # PDF extraction
 
-How to turn the regulation PDFs into paragraph records (regulation, version, page, paragraph label, text): what the Certivity PDFs look like, and what carries over from the PDF work in the Unified Search engine (TUM `sl26_g2_unifiedsearchengine`, its decisions 070 and 078, `eval/pdf-pages`, `eval/pdf-text` and the 2026-10-17 chunking survey).
+How to turn the regulation PDFs into paragraph records (regulation, version, page, paragraph label, text): what the Certivity PDFs look like, and what carries over from the PDF work in `sl26_g2_unifiedsearchengine` (its decisions 070 and 078, `eval/pdf-pages`, `eval/pdf-text` and the 2026-10-17 chunking survey).
 
 ## The Certivity PDFs, measured
 
@@ -10,13 +10,13 @@ Run with PyMuPDF and pikepdf over everything in `regulations/pdf/` and `subgoal/
 - **No broken characters:**
   - The 56 base PDFs contain no U+FFFD and no ligature codepoints, and only 2 control characters.
   - Fonts are plain Times New Roman and Helvetica.
-  - So the failures the search engine hit (below) don't happen here.
+  - So the failures `sl26_g2_unifiedsearchengine` hit (below) don't happen here.
 - **Page numbers are PDF pages.** Every page has a header line `UN R148, version 1.6.0 | page 10 of 48`, so `source.page` is the PDF's own page number. For all 190 expected requirements in `cases/dev-rear-lamp`, the cited paragraph label appears on the cited page.
 - **Paragraphs start with their label at the left margin:** `6.19.7.3. The automatic operation …`. List items start with `(a)`, `(b)` and so on. The reading order from PyMuPDF's blocks is clean.
 - **All 56 base PDFs are tagged.** They carry a structure tree with roles `P`, `H1`/`H2`, `Table`/`TR`/`TD` and `Figure`. For example, R48 has 44 tables and R148 has 25. Figures have no alt text.
 - **No bookmarks and no links.** The outline is empty, so section structure has to come from the paragraph labels.
 
-## What the search engine tried
+## What `sl26_g2_unifiedsearchengine` tried
 
 Its stack was Extractous 0.3 (Apache Tika and PDFBox) in Rust, plus hayro for rendering. The lessons below are independent of the library.
 
