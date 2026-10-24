@@ -1,6 +1,6 @@
 # Lane A: vote ensemble
 
-State: running. Updated: 24 Oct 23:15 CEST.
+State: stopped by the master (hand-over to Cursor) after A4. Updated: 24 Oct 23:25 CEST.
 Approved spend: $0. Spent: $0.
 
 ## Checklist
@@ -35,10 +35,36 @@ Approved spend: $0. Spent: $0.
       share-claude is the representative: best locally, and drawn only from writers that keep the
       subject and condition. Median word share against the source paragraph (stop words dropped):
       votes7 file 1.00, Fable 0.93, kb-jev 0.88, gold 0.96.
-- [ ] A4 Subsample k of the runs (k = 3, 4, 6, 8) and plot F2 against k; measure diversity.
+- [x] A4 Subsample k of the runs (k = 3, 4, 6, 8) and plot F2 against k; measure diversity.
+      Done 23:22. Files: `brain/swing/a_subsample.py`, `out/experiments/A-subsample.txt` (full
+      output: pairwise run distances, curve, named sets). Commit: "swing A: step 4".
+      Found (local F2, votes >= half of k, share-claude text, 40 random draws per k, clusters of
+      the full pool restricted to the drawn runs): k=2 0.630, 3 0.669, 4 0.673, 6 0.678, 8 0.686,
+      10 0.692, 12 0.696, 14 0.702. The mean single run is about 0.63, so 3 runs give about
+      half of the 14-run gain. Within a k, F2 rises with diversity (correlation +0.3 to +0.6).
+      Six runs of one family (Opus relevance + Sonnet rewrite, prompt variants; mean distance
+      0.30) reach 0.663 to 0.669; seven runs, one per family (distance 0.49), reach 0.696. Three
+      Claude models on all steps: 0.671. Four cheap Sunday-like runs (Sonnet, main-cli,
+      main-a39acab, mix): 0.658. Diversity has to come from different paragraph selection
+      (different relevance model or blend), not from rewrite prompt variants over the same
+      cached relevance: the four mix runs share Opus relevance and sit 0.15 to 0.32 apart.
 - [ ] A5 Nominate the best threshold and representative, and one more aggressive variant.
 
-Next: A4, subsample k runs (`brain/swing/a_subsample.py`).
+Next: A5. Nominate the two files already written (no new code needed):
+1. `out/rear-lamp-swing-A-votes7.json` (351 rows; local 156 / 0.702). Prediction to write in the
+   upload table: 157 matched, F2 0.707 (local + 1: the representatives come from Fable, Opus and
+   the Opus + Sonnet runs, whose platform / local ratios average about 1.0; the ratio estimate
+   in its log says 159 / 0.716). Question: does a vote of 14 runs beat every single run on the
+   platform (best single 154, kb-jev)?
+2. `out/rear-lamp-swing-A-votes4.json` (463 rows; local 161 / 0.658). Prediction: 163 matched,
+   F2 0.669. Question: do the 112 rows with 4 to 6 votes match more often on the platform than
+   the local judge's 4.5% (the break-even rate is about 14%)?
+Then set State to "waiting for upload" here and in STATUS.md, fill in the Report section (Rules,
+item 5) from A1 to A4, and do the transfer check: the vote needs several runs on the bumper;
+no bumper runs exist yet, so it is a lane G question. Rebuild everything from `brain/`:
+`BRAIN_LLM= PYTHONPATH=. uv run python swing/a_votes.py pool`, `... swing/a_sweep.py weights|reps`,
+`... swing/a_sweep.py write --votes 7 --out ../out/rear-lamp-swing-A-votes7.json`,
+`... swing/a_subsample.py --draws 40` (20 s). All $0.
 
 ## Run log rows
 
@@ -60,6 +86,11 @@ Next: A4, subsample k runs (`brain/swing/a_subsample.py`).
   id_index into that file's `requirements`, text, page, paragraph, confidence, word_share against
   the corpus paragraph). `medoid_matched_in_full_pool` is the local judge's verdict when all 949
   medoids are submitted together; a proxy, not a label.
+- Platform / local ratios per run (in `a_sweep.RATIO`): fable 149/141, opus 143/139, sonnet
+  140/131, kb-jev 154/153, filter-v4 140/158, Sol 143/150, main-cli 143/145, mix-examples-cut
+  138/145, dev-upload 145/138, qwen 133/137. The "+5 for Claude-style text" of finding 2 holds
+  for the all-step Claude runs only; the Opus + Sonnet runs score 2 to 7 below local.
+- STATUS.md was not edited by this lane (the master owns it); the lane's state is in this file.
 - Rebuild: from `brain/`, `BRAIN_LLM= PYTHONPATH=. uv run python swing/a_votes.py pool` (6 s).
 
 ## Report
