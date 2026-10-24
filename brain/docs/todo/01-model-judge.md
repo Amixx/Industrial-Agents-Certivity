@@ -64,63 +64,54 @@ without agreeing it with the team: uploads are shared, 5 per hour.
 ## Results
 
 Done on 24 Oct. `uv run python -m eval.model_judge <files>` prints the lexical judge, the model
-judge and the platform estimate (model matches minus 4) side by side.
+judge and the platform estimate (model matches plus 4) side by side.
 
 **How it judges.** Sonnet 5.5 through `claude -p`. Candidates per gold row: same regulation, the
 8 most similar rows by token overlap, plus rows citing the same paragraph, its parent or a child.
-Pass 1 grades all candidates of one gold row in one call, 0 to 4. Pass 2 asks again about every
-pair graded 2, one pair at a time in shuffled batches, as yes or no with a lenient prompt
-(another name for the same subject, extra numbers from the same paragraph and a dropped
-cross-reference still match). A pair matches when graded 3 or 4, or graded 2 and checked yes;
-then a one-to-one assignment.
+Every pair is graded 0 to 4 on its own, in shuffled batches of 40 that mix gold rows; pairs
+graded 3 or 4 are matched one to one.
 
-**Calibration** on the 15 dev uploads with a platform score (matches; error is estimate minus
+**Calibration** on the 16 dev uploads with a platform score (matches; error is estimate minus
 platform):
 
 | File | Rows | Platform | Lexical | Model | Estimate | Error |
 |---|---|---|---|---|---|---|
-| `out/dev-upload.json` | 407 | 145 | 138 | 150 | 146 | +1 |
-| `rear-lamp-sonnet.json` | 344 | 140 | 131 | 137 | 133 | −7 |
-| `rear-lamp-opus.json` | 338 | 143 | 139 | 147 | 143 | 0 |
-| `rear-lamp-fable.json` | 332 | 149 and 142 | 141 | 149 | 145 | −0.5 |
-| `rear-lamp-deterministic.json` | 778 | 107 | 112 | 110 | 106 | −1 |
-| `rear-lamp-main-cli.json` | 368 | 143 | 145 | 147 | 143 | 0 |
-| `rear-lamp-kb-deterministic.json` | 864 | 108 | 113 | 113 | 109 | +1 |
-| `rear-lamp-kb-jev.json` | 389 | 154 | 153 | 151 | 147 | −7 |
-| `rear-lamp-kb-jev-filter-v4.json` | 342 | 140 | 158 | 146 | 142 | +2 |
-| `rear-lamp-kb-sol-rewrite.json` | 420 | 143 | 150 | 149 | 145 | +2 |
-| `rear-lamp-qwen-split-rewrite.json` | 446 | 133 | 137 | 137 | 133 | 0 |
-| `rear-lamp-mix-examples-cut.json` | 341 | 138 | 145 | 147 | 143 | +5 |
-| `rear-lamp-kb-v5-rewrite.json` | 363 | 148 | 158 | 157 | 153 | +5 |
-| `rear-lamp-deterministic-sibling.json` | 647 | 106 | 111 | 109 | 105 | −1 |
-| `upload/agent-v3.json` | 302 | 116 | 108 | 115 | 111 | −5 |
+| `out/dev-upload.json` | 407 | 145 | 138 | 138 | 142 | −3 |
+| `rear-lamp-sonnet.json` | 344 | 140 | 131 | 129 | 133 | −7 |
+| `rear-lamp-opus.json` | 338 | 143 | 139 | 130 | 134 | −9 |
+| `rear-lamp-fable.json` | 332 | 149 and 142 | 141 | 137 | 141 | −4.5 |
+| `rear-lamp-deterministic.json` | 778 | 107 | 112 | 106 | 110 | +3 |
+| `rear-lamp-main-cli.json` | 368 | 143 | 145 | 137 | 141 | −2 |
+| `rear-lamp-kb-deterministic.json` | 864 | 108 | 113 | 111 | 115 | +7 |
+| `rear-lamp-kb-jev.json` | 389 | 154 | 153 | 150 | 154 | 0 |
+| `rear-lamp-kb-jev-filter-v4.json` | 342 | 140 | 158 | 142 | 146 | +6 |
+| `rear-lamp-kb-sol-rewrite.json` | 420 | 143 | 150 | 141 | 145 | +2 |
+| `rear-lamp-qwen-split-rewrite.json` | 446 | 133 | 137 | 135 | 139 | +6 |
+| `rear-lamp-mix-examples-cut.json` | 341 | 138 | 145 | 137 | 141 | +3 |
+| `rear-lamp-kb-v5-rewrite.json` | 363 | 148 | 158 | 151 | 155 | +7 |
+| `rear-lamp-deterministic-sibling.json` | 647 | 106 | 111 | 104 | 108 | +2 |
+| `upload/agent-v3.json` | 302 | 116 | 108 | 102 | 106 | −10 |
+| `upload/recall-push-filter.json` | 390 | 150 | 156 | 150 | 154 | +4 |
 
-- Mean absolute error 2.5 matches; Spearman 0.96 against the platform. The lexical judge: 6.4,
-  and +18 on the minimal-edit v4 rewrite.
-- The acceptance bar (±3 on every file) is not met: five files are off by 5 to 7. The platform
-  itself scored the same Fable file 149 and 142, so a single upload carries about that much
-  noise; treat differences under about 5 matches as a tie.
-- Held out: with the rule and offset chosen on the 8 uploads before 21:05, the 7 later ones come
-  out in the platform's order except `mix` and `v4` (2 matches apart on the platform), mean error
-  3.8.
+- Mean absolute error 4.7 matches, Spearman 0.84. The lexical judge is off by up to 18 (v4).
+- The acceptance bar (±3 on every file) is not met. The platform scored the same Fable file 149
+  and 142, so one upload carries noise of that size: treat differences under about 8 matches as
+  a tie, from either judge.
 
-**Configurations tried** (mean absolute error, Spearman):
+**Configurations tried:**
 
-| Configuration | MAE | Spearman |
-|---|---|---|
-| Old `model_judge.py` (booleans, top 4 candidates) | crashed on batch length, never finished | |
-| Graded, match at 2 or more | ~16 (too many) | |
-| Graded, match at 3 or more | 3.6 (−11 on `kb-jev`) | 0.83 |
-| Graded, match at 4 | far too few | |
-| Graded ≥ 3 and same or related paragraph | 4.5 to 5.0 | 0.80 |
-| 4, or 2–3 checked yes, plain prompt | 18.2 | 0.65 |
-| 3–4, or 2 checked yes, plain prompt | 3.4 | 0.90 |
-| 3–4, or 2 checked yes, lenient prompt, minus 4 | **2.5** | **0.96** |
+| Configuration | Result |
+|---|---|
+| Old `model_judge.py` (booleans, top 4 candidates) | crashed on batch length, never finished |
+| One call per gold row grading all its candidates from 15 files at once, 3–4 match | MAE 3.6, Spearman 0.83 |
+| The same plus a one-by-one check of pairs graded 2 | MAE 2.5 after a −4 offset, Spearman 0.96 on 15 files; but predicted 163 for `recall-push-filter.json`, platform 150 |
+| **Every pair graded on its own, shuffled batches, 3–4 match** | **MAE 4.7, Spearman 0.84 on 16 files** |
 
-Grading a candidate next to closer variants of the same gold row makes pass 1 too strict on
-rewrites that rename the subject or keep extra table values (`kb-jev`, `sol`): pass 2 fixes that by
-asking about each borderline pair alone.
+Grading all candidates of a gold row in one call makes the grade depend on the other rows in the
+call: a new file, graded with only its own few candidates, got twice as many 2s and more 3s
+than the calibration files, so the 0.96 version overcounted every new file. Grading each pair
+alone removes that dependence at the cost of more noise.
 
-**Cost.** Calibration: 340 grading and 58 check calls on the subscription. A new 390-row file
-takes about 2 minutes; a cached rerun takes seconds. Verdicts are cached per pair in
+**Cost.** About 210 calls to grade the 8,400 non-trivial calibration pairs. A new 390-row file
+needs about 40 calls; a cached rerun takes seconds. Grades are cached per pair in
 `data/cache/model_judge/`, so scoring a subset of a judged file's rows costs nothing.

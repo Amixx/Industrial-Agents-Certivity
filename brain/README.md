@@ -202,11 +202,10 @@ uv run python -m eval.relevance_check                    # LLM relevance vs deci
 The regulation and page levels reuse Certivity's `tools/score_local.py`, so they should match
 the platform. In `eval.score` **the requirement level is a lexical proxy** (`eval/judge.py`: token
 overlap, one-to-one matching within a regulation), whose error depends on the writing style.
-`eval.model_judge` is calibrated against the 15 dev uploads the platform scored: Sonnet 5.5
-through `claude -p` grades the candidate pairs, the borderline ones are checked one by one, and
-the platform estimate is its match count minus 4. It is within 2.5 matches of the platform on
-average and ranks the uploads in the platform's order; the platform itself varies by up to 7
-matches between two uploads of the same file. Calibration table:
+`eval.model_judge` is calibrated against the 16 dev uploads the platform scored: Sonnet 5.5
+through `claude -p` grades each candidate pair on its own, and the platform estimate is its match
+count plus 4. It is within 4.7 matches of the platform on average (Spearman 0.84); the platform
+itself varies by up to 7 matches between two uploads of the same file. Calibration table:
 [docs/todo/01-model-judge.md](docs/todo/01-model-judge.md). `eval.suite` without `--no-llm`
 follows `BRAIN_LLM` and makes paid calls for every case.
 
