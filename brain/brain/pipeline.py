@@ -19,7 +19,7 @@ from pathlib import Path
 from typing import Any
 
 from . import features as F
-from . import jev, llm, relevance
+from . import jev, keep, llm, relevance
 from .decide import MODEL_PATH, Model
 from .graph import build
 from .ingest import load_all
@@ -134,6 +134,13 @@ def run(
     drafts = rewrite([p for p, _ in chosen], graph, profile.product, use_llm=use_llm)
     kept, dropped = clean(drafts, graph.paragraphs)
     log(f"requirements: {len(kept)} kept, {len(dropped)} dropped")
+    if use_llm and kept:
+        product = profile.model_dump_json(
+            include={"product", "vehicle_categories", "functions", "parts"}
+        )
+        p_keep = keep.scores(kept, product)
+        kept = [d for d, pk in zip(kept, p_keep, strict=True) if pk >= keep.THRESHOLD]
+        log(f"expert filter: {len(kept)} kept of {len(p_keep)}")
     requirements = []
     for i, d in enumerate(kept, start=1):
         p = d.paragraph
