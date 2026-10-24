@@ -245,6 +245,11 @@ Say which base file the final number uses.
 
 ## Results
 
-Each lane writes to `out/experiments/<lane>.md`. The master summarises here: which of the two
-gaps (outside rows, collapsed tables) moved F2, whether a vote we generate survives, and
-whether Sunday is still one Sonnet run at blend weight 0.85.
+Each lane writes to `out/experiments/<lane>.md`. The master summarises here, and in the chat:
+rows, matched count, and local F2 for each experiment. For each file the master names the
+single biggest reason F2 is not 1.0, from `eval.errors`: the larger of the lift from dropping
+rows outside gold paragraphs, the lift from recovering gold rows missed on a cited paragraph,
+and the lift from citing gold paragraphs the file skips.
+
+Which of the two gaps (outside rows, collapsed tables) moved F2, whether a vote we generate
+survives, and whether Sunday is still one Sonnet run at blend weight 0.85.

@@ -1,6 +1,6 @@
 # Complex strategies: status
 
-Updated: 24 Oct 23:36 CEST (system clock, `date`) by master (Cursor).
+Updated: 24 Oct 23:40 CEST (system clock, `date`) by master (Cursor).
 Task: brain/docs/todo/08-complex.md. Branch: big-swings. Setup done: yes (07 setup commit "swing master: setup"; this ledger created at 23:29).
 Lanes A to G are finished. Do not edit their files except to read them. Do not edit `out/experiments/STATUS.md`.
 
@@ -33,6 +33,7 @@ Score with `tools/validate.py`, `tools/score_local.py`, and `uv run python -m ev
 
 ## Log
 
+- 23:40 Owner: build all five, score them only locally, and report here the rows, matched count, and F2 for each. For each file, name the single biggest reason F2 is not 1.0 (190 matched rows and 190 submitted rows). Use `eval.errors`: compare the F2 lift from dropping rows outside gold paragraphs, from recovering gold rows missed on a cited paragraph, and from citing gold paragraphs the file skips. The largest lift is the cause.
 - 23:38 Lane I: running, step I1, four EMC paragraphs listed, no rows emitted, spend $0.
 - 23:36 Owner: do not upload anything to the platform, only test locally. Queue closed, including votes7. Lanes keep scoring with validate.py, score_local.py, and eval.score.
 - 23:33 Owner: max $70 overall, max $20 per lane. All five may spend. Planned caps stand (J $1, K $1, I $1, H $6, L $5). Agents were launched at $0; a lane that reads this file may now spend up to its planned cap. H and L still dry-run before any new call.
