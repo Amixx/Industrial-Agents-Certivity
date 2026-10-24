@@ -102,18 +102,39 @@ Write one requirement per obligation, in minimal-edit EARS style:
 - When the paragraph completes its parent's clause (parent_text ends with ":" or "the
   following"), carry the parent's condition into each requirement.
 - Fold "However, ..." exceptions into the same requirement as "..., except that ...".
-- Split a paragraph with several obligations into several requirements; do not merge.
+- Split until each requirement states exactly one constraint: two limits joined by "and" are two
+  requirements; each lettered or numbered list item is its own requirement; each row of a table
+  of limits (per pulse, class, colour, test or angle) is its own requirement; an optional or
+  alternative case ("Where optional lamps are installed", "as an alternative") is its own
+  requirement. Never merge; never leave a list "(a) ... (b) ..." inside one requirement.
+- Repeat in every split requirement the condition and qualifiers that govern it ("When tested
+  in accordance with ...", "if not otherwise agreed between ...", "In case of ..."), so each one
+  stands alone.
+- Keep a conditional permission as a permission ("... may be installed ... only if ..."); never
+  turn "may" into "shall".
+- Ignore footnote text and footnote markers glued to words ("vehicles10 10As defined in ...").
 - Skip pure definitions, permissions with no constraint, and text that is not an obligation.
 Return an empty list for a paragraph with no obligation."""
 
 _EXAMPLES = """Examples (paragraph -> requirements):
 
-[UN R48 6.4.4.2, heading path: Reversing lamp > Position] "In height: not less than 250 mm and
-not more than 1,200 mm above the ground. For category N2G, N3G, M2G, M3G (off-road) vehicles the
-maximum height may be increased to 1,400 mm."
--> "The reversing lamp shall be not less than 250 mm and not more than 1,200 mm above the ground,
-except that for category N2G, N3G, M2G, M3G (off-road) vehicles the maximum height may be
-increased to 1,400 mm."
+[UN R48 6.2.4.2, heading path: Dipped-beam headlamp > Position] "In height: not less than 500 mm
+and not more than 1,200 mm above the ground. For category N2G, N3G, M2G, M3G (off-road) vehicles
+the maximum height may be increased to 1,500 mm."
+-> "The dipped-beam headlamps shall be not less than 500 mm and not more than 1,200 mm above the
+ground, except that for category N2G, N3G, M2G, M3G (off-road) vehicles the maximum height may be
+increased to 1,500 mm."
+
+[UN R127 5.1.2, heading path: Specifications > Legform test to bumper] "Upper legform to bumper
+When tested in accordance with Annex 5, paragraph 2. (upper legform to bumper), the instantaneous
+sum of the impact forces with respect to time shall not exceed 7.5 kN and the bending moment on
+the test impactor shall not exceed 510 Nm. The upper legform impactor shall be certified pursuant
+to Annex 6, paragraph 2."
+-> "When tested in accordance with Annex 5, paragraph 2. (upper legform to bumper), the
+instantaneous sum of the impact forces with respect to time shall not exceed 7.5 kN."
+-> "When tested in accordance with Annex 5, paragraph 2. (upper legform to bumper), the bending
+moment on the test impactor shall not exceed 510 Nm."
+-> "The upper legform impactor shall be certified pursuant to Annex 6, paragraph 2."
 
 [UN R42 6.1.4, parent_text: "After each impact test made in accordance with the conditions and
 procedure specified in annex 3 to this Regulation, the vehicle shall meet the following
@@ -124,21 +145,20 @@ normal function."
 annex 3 to this Regulation, the vehicle's exhaust system shall not suffer any damage or
 displacement which would prevent its normal function."
 
-[UN R48 5.7.1] "Lamps may be grouped, combined or reciprocally incorporated with one another
-provided that all requirements regarding colour, position, orientation, geometric visibility,
-electrical connections and other requirements, if any, are fulfilled."
--> "While lamps are grouped, combined or reciprocally incorporated with one another, the lamps
-shall fulfill all requirements regarding colour, position, orientation, geometric visibility,
-electrical connections and other requirements, if any."
-
-[UN R150 4.1.1] "Retro-reflective devices shall be so constructed that they function
-satisfactorily and will continue to do so in normal use. In addition, they shall not have any
-defect in design or manufacture that is detrimental to their efficient operation or to their
-maintenance in good condition."
--> "The retro-reflective devices shall be so constructed that they function satisfactorily and
-will continue to do so in normal use."
--> "The retro-reflective devices shall not have any defect in design or manufacture that is
-detrimental to their efficient operation or to their maintenance in good condition."
+[UN GTR 9 8.3.2.1] "When the headform impactors are dropped from a height of 376 ± 1 mm in
+accordance with paragraph 8.3.3. the peak resultant acceleration measured by one triaxial (or
+three uniaxial) accelerometer (accelerometers) in the headform impactor shall be: (a) for the
+child headform impactor not less than 245g and not more than 300g; (b) for the adult headform
+impactor not less than 225g and not more than 275g. The acceleration time curve shall be
+uni-modal."
+-> "When the child headform impactor is dropped from a height of 376 ± 1 mm in accordance with
+paragraph 8.3.3., the peak resultant acceleration measured in the headform impactor shall be not
+less than 245g and not more than 300g."
+-> "When the adult headform impactor is dropped from a height of 376 ± 1 mm in accordance with
+paragraph 8.3.3., the peak resultant acceleration measured in the headform impactor shall be not
+less than 225g and not more than 275g."
+-> "When the headform impactors are dropped from a height of 376 ± 1 mm in accordance with
+paragraph 8.3.3., the acceleration time curve shall be uni-modal."
 """
 
 _SCHEMA = {

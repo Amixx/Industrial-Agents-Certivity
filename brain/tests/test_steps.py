@@ -156,3 +156,12 @@ def test_relevance_retries_unscored_then_fails_loudly(monkeypatch: pytest.Monkey
     monkeypatch.setattr(relevance, "_batch", lambda chunk, *_: {chunk[0].id: 0.5})
     with pytest.raises(RuntimeError, match="unscored after a retry"):
         relevance.score(paragraphs, graph, ProductProfile(product="bumper"), batch=2, workers=1)
+
+
+def test_prompted_json_accepts_a_bare_array() -> None:
+    from brain.llm import _extract_json
+
+    schema = {"type": "object", "properties": {"paragraphs": {"type": "array"}}}
+    reply = 'Here you go:\n```json\n[{"id": "a", "p_cited": 0.4}]\n```'
+    assert _extract_json(reply, schema) == {"paragraphs": [{"id": "a", "p_cited": 0.4}]}
+    assert _extract_json('{"paragraphs": []} trailing', schema) == {"paragraphs": []}
