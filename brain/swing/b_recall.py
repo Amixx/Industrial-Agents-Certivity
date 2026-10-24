@@ -34,7 +34,7 @@ from brain.profile import build_profile
 from brain.select_regs import choose
 from brain.verify import clean, validate
 
-CASE = CASES / "dev-rear-lamp"
+CASE = Path(os.environ.get("B_CASE", CASES / "dev-rear-lamp"))
 SCORES = Path(__file__).resolve().parents[2] / "out" / "experiments" / "B-scores.json"
 PRICE = {"claude-sonnet-5-5": (2, 10), "claude-opus-5-5": (4, 20)}
 
