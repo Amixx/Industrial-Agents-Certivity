@@ -189,6 +189,7 @@ def main(argv: list[str] | None = None) -> int:
     out.parent.mkdir(parents=True, exist_ok=True)
     out.write_text(json.dumps(submission, indent=1, ensure_ascii=False))
     log(f"wrote {out} ({len(submission['requirements'])} requirements)")
+    log(llm.usage_line())
     return 0
 
 

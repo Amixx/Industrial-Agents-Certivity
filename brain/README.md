@@ -70,18 +70,24 @@ submission = run(spec_text, image_path, case_id="heldout-front-bumper", team_id=
 Without configuration the pipeline is deterministic and makes no network calls. Paid providers
 are opt-in: a key in `.env` does nothing until `BRAIN_LLM` names the provider.
 
-Put the settings in `brain/.env` (gitignored):
+Put the settings in `brain/.env` (gitignored); `brain/.env.example` lists them:
 
 ```bash
-BRAIN_LLM=openai            # or anthropic, or local; unset means deterministic
-OPENAI_KEY=...              # or OPENAI_API_KEY
+BRAIN_LLM=anthropic         # or openai, or local; unset means deterministic
 ANTHROPIC_API_KEY=...
+BRAIN_MODEL=sonnet          # Claude on both tiers: opus, sonnet, fable, haiku or a model id
+OPENAI_KEY=...              # or OPENAI_API_KEY
 ```
 
 | `BRAIN_LLM` | Strong model (profile, regulation review, relevance) | Bulk model (rewrite) |
 |---|---|---|
 | `openai` | `gpt-5.5` (`BRAIN_OPENAI_STRONG`) | `gpt-5.4-mini` (`BRAIN_OPENAI_BULK`) |
 | `anthropic` | `claude-opus-5-5` (`BRAIN_MODEL_STRONG`) | `claude-sonnet-5-5` (`BRAIN_MODEL_BULK`) |
+
+For Claude, `BRAIN_MODEL` sets both tiers at once, and the per-tier variables override it. All
+three accept an alias: `opus` (`claude-opus-5-5`), `sonnet` (`claude-sonnet-5-5`), `fable`
+(`claude-fable-5-1`) or `haiku` (`claude-haiku-5-5`). Claude requests stream, because a Fable
+turn can run for minutes, and opt into server-side refusal fallbacks.
 | `local` | `BRAIN_LOCAL_MODEL` at `BRAIN_LOCAL_URL` (default `qwen3:14b` on Ollama) | same |
 
 Other settings:
@@ -91,7 +97,10 @@ Other settings:
 - Local models get no image unless `BRAIN_LOCAL_VISION=1`, and think only on the regulation review
   (`BRAIN_LOCAL_REASONING=none|low|high` sets it for every call).
 
-**Cost.** The strong model reads every candidate paragraph of every selected regulation, which
+**Cost.** The pipeline CLI and `eval.suite` log the tokens and the dollar cost of the paid
+calls they made (cache hits are free), and `eval.suite` writes the cost per case to
+`eval/results.csv`. Claude list prices per million input / output tokens: Sonnet 5.5 $2 / $10,
+Opus 5.5 $4 / $20, Fable 5.1 $10 / $50. The strong model reads every candidate paragraph of every selected regulation, which
 is about 2,800 paragraphs on dev. One afternoon of experiments (several dev runs, relevance
 sweeps and three full suites) cost about 70 EUR. Estimate the cost before running anything
 repeatedly, and prefer the bulk tier for experiments.
@@ -123,6 +132,7 @@ uv run python -m eval.score out/dev.json                 # F2 at three levels ag
 uv run python -m eval.score out/x.json --expected path/to/expected.json
 uv run python -m eval.suite --no-llm --tag note          # dev + synthetic cases, appends eval/results.csv (local)
 uv run python -m eval.suite --no-llm --cases 'synth-a*'  # only the cases in ../synthetic/cases
+uv run python -m eval.suite --model sonnet --tag sonnet  # Claude on both tiers (paid), logs the cost
 uv run python -m eval.gold_check                         # every dev gold citation resolves on its page
 uv run python -m eval.synth                              # regenerate the Tier A synthetic cases
 uv run python -m eval.relevance_check                    # LLM relevance vs decision model (paid calls)
@@ -167,6 +177,8 @@ uv run pytest -q && uv run ruff check . && uv run mypy
 | – | `brain/llm.py` | One interface for OpenAI, Anthropic and local OpenAI-compatible servers: structured JSON output, timeouts and retries, an atomic disk cache. |
 
 ## Results on dev
+
+Model comparisons with cost per run are in [docs/benchmarks.md](../docs/benchmarks.md).
 
 Requirement F2 uses the lexical proxy. Everything here is tuned on this one case, so expect
 less on the bumper.
