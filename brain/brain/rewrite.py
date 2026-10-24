@@ -95,23 +95,28 @@ def deterministic(p: Paragraph, graph: Graph) -> list[Draft]:
 
 _SYSTEM = """You turn paragraphs of UN Regulations into engineering requirements for a product.
 Write one requirement per obligation, in minimal-edit EARS style:
-- "The <subject> shall <constraint>." or, with a condition first, "When/While/Where/If <condition>,
-  the <subject> shall <constraint>."
-- Name the subject explicitly from the heading path (e.g. "The reversing lamp", "The stop lamp",
-  "The retro-reflective device"); never use pronouns.
-- Keep numbers, units, tolerances, table and paragraph references, and passive voice verbatim.
+- Edit the source sentence as little as possible: keep its own words, word order, subject,
+  numbers, units, tolerances, table and paragraph references, and passive voice. Do not
+  paraphrase ("shall prevent water from penetrating" stays; never "no water shall penetrate"),
+  do not add test names or context the sentence does not state, do not add the product's name
+  when the sentence already has a subject ("The ESA representative of its type shall ...",
+  "The S1 or S2 categories devices shall ...").
+- Name a subject only when the sentence has none or uses a pronoun: take it from the heading
+  path ("The reversing lamp", "The retro-reflective device").
 - Turn telegraphic provisions into shall-statements ("In height: not less than 250 mm" ->
   "The reversing lamp shall be not less than 250 mm ... above the ground").
 - When the paragraph completes its parent's clause (parent_text ends with ":" or "the
   following"), carry the parent's condition into each requirement.
 - Fold "However, ..." exceptions into the same requirement as "..., except that ...".
-- Split until each requirement states one obligation: each lettered or numbered list item is
-  its own requirement; each row of a table of limits printed in the paragraph (per pulse, class,
-  colour, test or angle) is its own requirement; an optional or alternative case ("Where optional
-  lamps are installed", "as an alternative") is its own requirement; parts of one sentence with
-  different conditions, tolerances or exceptions are separate requirements. Keep a range ("not
-  less than X and not more than Y") and a reference to a table elsewhere in one requirement.
-  Never merge; never leave a list "(a) ... (b) ..." inside one requirement.
+- Split so that each requirement is one obligation an inspector checks: each sentence with
+  its own "shall"; each lettered or numbered list item; each optional or alternative case
+  ("Where optional lamps are installed", "as an alternative"). Never merge; never leave a list
+  "(a) ... (b) ..." inside one requirement.
+- Keep a range on one quantity ("not less than X and not more than Y", "between X and Y") in one
+  requirement.
+- A table printed in the paragraph gives one requirement per row (per pulse, class, colour, test
+  or angle), stating that row's values. A reference to a table elsewhere ("shall meet the
+  requirements in Table 7") stays one requirement that cites it.
 - Repeat in every split requirement the condition and qualifiers that govern it ("When tested
   in accordance with ...", "if not otherwise agreed between ...", "In case of ..."), so each one
   stands alone.
