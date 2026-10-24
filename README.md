@@ -58,8 +58,8 @@ Platform rules:
 ## Development
 
 ```bash
-cd backend && uv run uvicorn app.main:app --reload   # API on :8000
-cd frontend && bun run dev                           # UI on :5173, proxies /api and /pdfs to :8000
+cd web/backend && uv run uvicorn app.main:app --reload   # API on :8000
+cd web/frontend && bun run dev                       # UI on :5173, proxies /api and /pdfs to :8000
 ```
 
 Code quality: `make check` runs ruff, ruff format, mypy (backend) and Biome, svelte-check

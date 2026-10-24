@@ -2,8 +2,8 @@
 
 UV := uv run --no-sync
 BUN := bun
-BACKEND := backend
-FRONTEND := frontend
+BACKEND := web/backend
+FRONTEND := web/frontend
 
 # One line per passing step; full output on failure.
 define step

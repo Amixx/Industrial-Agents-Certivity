@@ -7,7 +7,7 @@
       "runtimeArgs": [
         "run",
         "--directory",
-        "backend",
+        "web/backend",
         "uvicorn",
         "app.main:app",
         "--port",
@@ -21,7 +21,7 @@
       "runtimeArgs": [
         "run",
         "--cwd",
-        "frontend",
+        "web/frontend",
         "dev",
         "--",
         "--port",

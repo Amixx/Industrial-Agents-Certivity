@@ -7,8 +7,8 @@ __pycache__/
 
 # Bun / SvelteKit
 node_modules/
-frontend/build/
-frontend/.svelte-kit/
+web/frontend/build/
+web/frontend/.svelte-kit/
 
 # Env
 .env
@@ -19,5 +19,5 @@ frontend/.svelte-kit/
 .playwright-mcp/
 
 # Local assessment store
-backend/.data/
+web/backend/.data/
 .amp/

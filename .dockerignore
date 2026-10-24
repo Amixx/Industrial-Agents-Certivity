@@ -1,5 +1,5 @@
 **/node_modules
 **/.venv
 .git
-frontend/.svelte-kit
-frontend/build
+web/frontend/.svelte-kit
+web/frontend/build

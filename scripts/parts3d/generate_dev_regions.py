@@ -22,7 +22,7 @@ REGIONS = {
     ],
 }
 
-out = Path(__file__).parents[2] / "frontend/static/parts3d/dev-rear-lamp/regions.json"
+out = Path(__file__).parents[2] / "web/frontend/static/parts3d/dev-rear-lamp/regions.json"
 out.parent.mkdir(parents=True, exist_ok=True)
 out.write_text(json.dumps(REGIONS, indent=2) + "\n")
 print(out)
