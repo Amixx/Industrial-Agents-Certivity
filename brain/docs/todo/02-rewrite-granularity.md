@@ -71,4 +71,30 @@ selection fixed.
 
 ## Results
 
-(fill in)
+Done on branch `kb-stack` (not merged), commit `1d8b22e`. Measured with the rewrite step alone
+on a fixed set (every gold paragraph of dev and synth-a03 plus 40 non-gold paragraphs main
+selected), Opus through `claude -p`, local judge. Scripts and outputs:
+`~/Personal/bench-out/rewrite-loop/`, table in `~/Personal/bench-out/rewrite-results.md`.
+
+| Variant | Matched dev | Matched a03 | Rows on gold paragraphs (dev) | Rows on 40 other paragraphs |
+|---|---|---|---|---|
+| one requirement per clause, skip rules | 139/190 | 40/57 | 174 | 45 |
+| main `0ccae35` (split every constraint) | 161/190 | 47/57 | 344 | 73 |
+| v3: main's splits, ranges and table references whole, skip rules | 152/190 | 46/57 | 216 | 52 |
+| **v4: v3 plus strict minimal edits** | **161/190** | **50/57** | 218 | 49 |
+| v5 | 158/190 | 49/57 | 194 | 49 |
+| v6: v4 plus skip lab steps without a value | 156/190 | 49/57 | 211 | 40 |
+
+- v4 keeps the sentence's own words and subject: no paraphrase, no added test or product
+  names. Most v3 misses were rewording ("no water shall penetrate" for "shall prevent water
+  from penetrating"). That rule took dev from 152 to 161 and a03 from 46 to 50.
+- Ranges ("not less than X and not more than Y") and references to a table elsewhere stay one
+  requirement; a table printed in the paragraph gives one per row.
+- Skips clauses for categories the product lacks and obligations on the applicant, authority
+  or communication form.
+- Each requirement carries an `atomic` list (one line per condition or value) for engineering
+  use; the submission's `text` stays at the gold's granularity.
+- No dev or a03 sentence in the prompt; the examples are main's R48 headlamp, R127, R42 and
+  GTR 9 ones.
+- Full pipeline with v4 plus task 03's stack (`fin-dev-rear-lamp`): local judge 158/190, F2
+  0.717 on 342 rows; synth-a03 49/57, F2 0.648. Platform score: pending upload.

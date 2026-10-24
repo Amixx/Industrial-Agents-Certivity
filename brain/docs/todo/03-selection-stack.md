@@ -78,4 +78,37 @@ was mentioned) before writing a new one.
 
 ## Results
 
-(fill in)
+Done on branch `kb-stack` (not merged). `brain/jev.py` with a test; `BRAIN_JEV=1` replaces the
+decision model's probability in the blend with Jev's five Nouls combined by a logistic
+regression fitted on dev (`data/jev_model.json`, out-of-fold AUC 0.959). Jev off leaves the
+pipeline as it was. Also on the branch: the per-regulation cut (keep scores at or above a share
+of each regulation's best), and a requirement-level filter (`brain/keep.py`).
+
+Offline sweep on cached Opus scores (`~/Personal/bench-out/select-results.md`; estimated
+requirement F2 for the lamp cases, paragraph F2 on the silver bumper labels):
+
+| Setting | dev | a03 | a06 | Bumper |
+|---|---|---|---|---|
+| Decision model blend, weight 0.7, cut 0.3 of the best | 0.642 | 0.559 | 0.648 | 0.720 |
+| **Jev blend, weight 0.7, cut 0.25 of the best** | **0.677** | **0.586** | **0.672** | **0.775** |
+| Jev blend, cut 0.3 | 0.653 | 0.578 | 0.673 | 0.776 |
+
+- Jev costs $0.14 per lamp case. Its weights were fit on dev and a06 shares dev's gold, so those
+  two are optimistic; a03 is the independent check.
+- GPT-6.1 Sol relevance ranks as well as Opus (dev AUC 0.980 against 0.971); averaging Opus and
+  Sol moves the lamp mean by 0.002, so no ensemble (`~/Personal/bench-out/sol-results.md`).
+- Requirement filter: Opus scores each written requirement (p_keep); rows under 0.40 go.
+  Offline on saved runs it lost at most one match: dev main 0.643 to 0.685, a03 0.566 to 0.598
+  (`~/Personal/bench-out/filter-results.md`).
+
+Full runs, Opus everywhere through `claude -p`, local judge:
+
+| Run | dev rows / matched / F2 | a03 F2 | a06 F2 | Platform dev F2 |
+|---|---|---|---|---|
+| main at `7644efe` (Opus relevance, Sonnet rewrite) | 368 / 145 / 0.643 | 0.566 | 0.650 | 0.634 |
+| obligation base + Jev cut 0.25 | 389 / 153 / 0.666 | 0.606 | 0.664 | **0.670** (recall 0.811) |
+| plus the requirement filter | 349 / 150 / 0.676 | 0.630 | 0.659 | not uploaded |
+| plus task 02's v4 rewrite | 342 / 158 / 0.717 | 0.648 | pending | pending |
+
+Not yet checked: `eval.transfer` and `eval.suite --no-llm` on the branch, and the full pipeline
+on the bumper cases against the silver labels (running).
