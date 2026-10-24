@@ -46,17 +46,17 @@ function cited(regulation: string) {
 }
 
 const kindStyle: Record<ChangeKind, string> = {
-	modified: 'border-cv-teal-700 text-cv-teal-700',
-	removed: 'border-cv-ink-800 bg-cv-ink-800 text-cv-mint-50',
-	added: 'border-cv-teal-700 bg-cv-mint-300',
+	modified: 'bg-white',
+	removed: 'bg-black text-white',
+	added: 'bg-cv-mint-300',
 };
 </script>
 
-<svelte:head><title>Updates · sudo</title></svelte:head>
+<svelte:head><title>Updates | sudo</title></svelte:head>
 
 {#if assessment}
 	<AssessmentHeader {assessment}>
-		<a href="/a/{assessment.id}" class="ui-btn">← Requirements</a>
+		<a href="/a/{assessment.id}" class="ui-btn">Back to requirements</a>
 	</AssessmentHeader>
 {/if}
 
@@ -66,112 +66,138 @@ const kindStyle: Record<ChangeKind, string> = {
 	latest: string | null,
 )}
 	<li
-		class="ui-rule-soft grid grid-cols-[6rem_6rem_1fr_16rem] gap-4 border-b px-4 py-3 last:border-b-0 {c.change ===
-			'added' && !c.relevant
-			? 'opacity-60'
+		class="ui-rule-soft grid grid-cols-10 gap-x-4 border-b py-4 xl:gap-x-6 {c.change === 'added' &&
+		!c.relevant
+			? 'opacity-50'
 			: ''}"
 	>
-		<span><span class="ui-tag {kindStyle[c.change]}">{c.change}</span></span>
-		<span class="ui-mono text-xs">{c.requirementId ?? 'new'}</span>
-		<div class="text-sm">
+		<span class="col-span-1"><span class="ui-tag {kindStyle[c.change]}">{c.change}</span></span>
+		<span class="col-span-1 text-xs font-bold">{c.requirementId ?? 'New'}</span>
+		<div class="col-span-5 text-sm">
 			{#if c.change === 'modified'}
 				<WordDiff before={c.oldText} after={c.newText} />
 			{:else if c.change === 'removed'}
-				<p class="leading-relaxed line-through opacity-60">{c.oldText}</p>
+				<p class="leading-relaxed text-black/50 line-through decoration-1">{c.oldText}</p>
 			{:else}
 				<p class="leading-relaxed"><ins class="bg-cv-mint-300 no-underline">{c.newText}</ins></p>
 			{/if}
 			{#if c.relevanceNote}
-				<p class="mt-1 text-xs opacity-70">{c.relevanceNote}</p>
+				<p class="mt-1 text-xs">{c.relevanceNote}</p>
 			{/if}
 		</div>
-		<div class="space-y-1 text-xs">
+		<div class="col-span-3 space-y-2 text-xs">
 			<p class="leading-snug">{c.reason}</p>
-			<p class="ui-mono text-[11px] opacity-70">
+			<p class="flex flex-wrap gap-x-4 tabular-nums">
 				{#if latest}
-					<a href="{latest}#page={c.source.page}" target="_blank" rel="noreferrer" class="ui-link">
-						{u.toVersion}
-						· p. {c.source.page} · § {c.source.paragraph}
-					</a>
+					<a href="{latest}#page={c.source.page}" target="_blank" rel="noreferrer" class="ui-link"
+						>{u.toVersion}, page {c.source.page} ↗</a
+					>
 				{:else}
-					{u.toVersion}
-					· p. {c.source.page} · § {c.source.paragraph}
+					<span>{u.toVersion}, page {c.source.page}</span>
 				{/if}
+				<span>§ {c.source.paragraph}</span>
 			</p>
 		</div>
 	</li>
 {/snippet}
 
-<div class="min-h-0 flex-1 overflow-auto">
+<div class="min-h-0 flex-1 overflow-auto pb-10">
 	{#if updates === null}
-		<p class="p-4 opacity-60">Checking for regulation updates…</p>
+		<p class="ui-section">Checking for regulation updates…</p>
 	{:else if !updates.length}
-		<p class="p-4 opacity-60">All cited regulations are at their latest version.</p>
+		<p class="ui-section">All cited regulations are at their latest version.</p>
 	{:else}
-		{#each updates as u (u.regulation)}
+		{#each updates as u, n (u.regulation)}
 			{@const latest = pdfUrl({ regulation: u.regulation, version: u.toVersion })}
 			{@const relevant = u.changes.filter(isShown)}
 			{@const rest = u.changes.filter((c) => !isShown(c))}
 			{@const touched = u.changes.filter((c) => c.change !== 'added').length}
 			{@const added = u.changes.filter((c) => c.change === 'added' && c.relevant).length}
-			<section class="ui-rule border-b">
-				<header
-					class="ui-rule-soft flex items-center justify-between gap-4 border-b bg-cv-mint-300/30 px-4 py-2"
-				>
-					<div class="flex flex-wrap items-baseline gap-x-3">
-						<span class="ui-mono text-base font-medium">{u.regulation}</span>
-						<span class="ui-mono text-xs">{u.fromVersion} → {u.toVersion}</span>
-						{#if u.stats}
-							<span class="text-xs opacity-70">
-								{u.stats.changed}
-								paragraphs changed, {u.stats.added} added, {u.stats.removed} removed
-							</span>
-						{/if}
+			<section class="ui-grid ui-section mb-12">
+				<div class="col-span-2">
+					<div class="ui-numeral">{n + 1}</div>
+					<div class="mt-2 text-sm font-bold">{u.regulation}</div>
+					<div class="text-xs tabular-nums">From {u.fromVersion}</div>
+					<div class="text-xs tabular-nums">To {u.toVersion}</div>
+				</div>
+				<div class="col-span-10">
+					<div class="grid grid-cols-10 items-start gap-x-4 xl:gap-x-6">
+						<p class="col-span-5 text-xl leading-tight font-medium">
+							{#if touched === 0}
+								None of this assessment's {cited(u.regulation)} cited {u.regulation} paragraphs
+								changed.
+							{:else}
+								{touched}
+								of this assessment's {cited(u.regulation)} cited {u.regulation} paragraphs changed.
+							{/if}
+							{#if added}
+								<strong class="font-bold"
+									>{added}
+									new obligation{added === 1 ? '' : 's'}
+									may apply.</strong
+								>
+							{:else}
+								No new obligations appear relevant to this product.
+							{/if}
+						</p>
+						<div class="col-span-3">
+							{#if u.stats}
+								<div class="grid grid-cols-3 gap-x-4 xl:gap-x-6">
+									{#each [
+										['changed', u.stats.changed],
+										['added', u.stats.added],
+										['removed', u.stats.removed],
+									] as const as [label, value] (label)}
+										<div class="border-t-2 border-black pt-2">
+											<div class="text-4xl leading-none font-light text-cv-teal-700 tabular-nums">
+												{value}
+											</div>
+											<div class="mt-1 text-xs">{label}</div>
+										</div>
+									{/each}
+								</div>
+								<p class="mt-2 text-xs">Paragraphs across the whole regulation</p>
+							{/if}
+						</div>
+						<div class="col-span-2 flex justify-end">
+							{#if u.applied}
+								<span class="flex items-center gap-2 text-sm font-bold">
+									<span class="size-2.5 bg-cv-mint-300 outline outline-1 outline-black"></span>
+									Applied
+								</span>
+							{:else}
+								<button
+									type="button"
+									class="ui-btn ui-btn-primary w-full"
+									disabled={applying !== null}
+									onclick={() => apply(u.regulation)}
+								>
+									{applying === u.regulation ? 'Applying…' : 'Apply update'}
+								</button>
+							{/if}
+						</div>
 					</div>
-					{#if u.applied}
-						<span class="ui-tag border-cv-teal-700 text-cv-teal-700">Applied</span>
-					{:else}
-						<button
-							class="ui-btn ui-btn-primary"
-							disabled={applying !== null}
-							onclick={() => apply(u.regulation)}
-						>
-							{applying === u.regulation ? 'Applying…' : 'Apply update'}
-						</button>
-					{/if}
-				</header>
-				<p class="ui-rule-soft border-b px-4 py-2 text-sm">
-					{#if touched === 0}
-						None of this assessment's {cited(u.regulation)} cited {u.regulation} paragraphs changed.
-					{:else}
-						{touched}
-						of this assessment's {cited(u.regulation)} cited {u.regulation} paragraphs changed.
-					{/if}
-					{#if added}
-						<strong>{added} new obligation{added === 1 ? '' : 's'} may apply.</strong>
-					{:else}
-						No new obligations appear relevant to this product.
-					{/if}
-				</p>
-				<ol>
-					{#each relevant as c, i (i)}
-						{@render row(c, u, latest)}
-					{/each}
-					{#if showIrrelevant[u.regulation]}
-						{#each rest as c, i (i)}
+					<ol class="mt-6 border-t-2 border-black">
+						{#each relevant as c, i (i)}
 							{@render row(c, u, latest)}
 						{/each}
+						{#if showIrrelevant[u.regulation]}
+							{#each rest as c, i (i)}
+								{@render row(c, u, latest)}
+							{/each}
+						{/if}
+					</ol>
+					{#if rest.length}
+						<button
+							type="button"
+							class="ui-link mt-3 cursor-pointer text-xs"
+							onclick={() => (showIrrelevant[u.regulation] = !showIrrelevant[u.regulation])}
+						>
+							{showIrrelevant[u.regulation] ? 'Hide' : 'Show'} {rest.length} not relevant to this
+							product
+						</button>
 					{/if}
-				</ol>
-				{#if rest.length}
-					<button
-						class="ui-link px-4 py-2 text-xs"
-						onclick={() => (showIrrelevant[u.regulation] = !showIrrelevant[u.regulation])}
-					>
-						{showIrrelevant[u.regulation] ? 'Hide' : 'Show'} {rest.length} not relevant to this
-						product
-					</button>
-				{/if}
+				</div>
 			</section>
 		{/each}
 	{/if}

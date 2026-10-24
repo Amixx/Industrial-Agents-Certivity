@@ -32,7 +32,7 @@ const parts = $derived.by(() => {
 <p class="leading-relaxed">
 	{#each parts as part, i (i)}
 		{#if part.kind === 'del'}
-			<del class="bg-cv-ink-800/10 text-cv-ink-800/60">{part.text}</del>
+			<del class="text-black/50 decoration-1">{part.text}</del>
 		{:else if part.kind === 'ins'}
 			<ins class="bg-cv-mint-300 no-underline">{part.text}</ins>
 		{:else}

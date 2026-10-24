@@ -1,6 +1,4 @@
-<a href="/" class="flex items-baseline gap-3">
-	<span class="ui-mono text-2xl font-medium tracking-tight">sudo</span>
-	<span class="text-[11px] tracking-wide uppercase opacity-60"
-		>in collaboration with Certivity</span
-	>
+<a href="/" class="flex items-end gap-5">
+	<span class="text-[5.5rem] leading-[0.74] font-bold tracking-[-0.06em]">sudo</span>
+	<span class="text-xs">In collaboration with <span class="font-bold">Certivity</span></span>
 </a>

@@ -17,6 +17,8 @@ let {
 } = $props();
 
 const PAD = 16;
+const toggle = 'h-7 cursor-pointer rounded-control px-2 font-bold hover:bg-black/5';
+const toggleOn = 'bg-black text-white hover:bg-black';
 
 let scroller: HTMLDivElement;
 let pageEl: HTMLDivElement;
@@ -157,53 +159,43 @@ onMount(() => {
 const numPages = $derived(doc?.numPages ?? 0);
 </script>
 
-<div
-	class="flex min-h-0 flex-col overflow-hidden rounded border border-cv-ink-800/20 bg-white {className}"
->
-	<div
-		class="flex shrink-0 items-center gap-1 border-b border-cv-ink-800/15 bg-cv-mint-50 px-2 py-1 text-xs text-cv-ink-800"
-	>
+<div class="flex min-h-0 flex-col overflow-hidden bg-white {className}">
+	<div class="flex shrink-0 items-center gap-1 border-b border-black py-1.5 text-xs font-medium">
 		<button
 			type="button"
-			class="rounded px-2 py-0.5 hover:bg-cv-mint-300/50 disabled:opacity-40"
+			class="{toggle} disabled:opacity-30"
 			disabled={current <= 1}
 			onclick={() => current--}
 			aria-label="Previous page"
 		>
 			‹
 		</button>
-		<span class="tabular-nums">page {current} / {numPages || '–'}</span>
+		<span class="tabular-nums">Page {current} / {numPages || '–'}</span>
 		<button
 			type="button"
-			class="rounded px-2 py-0.5 hover:bg-cv-mint-300/50 disabled:opacity-40"
+			class="{toggle} disabled:opacity-30"
 			disabled={!numPages || current >= numPages}
 			onclick={() => current++}
 			aria-label="Next page"
 		>
 			›
 		</button>
-		<span class="mx-1 h-4 w-px bg-cv-ink-800/20"></span>
+		<span class="mx-2 h-4 w-px bg-black/20"></span>
 		<button
 			type="button"
-			class="rounded px-2 py-0.5 hover:bg-cv-mint-300/50"
-			class:bg-cv-mint-300={zoom === 'fit'}
+			class="{toggle} {zoom === 'fit' ? toggleOn : ''}"
 			onclick={() => (zoom = 'fit')}
 		>
 			Fit
 		</button>
-		<button
-			type="button"
-			class="rounded px-2 py-0.5 hover:bg-cv-mint-300/50"
-			class:bg-cv-mint-300={zoom === 1}
-			onclick={() => (zoom = 1)}
-		>
+		<button type="button" class="{toggle} {zoom === 1 ? toggleOn : ''}" onclick={() => (zoom = 1)}>
 			100%
 		</button>
 		{#if notLocated && !loading}
-			<span class="ml-2 text-cv-ink-800/60 italic">paragraph not located</span>
+			<span class="ml-2 text-black/60">Paragraph not located</span>
 		{/if}
 		<a
-			class="ml-auto rounded px-2 py-0.5 text-cv-teal-700 hover:bg-cv-mint-300/50"
+			class="ml-auto underline decoration-1 underline-offset-2 hover:text-cv-teal-700"
 			href="{url}#page={current}"
 			target="_blank"
 			rel="noopener"
@@ -211,10 +203,10 @@ const numPages = $derived(doc?.numPages ?? 0);
 		>
 	</div>
 
-	<div bind:this={scroller} class="relative min-h-0 flex-1 overflow-auto bg-cv-ink-800/5">
+	<div bind:this={scroller} class="relative min-h-0 flex-1 overflow-auto bg-black/[0.04]">
 		<div
 			bind:this={pageEl}
-			class="pdf-page relative mx-auto my-4 bg-white shadow"
+			class="pdf-page relative mx-auto my-4 bg-white outline outline-1 outline-black/15"
 			class:invisible={!!error}
 			style:width="{size.width}px"
 			style:height="{size.height}px"
@@ -233,16 +225,12 @@ const numPages = $derived(doc?.numPages ?? 0);
 		</div>
 
 		{#if loading && !error}
-			<div
-				class="absolute inset-0 flex items-center justify-center bg-white/60 text-sm text-cv-ink-800"
-			>
+			<div class="absolute inset-0 flex items-center justify-center bg-white/60 text-sm">
 				Loading…
 			</div>
 		{/if}
 		{#if error}
-			<div
-				class="absolute inset-0 flex items-center justify-center p-4 text-center text-sm text-cv-ink-800"
-			>
+			<div class="absolute inset-0 flex items-center justify-center p-4 text-center text-sm">
 				Could not load PDF: {error}
 			</div>
 		{/if}

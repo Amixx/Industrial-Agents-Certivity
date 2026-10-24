@@ -64,28 +64,33 @@ const excluded = $derived(regulations.filter((r) => !r.included));
 th {
 	text-align: left;
 	font-size: 8pt;
-	text-transform: uppercase;
-	letter-spacing: 0.05em;
-	color: var(--color-cv-teal-700);
-	border-bottom: 1pt solid var(--color-cv-ink-800);
+	font-weight: 700;
+	border-bottom: 1.5pt solid black;
 }
 th,
 td {
-	padding: 0.3rem 0.6rem 0.3rem 0;
+	padding: 1.2mm 3mm 1.2mm 0;
 	vertical-align: top;
 }
 tr {
 	break-inside: avoid;
 }
 td {
-	border-bottom: 0.5pt solid color-mix(in srgb, var(--color-cv-ink-800) 35%, white);
+	border-bottom: 0.5pt solid rgb(0 0 0 / 0.2);
 }
 .strong {
-	font-weight: 600;
+	font-weight: 700;
 	white-space: nowrap;
 }
 .num {
 	text-align: right;
 	padding-right: 0;
+	font-variant-numeric: tabular-nums;
+}
+td.num {
+	font-size: 16pt;
+	font-weight: 300;
+	line-height: 1;
+	color: var(--color-cv-teal-700);
 }
 </style>

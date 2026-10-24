@@ -39,15 +39,31 @@ const pageCaseCss = $derived(caseLabel.replace(/[^\p{L}\p{N} ._-]/gu, ''));
 </script>
 
 <svelte:head>
-	<title>{assessment ? `sudo report · ${caseLabel}` : 'sudo report'}</title>
+	<title>{assessment ? `sudo report | ${caseLabel}` : 'sudo report'}</title>
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous">
+	<link
+		rel="stylesheet"
+		href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@300;400;500;600;700;800&display=swap"
+	>
 	{@html `<style>
 		@page {
 			size: A4;
 			margin: 18mm 16mm 20mm;
+			@bottom-left {
+				content: 'sudo';
+				font: 700 8pt 'Hanken Grotesk', Arial, sans-serif;
+				color: #000;
+			}
 			@bottom-center {
-				content: 'sudo · ${pageCaseCss} · page ' counter(page);
-				font: 8pt Georgia, serif;
-				color: #11504b;
+				content: '${pageCaseCss}';
+				font: 8pt 'Hanken Grotesk', Arial, sans-serif;
+				color: #000;
+			}
+			@bottom-right {
+				content: 'Page ' counter(page);
+				font: 8pt 'Hanken Grotesk', Arial, sans-serif;
+				color: #000;
 			}
 		}
 	</style>`}
@@ -62,7 +78,7 @@ const pageCaseCss = $derived(caseLabel.replace(/[^\p{L}\p{N} ._-]/gu, ''));
 	</div>
 {:else}
 	<div class="toolbar">
-		<a href="/a/{id}">← Back to assessment</a>
+		<a href="/a/{id}">Back to assessment</a>
 		<button type="button" onclick={() => window.print()}>Print / Save as PDF</button>
 	</div>
 	<main class="report">
@@ -80,16 +96,22 @@ const pageCaseCss = $derived(caseLabel.replace(/[^\p{L}\p{N} ._-]/gu, ''));
 
 <style>
 :global(body) {
-	background: var(--color-cv-mint-50);
+	background: rgb(0 0 0 / 0.04);
+	font-family: var(--font-grotesk);
+	font-feature-settings: "ss01";
+	color: black;
 }
 .status {
 	max-width: 40rem;
 	margin: 4rem auto;
 	padding: 0 1rem;
-	text-align: center;
-	color: var(--color-cv-ink-800);
+	font-size: 1.5rem;
+	font-weight: 300;
+	line-height: 1.2;
 }
 .status a {
+	font-size: 0.875rem;
+	font-weight: 700;
 	text-decoration: underline;
 }
 .toolbar {
@@ -99,40 +121,61 @@ const pageCaseCss = $derived(caseLabel.replace(/[^\p{L}\p{N} ._-]/gu, ''));
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
-	padding: 0.7rem 1.5rem;
-	background: var(--color-cv-ink-950);
-	color: white;
-	font-size: 0.9rem;
+	padding: 0.75rem 2rem;
+	background: white;
+	border-bottom: 1px solid black;
+	font-size: 0.875rem;
+	font-weight: 500;
+}
+.toolbar a {
+	text-decoration: underline;
+	text-underline-offset: 2px;
 }
 .toolbar a:hover {
-	text-decoration: underline;
+	color: var(--color-cv-teal-700);
 }
 .toolbar button {
-	background: var(--color-cv-teal-400);
-	color: var(--color-cv-ink-950);
-	font-weight: 600;
-	padding: 0.45rem 1rem;
-	border-radius: 0.3rem;
+	height: 2.25rem;
+	padding: 0 0.75rem;
+	background: black;
+	color: white;
+	font-weight: 700;
+	border-radius: var(--radius-button);
 	cursor: pointer;
+}
+.toolbar button:hover {
+	background: var(--color-cv-ink-800);
 }
 .report {
 	max-width: 210mm;
 	margin: 1.5rem auto 3rem;
 	padding: 18mm 16mm;
 	background: white;
-	box-shadow: 0 2px 16px rgb(2 49 47 / 0.12);
-	font-family: Georgia, "Times New Roman", serif;
-	font-size: 10.5pt;
-	line-height: 1.45;
-	color: var(--color-cv-ink-950);
+	border-radius: var(--radius-panel);
+	font-size: 10pt;
+	line-height: 1.4;
+	color: black;
+	counter-reset: section;
 }
 .report :global(h2) {
-	margin-top: 1.6rem;
-	margin-bottom: 0.5rem;
-	font-size: 14pt;
+	counter-increment: section;
+	display: grid;
+	grid-template-columns: 30mm 1fr;
+	align-items: end;
+	margin-top: 9mm;
+	margin-bottom: 3mm;
+	padding-top: 2mm;
+	border-top: 0.75pt solid black;
+	font-size: 12pt;
 	font-weight: 700;
-	color: var(--color-cv-ink-800);
 	break-after: avoid;
+}
+.report :global(h2)::before {
+	content: counter(section);
+	font-size: 28pt;
+	font-weight: 300;
+	line-height: 0.85;
+	color: var(--color-cv-teal-700);
 }
 .report :global(table) {
 	width: 100%;
@@ -153,7 +196,6 @@ const pageCaseCss = $derived(caseLabel.replace(/[^\p{L}\p{N} ._-]/gu, ''));
 		max-width: none;
 		margin: 0;
 		padding: 0;
-		box-shadow: none;
 	}
 	.report :global(a) {
 		text-decoration: none;

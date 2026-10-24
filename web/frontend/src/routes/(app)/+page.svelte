@@ -30,7 +30,7 @@ async function setSpecFile(file: File | null | undefined) {
 		try {
 			const { text, pages } = await extractPdfText(file);
 			spec = text;
-			pdfNote = `Imported from ${file.name} · ${pages} page${pages === 1 ? '' : 's'}`;
+			pdfNote = `Imported from ${file.name}, ${pages} page${pages === 1 ? '' : 's'}.`;
 		} catch (err) {
 			error = err instanceof Error ? err.message : String(err);
 			return;
@@ -98,24 +98,36 @@ function onDrop(e: DragEvent) {
 }
 </script>
 
-<svelte:head><title>New assessment · sudo</title></svelte:head>
+<svelte:head><title>New assessment | sudo</title></svelte:head>
 
 {#if running}
-	<div class="ui-rule flex items-baseline justify-between border-b px-4 py-2">
-		<span class="ui-label opacity-100">Running assessment</span>
-		<span class="ui-mono text-xs opacity-70">{caseName ?? 'untitled spec'}</span>
+	<div class="ui-grid ui-section min-h-0 flex-1 pb-6">
+		<div class="col-span-2">
+			<div class="ui-numeral">2</div>
+			<div class="mt-2 text-sm font-bold">Running assessment</div>
+			<div class="mt-1 text-xs">{caseName ?? 'Untitled spec'}</div>
+		</div>
+		<PipelineProgress {events} class="col-span-10" />
 	</div>
-	<PipelineProgress {events} />
 {:else}
 	<form
-		class="grid min-h-0 flex-1 grid-cols-[1fr_20rem]"
+		class="ui-grid ui-section min-h-0 flex-1 pb-6"
 		onsubmit={(e) => {
 			e.preventDefault();
 			run();
 		}}
 	>
+		<div class="col-span-2">
+			<div class="ui-numeral">1</div>
+			<div class="mt-2 text-sm font-bold">New assessment</div>
+			<p class="mt-4 max-w-[24ch] text-xs leading-snug">
+				Finds the UN Regulations that apply, explains the ones it rules out, and cites every
+				requirement to its page and paragraph.
+			</p>
+		</div>
+
 		<label
-			class="ui-rule flex min-h-0 flex-col border-r"
+			class="col-span-7 flex min-h-0 flex-col"
 			ondragover={(e) => {
 				e.preventDefault();
 				dragging = true;
@@ -123,17 +135,16 @@ function onDrop(e: DragEvent) {
 			ondragleave={() => (dragging = false)}
 			ondrop={onDrop}
 		>
-			<div class="ui-rule flex items-baseline justify-between border-b px-3 py-1.5">
-				<span class="ui-label font-medium opacity-100">
-					Product spec <span class="ui-mono opacity-60">{specName || 'markdown'}</span>
-				</span>
-				<div class="flex">
+			<div class="flex items-end justify-between border-b-2 border-black pb-1.5">
+				<div>
+					<span class="ui-label">Product spec</span>
+					<span class="text-xs">{specName || 'Markdown'}</span>
+				</div>
+				<div class="flex gap-1">
 					{#each ['edit', 'preview'] as const as v (v)}
 						<button
 							type="button"
-							class="ui-tag h-6 cursor-pointer px-2 capitalize {v === 'preview'
-								? '-ml-px'
-								: ''} {view === v ? 'bg-cv-ink-800 text-cv-mint-50' : 'hover:bg-white'}"
+							class="ui-toggle capitalize {view === v ? 'ui-toggle-on' : ''}"
 							onclick={() => (view = v)}
 						>
 							{v}
@@ -142,55 +153,57 @@ function onDrop(e: DragEvent) {
 				</div>
 			</div>
 			{#if pdfNote}
-				<div class="ui-rule-soft ui-mono border-b px-3 py-1 text-[11px]">
+				<p class="ui-rule-soft border-b py-1.5 text-xs">
 					{pdfNote}
-					— review and edit before running
-				</div>
+					Review and edit before running.
+				</p>
 			{/if}
 			{#if view === 'preview'}
-				<div class="min-h-0 flex-1 overflow-auto bg-white p-4">
+				<div class="min-h-0 flex-1 overflow-auto border-b-2 border-black py-4">
 					{#if spec.trim()}
-						<Markdown source={spec} class="mx-auto max-w-3xl" />
+						<Markdown source={spec} class="max-w-3xl" />
 					{:else}
-						<p class="text-xs opacity-50">Nothing to preview yet.</p>
+						<p class="text-xs">Nothing to preview yet.</p>
 					{/if}
 				</div>
 			{:else}
 				<textarea
 					bind:value={spec}
 					placeholder={'# spec: Product name\n\n## Product Type\n…\n\n## Vehicle Category\n…\n\n## Function\n- …\n\n## Main Parts\n- …\n\n## Materials\n| Component | Material |'}
-					class="ui-mono min-h-0 flex-1 resize-none p-3 text-xs leading-relaxed outline-none {dragging
-						? 'bg-cv-mint-300/30'
+					class="min-h-0 flex-1 resize-none border-b-2 border-black py-3 text-[13px] leading-relaxed outline-none placeholder:text-black/40 focus:bg-cv-mint-50/60 {dragging
+						? 'bg-cv-mint-50'
 						: 'bg-white'}"
 				></textarea>
 			{/if}
 		</label>
 
-		<aside class="flex min-h-0 flex-col">
-			<div class="ui-rule space-y-2 border-b p-3">
-				<div class="ui-label">Spec file <span class="normal-case">(.md, .txt, .pdf)</span></div>
-				<input
-					type="file"
-					accept=".md,.txt,.pdf,text/*,application/pdf"
-					onchange={(e) => setSpecFile(e.currentTarget.files?.[0])}
-					class="block w-full text-xs file:mr-2 file:border file:border-cv-ink-800 file:bg-white file:px-2 file:py-0.5"
-				>
+		<aside class="col-span-3 flex min-h-0 flex-col gap-8">
+			<div class="flex flex-col gap-3">
+				<label class="block">
+					<span class="ui-label">Spec file, .md, .txt or .pdf</span>
+					<input
+						type="file"
+						accept=".md,.txt,.pdf,text/*,application/pdf"
+						onchange={(e) => setSpecFile(e.currentTarget.files?.[0])}
+						class="ui-file"
+					>
+				</label>
 				<button type="button" class="ui-btn w-full" onclick={loadExample}>
 					Load example: rear lamp
 				</button>
 				<button type="button" class="ui-btn w-full" onclick={loadExamplePdf}>Example PDF</button>
 			</div>
 
-			<div class="ui-rule flex min-h-0 flex-1 flex-col border-b p-3">
-				<div class="mb-2 flex items-baseline justify-between">
-					<span class="ui-label">Exploded view <span class="normal-case">(optional)</span></span>
+			<div class="flex min-h-0 flex-1 flex-col">
+				<div class="flex items-baseline justify-between">
+					<span class="ui-label">Exploded view, optional</span>
 					{#if imageUrl}
-						<button type="button" class="ui-link text-[11px]" onclick={() => setImage(null)}>
-							remove
+						<button type="button" class="ui-link text-xs" onclick={() => setImage(null)}>
+							Remove
 						</button>
 					{/if}
 				</div>
-				<div class="ui-rule flex min-h-32 flex-1 items-center justify-center border bg-white">
+				<div class="flex min-h-32 flex-1 items-center justify-center border-t-2 border-black">
 					{#if imageUrl}
 						<img
 							src={imageUrl}
@@ -198,28 +211,24 @@ function onDrop(e: DragEvent) {
 							class="max-h-full max-w-full object-contain p-2"
 						>
 					{:else}
-						<span class="text-xs opacity-50">no image</span>
+						<span class="text-xs">No drawing</span>
 					{/if}
 				</div>
 				<input
 					type="file"
 					accept="image/*"
 					onchange={(e) => setImage(e.currentTarget.files?.[0] ?? null)}
-					class="mt-2 block w-full text-xs file:mr-2 file:border file:border-cv-ink-800 file:bg-white file:px-2 file:py-0.5"
+					class="ui-file mt-2"
 				>
 			</div>
 
-			<div class="space-y-2 p-3">
+			<div class="flex flex-col gap-2">
 				{#if error}
-					<p class="ui-mono text-xs">ERROR {error}</p>
+					<p class="border-t-2 border-red-600 pt-2 text-sm font-medium text-red-600">{error}</p>
 				{/if}
-				<button class="ui-btn ui-btn-primary h-10 w-full" disabled={!spec.trim()}>
+				<button type="submit" class="ui-btn ui-btn-primary h-11 w-full" disabled={!spec.trim()}>
 					Run assessment
 				</button>
-				<p class="text-[11px] leading-snug opacity-60">
-					Finds the UN Regulations that apply, explains the ones it rules out, and cites every
-					requirement to its page and paragraph.
-				</p>
 			</div>
 		</aside>
 	</form>

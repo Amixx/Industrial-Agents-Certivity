@@ -1,10 +1,17 @@
 <script lang="ts">
 import type { Source } from '#lib/api/types.ts';
 
-let { source, showRegulation = true }: { source: Source; showRegulation?: boolean } = $props();
+let {
+	source,
+	showRegulation = true,
+	showParagraph = true,
+}: { source: Source; showRegulation?: boolean; showParagraph?: boolean } = $props();
 </script>
 
-<span class="ui-mono text-[11px] whitespace-nowrap opacity-80">
-	{showRegulation ? `${source.regulation} ` : ''}{source.version}
-	· p. {source.page} · § {source.paragraph}
+<span class="inline-flex flex-wrap gap-x-4 text-xs whitespace-nowrap tabular-nums">
+	<span>{showRegulation ? `${source.regulation} ` : ''}{source.version}</span>
+	<span>Page {source.page}</span>
+	{#if showParagraph}
+		<span>§ {source.paragraph}</span>
+	{/if}
 </span>

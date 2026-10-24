@@ -89,62 +89,63 @@ function onKeydown(e: KeyboardEvent) {
 </script>
 
 <svelte:window onkeydown={onKeydown} />
-<svelte:head><title>{assessment?.caseName ?? 'Assessment'} · sudo</title></svelte:head>
+<svelte:head><title>{assessment?.caseName ?? 'Assessment'} | sudo</title></svelte:head>
 
 {#if assessment}
 	<AssessmentHeader {assessment}>
 		{#if pending.length}
-			<a
-				href="/a/{assessment.id}/updates"
-				class="ui-btn border-cv-teal-700 bg-cv-mint-300 normal-case tracking-normal"
-			>
-				<span class="ui-mono font-medium">●</span>
-				{pending.length}
-				regulation{pending.length === 1 ? '' : 's'}
-				updated · {affected} requirements affected
+			<a href="/a/{assessment.id}/updates" class="ui-btn justify-start">
+				<span class="size-2.5 shrink-0 bg-cv-mint-300 outline outline-1 outline-black"></span>
+				<span>{pending.length} regulation{pending.length === 1 ? '' : 's'} updated</span>
+				<span class="font-normal">{affected} requirements affected</span>
 			</a>
 		{:else if updates.length}
-			<a href="/a/{assessment.id}/updates" class="ui-link text-xs">Up to date · update log</a>
+			<span class="text-xs">Up to date</span>
+			<a href="/a/{assessment.id}/updates" class="ui-link text-xs">Update log</a>
 		{/if}
-		<button class="ui-btn" onclick={() => (specOpen = true)}>Spec</button>
-		<button class="ui-btn" onclick={() => assessment && downloadSubmission(assessment)}>
+		<button type="button" class="ui-btn" onclick={() => (specOpen = true)}>Spec</button>
+		<button
+			type="button"
+			class="ui-btn"
+			onclick={() => assessment && downloadSubmission(assessment)}
+		>
 			Download JSON
 		</button>
 	</AssessmentHeader>
 
 	<Dialog.Root bind:open={specOpen}>
 		<Dialog.Portal>
-			<Dialog.Overlay class="fixed inset-0 z-40 bg-cv-ink-800/40" />
+			<Dialog.Overlay class="fixed inset-0 z-40 bg-black/30" />
 			<Dialog.Content
-				class="ui-rule fixed top-1/2 left-1/2 z-50 flex max-h-[85vh] w-[min(52rem,92vw)] -translate-x-1/2 -translate-y-1/2 flex-col border bg-white"
+				class="ui-app fixed top-1/2 left-1/2 z-50 flex max-h-[85vh] min-h-0 w-[min(52rem,92vw)] -translate-x-1/2 -translate-y-1/2 flex-col rounded-control border-2 border-black bg-white"
 			>
-				<header class="ui-rule flex items-baseline justify-between border-b px-4 py-2">
-					<Dialog.Title class="ui-label font-medium opacity-100">
-						Spec <span class="ui-mono opacity-60">{assessment.caseName ?? ''}</span>
+				<header class="flex items-end justify-between border-b-2 border-black px-6 pt-4 pb-3">
+					<Dialog.Title class="text-sm font-bold">
+						Spec <span class="ml-2 font-normal">{assessment.caseName ?? ''}</span>
 					</Dialog.Title>
-					<Dialog.Close class="ui-link text-xs">close</Dialog.Close>
+					<Dialog.Close class="ui-link cursor-pointer text-xs">Close</Dialog.Close>
 				</header>
 				<Dialog.Description class="sr-only"
 					>The product spec this assessment was run on.</Dialog.Description
 				>
-				<div class="min-h-0 flex-1 overflow-auto p-5">
+				<div class="min-h-0 flex-1 overflow-auto px-6 py-5">
 					<Markdown source={assessment.spec} />
 				</div>
 			</Dialog.Content>
 		</Dialog.Portal>
 	</Dialog.Root>
 
-	<div class="grid min-h-0 flex-1 grid-cols-[19rem_minmax(0,1fr)_minmax(26rem,38%)]">
-		<aside class="ui-rule min-h-0 overflow-auto border-r">
-			<Panel title="Profile" meta="from spec">
-				<dl class="space-y-3 px-3 py-2 text-xs">
+	<div class="ui-grid min-h-0 flex-1">
+		<aside class="col-span-3 min-h-0 overflow-auto pb-6">
+			<Panel index={1} title="Profile" meta="From the spec">
+				<dl class="space-y-4 pb-8 text-xs">
 					<div>
 						<dt class="ui-label">Product</dt>
-						<dd>{assessment.profile.productType}</dd>
+						<dd class="text-sm leading-snug">{assessment.profile.productType}</dd>
 					</div>
 					<div>
 						<dt class="ui-label">Vehicle category</dt>
-						<dd>{assessment.profile.vehicleCategory}</dd>
+						<dd class="leading-snug">{assessment.profile.vehicleCategory}</dd>
 					</div>
 					{#each [
 						{ label: 'Parts', items: assessment.profile.parts },
@@ -152,13 +153,14 @@ function onKeydown(e: KeyboardEvent) {
 						{ label: 'Materials', items: assessment.profile.materials },
 					] as list (list.label)}
 						<div>
-							<dt class="ui-label">
-								{list.label} <span class="ui-mono">{list.items.length}</span>
+							<dt class="ui-label flex justify-between border-b border-black pb-0.5">
+								<span>{list.label}</span>
+								<span class="tabular-nums">{list.items.length}</span>
 							</dt>
 							<dd>
 								<ul>
 									{#each list.items as item (item)}
-										<li class="leading-snug">— {item}</li>
+										<li class="ui-rule-soft border-b py-1 leading-snug">{item}</li>
 									{/each}
 								</ul>
 							</dd>
@@ -168,50 +170,56 @@ function onKeydown(e: KeyboardEvent) {
 			</Panel>
 
 			<Panel
+				index={2}
 				title="Regulations"
 				meta="{included.length} of {assessment.regulations.length} considered"
-				class="ui-rule border-t"
 			>
-				<ul>
+				<ul class="border-t-2 border-black">
 					{#each included as reg (reg.regulation)}
+						{@const active = regulationFilter === reg.regulation}
 						<li class="ui-rule-soft border-b">
 							<button
-								class="block w-full px-3 py-2 text-left text-xs hover:bg-white {regulationFilter ===
-								reg.regulation
+								type="button"
+								class="grid w-full cursor-pointer grid-cols-[1fr_auto] gap-x-3 py-3 pl-5 text-left text-xs hover:bg-black/[0.03] {active
 									? 'ui-row-selected'
 									: ''}"
+								style:--ui-marker-top="1rem"
 								onclick={() =>
 									(regulationFilter = regulationFilter === reg.regulation ? null : reg.regulation)}
 							>
-								<div class="flex items-baseline justify-between gap-2">
-									<span
-										><span class="ui-mono font-medium">{reg.regulation}</span>
-										<span class="ui-mono opacity-60">{reg.version}</span></span
-									>
-									<span class="ui-mono font-medium">×{reg.requirementCount}</span>
+								<div>
+									<div class="text-sm">
+										<span class="font-bold">{reg.regulation}</span>
+										<span class="ml-1 tabular-nums">{reg.version}</span>
+									</div>
+									<div class="mt-0.5 font-medium">{reg.title}</div>
+									<p class="mt-1 leading-snug text-black/70">{reg.reason}</p>
 								</div>
-								<div class="font-medium">{reg.title}</div>
-								<p class="mt-0.5 leading-snug opacity-75">{reg.reason}</p>
+								<span class="text-3xl leading-none font-light text-cv-teal-700 tabular-nums"
+									>{reg.requirementCount}</span
+								>
 							</button>
 						</li>
 					{/each}
 				</ul>
 				<Collapsible.Root bind:open={excludedOpen}>
 					<Collapsible.Trigger
-						class="flex w-full items-baseline justify-between px-3 py-2 text-left hover:bg-white"
+						class="flex w-full cursor-pointer items-baseline justify-between rounded-control py-3 pl-5 text-left hover:bg-black/[0.03]"
 					>
-						<span class="ui-label font-medium opacity-100">Excluded ({excluded.length})</span>
-						<span class="ui-mono text-xs">{excludedOpen ? '−' : '+'}</span>
+						<span class="text-xs font-bold">
+							Excluded <span class="ml-1 font-normal tabular-nums">{excluded.length}</span>
+						</span>
+						<span class="pr-1 text-sm">{excludedOpen ? '−' : '+'}</span>
 					</Collapsible.Trigger>
 					<Collapsible.Content>
 						<ul class="pb-2">
 							{#each excluded as reg (reg.regulation)}
-								<li class="ui-rule-soft border-t px-3 py-1.5 text-xs">
+								<li class="ui-rule-soft border-t py-2 pl-5 text-xs">
 									<div>
-										<span class="ui-mono font-medium">{reg.regulation}</span>
-										<span class="opacity-70">{reg.title}</span>
+										<span class="font-bold">{reg.regulation}</span>
+										<span class="ml-1">{reg.title}</span>
 									</div>
-									<p class="leading-snug opacity-75">{reg.reason}</p>
+									<p class="mt-0.5 leading-snug text-black/70">{reg.reason}</p>
 								</li>
 							{/each}
 						</ul>
@@ -220,63 +228,84 @@ function onKeydown(e: KeyboardEvent) {
 			</Panel>
 		</aside>
 
-		<main class="flex min-h-0 flex-col">
-			<div class="ui-rule flex items-center gap-2 border-b px-3 py-2">
+		<main class="col-span-5 flex min-h-0 flex-col">
+			<header class="ui-section flex items-end justify-between pb-3">
+				<div>
+					<div class="ui-numeral">3</div>
+					<h2 class="mt-2 text-sm font-bold">Requirements</h2>
+				</div>
+				<div class="text-right">
+					<div class="ui-count text-5xl">{ordered.length}</div>
+					<div class="mt-1 text-xs tabular-nums">of {assessment.requirements.length}</div>
+				</div>
+			</header>
+			<div class="flex items-end gap-4 pb-2">
 				<input
 					type="search"
 					bind:value={query}
 					placeholder="Search requirements, ids, §"
 					class="ui-input min-w-0 flex-1"
 				>
-				<div class="flex">
+				<div class="flex gap-1">
 					<button
-						class="ui-tag h-7 cursor-pointer px-2 {regulationFilter === null
-							? 'bg-cv-ink-800 text-cv-mint-50'
-							: 'hover:bg-white'}"
+						type="button"
+						class="ui-toggle {regulationFilter === null ? 'ui-toggle-on' : ''}"
 						onclick={() => (regulationFilter = null)}
 					>
 						All
 					</button>
 					{#each included as reg (reg.regulation)}
 						<button
-							class="ui-tag -ml-px h-7 cursor-pointer px-2 {regulationFilter === reg.regulation
-								? 'bg-cv-ink-800 text-cv-mint-50'
-								: 'hover:bg-white'}"
+							type="button"
+							class="ui-toggle {regulationFilter === reg.regulation ? 'ui-toggle-on' : ''}"
 							onclick={() => (regulationFilter = reg.regulation)}
 						>
 							{reg.regulation.replace('UN ', '')}
 						</button>
 					{/each}
 				</div>
-				<span class="ui-mono w-16 text-right text-xs opacity-70"
-					>{ordered.length}/{assessment.requirements.length}</span
-				>
 			</div>
 
 			<div class="min-h-0 flex-1 overflow-auto">
 				{#each groups as g (g.regulation)}
 					<section>
 						<h3
-							class="ui-rule-soft sticky top-0 z-10 border-b bg-cv-mint-50 px-3 py-1 text-xs font-semibold"
+							class="sticky top-0 z-10 grid grid-cols-[6.5rem_1fr] border-b-2 border-black bg-white pt-5 pb-1 pl-5 text-sm"
 						>
-							<span class="ui-mono">{g.regulation} {g.version}</span>
-							— {g.title}
-							<span class="ui-mono font-normal opacity-60">({g.requirements.length})</span>
+							<span class="font-bold">{g.regulation}</span>
+							<span class="flex justify-between gap-3">
+								<span class="truncate font-medium">{g.title}</span>
+								<span class="tabular-nums">{g.requirements.length}</span>
+							</span>
 						</h3>
 						<ul>
 							{#each g.requirements as req (req.id)}
+								{@const active = selectedId === req.id}
 								<li id="req-{req.id}">
 									<button
-										class="ui-rule-soft grid w-full grid-cols-[4.5rem_1fr] gap-x-3 border-b px-3 py-2 text-left hover:bg-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cv-teal-400 {selectedId ===
-										req.id
+										type="button"
+										class="group ui-rule-soft grid w-full cursor-pointer grid-cols-[6.5rem_1fr] border-b py-3 pl-5 text-left outline-none focus-visible:bg-cv-mint-50 {active
 											? 'ui-row-selected'
 											: ''}"
+										style:--ui-marker-top="1.125rem"
 										onclick={() => select(req.id)}
 									>
-										<span class="ui-mono text-xs">{req.id}</span>
+										<span
+											class="pr-2 text-xl leading-none font-light tracking-tight break-all text-cv-teal-700 tabular-nums group-hover:font-normal"
+											>{req.source.paragraph}</span
+										>
 										<span>
-											<span class="block leading-snug">{req.text}</span>
-											<Citation source={req.source} showRegulation={false} />
+											<span class="block text-[15px] leading-snug {active ? 'font-medium' : ''}"
+												>{req.text}</span
+											>
+											<span class="mt-2 flex gap-4 text-xs">
+												<span class="font-bold">{req.id}</span>
+												<Citation
+													source={req.source}
+													showRegulation={false}
+													showParagraph={false}
+												/>
+											</span>
 										</span>
 									</button>
 								</li>
@@ -284,40 +313,51 @@ function onKeydown(e: KeyboardEvent) {
 						</ul>
 					</section>
 				{:else}
-					<p class="p-4 opacity-60">No requirements match.</p>
+					<p class="py-4 pl-5">No requirements match.</p>
 				{/each}
 			</div>
-			<div class="ui-rule ui-mono border-t px-3 py-1 text-[10px] opacity-60">
-				j / k or ↑ / ↓ to move
-			</div>
+			<div class="ui-rule-soft border-t py-1.5 text-xs">j / k or ↑ / ↓ to move</div>
 		</main>
 
-		<aside class="ui-rule ui-surface flex min-h-0 flex-col border-l">
-			{#if selected}
-				<div class="ui-rule border-b px-3 py-2">
-					<div class="flex items-baseline justify-between gap-2">
-						<span class="ui-mono text-xs font-medium">{selected.id}</span>
-						<Citation source={selected.source} />
-					</div>
-					<p class="mt-1 text-xs leading-snug">{selected.text}</p>
+		<aside class="col-span-4 flex min-h-0 flex-col pb-4">
+			<header
+				class="ui-section flex items-end justify-between gap-4 border-b-2 border-b-black pb-2"
+			>
+				<div class="min-w-0">
+					<div class="ui-numeral">4</div>
+					<h2 class="mt-2 text-sm font-bold">Source page</h2>
+					{#if selected}
+						<div class="flex flex-wrap gap-x-4 text-xs">
+							<span class="font-bold">{selected.id}</span>
+							<Citation source={selected.source} />
+						</div>
+					{/if}
 				</div>
+				{#if selected}
+					<div class="ui-numeral shrink-0">p{selected.source.page}</div>
+				{/if}
+			</header>
+			{#if selected}
+				<p class="my-3 line-clamp-4 text-sm leading-snug">{selected.text}</p>
 				{#if selectedUrl}
 					<SourceViewer
 						url={selectedUrl}
 						page={selected.source.page}
 						highlight={{ paragraph: selected.source.paragraph, text: selected.text }}
-						class="min-h-0 w-full flex-1"
+						class="ui-rule min-h-0 w-full flex-1 border-t"
 					/>
 				{:else}
-					<p class="p-4 opacity-60">
+					<p class="py-4 text-sm">
 						No PDF for {selected.source.regulation} {selected.source.version}.
 					</p>
 				{/if}
 			{:else}
-				<p class="p-4 opacity-60">Select a requirement to view its source page.</p>
+				<p class="max-w-[22ch] pt-6 text-3xl leading-tight font-light">
+					Select a requirement to show its source page here.
+				</p>
 			{/if}
 		</aside>
 	</div>
 {:else if loaded}
-	<p class="p-4">Assessment not found. <a href="/history" class="ui-link">See history</a></p>
+	<p class="ui-section">Assessment not found. <a href="/history" class="ui-link">See history</a></p>
 {/if}

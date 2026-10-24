@@ -3,12 +3,14 @@ import type { Snippet } from 'svelte';
 
 let {
 	title,
+	index,
 	meta,
 	actions,
 	children,
 	class: klass = '',
 }: {
 	title: string;
+	index?: number;
 	meta?: string;
 	actions?: Snippet;
 	children: Snippet;
@@ -17,13 +19,16 @@ let {
 </script>
 
 <section class="flex min-h-0 flex-col {klass}">
-	<header class="ui-rule flex items-baseline justify-between gap-2 border-b px-3 py-1.5">
-		<h2 class="ui-label font-medium opacity-100">
-			{title}
-			{#if meta}
-				<span class="ui-mono ml-1 opacity-60">{meta}</span>
+	<header class="ui-section flex items-end justify-between gap-2 pb-3">
+		<div>
+			{#if index !== undefined}
+				<div class="ui-numeral">{index}</div>
 			{/if}
-		</h2>
+			<h2 class="mt-2 text-sm font-bold">{title}</h2>
+			{#if meta}
+				<div class="text-xs">{meta}</div>
+			{/if}
+		</div>
 		{@render actions?.()}
 	</header>
 	{@render children()}

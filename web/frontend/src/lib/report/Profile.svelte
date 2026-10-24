@@ -17,7 +17,7 @@ const rows = $derived([
 			{#each rows as [label, items] (label)}
 				<tr>
 					<th scope="row">{label}</th>
-					<td>{items.length ? items.join(', ') : '—'}</td>
+					<td>{items.length ? items.join(', ') : 'None listed'}</td>
 				</tr>
 			{/each}
 		</tbody>
@@ -26,15 +26,14 @@ const rows = $derived([
 
 <style>
 th {
-	width: 7rem;
+	width: 30mm;
 	text-align: left;
 	vertical-align: top;
-	font-weight: 600;
-	color: var(--color-cv-ink-800);
+	font-weight: 700;
 }
 th,
 td {
-	padding: 0.3rem 0.5rem 0.3rem 0;
-	border-bottom: 0.5pt solid var(--color-cv-ink-800);
+	padding: 1.2mm 3mm 1.2mm 0;
+	border-bottom: 0.5pt solid rgb(0 0 0 / 0.2);
 }
 </style>

@@ -2,7 +2,7 @@
 import { regulationIndex } from '#lib/api/regulations.ts';
 import type { PipelineEvent, PipelineStep } from '#lib/api/types.ts';
 
-let { events }: { events: PipelineEvent[] } = $props();
+let { events, class: klass = '' }: { events: PipelineEvent[]; class?: string } = $props();
 
 const steps: { step: PipelineStep; label: string }[] = [
 	{ step: 'profile', label: 'Product profile' },
@@ -23,19 +23,21 @@ const stats = $derived([
 	{
 		label: 'Regulations',
 		value: partial?.regulations ? included.length : undefined,
-		note: partial?.regulations ? `of ${regulationIndex.length} · ${excluded.length} excluded` : '',
+		notes: partial?.regulations
+			? [`of ${regulationIndex.length} considered`, `${excluded.length} excluded`]
+			: [],
 	},
 	{ label: 'Paragraphs', value: partial?.paragraphCount },
 	{ label: 'Requirements', value: partial?.requirements?.length },
-] as { label: string; value?: number; note?: string }[]);
+] as { label: string; value?: number; notes?: string[] }[]);
 
 function latestMessage(step: PipelineStep) {
 	return events.findLast((e) => e.step === step)?.message;
 }
 </script>
 
-<div class="grid min-h-0 flex-1 grid-cols-[22rem_1fr]">
-	<ol class="ui-rule border-r">
+<div class="grid min-h-0 grid-cols-10 gap-x-4 xl:gap-x-6 {klass}">
+	<ol class="col-span-3 flex min-h-0 flex-col overflow-auto">
 		{#each steps as s, i (s.step)}
 			{@const state =
 				i < currentIndex || last?.step === 'done'
@@ -43,70 +45,81 @@ function latestMessage(step: PipelineStep) {
 					: i === currentIndex
 						? 'active'
 						: 'pending'}
-			<li class="ui-rule-soft border-b px-4 py-3" class:opacity-40={state === 'pending'}>
-				<div class="flex items-baseline gap-3">
-					<span class="ui-mono w-5 text-xs"
-						>{state === 'done' ? '✓' : state === 'active' ? '▸' : i + 1}</span
-					>
-					<span class="font-medium">{s.label}</span>
+			<li
+				class="grid grid-cols-[2.5rem_1fr] border-b py-3 {i === 0
+					? 'border-t-2 border-t-black'
+					: ''} {state === 'active' ? 'ui-row-selected border-black' : 'ui-rule-soft'}"
+				class:opacity-30={state === 'pending'}
+				style:--ui-marker-top="1.125rem"
+			>
+				<span class="pl-5 text-2xl leading-none font-light text-cv-teal-700 tabular-nums"
+					>{i + 1}</span
+				>
+				<div class="pl-2">
+					<div class="font-bold">
+						{s.label}
+						{#if state === 'done'}
+							<span class="font-normal text-cv-teal-700">done</span>
+						{/if}
+					</div>
+					{#if latestMessage(s.step)}
+						<p class="mt-1 text-xs leading-snug">{latestMessage(s.step)}</p>
+					{/if}
 				</div>
-				{#if latestMessage(s.step)}
-					<p class="ui-mono mt-1 pl-8 text-[11px] opacity-80">{latestMessage(s.step)}</p>
-				{/if}
 			</li>
 		{/each}
-		<li class="px-4 py-3">
-			<div class="ui-rule h-1.5 border">
+		<li class="mt-6">
+			<div class="ui-count text-6xl">{Math.round((last?.progress ?? 0) * 100)}%</div>
+			<div class="mt-3 h-1.5 bg-black/10">
 				<div
-					class="h-full bg-cv-teal-500 transition-[width] duration-300"
+					class="h-full bg-black transition-[width] duration-300"
 					style:width="{(last?.progress ?? 0) * 100}%"
 				></div>
 			</div>
-			<p class="ui-mono mt-1 text-right text-[11px]">{Math.round((last?.progress ?? 0) * 100)}%</p>
 		</li>
 	</ol>
 
-	<div class="grid min-h-0 grid-cols-4 grid-rows-[auto_1fr]">
+	<div class="col-span-7 grid min-h-0 grid-cols-4 grid-rows-[auto_1fr] gap-x-4 xl:gap-x-6">
 		{#each stats as stat (stat.label)}
-			<div class="ui-rule border-r border-b px-4 py-3 last:border-r-0">
-				<div class="ui-label">{stat.label}</div>
-				<div class="ui-mono text-3xl">{stat.value ?? '—'}</div>
-				{#if stat.note}
-					<div class="ui-mono text-[11px] opacity-70">{stat.note}</div>
-				{/if}
+			<div class="border-t-2 border-black pt-2">
+				<div class="text-6xl leading-[0.85] font-light text-cv-teal-700 tabular-nums">
+					{stat.value ?? '–'}
+				</div>
+				<div class="mt-2 text-sm font-bold">{stat.label}</div>
+				{#each stat.notes ?? [] as note (note)}
+					<div class="text-xs">{note}</div>
+				{/each}
 			</div>
 		{/each}
 
-		<div class="ui-rule col-span-2 min-h-0 overflow-auto border-r px-4 py-3">
+		<div class="col-span-2 mt-8 min-h-0 overflow-auto border-t border-black pt-3">
 			{#if partial?.profile}
-				<div class="ui-label mb-1">Understood from spec</div>
-				<p class="mb-2">{partial.profile.productType}</p>
-				<p class="ui-mono mb-2 text-xs">{partial.profile.vehicleCategory}</p>
-				<ul class="space-y-0.5 text-xs">
+				<div class="ui-label">Understood from spec</div>
+				<p class="text-base font-medium">{partial.profile.productType}</p>
+				<p class="mt-1 text-xs">{partial.profile.vehicleCategory}</p>
+				<ul class="mt-2 space-y-0.5 text-xs">
 					{#each partial.profile.functions as f (f)}
-						<li>— {f}</li>
+						<li>{f}</li>
 					{/each}
 				</ul>
 			{/if}
 			{#if included.length}
-				<div class="ui-label mt-4 mb-1">Selected</div>
+				<div class="ui-label mt-5">Selected</div>
 				<ul class="space-y-1 text-xs">
 					{#each included as r (r.regulation)}
-						<li><span class="ui-mono font-medium">{r.regulation}</span> {r.title}</li>
+						<li><span class="font-bold">{r.regulation}</span> {r.title}</li>
 					{/each}
 				</ul>
-				<div class="ui-label mt-3 mb-1">Excluded ({excluded.length})</div>
-				<p class="ui-mono text-[11px] opacity-70">
-					{excluded.map((r) => r.regulation).join(' · ')}
-				</p>
+				<div class="ui-label mt-4">Excluded, {excluded.length}</div>
+				<p class="text-xs">{excluded.map((r) => r.regulation).join(', ')}</p>
 			{/if}
 		</div>
 
-		<div class="col-span-2 min-h-0 overflow-auto px-4 py-3">
-			<div class="ui-label mb-1">Requirements found</div>
+		<div class="col-span-2 mt-8 min-h-0 overflow-auto border-t border-black pt-3">
+			<div class="ui-label">Requirements found</div>
 			<ul class="space-y-1 text-xs">
 				{#each (partial?.requirements ?? []).slice(-40).reverse() as r (r.id)}
-					<li class="truncate"><span class="ui-mono mr-2">{r.id}</span>{r.text}</li>
+					<li class="truncate"><span class="mr-3 font-bold">{r.id}</span>{r.text}</li>
 				{/each}
 			</ul>
 		</div>

@@ -6,15 +6,19 @@ import { formatDate } from '#lib/ui/format.ts';
 let { assessment, children }: { assessment: Assessment; children?: Snippet } = $props();
 </script>
 
-<div class="ui-rule flex items-center justify-between gap-4 border-b px-4 py-2">
-	<div class="flex min-w-0 items-baseline gap-4">
-		<a href="/a/{assessment.id}" class="ui-mono truncate text-base font-medium">
-			{assessment.caseName ?? 'Untitled spec'}
-		</a>
-		<span class="ui-mono text-xs opacity-70">{formatDate(assessment.createdAt)}</span>
-		<span class="ui-mono text-xs opacity-70">#{assessment.id}</span>
+<div class="ui-grid ui-section items-end pb-4">
+	<div class="col-span-3 text-xs">
+		<div class="font-bold">Assessment</div>
+		<div class="tabular-nums">{formatDate(assessment.createdAt)}</div>
+		<div class="tabular-nums">#{assessment.id}</div>
 	</div>
-	<div class="flex items-center gap-2">
+	<a
+		href="/a/{assessment.id}"
+		class="col-span-4 truncate text-4xl leading-none font-bold tracking-tight hover:underline"
+	>
+		{assessment.caseName ?? 'Untitled spec'}
+	</a>
+	<div class="col-span-5 flex items-center justify-end gap-3">
 		{@render children?.()}
 	</div>
 </div>

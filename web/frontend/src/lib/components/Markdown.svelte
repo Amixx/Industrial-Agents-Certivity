@@ -17,22 +17,22 @@ const html = $derived(
 	line-height: 1.5;
 }
 .md :global(h1) {
-	font-size: 1.125rem;
+	font-size: 1.5rem;
+	line-height: 1.1;
+	letter-spacing: -0.02em;
 	font-weight: 700;
 	margin: 0 0 0.75rem;
 }
 .md :global(h2) {
-	font-size: 0.75rem;
-	font-weight: 600;
-	letter-spacing: 0.06em;
-	text-transform: uppercase;
+	font-size: 0.875rem;
+	font-weight: 700;
 	margin: 1.25rem 0 0.35rem;
 	padding-bottom: 0.2rem;
 	border-bottom: 1px solid currentColor;
 }
 .md :global(h3),
 .md :global(h4) {
-	font-weight: 600;
+	font-weight: 700;
 	margin: 0.9rem 0 0.25rem;
 }
 .md :global(p) {
@@ -60,18 +60,18 @@ const html = $derived(
 }
 .md :global(th),
 .md :global(td) {
-	border: 1px solid currentColor;
-	padding: 0.25rem 0.5rem;
+	border-bottom: 1px solid rgb(0 0 0 / 0.15);
+	padding: 0.3rem 0.75rem 0.3rem 0;
 	text-align: left;
 	vertical-align: top;
 }
 .md :global(th) {
-	font-weight: 600;
-	background: rgb(0 0 0 / 0.06);
+	font-weight: 700;
+	border-bottom: 2px solid currentColor;
 }
 .md :global(code) {
-	font-family: var(--font-mono, ui-monospace, monospace);
 	font-size: 0.9em;
+	font-weight: 500;
 	background: rgb(0 0 0 / 0.06);
 	padding: 0 0.2em;
 }

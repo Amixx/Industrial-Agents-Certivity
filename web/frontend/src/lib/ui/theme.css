@@ -2,39 +2,68 @@
 
 @layer components {
 	.ui-app {
-		@apply min-h-screen bg-cv-mint-50 font-['IBM_Plex_Sans'] text-sm text-cv-ink-800;
+		@apply min-h-screen bg-white font-grotesk text-sm text-black;
+		font-feature-settings: "ss01";
 	}
-	.ui-mono {
-		@apply font-['IBM_Plex_Mono'];
+	.ui-gutter {
+		@apply px-8 xl:px-12;
+	}
+	.ui-grid {
+		@apply grid grid-cols-12 gap-x-4 xl:gap-x-6;
+	}
+	.ui-section {
+		@apply border-t border-black pt-3;
+	}
+	.ui-numeral {
+		@apply text-5xl leading-none font-light text-cv-teal-700 tabular-nums;
+	}
+	.ui-count {
+		@apply leading-[0.85] font-bold tracking-tight text-cv-teal-700 tabular-nums;
 	}
 	.ui-label {
-		@apply text-[10px] tracking-wider uppercase opacity-70;
+		@apply block text-[11px] font-bold;
 	}
 	.ui-rule {
-		@apply border-cv-ink-800;
+		@apply border-black;
 	}
 	.ui-rule-soft {
-		@apply border-cv-ink-800/25;
+		@apply border-black/15;
 	}
 	.ui-surface {
 		@apply bg-white;
 	}
+	.ui-panel {
+		@apply rounded-panel;
+	}
 	.ui-btn {
-		@apply inline-flex h-8 cursor-pointer items-center justify-center gap-2 border border-cv-ink-800 px-4 text-xs tracking-wider uppercase hover:bg-cv-mint-300 disabled:cursor-default disabled:opacity-40 disabled:hover:bg-transparent;
+		@apply inline-flex h-9 cursor-pointer items-center justify-between gap-3 rounded-button border-2 border-black px-3 text-sm font-bold whitespace-nowrap hover:bg-black hover:text-white disabled:cursor-default disabled:opacity-30 disabled:hover:bg-transparent disabled:hover:text-black;
 	}
 	.ui-btn-primary {
-		@apply bg-cv-ink-800 font-medium text-cv-mint-50 hover:bg-cv-ink-950 disabled:hover:bg-cv-ink-800;
+		@apply bg-black text-white hover:bg-cv-ink-800 disabled:bg-cv-ink-800 disabled:opacity-100 disabled:hover:bg-cv-ink-800 disabled:hover:text-white;
 	}
 	.ui-input {
-		@apply h-7 border border-cv-ink-800 bg-white px-2 text-xs outline-none focus:ring-2 focus:ring-cv-teal-400;
+		@apply h-9 rounded-control border-b-2 border-black bg-white px-1 text-sm outline-none placeholder:text-black/40 focus:bg-cv-mint-50;
 	}
 	.ui-tag {
-		@apply inline-block border border-cv-ink-800/40 px-1.5 py-px font-['IBM_Plex_Mono'] text-[10px] tracking-wide uppercase;
+		@apply inline-block rounded-control border border-black px-1.5 py-px text-[11px] font-bold;
+	}
+	.ui-toggle {
+		@apply h-7 cursor-pointer rounded-control px-2 text-xs font-bold hover:bg-black/5;
+	}
+	.ui-toggle-on {
+		@apply bg-black text-white hover:bg-black;
 	}
 	.ui-link {
-		@apply underline decoration-cv-ink-800/40 underline-offset-2 hover:decoration-cv-ink-800;
+		@apply underline decoration-1 underline-offset-2 hover:text-cv-teal-700;
+	}
+	.ui-file {
+		@apply block w-full border-b border-black pb-1.5 text-xs file:mr-2 file:cursor-pointer file:rounded-button file:border-0 file:bg-black file:px-2 file:py-1 file:font-bold file:text-white;
 	}
 	.ui-row-selected {
-		@apply bg-white outline outline-1 -outline-offset-1 outline-cv-ink-800;
+		@apply relative;
+	}
+	.ui-row-selected::before {
+		@apply absolute top-[var(--ui-marker-top,0.875rem)] left-1 size-2.5 bg-cv-mint-300 outline outline-1 outline-black;
+		content: "";
 	}
 }
