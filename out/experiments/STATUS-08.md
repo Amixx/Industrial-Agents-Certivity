@@ -17,7 +17,7 @@ A lane that would pass its planned cap stops, writes the estimate, and waits. Th
 |---|---|---|---|---|---|
 | J skip classes on votes7 | running | 23:33 | rules first; $1 approved if a model call is required | $0 | out/experiments/J.md |
 | K same filter on votes4 | running | 23:33 | rules first; $1 approved if a model call is required | $0 | out/experiments/K.md |
-| I table split into votes7 | running | 23:38 | I1 candidates listed; split next, still $0 | $0 | out/experiments/I.md |
+| I table split into votes7 | running | 23:45 | I2 union written, 28 rows added; score next | $0 | out/experiments/I.md |
 | H vote of three new runs | running | 23:33 | dry-run, then the three runs if the estimate is within $6 | $0 | out/experiments/H.md |
 | L Sonnet 0.85 plus filter | running | 23:40 | L1: 0.85 lamp file absent, not paying for a second copy; filter on weight 0.7 | $0 | out/experiments/L.md |
 
@@ -33,6 +33,7 @@ Score with `tools/validate.py`, `tools/score_local.py`, and `uv run python -m ev
 
 ## Log
 
+- 23:45 Lane I: step I2, 28 value lines added to votes7 (379 rows). Annex 9 3.1 already split, so those three lines were dropped. Spend $0.
 - 23:40 Lane L step 1. Sonnet weight-0.85 lamp file is not on disk (no `out/rear-lamp-swing-H-*`). Spend stays $0. Filter starts on `out/rear-lamp-main-a39acab.json`.
 - 23:40 Owner: build all five, score them only locally, and report here the rows, matched count, and F2 for each. For each file, name the single biggest reason F2 is not 1.0 (190 matched rows and 190 submitted rows). Use `eval.errors`: compare the F2 lift from dropping rows outside gold paragraphs, from recovering gold rows missed on a cited paragraph, and from citing gold paragraphs the file skips. The largest lift is the cause.
 - 23:38 Lane I: running, step I1, four EMC paragraphs listed, no rows emitted, spend $0.

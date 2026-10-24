@@ -1,6 +1,6 @@
 # Lane I: one row per value in a table, added to the 7-vote file
 
-State: running. Updated: 24 Oct 23:38 CEST.
+State: running. Updated: 24 Oct 23:45 CEST.
 Approved spend: $0 at launch. The ledger at 23:33 allows a planned $1; this lane does not use it. Spent: $0.
 No paid calls. No Sonnet. Rows come from the source text of the table.
 
@@ -17,13 +17,19 @@ A value line is one cell that states a number: one pulse, polarity, or test meth
       tables (6.9.1, 6.8.2.1), one is a table with the 12 V lines missing (6.7.1), and Annex 9 3.1
       is already one row per modulation line. Photometric tables were seen and left alone.
       Spend $0.
-- [ ] I2 Emit one row per value line. Drop paraphrases. Union with votes7.
+- [x] I2 Emit one row per value line. Drop paraphrases. Union with votes7. Done 23:45. Files:
+      `brain/swing/i_tables.py`, `out/rear-lamp-swing-I-tables.json`,
+      `out/rear-lamp-swing-I-tables.log`, `out/experiments/I-lines.json`. Commit: this commit.
+      Found: 33 value lines parsed, 28 kept, 5 dropped. Kept 12 on 6.9.1, 14 on 6.8.2.1, 2 on
+      6.7.1 (the 12 V lines). Dropped the two 6.7.1 24 V lines (Jaccard 1.0, same numbers) and
+      all three Annex 9 3.1 modulation lines (Jaccard 1.0 against votes7). Union is 379 rows.
+      Spend $0.
 - [ ] I3 Score the union. Matches gained on those paragraphs, rows added, F2, and missed-on-cited
       against 23.
 
-Next: write `brain/swing/i_tables.py`, emit the value lines for 6.9.1, 6.8.2.1, and the two
-missing 6.7.1 lines, drop any row at Jaccard 0.6 or above with the same value numbers, and
-write `out/rear-lamp-swing-I-tables.json`.
+Next: `python tools/validate.py out/rear-lamp-swing-I-tables.json`,
+`python tools/score_local.py out/rear-lamp-swing-I-tables.json`, and from `brain/`
+`uv run python -m eval.score` and `uv run python -m eval.errors` on the union and on votes7.
 
 ## Candidates
 

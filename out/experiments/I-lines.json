@@ -1,0 +1,332 @@
+[
+ {
+  "paragraph": "6.7.1",
+  "quote": "positive +75 V",
+  "text": "When tested by the method(s) according to ISO 7637-2 as described in Annex 10 (Table 1), the positive pulse amplitude for vehicles with 12 V systems shall not exceed +75 V.",
+  "page": 10,
+  "version": "7.2.0",
+  "nearest_jaccard": 0.84,
+  "same_numbers": false,
+  "dropped": false
+ },
+ {
+  "paragraph": "6.7.1",
+  "quote": "positive +150 V",
+  "text": "When tested by the method(s) according to ISO 7637-2 as described in Annex 10 (Table 1), the positive pulse amplitude for vehicles with 24 V systems shall not exceed +150 V.",
+  "page": 10,
+  "version": "7.2.0",
+  "nearest_jaccard": 1.0,
+  "same_numbers": true,
+  "dropped": true
+ },
+ {
+  "paragraph": "6.7.1",
+  "quote": "negative -100 V",
+  "text": "When tested by the method(s) according to ISO 7637-2 as described in Annex 10 (Table 1), the negative pulse amplitude for vehicles with 12 V systems shall not exceed -100 V.",
+  "page": 10,
+  "version": "7.2.0",
+  "nearest_jaccard": 0.84,
+  "same_numbers": false,
+  "dropped": false
+ },
+ {
+  "paragraph": "6.7.1",
+  "quote": "negative -450 V",
+  "text": "When tested by the method(s) according to ISO 7637-2 as described in Annex 10 (Table 1), the negative pulse amplitude for vehicles with 24 V systems shall not exceed -450 V.",
+  "page": 10,
+  "version": "7.2.0",
+  "nearest_jaccard": 1.0,
+  "same_numbers": true,
+  "dropped": true
+ },
+ {
+  "paragraph": "6.8.2.1",
+  "quote": "Table 2a Stripline below 2 GHz 20 to 400 MHz 60 V/m",
+  "text": "The immunity of an ESA to electromagnetic radiation by the Stripline method shall be tested at a level of 60 V/m in the 20 to 400 MHz frequency range, the test level in over 90 per cent of the 20 to 6,000 MHz frequency band (Table 2a).",
+  "page": 11,
+  "version": "7.2.0",
+  "nearest_jaccard": 0.519,
+  "same_numbers": false,
+  "dropped": false
+ },
+ {
+  "paragraph": "6.8.2.1",
+  "quote": "Table 2a TEM cell below 2 GHz 20 to 200 MHz 75 V/m",
+  "text": "The immunity of an ESA to electromagnetic radiation by the TEM cell method shall be tested at a level of 75 V/m in the 20 to 200 MHz frequency range, the test level in over 90 per cent of the 20 to 6,000 MHz frequency band (Table 2a).",
+  "page": 11,
+  "version": "7.2.0",
+  "nearest_jaccard": 0.5,
+  "same_numbers": false,
+  "dropped": false
+ },
+ {
+  "paragraph": "6.8.2.1",
+  "quote": "Table 2a BCI below 2 GHz 20 to 400 MHz 60 mA",
+  "text": "The immunity of an ESA to electromagnetic radiation by the BCI method shall be tested at a level of 60 mA in the 20 to 400 MHz frequency range, the test level in over 90 per cent of the 20 to 6,000 MHz frequency band (Table 2a).",
+  "page": 11,
+  "version": "7.2.0",
+  "nearest_jaccard": 0.538,
+  "same_numbers": false,
+  "dropped": false
+ },
+ {
+  "paragraph": "6.8.2.1",
+  "quote": "Table 2a ALSE below 2 GHz 80 to 2,000 MHz 30 V/m",
+  "text": "The immunity of an ESA to electromagnetic radiation by the ALSE method shall be tested at a level of 30 V/m in the 80 to 2,000 MHz frequency range, the test level in over 90 per cent of the 20 to 6,000 MHz frequency band (Table 2a).",
+  "page": 11,
+  "version": "7.2.0",
+  "nearest_jaccard": 0.5,
+  "same_numbers": false,
+  "dropped": false
+ },
+ {
+  "paragraph": "6.8.2.1",
+  "quote": "Table 2a Reverberation chamber below 2 GHz LUF to 2,000 MHz 21 V/m",
+  "text": "The immunity of an ESA to electromagnetic radiation by the Reverberation chamber method shall be tested at a level of 21 V/m in the LUF to 2,000 MHz frequency range, the test level in over 90 per cent of the 20 to 6,000 MHz frequency band (Table 2a).",
+  "page": 11,
+  "version": "7.2.0",
+  "nearest_jaccard": 0.483,
+  "same_numbers": false,
+  "dropped": false
+ },
+ {
+  "paragraph": "6.8.2.1",
+  "quote": "Table 2a ALSE above 2 GHz 2,000 to 6,000 MHz 10 V/m",
+  "text": "The immunity of an ESA to electromagnetic radiation by the ALSE method shall be tested at a level of 10 V/m in the 2,000 to 6,000 MHz frequency range, the test level in over 90 per cent of the 20 to 6,000 MHz frequency band (Table 2a).",
+  "page": 11,
+  "version": "7.2.0",
+  "nearest_jaccard": 0.519,
+  "same_numbers": false,
+  "dropped": false
+ },
+ {
+  "paragraph": "6.8.2.1",
+  "quote": "Table 2a Reverberation chamber above 2 GHz 2,000 to 6,000 MHz 7 V/m",
+  "text": "The immunity of an ESA to electromagnetic radiation by the Reverberation chamber method shall be tested at a level of 7 V/m in the 2,000 to 6,000 MHz frequency range, the test level in over 90 per cent of the 20 to 6,000 MHz frequency band (Table 2a).",
+  "page": 11,
+  "version": "7.2.0",
+  "nearest_jaccard": 0.5,
+  "same_numbers": false,
+  "dropped": false
+ },
+ {
+  "paragraph": "6.8.2.1",
+  "quote": "Table 2b Stripline below 2 GHz 20 to 400 MHz 50 V/m",
+  "text": "The immunity of an ESA to electromagnetic radiation by the Stripline method shall be tested at a level of 50 V/m in the 20 to 400 MHz frequency range, the minimum test level over the whole 20 to 6,000 MHz frequency band (Table 2b).",
+  "page": 11,
+  "version": "7.2.0",
+  "nearest_jaccard": 0.538,
+  "same_numbers": false,
+  "dropped": false
+ },
+ {
+  "paragraph": "6.8.2.1",
+  "quote": "Table 2b TEM cell below 2 GHz 20 to 200 MHz 62,5 V/m",
+  "text": "The immunity of an ESA to electromagnetic radiation by the TEM cell method shall be tested at a level of 62,5 V/m in the 20 to 200 MHz frequency range, the minimum test level over the whole 20 to 6,000 MHz frequency band (Table 2b).",
+  "page": 11,
+  "version": "7.2.0",
+  "nearest_jaccard": 0.519,
+  "same_numbers": false,
+  "dropped": false
+ },
+ {
+  "paragraph": "6.8.2.1",
+  "quote": "Table 2b BCI below 2 GHz 20 to 400 MHz 50 mA",
+  "text": "The immunity of an ESA to electromagnetic radiation by the BCI method shall be tested at a level of 50 mA in the 20 to 400 MHz frequency range, the minimum test level over the whole 20 to 6,000 MHz frequency band (Table 2b).",
+  "page": 11,
+  "version": "7.2.0",
+  "nearest_jaccard": 0.56,
+  "same_numbers": false,
+  "dropped": false
+ },
+ {
+  "paragraph": "6.8.2.1",
+  "quote": "Table 2b ALSE below 2 GHz 80 to 2,000 MHz 25 V/m",
+  "text": "The immunity of an ESA to electromagnetic radiation by the ALSE method shall be tested at a level of 25 V/m in the 80 to 2,000 MHz frequency range, the minimum test level over the whole 20 to 6,000 MHz frequency band (Table 2b).",
+  "page": 11,
+  "version": "7.2.0",
+  "nearest_jaccard": 0.519,
+  "same_numbers": false,
+  "dropped": false
+ },
+ {
+  "paragraph": "6.8.2.1",
+  "quote": "Table 2b Reverberation chamber below 2 GHz LUF to 2,000 MHz 18 V/m",
+  "text": "The immunity of an ESA to electromagnetic radiation by the Reverberation chamber method shall be tested at a level of 18 V/m in the LUF to 2,000 MHz frequency range, the minimum test level over the whole 20 to 6,000 MHz frequency band (Table 2b).",
+  "page": 11,
+  "version": "7.2.0",
+  "nearest_jaccard": 0.5,
+  "same_numbers": false,
+  "dropped": false
+ },
+ {
+  "paragraph": "6.8.2.1",
+  "quote": "Table 2b ALSE above 2 GHz 2,000 to 6,000 MHz 8 V/m",
+  "text": "The immunity of an ESA to electromagnetic radiation by the ALSE method shall be tested at a level of 8 V/m in the 2,000 to 6,000 MHz frequency range, the minimum test level over the whole 20 to 6,000 MHz frequency band (Table 2b).",
+  "page": 11,
+  "version": "7.2.0",
+  "nearest_jaccard": 0.538,
+  "same_numbers": false,
+  "dropped": false
+ },
+ {
+  "paragraph": "6.8.2.1",
+  "quote": "Table 2b Reverberation chamber above 2 GHz 2,000 to 6,000 MHz 6 V/m",
+  "text": "The immunity of an ESA to electromagnetic radiation by the Reverberation chamber method shall be tested at a level of 6 V/m in the 2,000 to 6,000 MHz frequency range, the minimum test level over the whole 20 to 6,000 MHz frequency band (Table 2b).",
+  "page": 11,
+  "version": "7.2.0",
+  "nearest_jaccard": 0.519,
+  "same_numbers": false,
+  "dropped": false
+ },
+ {
+  "paragraph": "6.9.1",
+  "quote": "Starting profile II II 10 pulses (for ESA which shall be operational during engine start phases) C (for other ESA)",
+  "text": "The immunity of an ESA to transient disturbances conducted along supply lines shall meet, for the starting profile on a 12 V system, immunity test level II and 10 pulses, with functional status classification B for functions related to immunity related functions for an ESA which shall be operational during engine start phases and C for other ESA, and functional status classification D for functions not related to immunity related functions (Table 3a). Starting profile is only applicable to ESAs that could be installed in vehicles with internal combustion engines which are started with a 12V/24V starter motor.",
+  "page": 12,
+  "version": "7.2.0",
+  "nearest_jaccard": 0.116,
+  "same_numbers": false,
+  "dropped": false
+ },
+ {
+  "paragraph": "6.9.1",
+  "quote": "Starting profile II II 10 pulses (for ESA which shall be operational during engine start phases) C (for other ESA)",
+  "text": "The immunity of an ESA to transient disturbances conducted along supply lines shall meet, for the starting profile on a 24 V system, immunity test level II and 10 pulses, with functional status classification B for functions related to immunity related functions for an ESA which shall be operational during engine start phases and C for other ESA, and functional status classification D for functions not related to immunity related functions (Table 3a). Starting profile is only applicable to ESAs that could be installed in vehicles with internal combustion engines which are started with a 12V/24V starter motor.",
+  "page": 12,
+  "version": "7.2.0",
+  "nearest_jaccard": 0.116,
+  "same_numbers": false,
+  "dropped": false
+ },
+ {
+  "paragraph": "6.9.1",
+  "quote": "1 -75 V -450 V 500 pulses III III",
+  "text": "The immunity of an ESA to transient disturbances conducted along supply lines shall meet, for test pulse 1 on a 12 V system, an immunity test level of -75 V and a test duration of 500 pulses, with functional status classification III for functions related to immunity related functions and III for functions not related to immunity related functions (Table 3b).",
+  "page": 12,
+  "version": "7.2.0",
+  "nearest_jaccard": 0.162,
+  "same_numbers": false,
+  "dropped": false
+ },
+ {
+  "paragraph": "6.9.1",
+  "quote": "1 -75 V -450 V 500 pulses III III",
+  "text": "The immunity of an ESA to transient disturbances conducted along supply lines shall meet, for test pulse 1 on a 24 V system, an immunity test level of -450 V and a test duration of 500 pulses, with functional status classification III for functions related to immunity related functions and III for functions not related to immunity related functions (Table 3b).",
+  "page": 12,
+  "version": "7.2.0",
+  "nearest_jaccard": 0.162,
+  "same_numbers": false,
+  "dropped": false
+ },
+ {
+  "paragraph": "6.9.1",
+  "quote": "2a +37 V +37 V 500 pulses I III",
+  "text": "The immunity of an ESA to transient disturbances conducted along supply lines shall meet, for test pulse 2a on a 12 V system, an immunity test level of +37 V and a test duration of 500 pulses, with functional status classification I for functions related to immunity related functions and III for functions not related to immunity related functions (Table 3b).",
+  "page": 12,
+  "version": "7.2.0",
+  "nearest_jaccard": 0.158,
+  "same_numbers": false,
+  "dropped": false
+ },
+ {
+  "paragraph": "6.9.1",
+  "quote": "2a +37 V +37 V 500 pulses I III",
+  "text": "The immunity of an ESA to transient disturbances conducted along supply lines shall meet, for test pulse 2a on a 24 V system, an immunity test level of +37 V and a test duration of 500 pulses, with functional status classification I for functions related to immunity related functions and III for functions not related to immunity related functions (Table 3b).",
+  "page": 12,
+  "version": "7.2.0",
+  "nearest_jaccard": 0.158,
+  "same_numbers": false,
+  "dropped": false
+ },
+ {
+  "paragraph": "6.9.1",
+  "quote": "2b +10 V +20 V 10 pulses II III",
+  "text": "The immunity of an ESA to transient disturbances conducted along supply lines shall meet, for test pulse 2b on a 12 V system, an immunity test level of +10 V and a test duration of 10 pulses, with functional status classification II for functions related to immunity related functions and III for functions not related to immunity related functions (Table 3b).",
+  "page": 12,
+  "version": "7.2.0",
+  "nearest_jaccard": 0.162,
+  "same_numbers": false,
+  "dropped": false
+ },
+ {
+  "paragraph": "6.9.1",
+  "quote": "2b +10 V +20 V 10 pulses II III",
+  "text": "The immunity of an ESA to transient disturbances conducted along supply lines shall meet, for test pulse 2b on a 24 V system, an immunity test level of +20 V and a test duration of 10 pulses, with functional status classification II for functions related to immunity related functions and III for functions not related to immunity related functions (Table 3b).",
+  "page": 12,
+  "version": "7.2.0",
+  "nearest_jaccard": 0.158,
+  "same_numbers": false,
+  "dropped": false
+ },
+ {
+  "paragraph": "6.9.1",
+  "quote": "3a -112 V -150 V 1 h I III",
+  "text": "The immunity of an ESA to transient disturbances conducted along supply lines shall meet, for test pulse 3a on a 12 V system, an immunity test level of -112 V and a test duration of 1 h, with functional status classification I for functions related to immunity related functions and III for functions not related to immunity related functions (Table 3b).",
+  "page": 12,
+  "version": "7.2.0",
+  "nearest_jaccard": 0.158,
+  "same_numbers": false,
+  "dropped": false
+ },
+ {
+  "paragraph": "6.9.1",
+  "quote": "3a -112 V -150 V 1 h I III",
+  "text": "The immunity of an ESA to transient disturbances conducted along supply lines shall meet, for test pulse 3a on a 24 V system, an immunity test level of -150 V and a test duration of 1 h, with functional status classification I for functions related to immunity related functions and III for functions not related to immunity related functions (Table 3b).",
+  "page": 12,
+  "version": "7.2.0",
+  "nearest_jaccard": 0.158,
+  "same_numbers": false,
+  "dropped": false
+ },
+ {
+  "paragraph": "6.9.1",
+  "quote": "3b +75 V +150 V 1 h I III",
+  "text": "The immunity of an ESA to transient disturbances conducted along supply lines shall meet, for test pulse 3b on a 12 V system, an immunity test level of +75 V and a test duration of 1 h, with functional status classification I for functions related to immunity related functions and III for functions not related to immunity related functions (Table 3b).",
+  "page": 12,
+  "version": "7.2.0",
+  "nearest_jaccard": 0.132,
+  "same_numbers": false,
+  "dropped": false
+ },
+ {
+  "paragraph": "6.9.1",
+  "quote": "3b +75 V +150 V 1 h I III",
+  "text": "The immunity of an ESA to transient disturbances conducted along supply lines shall meet, for test pulse 3b on a 24 V system, an immunity test level of +150 V and a test duration of 1 h, with functional status classification I for functions related to immunity related functions and III for functions not related to immunity related functions (Table 3b).",
+  "page": 12,
+  "version": "7.2.0",
+  "nearest_jaccard": 0.132,
+  "same_numbers": false,
+  "dropped": false
+ },
+ {
+  "paragraph": "Annex 9 3.1",
+  "quote": "AM (amplitude modulation), with 1 kHz modulation and 80 per cent modulation depth in the 20 to 400 MHz frequency range",
+  "text": "The test signal modulation shall be AM (amplitude modulation), with 1 kHz modulation and 80 per cent modulation depth in the 20 to 400 MHz frequency range.",
+  "page": 98,
+  "version": "7.2.0",
+  "nearest_jaccard": 1.0,
+  "same_numbers": true,
+  "dropped": true
+ },
+ {
+  "paragraph": "Annex 9 3.1",
+  "quote": "PM2 (pulse modulation type 2), Ton 3 µs, period 3,333 µs in the 2,700 to 3,100 MHz frequency range",
+  "text": "The test signal modulation shall be PM2 (pulse modulation type 2), Ton 3 µs, period 3,333 µs in the 2,700 to 3,100 MHz frequency range.",
+  "page": 98,
+  "version": "7.2.0",
+  "nearest_jaccard": 1.0,
+  "same_numbers": true,
+  "dropped": true
+ },
+ {
+  "paragraph": "Annex 9 3.1",
+  "quote": "PM3 (pulse modulation type 3), Ton 500 µs, period 1,000 µs in the 380 to 2,700 MHz and the 3,100 to 6,000 MHz frequency ranges",
+  "text": "The test signal modulation shall be PM3 (pulse modulation type 3), Ton 500 µs, period 1,000 µs in the 380 to 2,700 MHz and the 3,100 to 6,000 MHz frequency ranges.",
+  "page": 98,
+  "version": "7.2.0",
+  "nearest_jaccard": 1.0,
+  "same_numbers": true,
+  "dropped": true
+ }
+]
