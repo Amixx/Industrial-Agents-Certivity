@@ -1,6 +1,6 @@
 # Big swings: status
 
-Updated: 24 Oct 22:50 CEST (system clock) by master (Claude Code desktop, Opus 5.5), at the
+Updated: 24 Oct 22:51 CEST (system clock) by master (Claude Code desktop, Opus 5.5), at the
 handover to Cursor.
 Task: brain/docs/todo/07-big-swings.md. Branch: big-swings. Setup done: yes, commit "swing master: setup".
 
@@ -45,7 +45,7 @@ lane (lane B's B2 run may have spent some; read its log).
 | D hedged cuts | stopped for the handover, before D4 | 22:48 (commit 87d64e5) | D1 to D3 done (cut without examples, $0.82); next D4 nominate | $0.82 | out/experiments/D.md |
 | E verbatim rows | stopped at 22:46 for the handover | 22:46 (commit 214998a) | E1, E2 done (v1 316 rows, local 133; v2 300 rows, local 130); next a v3 that fixes four problems (about $0.60), see E.md "Next"; no nomination yet | $1.16 | out/experiments/E.md |
 | F row selector | stopped at 22:48 for the handover | 22:48 (commit db8d5ee) | F1, F2 done, F3 mostly (votes + Opus keep + word share: local 158 / 342 rows, F2 0.717; log-scale sets still in a scratch script); next F3 finish, F4, F5, see F.md "Next" | $1.25 | out/experiments/F.md |
-| G Sunday feasibility | told to stop at 22:48; no stop report received by the Claude Code master | check G.md and git log | G1 in progress | check G.md | out/experiments/G.md |
+| G Sunday feasibility | paused at 22:49 for the handover | 22:49 (commit 2ccb585) | part of G1: six Haiku 5.5 runs on bumper-plain (36 to 62 s, $0.06 to $0.08 each; paragraph recall 0.54 to 0.63, precision 0.37 to 0.55 against 67 silver paragraphs); next the vote, a Sonnet run, the Opus reference, bumper-sensors-fog, then G2, G3, see G.md "Next" | $0.41 | out/experiments/G.md |
 
 ## Upload queue (owner uploads by hand, at most 5 per hour)
 
@@ -62,8 +62,8 @@ that answer a question.
 
 ## Log
 
-- 22:50 Lanes B (done, $3.71), D (after D3, $0.82), F (after most of F3, $1.25) stopped. Lane G's
-  stop not confirmed. Claude Code master hit its usage limit here; Cursor takes over.
+- 22:50 Lanes B (done, $3.71), D (after D3, $0.82), F (after most of F3, $1.25) stopped. Lane G paused
+  at 22:49 after part of G1 ($0.41). Claude Code master hit its usage limit here; Cursor takes over.
 
 - 22:49 Lanes A (after A4, $0), E (after E2, $1.16) stopped for the handover. Lane B finished B1
   to B6 ($2.03) and nominated two files; its bumper transfer check was still running. Queue
