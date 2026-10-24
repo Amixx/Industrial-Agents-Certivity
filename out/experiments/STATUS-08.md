@@ -1,25 +1,25 @@
 # Complex strategies: status
 
-Updated: 24 Oct 23:29 CEST (system clock, `date`) by master (Cursor).
+Updated: 24 Oct 23:33 CEST (system clock, `date`) by master (Cursor).
 Task: brain/docs/todo/08-complex.md. Branch: big-swings. Setup done: yes (07 setup commit "swing master: setup"; this ledger created at 23:29).
 Lanes A to G are finished. Do not edit their files except to read them. Do not edit `out/experiments/STATUS.md`.
 
 ## Budget
 
-Approved by the owner: not asked yet.
-Asked at 23:29: J $1, K $1, I $1, H $6, L $5. Which may spend?
-Hard ceiling stays $70 for the whole event, of which the swings spent $14.92.
-Until the owner answers, every lane's approved spend is **$0**. Do not make paid API calls. Unpaid steps may run. `claude -p` is not logged in.
+Approved by the owner at 23:33: all five lanes may spend. Per-lane maximum $20. Event ceiling $70, of which the swings spent $14.92. Remaining before this task: $55.08.
+Planned caps inside that answer: J $1, K $1, I $1, H $6, L $5 ($14 together; event total about $28.92 if each uses its plan).
+A lane that would pass its planned cap stops, writes the estimate, and waits. The master may grant more up to $20 for that lane while the event total stays at or under $70.
+`claude -p` is not logged in. Paid steps use the API inside the lane cap. Dry-run or count cache hits before calling a step free.
 
 ## Lanes
 
 | Lane | State | Last update | Current step | Spend so far | Lane file |
 |---|---|---|---|---|---|
-| J skip classes on votes7 | running | 23:29 | not started; agent launched at $0 | $0 | out/experiments/J.md |
-| K same filter on votes4 | running | 23:29 | not started; agent launched at $0 | $0 | out/experiments/K.md |
-| I table split into votes7 | running | 23:29 | not started; agent launched at $0 | $0 | out/experiments/I.md |
-| H vote of three new runs | running | 23:29 | not started; dry-run only until spend is approved | $0 | out/experiments/H.md |
-| L Sonnet 0.85 plus filter | running | 23:29 | not started; filter design on the existing file until spend is approved | $0 | out/experiments/L.md |
+| J skip classes on votes7 | running | 23:33 | rules first; $1 approved if a model call is required | $0 | out/experiments/J.md |
+| K same filter on votes4 | running | 23:33 | rules first; $1 approved if a model call is required | $0 | out/experiments/K.md |
+| I table split into votes7 | running | 23:33 | list candidates, then split; $1 approved for those paragraphs only | $0 | out/experiments/I.md |
+| H vote of three new runs | running | 23:33 | dry-run, then the three runs if the estimate is within $6 | $0 | out/experiments/H.md |
+| L Sonnet 0.85 plus filter | running | 23:33 | filter the weight-0.7 file; $5 approved, do not duplicate H's 0.85 run | $0 | out/experiments/L.md |
 
 ## Upload queue
 
@@ -31,4 +31,5 @@ No platform upload unless the owner says a slot is free. A lane may name one fil
 
 ## Log
 
-- 23:29 Ledger created. Budget not approved. Asked the owner: J $1, K $1, I $1, H $6, L $5. Started lanes J, K, I, H, L at $0. Paid API calls are forbidden until this file shows an approved amount. Order of value: J, K, I, H, L. Engine freeze for task 06 is 02:00. A result after about 01:30 is a recommendation, not a code change.
+- 23:33 Owner: max $70 overall, max $20 per lane. All five may spend. Planned caps stand (J $1, K $1, I $1, H $6, L $5). Agents were launched at $0; a lane that reads this file may now spend up to its planned cap. H and L still dry-run before any new call.
+- 23:29 Ledger created. Asked the owner which lanes may spend. Started J, K, I, H, L at $0. Order of value: J, K, I, H, L. Engine freeze for task 06 is 02:00. A result after about 01:30 is a recommendation, not a code change. Agents: J 6b4acdae, K 6d903bb6, I b94a5ba5, H 9c188f65, L 009c0255.
