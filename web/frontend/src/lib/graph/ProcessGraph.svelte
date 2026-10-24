@@ -1,9 +1,21 @@
 <script lang="ts">
 import type { Assessment } from '#lib/api/types.ts';
-import { buildGraph, columns, type GraphNode, groupLabels } from './model.ts';
+import {
+	buildGraph,
+	columns,
+	type GraphNode,
+	groupLabels,
+	type PartFocus,
+	partFacets,
+} from './model.ts';
 import NodeDetail from './NodeDetail.svelte';
+import PartDetail from './PartDetail.svelte';
 
-let { assessment }: { assessment: Assessment } = $props();
+let {
+	assessment,
+	part = null,
+	onclearpart,
+}: { assessment: Assessment; part?: PartFocus | null; onclearpart?: () => void } = $props();
 
 const graph = $derived(buildGraph(assessment));
 const byId = $derived(new Map(graph.nodes.map((n) => [n.id, n])));
@@ -12,7 +24,13 @@ let hovered = $state<string | null>(null);
 let selected = $state<string | null>(null);
 
 const focus = $derived(hovered ?? selected);
-const active = $derived(focus ? graph.connected(focus) : null);
+const focusFacets = $derived(part ? partFacets(graph, part) : []);
+const focusIds = $derived(new Set(focusFacets.map((f) => f.id)));
+/** With a part in focus and nothing hovered or picked, everything its facets reach stays lit. */
+const partActive = $derived(
+	focusFacets.length ? new Set(focusFacets.flatMap((f) => [...graph.connected(f.id)])) : null,
+);
+const active = $derived(focus ? graph.connected(focus) : partActive);
 const selectedNode = $derived(selected ? (byId.get(selected) ?? null) : null);
 
 const dim = (id: string) => (active && !active.has(id) ? 'dim' : '');
@@ -80,12 +98,11 @@ const PAD_TOP = 8;
 				Included, {included.length}
 			</div>
 
-
 			{#each graph.nodes as node (node.id)}
 				<button
 					type="button"
 					class="node {node.kind} {dim(node.id)}"
-					class:selected={selected === node.id}
+					class:selected={selected === node.id || (!selected && focusIds.has(node.id))}
 					class:hot={!!active && focus !== node.id && active.has(node.id) && node.kind !== 'spec'}
 					style:left="{node.x}px"
 					style:top="{node.y + PAD_TOP}px"
@@ -155,7 +172,11 @@ const PAD_TOP = 8;
 	<aside
 		class="sticky top-6 max-h-[calc(100vh-3rem)] self-start overflow-y-auto border-t border-black pt-2"
 	>
-		<NodeDetail node={selectedNode} {assessment} onclose={() => (selected = null)} />
+		{#if part && !selectedNode}
+			<PartDetail {part} facets={focusFacets} {assessment} onclose={() => onclearpart?.()} />
+		{:else}
+			<NodeDetail node={selectedNode} {assessment} onclose={() => (selected = null)} />
+		{/if}
 	</aside>
 </div>
 

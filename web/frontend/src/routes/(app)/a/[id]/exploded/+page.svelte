@@ -5,10 +5,21 @@ import AssessmentHeader from '#lib/components/AssessmentHeader.svelte';
 import ExplodedView from '#lib/exploded/ExplodedView.svelte';
 import Lamp3D from '#lib/exploded/Lamp3D.svelte';
 import { rearLamp } from '#lib/exploded/rearLamp.ts';
+import { buildGraph, partCoverage, partFacets } from '#lib/graph/model.ts';
 import { page } from '$app/state';
 
 let assessment = $state<Assessment | null>(null);
 let loaded = $state(false);
+
+/** What each part covers, counted the same way the graph highlights it. */
+const coverage = $derived.by(() => {
+	if (!assessment) return {};
+	const graph = buildGraph(assessment);
+	const { requirements } = assessment;
+	return Object.fromEntries(
+		rearLamp.parts.map((p) => [p.id, partCoverage(partFacets(graph, p), requirements)]),
+	);
+});
 
 const mode = $derived(page.url.searchParams.get('view') === 'scroll' ? 'scroll' : '3d');
 
@@ -39,7 +50,11 @@ $effect(() => {
 		</div>
 	</AssessmentHeader>
 	{#if mode === '3d'}
-		<Lamp3D assembly={rearLamp} />
+		<Lamp3D
+			assembly={rearLamp}
+			{coverage}
+			graphHref={(id) => `/a/${assessment?.id}/graph?part=${id}`}
+		/>
 	{:else}
 		<ExplodedView assembly={rearLamp} />
 	{/if}

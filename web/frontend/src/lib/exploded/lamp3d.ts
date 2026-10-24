@@ -413,6 +413,7 @@ export function createLampScene(
 	host: HTMLElement,
 	labels: LampLabel[],
 	onSelect: (id: string | null) => void,
+	onHover: (id: string | null) => void,
 ): LampScene {
 	const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
 	renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
@@ -453,6 +454,13 @@ export function createLampScene(
 	const parts = buildParts(cups());
 	const lamp = new THREE.Group();
 	const labelObjects = new Map<string, CSS2DObject>();
+	let hovered: string | null = null;
+	const hover = (id: string | null) => {
+		if (id === hovered) return;
+		hovered = id;
+		renderer.domElement.style.cursor = id ? 'pointer' : '';
+		onHover(id);
+	};
 	for (const [id, group] of parts) {
 		lamp.add(group);
 		const info = labels.find((l) => l.id === id);
@@ -464,6 +472,8 @@ export function createLampScene(
 		el.children[0].textContent = info.number;
 		el.children[1].textContent = info.name;
 		el.addEventListener('click', () => onSelect(id));
+		el.addEventListener('pointerenter', () => hover(id));
+		el.addEventListener('pointerleave', () => hover(null));
 		const label = new CSS2DObject(el);
 		const box = new THREE.Box3().setFromObject(group);
 		label.position.set((box.min.x + box.max.x) / 2, box.max.y + 0.1, (box.min.z + box.max.z) / 2);
@@ -499,12 +509,8 @@ export function createLampScene(
 
 	const raycaster = new THREE.Raycaster();
 	const pointer = new THREE.Vector2();
-	let down: { x: number; y: number } | null = null;
-	const onDown = (e: PointerEvent) => {
-		down = { x: e.clientX, y: e.clientY };
-	};
-	const onUp = (e: PointerEvent) => {
-		if (!down || Math.hypot(e.clientX - down.x, e.clientY - down.y) > 4) return;
+	/** The visible part under the pointer, if any. */
+	const partAt = (e: PointerEvent) => {
 		const rect = renderer.domElement.getBoundingClientRect();
 		pointer.set(
 			((e.clientX - rect.left) / rect.width) * 2 - 1,
@@ -517,10 +523,23 @@ export function createLampScene(
 		const hit = raycaster.intersectObjects(visible, true)[0];
 		let o: THREE.Object3D | null = hit?.object ?? null;
 		while (o && !o.userData.partId) o = o.parent;
-		onSelect((o?.userData.partId as string | undefined) ?? null);
+		return (o?.userData.partId as string | undefined) ?? null;
 	};
+	let down: { x: number; y: number } | null = null;
+	const onDown = (e: PointerEvent) => {
+		down = { x: e.clientX, y: e.clientY };
+	};
+	const onUp = (e: PointerEvent) => {
+		if (!down || Math.hypot(e.clientX - down.x, e.clientY - down.y) > 4) return;
+		onSelect(partAt(e));
+	};
+	// No hover while dragging, so the card does not chase a rotating model.
+	const onMove = (e: PointerEvent) => hover(e.buttons ? null : partAt(e));
+	const onLeave = () => hover(null);
 	renderer.domElement.addEventListener('pointerdown', onDown);
 	renderer.domElement.addEventListener('pointerup', onUp);
+	renderer.domElement.addEventListener('pointermove', onMove);
+	renderer.domElement.addEventListener('pointerleave', onLeave);
 
 	const resize = () => {
 		const { clientWidth: w, clientHeight: h } = host;
@@ -587,6 +606,8 @@ export function createLampScene(
 			controls.dispose();
 			renderer.domElement.removeEventListener('pointerdown', onDown);
 			renderer.domElement.removeEventListener('pointerup', onUp);
+			renderer.domElement.removeEventListener('pointermove', onMove);
+			renderer.domElement.removeEventListener('pointerleave', onLeave);
 			scene.traverse((o) => {
 				if (o instanceof THREE.Mesh) {
 					o.geometry.dispose();

@@ -51,6 +51,47 @@ export type Graph = {
 	connected: (id: string) => Set<string>;
 };
 
+/** A physical part, such as one picked in the exploded view, and the profile facets it covers. */
+export type PartFocus = { name: string; facets: string[] };
+
+/** The part, function and material nodes whose label is one of the part's facets. */
+export function partFacets(graph: Graph, part: PartFocus): FacetNode[] {
+	const labels = new Set(part.facets.map((f) => f.toLowerCase()));
+	return graph.nodes.filter(
+		(n): n is FacetNode =>
+			n.kind === 'facet' && n.group !== 'product' && labels.has(n.label.toLowerCase()),
+	);
+}
+
+export type PartCoverage = {
+	regulations: { regulation: string; viaReason: boolean; requirements: Requirement[] }[];
+	requirements: number;
+	/** Distinct source paragraphs across those requirements. */
+	paragraphs: number;
+};
+
+/** The part's regulations, each with every requirement any of its facets matched. */
+export function partCoverage(facets: FacetNode[], requirements: Requirement[]): PartCoverage {
+	const byReg = new Map<string, { ids: Set<string>; viaReason: boolean }>();
+	for (const link of facets.flatMap((f) => f.links)) {
+		const entry = byReg.get(link.regulation) ?? { ids: new Set(), viaReason: false };
+		for (const id of link.requirementIds) entry.ids.add(id);
+		entry.viaReason ||= link.viaReason;
+		byReg.set(link.regulation, entry);
+	}
+	const regulations = [...byReg].map(([regulation, { ids, viaReason }]) => ({
+		regulation,
+		viaReason,
+		requirements: requirements.filter((r) => ids.has(r.id)),
+	}));
+	const matched = regulations.flatMap((r) => r.requirements);
+	return {
+		regulations,
+		requirements: matched.length,
+		paragraphs: new Set(matched.map((r) => `${r.source.regulation} ${r.source.paragraph}`)).size,
+	};
+}
+
 export const columns = {
 	spec: { x: 0, w: 130 },
 	facet: { x: 170, w: 210 },
