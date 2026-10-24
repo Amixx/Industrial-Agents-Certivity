@@ -1,0 +1,8 @@
+[brain 22:46:10] profile: Rear lamp (combined rear lighting and signalling module with rear position lamp, stop lamp, reversing lamp, outer lens and retro-reflector in a single housing); 30 terms; electronics=True
+[brain 22:46:10] regulations: UN R148 0.95, UN R48 0.92, UN R150 0.88, UN R10 0.85
+[brain 22:46:11] paragraphs selected: 267
+[brain 22:46:37] requirements: 337 kept, 6 dropped
+[brain 22:46:37] wrote ../out/rear-lamp-swing-D-cut-noex.json (337 requirements)
+[cost] claude-sonnet-5-5: 23 new calls, 109,156 in / 59,609 out / 7,658 cache read; $0.82
+[cost] claude-opus-5-5: 115 cache hits
+[cost] total new spend $0.82
