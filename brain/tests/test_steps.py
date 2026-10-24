@@ -165,3 +165,26 @@ def test_prompted_json_accepts_a_bare_array() -> None:
     reply = 'Here you go:\n```json\n[{"id": "a", "p_cited": 0.4}]\n```'
     assert _extract_json(reply, schema) == {"paragraphs": [{"id": "a", "p_cited": 0.4}]}
     assert _extract_json('{"paragraphs": []} trailing', schema) == {"paragraphs": []}
+
+
+def test_rewrite_keeps_deterministic_rows_when_the_model_answers_nothing(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    from brain import rewrite
+
+    paragraphs = [_para(i) for i in range(2)]
+    for p in paragraphs:
+        p.text = "The device shall be marked with the trade name of the applicant."
+    graph = build({"UN R42": paragraphs}, {"UN R42"})
+    answer = {
+        "paragraphs": [
+            {"id": paragraphs[0].id, "requirements": [{"text": "Rewritten.", "quote": "q"}]},
+            {"id": paragraphs[1].id, "requirements": []},
+        ]
+    }
+    monkeypatch.setattr(rewrite.llm, "complete_json", lambda *_, **__: answer)
+    drafts = rewrite._batch(paragraphs, graph, "bumper")
+    assert [d.text for d in drafts] == [
+        "Rewritten.",
+        "The device shall be marked with the trade name of the applicant.",
+    ]

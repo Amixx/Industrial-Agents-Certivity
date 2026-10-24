@@ -103,15 +103,19 @@ Write one requirement per obligation, in minimal-edit EARS style:
   following"), carry the parent's condition into each requirement.
 - Fold "However, ..." exceptions into the same requirement as "..., except that ...".
 - Split until each requirement states exactly one constraint: two limits joined by "and" are two
-  requirements; each lettered or numbered list item is its own requirement; each row of a table
-  of limits (per pulse, class, colour, test or angle) is its own requirement; an optional or
+  requirements; each lettered or numbered list item is its own requirement; an optional or
   alternative case ("Where optional lamps are installed", "as an alternative") is its own
   requirement. Never merge; never leave a list "(a) ... (b) ..." inside one requirement.
+- A paragraph that points to a table ("shall meet the requirements in Table 7") is one
+  requirement that cites the table; do not copy the table's cells into requirements. Split a
+  table only when the paragraph text itself states each row's limit (per pulse, class or test).
 - Repeat in every split requirement the condition and qualifiers that govern it ("When tested
   in accordance with ...", "if not otherwise agreed between ...", "In case of ..."), so each one
   stands alone.
 - Keep a conditional permission as a permission ("... may be installed ... only if ..."); never
-  turn "may" into "shall".
+  turn "may" into "shall". An obligation inside a permission is still one: "X may consist of a
+  unit and filter, which must be so designed that ..." -> "The unit and filter shall be so
+  designed that ...".
 - Ignore footnote text and footnote markers glued to words ("vehicles10 10As defined in ...").
 - Skip pure definitions, permissions with no constraint, and text that is not an obligation.
 Return an empty list for a paragraph with no obligation."""
@@ -234,6 +238,11 @@ def _batch(chunk: list[Paragraph], graph: Graph, product: str) -> list[Draft]:
             text = r["text"].strip()
             if text:
                 out.append(Draft(p, text, r.get("quote", "").strip()))
+    # A small local model sometimes answers a selected paragraph with nothing (on dev, qwen3.5:9b
+    # left five gold paragraphs empty, among them plain "shall" sentences); keep its
+    # deterministic obligations instead, since relevance already chose the paragraph.
+    answered = {d.paragraph.id for d in out}
+    out += [d for p in chunk if p.id not in answered for d in deterministic(p, graph)]
     return out
 
 
