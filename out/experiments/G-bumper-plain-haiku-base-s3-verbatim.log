@@ -1,0 +1,12 @@
+[g 22:47:11] profile took 0 s
+[brain 22:47:11] profile: Front bumper; 14 terms; electronics=False
+[g 22:47:11] regulations took 0 s
+[brain 22:47:11] regulations: UN R42 0.97, UN R127 0.85, UN R26 0.85, UN GTR 9 0.60
+[g 22:47:25] relevance took 14 s
+[brain 22:47:25] paragraphs selected: 103
+[g 22:47:47] rewrite took 22 s
+[brain 22:47:47] requirements: 169 kept, 9 dropped
+[brain 22:47:47] wrote /Users/troy/Documents/Projects/Industrial-Agents-Certivity/out/experiments/G-bumper-plain-haiku-base-s3-verbatim.json (169 requirements)
+[g 22:47:47] claude-haiku-5-5: 46 calls, 264,378 in / 76,960 out / 28,490 cache read; $0.065
+[g 22:47:47] claude-haiku-5-5: 2 cache hits
+[g 22:47:47] wall clock 36 s, new spend $0.065
