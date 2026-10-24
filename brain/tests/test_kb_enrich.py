@@ -364,3 +364,22 @@ def test_import_rejects_stale_and_malformed_answers(
     assert result.written == 0
     prov = conn.execute("SELECT 1 FROM provenance WHERE prompt_hash=?", (b.prompt_hash,))
     assert prov.fetchone() is None
+
+
+def test_fidelity_keeps_measured_numbers_only() -> None:
+    quote = (
+        "The lamp shall be mounted 350 mm above the ground (see Figure 19), as in paragraph 6.1.1."
+    )
+    assert (
+        enrich.fidelity("The lamp shall be mounted 350 mm above the ground.", quote, exact=True)
+        is None
+    )
+    assert enrich.fidelity("The lamp shall be mounted above the ground.", quote, exact=True) == (
+        "drops numbers ['350']"
+    )
+
+
+def test_quantities_read_thousands_and_skip_labels() -> None:
+    found = enrich.quantities("The HIC shall not exceed 1,000 (paragraph 4.1.1).")
+    assert 1000.0 in found
+    assert not any(abs(n - 4.11) < 1e-9 for n in found)

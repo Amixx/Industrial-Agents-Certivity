@@ -13,7 +13,7 @@ skipped.
 Answer files (`--import FILE_OR_DIR --source-model NAME`): one JSON object per batch, either one
 `.json` file per batch or one object per line of a `.jsonl` file:
 
-    {"prompt_hash": "<from the exported batch>", "answer": {...}}
+    {"batch_id": "<from the exported batch>", "prompt_hash": "<likewise>", "answer": {...}}
 
 `answer` follows the `schema` in the exported batch file (`--export-batches DIR`), which also
 holds the system prompt and the batch content. Other keys are ignored, so an exported file with
@@ -367,6 +367,25 @@ def numbers(text: str) -> set[str]:
     return {m.replace(",", ".") for m in _NUM.findall(text)}
 
 
+def quantities(text: str) -> set[float]:
+    """Every reading of the numbers in text, with a comma as decimal mark or as thousands
+    separator; paragraph labels such as 4.1.1 have none."""
+    out: set[float] = set()
+    for m in _NUM.findall(text):
+        for s in (m.replace(",", "."), m.replace(",", "")):
+            try:
+                out.add(float(s))
+            except ValueError:
+                pass
+    return out
+
+
+def measured(text: str) -> set[str]:
+    """The numbers of text that carry a unit; references, figure numbers and footnote marks
+    have none."""
+    return {n for v in spans.values(text) for n in numbers(v[5])}
+
+
 def negations(text: str) -> int:
     return len(_NEG.findall(text))
 
@@ -376,8 +395,9 @@ def fidelity(text: str, quote: str, *, exact: bool) -> str | None:
     added = numbers(text) - numbers(quote)
     if added:
         return f"adds numbers {sorted(added)}"
-    if exact and numbers(quote) - numbers(text):
-        return f"drops numbers {sorted(numbers(quote) - numbers(text))}"
+    dropped = (numbers(quote) - numbers(text)) & measured(quote)
+    if exact and dropped:
+        return f"drops numbers {sorted(dropped)}"
     if negations(text) > negations(quote):
         return "adds a negation"
     if exact and negations(text) < negations(quote):
@@ -449,11 +469,15 @@ class Writer:
             error = self._condition_error(c["attribute"], c["value"])
             if error:
                 return error
+        found = quantities(quote)
         for v in item["values"] or []:
             if v["raw"] not in quote:
                 return f"value {v['raw']!r} not in quote"
-            for x in (v["quantity"], v["min"], v["max"]):
-                if x is not None and not any(abs(float(n) - x) < 1e-9 for n in numbers(quote)):
+            plus_minus = "±" in v["raw"]
+            for x in (v["quantity"], v["min"], v["max"], v["tolerance"]):
+                if x is None or (plus_minus and x == 0):
+                    continue
+                if not any(abs(n - abs(x)) < 1e-9 for n in found):
                     return f"value {x} not in quote"
         return fidelity(item["ears"], quote, exact=True)
 
