@@ -111,25 +111,6 @@ that produced the file; branch code is not on `main` unless it says so.
 | 23:57 | `rear-lamp-swing-H-vote2.json` | Vote of the Opus 0.7 run, the Sonnet 0.85 run and the Haiku run, 2 of 3 | `swing/h_vote.py` | 388 | 144 / 0.627 | not uploaded | $0 |
 | 23:57 | `rear-lamp-swing-H-vote3.json` | The same three runs, 3 of 3 | `swing/h_vote.py` | 253 | 111 / 0.548 | not uploaded | $0 |
 | 23:58 | `rear-lamp-swing-L-w85-drop12.json` | Sonnet weight 0.85, drop test-procedure and installation classes | `swing/l_filter.py` | 345 | 130 / 0.588 | not uploaded | $0 |
-| 20:55 to 20:58 | `synth-a03-main.json` | `main` at `7644efe` on synth-a03: Opus relevance, Sonnet rewrite, through `claude -p` (the method of `rear-lamp-main-cli.json`) | `llm-baseline` @ `7644efe` plus the `claude -p` provider patch | 134 | 41 of 57 / 0.566 | n/a | subscription ($5.81) |
-| 20:59 to 21:04 | `synth-a06-main.json` | `main` at `7644efe` on synth-a06: Opus relevance, Sonnet rewrite, through `claude -p` (the method of `rear-lamp-main-cli.json`) | `llm-baseline` @ `7644efe` plus the `claude -p` provider patch | 333 | 142 / 0.650 | n/a | subscription ($10.16) |
-| 21:04 to 21:06 | `rear-lamp-kb-wired.json` | Obligation base wired into regulation ranking, paragraph selection and requirement text; Opus relevance, Sonnet rewrite, through `claude -p`; same file as `upload/wired-claude.json`, staged and not uploaded | `kb-wired` @ `58a3da1` plus the `claude -p` provider patch | 362 | 121 / 0.539 |  | subscription ($1.63, $10.37 with a cold cache) |
-| 21:06 to 21:07 | `synth-a03-kb-wired.json` | Obligation base wired into regulation ranking, paragraph selection and requirement text; Opus relevance, Sonnet rewrite, through `claude -p`; synth-a03 | `kb-wired` @ `58a3da1` plus the `claude -p` provider patch | 148 | 38 of 57 / 0.505 | n/a | subscription ($0.54, $5.59 cold) |
-| 21:07 to 21:08 | `synth-a06-kb-wired.json` | Obligation base wired into regulation ranking, paragraph selection and requirement text; Opus relevance, Sonnet rewrite, through `claude -p`; synth-a06 | `kb-wired` @ `58a3da1` plus the `claude -p` provider patch | 319 | 116 / 0.538 | n/a | subscription ($1.04, $9.92 cold) |
-| 21:19 to 21:21 | `rear-lamp-kb-select.json` | Obligation base picks regulations and paragraphs (relevance cut 0.3 of each regulation's best); rewrite prompt unchanged from `7644efe`; Opus relevance, Sonnet rewrite, through `claude -p` | `kb-select` @ `7998fc9` plus the `claude -p` provider patch | 436 | 144 / 0.602 |  | subscription ($1.00, $10.91 cold) |
-| 21:25 to 21:28 | `rear-lamp-kb-v2-jev.json` | Paragraphs blended with Jev (`BRAIN_JEV=1`, cut 0.3), the clause-level rewrite prompt (one requirement per clause, atomic split); Opus everywhere through `claude -p` | `kb-select` @ `1fa6216` plus the `claude -p` provider patch | 286 | 133 / 0.636 |  | subscription ($3.07, $11.85 cold) |
-| 21:25 to 21:30 | `rear-lamp-kb-v2.json` | The run above without Jev (decision-model blend, cut 0.3); Opus everywhere through `claude -p` | `kb-select` @ `1fa6216` plus the `claude -p` provider patch | 333 | 136 / 0.622 |  | subscription ($8.85, $12.45 cold) |
-| 21:38 to 21:39 | `synth-a03-kb-jev.json` | Obligation base, Jev blend cut 0.25, Opus everywhere, `BRAIN_JEV=1` (the method of `rear-lamp-kb-jev.json`) on synth-a03 | `kb-stack` @ `5f6e476` | 135 | 44 of 57 / 0.606 | n/a | subscription ($1.52, $6.64 cold) |
-| 21:38 to 21:44 | `synth-a06-kb-jev.json` | Obligation base, Jev blend cut 0.25, Opus everywhere, `BRAIN_JEV=1` (the method of `rear-lamp-kb-jev.json`) on synth-a06 | `kb-stack` @ `5f6e476` | 362 | 149 / 0.664 | n/a | subscription ($8.49, $12.20 cold) |
-| 21:44 | `synth-a03-kb-jev-filter.json` | The Jev run above (its rows from cache) through the requirement filter, p_keep below 0.40 dropped, on synth-a03 | `kb-stack` @ `c60e36c` | 121 | 44 of 57 / 0.630 | n/a | subscription ($0.28) |
-| 21:44 to 21:45 | `rear-lamp-kb-jev-filter.json` | The Jev run above (its rows from cache) through the requirement filter, p_keep below 0.40 dropped, on dev; same file as `upload/integrated-filter.json`, staged and not uploaded | `kb-stack` @ `c60e36c` | 349 | 150 / 0.676 |  | subscription ($0.70, $13.01 cold) |
-| 21:44 to 21:45 | `synth-a06-kb-jev-filter.json` | The Jev run above (its rows from cache) through the requirement filter, p_keep below 0.40 dropped, on synth-a06 | `kb-stack` @ `c60e36c` | 332 | 144 / 0.659 | n/a | subscription ($0.68) |
-| 21:49 to 21:50 | `synth-a03-kb-jev-filter-v4.json` | The filter run above with the minimal-edit rewrite (the method of `rear-lamp-kb-jev-filter-v4.json`) on synth-a03 | `kb-stack` @ `1d8b22e` | 150 | 49 of 57 / 0.648 | n/a | subscription ($1.76, $7.03 cold) |
-| 21:49 to 21:52 | `bumper-plain-kb-jev-filter-v4.json` | The same method on `data/synthetic/bumper-plain`; silver paragraph P / R / F2 0.918 / 0.682 / 0.719 (66 cited silver paragraphs); no section cut | `kb-stack` @ `1d8b22e` | 84 |  | n/a | subscription ($4.06) |
-| 21:49 to 21:53 | `synth-a06-kb-jev-filter-v4.json` | The filter run above with the minimal-edit rewrite (the method of `rear-lamp-kb-jev-filter-v4.json`) on synth-a06 | `kb-stack` @ `1d8b22e` | 322 | 151 / 0.698 | n/a | subscription ($3.86, $13.02 cold) |
-| 22:03 to 22:09 | `rear-lamp-kb-sol-rewrite-intprompt.json` | The paragraphs of `rear-lamp-kb-jev.json` rewritten by GPT-6.1 Sol (`codex exec`) with the prompt of that run, the other half of the Sol A/B (`rear-lamp-kb-sol-rewrite.json` has the device-naming prompt). Three rewrite batches failed on the ChatGPT usage limit and fell back to the deterministic text, so this is not a clean Sol result | `rewrite_pass` at `6f5a1c1` (`wt-int`) | 389 | 140 / 0.609 |  | subscription (not logged) |
-| 22:26 to 22:33 | `rear-lamp-agent-v1.json` | One Opus agent (`claude -p`, effort high, file tools only) with the spec, the image and the regulation texts; first prompt, four JSON files merged. Cites the older R7, R3 and R23 beside R148 and R150 (98 rows); the agent could not run a validator | `out/scripts/agent-v1/` | 297 | 38 / 0.180 |  | subscription ($3.78) |
-| 22:34 | `rear-lamp-agent-v1-consolidated.json` | The file above without the 98 rows that cite R7, R3 or R23, which R148 and R150 replace; same file as `upload/agent-opus-minimal.json`, staged and not uploaded | `out/scripts/agent-v1/` | 199 | 38 / 0.198 |  | $0 |
 
 Lane G's local column is paragraph precision / recall / F2 against 67 silver bumper paragraphs. Every other row is requirement matched / F2 on the rear lamp. Empty cells were not recorded when the run was made.
 
@@ -448,40 +429,6 @@ last row was R-085's subject, not the clause "both in a forward and rearward dir
 gold drops: the judge accepts the extra clause but not a scope it cannot place. The earlier
 reading (a gold inconsistency, not worth a rule) was wrong; the rule is general and costs
 nothing elsewhere. v6 is the dev file of record.
-
-### 24 Oct, earlier A/B runs recorded later
-
-The runs of 20:50 to 22:34 had been saved only in `~/Personal/bench-out/`. Nineteen of them are
-now in `out/` with their logs and in the run log above. Synthetic rows are matched of the case's
-expected rows (57 for a03, 190 for a06, which shares dev's gold) and requirement F2, same lexical
-judge as dev. The platform has only the dev case, so synthetic rows have no platform score.
-
-- **Obligation base against `main`.** All on the `claude -p` provider. Wired into the pipeline
-  without a relevance cut (`rear-lamp-kb-wired.json`, `synth-a0*-kb-wired.json`) it scored below
-  `main` on all three cases: dev 0.539 against 0.643, a03 0.505 against 0.566, a06 0.538 against
-  0.650. Adding the per-regulation cut with the original rewrite prompt (`rear-lamp-kb-select.json`)
-  gave 0.602 on dev; the clause-level rewrite prompt gave 0.622 (`rear-lamp-kb-v2.json`) and 0.636
-  with Jev blended in (`rear-lamp-kb-v2-jev.json`).
-- **Jev cut 0.25, filter, minimal-edit rewrite.** The three synthetic runs of each step
-  (`synth-a03-kb-jev`, `-kb-jev-filter`, `-kb-jev-filter-v4`, and the a06 files) were measured
-  next to the dev runs already recorded. F2 by step, dev / a03 / a06: Jev 0.666 / 0.606 / 0.664,
-  plus filter 0.676 / 0.630 / 0.659, plus minimal-edit rewrite 0.717 / 0.648 / 0.698. The local
-  judge rewards the last step on every case, and the platform gave it 0.635 on dev against 0.670
-  for Jev alone (see Branch `kb-stack` runs). `bumper-plain-kb-jev-filter-v4.json` has the same
-  method on the plain bumper.
-- **Sol rewrite A/B.** `rear-lamp-kb-sol-rewrite-intprompt.json` is the half of the A/B that
-  `rear-lamp-kb-sol-rewrite.json` did not record: same 214 paragraphs, same Sol model, the older
-  prompt. Three of its rewrite batches hit the usage limit and fell back to the deterministic text,
-  so it says little about the prompt.
-- **Minimal agent, first prompt.** `rear-lamp-agent-v1.json` matched 38 of 190. It cites the
-  older R7, R3 and R23 beside R148 and R150; without those rows (`-consolidated`) it still
-  matches 38 on 199 rows. The v3 agent (`rear-lamp-agent-v3.json`), with a TSV output converted
-  by script, matched 108.
-- **Not recorded, no file.** `fin-bumper-sensors-fog` stopped on 198 unscored GTR 9 paragraphs;
-  the Sol full-pipeline runs, `v5-` and `j20-` runs on codex stopped on the usage limit or the
-  workspace credits; the second agent run (`agent-dev2`) ended without a result message.
-  Identical to files already in `out/` and skipped: `main-dev`, `int-dev`, `fin-dev`,
-  `wired-nollm-dev`, `ab-v5`, `j20f-*`, `ownsubj`, `splitless-all`, `v5opus-dev`, `agent-v3`.
 
 ### Cost per run
 

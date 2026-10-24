@@ -1,6 +1,0 @@
-[brain 21:49:38] profile: Front bumper: the protective assembly at the front of the vehicle, made up of a bumper cover, an energy absorber and a bumper beam; 17 terms; electronics=False
-[brain 21:50:10] regulations: UN R127 0.95, UN R42 0.95, UN R26 0.80, UN GTR 9 0.75
-[brain 21:51:37] paragraphs selected: 72
-[brain 21:52:34] requirements: 121 kept, 0 dropped
-[brain 21:52:42] expert filter: 84 kept of 121
-[brain 21:52:42] wrote /Users/imantsliepins/Personal/bench-out/fin-bumper-plain.json (84 requirements); 194.6s, 87 LLM calls + 0 cached, $4.06 ($4.06 with a cold cache)
