@@ -168,6 +168,13 @@ def patch(args: argparse.Namespace) -> None:
     if args.rw_prompt == "verbatim":
         rewrite._SYSTEM = RW_VERBATIM
     if getattr(args, "weight", None) is not None:
+        # blend() binds its default at import, so assigning relevance.WEIGHT does nothing.
+        orig_blend = relevance.blend
+
+        def blend(model_p: float, llm_p: float | None, weight: float | None = None) -> float:
+            return orig_blend(model_p, llm_p, args.weight if weight is None else weight)
+
+        relevance.blend = blend  # type: ignore[method-assign]
         relevance.WEIGHT = args.weight
 
     orig_score = relevance.score
