@@ -47,6 +47,8 @@ No file was nominated. The platform cap was 4 of 5 used this hour, so D4 stops a
       0.860, because the hedge adds rows only on paragraphs the cut already cites.
       All 23 added rows were read. Sixteen match nothing. The seven new matches repeat a
       clause the cut already wrote. No upload nominated.
+      Commit: `959a605` holds this file and both hedge jsons (the shared index was committed
+      with lane F's message; the D paths in that commit are this step).
 
 Next: nothing. The lane is done.
 
