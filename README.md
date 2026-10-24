@@ -55,6 +55,23 @@ Platform rules:
 - **The held-out case lands on Sunday morning.** Build the pipeline to be general (spec + image in, JSON out) and re-run it fast. Keep the dev case as the regression test with `score_local.py`.
 - **For the sub-goal, diff paragraph by paragraph.** Align old and new paragraphs by number, diff the text, and map each changed paragraph to the old requirements that cite it. Paragraphs that are new and contain "shall" become `added` changes.
 
+## Requirement engine (`brain/`)
+
+`brain/` turns a spec and exploded view into the submission JSON: product profile, regulation
+selection, paragraph relevance, EARS rewrite, validation. Details, options and the Sunday
+runbook are in [brain/README.md](brain/README.md).
+
+```bash
+cd brain
+uv sync --extra llm                                              # once
+uv run python -m brain.ingest                                    # parse the regulation PDFs (about 10 s)
+uv run python -m brain.pipeline ../cases/dev-rear-lamp --no-llm  # writes out/dev-rear-lamp.json
+uv run python -m eval.score out/dev-rear-lamp.json               # F2 at three levels
+```
+
+Without configuration it runs deterministically with no network calls. LLM steps run only when
+`BRAIN_LLM` is set in `brain/.env` (gitignored), because a strong-model run costs real money.
+
 ## Development
 
 ```bash
@@ -62,8 +79,9 @@ cd web/backend && uv run uvicorn app.main:app --reload   # API on :8000
 cd web/frontend && bun run dev                       # UI on :5173, proxies /api and /pdfs to :8000
 ```
 
-Code quality: `make check` runs ruff, ruff format, mypy (backend) and Biome, svelte-check
-(frontend) without changing files. `make fix` applies the ruff and Biome fixes.
+Code quality: `make check` runs ruff, ruff format, mypy (backend and brain) and Biome,
+svelte-check (frontend) without changing files. `make fix` applies the ruff and Biome fixes.
+`make test` runs the brain tests. Run `uv sync` in `brain/` once first.
 
 Docker (also what Render deploys via `render.yaml`):
 

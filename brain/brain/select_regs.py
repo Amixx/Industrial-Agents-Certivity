@@ -1,0 +1,251 @@
+"""ProductProfile -> which regulations apply, with a probability and a rationale for each.
+
+Deterministic scoring (always available):
+  * product terms found in the regulation's title, scope, section headings and definitions;
+  * vehicle-category compatibility with the scope ("applies to vehicles of category M1");
+  * EMC: a product with electronics pulls in the regulation on electromagnetic compatibility;
+  * consolidation: a regulation that "combines the provisions of individual UN Regulations Nos.
+    3, 27, 69, 70 and 104" demotes those legacy regulations (R150 over R3, R148 over R7).
+With an LLM configured, a model reviews the shortlist with the scope texts and decides.
+"""
+
+from __future__ import annotations
+
+import json
+import math
+import re
+from dataclasses import dataclass, field
+
+from . import llm
+from .ingest import sources
+from .models import Paragraph, ProductProfile, RegulationChoice
+
+COMBINES = re.compile(r"combines the provisions of[^.]*?Nos?\.\s*([\d,\sand]+)", re.I)
+CATEGORY = re.compile(r"\b([LMNOTRS])(\d)?\b")
+EMC = re.compile(r"electromagnetic compatibility", re.I)
+_STOP = frozenset("and or of the for with a an to in on".split())
+
+
+@dataclass
+class RegulationDoc:
+    regulation: str
+    version: str
+    title: str
+    scope: str
+    headings: list[str]
+    terms: list[str]
+    body: str
+    combines: list[str] = field(default_factory=list)
+
+
+def _norm(text: str) -> str:
+    text = text.lower().replace("‑", "-").replace("–", "-")
+    text = re.sub(r"[^a-z0-9\- ]+", " ", text)
+    words = [
+        w[:-1] if len(w) > 3 and w.endswith("s") and not w.endswith("ss") else w
+        for w in text.split()
+    ]
+    return " " + " ".join(words) + " "
+
+
+def documents(corpus: dict[str, list[Paragraph]]) -> dict[str, RegulationDoc]:
+    titles = {s.regulation: s.title for s in sources()}
+    out = {}
+    for reg, ps in corpus.items():
+        scope_ps = [p for p in ps if not p.annex and re.match(r"^\s*(scope|purpose)", p.text, re.I)]
+        if scope_ps:
+            start = ps.index(scope_ps[0])
+            scope = " ".join(p.text for p in ps[start : start + 4])
+        else:
+            scope = " ".join(p.text for p in ps[:3])
+        headings = [
+            p.heading or p.text
+            for p in ps
+            if not p.annex
+            and p.number
+            and p.number.count(".") <= 1
+            and (p.heading or len(p.text) < 80)
+        ]
+        terms = [m[1] for p in ps if (m := re.match(r"^[\"“']([^\"”']{2,80})[\"”']", p.text))]
+        preamble = next((p.text for p in ps if p.label == "preamble"), "")
+        combines = []
+        if m := COMBINES.search(preamble):
+            combines = [f"UN R{n}" for n in re.findall(r"\d+", m[1])]
+        out[reg] = RegulationDoc(
+            reg,
+            ps[0].version if ps else "",
+            titles.get(reg, ""),
+            scope[:1500],
+            headings,
+            terms,
+            " ".join(p.text for p in ps),
+            combines,
+        )
+    return out
+
+
+def _categories_ok(profile: ProductProfile, scope: str) -> bool:
+    if not profile.vehicle_categories:
+        return True
+    found = CATEGORY.findall(scope[:600])
+    if not found:
+        return True
+    for cat in profile.vehicle_categories:
+        letter, digit = cat[0], cat[1:2]
+        if any(f == letter and (not d or d == digit) for f, d in found):
+            return True
+    return False
+
+
+def lexical_scores(profile: ProductProfile, docs: dict[str, RegulationDoc]) -> dict[str, float]:
+    phrases = [_norm(k).strip() for k in profile.keywords + profile.parts + profile.functions]
+    phrases = [p for p in dict.fromkeys(phrases) if len(p) > 3]
+    scores = {}
+    for reg, d in docs.items():
+        title, scope = _norm(d.title), _norm(d.scope)
+        heads, terms, body = (
+            _norm(" | ".join(d.headings)),
+            _norm(" | ".join(d.terms)),
+            _norm(d.body),
+        )
+        s = 0.0
+        title_words, scope_words = set(title.split()), set(scope.split())
+        for ph in phrases:
+            key = f" {ph} "
+            s += 3.0 * (key in title) + 2.0 * (key in scope) + 1.5 * (key in heads)
+            s += 1.5 * (key in terms) + 0.3 * math.log1p(body.count(key))
+            words = set(ph.split()) - _STOP
+            if len(words) >= 2 and key not in title and words <= title_words:
+                s += 2.0  # "front protective device" vs title "front and rear protective devices"
+            elif len(words) >= 2 and key not in scope and words <= scope_words:
+                s += 1.0
+        if profile.electronics and EMC.search(d.title + " " + d.scope):
+            s += 6.0
+        if not _categories_ok(profile, d.scope):
+            s *= 0.05
+        scores[reg] = s
+    for reg, d in docs.items():  # consolidated regulations replace the legacy ones they combine
+        if scores.get(reg, 0) > 0:
+            for legacy in d.combines:
+                if legacy in scores:
+                    scores[legacy] *= 0.1
+    return scores
+
+
+def choose(
+    profile: ProductProfile,
+    corpus: dict[str, list[Paragraph]],
+    threshold: float = 0.4,
+    scale: float = 3.0,
+    use_llm: bool | None = None,
+) -> list[RegulationChoice]:
+    docs = documents(corpus)
+    scores = lexical_scores(profile, docs)
+    choices = []
+    for reg, s in sorted(scores.items(), key=lambda kv: -kv[1]):
+        p = 1 - math.exp(-s / scale)
+        why = f"term match score {s:.1f}"
+        if any(reg in d.combines for d in docs.values() if scores.get(d.regulation, 0) > 0):
+            why += "; superseded by a consolidated regulation"
+        choices.append(
+            RegulationChoice(
+                regulation=reg,
+                version=docs[reg].version,
+                probability=round(p, 3),
+                selected=p >= threshold,
+                rationale=why,
+            )
+        )
+    if use_llm is False or (use_llm is None and not llm.available()):
+        return choices
+    return _llm_review(profile, docs, choices)
+
+
+_SYSTEM = """You are a type-approval engineer. Given a product and a list of UN Regulations
+(title and scope), decide which regulations contain requirements the product itself must fulfil.
+Rules learned from expert answers:
+- Cite the device regulation that approves the product, the installation regulation for the
+  vehicle category when the product is installed on a vehicle, and the EMC regulation when the
+  product contains electronics.
+- Prefer the newer consolidated regulation over the legacy regulations it combines (e.g. R148
+  over R6/R7/R23/R38, R149 over R19, R150 over R3/R104).
+- Do not cite regulations about other systems of the vehicle, other vehicle categories, or
+  test equipment only. Recall matters more than precision, but do not pad."""
+
+_SCHEMA = {
+    "type": "object",
+    "properties": {
+        "decisions": {
+            "type": "array",
+            "items": {
+                "type": "object",
+                "properties": {
+                    "regulation": {"type": "string"},
+                    "applies": {"type": "boolean"},
+                    "p_applies": {
+                        "type": "number",
+                        "description": "probability (0-1) that the regulation applies",
+                    },
+                    "rationale": {"type": "string"},
+                },
+                "required": ["regulation", "applies", "p_applies", "rationale"],
+                "additionalProperties": False,
+            },
+        }
+    },
+    "required": ["decisions"],
+    "additionalProperties": False,
+}
+
+
+def _ask(profile: ProductProfile, docs: dict[str, RegulationDoc]) -> dict[str, dict]:
+    listing = "\n\n".join(
+        f"{d.regulation} - {d.title}\nScope: {d.scope[:700]}"
+        + (f"\nCombines: {', '.join(d.combines)}" if d.combines else "")
+        for d in docs.values()
+    )
+    prompt = (
+        f"Product profile:\n{profile.model_dump_json(indent=1)}\n\n"
+        f"Regulations:\n\n{listing}\n\nReturn one decision per regulation."
+    )
+    schema = json.loads(json.dumps(_SCHEMA))
+    item = schema["properties"]["decisions"]["items"]
+    item["properties"]["regulation"] = {"type": "string", "enum": sorted(docs)}
+    data = llm.complete_json(_SYSTEM, prompt, schema, tier="strong", effort="high")
+    # Models sometimes echo "UN R3 - Retro-reflecting devices"; key by the id prefix.
+    return {d["regulation"].split(" - ")[0].strip(): d for d in data["decisions"]}
+
+
+def _llm_review(
+    profile: ProductProfile, docs: dict[str, RegulationDoc], choices: list[RegulationChoice]
+) -> list[RegulationChoice]:
+    verdict = _ask(profile, docs)
+    missing = {r: d for r, d in docs.items() if r not in verdict}
+    if missing:  # one retry with only the omitted regulations
+        verdict |= _ask(profile, missing)
+    out = []
+    for c in choices:
+        v = verdict.get(c.regulation)
+        if v is None:
+            out.append(
+                c.model_copy(update={"rationale": c.rationale + "; no LLM verdict, lexical only"})
+            )
+            continue
+        applies = bool(v["applies"])
+        p = min(1.0, max(0.0, float(v["p_applies"])))
+        # Keep the probability consistent with the decision the model made.
+        p = max(p, 0.5) if applies else min(p, 0.49)
+        out.append(
+            RegulationChoice(
+                regulation=c.regulation,
+                version=c.version,
+                probability=round(p, 3),
+                selected=applies,
+                rationale=f"{v['rationale']} (lexical: {c.rationale})",
+            )
+        )
+    return sorted(out, key=lambda c: -c.probability)
+
+
+def dump(choices: list[RegulationChoice]) -> str:
+    return json.dumps([c.model_dump() for c in choices], indent=1)
