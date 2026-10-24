@@ -245,11 +245,24 @@ Say which base file the final number uses.
 
 ## Results
 
-Each lane writes to `out/experiments/<lane>.md`. The master summarises here, and in the chat:
-rows, matched count, and local F2 for each experiment. For each file the master names the
-single biggest reason F2 is not 1.0, from `eval.errors`: the larger of the lift from dropping
-rows outside gold paragraphs, the lift from recovering gold rows missed on a cited paragraph,
-and the lift from citing gold paragraphs the file skips.
+Written 25 Oct 00:02 CEST, from the lane reports, after `eval.errors` on each headline file. Every score is local. Nothing was uploaded. Spend is $4.34, all of it lane H (Sonnet weight 0.85 $3.16, Haiku relevance $1.17). J, K, I and L spent $0. With the swings' $14.92, the event total is $19.26 of the $70 ceiling.
 
-Which of the two gaps (outside rows, collapsed tables) moved F2, whether a vote we generate
-survives, and whether Sunday is still one Sonnet run at blend weight 0.85.
+A perfect local score is F2 1.0: 190 matched rows and 190 submitted rows. The lift named for each file is the larger of three counterfactuals: drop every row on a paragraph the experts never cite, turn the misses on a cited paragraph into matches without adding rows, or add one matching row for each gold row on a paragraph the file never cites.
+
+| Lane | File | Rows | Matched | F2 | Biggest lift toward 1.0 |
+|---|---|---|---|---|---|
+| J, classes on votes7 | no cut adopted; votes7 stands | 351 | 156 | 0.702 | 151 outside rows, to 0.813 |
+| J, least-bad cut | drop classes 1 and 2 | 271 | 142 | 0.689 | 30 on-cited misses, to 0.834 |
+| K, classes on votes4 | drop class 1 | 407 | 158 | 0.677 | 172 outside rows, to 0.794 |
+| I, table lines added | votes7 plus 28 value lines | 379 | 163 | 0.716 | 151 outside rows, to 0.825 |
+| H, vote of three new runs | 2 of 3 | 388 | 144 | 0.627 | 28 on-cited misses, to 0.749 |
+| H, best single run | reused Opus, weight 0.7 | 388 | 146 | 0.636 | 177 outside rows, to 0.747 |
+| L, Sunday control | Sonnet weight 0.85, drop 1 and 2 | 345 | 130 | 0.588 | 34 gold rows never cited, to 0.720 |
+
+**Outside rows.** The four classes catch 86 of the 151 votes7 rows on paragraphs the experts never cite, and they destroy 43 of the 156 matches. Class 1 deletes about four unmatched rows per match, under the break-even of about seven. Class 3 deletes 19 matches to catch 21 outside rows. No votes7 cut still matches 151, so none is adopted. The same rules lower F2 on Fable, on the weight-0.7 file, and on the Sonnet weight-0.85 file. On votes4, dropping class 1 keeps 158 matches in 407 rows (F2 0.677). That is two matches above votes7 and 0.025 F2 below it. The five extra matches are four different classes. Filtering the loose vote does not beat the tight one.
+
+**Collapsed tables.** One table pays. UN R10 6.9.1 goes from 3 of 10 gold rows to 10 of 10, at 12 added rows, and the union is 379 rows, 163 matched, F2 0.716. Misses on a cited paragraph fall from 23 to 16. Tables 2a, 2b and the two missing 12 V lines add 16 rows and no matches. Annex 9 3.1 was already one row per modulation. The 151 outside rows are still the largest gap on that file (dropping them reaches 0.825). The split is a parser for three lamp tables. A bumper that does not cite them gains nothing from it.
+
+**A vote we generate.** It loses to one run. Opus at weight 0.7, reused, is 146 / 0.636. Sonnet at weight 0.85 is 136 / 0.585. Haiku relevance with a Sonnet rewrite is 138 / 0.539. The 2-of-3 vote is 144 / 0.627. The 3-of-3 vote is 111 / 0.548. Both votes are below the Opus file, and both are well below votes7. The 0.702 figure belongs to the 14-file pool. These three selections do not reproduce it. On the 2-of-3 vote the largest remaining gap is the 28 gold rows missed inside paragraphs it already cites.
+
+**Sunday.** One Sonnet run at blend weight 0.85, the bumper command from lane G, stays the Sunday file. On the lamp that same setting is 403 rows, 136 matched, F2 0.585, ten matches behind the Opus weight-0.7 file, and the skip filter moves it to 345 / 130 / 0.588. The lamp and the bumper disagree about the weight. The filter does not close the gap on either lamp base. Lane G's measured fog command remains 134 s and $4.33; a cold plain bumper of that size is about 60 s and about $1.15. Do not append the four-class filter, and do not spend Sunday on a second relevance model unless the paragraph choice on the bumper is the thing that fails.
