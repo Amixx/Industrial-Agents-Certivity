@@ -3,12 +3,13 @@
 Entry for the Certivity challenge at the Industrial AI hackathon.
 
 - Brief: [docs/certivity-challenge-brief.pdf](docs/certivity-challenge-brief.pdf)
-- Official challenge repo: <https://github.com/Certivity/industrial-ai-hackathon>, checked out as the `` submodule. Its data is licensed for this hackathon only, so keep this repo private.
+- Official challenge repo: <https://github.com/Certivity/industrial-ai-hackathon>, merged in at the repo root like a fork, with its README at [docs/CHALLENGE.md](docs/CHALLENGE.md). Its data is licensed for this hackathon only, so keep this repo private.
+- The regulation PDFs are committed under `regulations/pdf/` and `subgoal/dev/`, because the download links expire after the event.
 
 ```bash
-git submodule update --init                     # first checkout
-git -C upstream pull                            # Sunday morning: brings in the held-out case
-python3 tools/fetch_regulations.py     # download the regulation PDFs (links expire after the event)
+git remote add upstream https://github.com/Certivity/industrial-ai-hackathon   # once per clone
+git pull upstream main                          # Sunday morning: brings in the held-out case
+python3 tools/fetch_regulations.py              # then fetch the held-out case's PDFs
 ```
 
 ## The task
