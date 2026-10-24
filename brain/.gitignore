@@ -1,5 +1,6 @@
 # Generated
 data/cache/
 data/corpus/
+data/kb.sqlite
 out/*.log
 .env
