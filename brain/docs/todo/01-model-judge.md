@@ -98,6 +98,13 @@ platform):
   and 142, so one upload carries noise of that size: treat differences under about 8 matches as
   a tie, from either judge.
 
+**Out of sample (after calibration).** `rear-lamp-kb-own-subject.json` changes only the rewrite
+prompt against `recall-push-filter.json`. The model judge counted 163 against 150 (estimate
++16 over the platform); the platform counted 151 against 150. Both judges overrate this kind of
+wording change, so do not use either to choose between rewrite prompts; use an upload. The
+platform's matched count barely moves with the writing style (143 to 154 across every Opus,
+Fable, Sonnet and Sol rewrite of the same paragraphs).
+
 **Configurations tried:**
 
 | Configuration | Result |

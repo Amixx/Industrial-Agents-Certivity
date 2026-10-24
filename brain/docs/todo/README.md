@@ -6,7 +6,7 @@ files, so they can run in parallel without merge conflicts.
 
 | File | Task | Owns | Status |
 |---|---|---|---|
-| [01-model-judge.md](01-model-judge.md) | Calibrate a model judge against the platform's dev scores | `eval/model_judge.py`, `eval/judge.py` | done: within 4.7 matches of the platform on average, Spearman 0.84; see Results |
+| [01-model-judge.md](01-model-judge.md) | Calibrate a model judge against the platform's dev scores | `eval/model_judge.py`, `eval/judge.py` | done, with a limit: within 4.7 matches on the 16 calibration uploads, but it overrated a rewrite-prompt change by 12 matches; see Results |
 | [02-rewrite-granularity.md](02-rewrite-granularity.md) | Split obligations the way the gold does, with a strong model | `brain/rewrite.py`, `eval/rewrite_pass.py` | done; on `main` (Jev behind `BRAIN_JEV=1`, filter on the LLM path), see Results |
 | [03-selection-stack.md](03-selection-stack.md) | Fewer paragraphs outside the gold: Jev, LLM and decision model combined | `brain/relevance.py`, `brain/features.py`, `brain/decide.py`, `data/decision_model.json`, a new `brain/jev.py` | done; on `main` (Jev behind `BRAIN_JEV=1`, filter on the LLM path), see Results |
 | [04-bumper-regulations.md](04-bumper-regulations.md) | Decide the regulation list for every likely bumper spec | `brain/select_regs.py`, `data/bumper-labels/`, a new `docs/bumper-regulations.md` | open; `kb-stack` adds an obligation-base ranking and a light-source rule to `select_regs.py` |
@@ -97,5 +97,5 @@ bigger model does not fix granularity; the prompt has to.
 | `uv run python ../tools/validate.py <file>` | The platform's own format check |
 
 The local lexical judge's error depends on the writing style (up to 18 matches), so it cannot
-compare two rewrite styles. Use `eval.model_judge` for that: on the 16 scored dev uploads it is
-within 4.7 matches of the platform on average (Spearman 0.84), about the platform's own noise.
+compare two rewrite styles. `eval.model_judge` is within 4.7 matches on the 16 calibration uploads but overrated a
+rewrite-prompt change by 12 matches out of sample, so compare rewrite styles with an upload.
