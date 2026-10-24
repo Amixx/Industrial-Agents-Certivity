@@ -1,6 +1,6 @@
 # Lane C: maximum precision, only rows we are surest of
 
-State: waiting for upload (all four steps done, report written). Updated: 24 Oct 22:45 CEST.
+State: done. Updated: 24 Oct 22:56 CEST.
 Approved spend: $0. Spent: $0.
 
 ## Checklist
@@ -22,8 +22,9 @@ Approved spend: $0. Spent: $0.
 - [x] C4 Read the misses of the top bucket by hand, five most common reasons. Done 22:45. List
       in the report; it goes to lanes E and F.
 
-Next: wait for the owner's upload of `out/rear-lamp-swing-C-votes12.json`; the master writes the
-platform numbers into the Uploads table. Nothing else in this lane depends on it.
+Next: none. Official local scores are in the run log and the report (22:56). The votes12
+nomination from C3 stays in the Uploads table; it was not sent this hour (owner: 4 of 5 platform
+slots used) and this lane is not waiting on the platform numbers.
 
 ## Run log rows
 
@@ -39,6 +40,22 @@ representative text is the Fable row, else kb-jev, else the next run by platform
 | 22:42 | `rear-lamp-swing-C-votes10.json` | clusters written by 10 or more runs | `big-swings`, `swing/c_precision.py` | 217 | 118 / 0.604 | not uploaded | $0 |
 | 22:42 | `rear-lamp-swing-C-kbjev-top150.json` | kb-jev's 150 rows with the highest relevance confidence (0.505 or more) | `big-swings`, `swing/c_precision.py` | 150 | 82 / 0.451 | not uploaded | $0 |
 | 22:42 | `rear-lamp-swing-C-both-v6-c05.json` | clusters with 6 or more votes and Fable or kb-jev confidence 0.5 or more | `big-swings`, `swing/c_precision.py` | 120 | 78 / 0.443 | not uploaded | $0 |
+
+Official local scores, appended 24 Oct 22:56 CEST. From `brain/`, each file:
+`uv run python ../tools/validate.py`, `uv run python ../tools/score_local.py`,
+`uv run python -m eval.score`. No API calls. `score_local.py` is regulation and page
+precision, recall and F1 (cited / expected / matched). It does not compute requirement F2.
+Requirement matched and F2 are from `eval.score`, and they match the Local matched / F2
+column above. Page F2 in the last column is also from `eval.score` (same page precision and
+recall, F2 instead of F1).
+
+| File | Validate | Regulation P / R / F1 (cited / expected / matched) | Page P / R / F1 (cited / expected / matched) | Requirement matched / F2 | Page F2 |
+|---|---|---|---|---|---|
+| `rear-lamp-swing-C-votes12.json` | OK, 149 requirements | 1.000 / 1.000 / 1.000 (4 / 4 / 4) | 0.917 / 0.830 / 0.871 (48 / 53 / 44) | 99 / 0.545 | 0.846 |
+| `rear-lamp-swing-C-votes13.json` | OK, 105 requirements | 1.000 / 1.000 / 1.000 (4 / 4 / 4) | 0.930 / 0.755 / 0.833 (43 / 53 / 40) | 71 / 0.410 | 0.784 |
+| `rear-lamp-swing-C-votes10.json` | OK, 217 requirements | 1.000 / 1.000 / 1.000 (4 / 4 / 4) | 0.900 / 0.849 / 0.874 (50 / 53 / 45) | 118 / 0.604 | 0.859 |
+| `rear-lamp-swing-C-kbjev-top150.json` | OK, 150 requirements | 1.000 / 1.000 / 1.000 (4 / 4 / 4) | 0.972 / 0.660 / 0.787 (36 / 53 / 35) | 82 / 0.451 | 0.706 |
+| `rear-lamp-swing-C-both-v6-c05.json` | OK, 120 requirements | 1.000 / 1.000 / 1.000 (4 / 4 / 4) | 0.971 / 0.623 / 0.759 (34 / 53 / 33) | 78 / 0.443 | 0.671 |
 
 ## Uploads
 
@@ -148,3 +165,16 @@ synthetic retro-reflector case has no pool of runs, so it was not checked.
 full files). What carries over is the miss list above: reasons 1 to 4 are rules or features a
 selector can apply to a bumper run at no cost and in seconds, and the vote filter needs k runs
 (lane A and G give its cost).
+
+**Official local scores** (24 Oct 22:56 CEST, from `brain/`, no API calls). All five files
+pass `tools/validate.py`. Regulation and page precision, recall and F1 are from
+`score_local.py`. That tool does not compute requirement F2. Requirement matched count and
+F2 are from `eval.score`. Page F2 is the same page precision and recall with F2.
+
+| File | Validate | Regulation P / R / F1 (cited / expected / matched) | Page P / R / F1 (cited / expected / matched) | Requirement matched / F2 | Page F2 |
+|---|---|---|---|---|---|
+| `rear-lamp-swing-C-votes12.json` | OK, 149 | 1.000 / 1.000 / 1.000 (4 / 4 / 4) | 0.917 / 0.830 / 0.871 (48 / 53 / 44) | 99 / 0.545 | 0.846 |
+| `rear-lamp-swing-C-votes13.json` | OK, 105 | 1.000 / 1.000 / 1.000 (4 / 4 / 4) | 0.930 / 0.755 / 0.833 (43 / 53 / 40) | 71 / 0.410 | 0.784 |
+| `rear-lamp-swing-C-votes10.json` | OK, 217 | 1.000 / 1.000 / 1.000 (4 / 4 / 4) | 0.900 / 0.849 / 0.874 (50 / 53 / 45) | 118 / 0.604 | 0.859 |
+| `rear-lamp-swing-C-kbjev-top150.json` | OK, 150 | 1.000 / 1.000 / 1.000 (4 / 4 / 4) | 0.972 / 0.660 / 0.787 (36 / 53 / 35) | 82 / 0.451 | 0.706 |
+| `rear-lamp-swing-C-both-v6-c05.json` | OK, 120 | 1.000 / 1.000 / 1.000 (4 / 4 / 4) | 0.971 / 0.623 / 0.759 (34 / 53 / 33) | 78 / 0.443 | 0.671 |
