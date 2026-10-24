@@ -15,7 +15,7 @@ A lane that would pass its planned cap stops, writes the estimate, and waits. Th
 
 | Lane | State | Last update | Current step | Spend so far | Lane file |
 |---|---|---|---|---|---|
-| J skip classes on votes7 | running | 23:33 | rules first; $1 approved if a model call is required | $0 | out/experiments/J.md |
+| J skip classes on votes7 | running | 23:53 | J1 tagged, sweep next | $0 | out/experiments/J.md |
 | K same filter on votes4 | done | 23:53 | K4: filter does not beat votes7, not nominated | $0 | out/experiments/K.md |
 | I table split into votes7 | done | 23:47 | I3 scored, 163 matched, F2 0.716, not nominated | $0 | out/experiments/I.md |
 | H vote of three new runs | running | 23:33 | dry-run, then the three runs if the estimate is within $6 | $0 | out/experiments/H.md |
@@ -33,6 +33,7 @@ Score with `tools/validate.py`, `tools/score_local.py`, and `uv run python -m ev
 
 ## Log
 
+- 23:53 Lane J step 1. Tagged votes7 with text rules: class hits 63 / 17 / 43 / 24, 139 rows in any class, 40 left ambiguous and not dropped. Spend $0. No model call.
 - 23:53 Lane K done. Best cut drop class 1: 407 rows, 158 matched, F2 0.677, against votes7 351 / 156 / 0.702. Five extra matches: one untagged, one class 1, one class 2, two class 3. Not nominated. Spend $0.
 - 23:53 Lane L done. Base `out/rear-lamp-main-a39acab.json` (weight 0.7): 388 rows, 146 matched, F2 0.636. Best filter drop 1+2: 315 / 138 / 0.642. votes7 is 351 / 156 / 0.702. Not within 5 matches. Not nominated. Spend $0. The weight-0.85 lamp file was not scored.
 - 23:52 Lane K step 2. Four cuts of votes4. Best is drop class 1: 407 rows, 158 matched, F2 0.677. None beats votes7 (351 / 156 / 0.702). Spend $0.
