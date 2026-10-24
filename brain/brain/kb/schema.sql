@@ -22,7 +22,10 @@ CREATE TABLE obligation (
   text_norm TEXT NOT NULL, modality TEXT NOT NULL, n_modal INTEGER NOT NULL,
   condition_type TEXT NOT NULL, condition_text TEXT, subject_text TEXT, response_text TEXT,
   exception_text TEXT, det_text TEXT, subject_entity_id TEXT, kind TEXT, level TEXT,
-  categories_json TEXT, ears_text TEXT, UNIQUE(node_id, ord), UNIQUE(node_id, char_start, char_end)
+  categories_json TEXT, ears_text TEXT, sub INTEGER NOT NULL DEFAULT 0,
+  parent_obligation_id TEXT REFERENCES obligation(id), derivation TEXT NOT NULL DEFAULT 'source',
+  variant_json TEXT, provenance_id TEXT,
+  UNIQUE(node_id, ord, sub), UNIQUE(node_id, char_start, char_end, sub)
 );
 CREATE TABLE obligation_value (
   obligation_id TEXT NOT NULL REFERENCES obligation(id), ord INTEGER NOT NULL, quantity REAL,
@@ -54,6 +57,14 @@ CREATE TABLE override (
   target_table TEXT NOT NULL, target_id TEXT NOT NULL, quote_hash TEXT NOT NULL, field TEXT NOT NULL,
   value TEXT NOT NULL, author TEXT NOT NULL, note TEXT NOT NULL,
   PRIMARY KEY(target_table, target_id, quote_hash, field)
+);
+CREATE TABLE field_provenance (
+  target_table TEXT NOT NULL, target_id TEXT NOT NULL, field TEXT NOT NULL, provenance_id TEXT NOT NULL,
+  PRIMARY KEY(target_table, target_id, field)
+);
+CREATE TABLE enrich_rejection (
+  prompt_hash TEXT NOT NULL, target TEXT NOT NULL, reason TEXT NOT NULL,
+  PRIMARY KEY(prompt_hash, target, reason)
 );
 CREATE TABLE manifest (key TEXT PRIMARY KEY, value TEXT NOT NULL);
 CREATE TABLE provenance (

@@ -261,7 +261,11 @@ def build_db(
                 )
                 n_modal = len(re.findall(r"\b(?:shall|must|may)\b", raw, re.I))
                 conn.execute(
-                    "INSERT INTO obligation VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)",
+                    "INSERT INTO obligation (id, node_id, ord, source_kind, char_start, char_end, "
+                    "page_start, page_end, quote_raw, text_norm, modality, n_modal, "
+                    "condition_type, condition_text, subject_text, response_text, exception_text, "
+                    "det_text, subject_entity_id, kind, level, categories_json, ears_text) "
+                    "VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)",
                     (
                         oid,
                         p.id,
