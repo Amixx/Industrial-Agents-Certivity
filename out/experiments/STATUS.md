@@ -16,7 +16,7 @@ stays under $70, and must ask the owner above that.
 |---|---|---|---|---|---|
 | A votes | not started | | | $0 | out/experiments/A.md |
 | B maximum recall | not started | | | $0 | out/experiments/B.md |
-| C maximum precision | not started | | | $0 | out/experiments/C.md |
+| C maximum precision | running | 22:40 | C1 | $0 | out/experiments/C.md |
 | D hedged cuts | not started | | | $0 | out/experiments/D.md |
 | E verbatim rows | not started | | | $0 | out/experiments/E.md |
 | F row selector | not started | | | $0 | out/experiments/F.md |
@@ -29,6 +29,7 @@ stays under $70, and must ask the owner above that.
 
 ## Log
 
+- 22:44 Master started lane agents D, E, F, B, G. All seven lanes have an agent.
 - 22:42 Master started lanes A and C ($0), asked the budget, owner answered: caps as written,
   $70 total ceiling. Starting D, E, F, B, G.
 - 22:36 Setup: copied the four `brain-model-mix-examples` files into `out/`, added
