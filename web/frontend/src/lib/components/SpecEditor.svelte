@@ -1,6 +1,6 @@
 <script lang="ts">
 import { EditorState } from '@codemirror/state';
-import { EditorView, placeholder as cmPlaceholder } from '@codemirror/view';
+import { placeholder as cmPlaceholder, EditorView } from '@codemirror/view';
 import { hybridMarkdown } from 'codemirror-markdown-hybrid';
 import { untrack } from 'svelte';
 

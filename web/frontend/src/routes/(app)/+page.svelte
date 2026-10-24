@@ -147,7 +147,9 @@ function onDrop(e: DragEvent) {
 			<SpecEditor
 				bind:value={spec}
 				placeholder="Paste or drop a product spec. Click any line to edit it."
-				class="min-h-0 flex-1 overflow-auto border-b-2 border-black py-3 {dragging ? 'bg-cv-mint-50' : 'bg-white'}"
+				class="min-h-0 flex-1 overflow-auto border-b-2 border-black py-3 {dragging
+					? 'bg-cv-mint-50'
+					: 'bg-white'}"
 			/>
 		</section>
 
