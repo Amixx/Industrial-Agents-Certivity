@@ -1,9 +1,11 @@
 """Paragraph applicability from TypeSafe's Jev: five yes/no judgements per paragraph, combined
 by a logistic regression fitted on the dev gold (data/jev_model.json).
 
-Jev answers each judgement with a calibrated probability; code makes the decision. On dev the
-combination ranks paragraphs at AUC 0.96 (decision model 0.84), and the dev-fit weights hold on
-the synthetic lamps (0.966, 0.964). See docs/jev.md.
+Jev answers each judgement with a calibrated probability; code makes the decision. The
+combination ranks dev paragraphs at AUC 0.92 out of fold (decision model 0.84). Test conditions
+count as technical: the lamp expert rarely cites them, but a part approved by an impact test is
+cited with its test conditions, and on silver labels for a plain front bumper this question ranks
+at AUC 0.89 against 0.88 for one that excludes them. See docs/jev.md.
 """
 
 from __future__ import annotations
@@ -37,12 +39,13 @@ TEXT_CHARS = 1500
 NOULS = {
     "technical": (
         "Does this paragraph state a technical requirement: construction, performance, colour, "
-        "dimensions, position, markings, or a limit the device or vehicle must meet in a test?",
-        "It states a technical requirement or test limit, such as a minimum luminous intensity, "
-        "a required colour, a mounting height, or a marking the device must carry.",
-        "It is a definition, scope statement, administrative step (application, approval form, "
-        "extension, communication, transitional provision), or a description of test equipment "
-        "or laboratory set-up that sets no limit.",
+        "dimensions, position, markings, a limit the device or vehicle must meet in a test, or a "
+        "condition under which that test is carried out?",
+        "It states a technical requirement, test limit or test condition, such as a minimum "
+        "luminous intensity, a mounting height, a marking, or the speed and direction of an "
+        "impact test.",
+        "It is a definition, scope statement, or administrative step (application, approval "
+        "form, extension, communication, transitional provision).",
     ),
     "own_function": (
         "Is this paragraph about one of the lamps, devices or functions that `product` has?",
