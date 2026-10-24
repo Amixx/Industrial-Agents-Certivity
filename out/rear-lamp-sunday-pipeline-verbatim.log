@@ -1,0 +1,8 @@
+[brain 01:21:48] profile: Rear lamp: an exterior lighting and signalling module that holds several light functions, an outer lens and a retro-reflector in one housing; 18 terms; electronics=True
+[brain 01:21:48] regulations: UN R148 0.97, UN R48 0.92, UN R150 0.92, UN R10 0.85
+[brain 01:21:59] paragraphs selected: 307
+[brain 01:25:10] requirements: 450 kept, 12 dropped
+[brain 01:25:10] pointer and approval-mark rows: 10 dropped
+[brain 01:25:47] expert filter: 387 kept of 440
+[brain 01:26:20] section cut: 366 kept of 387
+[brain 01:26:20] wrote /Users/imantsliepins/Personal/bench-out/ready-jevfix/dev.json (366 requirements); 272.2s, 0 LLM calls + 0 cached, $0.00 ($0.00 with a cold cache)
