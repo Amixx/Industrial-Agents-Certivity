@@ -1,6 +1,6 @@
 # Big swings: status
 
-Updated: 24 Oct 23:05 CEST (system clock, `date`) by master (Cursor).
+Updated: 24 Oct 23:07 CEST (system clock, `date`) by master (Cursor).
 Task: brain/docs/todo/07-big-swings.md. Branch: big-swings. Setup done: yes, commit "swing master: setup".
 
 ## Handover to Cursor (22:48)
@@ -44,7 +44,7 @@ Total about $9.82 of the $70 ceiling.
 | B maximum recall | done locally; upload held | 22:58 (commit b58b7d9) | five files scored. ceiling 1,116 rows, 169 matched, F2 0.450. cut 0.20: 358 rows, 142 matched, F2 0.635. | $3.71 | out/experiments/B.md |
 | C maximum precision | done; upload held | 22:58 (commit b04b377) | local scores added to the five precision files. No platform upload. | $0 | out/experiments/C.md |
 | D hedged cuts | done | 23:03 (commit 50d1b04) | best hedge 360 rows, 155 matched, F2 0.692. Hand read: the extra matches are shorter copies, not new obligations. | $0.82 | out/experiments/D.md |
-| E verbatim rows | running (agent live at 23:05) | E.md still at 22:47; v3 file written, not committed | v3 finished: 311 rows, 137 matched, F2 0.640, $0.63. E3–E5 and the report are still open. Do not start a second agent. | $1.79 | out/experiments/E.md |
+| E verbatim rows | restarted at 23:07 after an abort | E.md still at 22:47; v3 file written, not committed | v3 finished: 311 rows, 137 matched, F2 0.640, $0.63. The agent died while scoring. Restarted to score v1–v3, write the report, and commit. No second paid run. | $1.79 | out/experiments/E.md |
 | F row selector | done | 23:02 (commit 959a605) | votes-logit: 356 rows, 154 matched, F2 0.690. AUC 0.892. Word share left out. | $1.25 | out/experiments/F.md |
 | G Sunday feasibility | running (agent live at 23:05) | 23:02 (commit b77e297) | plain bumper: Haiku vote, Sonnet F2 0.789, Opus-ref F2 0.686. Uncommitted: Sonnet weight 0.85 ($0.26) and fog Haiku seed 0 ($0.27). G2 and G3 still open. Do not start a second agent. | $2.25 | out/experiments/G.md |
 
@@ -65,6 +65,7 @@ matched count and F2). The rows below stay as candidates, not as a request to up
 
 ## Log
 
+- 23:07 Lane E's agent aborted during scoring, before the report. Restarted it on the existing v3 file. Lane G's fog Haiku runs are still in progress; left alone. B and C completions were already recorded.
 - 23:05 A, B, C, D and F have local validate, score_local and requirement F2 in their reports.
   E's v3 run finished ($0.63, 137 matched, F2 0.640) and G's Sonnet blend and first fog run
   finished; both agents were still writing at 23:05, so they were left running. No upload asked.
