@@ -21,6 +21,3 @@ web/frontend/.svelte-kit/
 # Local assessment store
 web/backend/.data/
 .amp/
-
-# Generated image-to-3D meshes, too large for git
-web/frontend/static/mesh3d/
