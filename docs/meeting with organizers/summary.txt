@@ -1,0 +1,63 @@
+The conversation focused on the technical requirements and evaluation criteria for a regulation-matching system, specifically applied to the materials and assembly of a "rail lamp." The goal is to develop a solution that identifies relevant regulatory passages based on product descriptions and material lists.
+
+Core System Requirements
+• Input Data: The system must process an "element book" containing the five parts of the rail lamp and their constituent materials (e.g., plastic, glass).
+• Regulatory Scope: The task is not to dictate how to build the product (e.g., windshield material) but to identify regulations governing the delivery and performance of that product (e.g., defrosting speed).
+• Granularity: It is insufficient to simply find a regulation; the system must highlight the specific relevant section, page, and paragraph.
+• Output Format: Each requirement must include an ID, the original text from the regulation, and the source citation (version, page, and paragraph).
+
+Performance & Evaluation
+• Metric Weighting (F2 Score): The evaluation prioritizes Recall over Precision. In a regulatory context, missing a requirement is considered more critical than including a redundant one.
+• Validation: A "code looper" script is provided to validate the format, precision, and recall of the output, though it does not check the semantic accuracy of the text itself.
+• Architecture Preference: If two solutions achieve similar scores, preference will be given to "lighter" models that can be deployed locally on user computers without heavy AI infrastructure.
+
+Technical Strategy
+• Step-by-Step Processing: Avoid "one-shot" generation. The recommended approach is to first generate requirements and then refine them based on the specific platform or engineering constraints.
+• Contextual Linking: Regulations often link to other documents. The system should ideally navigate these links to provide a comprehensive view of the assembly requirements.
+• Material Constraints: The current model assumes parts "clip" together (e.g., knobs), noting that fasteners like screws are currently omitted from the primary parts list.
+
+Evaluation Logic
+
+Is the output format correct?
+Validation script checks structure.
+• No -> Format Error
+• Yes -> Compare F2 Scores
+
+Format Error
+Adjust code script to match required JSON/CSV schema.
+
+Compare F2 Scores
+Recall is weighted more heavily than precision.
+• Scores are tied -> Deployment Efficiency
+• Scores differ -> select Highest F2
+
+Deployment Efficiency
+Can the model run locally without heavy cloud AI?
+• Yes -> Deploy Solution
+• No -> Secondary Solution
+
+Deploy Solution
+Prioritize for user computer deployment.
+
+Next Steps
+• Match Materials: Use the element book and repository to match rail lamp materials to specific regulations.
+• Optimize for F2: Refine the model to ensure no regulatory requirements are missed, even at the cost of slight over-inclusion.
+• Citation Mapping: Ensure every identified requirement is mapped to a specific page and paragraph in the source documentation.
+
+Regulation Requirements and Recall Discussion - Action Items
+
+Optimize model for F2 score
+
+Assignee: me
+
+The user is developing a solution for regulation identification and needs to ensure high recall.
+
+  - Optimize model for F2 score
+
+Match rail lamp materials to regulations
+
+Assignee: me
+
+The user is participating in a regulation matching task involving a rail lamp and its materials.
+
+  - Match rail lamp materials to regulations

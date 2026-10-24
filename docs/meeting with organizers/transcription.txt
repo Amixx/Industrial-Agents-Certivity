@@ -1,0 +1,133 @@
+Regulation Requirements and Recall Discussion - Transcript
+
+Speaker:
+Okay.
+
+Speaker:
+um
+
+Speaker:
+So we are really only focusing on not controlling the carbon?
+
+Speaker:
+This is everything that the rail lamp is made of. So this is all the materials that the rail lamp is made of. Let me take it this way. The rail lamp is made up of these five parts. And these five parts themselves are made of these materials. They can be made of plastic or other stuff. And your task is to take this element book into your painting, plus this whole repository of information that you have.
+
+Speaker:
+and match respect to which regulation you are using. No, you use this step. Because if you are thinking about regulation, you are not telling how to make it. You are only telling how the product should be delivered to the environment.
+
+Speaker:
+So there will be no regulations that tell you your car's windshield should be made of glass, not plastic. But there will be regulations that say if you make your windshield, then the defrosting should happen within 4 seconds. Right? And if it's in the future, then it doesn't make sense that the defrosting happens within 4 seconds. So it's not a matter of plastic, it has to be a plastic. I have a quick question.
+
+Speaker:
+I'll or well old the value of the
+
+Speaker:
+different cards have different ways in which they form the data and this is sometimes important like BMW had a book called "The Theory of Data and Data Management" which is different from all programs and so on so it might be important we actually know that our customers have different ways to interact with them based on the shape and based on the. and so on so this is important and the idea is
+
+Speaker:
+No, this is the front. console will be here. But we can still get a solution that will fit for all.
+
+Speaker:
+any allowance? no, no, because then if you have one set of regulations that tell us that we are not going to fund pumpers, then we can't. we need a system that works for pumpers, gas pumpers, we know everything. so if you need a system that needs a static list of regulations all the time
+
+Speaker:
+then it will have a hiding problem in the decision. And you have to school them by themselves. You do not have time to do this. It's a validation. You have a validation file which we're unlocking and then we upload our answer somewhere to this.
+
+Speaker:
+So this validates the format of the code. So this code script, this code looper that we have, this checks your reform and precision as well, but it doesn't check the text of your file. So it's a good proxy for whatever actual text your code is going to be. It will check whether you have the right paragraph or PDF in that paragraph.
+
+Speaker:
+and then you can do a proxy procedure and you can write a partner but when you upload the same thing you can also test the test that you have created I think that you can do it with the same process you can also do that in any hardware you can use so we have a website where you can upload both MZ and image then under mouse you can put
+
+Speaker:
+or would you also use a new algorithm of the theme for the new mode? you can get to the description of what it's made of
+
+Speaker:
+And that will add to the relation. Yeah. It will add to the add. Description's not the shape. Yeah, not the shape. For example, if it's a 3D mesh, you could change it. Right? I think we rearrange the orientation. You would say that it would be 10 feet, but in a rectangular strip, it's a little more stretched. Yeah, yeah. Maybe the solution is more for this type of a thing. So you seem to have to do, if you do a solution that is both like, bad kind of solution, and you like to be in the middle of it, that's also a common thing.
+
+Speaker:
+this gives you only five lessons
+
+Speaker:
+So it's more useful to not only find the regulations, but also highlight the actual section that is really relevant for this whole regulation. Yeah, exactly. So the regulations are really popular. Yeah, so it's more useful to find all the relevant passages. Yeah, so if you look at the instructions,
+
+Speaker:
+Each of the requirements have an ID, a text which is the text of the original form that we need to read. And it has a source. And the source has a recognition, which is the form recognition. The version of this recognition is also the page and paragraph. are the. So, you can just say this requirement is derived from what I read on page 7 of the regulation.
+
+Speaker:
+Or you could also see that on gate 7 you can also get 2 months. And this recall versus precision, recall is if I understand correctly recall is like the regulations from and precision is like both recall and precision are for the requirements not for the regulations. So one is basically you missed something, one is you added something too much.
+
+Speaker:
+For us it's more important not to miss anything than to add some parameters. Hence F2. So, this is the reason why the recall is weighted slightly as well. F2. Equally. So, F2 will be recalled. I don't know the exact ratio, but it will recall slightly.
+
+Speaker:
+And do you have any constraints or requirements on a final solution like if you use, I don't know, a table as a back-end model? It will probably cost a lot. So do you score everything in solution that uses lighter models or cheaper, fewer models? I mean, if everything else is the same, like you and another team submits a solution with exactly the same scores,
+
+Speaker:
+a UI that is pretty much the same, then we will also look into the architecture of that solution and see if it will be a good model that you can just slide around on your device and it will then be able to deploy the solution in the user's computers without any AI and that is exactly what we want.
+
+Speaker:
+Yeah.
+
+Speaker:
+mostly by choosing whether to do this path or this path and this path and this path and this path and this path and this path and this path and this path and this path and this path and this path and this path and this path and this path and this path and this path and this path and this path and this path and this path and this path and this path and this path and this path and this path and
+
+Speaker:
+So we have like some figure from one of our customers that was people who use it, so we based on this to create a real language that people use more and more using Plot. So if you ask about the data for it, I think it's very simple.
+
+Speaker:
+but it will probably help you to make output based on the relevant release. I think you should do it step by step. You shouldn't ask it to one-shot. There is no respect. You should first ask it to generate like a. So.
+
+Speaker:
+I want to know about the requirements on the platform. So if you need the requirements, then I can imagine that the engineer would send you the relevant requirements, add it to my.
+
+Speaker:
+So it could be used to be like an always on kind of thing that just does stuff inside your own computer in the morning. It has to. Right. Yeah.
+
+Speaker:
+Do we only have the list of parts you like, you talk to the line and they are all the rest of parts, but are we taking into consideration other things that they can support? Like for example, even if you say that there are some parts that you don't like, do we have that in the list? Or are we only considering the parts that we are not connected with? I mean, you should be open to the possibility that you have that.
+
+Speaker:
+for example, is not a very strong piece. But all the screws are? The screws are also not there because I think this one assumes that parts clip into each other. Okay. Right? They clip into each other, but it could be the case. In general, it's not. So, for example, for a knob, you see that when you move it,
+
+Speaker:
+This is the first part.
+
+Speaker:
+Yeah.
+
+Speaker:
+Any type of SODRT, like the type of cost or anything that can change and shift and maybe kind of.
+
+Speaker:
+I don't see any cabinets.
+
+Speaker:
+What do you think is the problem that people will encounter, a challenge, and something you think, like how do you think teams should approach this problem to produce something good? So before that, I want to ask you a question. I'm a graduate student at the University of California, and this is my full-time job.
+
+Speaker:
+It's a very good regulation at thousands of pages, but this provides you a link to other regulations which are then involved. Right? To tell about the entire car assembly, which part the regulation is, how, and then you can go to the next page and then add it to the next page and then you can put in that regulation and then see it. It also says, depending on your role, which regulation
+
+Speaker:
+Yes, that's correct. But if the regulations actually include in the pilot, it will be for the cases that you are talking about, not for the example cases, it will be.
+
+Speaker:
+So if you find the value from 8x8, let's say 152, but even if you give 10x10, what would you do? It's not possible. How would you treat that value?
+
+Speaker:
+Thank you.
+
+Speaker:
+How does it seem to be also for people who want to follow the new survivors to do it, to decide to not do it? Saying that you write to each one of them, or the ones that are MNA, why you chose this one? So that's like an engineered back, you know. Yeah, very exactly. You know, I mean, as a.
+
+Speaker:
+Thank you.
+
+Speaker:
+There are these frameworks which impose how the language should be written. If it's shallow and shouldn't be active voice, not passive voice, some sort of thing. There are various frameworks. Regulations that are divided, there's something to turn whatever they wrote there to, okay, some issue with the one phrase in first. Yeah, exactly.
+
+Speaker:
+Normally all these units, the items they should buy from, is there a need to? For their various units, all the time. You can just pick one. Okay. What is important is the citation. If you're buying, you should say which regulation comes from, which version comes from, and in the case of the other bag. So that it's good enough.
+
+Speaker:
+Thanks a lot. Thank you so much.
