@@ -307,5 +307,27 @@ def test_sections_group_split_score_and_cut(monkeypatch: pytest.MonkeyPatch) -> 
     assert p_section == {small[0].id: 0.25, big[0].id: 0.9, small[1].id: 0.9, small[2].id: 0.9}
     assert sorted(asked) == ["2", "6", "annex 3", "annex 3"]
 
-    kept = sections.cut(drafts, [0.6, 0.6, 0.3, 0.5], p_section)
+    kept = sections.cut(drafts, [0.6, 0.6, 0.2, 0.5], p_section)
     assert [d.paragraph for d in kept] == [big[0], small[2]]
+
+
+def test_boilerplate_drops_pointers_umbrellas_and_approval_marks() -> None:
+    from brain import boilerplate
+
+    dropped = [
+        "Minimum luminous intensity within the angles of geometric visibility: See Table 4",
+        "Failure provisions: See paragraph 4.6.",
+        "Each lamp submitted for approval shall conform to the requirements set forth in "
+        "paragraphs 4. and 5.",
+        "Lamps shall be so manufactured as to conform to the type approved under this Regulation.",
+        'The approval mark, i.e. a circle surrounding the letter "E" followed by the '
+        "distinguishing number of the country which has granted approval.",
+        "The number of this Regulation followed by the letter 'R' and the two digits indicating "
+        "the series of amendments.",
+    ]
+    kept = [
+        "The luminous intensity shall be equal to or greater than the values in Table 4.",
+        "The colour of the light emitted shall be red; see paragraph 5.4.",
+        "Lamps shall bear the trade name or mark of the applicant.",
+    ]
+    assert [q for q in dropped + kept if not boilerplate.matches(q)] == kept

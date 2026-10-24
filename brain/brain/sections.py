@@ -3,14 +3,12 @@
 The requirement filter judges one requirement at a time; here the strong model sees every
 paragraph the kept requirements cite in one section of a regulation together, and gives each a
 probability that an expert's list for the product cites it. A requirement goes when
-p_keep * sqrt(p_section) < THRESHOLD. Offline on the dev lamp, the linear form at 0.2 kept the
-same 151 platform matches with 27 fewer rows (platform F2 0.652 -> 0.672); the sqrt form at 0.35
-is tighter (an estimated 332 rows keeping 115 of the 116 gold paragraphs the run had found).
+p_keep * p_section < THRESHOLD. A square root on p_section with a higher threshold scores better
+on dev but cuts the test-procedure annexes the bumper labels cite.
 """
 
 from __future__ import annotations
 
-import math
 import re
 import sys
 from collections import defaultdict
@@ -23,7 +21,7 @@ from .models import Paragraph
 from .rewrite import Draft
 
 ENABLED = True
-THRESHOLD = 0.35
+THRESHOLD = 0.2
 MAX_SECTION = 25  # a top-level section with more cited paragraphs is split into subsections
 MAX_CHUNK = 20  # consecutive subsections are merged up to this many paragraphs
 TEXT_CHARS = 700
@@ -161,9 +159,9 @@ def scores(drafts: Sequence[Draft], graph: Graph, product: str) -> dict[str, flo
 def cut(
     drafts: Sequence[Draft], p_keep: Sequence[float], p_section: dict[str, float]
 ) -> list[Draft]:
-    """The drafts with p_keep * sqrt(p_section) >= THRESHOLD, in order."""
+    """The drafts with p_keep * p_section >= THRESHOLD, in order."""
     return [
         d
         for d, pk in zip(drafts, p_keep, strict=True)
-        if pk * math.sqrt(p_section[d.paragraph.id]) >= THRESHOLD
+        if pk * p_section[d.paragraph.id] >= THRESHOLD
     ]

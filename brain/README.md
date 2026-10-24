@@ -238,7 +238,8 @@ uv run pytest -q && uv run ruff check . && uv run mypy
 | 3b | `brain/relevance.py` | LLM path: the strong model reads every candidate paragraph in document order, with its heading path and parent clause, and estimates P(cited). Geometric blend with the decision model (weight 0.7 on the LLM). Each regulation keeps the paragraphs scoring at least 0.3 times its best one (never below 0.10), plus its top 6%, so the cut-off follows each regulation's own scale instead of the lamp's. |
 | 4 | `brain/rewrite.py` | Rewrites each paragraph as minimal-edit EARS requirements. Deterministic path: split at "shall", fold "However" into "except that", turn telegraphic lines ("In height: …") into shall-statements using the subject from the heading path. LLM path: few-shot EARS rewrite with the parent clause, so child items keep the parent's condition. |
 | 5 | `brain/verify.py` | Base version only; every number must appear in the source paragraph or its ancestors; dedupe; Certivity's `validate.py`. |
-| 6 | `brain/sections.py` | LLM path, after the requirement filter (`brain/keep.py`): the strong model scores the cited paragraphs of each section side by side; a requirement goes when p_keep × √p_section < 0.35. |
+| 5b | `brain/boilerplate.py` | Drops requirements whose quote only points elsewhere ("Failure provisions: See paragraph 4.6."), only brings other paragraphs into force, or spells out the approval mark. |
+| 6 | `brain/sections.py` | LLM path, after the requirement filter (`brain/keep.py`): the strong model scores the cited paragraphs of each section side by side; a requirement goes when p_keep × p_section < 0.2. |
 | – | `brain/llm.py` | One interface for OpenAI, Anthropic and local OpenAI-compatible servers (Ollama): structured JSON output, or prompted and validated JSON where a local runner lacks it; timeouts and retries; an atomic disk cache. |
 
 ## Results on dev

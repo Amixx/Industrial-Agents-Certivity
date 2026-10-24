@@ -4,8 +4,8 @@
     uv run python -m brain.pipeline ../cases/heldout-front-bumper --team-id team-07 --no-llm
 
 Steps: profile -> regulation selection -> graph -> decision model over paragraphs -> rewrite
--> verify; with an LLM, the requirement filter and the section cut follow. Extra fields
-(confidence, quote, rationale) are allowed by the format and feed the UI.
+-> verify -> boilerplate rows dropped; with an LLM, the requirement filter and the section cut
+follow. Extra fields (confidence, quote, rationale) are allowed by the format and feed the UI.
 `run(spec, image)` is the entry point for the backend.
 """
 
@@ -19,8 +19,8 @@ from collections.abc import Sequence
 from pathlib import Path
 from typing import Any
 
+from . import boilerplate, jev, keep, llm, relevance, sections
 from . import features as F
-from . import jev, keep, llm, relevance, sections
 from .decide import MODEL_PATH, Model
 from .graph import build
 from .ingest import load_all
@@ -135,6 +135,9 @@ def run(
     drafts = rewrite([p for p, _ in chosen], graph, profile.product, use_llm=use_llm)
     kept, dropped = clean(drafts, graph.paragraphs)
     log(f"requirements: {len(kept)} kept, {len(dropped)} dropped")
+    n = len(kept)
+    kept = boilerplate.drop(kept)
+    log(f"pointer and approval-mark rows: {n - len(kept)} dropped")
     if use_llm and kept:
         product = profile.model_dump_json(
             include={"product", "vehicle_categories", "functions", "parts"}
