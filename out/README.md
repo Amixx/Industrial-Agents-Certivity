@@ -25,6 +25,7 @@ that produced the file; branch code is not on `main` unless it says so.
 | | `rear-lamp-kb-sol-rewrite.json` | Paragraphs of `kb-jev` rewritten by GPT-6.1 Sol | `kb-stack` | 420 | | (21:05 to 22:16) 143 / 0.606 | subscription |
 | | `rear-lamp-qwen-split-rewrite.json` | Fable's 208 paragraphs rewritten by qwen3.5:9b, split prompt of `0ccae35` | `dcf1740` | 446 | 137 / 0.568 | (21:47) 133 / 0.551 | $0 |
 | 22:00 | `rear-lamp-mix-examples-cut.json` | Opus relevance, Sonnet rewrite with expert examples and the obligation cut | `brain-model-mix-examples` @ `e5e0d25` | 341 | 145 / 0.658 | (22:14) 138 / 0.627 | $1.13 |
+| 22:35 | `rear-lamp-main-a39acab.json` | `main`'s defaults at `a39acab`: Opus relevance, Sonnet rewrite with the prompt of `d7683cd` | `big-swings` (no code change) | 388 | 146 / 0.636 | not uploaded | $0.84 |
 
 Empty cells were not recorded when the run was made.
 

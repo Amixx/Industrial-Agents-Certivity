@@ -2,15 +2,120 @@
 
 ## How to use this file
 
-Seven independent lanes, A to G. Each lane is one agent in its own git worktree on its own
-branch, cut from branch `big-swings` (this file's branch), never from `main`. Give an agent the
-**Shared brief** plus **one lane** section. The lanes read the same files but write different
-ones, so they run in parallel without conflicts. Lane branches merge back into `big-swings`
-only; nothing from this task goes to `main` until the owner decides.
+Two roles read this file:
+
+- **The master**: a fresh chat (Claude Code, Cursor or any agent) told "read
+  `brain/docs/todo/07-big-swings.md` and act as the master". It follows **Master protocol**,
+  starts one lane agent per lane, keeps `out/experiments/STATUS.md` current, and talks to the
+  owner (approvals, uploads).
+- **A lane agent**: told "read `brain/docs/todo/07-big-swings.md` and run lane X". It follows
+  **Lane protocol**, the **Shared brief** and its own lane section.
+
+Everything is written so that work can stop at any point (usage runs out, a chat closes) and a
+new master or lane agent can continue from the files alone: `STATUS.md` says where the task
+stands, each lane's `out/experiments/<lane>.md` says which of its steps are done and what they
+produced. No state lives only in a chat.
+
+Everything happens in **one checkout** (`/Users/troy/Documents/Projects/Industrial-Agents-Certivity`)
+on **branch `big-swings`**. No worktrees, no other branches. Lanes write disjoint files, so they
+run in parallel without conflicts. Nothing from this task goes to `main` until the owner
+decides.
 
 Written Saturday 24 Oct, 22:45 CEST. The team freezes the engine at 02:00 (task 06 then owns
 it). The held-out bumper case lands at 08:00. Anything a lane finds after about 01:30 is a
 recommendation for Sunday, not a code change.
+
+## Master protocol
+
+### Start or resume (the same steps either way)
+
+1. `cd /Users/troy/Documents/Projects/Industrial-Agents-Certivity && git status -sb && git log --oneline -15`.
+   You must be on `big-swings`. If not, and the working tree is clean, `git switch big-swings`;
+   otherwise stop and ask the owner.
+2. Read `out/experiments/STATUS.md`. If it does not exist, this is a fresh start: create it from
+   the template under **Templates**, then do **One-time setup** below.
+3. Read every lane file `out/experiments/<lane>.md` that exists. A lane's real state is its
+   checklist there, not what `STATUS.md` says; when they disagree, correct `STATUS.md`.
+4. Check the budget line in `STATUS.md`. If the owner has not approved lanes yet, ask once
+   ("Lanes A, C, D cost $0. B up to $12, E $3, F $5, G $8, D's rebuild $2. Which may spend?")
+   and write the answer there, so a later master does not ask again.
+5. For each lane, decide from its file:
+   - **not started**: start a lane agent (below).
+   - **running**: its file was updated in the last 15 minutes. Leave it. If it has not been
+     updated for longer, treat its agent as dead (a resumed master always assumes the previous
+     chat's agents are gone) and start a new lane agent with the resume message.
+   - **waiting for upload**: make sure the owner has the file name and prediction (below).
+   - **done**: check its report (Lane protocol step 6) before marking it done in `STATUS.md`.
+6. Write `STATUS.md` after every change of state, with the time. Commit it (step 7).
+7. Commit only paths you own (`out/experiments/STATUS.md`, `out/README.md`, this file's
+   Results section): `git add <paths> && git commit -m "swing master: <what>"`. If git reports
+   `index.lock`, wait a few seconds and retry; another agent is committing.
+
+### One-time setup (fresh start only)
+
+From the repo root:
+
+```bash
+mkdir -p out/experiments brain/swing
+for f in mix mix-examples mix-noimage mix-examples-cut-consolidated; do
+  git show brain-model-mix-examples:out/rear-lamp-$f.json > out/rear-lamp-$f.json
+done
+cd brain && uv sync --extra llm && ls data/corpus | head -3   # corpus exists; else: uv run python -m brain.ingest
+```
+
+Commit the four files with `STATUS.md` ("swing master: setup"). They complete the pool of 15
+model-written dev files that lanes A, B, C, D and F use. (Setup was done at 22:36 on 24 Oct,
+commit "swing master: setup"; a resumed master skips this.)
+
+### Starting a lane agent
+
+If your tool can start sub-agents (Claude Code's Agent tool, Cursor agents, separate chats),
+start one per lane, all in this checkout (no worktree isolation), in this order of value:
+A, C, D, E, F, B, G. Give each exactly this message, with the letter filled in:
+
+> Read `brain/docs/todo/07-big-swings.md` in `/Users/troy/Documents/Projects/Industrial-Agents-Certivity`
+> and run lane X, following "Lane protocol". Resume from `out/experiments/X.md` if it exists.
+> Approved spend for this lane: $N (from `out/experiments/STATUS.md`).
+
+If your tool cannot start sub-agents, run the lanes yourself one after another in the same
+order, following Lane protocol for each, so a later master can still resume any of them.
+
+### Uploads
+
+Only the owner uploads, by hand, at most 5 per hour. When a lane marks a file "waiting for
+upload", tell the owner: the path, the predicted matched count and F2, and which question the
+upload answers. Keep a queue in `STATUS.md`, best expected value first, at most 5 per hour.
+When the owner pastes the platform's numbers back, write them into the lane's file (its upload
+table) and into `STATUS.md`, with the upload time.
+
+### Finishing
+
+When every lane is done, or at 01:30 at the latest: write a summary in **Results** at the end of
+this file (what drives recall, what drives precision, which variant to use on Sunday and what
+it costs), and fold every lane's run-log rows into the run log of `out/README.md`. Commit.
+Tell the owner the recommendation and which lanes' files are worth keeping.
+
+## Lane protocol
+
+1. **Find your state.** Open `out/experiments/<lane>.md`. If it does not exist, create it from
+   the lane template under **Templates**, with one checklist line per step of your lane
+   section (A1, A2, ...). Set the lane's row in `STATUS.md` to "running" with the time.
+2. **Verify before trusting.** For every checked step, check that the files it lists exist
+   (`ls`) and that its commit is in `git log`. Uncheck any step whose output is missing.
+3. **Continue at the first unchecked step.** Rerunning a step that made LLM calls is cheap:
+   finished calls come back from the cache in `brain/data/cache/`. Do not start a paid step
+   without the lane's approved spend in `STATUS.md`.
+4. **After every step:** check it off with the time, the files it wrote, the numbers it found and
+   the spend so far, and write the next step in "Next". Then commit your own paths only:
+   `git add out/experiments/<lane>.md out/rear-lamp-swing-<lane>-* brain/swing/<lane>* && git commit -m "swing <lane>: step <n>, <what>"`.
+   Never `git add -A`, never switch branches, stash, reset or rebase: other agents share the
+   checkout. On `index.lock`, wait and retry.
+5. **Uploads.** When you nominate a file, write its predicted matched count and F2 in your upload
+   table, set your status to "waiting for upload" in your file and in `STATUS.md`, and carry on
+   with any step that does not depend on the result. The master brings the platform's numbers
+   back into your file.
+6. **Done.** Fill in the report at the end of your file (Rules, item 5), set your status to
+   "done" in your file and `STATUS.md`, and commit.
 
 ## Shared brief
 
@@ -121,30 +226,21 @@ Findings that should shape every lane:
   synthetic lamp case `synthetic/cases/synth-a03-rear-retro-reflector` (its own gold). A method
   that wins only on dev is not a result.
 
-### Setting up your worktree
+### The shared checkout
 
-From the main checkout (`/Users/troy/Documents/Projects/Industrial-Agents-Certivity`):
+All agents work in `/Users/troy/Documents/Projects/Industrial-Agents-Certivity` on branch
+`big-swings`. Run Python from `brain/` (`uv run ...`). The corpus (`brain/data/corpus/`) and the
+LLM cache (`brain/data/cache/`) are already there: every cached answer (Opus relevance for the
+lamp over all 2,900 paragraphs, every rewrite so far) is free to reuse, and cache writes are
+atomic, so parallel runs are safe. `brain/.env` sets `BRAIN_LLM=anthropic`; prefix any command
+that must stay free with `BRAIN_LLM=`.
 
-```bash
-git worktree add ../certivity-swing-<lane> -b swing-<lane>-<short-name> big-swings
-cd ../certivity-swing-<lane>/brain
-uv sync --extra llm
-ln -s /Users/troy/Documents/Projects/Industrial-Agents-Certivity/brain/data/cache data/cache
-ln -s /Users/troy/Documents/Projects/Industrial-Agents-Certivity/brain/.env .env
-uv run python -m brain.ingest
-```
-
-The cache is shared on purpose: every cached LLM answer (Opus relevance for the lamp, every
-rewrite so far) is free to reuse, and writes are atomic. `brain/.env` sets `BRAIN_LLM`; pass
-`BRAIN_LLM=` (empty) on any command that must stay free.
-
-Files from branch `brain-model-mix-examples` that are not on `main` (useful for the pool):
-
-```bash
-for f in mix mix-examples mix-noimage mix-examples-cut-consolidated; do
-  git show brain-model-mix-examples:out/rear-lamp-$f.json > ../out/rear-lamp-$f.json
-done
-```
+The pool of dev files is in `out/`: the 10 model-written files in the table above, four from
+branch `brain-model-mix-examples` (`rear-lamp-mix.json`, `rear-lamp-mix-examples.json`,
+`rear-lamp-mix-noimage.json`, `rear-lamp-mix-examples-cut-consolidated.json`), and
+`rear-lamp-main-a39acab.json` (`main`'s current defaults: Opus relevance, Sonnet rewrite with
+the prompt of `d7683cd`; 388 rows, 146 matched locally, not uploaded). Never switch to that branch; read anything else from it with
+`git show brain-model-mix-examples:<path>`.
 
 ### Money and models
 
@@ -155,29 +251,35 @@ done
 - Reference costs on the lamp: Opus relevance over all 2,900 candidate paragraphs $4.65; a
   Sonnet rewrite of 267 paragraphs $0.85 (about $0.003 per paragraph); a full Opus + Sonnet run
   from an empty cache about $5.50.
+- What is cached for the lamp: Opus relevance for every candidate paragraph, and Sonnet rewrites
+  of the 267 selected paragraphs with `main`'s current rewrite prompt (`d7683cd`). Any change to
+  a prompt, the paragraph set or the model makes new calls: check with a dry run or the cost
+  wrapper's cache-hit count before calling a step free.
 - `brain/brain/claude_cli.py` runs prompts through `claude -p` on the subscription, cached in
   `data/cache/claude_cli/`, with the API key removed. Use it for offline work (judging,
   tagging, rewrite passes) to keep the API bill at zero.
-- The pipeline on `main` has no cost log. A wrapper that prints calls, cache hits and dollars
-  per model is at the end of this file; copy it into your lane's folder.
+- The pipeline on `main` has no cost log. `brain/swing/run_costed.py` (see the end of this
+  file) wraps it and prints calls, cache hits and dollars per model. Put the spend of every
+  paid step in your lane file.
 
 ### Rules
 
 1. **No dev gold text in any prompt or few-shot example**, not even from other regulations.
    `BRAIN_REWRITE_EXAMPLES` on branch `brain-model-mix-examples` breaks this rule (it shows dev
    gold rows from the other three regulations); do not build on it.
-2. **Stay in your files.** New code goes in `brain/swing/<lane>.py` (or `brain/eval/` for
-   evaluation scripts). Change `brain/brain/*.py` only behind a flag that is off by default,
-   and only where your lane says so.
+2. **Stay in your files.** A lane writes only `brain/swing/<lane>*` (code; `<lane>` is the
+   lowercase letter, for example `brain/swing/a_votes.py`), `out/rear-lamp-swing-<lane>-*`
+   (submissions and logs) and `out/experiments/<lane>.md` (plus `out/experiments/<lane>-*` for
+   data such as A's pool). Do not edit `brain/brain/*.py`, `brain/eval/*.py` or any shared file:
+   import from them, or copy what you need into your own module and patch at runtime.
 3. **Record every run** (the `AGENTS.md` rule): save `out/rear-lamp-swing-<lane>-<variant>.json`
-   with its `.log`, and keep your write-up in `out/experiments/<lane>.md`, with run-log rows in
-   the same columns as the table in `out/README.md` (time CEST, file, method, branch and
-   commit, rows, local matched and F2, platform matched and F2 with upload time, spend). Do not
-   edit `out/README.md`: lanes would conflict there. The coordinator folds your rows in.
-4. **Commit on your branch only.** Checks before each commit, from `brain/`:
-   `uv run pytest -q && uv run ruff check . && uv run ruff format --check . && uv run mypy`.
-   Do not merge into or push to `main`, and do not push your branch unless the owner asks.
-   Follow `DESIGN.md`, including its list of AI-isms.
+   with its `.log`, and keep run-log rows in your lane file in the same columns as the table in
+   `out/README.md` (time CEST, file, method, commit, rows, local matched and F2, platform
+   matched and F2 with upload time, spend). Do not edit `out/README.md`: the master folds your
+   rows in at the end.
+4. **Commit on `big-swings` only, your own paths only** (Lane protocol step 4). Before a commit
+   that adds code, run from `brain/`: `uv run ruff check swing && uv run ruff format --check swing`.
+   Do not push, and never touch `main`. Follow `DESIGN.md`, including its list of AI-isms.
 5. **Report in this shape** at the end of `out/experiments/<lane>.md`: the answer to your
    lane's question in two sentences, the curve or table behind it, the nominated upload(s) with
    predicted and (once uploaded) platform numbers, the transfer check, and whether it can run
@@ -192,9 +294,11 @@ wording should represent a cluster?
 
 **Cap:** $0 (all offline on existing files).
 
-1. Pool every model-written dev file (the 10 in the table plus the 4 branch files). Cluster
-   rows per (regulation, paragraph) by similarity; try lexical similarity 0.5, 0.6, 0.7 and a
-   number-aware variant (two rows with different numbers never cluster).
+1. Pool every model-written dev file in `out/` (the 10 in the table plus the 4 branch files).
+   Cluster rows per (regulation, paragraph) by similarity; try lexical similarity 0.5, 0.6, 0.7
+   and a number-aware variant (two rows with different numbers never cluster). Write the pool
+   as soon as it exists to `out/experiments/A-pool.json` (one record per cluster: regulation,
+   paragraph, page, member rows with their source file, vote count): lanes B, C and F read it.
 2. Sweep the vote threshold, and weighted votes (weight each run by its platform matched, or
    by run family so that near-identical runs, such as the two Fable uploads, count once).
 3. Choose the representative text: the Fable row, the Opus row, the row closest to the source
@@ -259,8 +363,10 @@ writing a fine and a coarse version of the same paragraph beat choosing one?
 2. Hedge selectively: both cuts only where the paragraph's relevance is high (0.5 or more) or
    where the two cuts differ in row count; one cut elsewhere.
 3. The cut file used dev gold examples (rule 1). For anything you recommend, rebuild the coarse
-   side without examples: `BRAIN_REWRITE_CUT=obligation` alone on branch
-   `brain-model-mix-examples` (about $1, relevance cached).
+   side without examples. Do not switch branches: copy the `_SPLIT_OBLIGATION` text and the
+   `_system()` replacement from `git show brain-model-mix-examples:brain/brain/rewrite.py` into
+   `brain/swing/d_cut.py`, patch `brain.rewrite._SYSTEM` at runtime, and rewrite the 267
+   paragraphs of `rear-lamp-mix.json` (about $1 with Sonnet, relevance cached).
 4. Nominate the best hedged file. Prediction first.
 
 ### E. Verbatim anchoring: the regulation's sentence, completed, never reworded
@@ -318,12 +424,80 @@ and what does that cost?
 3. Write the exact Sunday commands for the best feasible variant, with wall-clock time and
    cost, as a proposal for task 06 (do not edit the runbook yourself).
 
+## Templates
+
+### `out/experiments/STATUS.md` (the master's ledger)
+
+```markdown
+# Big swings: status
+
+Updated: <date time CEST> by <master chat or tool>
+Task: brain/docs/todo/07-big-swings.md. Branch: big-swings. Setup done: <yes/no, commit>.
+
+## Budget
+
+Approved by the owner at <time>: A $0, B $<n>, C $0, D $<n>, E $<n>, F $<n>, G $<n>.
+(Write "not asked yet" until the owner answers.)
+
+## Lanes
+
+| Lane | State | Last update | Current step | Spend so far | Lane file |
+|---|---|---|---|---|---|
+| A votes | not started / running / waiting for upload / done / blocked: <why> | <time> | A3 | $0 | out/experiments/A.md |
+| ... one row per lane, A to G ... |
+
+## Upload queue (owner uploads by hand, at most 5 per hour)
+
+| Order | File | Lane | Question it answers | Predicted matched / F2 | Uploaded at | Platform matched / F2 |
+|---|---|---|---|---|---|---|
+
+## Log
+
+- <time> <what happened: lane started, step done, upload result, agent restarted after a stop>
+```
+
+### `out/experiments/<lane>.md` (one per lane)
+
+```markdown
+# Lane <X>: <title>
+
+State: <running / waiting for upload / done / blocked: why>. Updated: <time CEST>.
+Approved spend: $<n>. Spent: $<n>.
+
+## Checklist
+
+- [x] X1 <step as in the lane section>. Done <time>. Files: <paths>. Commit: <hash>.
+      Found: <numbers in one or two lines>.
+- [ ] X2 <step>
+- ...
+
+Next: <the exact next action, with the command if there is one>.
+
+## Run log rows
+
+| Run | File | Method | Code | Rows | Local matched / F2 | Platform (upload): matched / F2 | Spend |
+|---|---|---|---|---|---|---|---|
+
+## Uploads
+
+| File | Question | Predicted matched / F2 | Uploaded at | Platform matched / F2 |
+|---|---|---|---|---|
+
+## Notes
+
+<anything a successor needs: decisions, dead ends, half-finished runs and how to resume them>
+
+## Report
+
+<filled in at the end: Rules, item 5>
+```
+
 ## Cost wrapper
 
-Save as `brain/swing/run_costed.py` and run with
-`PYTHONPATH=. uv run python swing/run_costed.py ../cases/dev-rear-lamp --team-id team-06 -o ...`
-from `brain/`. It wraps `brain.pipeline.main` and prints calls, cache hits and dollars per
-model.
+Already on the branch as `brain/swing/run_costed.py`. Run it from `brain/` instead of
+`python -m brain.pipeline`, with the same arguments:
+`PYTHONPATH=. uv run python swing/run_costed.py ../cases/dev-rear-lamp --team-id team-06 -o ...`.
+It prints calls, cache hits and dollars per model. Its source, for reference:
 
 ```python
 """Run brain.pipeline and log calls, cache hits and dollars per model."""

@@ -1,0 +1,8 @@
+[brain 22:35:25] profile: Rear lamp (combined rear lighting and signalling module with rear position lamp, stop lamp, reversing lamp, outer lens and retro-reflector in a single housing); 30 terms; electronics=True
+[brain 22:35:26] regulations: UN R148 0.95, UN R48 0.92, UN R150 0.88, UN R10 0.85
+[brain 22:35:26] paragraphs selected: 267
+[brain 22:35:26] requirements: 388 kept, 6 dropped
+[brain 22:35:26] wrote ../out/rear-lamp-main-a39acab.json (388 requirements)
+[cost] claude-opus-5-5: 115 cache hits
+[cost] claude-sonnet-5-5: 23 cache hits
+[cost] total new spend $0.00
