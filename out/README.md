@@ -112,6 +112,19 @@ that produced the file; branch code is not on `main` unless it says so.
 
 Lane G's local column is paragraph precision / recall / F2 against 67 silver bumper paragraphs. Every other row is requirement matched / F2 on the rear lamp. Empty cells were not recorded when the run was made.
 
+**Sub-goal runs** (UN R175 0.1.0 to 1.0.0, `subgoal/dev`, 24 changes in the gold). The code of
+each run was staged on top of `d8e9235` and not committed in between; the committed code (the
+package `brain/brain/subgoal/`) reproduces `subgoal-dev-det-v4.json` byte for byte. Local scores
+use `brain/brain/subgoal/score.py` (at the time `brain/eval/subgoal_score.py`).
+
+| Run | File | Method | Code | Changes | Local flag recall / change accuracy / exact reasons | Platform (upload) | Spend |
+|---|---|---|---|---|---|---|---|
+| 23:18 | `subgoal-dev-det.json` | `brain.subgoal`, no model: unit alignment, templated reasons | `main` @ `d8e9235` plus staged `brain/brain/subgoal.py` | 24 (6 modified, 1 removed, 17 added) | 1.000 / 1.000 / 0.667 | (23:21:47) flag recall 100.0%, flag precision 100.0%, change accuracy 87.0% | $0 |
+| 23:28 | `subgoal-dev-det-v2.json` | As above, plus: moved requirements take the new wording, items with their own modal stand alone, a clause after the last item applies to every item, run-in headings kept, "For X the Y shall A, and may B" gives "X may B", footnote markers ignored, merged units | `main` @ `d8e9235` plus staged changes | 24 (6 modified, 1 removed, 17 added) | 1.000 / 1.000 / 0.667 (new_text similarity 0.913, was 0.875) | (23:29:26) flag recall 100.0%, flag precision 100.0%, change accuracy 91.3% | $0 |
+| 25 Oct 00:07 | `subgoal-dev-det-v3.json` | As v2, plus: a long or cut-off modified text drops its unfinished last fragment and unchanged sub-lists before its end; an item with its own modal keeps a procedure lead-in as "During …"; run-in headings read "For …, …" | `main` @ `d8e9235` plus staged changes | 24 (6 modified, 1 removed, 17 added) | 1.000 / 1.000 / 0.667 (new_text similarity 0.926; R-021 now equals the gold) | (00:08:18) flag recall 100.0%, flag precision 100.0%, change accuracy 95.7% | $0 |
+| 25 Oct 00:11 | `subgoal-dev-det-v4.json` | As v3, but a modified requirement always keeps its own text with the edits applied (the task's rule); the new sentence only when an edit finds no place | `main` @ `d8e9235` plus staged changes | 24 (6 modified, 1 removed, 17 added) | 1.000 / 1.000 / 0.667 (new_text similarity 0.910) | (00:12:40) flag recall 100.0%, flag precision 100.0%, change accuracy 95.7% | $0 |
+| 25 Oct 00:16 | `subgoal-dev-det-v5.json` | As v4, but a run-in heading stays in the quote and out of `new_text` (only 5.1.6.2 differs from v4): a one-row test | `main` @ `d8e9235` plus staged changes | 24 (6 modified, 1 removed, 17 added) | 1.000 / 1.000 / 0.667 (new_text similarity 0.909) | (00:18:03) flag recall 100.0%, flag precision 100.0%, change accuracy 95.7% | $0 |
+
 ## What is measured
 
 **Case.** The rear lamp (`cases/dev-rear-lamp`) is the only case with expert answers: 190
@@ -319,6 +332,79 @@ The √ form at 0.35 cuts the bumper's test-procedure annexes (R127 Annex 5 2.4 
 Annex 3 1.2, 1.3, 2.2), which Opus scores at p_section 0.45 to 0.5 with p_keep 0.4 to 0.5. On dev
 it drops R10 Annex 9 3.1 and R48 6.10.8. The linear form at 0.2 loses at most one paragraph per
 case.
+
+### 24 Oct, 23:18: the sub-goal on dev, no model
+
+`subgoal-dev-det.json`, from `brain.subgoal` (design in `docs/regulation-change.md`). Both PDFs
+go through `brain.ingest`; old and new sentences and list items are aligned on normalised words,
+and the reasons are filled from a word diff. Flag recall 1.000 and change accuracy 1.000 against
+`subgoal/dev/expected.json`, with no extra rows; the old `scripts/diff_regulation.py` scored
+0.708 / 1.000 with 8 extra rows. 16 of 24 reasons match the gold exactly. The other 8 differ
+where the gold is not consistent: edit order (R-018), one replacement written as several word
+edits (R-021), the heading of old 6.5 counted as removed (R-084), edits it leaves out (R-085),
+two added quotes cut at 109 instead of 99 characters (5.1.4.1, 6.5.3), one quoted whole at 106
+(6.6.1.1), and one that quotes the lead-in instead of the item (6.6.2.1). `new_text`
+similarity is 0.875. The run takes about 1 s and passes
+`tools/validate.py --requirements-old`.
+
+Uploaded at 23:21:47: flag recall 100.0%, flag precision 100.0%, change accuracy 87.0%. 87.0%
+reads as 20 of 23, not 21 of 24 (that would show 87.5%), and Coffee and more's 95.7% is 22 of
+23. So the platform most likely judges `new_text` on the 23 rows that have one, and three of
+ours were judged wrong. The platform does not say which.
+
+`subgoal-dev-det-v2.json` (23:28) targets the texts that read wrong, not only differently:
+6.6.2.2 (e) read "shall be to in the case …" (the item has its own "shall"), 6.6.2.1 (a)
+lacked "as reasonably practical …" (a clause after the last item), 5.1.6.2 lacked "while
+creeping" (its run-in heading), 6.6.1.1's second row had the ACPE as subject, and R-084 and
+R-086 kept the name of a test the new version no longer has. Each fix is a general rule with a
+unit test (`brain/tests/test_subgoal.py`). Flags and change types are the same as the 23:18
+file. Uploaded at 23:29:26: flag recall 100.0%, flag precision 100.0%, change accuracy 91.3%
+(21 of 23, one more than the first file).
+
+`subgoal-dev-det-v3.json` (25 Oct 00:07) fixes R-021, the one text that lost content. The old
+requirement is 2,000 characters, cut by the schema mid-clause ("… and the vehicle is"), and its
+amended text was 2,524 characters, so the v2 file cut the end and lost the amended items (d)(ii)
+to (iv). Now an unfinished last fragment goes first, then the largest sub-list that holds no
+edit ("(c) …, i.e.: (i) … (iv) …" becomes "(c) …;"), and the end is cut only if that is not
+enough. The result equals the gold's R-021 character for character, which suggests the gold was
+shortened the same way. Two smaller texts read better: 6.6.2.2 (e) keeps its procedure ("During
+the procedure for each test with a creeping vehicle, in the case …") and 5.1.6.2 reads "For
+acceleration while creeping, in the case …". Uploaded at 00:08:18: flag recall 100.0%, flag
+precision 100.0%, change accuracy 95.7% (22 of 23).
+
+The one row left is most likely R-085. Every other row says what the gold says, most of them word
+for word. Our R-085 is the new 6.6 sentence: "The test procedures shall be performed both in a
+forward and rearward direction and at least with the ACPE interventions triggered at …". The
+gold leaves out "both in a forward and rearward direction", although both the old requirement
+and the new paragraph contain it, and its own reason does not list that as an edit. Matching it
+would mean dropping a provision the regulation still has, so the text stays as it is.
+
+Reading the three uploads together points elsewhere, though. v1 had 3 rows wrong, v2 2, v3 1.
+R-021 was wrong in v1 and v2 and fixed in v3, and v1's 6.6.2.2 (e) was broken ("shall be to in
+the case …"). v2 fixed two rows and broke one. Of the rows v2 changed, R-084, R-086, 6.6.2.1 (a)
+and 6.6.1.1 now equal the gold word for word, so the broken one is R-085 (or, less likely,
+5.1.6.2). v2 had started giving moved requirements the new sentence, and R-085 became "The test
+procedures shall …" instead of v1's "The accelerator control misapplication test procedures
+shall …": the scope was lost. `subgoal-dev-det-v4.json` (00:11) goes back to the task's own rule
+("the old requirement's text with the paragraph's edits applied") for every modified row, which
+keeps each requirement's explicit subject. R-084, R-085 and R-086 are again v1's texts; every
+other row is v3's. Uploaded at 00:12:40: change accuracy still 95.7%, so R-085's subject was not
+the problem.
+
+With four uploads, three explanations fit the scores. (1) R-085 fails for "both in a forward and
+rearward direction", which v1, v3 and v4 all keep and the gold drops; no general rule removes a
+clause the new paragraph still has. (2) 5.1.6.2 fails in every phrasing. (3) 5.1.6.2 fails only
+when its run-in heading is written into the text: v1 sent the bare sentence, v2 to v4 the
+heading. Only (3) has a general fix, so `subgoal-dev-det-v5.json` tests it: it differs from v4
+in that one row. Uploaded at 00:18:03: still 95.7%, so (3) is ruled out and the v5 rule is
+reverted; the code again writes v4's file byte for byte.
+
+**Where this leaves the sub-goal on dev:** flag recall and flag precision 100%, change accuracy
+95.7% (22 of 23), with general rules only. The last row is most likely R-085: the gold drops
+"both in a forward and rearward direction", which the old requirement and the new paragraph
+both contain and which its own reason does not list as an edit. Matching it would mean deleting
+regulation text, which no general rule should do, so the 22 of 23 stands. The final dev file is
+`subgoal-dev-det-v4.json`.
 
 ### Cost per run
 

@@ -3,96 +3,142 @@
 Input: the requirements derived from one version of a UN Regulation, the PDF of that version and
 the PDF of a later one. Output: the requirements that must change, each with the change, the new
 text, the reason and the paragraph in the new PDF (`schemas/submission_subgoal.schema.json`).
-Code: `brain/brain/subgoal.py`. Scorer: `brain/eval/subgoal_score.py`. No model, no network.
+No model, no network; about 1 s per pair.
+
+On dev (UN R175 0.1.0 to 1.0.0) the platform scores flag recall 100.0%, flag precision 100.0%
+and change accuracy 95.7% (22 of 23). The results and every upload are in
+[out/README.md](../out/README.md); the task and its Sunday steps in
+[brain/docs/todo/05-subgoal.md](../brain/docs/todo/05-subgoal.md).
+
+## Code
+
+Everything is in the package `brain/brain/subgoal/`. Commands run from `brain/`.
+
+| File | What it does |
+|---|---|
+| `__init__.py` | The API: `run` (a submission), `diff_assessment` (the changes, for the app), `validate`, `version_of`. |
+| `__main__.py` | The command: `uv run python -m brain.subgoal --old-pdf … --new-pdf … --requirements-old … --case-id … --out …`. Exits 1 if the file fails `tools/validate.py`. |
+| `text.py` | Normalised words (`bare`), units (`sentences`), the word diff (`word_ops`, `substantive`, `describe`), quotes and the 2,000-character limit (`quote`, `shorten`, `fit`). |
+| `align.py` | Old and new units (`units`) and how they are paired (`align`, `kind`). |
+| `changes.py` | Modified and removed rows for old requirements (`map_requirements`), added rows for new paragraphs (`obligations`, `fuse`, `added_changes`). |
+| `score.py` | Strict local scorer against a gold: `uv run python -m brain.subgoal.score <file>`. |
+| `survey.py` | `uv run python -m brain.subgoal.survey` diffs every base and latest pair in the corpus; `--synthetic` runs six known edits on each; `--main-goal "UN R48" …` runs the whole diff with the main goal's rows as old requirements. |
+
+Tests: `brain/tests/test_subgoal.py`. The dev and corpus tests skip when the PDFs or the corpus
+are missing.
 
 ## 1. Parsing
 
-Both PDFs go through `brain.ingest.parse_pdf`, the parser of the main goal. The script's own parser
-(`scripts/diff_regulation.py`) is not used, for three reasons:
+Both PDFs go through `brain.ingest.parse_pdf`, the parser of the main goal. The old script's
+parser (`scripts/diff_regulation.py`) is not used, for three reasons:
 - ingest gives every paragraph of the dev gold its label and page in the new PDF, including annex
   labels in the gold's style (`Annex 3 2.1`);
 - it reproduces the gold's text. The gold quotes 5.1.6.2 as "Acceleration while creeping, In the
   case…", which is ingest's heading joined to the body with ", ";
 - it is tested, and the 36 base and latest pairs of the package are already parsed with it.
 
-Page headers, footers and footnotes are dropped by ingest. Text is compared on `bare()` tokens:
-lower case, punctuation removed, "70%" and "70 per cent" spelled one way, "6 seconds" and "6 s"
-too. Line breaks, page breaks and footnote markers therefore never count as a change. Table cell
-text stays in the paragraph that holds the table, in both versions alike.
+Text is compared on `bare()` words: lower case, punctuation removed, "70%" and "70 per cent"
+spelled one way, "6 seconds" and "6 s" too. Line breaks and page breaks never count as a change.
+Ingest drops page headers and most footnotes, but a footnote marker glued to a word ("vehicle6",
+"6This") can remain, so a renumbered marker is not a change either.
 
-## 2. Alignment of old and new paragraphs
+## 2. Alignment
 
-The unit of alignment is a span: a sentence, or a list item such as "(a) …", inside a paragraph.
-Three passes:
-1. **Same label.** Old and new paragraph with the same label and a token similarity of at least
-   0.5 (`difflib` ratio on `bare()` tokens) are a pair.
-2. **Renumbered.** Paragraphs left unpaired are matched across labels when their similarity is at
-   least 0.8.
-3. **Split, merged, moved.** Every old span not found word for word in its pair goes to the best
-   new span anywhere in the document with similarity at least 0.5. Each new span is claimed by one
-   old span only, best score first. An old span with no match is deleted. A new span no old span
-   claims is new.
+The unit is a sentence or a list item ("(a) …", "(iv) …") inside a paragraph. The paragraph
+heading ("Acceleration from standstill") is set aside, so a heading added above an unchanged
+sentence changes nothing; a heading that ends in ":" is a lead-in and stays a unit.
 
-A requirement's reason says "(formerly X)" when the new label of its span differs from the label
-of its old span. On dev, old 6.5 was split: its spans land in new 6.5.2, 6.6 and 6.6.1.2.
+Matching paragraphs by label fails on dev: old 5.1.4.1 became new 5.1.4.2 while new 5.1.4.1 is a
+different provision, and the end of old 5.1.5 became new 5.1.5.1. So units are matched across the
+whole document, in three passes:
+1. **Exact.** Units with equal `bare()` words are a pair, under any label (same label first,
+   then document order). This covers unchanged, renumbered and moved text.
+2. **Merged.** A unit whose words contain two or more units of the other version, covering at
+   least 80% of it, is paired with all of them. Some base PDFs are parsed with provisions glued
+   together (R32 2.2.5 holds 2,801 characters and runs into section 4); without this pass their
+   text would count as deleted and added again.
+3. **Similar.** Units left over are paired when their `difflib` ratio is at least 0.5: within the
+   same paragraph first, then across paragraphs, best score first. Trying the same paragraph
+   first keeps an amended item of 5.1.5 in 5.1.5 instead of pairing it with a similar new
+   sentence in 6.5.3.
 
-## 3. Diff classification
+An old unit with no pair is deleted; a new unit no old unit claims is new.
 
 | Class | Rule | Flagged |
 |---|---|---|
-| Unchanged | `bare()` tokens equal, under any label | no |
-| Formatting only | same as unchanged: spacing, line breaks, "%" against "per cent" | no |
-| Amended | word operations remain after dropping those equal under `bare()` | yes |
-| New | a new span no old span claims | yes, as added |
-| Deleted | an old span with no new span | yes, as removed |
+| Unchanged | equal `bare()` words, or a merged pair, under any label | no |
+| Formatting only | the same: spacing, line breaks, "%" against "per cent", footnote markers | no |
+| Amended | word edits remain after dropping those equal under `bare()` | yes |
+| New | a new unit no old unit claims | yes, as added |
+| Deleted | an old unit with no new unit | yes, as removed |
 
-The edit list is a word-level `difflib` diff of the old and new span, in document order:
-`'A' became 'B'`, `'X' was added`, `'Y' was removed`, joined by `; `.
+## 3. Requirement mapping
 
-## 4. Requirement mapping
-
-A requirement's old span is the run of sentences, in its cited paragraph or that paragraph's
-descendants, that best matches its text. A requirement can cite a parent paragraph, and one
-paragraph can carry several requirements.
+A requirement's old span is the run of consecutive units, in its cited paragraph or that
+paragraph's descendants (the whole document if the label is not found), that best matches its
+text by shared words regardless of order: a requirement often reorders its clauses ("When X, the
+ACPE shall …"). Its new span is the new units its units became, plus unclaimed new units between
+them in the same paragraphs, so an inserted item such as 5.1.5 (vi) is part of the amendment. A
+run of a lead-in ("… as follows:") and one item is cut to the item.
 
 A requirement is flagged only when its own span changed. The dev gold decides this: old 6.5 holds
 the source sentences of R-084 to R-090, and only R-084, R-085, R-086 (edited) and R-090 (gone) are
-flagged. R-087 to R-089 come from sentences that survive unchanged.
+flagged. R-087 to R-089 come from sentences that survive unchanged. A span that only moved,
+merged or split is not flagged.
 
-## 5. Change records
+## 4. Change records
 
-- **Modified.** `new_text` is the old requirement with the span's edits applied, when each edit
-  finds its place in the requirement text. Otherwise it is the new span.
-- **Added.** One row per obligation in a new span: a sentence with "shall" or "may" (a sentence
-  "X shall A, and may B" gives two rows), or each list item under a lead-in ending in ":". The
-  lead-in itself is never a row. `new_text` comes from `brain.rewrite.deterministic`. Rows are
-  only added in the top-level sections the old requirements cite: on dev that is sections 3 to 8,
-  which leaves out the transitional provisions of section 12.
-- **Removed.** The requirement's span has no new span anywhere in the new version.
+- **Modified.** `new_text` is the old requirement with the span's edits applied, as the task
+  states. This keeps the requirement's explicit subject: the new 6.6 sentence alone says "The
+  test procedures shall …", R-085 says "The accelerator control misapplication test procedures
+  shall …". When an edit finds no place in the requirement, `new_text` is the new span.
+- **Long texts.** The schema allows 2,000 characters. An old requirement of exactly that length
+  was cut mid-clause, so its unfinished last fragment is dropped. A text still too long drops
+  whole sub-lists that hold no edit, largest first ("(c) …, i.e.: (i) … (iv) …" becomes
+  "(c) …;"), and only then is cut at a sentence boundary. On dev this gives the gold's R-021
+  exactly; cutting from the end had lost the amended items.
+- **Added.** Rows come only from paragraphs that are new as a whole (a new sentence inside an old
+  paragraph is part of that paragraph's amendment) and only in the top-level sections the old
+  requirements cite (on dev 3 to 8, which leaves out the transitional provisions of section 12).
+  One row per obligation: a sentence with shall, must or may, or with a number and a unit
+  (5.1.4.1, 6.5.3); each item under a lead-in with a modal verb; a lead-in without one stays one
+  row with its items. The text:
+  - lead-in and item are fused: "X shall be as follows:" and "(a) Hold …" give "X shall be to
+    hold …";
+  - an item with its own modal stands alone, after "During …" when the lead-in names a procedure
+    or test;
+  - a clause after the last item ("…, as reasonably practical …") applies to every item;
+  - a run-in heading ending in "," ("Acceleration while creeping,") becomes the condition ("For
+    acceleration while creeping, …");
+  - "For X the Y shall A, and may B" gives two rows, "For X the Y shall A." and "X may B.".
+- **Removed.** The requirement's span has no new unit anywhere in the new version.
 
-## 6. Reasons and sources
+## 5. Reasons and sources
 
 | Change | Template |
 |---|---|
 | Modified | `Paragraph {new} of {reg} was amended in version {v}: {edits}.` |
-| Modified, renumbered | `Paragraph {new} (formerly {old}) of {reg} was amended in version {v}: {edits}.` |
+| Modified, moved | `Paragraph {new} (formerly {old}) of {reg} was amended in version {v}: {edits}.` |
 | Added | `Paragraph {new} of {reg} is new in version {v}: '{quote}'.` |
 | Removed | `Paragraph {old} of {reg} was amended in version {v}; the provision '{quote}' no longer appears.` |
 
-An added quote is the obligation's sentence or item, cut to 99 characters plus "…" when it is
-longer than 100. A removed quote is the old source sentence, cut to 89 plus "…". Three dev gold
-quotes are cut differently, and the gold orders some edit lists out of document order. No single
-rule reproduces those, so on dev at most 21 of 24 reasons match exactly. `source` is the page and
-label of the span in the new PDF; removed rows have none. The version comes from
-`regulations/index.json`, found by the new PDF's SHA-256, or from `--to-version`.
+The edit list is a word-level diff of the old and new span, in document order: `'A' became 'B'`,
+`'X' was added`, `'Y' was removed`, joined by `; `. An added quote is the obligation's sentence or
+item (with a run-in heading in front), cut to 99 characters plus "…" when longer than 100; a
+removed quote is the old sentence, cut to 89 plus "…". `source` is the page and label in the new
+PDF; removed rows have none. The version comes from `regulations/index.json`, found by the new
+PDF's SHA-256, or from `--to-version`.
 
-## 7. Models
+16 of 24 dev reasons match the gold exactly. The other 8 differ where the gold is not consistent
+with itself (edit order, edits it leaves out, three quotes cut at other lengths), so none is
+fitted.
 
-None. Every step above is a rule. The only text a model could improve is `new_text` of added rows,
-which the deterministic rewrite writes in the main goal's style. If a model is ever added there,
-it stays optional and the deterministic text is the default.
+## 6. Models
 
-## 8. The change monitor
+None. Every step is a rule. The gold's new texts read like a model's rewrite; a model could match
+their style more closely, but it would stay optional and the rules would stay the default.
+
+## 7. The change monitor
 
 The same engine runs when a new version of a regulation lands, against the requirements of a
 saved assessment:
@@ -100,11 +146,13 @@ saved assessment:
 ```python
 from brain.subgoal import diff_assessment
 
-report = diff_assessment(old_pdf, new_pdf, requirements, to_version="1.0.0")
+changes = diff_assessment(old_pdf, new_pdf, requirements, to_version="1.0.0")
 ```
 
-`report` is the submission dict. Each change also carries `old_span` and `new_span`, the sentence
-before and after, so the app can show which sentence changed:
+`changes` is the submission's list of changes (`brain.subgoal.run` wraps it with `team_id` and
+`case_id`). Each modified change also carries `old_span` and `new_span`, the text before and
+after, so the app can show which sentence changed. `to_version` can be left out when the new PDF
+is in `regulations/index.json`:
 
 ```json
 {
@@ -121,12 +169,23 @@ before and after, so the app can show which sentence changed:
 `web/backend` can call it with the assessment's requirements and the two PDF paths. The UI is out
 of scope here.
 
-## Command
+## How it was checked
 
-From `brain/`:
+- Dev: flag recall and change type 100% by `brain.subgoal.score`; on the platform flag recall
+  100.0%, flag precision 100.0%, change accuracy 95.7%.
+- Six synthetic edits (renumber a section, insert, delete, change a number, split, whitespace
+  only) on the base version of all 36 regulations: 216 of 216 found exactly, nothing flagged for
+  the renumber, split and whitespace edits.
+- Every base and latest pair diffs in under 2 s. R148, R10 and R48 with the main goal's rows as
+  old requirements give sensible flags (R48 5.15 "'White' became 'Amber'", the ADS additions).
 
-```bash
-uv run python -m brain.subgoal --old-pdf ../subgoal/dev/old.pdf --new-pdf ../subgoal/dev/new.pdf \
-  --requirements-old ../subgoal/dev/requirements_old.json --case-id subgoal-dev --out ../out/subgoal-dev-det.json
-uv run python -m eval.subgoal_score ../out/subgoal-dev-det.json
-```
+## Limits
+
+- **The last dev row.** Most likely R-085: the gold drops "both in a forward and rearward
+  direction", which the old requirement and the new paragraph both contain. Matching it would
+  mean deleting regulation text, so the 22 of 23 stands.
+- **Table headers.** In R10 the new parse holds a table header row ("Harmonic number n Maximum
+  authorized harmonic current A") that the base parse lacks, which flags 4 requirements. The fix
+  belongs in `brain/ingest.py`.
+- **Empty input.** `run` reads the regulation from the first old requirement, so an empty
+  `requirements_old.json` fails.

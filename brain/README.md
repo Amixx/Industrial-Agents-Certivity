@@ -185,6 +185,34 @@ the file you want counted:
   since it scored about twice the deterministic one on dev.
 - Never end on an experiment.
 
+## Sub-goal: regulation change
+
+Which requirements of an old regulation version must change in a new one, and why. Package
+`brain/subgoal/`, no model, no network, about 1 s per pair. Design and limits:
+[../docs/regulation-change.md](../docs/regulation-change.md). Sunday steps:
+[docs/todo/05-subgoal.md](docs/todo/05-subgoal.md).
+
+```bash
+uv run python -m brain.subgoal --old-pdf ../subgoal/dev/old.pdf --new-pdf ../subgoal/dev/new.pdf \
+  --requirements-old ../subgoal/dev/requirements_old.json --case-id subgoal-dev \
+  --out ../out/subgoal-dev.json                      # validates the file, exits 1 if invalid
+uv run python -m brain.subgoal.score ../out/subgoal-dev.json   # against subgoal/dev/expected.json
+uv run python -m brain.subgoal.survey --synthetic   # six known edits on all 36 regulations
+uv run python -m brain.subgoal.survey               # every base and latest pair, by link kind
+```
+
+| File | Contents |
+|---|---|
+| `brain/subgoal/text.py` | Normalised words, units, the word diff, quotes, the 2,000-character limit. |
+| `brain/subgoal/align.py` | Pairs old and new units: exact, merged (glued parses), then similar. |
+| `brain/subgoal/changes.py` | Modified and removed rows for old requirements, added rows for new paragraphs. |
+| `brain/subgoal/__init__.py`, `__main__.py` | `run`, `diff_assessment` (for the app), `validate`; the command. |
+| `brain/subgoal/score.py`, `survey.py` | Local scorer; survey and synthetic edits. |
+
+On dev (UN R175 0.1.0 to 1.0.0) the platform scores flag recall 100.0%, flag precision 100.0%
+and change accuracy 95.7% (`../out/subgoal-dev-det-v4.json`, which the code reproduces byte for
+byte).
+
 ## Evaluate
 
 ```bash

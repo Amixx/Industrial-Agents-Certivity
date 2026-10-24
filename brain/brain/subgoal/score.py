@@ -1,11 +1,15 @@
 """Strict local scorer for the sub-goal against its gold.
 
-    uv run python -m eval.subgoal_score out.json [--expected ../subgoal/dev/expected.json]
+    uv run python -m brain.subgoal.score out.json [--expected ../subgoal/dev/expected.json]
 
 Modified and removed rows match the gold on requirement_id. Added rows match one to one within the
 same source paragraph, by new_text similarity (at least 0.5). Flag recall is the share of gold rows
 matched; change accuracy is the share of matched rows with the gold's change type. Exact reasons and
 new_text similarity are reported too, with every mismatch.
+
+The platform's "change accuracy" is stricter: its model judge reads `new_text` on every row that
+has one (23 of 24 on dev). The local new_text similarity is only a word overlap, so use it to
+find rows that read differently from the gold, not to predict the platform's number.
 """
 
 from __future__ import annotations

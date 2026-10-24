@@ -1,0 +1,2 @@
+94 old requirements, 24 changes {'modified': 6, 'removed': 1, 'added': 17}, 0.3 s -> ../out/subgoal-dev-det-v5.json
+flag recall 1.000  change accuracy 1.000  added recall 1.000  exact reasons 0.667  new_text similarity 0.909  extra 0

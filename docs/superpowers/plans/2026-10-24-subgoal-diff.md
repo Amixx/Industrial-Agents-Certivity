@@ -1,5 +1,10 @@
 # Sub-goal regulation diff: implementation plan
 
+> **Done (25 Oct).** This is the plan as written on 24 Oct. The code it names as
+> `brain/brain/subgoal.py`, `brain/eval/subgoal_score.py` and `brain/eval/subgoal_survey.py` now
+> lives in the package `brain/brain/subgoal/`; what was built and why it differs from this plan is
+> in `docs/regulation-change.md` and in the Results of `brain/docs/todo/05-subgoal.md`.
+
 > **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development (recommended) or superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (`- [ ]`) syntax for tracking.
 
 **Goal:** One command that turns an old and a new regulation PDF plus `requirements_old.json` into a valid sub-goal submission, with 100% flag recall and 100% change accuracy on dev, no model and no network, in under a minute.

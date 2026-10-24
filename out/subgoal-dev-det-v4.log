@@ -1,0 +1,3 @@
+94 old requirements, 24 changes {'modified': 6, 'removed': 1, 'added': 17}, 0.5 s -> ../out/subgoal-dev-det-v4.json
+uv run python -m brain.subgoal --old-pdf ../subgoal/dev/old.pdf --new-pdf      1.58s user 0.19s system 113% cpu 1.556 total
+flag recall 1.000  change accuracy 1.000  added recall 1.000  exact reasons 0.667  new_text similarity 0.910  extra 0
