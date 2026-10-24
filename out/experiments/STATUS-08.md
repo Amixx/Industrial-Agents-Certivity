@@ -1,6 +1,6 @@
 # Complex strategies: status
 
-Updated: 24 Oct 23:33 CEST (system clock, `date`) by master (Cursor).
+Updated: 24 Oct 23:36 CEST (system clock, `date`) by master (Cursor).
 Task: brain/docs/todo/08-complex.md. Branch: big-swings. Setup done: yes (07 setup commit "swing master: setup"; this ledger created at 23:29).
 Lanes A to G are finished. Do not edit their files except to read them. Do not edit `out/experiments/STATUS.md`.
 
@@ -23,13 +23,16 @@ A lane that would pass its planned cap stops, writes the estimate, and waits. Th
 
 ## Upload queue
 
-No platform upload unless the owner says a slot is free. A lane may name one file. The master queues it only if its local F2 beats 0.702 by more than about 5 matches. `out/rear-lamp-swing-A-votes7.json` (351 rows, local 156 matched, F2 0.702) remains the first upload when a slot opens.
+Owner at 23:36: do not upload anything to the platform. Local tests only. This includes `out/rear-lamp-swing-A-votes7.json`. Do not nominate a file, do not set a lane to "waiting for upload", and do not ask the owner for a slot.
+
+Score with `tools/validate.py`, `tools/score_local.py`, and `uv run python -m eval.score` from `brain/`.
 
 | Order | File | Lane | Question it answers | Predicted matched / F2 | Uploaded at | Platform matched / F2 |
 |---|---|---|---|---|---|---|
-| 1 | `out/rear-lamp-swing-A-votes7.json` (351 rows) | A | Does a vote of 14 runs beat every single run on the platform? | 157 / 0.707 (local 156 / 0.702) | | |
+| — | none | — | queue closed by the owner | — | — | — |
 
 ## Log
 
+- 23:36 Owner: do not upload anything to the platform, only test locally. Queue closed, including votes7. Lanes keep scoring with validate.py, score_local.py, and eval.score.
 - 23:33 Owner: max $70 overall, max $20 per lane. All five may spend. Planned caps stand (J $1, K $1, I $1, H $6, L $5). Agents were launched at $0; a lane that reads this file may now spend up to its planned cap. H and L still dry-run before any new call.
 - 23:29 Ledger created. Asked the owner which lanes may spend. Started J, K, I, H, L at $0. Order of value: J, K, I, H, L. Engine freeze for task 06 is 02:00. A result after about 01:30 is a recommendation, not a code change. Agents: J 6b4acdae, K 6d903bb6, I b94a5ba5, H 9c188f65, L 009c0255.

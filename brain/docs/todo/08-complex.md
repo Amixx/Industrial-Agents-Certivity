@@ -93,10 +93,10 @@ Same as `07-big-swings.md`, with these differences:
 3. Budget is not approved until the owner answers. Ask once: "J $1, K $1, I $1, H $6, L $5.
    Which may spend? Hard ceiling stays $70 for the whole event, of which the swings spent
    $14.92." Write the answer in the ledger.
-4. No platform upload unless the owner says a slot is free. Score with `tools/validate.py`,
-   `tools/score_local.py`, and `uv run python -m eval.score` from `brain/`. A lane may name one
-   file. The master queues it only if its local F2 beats 0.702 by more than about 5 matches.
-   `rear-lamp-swing-A-votes7.json` remains the first upload when a slot opens.
+4. No platform upload. Owner at 23:36 on 24 Oct: do not upload anything, including
+   `rear-lamp-swing-A-votes7.json`. Score only with `tools/validate.py`,
+   `tools/score_local.py`, and `uv run python -m eval.score` from `brain/`. Do not nominate a
+   file and do not set a lane to "waiting for upload".
 5. `claude -p` is not logged in. Paid steps use the API inside the lane cap. Dry-run or count
    cache hits before calling a step free.
 6. At 01:30, or when every lane is done: write **Results** at the end of this file, fold new
@@ -108,8 +108,8 @@ Lane message, one agent per lane, this checkout, no worktree:
 > and run lane X, following "Lane protocol" in `brain/docs/todo/07-big-swings.md`. Resume from
 > `out/experiments/X.md` if it exists. Approved spend for this lane: $N (from
 > `out/experiments/STATUS-08.md`). Score with `tools/validate.py`, `tools/score_local.py`, and
-> `eval.score`. Do not nominate an upload unless your local F2 beats 0.702 by more than about
-> 5 matches. Take every timestamp from `date`.
+> `eval.score`. Do not nominate an upload and do not set your status to "waiting for upload".
+> The owner closed the platform queue at 23:36. Take every timestamp from `date`.
 
 Own paths, same pattern as 07: lane H writes `out/experiments/H.md`, `out/experiments/H-*`,
 `out/rear-lamp-swing-H-*`, `brain/swing/h_*`. Same for I, J, K, L.
