@@ -16,7 +16,7 @@ from ..models import Paragraph
 from ..obligations import modality
 from ..paths import CASES, CORPUS, DATA
 from ..rewrite import deterministic
-from . import spans
+from . import ontology, scope, spans
 
 HERE = Path(__file__).parent
 DB = DATA / "kb.sqlite"
@@ -357,6 +357,8 @@ def build_db(
         manifest[f"corpus:{path.name}"] = _hash(path.read_text())
     for key, value in sorted(manifest.items()):
         conn.execute("INSERT INTO manifest VALUES (?,?)", (key, value))
+    ontology.load(conn)
+    scope.load(conn)
     overrides = _load_overrides()
     applied, warnings = _apply_overrides(conn, overrides)
     if warnings:
