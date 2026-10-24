@@ -1,5 +1,7 @@
 # Generated
 data/cache/
 data/corpus/
+data/kb.sqlite
+data/kb_batches/
 out/*.log
 .env

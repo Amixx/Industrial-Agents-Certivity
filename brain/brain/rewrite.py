@@ -7,6 +7,8 @@ Deterministic path (always available):
     path: "The reversing lamp shall be not less than 250 mm ...".
 LLM path: a model rewrites each paragraph into standalone EARS obligations, keeping numbers,
 units, references and passive voice verbatim (few-shot examples in the style of the gold).
+Each requirement is one clause as an expert lists it; `atomic` splits it further, one condition,
+value or case per line, for engineering use.
 Every requirement keeps the verbatim source sentence as `quote`.
 """
 
@@ -16,7 +18,7 @@ import json
 import re
 import sys
 from concurrent.futures import ThreadPoolExecutor
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 
 from . import llm
 from .features import UNITS
@@ -40,6 +42,7 @@ class Draft:
     paragraph: Paragraph
     text: str
     quote: str
+    atomic: list[str] = field(default_factory=list)
 
 
 def subject(p: Paragraph, graph: Graph) -> str | None:
@@ -92,23 +95,28 @@ def deterministic(p: Paragraph, graph: Graph) -> list[Draft]:
 
 _SYSTEM = """You turn paragraphs of UN Regulations into engineering requirements for a product.
 Write one requirement per obligation, in minimal-edit EARS style:
-- "The <subject> shall <constraint>." or, with a condition first, "When/While/Where/If <condition>,
-  the <subject> shall <constraint>."
-- Name the subject explicitly from the heading path (e.g. "The reversing lamp", "The stop lamp",
-  "The retro-reflective device"); never use pronouns.
-- Keep numbers, units, tolerances, table and paragraph references, and passive voice verbatim.
+- Edit the source sentence as little as possible: keep its own words, word order, subject,
+  numbers, units, tolerances, table and paragraph references, and passive voice. Do not
+  paraphrase ("shall prevent water from penetrating" stays; never "no water shall penetrate"),
+  do not add test names or context the sentence does not state, do not add the product's name
+  when the sentence already has a subject ("The ESA representative of its type shall ...",
+  "The S1 or S2 categories devices shall ...").
+- Name a subject only when the sentence has none or uses a pronoun: take it from the heading
+  path ("The reversing lamp", "The retro-reflective device").
 - Turn telegraphic provisions into shall-statements ("In height: not less than 250 mm" ->
   "The reversing lamp shall be not less than 250 mm ... above the ground").
 - When the paragraph completes its parent's clause (parent_text ends with ":" or "the
   following"), carry the parent's condition into each requirement.
 - Fold "However, ..." exceptions into the same requirement as "..., except that ...".
-- Split until each requirement states exactly one constraint: two limits joined by "and" are two
-  requirements; each lettered or numbered list item is its own requirement; an optional or
-  alternative case ("Where optional lamps are installed", "as an alternative") is its own
-  requirement. Never merge; never leave a list "(a) ... (b) ..." inside one requirement.
-- A paragraph that points to a table ("shall meet the requirements in Table 7") is one
-  requirement that cites the table; do not copy the table's cells into requirements. Split a
-  table only when the paragraph text itself states each row's limit (per pulse, class or test).
+- Split so that each requirement is one obligation an inspector checks: each sentence with
+  its own "shall"; each lettered or numbered list item; each optional or alternative case
+  ("Where optional lamps are installed", "as an alternative"). Never merge; never leave a list
+  "(a) ... (b) ..." inside one requirement.
+- Keep a range on one quantity ("not less than X and not more than Y", "between X and Y") in one
+  requirement.
+- A table printed in the paragraph gives one requirement per row (per pulse, class, colour, test
+  or angle), stating that row's values. A reference to a table elsewhere ("shall meet the
+  requirements in Table 7") stays one requirement that cites it.
 - Repeat in every split requirement the condition and qualifiers that govern it ("When tested
   in accordance with ...", "if not otherwise agreed between ...", "In case of ..."), so each one
   stands alone.
@@ -117,7 +125,14 @@ Write one requirement per obligation, in minimal-edit EARS style:
   unit and filter, which must be so designed that ..." -> "The unit and filter shall be so
   designed that ...".
 - Ignore footnote text and footnote markers glued to words ("vehicles10 10As defined in ...").
+- Skip clauses that apply only to device categories, vehicle categories or functions the
+  product does not have (for example the high-mounted stop lamp of a product without one).
+- Skip obligations on the applicant, the approval authority or the communication form: what to
+  state in the application, what the authority records, what the form must say.
 - Skip pure definitions, permissions with no constraint, and text that is not an obligation.
+- `atomic` splits a requirement further for engineering use: one line per condition, value,
+  limit or case, each a complete shall-statement. Leave it empty when the requirement is
+  already a single check.
 Return an empty list for a paragraph with no obligation."""
 
 _EXAMPLES = """Examples (paragraph -> requirements):
@@ -178,8 +193,12 @@ _SCHEMA = {
                         "type": "array",
                         "items": {
                             "type": "object",
-                            "properties": {"text": {"type": "string"}, "quote": {"type": "string"}},
-                            "required": ["text", "quote"],
+                            "properties": {
+                                "text": {"type": "string"},
+                                "quote": {"type": "string"},
+                                "atomic": {"type": "array", "items": {"type": "string"}},
+                            },
+                            "required": ["text", "quote", "atomic"],
                             "additionalProperties": False,
                         },
                     },
@@ -237,7 +256,8 @@ def _batch(chunk: list[Paragraph], graph: Graph, product: str) -> list[Draft]:
         for r in item["requirements"]:
             text = r["text"].strip()
             if text:
-                out.append(Draft(p, text, r.get("quote", "").strip()))
+                atomic = [a.strip() for a in r.get("atomic") or [] if a.strip()]
+                out.append(Draft(p, text, r.get("quote", "").strip(), atomic))
     # A small local model sometimes answers a selected paragraph with nothing (on dev, qwen3.5:9b
     # left five gold paragraphs empty, among them plain "shall" sentences); keep its
     # deterministic obligations instead, since relevance already chose the paragraph.

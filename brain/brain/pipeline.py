@@ -19,7 +19,7 @@ from pathlib import Path
 from typing import Any
 
 from . import features as F
-from . import llm, relevance
+from . import jev, keep, llm, relevance
 from .decide import MODEL_PATH, Model
 from .graph import build
 from .ingest import load_all
@@ -56,6 +56,9 @@ def select_paragraphs(
     ]
     model = Model.load(MODEL_PATH)
     probs: Any = model.predict(F.matrix(paragraphs, ctx)) if paragraphs else []
+    if jev.enabled() and paragraphs:
+        jev_p = jev.score(paragraphs, graph, profile)
+        probs = [jev_p[p.id] for p in paragraphs]
     cut = model.threshold
     if use_llm and paragraphs:
         llm_p = relevance.score(paragraphs, graph, profile)
@@ -63,9 +66,9 @@ def select_paragraphs(
             relevance.blend(float(a), llm_p.get(p.id))
             for p, a in zip(paragraphs, probs, strict=True)
         ]
-        cut = relevance.THRESHOLD if threshold is None else threshold
         scored = list(zip(paragraphs, map(float, probs), strict=True))
-        keep = relevance.floor(scored, cut)
+        relative = relevance.RELATIVE_JEV if jev.enabled() else relevance.RELATIVE
+        keep = relevance.select(scored, threshold, relative)
         return [(p, pr) for p, pr in scored if p.id in keep], graph
     cut = cut if threshold is None else threshold
     chosen = [(p, float(pr)) for p, pr in zip(paragraphs, probs, strict=True) if pr >= cut]
@@ -109,6 +112,7 @@ def run(
     include: Sequence[str] = (),
     exclude: Sequence[str] = (),
 ) -> dict[str, Any]:  # type: ignore[assignment]
+    started, spent = time.monotonic(), llm.usage()
     if not any(CORPUS.glob("*_base.jsonl")):
         from .ingest import main as ingest_main
 
@@ -128,9 +132,16 @@ def run(
     chosen, graph = select_paragraphs(profile, corpus, choices, threshold, use_llm)
     log(f"paragraphs selected: {len(chosen)}")
     confidence = {p.id: pr for p, pr in chosen}
-    drafts = rewrite([p for p, _ in chosen], graph, profile.product, use_llm=use_llm)
+    product = profile.model_dump_json(
+        include={"product", "vehicle_categories", "functions", "parts"}
+    )
+    drafts = rewrite([p for p, _ in chosen], graph, product, use_llm=use_llm)
     kept, dropped = clean(drafts, graph.paragraphs)
     log(f"requirements: {len(kept)} kept, {len(dropped)} dropped")
+    if use_llm and kept:
+        p_keep = keep.scores(kept, product)
+        kept = [d for d, pk in zip(kept, p_keep, strict=True) if pk >= keep.THRESHOLD]
+        log(f"expert filter: {len(kept)} kept of {len(p_keep)}")
     requirements = []
     for i, d in enumerate(kept, start=1):
         p = d.paragraph
@@ -148,6 +159,8 @@ def run(
                 "quote": d.quote[:1000],
             }
         )
+        if d.atomic:
+            requirements[-1]["atomic"] = d.atomic
     submission = {
         "team_id": team_id,
         "case_id": case_id,
@@ -156,6 +169,11 @@ def run(
         "regulations": [c.model_dump() for c in choices if c.selected]
         + [c.model_dump() for c in choices if not c.selected][:10],
         "profile": profile.model_dump(),
+        "run": {
+            "wall_s": round(time.monotonic() - started, 1),
+            "provider": llm.provider(),
+            **llm.usage_since(spent),
+        },
     }
     problems = validate(submission)
     if problems:
@@ -188,7 +206,12 @@ def main(argv: list[str] | None = None) -> int:
     out = Path(args.out) if args.out else Path("out") / f"{case.name}.json"
     out.parent.mkdir(parents=True, exist_ok=True)
     out.write_text(json.dumps(submission, indent=1, ensure_ascii=False))
-    log(f"wrote {out} ({len(submission['requirements'])} requirements)")
+    r = submission["run"]
+    log(
+        f"wrote {out} ({len(submission['requirements'])} requirements); {r['wall_s']}s, "
+        f"{r['calls']} LLM calls + {r['cache_hits']} cached, ${r['cost_usd']:.2f} "
+        f"(${r['cold_cost_usd']:.2f} with a cold cache)"
+    )
     return 0
 
 
