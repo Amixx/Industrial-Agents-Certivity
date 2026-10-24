@@ -14,11 +14,13 @@ from __future__ import annotations
 
 import math
 import re
-from dataclasses import dataclass
+from collections.abc import Iterable
+from dataclasses import dataclass, field
 
 import numpy as np
 
 from .graph import Graph
+from .ingest import sources
 from .models import Paragraph, ProductProfile
 
 FEATURES = [
@@ -87,6 +89,8 @@ class Context:
     func_ids: set[str]  # paragraphs whose own heading path matches the product
     ref_from_func: set[str]
     func_annexes: set[tuple[str, str]]  # (regulation, "Annex 3") referenced by func paragraphs
+    other_sections: set[str] = field(default_factory=set)  # siblings of a section that matched
+    about: set[str] = field(default_factory=set)  # regulations whose title names the product
 
 
 def _path_text(p: Paragraph, g: Graph) -> str:
@@ -120,12 +124,20 @@ def head_words(profile: ProductProfile) -> list[str]:
     return list(dict.fromkeys(words))
 
 
-def regulation_terms(profile: ProductProfile, paths: list[str]) -> list[str]:
+def regulation_terms(
+    profile: ProductProfile, paths: list[str], defined: Iterable[str] = ()
+) -> list[str]:
     """Product phrases, plus head words that are discriminative in this regulation: present in
-    under a quarter of its heading paths ("bumper" in R127 yes, "lamp" in R48 no)."""
+    under a quarter of its heading paths ("bumper" in R127 yes, "lamp" in R48 no). A part's head
+    word is dropped where the regulation uses it as a modifier inside a defined term ("beam" of
+    "Bumper beam" in R48's "dipped beam headlamp"); the product's own head word is kept."""
     terms = product_terms(profile)
+    modifiers = " ".join(" " + " ".join(d.split()[:-1]) + " " for d in defined)
+    own = head_words(profile.model_copy(update={"parts": []}))
     for w in head_words(profile):
-        if w not in terms and paths and sum(w in p for p in paths) / len(paths) < 0.25:
+        if w in terms or (w not in own and w in modifiers):
+            continue
+        if paths and sum(w in p for p in paths) / len(paths) < 0.25:
             terms.append(w)
     return terms
 
@@ -139,10 +151,20 @@ def build_context(
     terms: dict[str, list[str]] = {}
     device_terms: dict[str, list[str]] = {}
     func_ids: set[str] = set()
+    titles = {s.regulation: norm(s.title) for s in sources()}
+    about: set[str] = set()
+    # Device regulations often leave their terms to the installation regulation (R149 uses
+    # R48's "dipped-beam headlamp"), so modifiers are looked up across all selected ones.
+    all_defined = {
+        norm(m[1]) for ps in corpus.values() for p in ps if (m := DEFINITION.match(p.text))
+    }
     for reg, ps in corpus.items():
         paths = {p.id: _path_text(p, graph) for p in ps}
-        terms[reg] = regulation_terms(profile, list(paths.values()))
         defined = {norm(m[1]) for p in ps if (m := DEFINITION.match(p.text))}
+        terms[reg] = regulation_terms(profile, list(paths.values()), all_defined)
+        if _names(titles.get(reg, ""), product_terms(profile)):
+            about.add(reg)
+            func_ids.update(paths)
         device_terms[reg] = [
             d
             for d in defined
@@ -151,6 +173,7 @@ def build_context(
         func_ids.update(pid for pid, path in paths.items() if _hits(path, terms[reg]))
     ref_from_func: set[str] = set()
     func_annexes: set[tuple[str, str]] = set()
+    other = other_sections(corpus, graph, terms)
     for pid in func_ids:
         for target in graph.refs_out.get(pid, ()):
             for t in graph.subtree(target):
@@ -158,7 +181,47 @@ def build_context(
             q = graph.paragraphs[target]
             if q.annex:
                 func_annexes.add((q.regulation, " ".join(q.annex.split()[:2])))
-    return Context(graph, terms, device_terms, reg_prob, func_ids, ref_from_func, func_annexes)
+    return Context(
+        graph, terms, device_terms, reg_prob, func_ids, ref_from_func, func_annexes, other, about
+    )
+
+
+def _names(title: str, phrases: list[str]) -> bool:
+    """The title names a product phrase, also with words in between: "front and rear protective
+    devices" names "front protective device"."""
+    words = set(title.split())
+    return any(len(ph.split()) >= 2 and (ph in title or set(ph.split()) <= words) for ph in phrases)
+
+
+def _title(p: Paragraph) -> str | None:
+    if p.heading:
+        return p.heading
+    return p.text if len(p.text) < 90 and not MODAL.search(p.text) else None
+
+
+def other_sections(
+    corpus: dict[str, list[Paragraph]], graph: Graph, terms: dict[str, list[str]]
+) -> set[str]:
+    """Sections about something else: when one titled sibling names a product term ("6.3 Front
+    fog lamp", "6.5 Bumpers"), its titled siblings that name none ("6.2 Dipped-beam headlamp",
+    "6.17 Aerials") and their subtrees. Works where the regulation defines no device terms.
+    Only the sections directly under a top-level section of the main body, where regulations
+    list devices; deeper siblings are often steps of one procedure (R127 Annex 5 1.4 to 1.12)."""
+    out: set[str] = set()
+    for reg, ps in corpus.items():
+        for p in ps:
+            if p.annex or not p.number or "." in p.number:
+                continue
+            kids = [graph.paragraphs[c] for c in graph.children.get(p.id, [])]
+            titled = [(k, t) for k in kids if (t := _title(k))]
+            if len(titled) < 3:
+                continue
+            hit = [_hits(norm(t), terms[reg]) > 0 for _, t in titled]
+            if any(hit):
+                for (k, _), h in zip(titled, hit, strict=True):
+                    if not h:
+                        out.update(graph.subtree(k.id))
+    return out
 
 
 def vector(p: Paragraph, ctx: Context) -> list[float]:
@@ -168,8 +231,8 @@ def vector(p: Paragraph, ctx: Context) -> list[float]:
     own = norm(p.heading or p.text[:120])
     devices = ctx.device_terms.get(p.regulation, [])
     terms = ctx.product_terms.get(p.regulation, [])
-    func_path = _hits(path, terms)
-    other_path = _hits(path, devices)
+    func_path = _hits(path, terms) + (p.regulation in ctx.about)
+    other_path = _hits(path, devices) + (p.id in ctx.other_sections)
     n_modal = len(MODAL.findall(p.text))
     annex_base = " ".join(p.annex.split()[:2]) if p.annex else ""
     is_definition = bool(DEFINITION.match(p.text)) or "definition" in path

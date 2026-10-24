@@ -112,15 +112,78 @@ the batches that succeeded.
 
 ## Sunday runbook (hybrid mode)
 
-1. Pull the held-out case and check that `uv run python -m brain.ingest` has run.
-2. Run deterministic first and keep it as the safety net:
-   `uv run python -m brain.pipeline ../cases/heldout-front-bumper --no-llm --team-id team-XX -o out/heldout-det.json`
-3. If an LLM is approved, run with it to `out/heldout-llm.json`.
-4. Review the regulation list in the log and in the `regulations` field with Francisca. Rerun
-   with `--include` / `--exclude` as needed. Check the per-regulation requirement counts, so no
-   core regulation emits zero requirements.
-5. Validate, upload a baseline early, then upload better variants. The last valid upload
-   counts, uploads are limited to 5 per hour, and they close at 13:00.
+The held-out case lands at 08:00 and uploads close at 13:00. On the held-out case **the last
+valid upload counts, not the best**, and uploads are limited to 5 per hour. Our team id is
+`team-06`. All commands run from `brain/`.
+
+**Saturday evening.** Add Certivity's package repository as a remote, using the address the
+organisers gave out. This clone only has `origin`, the team repository:
+`git remote add upstream <package repository URL>`.
+
+**08:00 Pull and rebuild.**
+
+```bash
+git pull upstream main && git pull origin main
+python ../tools/fetch_regulations.py          # downloads any PDFs the held-out case adds
+uv run python -m brain.ingest && uv run python -m eval.gold_check
+ls ../cases/                                  # the case folder name is the case_id
+```
+
+**08:15 Safety net: deterministic run and first upload.** It is free and takes seconds. On dev
+it scored requirement F2 0.348 on the platform, against 0.68 for the best model run, so it is
+only the floor.
+
+```bash
+case=../cases/heldout-front-bumper            # use the real folder name
+uv run python -m brain.pipeline $case --no-llm --team-id team-06 -o out/heldout-det.json
+uv run python ../tools/validate.py out/heldout-det.json
+```
+
+Upload it. Note whether the platform shows a score for the held-out case. That decides the end
+game (13:00 step).
+
+**08:30 Regulation review, with Francisca.** Read the `regulations` field and the log, then
+fix the list with `--include` / `--exclude` on every later run. Rules from the dev gold:
+- Cite the consolidated regulation, not the legacy ones it replaces: R148 over R6, R7, R23 and
+  R38; R149 over R19; R150 over R3 and R104.
+- Lighting (R48 with R148 or R149) only if the spec has lamps. R10 only if it has electronics
+  (sensors, LED, wiring).
+- Exclude regulations that approve the whole vehicle for something the part does not decide
+  (R94 and R137 frontal impact, R32 rear-end collision), unless the spec says otherwise.
+- R42, R127 and R26 are the likely core for a front bumper. **GTR 9 against R127:** keep both
+  unless Francisca is more than about 70% sure GTR 9 is out. A wrong extra regulation costs
+  about 0.06 of requirement F2, while a missing one costs about 0.15.
+- After the rerun, check the requirement count per regulation: no core regulation may have
+  zero rows.
+
+**09:00 Model run, if one is approved.** Choose the model and its budget the evening before.
+The likely bumper regulations hold about 1,040 paragraphs, about 37% of the dev case, so one
+run costs about $6 with Fable 5.1 or about $2.40 with Opus 5.5, and about three times that if
+lamps and sensors bring in R48 and R10. The provider's key must be in `brain/.env` (on
+24 Oct it held only `OPENAI_KEY`).
+
+```bash
+BRAIN_LLM=anthropic BRAIN_MODEL_STRONG=claude-fable-5-1 BRAIN_MODEL_BULK=claude-fable-5-1 \
+  uv run python -m brain.pipeline $case --team-id team-06 -o out/heldout-llm.json \
+  --include ... --exclude ...
+uv run python ../tools/validate.py out/heldout-llm.json
+```
+
+If a relevance batch still fails after its retry, the run stops instead of writing a weaker
+file; rerun it, since finished batches are cached. Read 20 random rows against their quotes,
+then upload.
+
+**Without a model run**, the deterministic file stays the answer. Spend the morning on the
+regulation review instead: on dev, the regulation list is the one thing a human can still fix
+in minutes.
+
+**13:00 End game.** Stop uploading variants at about 12:30. Then make sure the final upload is
+the file you want counted:
+- If the platform shows held-out scores, upload the best-scoring file once more as the last
+  upload.
+- If it does not, the last upload is the model-backed file with the reviewed regulation list,
+  since it scored about twice the deterministic one on dev.
+- Never end on an experiment.
 
 ## Evaluate
 
@@ -167,7 +230,7 @@ uv run pytest -q && uv run ruff check . && uv run mypy
 | – | `brain/graph.py` | Graph built with regexes: parent/child, "paragraph 4.6." / "Annex 3" references, links to other regulations, definitions. |
 | 1 | `brain/profile.py` | Reads the spec into a `ProductProfile` (parts, functions, vehicle category, electronics; negated features such as "without radar" don't count). The LLM path also reads the exploded view. |
 | 2 | `brain/select_regs.py` | Matches product terms against each regulation's title, scope, headings and definitions; checks vehicle category; pulls in the EMC regulation for electronics; demotes legacy regulations that a consolidated one "combines" (R148 over R7). The LLM path reviews all regulations, retries any it skipped, and flags any left without a verdict. |
-| 3 | `brain/features.py`, `brain/decide.py` | Paragraph features (product-term match in the heading path, sections about other devices, section kind, content, graph) feed a logistic regression fitted on the dev gold, with a threshold tuned for F2. TabPFN is optional (`--extra tabpfn`, `BRAIN_DECIDER=tabpfn`). |
+| 3 | `brain/features.py`, `brain/decide.py` | Paragraph features (product-term match in the heading path, sections about other devices, section kind, content, graph) feed a logistic regression fitted on the dev gold, with a threshold tuned for F2. Sections about other devices are found from defined terms and from siblings: when one section under a top-level heading names the product ("6.3 Front fog lamp"), its siblings that name none ("6.2 Dipped-beam headlamp") count as other devices. A regulation whose title names the product (R42) counts as about the product throughout. TabPFN is optional (`--extra tabpfn`, `BRAIN_DECIDER=tabpfn`). |
 | 3b | `brain/relevance.py` | LLM path: the strong model reads every candidate paragraph in document order, with its heading path and parent clause, and estimates P(cited). Geometric blend with the decision model (weight 0.7 on the LLM), cut-off 0.20, plus a floor of each selected regulation's top 6% so a product unlike the lamp still gets its core regulation. |
 | 4 | `brain/rewrite.py` | Rewrites each paragraph as minimal-edit EARS requirements. Deterministic path: split at "shall", fold "However" into "except that", turn telegraphic lines ("In height: …") into shall-statements using the subject from the heading path. LLM path: few-shot EARS rewrite with the parent clause, so child items keep the parent's condition. |
 | 5 | `brain/verify.py` | Base version only; every number must appear in the source paragraph or its ancestors; dedupe; Certivity's `validate.py`. |
@@ -175,36 +238,35 @@ uv run pytest -q && uv run ruff check . && uv run mypy
 
 ## Results on dev
 
-Requirement F2 uses the lexical proxy. Everything here is tuned on this one case, so expect
-less on the bumper.
+Platform scores of the uploaded dev files, with model, cost and the commit behind each, are in
+[`../out/README.md`](../out/README.md). In short, requirement F2 on the platform:
 
-| Run | n | Regulation F2 | Page F2 | Requirement F2 |
-|---|---|---|---|---|
-| Deterministic (`--no-llm`) | 778 | 1.000 | 0.723 | 0.364 |
-| LLM, bulk-tier relevance | 488 | 0.952 | 0.851 | 0.577 |
-| LLM, strong-tier relevance | 409 | 0.952 | 0.877 | 0.624 |
+| Run | Requirements | Requirement F2 (platform) | Cost |
+|---|---|---|---|
+| Deterministic (`--no-llm`) | 778 | 0.348 | $0 |
+| gpt-5.5 relevance, gpt-5.4-mini rewrite (`out/dev-upload.json`) | 407 | 0.621 | not tracked |
+| Sonnet 5.5, every step | 344 | 0.634 | $3.08 |
+| Opus 5.5, every step | 338 | 0.651 | $6.36 |
+| Fable 5.1, every step | 332 | 0.682 | $16.52 |
 
-The strong-tier run selected R148, R150, R10, R48 and R26. R26 is the only regulation that isn't
-in gold. Its 17 rows cost about 0.01 of requirement F2 on dev, but R26 §6.5 covers bumpers, so
-it stays for the held-out case.
+The deterministic row predates the sibling and title features. With them it gives 647
+requirements on dev, page F2 0.758 and requirement F2 0.394 on the local judge (0.364 before);
+the decision model is fitted on dev, so these dev numbers are optimistic. On the silver bumper
+labels (`data/bumper-labels/`) the same change raises the decision model's paragraph AUC from
+0.724 to 0.808.
 
-These runs used the earlier relevance prompt with cut-off 0.10 and the earlier judge. The
-current domain-neutral prompt with cut-off 0.20 is measured at paragraph level only: F2 0.75 at
-recall 0.94, against 0.73 for the earlier prompt. The rewrite prompt with parent clauses hasn't
-been run end to end yet.
+The local judge (`eval/judge.py`) finds 4 to 9 fewer matches than the platform on model-written
+text and 5 more on verbatim text, and ranks runs in the platform's order. Use it for changes
+worth more than about 5 matches, and a dev upload for closer calls. `eval.suite` appends each
+run to `eval/results.csv`.
 
-On the five Tier A synthetic cases, the LLM path scores requirement F2 0.40 to 0.63, against
-0.34 to 0.40 for the deterministic path. Tier A cases are ablations of the same dev gold (see
-`eval/synth.py`), so they test function-aware selection, not transfer to a new product. The
-plain bumper smoke test (`data/synthetic/bumper-plain`) selects R42, R127, R26 and GTR 9, with
-10 R42 requirements from §6.1.1 to §6.1.5. `eval.suite` logs each run to `eval/results.csv`, which stays local.
-
-Saved outputs in `out/` (all with `team_id` `team-00`; set yours before uploading):
+Saved outputs in `out/` (from earlier versions of the pipeline):
 
 | File | Run |
 |---|---|
-| `dev-rear-lamp.json` | Dev, deterministic. 778 requirements, the first row of the table above. |
-| `dev-llm.json` | Dev, LLM with strong-tier relevance (cut-off 0.10). 407 requirements, page F2 0.877, requirement F2 0.626. Valid; the candidate for a first platform upload. |
+| `dev-llm.json` | Dev, LLM with strong-tier relevance (cut-off 0.10), 407 requirements. |
+| `dev-upload.json` | The same rows as `dev-llm.json` with `team_id` `team-06`: the 0.621 platform upload above. |
+| `dev-rear-lamp.json` | Dev, deterministic, 778 requirements. |
 | `bumper-plain.json`, `bumper-sensors-fog.json` | Bumper smoke tests, deterministic (before the negation fix in the spec parser). |
 | `bumper-plain-llm.json`, `bumper-sensors-fog-llm.json` | Bumper smoke tests, LLM with strong-tier relevance (cut-off 0.10). |
 
@@ -214,10 +276,26 @@ Saved outputs in `out/` (all with `team_id` `team-00`; set yours before uploadin
 - 42 of the 190 gold requirements come from sentences without "shall" (R48's telegraphic style). The gold was written per paragraph with an LLM-like rewrite, so the selection unit is the paragraph.
 - The gold follows EARS: 122 start "The …", 22 "When", 9 "Where", 7 "While". See [docs/requirement-frameworks.md](docs/requirement-frameworks.md).
 - An LLM reading each paragraph ranks relevance far better than the feature model: AUC 0.975 against 0.836 out of fold.
+- Inside the right sections the gold is selective, so routing by section has a low ceiling:
+  an oracle choice of sections lifts paragraph F2 from 0.76 to 0.83, and rule-based gates on
+  top of the LLM score lowered F2 on all four uploaded runs.
+- A stronger model chooses paragraphs better (rows outside the gold: Sonnet 175, Opus 160,
+  Fable 155) but misses as many gold rows on the paragraphs it chose (26 to 37). Those misses
+  come from splitting less finely than the gold: one gold row per table row, list item or
+  optional case. The rewrite prompt now asks for that.
+- qwen3.5:9b relevance ranks no better than the decision model (AUC 0.78 to 0.84, see
+  [docs/local-models.md](docs/local-models.md)), so local models are for the rewrite, not
+  for relevance.
 
 ## Next
 
-1. One platform dev upload to calibrate the lexical proxy against the real requirement score.
-2. Decide the Sunday LLM budget and mode: Claude credits, the OpenAI bulk tier, or deterministic.
-3. Front bumper: review GTR 9 vs R127 and R26 with Francisca. Label 60 to 100 bumper paragraphs to check transfer.
-4. Open points from the code review: semantic fidelity checks, table-qualified paragraph labels, quote-level page provenance.
+1. Score the split-rewrite prompt on dev (local judge, then one dev upload) against Fable's
+   own rewrite on the same paragraphs.
+2. Decide the Sunday mode and budget, and put the provider key in `brain/.env`.
+3. Front bumper: review GTR 9 against R127 with Francisca, and replace silver labels with her
+   corrections where she disagrees.
+4. Deterministic gaps on bumper specs: R149 headlamp sections pass when the product has fog
+   lamps (their headings are too long to count as titles), and impactor certification (R127
+   Annex 6, GTR 9 §8) and R10 §7 pass although the labels say they are not cited.
+5. Open points from the code review: semantic fidelity checks, table-qualified paragraph
+   labels, quote-level page provenance.
