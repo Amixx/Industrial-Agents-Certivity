@@ -30,6 +30,8 @@ that produced the file; branch code is not on `main` unless it says so.
 | 21:33 to 22:14 | `rear-lamp-qwen-split2-rewrite.json` | Fable's 208 paragraphs rewritten by qwen3.5:9b, narrowed table rule and empty-answer fallback | `main` @ `d7683cd`, `eval.rewrite_pass` | 411 | 143 / 0.611 | | $0 |
 | 22:15 to 22:28 | `rear-lamp-gemini-relevance.log` | Relevance only: gemini-3.8-flash (free tier) on 425 dev paragraphs; AUC 0.998 (gpt-5.5 0.987) | `main` @ `bb829ec`, `out/scripts/gemini_relevance.py` | n/a | | | $0 |
 | 22:30 to 22:49 | `rear-lamp-gemini-relevance.log` | Relevance only: gemini-3.5-flash (free tier) on 1,100 dev paragraphs; AUC 0.974 (gpt-5.5 0.968) | `main` @ `bb829ec`, `out/scripts/gemini_relevance.py` | n/a | | | $0 |
+| 22:52 | `rear-lamp-kb-recall-push.json` | `kb-jev`'s rewrite prompt, Jev cut at 0.20 of each regulation's best (was 0.25), requirement filter on; Opus everywhere | `kb-stack` @ `1d8b22e` with the rewrite prompt of `6f5a1c1` | 390 | 156 / 0.678 | (23:21) 150 / 0.652 | subscription |
+| 23:34 | `rear-lamp-kb-own-subject.json` | The above with a rewrite prompt that keeps the sentence's own subject ("The markings shall ...") and names the device only when the sentence has none; model judge 163 against 150 for the run above | the above plus an uncommitted prompt | 396 | 163 / 0.705 | | subscription |
 
 Empty cells were not recorded when the run was made.
 

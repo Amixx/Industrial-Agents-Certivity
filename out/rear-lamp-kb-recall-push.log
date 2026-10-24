@@ -1,0 +1,7 @@
+[profile] BRAIN_LLM=claude-cli reads no images; exploded_view.png is not used
+[brain 22:52:30] profile: Rear lamp: an exterior lighting and signalling module that combines a rear position lamp, stop lamp, reversing lamp, outer lens and retro-reflector in one housing; 20 terms; electronics=True
+[brain 22:52:30] regulations: UN R148 0.97, UN R48 0.93, UN R150 0.92, UN R10 0.85
+[brain 22:52:31] paragraphs selected: 330
+[brain 22:55:41] requirements: 448 kept, 12 dropped
+[brain 22:56:08] expert filter: 390 kept of 448
+[brain 22:56:08] wrote ~/Personal/bench-out/j20f-dev-rear-lamp.json (390 requirements); 218.5s, 43 LLM calls + 228 cached, $4.63 ($13.69 with a cold cache)
