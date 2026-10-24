@@ -16,12 +16,10 @@ from pathlib import Path
 from statistics import mean
 
 from brain.kb.build import DB
-from brain.kb.ontology import stem
-from brain.kb.query import entities_for, scope
-from brain.models import ProductProfile
+from brain.kb.query import scope
+from brain.kb.rank import documents, rank
 from brain.paths import CASES, DATA, ROOT
 from brain.profile import parse_spec
-from brain.select_regs import _categories_ok
 
 from .judge import similarity
 from .score import paragraph_key
@@ -39,8 +37,6 @@ SCOPE_REGS = (
     "UN R26",
     "UN R149",
 )
-_CATEGORY_LIST = re.compile(r"\bcategor(?:y|ies)\s+(?:of\s+)?[LMNOT]\d?\b", re.I)
-FIELDS = {"title": 3.0, "scope": 2.0, "headings": 1.0, "entities": 1.0}
 
 
 def cases() -> list[Path]:
@@ -197,89 +193,6 @@ def scope_table(conn: sqlite3.Connection) -> None:
         cut = text if len(text) <= 160 else text[:157] + "..."
         rule = f"{best[0]['rule']} | {best[0]['confidence']:.2f}" if best else "none | 0"
         print(f"| {reg} | {role} | {rule} | {cut} |")
-
-
-def _terms(profile: ProductProfile) -> list[str]:
-    raw = [*profile.keywords, *profile.parts, *profile.functions]
-    return [t for t in dict.fromkeys(x.casefold().strip() for x in raw) if len(t) > 3 or t == "esa"]
-
-
-def _hit(phrase: str, field: str) -> float:
-    if f" {phrase} " in field:
-        return 1.0
-    words = set(phrase.split())
-    return 0.5 if len(words) >= 2 and words <= set(field.split()) else 0.0
-
-
-def documents(conn: sqlite3.Connection) -> dict[str, dict[str, str]]:
-    docs: dict[str, dict[str, str]] = {}
-    for reg, title in conn.execute("SELECT id, title FROM regulation ORDER BY id"):
-        best = scope(conn, reg)
-        headings = [
-            h
-            for (h,) in conn.execute(
-                "SELECT heading FROM node WHERE regulation=? AND depth=0 AND heading IS NOT NULL "
-                "ORDER BY ord",
-                (reg,),
-            )
-        ]
-        names = [
-            n
-            for (n,) in conn.execute(
-                "SELECT name FROM entity WHERE regulation=? ORDER BY id", (reg,)
-            )
-        ]
-        docs[reg] = {
-            "title": f" {stem(title)} ",
-            "scope": f" {stem(best[0]['clean_text']) if best else ''} ",
-            "headings": " " + " | ".join(stem(h) for h in headings) + " ",
-            "entities": " " + " | ".join(stem(n) for n in names) + " ",
-            "scope_raw": best[0]["clean_text"] if best else "",
-        }
-    return docs
-
-
-def rank(conn: sqlite3.Connection, profile: ProductProfile, docs: dict) -> list[tuple[str, float]]:
-    """Regulations by how well the spec terms, expanded through the entity aliases, match each
-    regulation's title, best scope candidate, top-level headings and defined entity names.
-
-    One-word head matches are left out: "optical unit" would otherwise pull in every regulation
-    that defines "units". The vehicle-category check applies only where the scope names
-    categories in the M/N/L/O/T scheme, which GTRs do not use."""
-    terms = _terms(profile)
-    hits = [h for h in entities_for(conn, terms) if h["via"] != "head"]
-    expansions: dict[str, dict[str, float]] = {t: {stem(t): 1.0} for t in terms}
-    owned: dict[str, dict[str, float]] = defaultdict(dict)
-    for hit in hits:
-        name = stem(hit["name"])
-        weight = 0.8 * hit["score"]
-        if expansions[hit["term"]].get(name, 0) < weight:
-            expansions[hit["term"]][name] = weight
-        reg_hits = owned[hit["term"]]
-        reg_hits[hit["regulation"]] = max(reg_hits.get(hit["regulation"], 0), hit["score"])
-    scores = {}
-    for reg, doc in docs.items():
-        total = 0.0
-        for term in terms:
-            best = (
-                max(
-                    weight * sum(w * _hit(phrase, doc[f]) for f, w in FIELDS.items())
-                    for phrase, weight in expansions[term].items()
-                    if phrase
-                )
-                if any(expansions[term])
-                else 0.0
-            )
-            total += best + 1.5 * owned[term].get(reg, 0.0)
-        if _CATEGORY_LIST.search(doc["scope_raw"]) and not _categories_ok(
-            profile, doc["scope_raw"]
-        ):
-            total *= 0.05
-        scores[reg] = total
-    for src, dst in conn.execute("SELECT src, dst FROM edge WHERE type='supersedes' ORDER BY 1, 2"):
-        if scores.get(src, 0) > 0 and dst in scores:
-            scores[dst] *= 0.1
-    return sorted(scores.items(), key=lambda kv: (-kv[1], kv[0]))
 
 
 def ranking(conn: sqlite3.Connection, spec: Path, docs: dict, gold: set[str]) -> list[str]:
