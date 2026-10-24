@@ -167,6 +167,8 @@ def patch(args: argparse.Namespace) -> None:
         relevance._SYSTEM = REL_ALT
     if args.rw_prompt == "verbatim":
         rewrite._SYSTEM = RW_VERBATIM
+    if getattr(args, "weight", None) is not None:
+        relevance.WEIGHT = args.weight
 
     orig_score = relevance.score
 
@@ -445,6 +447,7 @@ def main(argv: list[str] | None = None) -> int:
     r.add_argument("--seed", type=int, default=0)
     r.add_argument("--rel-batch", type=int, default=None)
     r.add_argument("--threshold", type=float, default=None)
+    r.add_argument("--weight", type=float, default=None, help="LLM blend weight; default 0.7")
     r.add_argument("--include", nargs="*", default=[])
     r.add_argument("--exclude", nargs="*", default=[])
     r.add_argument("--only", nargs="*", default=[], help="exactly these regulations")

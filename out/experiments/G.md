@@ -1,7 +1,7 @@
 # Lane G: Sunday feasibility of the winners
 
-State: running. Updated: 24 Oct 22:57 CEST.
-Approved spend: $8. Spent: $0.41 (six Haiku runs, plain bumper). The vote below is free.
+State: running. Updated: 24 Oct 23:00 CEST.
+Approved spend: $8. Spent: $1.72 ($0.41 six Haiku runs, $1.088 Sonnet, $0.225 Opus-reference rewrite). The vote is free. Opus relevance was 39 cache hits and $0.
 
 ## Checklist
 
@@ -22,7 +22,18 @@ Approved spend: $8. Spent: $0.41 (six Haiku runs, plain bumper). The vote below 
       (weight 0.7, cut 0.15, floor) selects 152 paragraphs at P 0.35 R 0.76 F2 0.614; the
       default cut 0.20 is P 0.48 R 0.63 F2 0.590. Haiku weight 0.85 does not reach the 0.91
       recall quoted for a stronger relevance model.
-      Still to do: the Sonnet run, the Opus reference, fog bumper.
+      Sonnet run done 22:59. File: `out/experiments/G-bumper-plain-sonnet-base-s0.json` (+ `.log`,
+      `-scores.json`). 45 new Sonnet calls, no cache-hits line, $1.088, wall 59 s
+      (profile 3 s, regulations 16 s, relevance 21 s, rewrite 19 s). 138 rows, 68 paragraphs.
+      P 0.78 R 0.79 (53/67) F2 0.789, LLM AUC 0.976. One Sonnet run beats every Haiku vote
+      on precision, recall and F2.
+      Opus reference done 23:00. File: `out/experiments/G-bumper-plain-opus-ref.json`.
+      Opus profile, regulations and relevance: 39 cache hits, 0 s, $0 new. Sonnet rewrite of the
+      64 selected paragraphs: 6 calls, $0.225, 20 s, no Sonnet cache-hits line (the batches
+      differ from the Sonnet run). 123 rows, 60 paragraphs. P 0.75 R 0.67 (45/67) F2 0.686,
+      LLM AUC 0.970. Weaker than the single Sonnet run on recall and F2. The silver labels are
+      Opus-made; that did not make this Opus selection win.
+      Still to do: fog bumper, then a Sonnet blend at weight 0.85 (offline sweep, below).
 - [ ] G2 Paragraph recall and precision of the voted file against the silver bumper labels, next
       to a single run's.
 - [ ] G3 Exact Sunday commands for the best feasible variant, with wall-clock time and cost, as a
@@ -31,15 +42,13 @@ Approved spend: $8. Spent: $0.41 (six Haiku runs, plain bumper). The vote below 
 Next (all from `brain/`):
 
 1. Vote: done at 22:57. See the G1 note.
-2. Sonnet run, about $1.40: `PYTHONPATH=. uv run python swing/g_runs.py run
-   data/synthetic/bumper-plain --name sonnet-base-s0 --rel-model claude-sonnet-5-5 --rw-model
-   claude-sonnet-5-5 --only "UN R42" "UN R26" "UN R127" "UN GTR 9" 2>
-   ../out/experiments/G-bumper-plain-sonnet-base-s0.log`
-3. Opus reference (main's Sunday default), about $2.75 or less: lane B cached Opus profile,
-   regulation choice and relevance for bumper-plain with main's prompts, so
-   `--name opus-ref --rel-model claude-opus-5-5 --rw-model claude-sonnet-5-5 --seed 0` (seed 0 =
-   main's order) with the same `--only` may be mostly cache hits; check the `[g] ... cache hits`
-   line in the log before adding the printed spend.
+2. Sonnet run: done at 22:59, $1.088, 59 s, F2 0.789. Log has no cache-hits line.
+3. Opus reference: done at 23:00. Log: `claude-opus-5-5: 39 cache hits`, new spend $0.225
+   (Sonnet rewrite only). F2 0.686, behind Sonnet's 0.789.
+   Offline Sonnet blend sweep (selection, same labels): weight 0.7 cut 0.20 is P 0.75 R 0.81
+   F2 0.794 (the run above, 72 paragraphs). Weight 0.85 cut 0.20 is P 0.73 R 0.87 F2 0.833
+   (80 paragraphs). Weight 0.85 cut 0.15 is P 0.62 R 0.90 F2 0.822. Run weight 0.85 next; the
+   relevance calls should be cache hits.
 4. Fog bumper, four Haiku runs about $1.20: base seed 0, base seed 1, alt seed 0, verbatim seed 3
    on `data/synthetic/bumper-sensors-fog` with `--only "UN R10" "UN R48" "UN R149" "UN R148"
    "UN R127" "UN GTR 9" "UN R42" "UN R26"`. Stop if the first run prices the four above the
@@ -66,6 +75,8 @@ Resuming a half-finished run: rerun the same `run` command. Finished LLM calls c
 | 24 Oct 22:57 | out/experiments/G-bumper-plain-vote-cluster-mr2.json | row clusters, Jaccard 0.6, keep a cluster written by >= 2 runs | g_runs.py vote | 301 | P 0.41 R 0.67 F2 0.595 | none | $0 |
 | 24 Oct 22:57 | out/experiments/G-bumper-plain-vote-cluster-mr3.json | same, >= 3 runs | g_runs.py vote | 206 | P 0.48 R 0.64 F2 0.602 | none | $0 |
 | 24 Oct 22:57 | out/experiments/G-bumper-plain-vote-cluster-mr4.json | same, >= 4 runs | g_runs.py vote | 134 | P 0.63 R 0.60 F2 0.604 | none | $0 |
+| 24 Oct 22:59 | out/experiments/G-bumper-plain-sonnet-base-s0.json | Sonnet 5.5 relevance + rewrite, main's prompts, seed 0, regs fixed | g_runs.py | 138 | P 0.78 R 0.79 (53/67) F2 0.789, AUC 0.976; 59 s | none | $1.088 |
+| 24 Oct 23:00 | out/experiments/G-bumper-plain-opus-ref.json | Opus 5.5 relevance (cached) + Sonnet 5.5 rewrite, main's prompts, seed 0 | g_runs.py | 123 | P 0.75 R 0.67 (45/67) F2 0.686, AUC 0.970; 21 s | none | $0.225 |
 
 ## Uploads
 
