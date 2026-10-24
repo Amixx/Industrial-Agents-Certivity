@@ -1,0 +1,4 @@
+lane H haiku: relevance claude-haiku-5-5, blend 0.85, Sonnet rewrite, main's prompt
+paragraphs selected 348, rows 520, dropped 4
+wall 70s, new spend $1.174, already $3.162, lane $4.336
+wrote /Users/troy/Documents/Projects/Industrial-Agents-Certivity/out/rear-lamp-swing-H-haiku-rel.json
