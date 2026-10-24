@@ -1,0 +1,17 @@
+AUC on rows  p_section 0.709  p_keep 0.764  product 0.778
+AUC on paragraphs p_section 0.736
+filter 0.40 (uploaded)             rows  390 on-gold  221 off  169 gold paras  116 reachable  184 est F2 0.657
+filter + p_section >= 0.1          rows  390 on-gold  221 off  169 gold paras  116 reachable  184 est F2 0.657
+filter + p_section >= 0.2          rows  390 on-gold  221 off  169 gold paras  116 reachable  184 est F2 0.657
+filter + p_section >= 0.3          rows  385 on-gold  221 off  164 gold paras  116 reachable  184 est F2 0.659
+filter + p_section >= 0.4          rows  349 on-gold  208 off  141 gold paras  110 reachable  174 est F2 0.644
+filter + p_section >= 0.5          rows  309 on-gold  197 off  112 gold paras  103 reachable  163 est F2 0.626
+filter + p_section >= 0.6          rows  255 on-gold  162 off   93 gold paras   88 reachable  132 est F2 0.534
+filter + p_section >= 0.7          rows  182 on-gold  128 off   54 gold paras   68 reachable  105 est F2 0.457
+p_keep * p_section >= 0.1          rows  422 on-gold  223 off  199 gold paras  116 reachable  184 est F2 0.639
+p_keep * p_section >= 0.15         rows  393 on-gold  222 off  171 gold paras  116 reachable  184 est F2 0.655
+p_keep * p_section >= 0.2          rows  363 on-gold  218 off  145 gold paras  116 reachable  184 est F2 0.672
+p_keep * p_section >= 0.25         rows  331 on-gold  206 off  125 gold paras  112 reachable  178 est F2 0.669
+p_keep * p_section >= 0.3          rows  295 on-gold  188 off  107 gold paras  104 reachable  167 est F2 0.650
+p_keep * p_section >= 0.4          rows  215 on-gold  151 off   64 gold paras   89 reachable  137 est F2 0.577
+oracle: gold paragraphs only       rows  221 on-gold  221 off    0 gold paras  116 reachable  184 est F2 0.770
