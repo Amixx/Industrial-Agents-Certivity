@@ -175,4 +175,18 @@ architectures you cannot.
 
 ## Results
 
-(fill in)
+Architecture: [docs/regulation-change.md](../../../docs/regulation-change.md), agreed with the
+repo owner on 24 Oct (new `brain/brain/subgoal.py` on `brain.ingest`). Plan:
+`docs/superpowers/plans/2026-10-24-subgoal-diff.md`.
+
+**Baseline: the existing script on dev** (24 Oct, `main`, before `brain/subgoal.py`). Command:
+`uv run --with pymupdf python scripts/diff_regulation.py --old-pdf subgoal/dev/old.pdf --new-pdf
+subgoal/dev/new.pdf --requirements subgoal/dev/requirements_old.json --out <file>`, renamed to
+the submission schema, then `uv run python -m eval.subgoal_score <file>`:
+
+| Flag recall | Change accuracy | Added recall | Exact reasons | new_text similarity | Extra rows |
+|---|---|---|---|---|---|
+| 0.708 (17/24) | 1.000 | 0.588 (10/17) | 0.125 | 0.798 | 8 |
+
+All 7 modified and removed ids are right. The losses are in the added rows: 7 missed, 8 extra
+(section 12 transitional provisions, 5.1.12, the 6.6.1.2 and 6.6.2.2 lead-ins).
