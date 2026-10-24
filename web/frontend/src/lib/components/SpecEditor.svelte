@@ -2,6 +2,7 @@
 import { EditorState } from '@codemirror/state';
 import { EditorView } from '@codemirror/view';
 import { hybridMarkdown } from 'codemirror-markdown-hybrid';
+import { untrack } from 'svelte';
 
 let { value = $bindable(''), class: className = '' }: { value?: string; class?: string } = $props();
 
@@ -12,7 +13,7 @@ $effect(() => {
 	view = new EditorView({
 		parent: host,
 		state: EditorState.create({
-			doc: value,
+			doc: untrack(() => value),
 			extensions: [
 				hybridMarkdown({ theme: 'light', enableCollapse: false }),
 				EditorView.lineWrapping,
