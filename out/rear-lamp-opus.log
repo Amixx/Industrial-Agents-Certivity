@@ -1,0 +1,6 @@
+[brain 19:54:39] profile: Rear lamp (combined rear lighting and signalling module with rear position lamp, stop lamp, reversing lamp, outer lens and retro-reflector in a single housing); 30 terms; electronics=True
+[brain 19:55:01] regulations: UN R148 0.95, UN R48 0.90, UN R150 0.85, UN R10 0.75
+[brain 19:56:17] paragraphs selected: 275
+[brain 19:56:58] requirements: 338 kept, 7 dropped
+[brain 19:56:58] wrote out/dev-opus.json (338 requirements)
+[brain 19:56:58] LLM usage: claude-opus-5-5 138 calls, 867,393 in / 158,945 out; $6.36

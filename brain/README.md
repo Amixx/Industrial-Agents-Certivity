@@ -178,7 +178,7 @@ uv run pytest -q && uv run ruff check . && uv run mypy
 
 ## Results on dev
 
-Model comparisons with cost per run are in [docs/benchmarks.md](../docs/benchmarks.md).
+Model comparisons with cost per run are in [out/README.md](../out/README.md).
 
 Requirement F2 uses the lexical proxy. Everything here is tuned on this one case, so expect
 less on the bumper.

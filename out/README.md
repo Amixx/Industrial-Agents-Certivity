@@ -58,8 +58,9 @@ level and missed the fewest requirements (49 of 190, against 51 for Opus 5.5 and
 for about twice the cost. These are single runs, so read the gaps against the variance note
 below.
 
-Saved outputs: `brain/out/dev-rear-lamp.json` (deterministic) and `brain/out/dev-<model>.json`.
-All of them pass `tools/validate.py`.
+Each run's submission and log are in this folder: `rear-lamp-deterministic.json`, and
+`rear-lamp-<model>.json` with `rear-lamp-<model>.log` (the pipeline log, which ends with the
+token count and cost). All submissions pass `tools/validate.py`.
 
 ### Earlier run
 
@@ -81,10 +82,11 @@ From `brain/`, with `ANTHROPIC_API_KEY` and `BRAIN_LLM=anthropic` in `brain/.env
 `brain/.env.example`):
 
 ```bash
-BRAIN_MODEL=sonnet uv run python -m brain.pipeline ../cases/dev-rear-lamp -o out/dev-sonnet.json
-uv run python ../tools/validate.py out/dev-sonnet.json
-uv run python ../tools/score_local.py out/dev-sonnet.json
-uv run python -m eval.score out/dev-sonnet.json
+out=../out/rear-lamp-sonnet
+BRAIN_MODEL=sonnet uv run python -m brain.pipeline ../cases/dev-rear-lamp -o $out.json 2> $out.log
+uv run python ../tools/validate.py $out.json
+uv run python ../tools/score_local.py $out.json
+uv run python -m eval.score $out.json
 ```
 
 `BRAIN_MODEL` takes `sonnet`, `opus`, `fable`, `haiku` or a full model id. A rerun reads the
