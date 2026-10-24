@@ -1,4 +1,5 @@
 import json
+import subprocess
 from collections.abc import AsyncIterator
 from contextlib import asynccontextmanager
 from typing import Any
@@ -8,8 +9,8 @@ from fastapi.responses import FileResponse, JSONResponse, StreamingResponse
 from fastapi.staticfiles import StaticFiles
 from starlette.datastructures import UploadFile as StarletteUploadFile
 
-from . import pipeline, store, updates
-from .models import Assessment, PipelineEvent
+from . import brief, pipeline, store, updates
+from .models import Assessment, BriefRequest, PipelineEvent
 from .paths import CASES, FRONTEND_BUILD, REGULATIONS
 
 
@@ -131,6 +132,15 @@ def apply_update(assessment_id: str, regulation: str) -> JSONResponse:
         done.append(regulation)
         store.put(assessment)
     return JSONResponse(assessment.dump())
+
+
+@app.post("/api/brief")
+def get_brief(request: BriefRequest) -> JSONResponse:
+    try:
+        written = brief.brief_for(request.requirements)
+    except (RuntimeError, OSError, subprocess.TimeoutExpired) as e:
+        raise HTTPException(503, f"Brief unavailable: {e}") from e
+    return JSONResponse(written.dump())
 
 
 @app.get("/api/regulations")

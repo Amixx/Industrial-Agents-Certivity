@@ -81,6 +81,13 @@ export type RegulationUpdate = {
 	applied?: boolean;
 };
 
+export type BriefSentence = { text: string; cites: string[] };
+
+export type BriefSection = { title: string; sentences: BriefSentence[] };
+
+/** Prose summary for developers; every sentence cites requirement ids. */
+export type Brief = { sections: BriefSection[] };
+
 /** Download format expected by the challenge grader. */
 export type Submission = {
 	team_id: string;
@@ -99,4 +106,5 @@ export interface ApiClient {
 	getAssessment(id: string): Promise<Assessment | null>;
 	checkUpdates(id: string): Promise<RegulationUpdate[]>;
 	applyUpdate(id: string, regulation: string): Promise<Assessment>;
+	getBrief(requirements: Requirement[]): Promise<Brief>;
 }

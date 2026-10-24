@@ -1,0 +1,228 @@
+{
+ "sections": [
+  {
+   "title": "Retro-reflector optics and colour",
+   "sentences": [
+    {
+     "text": "The red Class IA/IB retro-reflector must reach at least 300 mcd/lx at \u03b1 = 20' on axis, 200 mcd/lx at \u03b21 = \u00b110\u00b0, and 100 mcd/lx at \u03b21 = \u00b15\u00b0 / \u03b22 = \u00b120\u00b0; at \u03b1 = 1\u00b030' the minimums are 5, 2.8 and 2.5 mcd/lx, and these values apply everywhere inside the solid angle bounded by those directions.",
+     "cites": [
+      "G-0026",
+      "G-0029",
+      "G-0036"
+     ]
+    },
+    {
+     "text": "Only the illuminating surface inside a 200 mm diameter circle counts for photometry, capped at 100 cm2; if the unit has no TOP marking, its minimum RI must still pass at the worst rotation about the reference axis, and if it is marked TOP it must pass over \u00b15\u00b0 of rotation.",
+     "cites": [
+      "G-0023",
+      "G-0024",
+      "G-0039",
+      "G-0042"
+     ]
+    },
+    {
+     "text": "The reflected light must stay inside the R48 night-time red limits under CIE Illuminant A at 1/3\u00b0 divergence, and the shape must not be confused with a triangle when viewed from 10 m.",
+     "cites": [
+      "G-0017",
+      "G-0018",
+      "G-0037",
+      "G-0043"
+     ]
+    }
+   ]
+  },
+  {
+   "title": "Lamp photometry and colour",
+   "sentences": [
+    {
+     "text": "The rear position lamp and stop lamp must emit red light and the reversing lamp white light, with no sharp colour shift outside the Annex 3 grid.",
+     "cites": [
+      "G-0219",
+      "G-0221",
+      "G-0225",
+      "G-0217"
+     ]
+    },
+    {
+     "text": "Each function must meet its table minimums on axis and across the Annex 3 grid and must not exceed the maximums in any visible direction, tested at 13.5 V (12 V system) or 28 V (24 V system); a rear position lamp sharing its light source with the stop lamp may reach 60 cd below 5\u00b0 down.",
+     "cites": [
+      "G-0210",
+      "G-0211",
+      "G-0212",
+      "G-0209",
+      "G-0218"
+     ]
+    },
+    {
+     "text": "A reversing lamp sold only in pairs may be checked up to 30\u00b0 inwards, where it needs at least 25 cd; reversing lamps must stay within limits after 1 and 10 min of operation, and the other functions after 1 min and after 30 min or once output is stable.",
+     "cites": [
+      "G-0222",
+      "G-0230",
+      "G-0232"
+     ]
+    },
+    {
+     "text": "A rear position lamp sharing its light source with the stop lamp needs either multiple light sources or a vehicle failure tell-tale, and if one source in a multi-source lamp fails, the lamp must either still meet its minimums or send a failure tell-tale signal.",
+     "cites": [
+      "G-0190",
+      "G-0199"
+     ]
+    }
+   ]
+  },
+  {
+   "title": "Construction and durability",
+   "sentences": [
+    {
+     "text": "The retro-reflector must not come apart easily, its optical unit and filter must not be separable in normal use, the inner surface must not be reachable, and it must not be coloured with paint or varnish.",
+     "cites": [
+      "G-0011",
+      "G-0014",
+      "G-0015",
+      "G-0016"
+     ]
+    },
+    {
+     "text": "The outer surface must be smooth and easy to clean, and no protrusion may get in the way of cleaning.",
+     "cites": [
+      "G-0012",
+      "G-0013"
+     ]
+    },
+    {
+     "text": "The optical unit must keep water away from the reflecting surface and must pass the following tests without visible cracking or noticeable distortion: salt mist at 35 \u00b0C with 5% NaCl (if it has metal parts that can corrode), with no corrosion that harms performance, and UV weathering to EN ISO 4892-2 at 60 W/m\u00b2 (300 to 400 nm) in cycles of 102 min dry and 18 min water spray.",
+     "cites": [
+      "G-0044",
+      "G-0045",
+      "G-0050",
+      "G-0051",
+      "G-0053"
+     ]
+    },
+    {
+     "text": "Any replaceable light source module must only fit in its correct position, need a tool to remove, be tamperproof, and not be interchangeable with an approved bulb or another module in the same housing.",
+     "cites": [
+      "G-0203",
+      "G-0204",
+      "G-0205",
+      "G-0206"
+     ]
+    }
+   ]
+  },
+  {
+   "title": "Vehicle installation",
+   "sentences": [
+    {
+     "text": "The rear position lamp and stop lamp (S1/S2) must sit 350 to 1500 mm above the ground (up to 2100 mm only if the bodywork leaves no choice and there are no optional lamps), with the outermost point of the apparent surface no more than 400 mm from the vehicle edge (for the stop lamp, this applies to M1 and N1 vehicles).",
+     "cites": [
+      "G-0093",
+      "G-0103",
+      "G-0088",
+      "G-0101"
+     ]
+    },
+    {
+     "text": "Geometric visibility must be 45\u00b0 inwards and 80\u00b0 outwards for the rear position lamp, 45\u00b0 left and right for the stop lamp, and 15\u00b0 up and down for both; below 750 mm mounting height the downward angle may drop to 5\u00b0 and the inward angle under the H plane to 20\u00b0, and at least 12.5 cm2 of apparent surface must be visible, not counting non-transmitting retro-reflector area.",
+     "cites": [
+      "G-0106",
+      "G-0107",
+      "G-0096",
+      "G-0098",
+      "G-0111",
+      "G-0112"
+     ]
+    },
+    {
+     "text": "The retro-reflector must be within 400 mm of the vehicle edge and visible 30\u00b0 inwards and outwards and 10\u00b0 up and down (5\u00b0 down below 750 mm); the reversing lamp must be mounted 250 to 1200 mm above the ground at the rear.",
+     "cites": [
+      "G-0119",
+      "G-0121",
+      "G-0122",
+      "G-0081",
+      "G-0082"
+     ]
+    },
+    {
+     "text": "The reference axis must be within \u00b13\u00b0 of parallel to the road plane and the vehicle centreline, and red light emitted towards the front must not exceed 0.25 cd per lamp.",
+     "cites": [
+      "G-0057",
+      "G-0059",
+      "G-0073",
+      "G-0074"
+     ]
+    }
+   ]
+  },
+  {
+   "title": "Markings and logos",
+   "sentences": [
+    {
+     "text": "The housing needs space for a legible, indelible approval mark (dimension a of at least 5 mm) plus the applicant's trade name, placed on a part that cannot be separated from the light-emitting lens and visible when the lamp is fitted; a detachable lens must carry the mark too.",
+     "cites": [
+      "G-0161",
+      "G-0162",
+      "G-0163",
+      "G-0170",
+      "G-0180",
+      "G-0181",
+      "G-0182"
+     ]
+    },
+    {
+     "text": "A side-specific lamp needs a horizontal arrow pointing outwards, and a lamp with electronic control gear or non-replaceable light sources must be marked with its rated voltage or voltage range.",
+     "cites": [
+      "G-0165",
+      "G-0167",
+      "G-0171"
+     ]
+    },
+    {
+     "text": "A single vehicle or body manufacturer logo of up to 100 cm2 may be built into a function's apparent surface, but not into the stop lamp or reversing lamp.",
+     "cites": [
+      "G-0193",
+      "G-0195",
+      "G-0197"
+     ]
+    }
+   ]
+  },
+  {
+   "title": "EMC of the electronics",
+   "sentences": [
+    {
+     "text": "Broadband radiated emissions must stay below 62 to 52 dB\u00b5V/m (30 to 75 MHz), 52 to 63 dB\u00b5V/m (75 to 400 MHz) and 63 dB\u00b5V/m (400 to 1000 MHz), and narrowband emissions below 52 to 42, 42 to 53 and 53 dB\u00b5V/m over the same bands; a design with no oscillator above 9 kHz is deemed to meet the narrowband limits.",
+     "cites": [
+      "G-0129",
+      "G-0130",
+      "G-0132",
+      "G-0133",
+      "G-0150"
+     ]
+    },
+    {
+     "text": "Immunity-related functions must not degrade under radiated fields from 20 to 6000 MHz, using AM 1 kHz 80% modulation up to 400 MHz and pulse modulation above that.",
+     "cites": [
+      "G-0136",
+      "G-0139",
+      "G-0152",
+      "G-0153",
+      "G-0155"
+     ]
+    },
+    {
+     "text": "The supply inputs must withstand ISO 7637-2 pulse 1 (-75 V/-450 V), 2a (+37 V), 2b (+10 V/+20 V), 3a (-112 V/-150 V) and 3b (+75 V/+150 V) for 12 V/24 V systems at the required FPSC classes, plus the ISO 16750-2 starting profile for vehicles with combustion engines.",
+     "cites": [
+      "G-0145",
+      "G-0146",
+      "G-0147",
+      "G-0148",
+      "G-0149",
+      "G-0143",
+      "G-0158"
+     ]
+    }
+   ]
+  }
+ ]
+}

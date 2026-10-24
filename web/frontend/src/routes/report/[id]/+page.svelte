@@ -2,6 +2,7 @@
 import { onMount } from 'svelte';
 import { api } from '#lib/api/client.ts';
 import type { Assessment } from '#lib/api/types.ts';
+import Brief from '#lib/report/Brief.svelte';
 import Cover from '#lib/report/Cover.svelte';
 import Profile from '#lib/report/Profile.svelte';
 import Regulations from '#lib/report/Regulations.svelte';
@@ -85,6 +86,7 @@ const pageCaseCss = $derived(caseLabel.replace(/[^\p{L}\p{N} ._-]/gu, ''));
 		<Cover {assessment} />
 		<Profile profile={assessment.profile} />
 		<Regulations regulations={assessment.regulations} />
+		<Brief requirements={assessment.requirements} />
 		<section>
 			<h2>Requirements</h2>
 			{#each groups as g (g.regulation)}

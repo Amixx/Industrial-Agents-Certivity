@@ -1,4 +1,4 @@
-import type { ApiClient, Assessment, PipelineEvent, RegulationUpdate } from './types.ts';
+import type { ApiClient, Assessment, Brief, PipelineEvent, RegulationUpdate } from './types.ts';
 
 async function json<T>(res: Response): Promise<T> {
 	if (!res.ok) throw new Error(`${res.status} ${res.statusText}`);
@@ -48,5 +48,13 @@ export const http: ApiClient = {
 			method: 'POST',
 		});
 		return json<Assessment>(res);
+	},
+	async getBrief(requirements) {
+		const res = await fetch('/api/brief', {
+			method: 'POST',
+			headers: { 'Content-Type': 'application/json' },
+			body: JSON.stringify({ requirements }),
+		});
+		return json<Brief>(res);
 	},
 };

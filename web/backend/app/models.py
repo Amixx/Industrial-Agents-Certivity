@@ -96,3 +96,21 @@ class RegulationUpdate(Model):
     to_version: str
     changes: list[RequirementChange]
     applied: bool | None = None
+
+
+class BriefSentence(Model):
+    text: str
+    cites: list[str]
+
+
+class BriefSection(Model):
+    title: str
+    sentences: list[BriefSentence]
+
+
+class Brief(Model):
+    sections: list[BriefSection]
+
+
+class BriefRequest(Model):
+    requirements: list[Requirement]

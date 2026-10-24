@@ -1,5 +1,6 @@
 import expected from './fixtures/expected.json';
 import realUpdates from './fixtures/regulation-updates.json';
+import { http } from './http.ts';
 import { regulationIndex, regulationTitle } from './regulations.ts';
 import type {
 	ApiClient,
@@ -443,4 +444,7 @@ export const mock: ApiClient = {
 		markApplied(id, regulation);
 		return updated;
 	},
+
+	/** The brief comes from the backend even here: it is written by an LLM and cached there. */
+	getBrief: http.getBrief,
 };
