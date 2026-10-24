@@ -35,6 +35,8 @@ def main(argv: list[str] | None = None) -> int:
     ap.add_argument("--no-llm", action="store_true")
     ap.add_argument("--tag", default="")
     ap.add_argument("--cases", default="*", help="glob on case names, e.g. 'synth-a*'")
+    ap.add_argument("--include", nargs="*", default=[], help="force regulations in, every case")
+    ap.add_argument("--exclude", nargs="*", default=[], help="force regulations out, every case")
     args = ap.parse_args(argv)
     rows = []
     for case in labelled_cases():
@@ -46,6 +48,8 @@ def main(argv: list[str] | None = None) -> int:
             image if image.exists() else None,
             case_id=case.name,
             use_llm=False if args.no_llm else None,
+            include=args.include,
+            exclude=args.exclude,
         )
         r = score(sub, json.loads((case / "expected.json").read_text()))
         row = {

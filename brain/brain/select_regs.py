@@ -181,14 +181,17 @@ _SCHEMA = {
                 "type": "object",
                 "properties": {
                     "regulation": {"type": "string"},
+                    "rationale": {
+                        "type": "string",
+                        "description": "one or two sentences, written before the decision",
+                    },
                     "applies": {"type": "boolean"},
                     "p_applies": {
                         "type": "number",
                         "description": "probability (0-1) that the regulation applies",
                     },
-                    "rationale": {"type": "string"},
                 },
-                "required": ["regulation", "applies", "p_applies", "rationale"],
+                "required": ["regulation", "rationale", "applies", "p_applies"],
                 "additionalProperties": False,
             },
         }

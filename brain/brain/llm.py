@@ -60,12 +60,9 @@ def available() -> bool:
     return provider() != "none"
 
 
-def local_reasoning(effort: str) -> str:
-    """Local models think only on high-effort calls (regulation review).
-
-    BRAIN_LOCAL_REASONING overrides this for every call.
-    """
-    return os.environ.get("BRAIN_LOCAL_REASONING") or ("high" if effort == "high" else "none")
+def local_reasoning() -> str:
+    """Local models answer without a thinking phase; BRAIN_LOCAL_REASONING=low|high turns it on."""
+    return os.environ.get("BRAIN_LOCAL_REASONING", "none")
 
 
 def reads_images() -> bool:
@@ -119,7 +116,7 @@ def complete_json(
         "effort": effort,
     }
     if prov == "local":
-        payload["reasoning"] = local_reasoning(effort)
+        payload["reasoning"] = local_reasoning()
     cached = _cache_path(payload)
     if cached.exists():
         try:
@@ -215,7 +212,7 @@ def _openai_compatible(
         request["reasoning_effort"] = effort
     else:
         request["max_tokens"] = max_tokens
-        request["reasoning_effort"] = local_reasoning(effort)
+        request["reasoning_effort"] = local_reasoning()
     response = client.chat.completions.create(**request)
     choice = response.choices[0]
     if choice.finish_reason == "length":

@@ -79,7 +79,7 @@ def review(
 ) -> list[RegulationChoice]:
     """The human review gate: force regulations in or out (Sunday hybrid mode)."""
     known = {c.regulation for c in choices}
-    unknown = sorted(set(include) | set(exclude) - known)
+    unknown = sorted((set(include) | set(exclude)) - known)
     if unknown:
         raise ValueError(f"unknown regulation ids {unknown}; use ids like 'UN R42', 'UN GTR 9'")
     if conflict := sorted(set(include) & set(exclude)):
