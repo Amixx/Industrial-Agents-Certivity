@@ -19,7 +19,7 @@ from pathlib import Path
 from typing import Any
 
 from . import features as F
-from . import llm, relevance
+from . import jev, llm, relevance
 from .decide import MODEL_PATH, Model
 from .graph import build
 from .ingest import load_all
@@ -56,6 +56,9 @@ def select_paragraphs(
     ]
     model = Model.load(MODEL_PATH)
     probs: Any = model.predict(F.matrix(paragraphs, ctx)) if paragraphs else []
+    if jev.enabled() and paragraphs:
+        jev_p = jev.score(paragraphs, graph, profile)
+        probs = [jev_p[p.id] for p in paragraphs]
     cut = model.threshold
     if use_llm and paragraphs:
         llm_p = relevance.score(paragraphs, graph, profile)

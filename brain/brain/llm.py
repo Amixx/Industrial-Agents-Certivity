@@ -142,10 +142,14 @@ def complete_json(
     else:
         raise RuntimeError(f"unknown BRAIN_LLM={prov}")
     cached.parent.mkdir(parents=True, exist_ok=True)
-    tmp = cached.with_suffix(f".{os.getpid()}.{threading.get_ident()}.tmp")
-    tmp.write_text(json.dumps(result))
-    tmp.replace(cached)  # atomic, so parallel workers never read a half-written file
+    write_atomic(cached, result)
     return result
+
+
+def write_atomic(path: Path, data: Any) -> None:
+    tmp = path.with_suffix(f".{os.getpid()}.{threading.get_ident()}.tmp")
+    tmp.write_text(json.dumps(data))
+    tmp.replace(path)  # atomic, so parallel workers never read a half-written file
 
 
 def _anthropic(
