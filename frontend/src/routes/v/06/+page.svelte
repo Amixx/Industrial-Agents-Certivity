@@ -1,32 +1,34 @@
 <script lang="ts">
-	import { onMount } from 'svelte';
-	import { Dialog, Select, Tabs } from 'bits-ui';
-	import { app } from '#lib/app.svelte.ts';
+import { Dialog, Select, Tabs } from 'bits-ui';
+import { onMount } from 'svelte';
+import { app } from '#lib/app.svelte.ts';
 
-	onMount(() => app.demo());
+onMount(() => app.demo());
 
-	let drawer = $state('');
-	const openDrawer = $derived(
-		app.byRegulation.some((g) => g.regulation === drawer)
-			? drawer
-			: (app.byRegulation[0]?.regulation ?? '')
-	);
-	const selectedUrl = $derived(app.selected ? app.pdfUrl(app.selected.source) : null);
-	const total = $derived(app.result?.requirements.length ?? 0);
+let drawer = $state('');
+const openDrawer = $derived(
+	app.byRegulation.some((g) => g.regulation === drawer)
+		? drawer
+		: (app.byRegulation[0]?.regulation ?? ''),
+);
+const selectedUrl = $derived(app.selected ? app.pdfUrl(app.selected.source) : null);
+const total = $derived(app.result?.requirements.length ?? 0);
 </script>
 
 <svelte:head>
 	<title>sudo — Card cc-root</title>
-	<link rel="preconnect" href="https://fonts.googleapis.com" />
-	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous" />
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous">
 	<link
 		rel="stylesheet"
 		href="https://fonts.googleapis.com/css2?family=Courier+Prime:wght@400;700&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;0,8..60,700;1,8..60,400&display=swap"
-	/>
+	>
 </svelte:head>
 
 <div class="cc-root flex h-screen flex-col bg-cv-mint-50 text-cv-ink-950">
-	<header class="flex items-end justify-between border-b-4 border-double border-cv-ink-800 px-8 pt-5 pb-3">
+	<header
+		class="flex items-end justify-between border-b-4 border-double border-cv-ink-800 px-8 pt-5 pb-3"
+	>
 		<div class="flex items-end gap-6">
 			<div class="plate px-6 pt-1 pb-2">
 				<span class="screw left-1.5"></span>
@@ -100,14 +102,14 @@
 						accept=".md,.txt,text/*"
 						onchange={(e) => app.setSpecFile(e.currentTarget.files?.[0])}
 						class="file"
-					/>
+					>
 					<span class="cc-typed text-xs">Drawing</span>
 					<input
 						type="file"
 						accept="image/*"
 						onchange={(e) => app.setImageFile(e.currentTarget.files?.[0])}
 						class="file"
-					/>
+					>
 				</div>
 
 				<label class="mt-4 flex min-h-40 flex-1 flex-col">
@@ -124,7 +126,11 @@
 						class="mt-1 flex h-32 items-center justify-center border border-dashed border-cv-ink-800/50 bg-cv-mint-50/50 p-2"
 					>
 						{#if app.imageUrl}
-							<img src={app.imageUrl} alt="Exploded view" class="max-h-full max-w-full object-contain" />
+							<img
+								src={app.imageUrl}
+								alt="Exploded view"
+								class="max-h-full max-w-full object-contain"
+							>
 						{:else}
 							<span class="text-sm italic opacity-60">nothing attached</span>
 						{/if}
@@ -162,7 +168,9 @@
 					onValueChange={(v) => (drawer = v)}
 					class="flex min-h-0 flex-1 flex-col"
 				>
-					<Tabs.List class="cc-cabinet grid shrink-0 grid-cols-[repeat(auto-fill,minmax(15rem,1fr))] gap-3 px-6 pt-5 pb-0">
+					<Tabs.List
+						class="cc-cabinet grid shrink-0 grid-cols-[repeat(auto-fill,minmax(15rem,1fr))] gap-3 px-6 pt-5 pb-0"
+					>
 						{#each app.byRegulation as g (g.regulation)}
 							<Tabs.Trigger
 								value={g.regulation}
@@ -206,8 +214,13 @@
 												? 'ring-2 ring-cv-ink-950'
 												: ''}"
 										>
-											<div class="cc-typed flex items-baseline justify-between border-b-2 border-cv-teal-500 pb-1 text-xs">
-												<span class="font-bold">{req.source.regulation} · {req.source.version}</span>
+											<div
+												class="cc-typed flex items-baseline justify-between border-b-2 border-cv-teal-500 pb-1 text-xs"
+											>
+												<span class="font-bold"
+													>{req.source.regulation}
+													· {req.source.version}</span
+												>
 												<span>§ {req.source.paragraph ?? '—'}</span>
 											</div>
 											<p class="card-body mt-1 flex-1 text-[15px]">{req.text}</p>
@@ -236,7 +249,9 @@
 				</Tabs.Root>
 			{:else}
 				<div class="flex flex-1 items-center justify-center">
-					<p class="cc-typed text-sm">{app.loading ? 'Searching the drawers…' : 'The drawers are empty.'}</p>
+					<p class="cc-typed text-sm">
+						{app.loading ? 'Searching the drawers…' : 'The drawers are empty.'}
+					</p>
 				</div>
 			{/if}
 		</main>
@@ -253,8 +268,9 @@
 				<div class="flex items-start justify-between gap-6 px-7 pt-5">
 					<div class="min-w-0">
 						<Dialog.Title class="cc-typed text-sm font-bold">
-							{app.selected.source.regulation} · {app.selected.source.version} · § {app.selected.source
-								.paragraph ?? '—'} · p. {app.selected.source.page}
+							{app.selected.source.regulation}
+							· {app.selected.source.version} · § {app.selected.source.paragraph ?? '—'} · p.
+							{app.selected.source.page}
 						</Dialog.Title>
 						<Dialog.Description class="mt-1 text-[15px] leading-snug">
 							{app.selected.text}
@@ -266,10 +282,13 @@
 								href={selectedUrl}
 								target="_blank"
 								rel="noreferrer"
-								class="cc-typed text-xs underline decoration-cv-teal-700 underline-offset-2">open ↗</a
+								class="cc-typed text-xs underline decoration-cv-teal-700 underline-offset-2"
+								>open ↗</a
 							>
 						{/if}
-						<Dialog.Close class="cc-typed border-2 border-cv-ink-950 px-3 py-1 text-xs font-bold hover:bg-cv-mint-50">
+						<Dialog.Close
+							class="cc-typed border-2 border-cv-ink-950 px-3 py-1 text-xs font-bold hover:bg-cv-mint-50"
+						>
 							RETURN CARD
 						</Dialog.Close>
 					</div>
@@ -295,106 +314,106 @@
 </Dialog.Root>
 
 <style>
-	:global(.cc-root) {
-		font-family: 'Source Serif 4', Georgia, serif;
-	}
-	:global(.cc-typed) {
-		font-family: 'Courier Prime', 'Courier New', monospace;
-	}
-	.plate {
-		position: relative;
-		border: 2px solid var(--color-cv-ink-800);
-		background: white;
-		box-shadow: inset 0 0 0 3px var(--color-cv-mint-50);
-	}
-	.screw {
-		position: absolute;
-		top: 50%;
-		width: 5px;
-		height: 5px;
-		margin-top: -2.5px;
-		border-radius: 9999px;
-		background: var(--color-cv-ink-800);
-	}
-	.slip {
-		border: 1px solid color-mix(in srgb, var(--color-cv-ink-800) 35%, transparent);
-	}
-	.ruled {
-		background-image: repeating-linear-gradient(
-			to bottom,
-			transparent 0,
-			transparent calc(1.5rem - 1px),
-			color-mix(in srgb, var(--color-cv-teal-500) 30%, transparent) calc(1.5rem - 1px),
-			color-mix(in srgb, var(--color-cv-teal-500) 30%, transparent) 1.5rem
-		);
-		background-attachment: local;
-	}
-	.file {
-		font-size: 0.75rem;
-		width: 100%;
-	}
-	.file::file-selector-button {
-		margin-right: 0.5rem;
-		border: 1px solid var(--color-cv-ink-800);
-		background: var(--color-cv-mint-50);
-		padding: 0.125rem 0.5rem;
-		font-family: 'Courier Prime', monospace;
-	}
-	:global(.cc-cabinet) {
-		background: var(--color-cv-ink-950);
-	}
-	:global(.cc-drawer[data-state='inactive']) {
-		background: color-mix(in srgb, white 88%, var(--color-cv-ink-800));
-		border-color: color-mix(in srgb, var(--color-cv-ink-800) 70%, transparent);
-	}
-	.holder {
-		border: 2px solid var(--color-cv-ink-800);
-		background: white;
-		outline: 2px solid color-mix(in srgb, var(--color-cv-ink-800) 25%, transparent);
-		outline-offset: 2px;
-	}
-	.pull {
-		display: inline-block;
-		width: 0.875rem;
-		height: 0.875rem;
-		border-radius: 9999px;
-		border: 2px solid var(--color-cv-ink-800);
-		background: var(--color-cv-mint-50);
-	}
-	.card {
-		border: 1px solid color-mix(in srgb, var(--color-cv-ink-800) 35%, transparent);
-		transition: transform 120ms;
-	}
-	.card-body {
-		line-height: 1.5rem;
-		background-image: repeating-linear-gradient(
-			to bottom,
-			transparent 0,
-			transparent calc(1.5rem - 1px),
-			color-mix(in srgb, var(--color-cv-teal-500) 22%, transparent) calc(1.5rem - 1px),
-			color-mix(in srgb, var(--color-cv-teal-500) 22%, transparent) 1.5rem
-		);
-	}
-	:global(.cc-hole) {
-		position: absolute;
-		bottom: 0.625rem;
-		left: 50%;
-		width: 0.875rem;
-		height: 0.875rem;
-		margin-left: -0.4375rem;
-		border-radius: 9999px;
-		background: var(--color-cv-mint-50);
-		box-shadow: inset 0 1px 0 color-mix(in srgb, var(--color-cv-ink-950) 35%, transparent);
-		border: 1px solid color-mix(in srgb, var(--color-cv-ink-800) 35%, transparent);
-	}
-	:global(.cc-pulled) {
-		border: 1px solid var(--color-cv-ink-800);
-		box-shadow: 8px 8px 0 var(--color-cv-ink-950);
-	}
-	:global(.cc-pulled .cc-hole) {
-		width: 1.25rem;
-		height: 1.25rem;
-		margin-left: -0.625rem;
-		bottom: 0.75rem;
-	}
+:global(.cc-root) {
+	font-family: "Source Serif 4", Georgia, serif;
+}
+:global(.cc-typed) {
+	font-family: "Courier Prime", "Courier New", monospace;
+}
+.plate {
+	position: relative;
+	border: 2px solid var(--color-cv-ink-800);
+	background: white;
+	box-shadow: inset 0 0 0 3px var(--color-cv-mint-50);
+}
+.screw {
+	position: absolute;
+	top: 50%;
+	width: 5px;
+	height: 5px;
+	margin-top: -2.5px;
+	border-radius: 9999px;
+	background: var(--color-cv-ink-800);
+}
+.slip {
+	border: 1px solid color-mix(in srgb, var(--color-cv-ink-800) 35%, transparent);
+}
+.ruled {
+	background-image: repeating-linear-gradient(
+		to bottom,
+		transparent 0,
+		transparent calc(1.5rem - 1px),
+		color-mix(in srgb, var(--color-cv-teal-500) 30%, transparent) calc(1.5rem - 1px),
+		color-mix(in srgb, var(--color-cv-teal-500) 30%, transparent) 1.5rem
+	);
+	background-attachment: local;
+}
+.file {
+	font-size: 0.75rem;
+	width: 100%;
+}
+.file::file-selector-button {
+	margin-right: 0.5rem;
+	border: 1px solid var(--color-cv-ink-800);
+	background: var(--color-cv-mint-50);
+	padding: 0.125rem 0.5rem;
+	font-family: "Courier Prime", monospace;
+}
+:global(.cc-cabinet) {
+	background: var(--color-cv-ink-950);
+}
+:global(.cc-drawer[data-state="inactive"]) {
+	background: color-mix(in srgb, white 88%, var(--color-cv-ink-800));
+	border-color: color-mix(in srgb, var(--color-cv-ink-800) 70%, transparent);
+}
+.holder {
+	border: 2px solid var(--color-cv-ink-800);
+	background: white;
+	outline: 2px solid color-mix(in srgb, var(--color-cv-ink-800) 25%, transparent);
+	outline-offset: 2px;
+}
+.pull {
+	display: inline-block;
+	width: 0.875rem;
+	height: 0.875rem;
+	border-radius: 9999px;
+	border: 2px solid var(--color-cv-ink-800);
+	background: var(--color-cv-mint-50);
+}
+.card {
+	border: 1px solid color-mix(in srgb, var(--color-cv-ink-800) 35%, transparent);
+	transition: transform 120ms;
+}
+.card-body {
+	line-height: 1.5rem;
+	background-image: repeating-linear-gradient(
+		to bottom,
+		transparent 0,
+		transparent calc(1.5rem - 1px),
+		color-mix(in srgb, var(--color-cv-teal-500) 22%, transparent) calc(1.5rem - 1px),
+		color-mix(in srgb, var(--color-cv-teal-500) 22%, transparent) 1.5rem
+	);
+}
+:global(.cc-hole) {
+	position: absolute;
+	bottom: 0.625rem;
+	left: 50%;
+	width: 0.875rem;
+	height: 0.875rem;
+	margin-left: -0.4375rem;
+	border-radius: 9999px;
+	background: var(--color-cv-mint-50);
+	box-shadow: inset 0 1px 0 color-mix(in srgb, var(--color-cv-ink-950) 35%, transparent);
+	border: 1px solid color-mix(in srgb, var(--color-cv-ink-800) 35%, transparent);
+}
+:global(.cc-pulled) {
+	border: 1px solid var(--color-cv-ink-800);
+	box-shadow: 8px 8px 0 var(--color-cv-ink-950);
+}
+:global(.cc-pulled .cc-hole) {
+	width: 1.25rem;
+	height: 1.25rem;
+	margin-left: -0.625rem;
+	bottom: 0.75rem;
+}
 </style>

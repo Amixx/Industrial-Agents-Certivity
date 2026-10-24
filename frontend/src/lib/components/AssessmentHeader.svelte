@@ -1,9 +1,9 @@
 <script lang="ts">
-	import type { Snippet } from 'svelte';
-	import type { Assessment } from '#lib/api/types.ts';
-	import { formatDate } from '#lib/ui/format.ts';
+import type { Snippet } from 'svelte';
+import type { Assessment } from '#lib/api/types.ts';
+import { formatDate } from '#lib/ui/format.ts';
 
-	let { assessment, children }: { assessment: Assessment; children?: Snippet } = $props();
+let { assessment, children }: { assessment: Assessment; children?: Snippet } = $props();
 </script>
 
 <div class="ui-rule flex items-center justify-between gap-4 border-b px-4 py-2">

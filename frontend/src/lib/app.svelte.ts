@@ -33,7 +33,7 @@ class App {
 		if (this.cases.length) return;
 		[this.cases, this.regulations] = await Promise.all([
 			fetch('/api/cases').then((r) => r.json()),
-			fetch('/api/regulations').then((r) => r.json())
+			fetch('/api/regulations').then((r) => r.json()),
 		]);
 	}
 

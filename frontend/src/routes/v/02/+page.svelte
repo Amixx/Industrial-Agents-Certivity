@@ -1,31 +1,31 @@
 <script lang="ts">
-	import { onMount } from 'svelte';
-	import { Select } from 'bits-ui';
-	import { app } from '#lib/app.svelte.ts';
+import { Select } from 'bits-ui';
+import { onMount } from 'svelte';
+import { app } from '#lib/app.svelte.ts';
 
-	onMount(() => app.demo());
+onMount(() => app.demo());
 
-	const selectedUrl = $derived(app.selected ? app.pdfUrl(app.selected.source) : null);
-	const total = $derived(app.result?.requirements.length ?? 0);
-	const today = new Date().toLocaleDateString('en-GB', {
-		weekday: 'long',
-		day: 'numeric',
-		month: 'long',
-		year: 'numeric'
-	});
-	const sectionLetter = (i: number) => String.fromCharCode(65 + i);
-	const anchor = (reg: string) => `sec-${reg.replace(/\W+/g, '-')}`;
-	const plural = (n: number, word: string) => `${n} ${word}${n === 1 ? '' : 's'}`;
+const selectedUrl = $derived(app.selected ? app.pdfUrl(app.selected.source) : null);
+const total = $derived(app.result?.requirements.length ?? 0);
+const today = new Date().toLocaleDateString('en-GB', {
+	weekday: 'long',
+	day: 'numeric',
+	month: 'long',
+	year: 'numeric',
+});
+const sectionLetter = (i: number) => String.fromCharCode(65 + i);
+const anchor = (reg: string) => `sec-${reg.replace(/\W+/g, '-')}`;
+const plural = (n: number, word: string) => `${n} ${word}${n === 1 ? '' : 's'}`;
 </script>
 
 <svelte:head>
 	<title>Gazette</title>
-	<link rel="preconnect" href="https://fonts.googleapis.com" />
-	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous" />
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous">
 	<link
 		rel="stylesheet"
 		href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400..900;1,9..144,400..700&family=Newsreader:ital,opsz,wght@0,6..72,400..700;1,6..72,400..600&display=swap"
-	/>
+	>
 </svelte:head>
 
 <div class="gazette min-h-screen bg-cv-mint-50 text-cv-ink-800">
@@ -51,7 +51,9 @@
 			</div>
 			<div class="text-center">
 				<h1 class="nameplate">sudo</h1>
-				<p class="-mt-1 text-[14px] italic">&ldquo;All the requirements that are fit to cite.&rdquo;</p>
+				<p class="-mt-1 text-[14px] italic">
+					&ldquo;All the requirements that are fit to cite.&rdquo;
+				</p>
 			</div>
 			<div class="ear text-right">
 				<div class="kicker">This edition</div>
@@ -69,9 +71,7 @@
 		<div
 			class="grid grid-cols-[14rem_minmax(0,1fr)_19rem] xl:grid-cols-[17rem_minmax(0,1fr)_27rem]"
 		>
-			<aside
-				class="sticky top-0 h-screen overflow-y-auto border-r border-cv-ink-800/60 py-4 pr-5"
-			>
+			<aside class="sticky top-0 h-screen overflow-y-auto border-r border-cv-ink-800/60 py-4 pr-5">
 				<div class="kicker">The desk</div>
 				<h2 class="font-display mb-3 text-2xl leading-tight font-bold">Filed copy</h2>
 
@@ -132,17 +132,19 @@
 							accept=".md,.txt,text/*"
 							onchange={(e) => app.setSpecFile(e.currentTarget.files?.[0])}
 							class="file-input"
-						/>
+						>
 					</label>
 
 					<figure>
-						<div class="flex h-28 items-center justify-center border border-cv-ink-800 bg-white p-2">
+						<div
+							class="flex h-28 items-center justify-center border border-cv-ink-800 bg-white p-2"
+						>
 							{#if app.imageUrl}
 								<img
 									src={app.imageUrl}
 									alt="Exploded view"
 									class="max-h-full max-w-full object-contain"
-								/>
+								>
 							{:else}
 								<span class="text-sm italic opacity-60">No illustration filed</span>
 							{/if}
@@ -157,7 +159,7 @@
 						aria-label="Exploded view image"
 						onchange={(e) => app.setImageFile(e.currentTarget.files?.[0])}
 						class="file-input -mt-2"
-					/>
+					>
 
 					<div class="space-y-2 border-t border-cv-ink-800 pt-3">
 						<button
@@ -187,13 +189,16 @@
 			<main class="min-w-0 px-7 py-4">
 				{#if app.byRegulation.length}
 					<div class="kicker">Front page &middot; {app.selectedCase}</div>
-					<h2 class="font-display mt-1 text-[clamp(2rem,3.2vw,2.75rem)] leading-[1.02] font-bold tracking-tight">
-						{plural(total, 'requirement')} cited against
+					<h2
+						class="font-display mt-1 text-[clamp(2rem,3.2vw,2.75rem)] leading-[1.02] font-bold tracking-tight"
+					>
+						{plural(total, 'requirement')}
+						cited against
 						{app.byRegulation.map((g) => g.regulation).join(', ')}
 					</h2>
 					<p class="mt-2 text-[19px] leading-snug italic">
-						Every paragraph below is quoted from the regulation and printed with the page it
-						came from. Select one to read the source alongside.
+						Every paragraph below is quoted from the regulation and printed with the page it came
+						from. Select one to read the source alongside.
 					</p>
 
 					<nav class="mt-5 border-y border-cv-ink-800 py-2">
@@ -248,14 +253,16 @@
 										<span class="drop">{req.source.paragraph ?? '§'}</span>
 										<p class="text">{req.text}</p>
 										<p class="byline">
-											{req.id} &middot; {req.source.regulation} rev. {req.source.version} &middot;
+											{req.id}
+											&middot; {req.source.regulation} rev. {req.source.version} &middot;
 											{#if url}
 												<a
 													href={url}
 													target="_blank"
 													rel="noreferrer"
 													onclick={(e) => e.stopPropagation()}
-													class="underline decoration-1 underline-offset-2">page {req.source.page}</a
+													class="underline decoration-1 underline-offset-2"
+													>page {req.source.page}</a
 												>
 											{:else}
 												page {req.source.page}
@@ -277,9 +284,7 @@
 				{/if}
 			</main>
 
-			<aside
-				class="sticky top-0 flex h-screen flex-col border-l border-cv-ink-800/60 py-4 pl-5"
-			>
+			<aside class="sticky top-0 flex h-screen flex-col border-l border-cv-ink-800/60 py-4 pl-5">
 				<div class="kicker">Sidebar &middot; from the source</div>
 				{#if app.selected && selectedUrl}
 					<h2 class="font-display text-2xl leading-tight font-bold">
@@ -287,7 +292,8 @@
 					</h2>
 					<p class="text-[13px] tracking-[0.06em] uppercase">
 						Paragraph {app.selected.source.paragraph ?? '—'} &middot; revision
-						{app.selected.source.version} &middot; {app.selected.id}
+						{app.selected.source.version}
+						&middot; {app.selected.id}
 					</p>
 					<blockquote
 						class="my-3 line-clamp-4 border-y border-cv-ink-800 py-2 text-[16px] leading-snug italic"
@@ -305,7 +311,8 @@
 						href={selectedUrl}
 						target="_blank"
 						rel="noreferrer"
-						class="mt-1 self-end text-[12px] italic underline">Continued in a new tab</a
+						class="mt-1 self-end text-[12px] italic underline"
+						>Continued in a new tab</a
 					>
 				{:else}
 					<h2 class="font-display text-2xl leading-tight font-bold">The source, in full</h2>
@@ -325,115 +332,117 @@
 </div>
 
 <style>
-	:global(.gazette) {
-		font-family: 'Newsreader', Georgia, serif;
-		font-optical-sizing: auto;
-	}
-	.font-display {
-		font-family: 'Fraunces', Georgia, serif;
-		font-optical-sizing: auto;
-	}
-	.nameplate {
-		font-family: 'Fraunces', Georgia, serif;
-		font-size: clamp(5rem, 9vw, 8.5rem);
-		font-weight: 900;
-		font-variation-settings:
-			'opsz' 144,
-			'SOFT' 0,
-			'WONK' 1;
-		line-height: 0.9;
-		letter-spacing: -0.04em;
-	}
-	.ear {
-		border: 1px solid var(--color-cv-ink-800);
-		padding: 0.5rem 0.75rem;
-	}
-	.kicker {
-		font-size: 11px;
-		font-weight: 600;
-		letter-spacing: 0.16em;
-		text-transform: uppercase;
-		color: var(--color-cv-teal-700);
-	}
-	.label {
-		display: block;
-		margin-bottom: 0.2rem;
-		font-size: 11px;
-		letter-spacing: 0.14em;
-		text-transform: uppercase;
-	}
-	.file-input {
-		display: block;
-		width: 100%;
-		font-size: 12px;
-	}
-	.file-input::file-selector-button {
-		margin-right: 0.5rem;
-		border: 1px solid var(--color-cv-ink-800);
-		background: white;
-		padding: 0.1rem 0.5rem;
-		font: italic 12px 'Newsreader', serif;
-		color: var(--color-cv-ink-800);
-	}
-	.index-row {
-		display: flex;
-		align-items: baseline;
-		gap: 0.5rem;
-		padding: 0.15rem 0;
-		font-size: 15px;
-	}
-	.leader {
-		flex: 1;
-		border-bottom: 1px dotted var(--color-cv-ink-800);
-		transform: translateY(-0.25em);
-	}
-	.cols {
-		column-width: 16rem;
-		column-gap: 2.25rem;
-		column-rule: 1px solid color-mix(in srgb, var(--color-cv-ink-800) 45%, transparent);
-	}
-	.item {
-		break-inside: avoid;
-		margin: 0 -0.5rem 0.9rem;
-		padding: 0.35rem 0.5rem 0.5rem;
-		cursor: pointer;
-		border-bottom: 1px solid color-mix(in srgb, var(--color-cv-ink-800) 20%, transparent);
-	}
-	.item:hover {
-		background: white;
-	}
-	.item.is-selected {
-		background: color-mix(in srgb, var(--color-cv-mint-300) 40%, white);
-		box-shadow: inset 3px 0 0 var(--color-cv-ink-800);
-	}
-	.item:focus-visible {
-		outline: 1px solid var(--color-cv-ink-800);
-	}
-	.drop {
-		float: left;
-		margin: 0.2rem 0.5rem 0 0;
-		padding-right: 0.5rem;
-		border-right: 1px solid var(--color-cv-ink-800);
-		font-family: 'Fraunces', serif;
-		font-size: 1.85rem;
-		font-weight: 800;
-		font-variation-settings: 'opsz' 72;
-		line-height: 0.95;
-		letter-spacing: -0.03em;
-		font-variant-numeric: lining-nums;
-	}
-	.text {
-		font-size: 15.5px;
-		line-height: 1.42;
-		text-align: justify;
-		hyphens: auto;
-	}
-	.byline {
-		clear: both;
-		margin-top: 0.3rem;
-		font-size: 11.5px;
-		letter-spacing: 0.08em;
-		text-transform: uppercase;
-		color: var(--color-cv-teal-700);
-	}
+:global(.gazette) {
+	font-family: "Newsreader", Georgia, serif;
+	font-optical-sizing: auto;
+}
+.font-display {
+	font-family: "Fraunces", Georgia, serif;
+	font-optical-sizing: auto;
+}
+.nameplate {
+	font-family: "Fraunces", Georgia, serif;
+	font-size: clamp(5rem, 9vw, 8.5rem);
+	font-weight: 900;
+	font-variation-settings:
+		"opsz" 144,
+		"SOFT" 0,
+		"WONK" 1;
+	line-height: 0.9;
+	letter-spacing: -0.04em;
+}
+.ear {
+	border: 1px solid var(--color-cv-ink-800);
+	padding: 0.5rem 0.75rem;
+}
+.kicker {
+	font-size: 11px;
+	font-weight: 600;
+	letter-spacing: 0.16em;
+	text-transform: uppercase;
+	color: var(--color-cv-teal-700);
+}
+.label {
+	display: block;
+	margin-bottom: 0.2rem;
+	font-size: 11px;
+	letter-spacing: 0.14em;
+	text-transform: uppercase;
+}
+.file-input {
+	display: block;
+	width: 100%;
+	font-size: 12px;
+}
+.file-input::file-selector-button {
+	margin-right: 0.5rem;
+	border: 1px solid var(--color-cv-ink-800);
+	background: white;
+	padding: 0.1rem 0.5rem;
+	font:
+		italic 12px "Newsreader",
+		serif;
+	color: var(--color-cv-ink-800);
+}
+.index-row {
+	display: flex;
+	align-items: baseline;
+	gap: 0.5rem;
+	padding: 0.15rem 0;
+	font-size: 15px;
+}
+.leader {
+	flex: 1;
+	border-bottom: 1px dotted var(--color-cv-ink-800);
+	transform: translateY(-0.25em);
+}
+.cols {
+	column-width: 16rem;
+	column-gap: 2.25rem;
+	column-rule: 1px solid color-mix(in srgb, var(--color-cv-ink-800) 45%, transparent);
+}
+.item {
+	break-inside: avoid;
+	margin: 0 -0.5rem 0.9rem;
+	padding: 0.35rem 0.5rem 0.5rem;
+	cursor: pointer;
+	border-bottom: 1px solid color-mix(in srgb, var(--color-cv-ink-800) 20%, transparent);
+}
+.item:hover {
+	background: white;
+}
+.item.is-selected {
+	background: color-mix(in srgb, var(--color-cv-mint-300) 40%, white);
+	box-shadow: inset 3px 0 0 var(--color-cv-ink-800);
+}
+.item:focus-visible {
+	outline: 1px solid var(--color-cv-ink-800);
+}
+.drop {
+	float: left;
+	margin: 0.2rem 0.5rem 0 0;
+	padding-right: 0.5rem;
+	border-right: 1px solid var(--color-cv-ink-800);
+	font-family: "Fraunces", serif;
+	font-size: 1.85rem;
+	font-weight: 800;
+	font-variation-settings: "opsz" 72;
+	line-height: 0.95;
+	letter-spacing: -0.03em;
+	font-variant-numeric: lining-nums;
+}
+.text {
+	font-size: 15.5px;
+	line-height: 1.42;
+	text-align: justify;
+	hyphens: auto;
+}
+.byline {
+	clear: both;
+	margin-top: 0.3rem;
+	font-size: 11.5px;
+	letter-spacing: 0.08em;
+	text-transform: uppercase;
+	color: var(--color-cv-teal-700);
+}
 </style>

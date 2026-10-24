@@ -1,38 +1,38 @@
 <script lang="ts">
-	import { onMount, tick } from 'svelte';
-	import { Select } from 'bits-ui';
-	import { app } from '#lib/app.svelte.ts';
+import { Select } from 'bits-ui';
+import { onMount, tick } from 'svelte';
+import { app } from '#lib/app.svelte.ts';
 
-	onMount(() => app.demo());
+onMount(() => app.demo());
 
-	let filter = $state<string | null>(null);
-	const total = $derived(app.result?.requirements.length ?? 0);
-	const visible = $derived(
-		(app.result?.requirements ?? []).filter((r) => !filter || r.source.regulation === filter)
-	);
-	const selectedUrl = $derived(app.selected ? app.pdfUrl(app.selected.source) : null);
-	const status = $derived(
-		app.loading ? 'RUNNING' : app.error ? 'ERROR' : app.result ? `OK · ${total} REQ` : 'IDLE'
-	);
+let filter = $state<string | null>(null);
+const total = $derived(app.result?.requirements.length ?? 0);
+const visible = $derived(
+	(app.result?.requirements ?? []).filter((r) => !filter || r.source.regulation === filter),
+);
+const selectedUrl = $derived(app.selected ? app.pdfUrl(app.selected.source) : null);
+const status = $derived(
+	app.loading ? 'RUNNING' : app.error ? 'ERROR' : app.result ? `OK · ${total} REQ` : 'IDLE',
+);
 
-	async function step(delta: number) {
-		if (!visible.length) return;
-		const i = visible.findIndex((r) => r.id === app.selectedId);
-		const next = visible[Math.min(visible.length - 1, Math.max(0, i + delta))];
-		app.select(next.id);
-		await tick();
-		document.querySelector(`[data-req="${next.id}"]`)?.scrollIntoView({ block: 'nearest' });
-	}
+async function step(delta: number) {
+	if (!visible.length) return;
+	const i = visible.findIndex((r) => r.id === app.selectedId);
+	const next = visible[Math.min(visible.length - 1, Math.max(0, i + delta))];
+	app.select(next.id);
+	await tick();
+	document.querySelector(`[data-req="${next.id}"]`)?.scrollIntoView({ block: 'nearest' });
+}
 
-	function onkeydown(e: KeyboardEvent) {
-		const t = e.target as HTMLElement;
-		if (t.closest('input, textarea, [role=listbox], [role=combobox]')) return;
-		if (e.key === 'ArrowDown' || e.key === 'j') step(1);
-		else if (e.key === 'ArrowUp' || e.key === 'k') step(-1);
-		else if (e.key === 'Escape') app.select(null);
-		else return;
-		e.preventDefault();
-	}
+function onkeydown(e: KeyboardEvent) {
+	const t = e.target as HTMLElement;
+	if (t.closest('input, textarea, [role=listbox], [role=combobox]')) return;
+	if (e.key === 'ArrowDown' || e.key === 'j') step(1);
+	else if (e.key === 'ArrowUp' || e.key === 'k') step(-1);
+	else if (e.key === 'Escape') app.select(null);
+	else return;
+	e.preventDefault();
+}
 </script>
 
 <svelte:window {onkeydown} />
@@ -43,7 +43,9 @@
 
 <div class="ut-root flex h-screen flex-col bg-white text-black">
 	<header class="flex shrink-0 items-stretch border-b-2 border-black">
-		<h1 class="flex items-center border-r-2 border-black px-4 text-5xl leading-none font-black tracking-tighter">
+		<h1
+			class="flex items-center border-r-2 border-black px-4 text-5xl leading-none font-black tracking-tighter"
+		>
 			sudo
 		</h1>
 		<div class="flex flex-col justify-center border-r-2 border-black px-4">
@@ -56,7 +58,10 @@
 		</div>
 		<div class="ml-auto flex items-stretch">
 			<span class="lbl flex items-center border-l-2 border-black px-4">Built with Certivity</span>
-			<a href="/v" class="lbl flex items-center border-l-2 border-black px-4 hover:bg-black hover:text-white">
+			<a
+				href="/v"
+				class="lbl flex items-center border-l-2 border-black px-4 hover:bg-black hover:text-white"
+			>
 				All variants
 			</a>
 		</div>
@@ -111,7 +116,7 @@
 					accept=".md,.txt,text/*"
 					onchange={(e) => app.setSpecFile(e.currentTarget.files?.[0])}
 					class="file"
-				/>
+				>
 			</label>
 			<label class="block">
 				<span class="lbl block">Drawing file</span>
@@ -120,12 +125,14 @@
 					accept="image/*"
 					onchange={(e) => app.setImageFile(e.currentTarget.files?.[0])}
 					class="file"
-				/>
+				>
 			</label>
 		</div>
 
 		<label class="flex flex-col border-r-2 border-black p-3">
-			<span class="lbl">Product spec <span class="ut-mono font-normal">({app.spec.length} chars)</span></span>
+			<span class="lbl"
+				>Product spec <span class="ut-mono font-normal">({app.spec.length} chars)</span></span
+			>
 			<textarea
 				bind:value={app.spec}
 				rows="6"
@@ -137,7 +144,11 @@
 			<span class="lbl">Drawing preview</span>
 			<div class="flex min-h-0 flex-1 items-center justify-center border-2 border-black">
 				{#if app.imageUrl}
-					<img src={app.imageUrl} alt="Exploded view" class="max-h-32 max-w-full object-contain p-1" />
+					<img
+						src={app.imageUrl}
+						alt="Exploded view"
+						class="max-h-32 max-w-full object-contain p-1"
+					>
 				{:else}
 					<span class="lbl">No image</span>
 				{/if}
@@ -171,16 +182,22 @@
 	</form>
 
 	{#if app.error}
-		<p class="ut-mono shrink-0 border-b-2 border-black bg-red-600 px-3 py-1.5 text-sm font-bold text-white">
+		<p
+			class="ut-mono shrink-0 border-b-2 border-black bg-red-600 px-3 py-1.5 text-sm font-bold text-white"
+		>
 			ERROR: {app.error}
 		</p>
 	{/if}
 
-	<nav class="flex h-14 shrink-0 items-stretch border-b-2 border-black" aria-label="Regulations cited">
+	<nav
+		class="flex h-14 shrink-0 items-stretch border-b-2 border-black"
+		aria-label="Regulations cited"
+	>
 		<button
 			type="button"
 			onclick={() => (filter = null)}
-			class="flex w-40 shrink-0 flex-col justify-center border-r-2 border-black px-3 text-left {filter === null
+			class="flex w-40 shrink-0 flex-col justify-center border-r-2 border-black px-3 text-left {filter ===
+			null
 				? 'bg-black text-white'
 				: 'hover:bg-cv-mint-50'}"
 		>
@@ -239,9 +256,11 @@
 							<td class="ut-mono py-2 pl-3 text-xs font-bold">{active ? '▶' : ''}</td>
 							<td class="ut-mono py-2 pr-3 text-xs font-bold whitespace-nowrap">{req.id}</td>
 							<td class="ut-mono py-2 pr-3 text-xs whitespace-nowrap">
-								{req.source.regulation}<br /><span class="opacity-70">{req.source.version}</span>
+								{req.source.regulation}<br><span class="opacity-70">{req.source.version}</span>
 							</td>
-							<td class="ut-mono py-2 pr-3 text-xs whitespace-nowrap">{req.source.paragraph ?? '—'}</td>
+							<td class="ut-mono py-2 pr-3 text-xs whitespace-nowrap">
+								{req.source.paragraph ?? '—'}
+							</td>
 							<td class="ut-mono py-2 pr-3 text-xs">
 								{#if url}
 									<a
@@ -257,7 +276,11 @@
 								{/if}
 							</td>
 							<td class="py-2 pr-3 leading-snug">
-								{#if active}<mark class="hl">{req.text}</mark>{:else}{req.text}{/if}
+								{#if active}
+									<mark class="hl">{req.text}</mark>
+								{:else}
+									{req.text}
+								{/if}
 								<span class="sr-only">row {i + 1}</span>
 							</td>
 						</tr>
@@ -281,7 +304,8 @@
 							href={selectedUrl}
 							target="_blank"
 							rel="noreferrer"
-							class="lbl flex items-center border-l-2 border-black px-3 hover:bg-cv-mint-300">Open ↗</a
+							class="lbl flex items-center border-l-2 border-black px-3 hover:bg-cv-mint-300"
+							>Open ↗</a
 						>
 					{/if}
 				{:else}
@@ -294,9 +318,7 @@
 				{/key}
 			{:else}
 				<div class="flex flex-1 items-start p-3">
-					<p class="text-sm font-bold">
-						Click a row, or press ↓, to load its source page here.
-					</p>
+					<p class="text-sm font-bold">Click a row, or press ↓, to load its source page here.</p>
 				</div>
 			{/if}
 		</aside>
@@ -304,47 +326,40 @@
 </div>
 
 <style>
-	:global(.ut-root) {
-		font-family:
-			system-ui,
-			-apple-system,
-			'Segoe UI',
-			Roboto,
-			'Helvetica Neue',
-			Arial,
-			sans-serif;
-	}
-	:global(.ut-mono) {
-		font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
-	}
-	.lbl {
-		font-size: 0.6875rem;
-		font-weight: 800;
-		letter-spacing: 0.06em;
-		text-transform: uppercase;
-	}
-	.hl {
-		background: var(--color-cv-mint-300);
-		color: black;
-		padding: 0 0.15em;
-		box-decoration-break: clone;
-		-webkit-box-decoration-break: clone;
-	}
-	.file {
-		display: block;
-		width: 100%;
-		font-size: 0.75rem;
-	}
-	.file::file-selector-button {
-		margin-right: 0.5rem;
-		border: 2px solid black;
-		background: white;
-		padding: 0.125rem 0.5rem;
-		font: inherit;
-		font-weight: 800;
-		text-transform: uppercase;
-	}
-	.file::file-selector-button:hover {
-		background: var(--color-cv-mint-300);
-	}
+:global(.ut-root) {
+	font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+}
+:global(.ut-mono) {
+	font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+}
+.lbl {
+	font-size: 0.6875rem;
+	font-weight: 800;
+	letter-spacing: 0.06em;
+	text-transform: uppercase;
+}
+.hl {
+	background: var(--color-cv-mint-300);
+	color: black;
+	padding: 0 0.15em;
+	box-decoration-break: clone;
+	-webkit-box-decoration-break: clone;
+}
+.file {
+	display: block;
+	width: 100%;
+	font-size: 0.75rem;
+}
+.file::file-selector-button {
+	margin-right: 0.5rem;
+	border: 2px solid black;
+	background: white;
+	padding: 0.125rem 0.5rem;
+	font: inherit;
+	font-weight: 800;
+	text-transform: uppercase;
+}
+.file::file-selector-button:hover {
+	background: var(--color-cv-mint-300);
+}
 </style>

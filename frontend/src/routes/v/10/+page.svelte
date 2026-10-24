@@ -1,64 +1,73 @@
 <script lang="ts">
-	import { onMount, tick } from 'svelte';
-	import { Collapsible, Select } from 'bits-ui';
-	import { app } from '#lib/app.svelte.ts';
+import { Collapsible, Select } from 'bits-ui';
+import { onMount, tick } from 'svelte';
+import { app } from '#lib/app.svelte.ts';
 
-	onMount(() => app.demo());
+onMount(() => app.demo());
 
-	let inputOpen = $state(false);
-	const ordered = $derived(app.byRegulation.flatMap((g) => g.requirements));
-	const index = $derived(ordered.findIndex((r) => r.id === app.selectedId));
-	const selectedUrl = $derived(app.selected ? app.pdfUrl(app.selected.source) : null);
+let inputOpen = $state(false);
+const ordered = $derived(app.byRegulation.flatMap((g) => g.requirements));
+const index = $derived(ordered.findIndex((r) => r.id === app.selectedId));
+const selectedUrl = $derived(app.selected ? app.pdfUrl(app.selected.source) : null);
 
-	$effect(() => {
-		if (ordered.length && index === -1) app.select(ordered[0].id);
-	});
+$effect(() => {
+	if (ordered.length && index === -1) app.select(ordered[0].id);
+});
 
-	async function step(delta: number) {
-		if (!ordered.length) return;
-		const next = Math.min(ordered.length - 1, Math.max(0, index + delta));
-		app.select(ordered[next].id);
-		await tick();
-		const el = document.getElementById(`req-${ordered[next].id}`);
-		el?.scrollIntoView({ block: 'nearest' });
-		el?.querySelector('button')?.focus({ preventScroll: true });
+async function step(delta: number) {
+	if (!ordered.length) return;
+	const next = Math.min(ordered.length - 1, Math.max(0, index + delta));
+	app.select(ordered[next].id);
+	await tick();
+	const el = document.getElementById(`req-${ordered[next].id}`);
+	el?.scrollIntoView({ block: 'nearest' });
+	el?.querySelector('button')?.focus({ preventScroll: true });
+}
+
+function onKeydown(e: KeyboardEvent) {
+	const t = e.target as HTMLElement;
+	if (t.closest('input, textarea, select, [contenteditable], [role="listbox"]')) return;
+	if (e.key === 'ArrowDown' || e.key === 'j' || e.key === 'ArrowRight') {
+		e.preventDefault();
+		step(1);
+	} else if (e.key === 'ArrowUp' || e.key === 'k' || e.key === 'ArrowLeft') {
+		e.preventDefault();
+		step(-1);
 	}
-
-	function onKeydown(e: KeyboardEvent) {
-		const t = e.target as HTMLElement;
-		if (t.closest('input, textarea, select, [contenteditable], [role="listbox"]')) return;
-		if (e.key === 'ArrowDown' || e.key === 'j' || e.key === 'ArrowRight') {
-			e.preventDefault();
-			step(1);
-		} else if (e.key === 'ArrowUp' || e.key === 'k' || e.key === 'ArrowLeft') {
-			e.preventDefault();
-			step(-1);
-		}
-	}
+}
 </script>
 
 <svelte:head>
 	<title>Reader</title>
-	<link rel="preconnect" href="https://fonts.googleapis.com" />
-	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous" />
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous">
 	<link
 		rel="stylesheet"
 		href="https://fonts.googleapis.com/css2?family=Instrument+Sans:ital,wght@0,400;0,500;0,600;1,400&display=swap"
-	/>
+	>
 </svelte:head>
 
 <svelte:window onkeydown={onKeydown} />
 
-<div class="grid h-screen grid-cols-2 bg-white font-['Instrument_Sans'] text-[15px] leading-relaxed text-cv-ink-950">
+<div
+	class="grid h-screen grid-cols-2 bg-white font-['Instrument_Sans'] text-[15px] leading-relaxed text-cv-ink-950"
+>
 	<section class="flex min-h-0 flex-col bg-cv-ink-800/10">
 		<div class="flex items-baseline justify-between gap-4 px-8 py-3 text-[13px] text-cv-ink-800">
 			{#if app.selected}
 				<span>
 					<span class="font-medium">{app.selected.source.regulation}</span>
-					<span class="opacity-60">· {app.regulationTitle(app.selected.source.regulation)} · revision {app.selected.source.version}</span>
+					<span class="opacity-60"
+						>· {app.regulationTitle(app.selected.source.regulation)} · revision
+						{app.selected.source.version}</span
+					>
 				</span>
 				{#if selectedUrl}
-					<a href={selectedUrl} target="_blank" rel="noreferrer" class="shrink-0 underline decoration-cv-teal-500 underline-offset-4"
+					<a
+						href={selectedUrl}
+						target="_blank"
+						rel="noreferrer"
+						class="shrink-0 underline decoration-cv-teal-500 underline-offset-4"
 						>Page {app.selected.source.page} ↗</a
 					>
 				{/if}
@@ -76,7 +85,9 @@
 					></iframe>
 				{/key}
 			{:else}
-				<div class="flex h-full items-center justify-center border border-dashed border-cv-ink-800/30 text-cv-ink-800/60">
+				<div
+					class="flex h-full items-center justify-center border border-dashed border-cv-ink-800/30 text-cv-ink-800/60"
+				>
 					{app.loading ? 'Reading the regulations…' : 'The source page appears here.'}
 				</div>
 			{/if}
@@ -108,7 +119,9 @@
 			>
 				<span>
 					<span class="font-medium">Input</span>
-					<span class="text-cv-ink-800/60">· {app.selectedCase || 'no case'}{app.imageUrl ? ' · with drawing' : ''}</span>
+					<span class="text-cv-ink-800/60"
+						>· {app.selectedCase || 'no case'}{app.imageUrl ? ' · with drawing' : ''}</span
+					>
 				</span>
 				<span class="text-[13px] text-cv-ink-800/60">{inputOpen ? 'Close' : 'Edit and run'}</span>
 			</Collapsible.Trigger>
@@ -164,13 +177,19 @@
 								accept=".md,.txt,text/*"
 								onchange={(e) => app.setSpecFile(e.currentTarget.files?.[0])}
 								class="file-in ml-2"
-							/>
+							>
 						</label>
 					</div>
 					<div class="flex flex-col gap-3">
-						<div class="flex h-32 items-center justify-center rounded-sm border border-cv-ink-800/25 bg-white p-2">
+						<div
+							class="flex h-32 items-center justify-center rounded-sm border border-cv-ink-800/25 bg-white p-2"
+						>
 							{#if app.imageUrl}
-								<img src={app.imageUrl} alt="Exploded view" class="max-h-full max-w-full object-contain" />
+								<img
+									src={app.imageUrl}
+									alt="Exploded view"
+									class="max-h-full max-w-full object-contain"
+								>
 							{:else}
 								<span class="text-[13px] text-cv-ink-800/50">No drawing</span>
 							{/if}
@@ -180,7 +199,7 @@
 							accept="image/*"
 							onchange={(e) => app.setImageFile(e.currentTarget.files?.[0])}
 							class="file-in"
-						/>
+						>
 						<button
 							disabled={app.loading}
 							class="mt-auto h-10 rounded-sm bg-cv-ink-950 text-[14px] font-medium text-white hover:bg-cv-teal-700 disabled:opacity-60"
@@ -202,23 +221,37 @@
 					<div class="mb-4 flex items-baseline justify-between text-[13px] text-cv-ink-800/70">
 						<span class="tabular-nums">{index + 1} of {ordered.length}</span>
 						<span class="flex gap-2">
-							<button type="button" onclick={() => step(-1)} disabled={index <= 0} class="navbtn">Previous</button>
+							<button type="button" onclick={() => step(-1)} disabled={index <= 0} class="navbtn">
+								Previous
+							</button>
 							<button
 								type="button"
 								onclick={() => step(1)}
 								disabled={index >= ordered.length - 1}
-								class="navbtn">Next</button
+								class="navbtn"
 							>
+								Next
+							</button>
 						</span>
 					</div>
-					<blockquote class="border-l-2 border-cv-teal-500 pl-6 text-[20px] leading-[1.45] xl:text-[24px] font-normal tracking-[-0.01em]">
+					<blockquote
+						class="border-l-2 border-cv-teal-500 pl-6 text-[20px] leading-[1.45] xl:text-[24px] font-normal tracking-[-0.01em]"
+					>
 						“{app.selected.text}”
 					</blockquote>
 					<p class="mt-5 pl-6 text-[14px] text-cv-ink-800">
-						— {app.selected.source.regulation}, revision {app.selected.source.version}{#if app.selected.source.paragraph},
-							paragraph {app.selected.source.paragraph}{/if},
+						— {app.selected.source.regulation}, revision
+						{app.selected.source.version}
+						{#if app.selected.source.paragraph}
+							, paragraph {app.selected.source.paragraph}
+						{/if}
+						,
 						{#if selectedUrl}
-							<a href={selectedUrl} target="_blank" rel="noreferrer" class="underline decoration-cv-teal-500 underline-offset-4"
+							<a
+								href={selectedUrl}
+								target="_blank"
+								rel="noreferrer"
+								class="underline decoration-cv-teal-500 underline-offset-4"
 								>page {app.selected.source.page}</a
 							>
 						{:else}
@@ -231,21 +264,28 @@
 			{:else if app.loading}
 				<p class="py-8 text-cv-ink-800/60">Reading the regulations…</p>
 			{/if}
-
 		</div>
 
 		<div class="min-h-0 flex-1 overflow-auto px-12 pb-12">
 			{#if app.byRegulation.length}
 				<p class="pt-5 text-[14px] text-cv-ink-800">
-					{ordered.length} requirements from
+					{ordered.length}
+					requirements from
 					{#each app.byRegulation as g, i (g.regulation)}
-						{i ? (i === app.byRegulation.length - 1 ? ' and ' : ', ') : ''}<span class="font-medium">{g.regulation}</span>
-						<span class="text-cv-ink-800/60">{g.title} ({g.count})</span>{/each}.
+						{i ? (i === app.byRegulation.length - 1 ? ' and ' : ', ') : ''}<span class="font-medium"
+							>{g.regulation}</span
+						>
+						<span class="text-cv-ink-800/60">{g.title} ({g.count})</span>
+					{/each}
+					.
 				</p>
 			{/if}
 
 			{#each app.byRegulation as g (g.regulation)}
-				<h2 class="mt-8 mb-2 text-[13px] font-medium text-cv-teal-700">{g.regulation} · {g.title}</h2>
+				<h2 class="mt-8 mb-2 text-[13px] font-medium text-cv-teal-700">
+					{g.regulation}
+					· {g.title}
+				</h2>
 				<ol>
 					{#each g.requirements as req (req.id)}
 						{@const url = app.pdfUrl(req.source)}
@@ -258,17 +298,32 @@
 									? 'text-cv-ink-950'
 									: 'text-cv-ink-800/75 hover:text-cv-ink-950'}"
 							>
-								<span class="pt-0.5 text-[12px] tabular-nums {active ? 'font-semibold text-cv-teal-700' : 'text-cv-ink-800/50'}">
+								<span
+									class="pt-0.5 text-[12px] tabular-nums {active
+										? 'font-semibold text-cv-teal-700'
+										: 'text-cv-ink-800/50'}"
+								>
 									{req.id}
 								</span>
 								<span class={active ? 'font-medium' : ''}>{req.text}</span>
 							</button>
-							<div class="-mt-1.5 grid grid-cols-[64px_1fr] gap-4 pb-3 text-[12px] text-cv-ink-800/55">
+							<div
+								class="-mt-1.5 grid grid-cols-[64px_1fr] gap-4 pb-3 text-[12px] text-cv-ink-800/55"
+							>
 								<span></span>
 								<span>
-									revision {req.source.version}{#if req.source.paragraph} · ¶ {req.source.paragraph}{/if} ·
+									revision
+									{req.source.version}
+									{#if req.source.paragraph}
+										· ¶ {req.source.paragraph}
+									{/if}
+									·
 									{#if url}
-										<a href={url} target="_blank" rel="noreferrer" class="underline underline-offset-2 hover:text-cv-teal-700"
+										<a
+											href={url}
+											target="_blank"
+											rel="noreferrer"
+											class="underline underline-offset-2 hover:text-cv-teal-700"
 											>p. {req.source.page}</a
 										>
 									{:else}
@@ -285,29 +340,29 @@
 </div>
 
 <style>
-	.navbtn {
-		border: 1px solid color-mix(in srgb, var(--color-cv-ink-800) 25%, transparent);
-		background: white;
-		padding: 0.15rem 0.85rem;
-		border-radius: 2px;
-		color: var(--color-cv-ink-950);
-	}
-	.navbtn:hover:not(:disabled) {
-		border-color: var(--color-cv-teal-700);
-		color: var(--color-cv-teal-700);
-	}
-	.navbtn:disabled {
-		opacity: 0.35;
-	}
-	.file-in {
-		font-size: 12px;
-	}
-	.file-in::file-selector-button {
-		margin-right: 0.5rem;
-		border: 1px solid color-mix(in srgb, var(--color-cv-ink-800) 25%, transparent);
-		border-radius: 2px;
-		background: white;
-		padding: 0.15rem 0.6rem;
-		font: inherit;
-	}
+.navbtn {
+	border: 1px solid color-mix(in srgb, var(--color-cv-ink-800) 25%, transparent);
+	background: white;
+	padding: 0.15rem 0.85rem;
+	border-radius: 2px;
+	color: var(--color-cv-ink-950);
+}
+.navbtn:hover:not(:disabled) {
+	border-color: var(--color-cv-teal-700);
+	color: var(--color-cv-teal-700);
+}
+.navbtn:disabled {
+	opacity: 0.35;
+}
+.file-in {
+	font-size: 12px;
+}
+.file-in::file-selector-button {
+	margin-right: 0.5rem;
+	border: 1px solid color-mix(in srgb, var(--color-cv-ink-800) 25%, transparent);
+	border-radius: 2px;
+	background: white;
+	padding: 0.15rem 0.6rem;
+	font: inherit;
+}
 </style>

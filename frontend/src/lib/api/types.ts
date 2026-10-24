@@ -93,7 +93,7 @@ export interface ApiClient {
 		spec: string,
 		image: File | Blob | null,
 		onEvent: (event: PipelineEvent) => void,
-		caseName?: string
+		caseName?: string,
 	): Promise<Assessment>;
 	listAssessments(): Promise<Assessment[]>;
 	getAssessment(id: string): Promise<Assessment | null>;

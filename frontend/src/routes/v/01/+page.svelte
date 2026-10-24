@@ -1,29 +1,33 @@
 <script lang="ts">
-	import { onMount } from 'svelte';
-	import { Select } from 'bits-ui';
-	import { app } from '#lib/app.svelte.ts';
+import { Select } from 'bits-ui';
+import { onMount } from 'svelte';
+import { app } from '#lib/app.svelte.ts';
 
-	onMount(() => app.demo());
+onMount(() => app.demo());
 
-	const selectedUrl = $derived(app.selected ? app.pdfUrl(app.selected.source) : null);
+const selectedUrl = $derived(app.selected ? app.pdfUrl(app.selected.source) : null);
 </script>
 
 <svelte:head>
 	<title>Datasheet</title>
-	<link rel="preconnect" href="https://fonts.googleapis.com" />
-	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous" />
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous">
 	<link
 		rel="stylesheet"
 		href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&display=swap"
-	/>
+	>
 </svelte:head>
 
 <div class="flex h-screen flex-col bg-cv-mint-50 font-['IBM_Plex_Sans'] text-sm text-cv-ink-800">
 	<header class="flex items-baseline justify-between border-b border-cv-ink-800 px-4 py-2">
 		<div class="flex items-baseline gap-3">
 			<h1 class="font-['IBM_Plex_Mono'] text-2xl font-medium tracking-tight">sudo</h1>
-			<span class="text-[11px] tracking-wide uppercase opacity-60">in collaboration with Certivity</span>
-			<span class="ml-4 font-['IBM_Plex_Mono'] text-xs opacity-70">{app.result?.case_id ?? ''}</span>
+			<span class="text-[11px] tracking-wide uppercase opacity-60"
+				>in collaboration with Certivity</span
+			>
+			<span class="ml-4 font-['IBM_Plex_Mono'] text-xs opacity-70"
+				>{app.result?.case_id ?? ''}</span
+			>
 		</div>
 		<a href="/v" class="text-xs underline">All variants</a>
 	</header>
@@ -75,7 +79,7 @@
 					accept=".md,.txt,text/*"
 					onchange={(e) => app.setSpecFile(e.currentTarget.files?.[0])}
 					class="mt-0.5 block w-full text-xs normal-case file:mr-2 file:border file:border-cv-ink-800 file:bg-white file:px-2 file:py-0.5"
-				/>
+				>
 			</label>
 		</div>
 
@@ -90,9 +94,11 @@
 
 		<div class="flex flex-col bg-cv-mint-50 p-2">
 			<span class="mb-1 text-[10px] tracking-wider uppercase opacity-70">Exploded view</span>
-			<div class="flex min-h-0 flex-1 items-center justify-center border border-cv-ink-800 bg-white">
+			<div
+				class="flex min-h-0 flex-1 items-center justify-center border border-cv-ink-800 bg-white"
+			>
 				{#if app.imageUrl}
-					<img src={app.imageUrl} alt="Exploded view" class="max-h-24 max-w-full object-contain" />
+					<img src={app.imageUrl} alt="Exploded view" class="max-h-24 max-w-full object-contain">
 				{:else}
 					<span class="text-xs opacity-50">none</span>
 				{/if}
@@ -102,7 +108,7 @@
 				accept="image/*"
 				onchange={(e) => app.setImageFile(e.currentTarget.files?.[0])}
 				class="mt-1 block w-full text-xs file:mr-2 file:border file:border-cv-ink-800 file:bg-white file:px-2 file:py-0.5"
-			/>
+			>
 		</div>
 
 		<div class="flex flex-col justify-end gap-2 bg-cv-mint-50 p-2">
@@ -183,7 +189,8 @@
 												target="_blank"
 												rel="noreferrer"
 												onclick={(e) => e.stopPropagation()}
-												class="underline">{req.source.page}</a
+												class="underline"
+												>{req.source.page}</a
 											>
 										{:else}
 											{req.source.page}
@@ -205,8 +212,10 @@
 		<aside class="flex w-[38%] min-w-80 flex-col border-l border-cv-ink-800 bg-white">
 			{#if app.selected && selectedUrl}
 				<div class="border-b border-cv-ink-800 px-3 py-1.5 font-['IBM_Plex_Mono'] text-xs">
-					{app.selected.id} · {app.selected.source.regulation}
-					{app.selected.source.version} · p.{app.selected.source.page}
+					{app.selected.id}
+					· {app.selected.source.regulation}
+					{app.selected.source.version}
+					· p.{app.selected.source.page}
 				</div>
 				{#key selectedUrl}
 					<iframe src={selectedUrl} title="Source page" class="min-h-0 flex-1 border-0"></iframe>

@@ -1,28 +1,30 @@
 <script lang="ts">
-	import { onMount } from 'svelte';
-	import { Select } from 'bits-ui';
-	import { app } from '#lib/app.svelte.ts';
+import { Select } from 'bits-ui';
+import { onMount } from 'svelte';
+import { app } from '#lib/app.svelte.ts';
 
-	onMount(() => app.demo());
+onMount(() => app.demo());
 
-	const selectedUrl = $derived(app.selected ? app.pdfUrl(app.selected.source) : null);
-	const total = $derived(app.result?.requirements.length ?? 0);
-	const pad = (n: number) => String(n).padStart(2, '0');
+const selectedUrl = $derived(app.selected ? app.pdfUrl(app.selected.source) : null);
+const total = $derived(app.result?.requirements.length ?? 0);
+const pad = (n: number) => String(n).padStart(2, '0');
 </script>
 
 <svelte:head>
 	<title>sudo — Swiss grid</title>
-	<link rel="preconnect" href="https://fonts.googleapis.com" />
-	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous" />
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous">
 	<link
 		rel="stylesheet"
 		href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@300;400;500;600;700;800&display=swap"
-	/>
+	>
 </svelte:head>
 
 <div class="sw-root min-h-screen bg-white text-black">
 	<div class="grid grid-cols-12 gap-x-4 px-8 xl:gap-x-6 xl:px-12">
-		<header class="col-span-12 grid grid-cols-12 gap-x-4 border-t-[6px] border-black pt-4 xl:gap-x-6">
+		<header
+			class="col-span-12 grid grid-cols-12 gap-x-4 border-t-[6px] border-black pt-4 xl:gap-x-6"
+		>
 			<h1
 				class="col-span-7 text-[10rem] leading-[0.78] font-bold tracking-[-0.06em] xl:text-[14rem]"
 			>
@@ -37,9 +39,7 @@
 					<p class="max-w-[28ch] text-xl leading-tight font-medium">
 						Requirements under UN Regulations, each cited to its source page.
 					</p>
-					<p class="mt-3 text-xs">
-						In collaboration with <span class="font-bold">Certivity</span>
-					</p>
+					<p class="mt-3 text-xs">In collaboration with <span class="font-bold">Certivity</span></p>
 				</div>
 			</div>
 		</header>
@@ -98,7 +98,7 @@
 						accept=".md,.txt,text/*"
 						onchange={(e) => app.setSpecFile(e.currentTarget.files?.[0])}
 						class="file"
-					/>
+					>
 				</label>
 				<label class="block">
 					<span class="label">Exploded view</span>
@@ -107,7 +107,7 @@
 						accept="image/*"
 						onchange={(e) => app.setImageFile(e.currentTarget.files?.[0])}
 						class="file"
-					/>
+					>
 				</label>
 			</div>
 
@@ -124,7 +124,7 @@
 				<span class="label">Drawing</span>
 				<div class="flex h-36 items-center justify-center border-t-2 border-black">
 					{#if app.imageUrl}
-						<img src={app.imageUrl} alt="Exploded view" class="max-h-32 max-w-full object-contain" />
+						<img src={app.imageUrl} alt="Exploded view" class="max-h-32 max-w-full object-contain">
 					{:else}
 						<span class="text-xs">No drawing</span>
 					{/if}
@@ -153,13 +153,17 @@
 			</div>
 
 			{#if app.error}
-				<p class="col-span-10 col-start-3 mt-4 border-t-2 border-red-600 pt-2 text-sm font-medium text-red-600">
+				<p
+					class="col-span-10 col-start-3 mt-4 border-t-2 border-red-600 pt-2 text-sm font-medium text-red-600"
+				>
 					Error — {app.error}
 				</p>
 			{/if}
 		</form>
 
-		<section class="col-span-12 mt-12 grid grid-cols-12 gap-x-4 border-t border-black pt-3 xl:gap-x-6">
+		<section
+			class="col-span-12 mt-12 grid grid-cols-12 gap-x-4 border-t border-black pt-3 xl:gap-x-6"
+		>
 			<div class="col-span-2">
 				<div class="text-5xl leading-none font-light text-cv-teal-700">2</div>
 				<div class="mt-2 text-sm font-bold">Regulations cited</div>
@@ -185,7 +189,9 @@
 			</ol>
 		</section>
 
-		<section class="col-span-12 mt-12 grid grid-cols-12 gap-x-4 border-t border-black pt-3 pb-16 xl:gap-x-6">
+		<section
+			class="col-span-12 mt-12 grid grid-cols-12 gap-x-4 border-t border-black pt-3 pb-16 xl:gap-x-6"
+		>
 			<div class="col-span-7 grid grid-cols-7 content-start gap-x-4 xl:gap-x-6">
 				<div class="col-span-2">
 					<div class="text-5xl leading-none font-light text-cv-teal-700">3</div>
@@ -196,7 +202,9 @@
 				</div>
 
 				{#each app.byRegulation as g (g.regulation)}
-					<h2 class="col-span-7 mt-10 grid grid-cols-7 gap-x-4 border-b-2 border-black pb-1 xl:gap-x-6">
+					<h2
+						class="col-span-7 mt-10 grid grid-cols-7 gap-x-4 border-b-2 border-black pb-1 xl:gap-x-6"
+					>
 						<span class="col-span-2 text-sm font-bold">{g.regulation}</span>
 						<span class="col-span-5 flex justify-between text-sm">
 							<span class="font-medium">{g.title}</span>
@@ -215,7 +223,9 @@
 						>
 							<div class="relative col-span-2">
 								{#if active}
-									<span class="absolute top-1.5 -left-5 size-2.5 bg-cv-mint-300 ring-1 ring-black"></span>
+									<span
+										class="absolute top-1.5 -left-5 size-2.5 bg-cv-mint-300 ring-1 ring-black"
+									></span>
 								{/if}
 								<span
 									class="text-2xl leading-none font-light tracking-tight text-cv-teal-700 tabular-nums group-hover:font-normal"
@@ -254,8 +264,10 @@
 							<div class="text-sm font-bold">Source page</div>
 							{#if app.selected}
 								<div class="text-xs">
-									{app.selected.id} · {app.selected.source.regulation}
-									{app.selected.source.version} · §{app.selected.source.paragraph ?? '—'}
+									{app.selected.id}
+									· {app.selected.source.regulation}
+									{app.selected.source.version}
+									· §{app.selected.source.paragraph ?? '—'}
 								</div>
 							{/if}
 						</div>
@@ -267,13 +279,18 @@
 					</div>
 					{#if app.selected && selectedUrl}
 						{#key selectedUrl}
-							<iframe src={selectedUrl} title="Source page" class="min-h-0 flex-1 border-0 bg-white"></iframe>
+							<iframe
+								src={selectedUrl}
+								title="Source page"
+								class="min-h-0 flex-1 border-0 bg-white"
+							></iframe>
 						{/key}
 						<a
 							href={selectedUrl}
 							target="_blank"
 							rel="noreferrer"
-							class="border-t border-black pt-2 text-xs font-medium hover:underline">Open in new tab ↗</a
+							class="border-t border-black pt-2 text-xs font-medium hover:underline"
+							>Open in new tab ↗</a
 						>
 					{:else}
 						<div class="flex flex-1 flex-col justify-start pt-6">
@@ -289,30 +306,32 @@
 </div>
 
 <style>
-	:global(.sw-root) {
-		font-family: 'Hanken Grotesk', 'Helvetica Neue', Arial, sans-serif;
-		font-feature-settings: 'ss01', 'tnum' 0;
-	}
-	.label {
-		display: block;
-		margin-bottom: 0.25rem;
-		font-size: 0.6875rem;
-		font-weight: 700;
-	}
-	.file {
-		display: block;
-		width: 100%;
-		border-bottom: 1px solid black;
-		padding-bottom: 0.375rem;
-		font-size: 0.75rem;
-	}
-	.file::file-selector-button {
-		margin-right: 0.5rem;
-		border: 0;
-		background: black;
-		color: white;
-		padding: 0.25rem 0.5rem;
-		font: inherit;
-		font-weight: 700;
-	}
+:global(.sw-root) {
+	font-family: "Hanken Grotesk", "Helvetica Neue", Arial, sans-serif;
+	font-feature-settings:
+		"ss01",
+		"tnum" 0;
+}
+.label {
+	display: block;
+	margin-bottom: 0.25rem;
+	font-size: 0.6875rem;
+	font-weight: 700;
+}
+.file {
+	display: block;
+	width: 100%;
+	border-bottom: 1px solid black;
+	padding-bottom: 0.375rem;
+	font-size: 0.75rem;
+}
+.file::file-selector-button {
+	margin-right: 0.5rem;
+	border: 0;
+	background: black;
+	color: white;
+	padding: 0.25rem 0.5rem;
+	font: inherit;
+	font-weight: 700;
+}
 </style>

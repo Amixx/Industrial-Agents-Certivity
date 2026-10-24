@@ -1,68 +1,68 @@
 <script lang="ts">
-	import { onMount } from 'svelte';
-	import { Select } from 'bits-ui';
-	import { app } from '#lib/app.svelte.ts';
+import { Select } from 'bits-ui';
+import { onMount } from 'svelte';
+import { app } from '#lib/app.svelte.ts';
 
-	onMount(() => app.demo());
+onMount(() => app.demo());
 
-	const selectedUrl = $derived(app.selected ? app.pdfUrl(app.selected.source) : null);
-	const total = $derived(app.result?.requirements.length ?? 0);
-	const date = new Date().toISOString().slice(0, 10);
+const selectedUrl = $derived(app.selected ? app.pdfUrl(app.selected.source) : null);
+const total = $derived(app.result?.requirements.length ?? 0);
+const date = new Date().toISOString().slice(0, 10);
 
-	const zonesX = ['1', '2', '3', '4', '5', '6', '7', '8'];
-	const zonesY = ['A', 'B', 'C', 'D', 'E', 'F'];
+const zonesX = ['1', '2', '3', '4', '5', '6', '7', '8'];
+const zonesY = ['A', 'B', 'C', 'D', 'E', 'F'];
 
-	let dims = $state({ w: 1722, h: 1842 });
-	$effect(() => {
-		const url = app.imageUrl;
-		if (!url) return;
-		const im = new Image();
-		im.onload = () => (dims = { w: im.naturalWidth, h: im.naturalHeight });
-		im.src = url;
+let dims = $state({ w: 1722, h: 1842 });
+$effect(() => {
+	const url = app.imageUrl;
+	if (!url) return;
+	const im = new Image();
+	im.onload = () => (dims = { w: im.naturalWidth, h: im.naturalHeight });
+	im.src = url;
+});
+
+const anchors = [
+	[0.3, 0.28],
+	[0.78, 0.33],
+	[0.55, 0.2],
+	[0.42, 0.72],
+	[0.8, 0.8],
+	[0.2, 0.6],
+	[0.62, 0.5],
+	[0.9, 0.12],
+];
+
+const plot = $derived.by(() => {
+	const { w, h } = dims;
+	const u = w / 36;
+	const perRow = 4;
+	const slot = w / perRow;
+	const rowH = u * 4.2;
+	const top = h + u * 3;
+	const callouts = app.byRegulation.map((g, i) => {
+		const [fx, fy] = anchors[i % anchors.length];
+		const bx = (i % perRow) * slot + u * 1.6;
+		const by = top + Math.floor(i / perRow) * rowH + u * 1.6;
+		return { g, n: i + 1, ax: fx * w, ay: fy * h, bx, by };
 	});
+	const rows = Math.max(1, Math.ceil(callouts.length / perRow));
+	return { w, h, u, callouts, viewBox: `${-u} ${-u} ${w + 2 * u} ${top + rows * rowH + u}` };
+});
 
-	const anchors = [
-		[0.3, 0.28],
-		[0.78, 0.33],
-		[0.55, 0.2],
-		[0.42, 0.72],
-		[0.8, 0.8],
-		[0.2, 0.6],
-		[0.62, 0.5],
-		[0.9, 0.12]
-	];
-
-	const plot = $derived.by(() => {
-		const { w, h } = dims;
-		const u = w / 36;
-		const perRow = 4;
-		const slot = w / perRow;
-		const rowH = u * 4.2;
-		const top = h + u * 3;
-		const callouts = app.byRegulation.map((g, i) => {
-			const [fx, fy] = anchors[i % anchors.length];
-			const bx = (i % perRow) * slot + u * 1.6;
-			const by = top + Math.floor(i / perRow) * rowH + u * 1.6;
-			return { g, n: i + 1, ax: fx * w, ay: fy * h, bx, by };
-		});
-		const rows = Math.max(1, Math.ceil(callouts.length / perRow));
-		return { w, h, u, callouts, viewBox: `${-u} ${-u} ${w + 2 * u} ${top + rows * rowH + u}` };
-	});
-
-	function selectRegulation(reg: string) {
-		const first = app.byRegulation.find((g) => g.regulation === reg)?.requirements[0];
-		if (first) app.select(first.id);
-	}
+function selectRegulation(reg: string) {
+	const first = app.byRegulation.find((g) => g.regulation === reg)?.requirements[0];
+	if (first) app.select(first.id);
+}
 </script>
 
 <svelte:head>
 	<title>Drawing sheet</title>
-	<link rel="preconnect" href="https://fonts.googleapis.com" />
-	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous" />
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous">
 	<link
 		rel="stylesheet"
 		href="https://fonts.googleapis.com/css2?family=Overpass+Mono:wght@400;600&family=Share+Tech+Mono&display=swap"
-	/>
+	>
 </svelte:head>
 
 <svg width="0" height="0" class="absolute" aria-hidden="true">
@@ -77,16 +77,24 @@
 <div class="sheet h-screen min-h-[640px] bg-cv-ink-950 p-3 text-cv-mint-300">
 	<div class="relative h-full border border-cv-mint-300/70 p-5">
 		<div class="zone-row top-0">
-			{#each zonesX as z (z)}<span>{z}</span>{/each}
+			{#each zonesX as z (z)}
+				<span>{z}</span>
+			{/each}
 		</div>
 		<div class="zone-row bottom-0">
-			{#each zonesX as z (z)}<span>{z}</span>{/each}
+			{#each zonesX as z (z)}
+				<span>{z}</span>
+			{/each}
 		</div>
 		<div class="zone-col left-0">
-			{#each zonesY as z (z)}<span>{z}</span>{/each}
+			{#each zonesY as z (z)}
+				<span>{z}</span>
+			{/each}
 		</div>
 		<div class="zone-col right-0">
-			{#each zonesY as z (z)}<span>{z}</span>{/each}
+			{#each zonesY as z (z)}
+				<span>{z}</span>
+			{/each}
 		</div>
 
 		<div
@@ -146,28 +154,35 @@
 										text-anchor="middle"
 										dominant-baseline="central"
 										font-size={plot.u * 1.4}
-										class="balloon-n">{c.n}</text
+										class="balloon-n"
 									>
-									<text x={c.bx + plot.u * 2} y={c.by - plot.u * 0.15} font-size={plot.u * 1.25}
-										>{c.g.regulation}</text
-									>
+										{c.n}
+									</text>
+									<text x={c.bx + plot.u * 2} y={c.by - plot.u * 0.15} font-size={plot.u * 1.25}>
+										{c.g.regulation}
+									</text>
 									<text
 										x={c.bx + plot.u * 2}
 										y={c.by + plot.u * 1.15}
 										font-size={plot.u * 0.8}
 										opacity="0.75"
-										>QTY {c.g.count}</text
 									>
+										QTY {c.g.count}
+									</text>
 								</g>
 							{/each}
 						</svg>
 					{:else}
-						<div class="flex h-full items-center justify-center border border-dashed border-cv-mint-300/40">
+						<div
+							class="flex h-full items-center justify-center border border-dashed border-cv-mint-300/40"
+						>
 							NO VIEW SUPPLIED
 						</div>
 					{/if}
 					{#if app.loading}
-						<div class="absolute top-4 left-4 bg-cv-ink-950 px-2 py-1 text-xs tracking-widest blink">
+						<div
+							class="absolute top-4 left-4 bg-cv-ink-950 px-2 py-1 text-xs tracking-widest blink"
+						>
 							PLOTTING&hellip;
 						</div>
 					{/if}
@@ -198,7 +213,9 @@
 									<td class="px-2 py-1 text-right">{g.count}</td>
 								</tr>
 							{:else}
-								<tr><td colspan="4" class="px-2 py-1 opacity-60">&mdash;</td></tr>
+								<tr>
+									<td colspan="4" class="px-2 py-1 opacity-60">&mdash;</td>
+								</tr>
 							{/each}
 						</tbody>
 					</table>
@@ -228,7 +245,9 @@
 								<Select.Trigger
 									class="flex h-7 w-full items-center justify-between border border-cv-mint-300 px-2 text-[12px] tracking-wider uppercase hover:bg-cv-mint-300/10"
 								>
-									<span class="truncate"><span class="opacity-60">CASE /</span> {app.selectedCase || 'SELECT'}</span>
+									<span class="truncate"
+										><span class="opacity-60">CASE /</span> {app.selectedCase || 'SELECT'}</span
+									>
 									<span aria-hidden="true">&#9660;</span>
 								</Select.Trigger>
 								<Select.Portal>
@@ -258,7 +277,7 @@
 										accept=".md,.txt,text/*"
 										onchange={(e) => app.setSpecFile(e.currentTarget.files?.[0])}
 										class="file-input"
-									/>
+									>
 								</label>
 								<label class="block">
 									VIEW IMAGE
@@ -267,7 +286,7 @@
 										accept="image/*"
 										onchange={(e) => app.setImageFile(e.currentTarget.files?.[0])}
 										class="file-input"
-									/>
+									>
 								</label>
 							</div>
 						</div>
@@ -318,9 +337,16 @@
 						{#each app.byRegulation as g, i (g.regulation)}
 							<tbody>
 								<tr class="border-b border-cv-mint-300/40 bg-cv-mint-300/10">
-									<th colspan="4" class="px-2 py-1 text-[11px] font-normal tracking-widest uppercase">
-										<span class="mr-1 inline-flex h-4 w-4 items-center justify-center rounded-full border border-cv-mint-300 text-[10px]">{i + 1}</span>
-										{g.regulation} &mdash; {g.title}
+									<th
+										colspan="4"
+										class="px-2 py-1 text-[11px] font-normal tracking-widest uppercase"
+									>
+										<span
+											class="mr-1 inline-flex h-4 w-4 items-center justify-center rounded-full border border-cv-mint-300 text-[10px]"
+											>{i + 1}</span
+										>
+										{g.regulation}
+										&mdash; {g.title}
 										<span class="opacity-60">/ {g.count}</span>
 									</th>
 								</tr>
@@ -337,9 +363,11 @@
 											{req.id}
 											<div class="opacity-70">&para; {req.source.paragraph ?? '—'}</div>
 										</td>
-										<td class="td body text-[11.5px] leading-snug {sel ? '' : 'text-cv-mint-50/90'}"
-											>{req.text}</td
+										<td
+											class="td body text-[11.5px] leading-snug {sel ? '' : 'text-cv-mint-50/90'}"
 										>
+											{req.text}
+										</td>
 										<td class="td whitespace-nowrap">{req.source.version}</td>
 										<td class="td text-right">
 											{#if url}
@@ -348,7 +376,8 @@
 													target="_blank"
 													rel="noreferrer"
 													onclick={(e) => e.stopPropagation()}
-													class="underline underline-offset-2">{req.source.page}</a
+													class="underline underline-offset-2"
+													>{req.source.page}</a
 												>
 											{:else}
 												{req.source.page}
@@ -371,13 +400,17 @@
 				<div class="cell-head">
 					<span>Detail B &mdash; source</span>
 					{#if app.selected && selectedUrl}
-						<a href={selectedUrl} target="_blank" rel="noreferrer" class="underline">OPEN &#8599;</a>
+						<a href={selectedUrl} target="_blank" rel="noreferrer" class="underline"
+							>OPEN &#8599;</a
+						>
 					{/if}
 				</div>
 				{#if app.selected && selectedUrl}
 					<div class="border-b border-cv-mint-300/40 px-2 py-1 text-[11px] tracking-wider">
-						{app.selected.id} &middot; {app.selected.source.regulation} ISS {app.selected.source.version}
-						&middot; &para; {app.selected.source.paragraph ?? '—'} &middot; SHT {app.selected.source.page}
+						{app.selected.id}
+						&middot; {app.selected.source.regulation} ISS {app.selected.source.version}
+						&middot; &para; {app.selected.source.paragraph ?? '—'} &middot; SHT
+						{app.selected.source.page}
 					</div>
 					<div class="min-h-0 flex-1 bg-white">
 						{#key selectedUrl}
@@ -385,14 +418,22 @@
 						{/key}
 					</div>
 				{:else}
-					<div class="relative m-3 flex flex-1 items-center justify-center border border-dashed border-cv-mint-300/40 text-center text-[12px] leading-relaxed tracking-wider opacity-80">
+					<div
+						class="relative m-3 flex flex-1 items-center justify-center border border-dashed border-cv-mint-300/40 text-center text-[12px] leading-relaxed tracking-wider opacity-80"
+					>
 						<span class="crosshair"></span>
-						<span class="relative bg-cv-ink-950 px-2">SELECT A SCHEDULE ROW<br />TO PROJECT ITS SOURCE PAGE</span>
+						<span class="relative bg-cv-ink-950 px-2"
+							>SELECT A SCHEDULE ROW<br>TO PROJECT ITS SOURCE PAGE</span
+						>
 					</div>
 				{/if}
 
-				<div class="title-block grid grid-cols-[1fr_auto] border-t-2 border-cv-mint-300 text-[10px] tracking-widest">
-					<div class="col-span-2 flex items-end justify-between border-b border-cv-mint-300 px-2 pt-1 pb-1.5">
+				<div
+					class="title-block grid grid-cols-[1fr_auto] border-t-2 border-cv-mint-300 text-[10px] tracking-widest"
+				>
+					<div
+						class="col-span-2 flex items-end justify-between border-b border-cv-mint-300 px-2 pt-1 pb-1.5"
+					>
 						<div>
 							<div class="opacity-60">PROJECT</div>
 							<div class="wordmark">sudo</div>
@@ -428,123 +469,125 @@
 </div>
 
 <style>
-	:global(.sheet) {
-		font-family: 'Share Tech Mono', ui-monospace, monospace;
+:global(.sheet) {
+	font-family: "Share Tech Mono", ui-monospace, monospace;
+}
+.body {
+	font-family: "Overpass Mono", ui-monospace, monospace;
+}
+.zone-row {
+	position: absolute;
+	left: 1.25rem;
+	right: 1.25rem;
+	display: flex;
+	height: 1.25rem;
+	font-size: 11px;
+}
+.zone-row span {
+	flex: 1;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	border-left: 1px solid color-mix(in srgb, var(--color-cv-mint-300) 50%, transparent);
+}
+.zone-row span:first-child {
+	border-left: 0;
+}
+.zone-col {
+	position: absolute;
+	top: 1.25rem;
+	bottom: 1.25rem;
+	display: flex;
+	flex-direction: column;
+	width: 1.25rem;
+	font-size: 11px;
+}
+.zone-col span {
+	flex: 1;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	border-top: 1px solid color-mix(in srgb, var(--color-cv-mint-300) 50%, transparent);
+}
+.zone-col span:first-child {
+	border-top: 0;
+}
+.cell-head {
+	display: flex;
+	justify-content: space-between;
+	gap: 1rem;
+	white-space: nowrap;
+	border-bottom: 1px solid var(--color-cv-mint-300);
+	padding: 0.2rem 0.5rem;
+	font-size: 11px;
+	letter-spacing: 0.18em;
+	text-transform: uppercase;
+}
+.th {
+	padding: 0.25rem 0.5rem;
+	font-weight: 400;
+}
+.td {
+	padding: 0.3rem 0.5rem;
+}
+.file-input {
+	display: block;
+	width: 100%;
+	margin-top: 0.15rem;
+	font-size: 10px;
+	letter-spacing: 0;
+}
+.file-input::file-selector-button {
+	margin-right: 0.4rem;
+	border: 1px solid var(--color-cv-mint-300);
+	background: transparent;
+	padding: 0.05rem 0.4rem;
+	font:
+		10px "Share Tech Mono",
+		monospace;
+	letter-spacing: 0.1em;
+	color: var(--color-cv-mint-300);
+}
+.callout {
+	color: var(--color-cv-mint-300);
+	fill: var(--color-cv-mint-300);
+	font-family: "Share Tech Mono", monospace;
+	outline: none;
+}
+.callout .balloon {
+	fill: var(--color-cv-ink-950);
+}
+.callout.active,
+.callout:hover,
+.callout:focus-visible {
+	color: var(--color-cv-teal-400);
+	fill: var(--color-cv-teal-400);
+}
+.callout.active .balloon {
+	fill: var(--color-cv-mint-300);
+}
+.callout.active .balloon-n {
+	fill: var(--color-cv-ink-950);
+}
+.wordmark {
+	font-size: 2.6rem;
+	line-height: 0.9;
+	letter-spacing: 0.04em;
+}
+.crosshair {
+	position: absolute;
+	inset: 0;
+	background:
+		linear-gradient(var(--color-cv-mint-300), var(--color-cv-mint-300)) center / 1px 100% no-repeat,
+		linear-gradient(var(--color-cv-mint-300), var(--color-cv-mint-300)) center / 100% 1px no-repeat;
+	opacity: 0.25;
+}
+.blink {
+	animation: blink 1s steps(2) infinite;
+}
+@keyframes blink {
+	50% {
+		opacity: 0.2;
 	}
-	.body {
-		font-family: 'Overpass Mono', ui-monospace, monospace;
-	}
-	.zone-row {
-		position: absolute;
-		left: 1.25rem;
-		right: 1.25rem;
-		display: flex;
-		height: 1.25rem;
-		font-size: 11px;
-	}
-	.zone-row span {
-		flex: 1;
-		display: flex;
-		align-items: center;
-		justify-content: center;
-		border-left: 1px solid color-mix(in srgb, var(--color-cv-mint-300) 50%, transparent);
-	}
-	.zone-row span:first-child {
-		border-left: 0;
-	}
-	.zone-col {
-		position: absolute;
-		top: 1.25rem;
-		bottom: 1.25rem;
-		display: flex;
-		flex-direction: column;
-		width: 1.25rem;
-		font-size: 11px;
-	}
-	.zone-col span {
-		flex: 1;
-		display: flex;
-		align-items: center;
-		justify-content: center;
-		border-top: 1px solid color-mix(in srgb, var(--color-cv-mint-300) 50%, transparent);
-	}
-	.zone-col span:first-child {
-		border-top: 0;
-	}
-	.cell-head {
-		display: flex;
-		justify-content: space-between;
-		gap: 1rem;
-		white-space: nowrap;
-		border-bottom: 1px solid var(--color-cv-mint-300);
-		padding: 0.2rem 0.5rem;
-		font-size: 11px;
-		letter-spacing: 0.18em;
-		text-transform: uppercase;
-	}
-	.th {
-		padding: 0.25rem 0.5rem;
-		font-weight: 400;
-	}
-	.td {
-		padding: 0.3rem 0.5rem;
-	}
-	.file-input {
-		display: block;
-		width: 100%;
-		margin-top: 0.15rem;
-		font-size: 10px;
-		letter-spacing: 0;
-	}
-	.file-input::file-selector-button {
-		margin-right: 0.4rem;
-		border: 1px solid var(--color-cv-mint-300);
-		background: transparent;
-		padding: 0.05rem 0.4rem;
-		font: 10px 'Share Tech Mono', monospace;
-		letter-spacing: 0.1em;
-		color: var(--color-cv-mint-300);
-	}
-	.callout {
-		color: var(--color-cv-mint-300);
-		fill: var(--color-cv-mint-300);
-		font-family: 'Share Tech Mono', monospace;
-		outline: none;
-	}
-	.callout .balloon {
-		fill: var(--color-cv-ink-950);
-	}
-	.callout.active,
-	.callout:hover,
-	.callout:focus-visible {
-		color: var(--color-cv-teal-400);
-		fill: var(--color-cv-teal-400);
-	}
-	.callout.active .balloon {
-		fill: var(--color-cv-mint-300);
-	}
-	.callout.active .balloon-n {
-		fill: var(--color-cv-ink-950);
-	}
-	.wordmark {
-		font-size: 2.6rem;
-		line-height: 0.9;
-		letter-spacing: 0.04em;
-	}
-	.crosshair {
-		position: absolute;
-		inset: 0;
-		background:
-			linear-gradient(var(--color-cv-mint-300), var(--color-cv-mint-300)) center / 1px 100% no-repeat,
-			linear-gradient(var(--color-cv-mint-300), var(--color-cv-mint-300)) center / 100% 1px no-repeat;
-		opacity: 0.25;
-	}
-	.blink {
-		animation: blink 1s steps(2) infinite;
-	}
-	@keyframes blink {
-		50% {
-			opacity: 0.2;
-		}
-	}
+}
 </style>

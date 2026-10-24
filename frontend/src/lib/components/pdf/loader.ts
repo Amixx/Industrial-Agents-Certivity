@@ -8,7 +8,7 @@ const documents = new Map<string, Promise<PDFDocumentProxy>>();
 export function loadPdfJs(): Promise<PdfJs> {
 	pdfjsPromise ??= Promise.all([
 		import('pdfjs-dist'),
-		import('pdfjs-dist/build/pdf.worker.min.mjs?url')
+		import('pdfjs-dist/build/pdf.worker.min.mjs?url'),
 	]).then(([pdfjs, worker]) => {
 		pdfjs.GlobalWorkerOptions.workerSrc = worker.default;
 		return pdfjs;

@@ -1,14 +1,14 @@
 <script lang="ts">
-	import { onMount } from 'svelte';
-	import { api } from '#lib/api/client.ts';
-	import type { Assessment } from '#lib/api/types.ts';
-	import { formatDate } from '#lib/ui/format.ts';
+import { onMount } from 'svelte';
+import { api } from '#lib/api/client.ts';
+import type { Assessment } from '#lib/api/types.ts';
+import { formatDate } from '#lib/ui/format.ts';
 
-	let assessments: Assessment[] | null = $state(null);
+let assessments: Assessment[] | null = $state(null);
 
-	onMount(async () => {
-		assessments = await api.listAssessments();
-	});
+onMount(async () => {
+	assessments = await api.listAssessments();
+});
 </script>
 
 <svelte:head><title>History · sudo</title></svelte:head>
@@ -34,7 +34,9 @@
 				{#each assessments as a (a.id)}
 					<tr class="ui-rule-soft border-b align-top hover:bg-white">
 						<td class="px-4 py-2">
-							<a href="/a/{a.id}" class="ui-mono ui-link font-medium">{a.caseName ?? 'Untitled spec'}</a>
+							<a href="/a/{a.id}" class="ui-mono ui-link font-medium"
+								>{a.caseName ?? 'Untitled spec'}</a
+							>
 							<span class="ui-mono ml-2 text-[11px] opacity-60">#{a.id}</span>
 						</td>
 						<td class="px-4 py-2">{a.profile.productType}</td>
@@ -51,6 +53,8 @@
 			</tbody>
 		</table>
 	{:else if assessments}
-		<p class="p-4 opacity-60">No saved assessments yet. <a href="/" class="ui-link">Start one</a></p>
+		<p class="p-4 opacity-60">
+			No saved assessments yet. <a href="/" class="ui-link">Start one</a>
+		</p>
 	{/if}
 </div>

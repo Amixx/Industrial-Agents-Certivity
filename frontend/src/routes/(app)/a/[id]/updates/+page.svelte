@@ -1,50 +1,55 @@
 <script lang="ts">
-	import { page } from '$app/state';
-	import { api } from '#lib/api/client.ts';
-	import { pdfUrl } from '#lib/api/regulations.ts';
-	import type { Assessment, ChangeKind, RegulationUpdate, RequirementChange } from '#lib/api/types.ts';
-	import AssessmentHeader from '#lib/components/AssessmentHeader.svelte';
-	import WordDiff from '#lib/ui/WordDiff.svelte';
+import { api } from '#lib/api/client.ts';
+import { pdfUrl } from '#lib/api/regulations.ts';
+import type {
+	Assessment,
+	ChangeKind,
+	RegulationUpdate,
+	RequirementChange,
+} from '#lib/api/types.ts';
+import AssessmentHeader from '#lib/components/AssessmentHeader.svelte';
+import WordDiff from '#lib/ui/WordDiff.svelte';
+import { page } from '$app/state';
 
-	let assessment = $state<Assessment | null>(null);
-	let updates: RegulationUpdate[] | null = $state(null);
-	let applying: string | null = $state(null);
+let assessment = $state<Assessment | null>(null);
+let updates: RegulationUpdate[] | null = $state(null);
+let applying: string | null = $state(null);
 
-	$effect(() => {
-		const id = page.params.id!;
-		api.getAssessment(id).then((a) => (assessment = a));
-		api.checkUpdates(id).then((u) => (updates = u));
-	});
+$effect(() => {
+	const id = page.params.id!;
+	api.getAssessment(id).then((a) => (assessment = a));
+	api.checkUpdates(id).then((u) => (updates = u));
+});
 
-	async function apply(regulation: string) {
-		if (!assessment) return;
-		applying = regulation;
-		try {
-			assessment = await api.applyUpdate(assessment.id, regulation);
-			updates = await api.checkUpdates(assessment.id);
-		} finally {
-			applying = null;
-		}
+async function apply(regulation: string) {
+	if (!assessment) return;
+	applying = regulation;
+	try {
+		assessment = await api.applyUpdate(assessment.id, regulation);
+		updates = await api.checkUpdates(assessment.id);
+	} finally {
+		applying = null;
 	}
+}
 
-	let showIrrelevant = $state<Record<string, boolean>>({});
+let showIrrelevant = $state<Record<string, boolean>>({});
 
-	const isShown = (c: RequirementChange) => c.change !== 'added' || c.relevant;
+const isShown = (c: RequirementChange) => c.change !== 'added' || c.relevant;
 
-	function cited(regulation: string) {
-		const paragraphs = new Set(
-			assessment?.requirements
-				.filter((r) => r.source.regulation === regulation && !r.id.startsWith('U-'))
-				.map((r) => r.source.paragraph)
-		);
-		return paragraphs.size;
-	}
+function cited(regulation: string) {
+	const paragraphs = new Set(
+		assessment?.requirements
+			.filter((r) => r.source.regulation === regulation && !r.id.startsWith('U-'))
+			.map((r) => r.source.paragraph),
+	);
+	return paragraphs.size;
+}
 
-	const kindStyle: Record<ChangeKind, string> = {
-		modified: 'border-cv-teal-700 text-cv-teal-700',
-		removed: 'border-cv-ink-800 bg-cv-ink-800 text-cv-mint-50',
-		added: 'border-cv-teal-700 bg-cv-mint-300'
-	};
+const kindStyle: Record<ChangeKind, string> = {
+	modified: 'border-cv-teal-700 text-cv-teal-700',
+	removed: 'border-cv-ink-800 bg-cv-ink-800 text-cv-mint-50',
+	added: 'border-cv-teal-700 bg-cv-mint-300',
+};
 </script>
 
 <svelte:head><title>Updates · sudo</title></svelte:head>
@@ -55,9 +60,14 @@
 	</AssessmentHeader>
 {/if}
 
-{#snippet row(c: RequirementChange, u: RegulationUpdate, latest: string | null)}
+{#snippet row(
+	c: RequirementChange,
+	u: RegulationUpdate,
+	latest: string | null,
+)}
 	<li
-		class="ui-rule-soft grid grid-cols-[6rem_6rem_1fr_16rem] gap-4 border-b px-4 py-3 last:border-b-0 {c.change === 'added' && !c.relevant
+		class="ui-rule-soft grid grid-cols-[6rem_6rem_1fr_16rem] gap-4 border-b px-4 py-3 last:border-b-0 {c.change ===
+			'added' && !c.relevant
 			? 'opacity-60'
 			: ''}"
 	>
@@ -80,10 +90,12 @@
 			<p class="ui-mono text-[11px] opacity-70">
 				{#if latest}
 					<a href="{latest}#page={c.source.page}" target="_blank" rel="noreferrer" class="ui-link">
-						{u.toVersion} · p. {c.source.page} · § {c.source.paragraph}
+						{u.toVersion}
+						· p. {c.source.page} · § {c.source.paragraph}
 					</a>
 				{:else}
-					{u.toVersion} · p. {c.source.page} · § {c.source.paragraph}
+					{u.toVersion}
+					· p. {c.source.page} · § {c.source.paragraph}
 				{/if}
 			</p>
 		</div>
@@ -103,20 +115,27 @@
 			{@const touched = u.changes.filter((c) => c.change !== 'added').length}
 			{@const added = u.changes.filter((c) => c.change === 'added' && c.relevant).length}
 			<section class="ui-rule border-b">
-				<header class="ui-rule-soft flex items-center justify-between gap-4 border-b bg-cv-mint-300/30 px-4 py-2">
+				<header
+					class="ui-rule-soft flex items-center justify-between gap-4 border-b bg-cv-mint-300/30 px-4 py-2"
+				>
 					<div class="flex flex-wrap items-baseline gap-x-3">
 						<span class="ui-mono text-base font-medium">{u.regulation}</span>
 						<span class="ui-mono text-xs">{u.fromVersion} → {u.toVersion}</span>
 						{#if u.stats}
 							<span class="text-xs opacity-70">
-								{u.stats.changed} paragraphs changed, {u.stats.added} added, {u.stats.removed} removed
+								{u.stats.changed}
+								paragraphs changed, {u.stats.added} added, {u.stats.removed} removed
 							</span>
 						{/if}
 					</div>
 					{#if u.applied}
 						<span class="ui-tag border-cv-teal-700 text-cv-teal-700">Applied</span>
 					{:else}
-						<button class="ui-btn ui-btn-primary" disabled={applying !== null} onclick={() => apply(u.regulation)}>
+						<button
+							class="ui-btn ui-btn-primary"
+							disabled={applying !== null}
+							onclick={() => apply(u.regulation)}
+						>
 							{applying === u.regulation ? 'Applying…' : 'Apply update'}
 						</button>
 					{/if}
@@ -125,7 +144,8 @@
 					{#if touched === 0}
 						None of this assessment's {cited(u.regulation)} cited {u.regulation} paragraphs changed.
 					{:else}
-						{touched} of this assessment's {cited(u.regulation)} cited {u.regulation} paragraphs changed.
+						{touched}
+						of this assessment's {cited(u.regulation)} cited {u.regulation} paragraphs changed.
 					{/if}
 					{#if added}
 						<strong>{added} new obligation{added === 1 ? '' : 's'} may apply.</strong>
@@ -148,7 +168,8 @@
 						class="ui-link px-4 py-2 text-xs"
 						onclick={() => (showIrrelevant[u.regulation] = !showIrrelevant[u.regulation])}
 					>
-						{showIrrelevant[u.regulation] ? 'Hide' : 'Show'} {rest.length} not relevant to this product
+						{showIrrelevant[u.regulation] ? 'Hide' : 'Show'} {rest.length} not relevant to this
+						product
 					</button>
 				{/if}
 			</section>

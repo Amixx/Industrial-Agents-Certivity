@@ -1,16 +1,16 @@
 <script lang="ts">
-	const variants = [
-		['Datasheet', 'Dense hairline-ruled table on mint paper, PDF in a right-hand panel.'],
-		['Gazette', 'Editorial newspaper layout with serif headlines.'],
-		['Drawing sheet', 'Engineering drawing sheet with title block and ruled frame.'],
-		['Workbench', 'Three-pane IDE-style workspace.'],
-		['Swiss grid', 'Strict modular grid, large type, minimal colour.'],
-		['Card catalogue', 'Requirements as index cards.'],
-		['Utility', 'Compact admin-tool look with tabs.'],
-		['Audit report', 'Formal report with a summary up front and findings below.'],
-		['Instrument panel', 'Dark teal dashboard with mono readouts.'],
-		['Reader', 'Single calm column, focused on reading one requirement at a time.']
-	];
+const variants = [
+	['Datasheet', 'Dense hairline-ruled table on mint paper, PDF in a right-hand panel.'],
+	['Gazette', 'Editorial newspaper layout with serif headlines.'],
+	['Drawing sheet', 'Engineering drawing sheet with title block and ruled frame.'],
+	['Workbench', 'Three-pane IDE-style workspace.'],
+	['Swiss grid', 'Strict modular grid, large type, minimal colour.'],
+	['Card catalogue', 'Requirements as index cards.'],
+	['Utility', 'Compact admin-tool look with tabs.'],
+	['Audit report', 'Formal report with a summary up front and findings below.'],
+	['Instrument panel', 'Dark teal dashboard with mono readouts.'],
+	['Reader', 'Single calm column, focused on reading one requirement at a time.'],
+];
 </script>
 
 <main class="mx-auto max-w-3xl p-6 text-cv-ink-800">

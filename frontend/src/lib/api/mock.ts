@@ -9,7 +9,7 @@ import type {
 	RegulationDecision,
 	RegulationUpdate,
 	Requirement,
-	RequirementChange
+	RequirementChange,
 } from './types.ts';
 
 const fixtureRequirements: Requirement[] = expected.requirements;
@@ -39,7 +39,9 @@ function save(assessment: Assessment) {
 const sleep = (ms: number) => new Promise((r) => setTimeout(r, ms));
 
 function section(spec: string, heading: string) {
-	const match = spec.match(new RegExp(`^##\\s+${heading}\\s*$([\\s\\S]*?)(?=^##\\s|$(?![\\s\\S]))`, 'im'));
+	const match = spec.match(
+		new RegExp(`^##\\s+${heading}\\s*$([\\s\\S]*?)(?=^##\\s|$(?![\\s\\S]))`, 'im'),
+	);
 	return match?.[1].trim() ?? '';
 }
 
@@ -51,7 +53,12 @@ function bullets(text: string) {
 }
 
 function firstLine(text: string) {
-	return text.split('\n').find((l) => l.trim())?.trim() ?? '';
+	return (
+		text
+			.split('\n')
+			.find((l) => l.trim())
+			?.trim() ?? ''
+	);
 }
 
 export function deriveProfile(spec: string): Profile {
@@ -60,7 +67,10 @@ export function deriveProfile(spec: string): Profile {
 		.filter((l) => l.trim().startsWith('|') && !/^\|\s*-/.test(l.trim()))
 		.slice(1)
 		.map((l) => {
-			const [part, material] = l.split('|').slice(1, 3).map((c) => c.trim());
+			const [part, material] = l
+				.split('|')
+				.slice(1, 3)
+				.map((c) => c.trim());
 			return `${part}: ${material}`;
 		});
 	return {
@@ -68,7 +78,7 @@ export function deriveProfile(spec: string): Profile {
 		vehicleCategory: firstLine(section(spec, 'Vehicle Category')),
 		parts: bullets(section(spec, 'Main Parts')),
 		functions: bullets(section(spec, 'Functions?')),
-		materials
+		materials,
 	};
 }
 
@@ -76,23 +86,23 @@ const included: [string, string, string][] = [
 	[
 		'UN R48',
 		'9.3.0',
-		'Installation of lighting and light-signalling devices: the rear lamp is a light-signalling device installed on an M1 vehicle.'
+		'Installation of lighting and light-signalling devices: the rear lamp is a light-signalling device installed on an M1 vehicle.',
 	],
 	[
 		'UN R148',
 		'1.6.0',
-		'Device approval for the rear position, stop and reversing lamp functions the product combines.'
+		'Device approval for the rear position, stop and reversing lamp functions the product combines.',
 	],
 	[
 		'UN R150',
 		'1.2.1',
-		'The housing integrates a rear retro-reflector (passive conspicuity), which needs device approval as a retro-reflective device.'
+		'The housing integrates a rear retro-reflector (passive conspicuity), which needs device approval as a retro-reflective device.',
 	],
 	[
 		'UN R10',
 		'7.2.0',
-		'LED modules on a PCB make the lamp an electrical/electronic sub-assembly (ESA), subject to EMC emission and immunity limits.'
-	]
+		'LED modules on a PCB make the lamp an electrical/electronic sub-assembly (ESA), subject to EMC emission and immunity limits.',
+	],
 ];
 
 const excluded: [string, string][] = [
@@ -105,17 +115,20 @@ const excluded: [string, string][] = [
 	['UN R37', 'Filament light sources: the light source is LED modules, no filament bulbs.'],
 	[
 		'UN R128',
-		'Replaceable LED light sources only: the LED modules here are non-replaceable and approved as part of the lamp under R148.'
+		'Replaceable LED light sources only: the LED modules here are non-replaceable and approved as part of the lamp under R148.',
 	],
-	['UN R149', 'Road illumination devices (headlamps): the rear lamp does not illuminate the road ahead.'],
+	[
+		'UN R149',
+		'Road illumination devices (headlamps): the rear lamp does not illuminate the road ahead.',
+	],
 	['UN R123', 'Adaptive front-lighting systems: front lighting only.'],
 	[
 		'UN R104',
-		'Retro-reflective marking tape for heavy vehicles and trailers (M2, M3, N, O): not M1, and not a marking product.'
+		'Retro-reflective marking tape for heavy vehicles and trailers (M2, M3, N, O): not M1, and not a marking product.',
 	],
 	['UN R53', 'Lighting installation for L3 motorcycles: the target vehicle is M1.'],
 	['UN R43', 'Safety glazing: the PMMA outer lens is a lamp lens, not vehicle glazing.'],
-	['UN R26', 'External projections: assessed on the whole vehicle, not on a component approval.']
+	['UN R26', 'External projections: assessed on the whole vehicle, not on a component approval.'],
 ];
 
 function decisions(requirements: Requirement[]): RegulationDecision[] {
@@ -130,7 +143,7 @@ function decisions(requirements: Requirement[]): RegulationDecision[] {
 			title: regulationTitle(regulation),
 			included: true,
 			reason,
-			requirementCount: count(regulation)
+			requirementCount: count(regulation),
 		})),
 		...excluded.map(([regulation, reason]) => ({
 			regulation,
@@ -138,8 +151,8 @@ function decisions(requirements: Requirement[]): RegulationDecision[] {
 			title: regulationTitle(regulation),
 			included: false,
 			reason,
-			requirementCount: 0
-		}))
+			requirementCount: 0,
+		})),
 	];
 }
 
@@ -147,7 +160,7 @@ const paragraphCounts: Record<string, number> = {
 	'UN R48': 88,
 	'UN R148': 61,
 	'UN R150': 37,
-	'UN R10': 28
+	'UN R10': 28,
 };
 
 function appliedKey(id: string) {
@@ -181,7 +194,7 @@ const lightingTerms = [
 	'intensity',
 	'stop',
 	'position',
-	'reversing'
+	'reversing',
 ];
 
 const otherProductTerms = [
@@ -203,10 +216,14 @@ const otherProductTerms = [
 	'daytime running',
 	'ambient',
 	'battery',
-	'seat'
+	'seat',
 ];
 
-const termRegex = (term: string) => new RegExp(`(?<![A-Za-z])${term.replace(/[-\s]/g, '[-\\s]')}`, term === term.toUpperCase() ? '' : 'i');
+const termRegex = (term: string) =>
+	new RegExp(
+		`(?<![A-Za-z])${term.replace(/[-\s]/g, '[-\\s]')}`,
+		term === term.toUpperCase() ? '' : 'i',
+	);
 
 function matchedTerms(text: string, terms: string[]) {
 	return terms.filter((t) => termRegex(t).test(text));
@@ -215,20 +232,39 @@ function matchedTerms(text: string, terms: string[]) {
 function profileTerms(profile: Profile) {
 	const words = [...profile.parts, ...profile.functions]
 		.flatMap((s) => s.toLowerCase().match(/[a-z]{4,}/g) ?? [])
-		.filter((w) => !['with', 'that', 'this', 'from', 'light', 'lamp', 'indication', 'presence', 'visibility'].includes(w));
+		.filter(
+			(w) =>
+				![
+					'with',
+					'that',
+					'this',
+					'from',
+					'light',
+					'lamp',
+					'indication',
+					'presence',
+					'visibility',
+				].includes(w),
+		);
 	return [...new Set(words)];
 }
 
-function relevance(text: string, profile: Profile): Pick<RequirementChange, 'relevant' | 'relevanceNote'> {
+function relevance(
+	text: string,
+	profile: Profile,
+): Pick<RequirementChange, 'relevant' | 'relevanceNote'> {
 	const other = matchedTerms(text, otherProductTerms);
 	if (other.length)
 		return {
 			relevant: false,
-			relevanceNote: `Concerns another kind of device or system (${other.join(', ')}), not this product's functions.`
+			relevanceNote: `Concerns another kind of device or system (${other.join(', ')}), not this product's functions.`,
 		};
 	const hits = matchedTerms(text, [...lightingTerms, ...profileTerms(profile)]);
 	return hits.length
-		? { relevant: true, relevanceNote: `Matches this product's lighting vocabulary: ${hits.join(', ')}.` }
+		? {
+				relevant: true,
+				relevanceNote: `Matches this product's lighting vocabulary: ${hits.join(', ')}.`,
+			}
 		: { relevant: false, relevanceNote: 'No lighting or product-specific terms.' };
 }
 
@@ -238,15 +274,17 @@ function updatesFor(assessment: Assessment): RegulationUpdate[] {
 	const applied = appliedFor(assessment.id);
 	const original = new Map(assessment.requirements.map((r) => [r.id, r]));
 	return updateDefs
-		.filter((def) => assessment.regulations.some((d) => d.included && d.regulation === def.regulation))
+		.filter((def) =>
+			assessment.regulations.some((d) => d.included && d.regulation === def.regulation),
+		)
 		.map((def) => ({
 			...def,
 			applied: applied.includes(def.regulation),
 			changes: def.changes.map((c) => ({
 				...c,
 				oldText: c.oldText ?? (c.requirementId ? original.get(c.requirementId)?.text : undefined),
-				...(c.change === 'added' ? relevance(c.newText ?? '', assessment.profile) : {})
-			}))
+				...(c.change === 'added' ? relevance(c.newText ?? '', assessment.profile) : {}),
+			})),
 		}));
 }
 
@@ -271,7 +309,7 @@ export const mock: ApiClient = {
 			step: 'profile',
 			message: `Reading spec: ${profile.parts.length} parts, ${profile.functions.length} functions, ${profile.materials.length} materials`,
 			progress: 0.15,
-			partial: { profile }
+			partial: { profile },
 		});
 		await sleep(700);
 
@@ -279,7 +317,7 @@ export const mock: ApiClient = {
 			step: 'selection',
 			message: `Screening ${regulationIndex.length} regulations against the profile`,
 			progress: 0.22,
-			partial: { profile }
+			partial: { profile },
 		});
 		await sleep(800);
 		const regulations = decisions([]);
@@ -287,7 +325,7 @@ export const mock: ApiClient = {
 			step: 'selection',
 			message: `Selected ${included.length} of ${regulationIndex.length} regulations, ${excluded.length} excluded with reasons`,
 			progress: 0.38,
-			partial: { profile, regulations }
+			partial: { profile, regulations },
 		});
 		await sleep(500);
 
@@ -298,7 +336,7 @@ export const mock: ApiClient = {
 				step: 'paragraphs',
 				message: `Scanning ${reg} ${version}: ${paragraphCounts[reg]} applicable paragraphs`,
 				progress: 0.38 + (0.22 * paragraphCount) / 214,
-				partial: { profile, regulations, paragraphCount }
+				partial: { profile, regulations, paragraphCount },
 			});
 			await sleep(300);
 		}
@@ -306,7 +344,7 @@ export const mock: ApiClient = {
 			step: 'paragraphs',
 			message: `Scanning ${paragraphCount} paragraphs`,
 			progress: 0.6,
-			partial: { profile, regulations, paragraphCount }
+			partial: { profile, regulations, paragraphCount },
 		});
 		await sleep(400);
 
@@ -317,7 +355,12 @@ export const mock: ApiClient = {
 				step: 'requirements',
 				message: `${reg}: ${found.filter((r) => r.source.regulation === reg).length} requirements extracted`,
 				progress: 0.6 + (0.38 * found.length) / requirements.length,
-				partial: { profile, regulations: decisions(found), paragraphCount, requirements: [...found] }
+				partial: {
+					profile,
+					regulations: decisions(found),
+					paragraphCount,
+					requirements: [...found],
+				},
 			});
 			await sleep(450);
 		}
@@ -331,7 +374,7 @@ export const mock: ApiClient = {
 			profile,
 			regulations: decisions(requirements),
 			requirements,
-			status: 'complete'
+			status: 'complete',
 		};
 		save(assessment);
 		emit({
@@ -339,7 +382,7 @@ export const mock: ApiClient = {
 			message: `${requirements.length} requirements from ${included.length} regulations`,
 			progress: 1,
 			assessmentId: assessment.id,
-			partial: { profile, regulations: assessment.regulations, paragraphCount, requirements }
+			partial: { profile, regulations: assessment.regulations, paragraphCount, requirements },
 		});
 		return assessment;
 	},
@@ -366,19 +409,24 @@ export const mock: ApiClient = {
 		if (def.applied) return assessment;
 
 		let requirements = assessment.requirements.map((r) =>
-			r.source.regulation === regulation ? { ...r, source: { ...r.source, version: def.toVersion } } : r
+			r.source.regulation === regulation
+				? { ...r, source: { ...r.source, version: def.toVersion } }
+				: r,
 		);
 		def.changes.forEach((c, i) => {
-			if (c.change === 'removed') requirements = requirements.filter((r) => r.id !== c.requirementId);
+			if (c.change === 'removed')
+				requirements = requirements.filter((r) => r.id !== c.requirementId);
 			if (c.change === 'modified')
 				requirements = requirements.map((r) =>
-					r.id === c.requirementId ? { ...r, text: c.newText ?? r.text, source: { ...r.source, ...c.source } } : r
+					r.id === c.requirementId
+						? { ...r, text: c.newText ?? r.text, source: { ...r.source, ...c.source } }
+						: r,
 				);
 			if (c.change === 'added' && c.relevant)
 				requirements.push({
 					id: `U-${regulation.replace('UN ', '')}-${String(i + 1).padStart(2, '0')}`,
 					text: c.newText ?? '',
-					source: { regulation, version: def.toVersion, ...c.source }
+					source: { regulation, version: def.toVersion, ...c.source },
 				});
 		});
 		const counts = (reg: string) => requirements.filter((r) => r.source.regulation === reg).length;
@@ -386,11 +434,13 @@ export const mock: ApiClient = {
 			...assessment,
 			requirements,
 			regulations: assessment.regulations.map((d) =>
-				d.regulation === regulation ? { ...d, version: def.toVersion, requirementCount: counts(regulation) } : d
-			)
+				d.regulation === regulation
+					? { ...d, version: def.toVersion, requirementCount: counts(regulation) }
+					: d,
+			),
 		};
 		save(updated);
 		markApplied(id, regulation);
 		return updated;
-	}
+	},
 };

@@ -45,8 +45,8 @@ export const http: ApiClient = {
 	},
 	async applyUpdate(id, regulation) {
 		const res = await fetch(`/api/assessments/${id}/updates/${encodeURIComponent(regulation)}`, {
-			method: 'POST'
+			method: 'POST',
 		});
 		return json<Assessment>(res);
-	}
+	},
 };

@@ -9,15 +9,15 @@ export default defineConfig({
 		sveltekit({
 			compilerOptions: {
 				runes: ({ filename }) =>
-					filename.split(/[/\\]/).includes('node_modules') ? undefined : true
+					filename.split(/[/\\]/).includes('node_modules') ? undefined : true,
 			},
-			adapter: adapter({ fallback: 'index.html' })
-		})
+			adapter: adapter({ fallback: 'index.html' }),
+		}),
 	],
 	server: {
 		proxy: {
 			'/api': 'http://localhost:8000',
-			'/pdfs': 'http://localhost:8000'
-		}
-	}
+			'/pdfs': 'http://localhost:8000',
+		},
+	},
 });

@@ -16,9 +16,7 @@ const PARAGRAPH_GAP = 1.15;
 const MIN_TEXT_SCORE = 0.4;
 
 function buildLines(content: TextContent): Line[] {
-	const items = content.items.filter(
-		(it): it is TextItem => 'str' in it && it.str.trim() !== ''
-	);
+	const items = content.items.filter((it): it is TextItem => 'str' in it && it.str.trim() !== '');
 	const rows: { y: number; items: TextItem[] }[] = [];
 	for (const it of items) {
 		const y = it.transform[5];
@@ -38,7 +36,9 @@ function buildLines(content: TextContent): Line[] {
 				x0: Math.min(...items.map((it) => it.transform[4])),
 				x1: Math.max(...items.map((it) => it.transform[4] + it.width)),
 				y,
-				h: Math.max(...items.map((it) => it.height || Math.hypot(it.transform[2], it.transform[3])))
+				h: Math.max(
+					...items.map((it) => it.height || Math.hypot(it.transform[2], it.transform[3])),
+				),
 			};
 		})
 		.filter((l) => !HEADER_RE.test(l.text))
@@ -104,7 +104,7 @@ function findByText(lines: Line[], starts: number[], text: string): number {
 			lines
 				.slice(start, starts[k + 1] ?? lines.length)
 				.map((l) => l.text)
-				.join(' ')
+				.join(' '),
 		);
 		let hits = 0;
 		for (const w of query) if (block.has(w)) hits++;
@@ -141,7 +141,7 @@ export function findHighlight(content: TextContent, highlight: Highlight): Highl
 			left: Math.min(...block.map((l) => l.x0)),
 			right: Math.max(...block.map((l) => l.x1)),
 			top: first.y + first.h,
-			bottom: last.y - last.h * 0.3
-		}
+			bottom: last.y - last.h * 0.3,
+		},
 	};
 }
