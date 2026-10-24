@@ -1,6 +1,6 @@
 # Complex strategies: status
 
-Updated: 25 Oct 00:01 CEST (system clock, `date`) by master (Cursor).
+Updated: 25 Oct 00:02 CEST (system clock, `date`) by master (Cursor).
 Task: brain/docs/todo/08-complex.md. Branch: big-swings. Setup done: yes (07 setup commit "swing master: setup"; this ledger created at 23:29).
 Lanes A to G are finished. Do not edit their files except to read them. Do not edit `out/experiments/STATUS.md`.
 
@@ -33,6 +33,7 @@ Score with `tools/validate.py`, `tools/score_local.py`, and `uv run python -m ev
 
 ## Log
 
+- 00:02 Master checked lane H with `eval.errors`. Vote 2 of 3: 388 rows, 144 matched, F2 0.627. Vote 3 of 3: 253 rows, 111 matched, F2 0.548. Haiku run: 520 / 138 / 0.539. Both votes lose to the reused Opus run (388 / 146 / 0.636). On the 2-of-3 vote the biggest gap to 1.0 is 28 gold rows missed on a cited paragraph (recovering them reaches F2 0.749). Spend $4.34. Not uploaded.
 - 00:00 Lane J done. Classes catch 86 of 151 outside rows and destroy 43 matches. No cut keeps 151 matches. Best votes7 cut is drop 1+2: 271 / 142 / 0.689. Same rules lower F2 on Fable, main weight 0.7, and Sonnet weight 0.85. Not a Sunday filter. Not nominated. Spend $0.
 - 00:01 Master checked lane L on the weight-0.85 file with `eval.errors`. Unfiltered 403 rows, 136 matched, F2 0.585. Best cut drop 1+2: 345 rows, 130 matched, F2 0.588. Biggest gap to 1.0 is 34 gold rows on paragraphs never cited (adding one row each reaches F2 0.720). Not uploaded. This step spent $0.
 - 23:59 Lane H done. Three selections do not reach votes7. Run 1 reused 388/146/0.636. Sonnet weight 0.85: 403/136/0.585 ($3.16). Haiku relevance: 520/138/0.539 ($1.17). Vote 2 of 3: 388/144/0.627. Vote 3 of 3: 253/111/0.548. Both votes lose to run 1. Spend $4.34. Not nominated.
