@@ -1,6 +1,6 @@
 # Complex strategies: status
 
-Updated: 24 Oct 23:40 CEST (system clock, `date`) by master (Cursor).
+Updated: 24 Oct 23:50 CEST (system clock, `date`) by master (Cursor).
 Task: brain/docs/todo/08-complex.md. Branch: big-swings. Setup done: yes (07 setup commit "swing master: setup"; this ledger created at 23:29).
 Lanes A to G are finished. Do not edit their files except to read them. Do not edit `out/experiments/STATUS.md`.
 
@@ -33,6 +33,7 @@ Score with `tools/validate.py`, `tools/score_local.py`, and `uv run python -m ev
 
 ## Log
 
+- 23:50 Master checked lane I with `eval.errors`: 379 rows, 163 matched, F2 0.716. Biggest gap to 1.0 is the 151 rows outside gold paragraphs (dropping them reaches F2 0.825). Not uploaded.
 - 23:48 Lane K step 1. Tagged votes4 with lexical class rules. 112 extra rows flagged. Spend $0. No model call.
 - 23:47 Lane I done. Union 379 rows, 163 matched, F2 0.716. Matches gained 7, all on UN R10 6.9.1. Missed on a cited paragraph 16 (votes7 was 23). Spend $0. Not nominated: owner closed the queue.
 - 23:47 Lane L step 2. Tagged `out/rear-lamp-main-a39acab.json`: 141 of 388 rows, class hits 55 / 18 / 66 / 16. Spend $0. Weight-0.85 lamp file still absent.
