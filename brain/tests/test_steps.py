@@ -188,3 +188,21 @@ def test_rewrite_keeps_deterministic_rows_when_the_model_answers_nothing(
         "Rewritten.",
         "The device shall be marked with the trade name of the applicant.",
     ]
+
+
+def test_relevance_select_cuts_each_regulation_on_its_own_scale() -> None:
+    from brain import relevance
+
+    def para(reg: str, i: int) -> Paragraph:
+        return Paragraph(
+            id=f"{reg}|0|{i}", regulation=reg, version="0", role="base",
+            label=str(i), number=str(i), page=1, page_end=1, text="",
+        )  # fmt: skip
+
+    lamp = [(para("UN R48", i), 0.8 if i < 10 else 0.2 if i < 20 else 0.01) for i in range(100)]
+    bumper = [(para("UN R42", i), 0.3 if i < 10 else 0.02) for i in range(100)]
+    kept = relevance.select(lamp + bumper)
+    assert {p.id for p, s in lamp if s == 0.8} == {i for i in kept if i.startswith("UN R48")}
+    assert {p.id for p, s in bumper if s == 0.3} == {i for i in kept if i.startswith("UN R42")}
+    absolute = relevance.select(lamp + bumper, cut=0.5)
+    assert len([i for i in absolute if i.startswith("UN R42")]) == 6  # only the FLOOR share
