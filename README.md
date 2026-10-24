@@ -54,3 +54,17 @@ Platform rules:
 - **Page numbers are PDF pages** of the base file, not the printed page labels. Check how the expected pages line up with the PDF before trusting any page offset.
 - **The held-out case lands on Sunday morning.** Build the pipeline to be general (spec + image in, JSON out) and re-run it fast. Keep the dev case as the regression test with `score_local.py`.
 - **For the sub-goal, diff paragraph by paragraph.** Align old and new paragraphs by number, diff the text, and map each changed paragraph to the old requirements that cite it. Paragraphs that are new and contain "shall" become `added` changes.
+
+## Development
+
+```bash
+cd backend && uv run uvicorn app.main:app --reload   # API on :8000
+cd frontend && bun run dev                           # UI on :5173, proxies /api and /pdfs to :8000
+```
+
+Docker (also what Render deploys via `render.yaml`):
+
+```bash
+docker build -t certivity .
+docker run --rm -p 8000:8000 certivity   # UI and API on :8000
+```

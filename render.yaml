@@ -1,0 +1,6 @@
+services:
+  - type: web
+    name: certivity
+    runtime: docker
+    plan: starter
+    healthCheckPath: /api/health
