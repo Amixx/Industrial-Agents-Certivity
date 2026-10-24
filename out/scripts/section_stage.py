@@ -1,4 +1,4 @@
-"""Stage uploads: the section cut (p_keep * sqrt(p_section) >= 0.354) plus the pointer/umbrella rule.
+"""Stage uploads: the section cut (p_keep * sqrt(p_section) >= 0.354) plus the pointer, umbrella and approval-mark rules.
 
     stage.py <out.json> <source.json> [--pkeep <source.pkeep.json>]
 
@@ -10,9 +10,11 @@ from eval.score import paragraph_key
 B = Path.home() / 'Personal/bench-out'
 POINTER = re.compile(r"^[^.;]{0,90}?:?\s*see\s+(?:paragraph|table|annex|figure)s?\b[^;]{0,40}\.?$", re.I)
 UMBRELLA = re.compile(r"(?:shall\s+(?:conform|comply)\s+(?:to|with)\s+the\s+requirements\s+(?:set\s+forth|specified|contained)\s+in\s+(?:paragraphs?|sections?)|the\s+requirements\s+contained\s+in\s+sections?\s+[\d.]+.{0,80}?\s+shall\s+apply|shall\s+be\s+so\s+manufactured\s+as\s+to\s+conform\s+to\s+the\s+type\s+approved)", re.I)
+# Items that spell out the approval mark itself, which the approval authority assigns.
+MARK = re.compile(r"circle\s+(?:surrounding|containing)\s+the\s+letter|number\s+of\s+this\s+regulation,?\s+followed\s+by\s+the\s+letter|approval\s+marking\s+shall\s+consist\s+of|symbols\s+identifying\s+the", re.I)
 def hit(r):
     q = r['quote'].strip()
-    return bool(POINTER.match(q)) or bool(UMBRELLA.search(q))
+    return bool(POINTER.match(q)) or bool(UMBRELLA.search(q)) or bool(MARK.search(q))
 out, src = sys.argv[1], sys.argv[2]
 sub = json.load(open(src))
 rows = sub['requirements']
