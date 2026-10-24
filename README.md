@@ -3,12 +3,12 @@
 Entry for the Certivity challenge at the Industrial AI hackathon.
 
 - Brief: [docs/certivity-challenge-brief.pdf](docs/certivity-challenge-brief.pdf)
-- Official challenge repo: <https://github.com/Certivity/industrial-ai-hackathon>, checked out as the `upstream/` submodule. Its data is licensed for this hackathon only, so keep this repo private.
+- Official challenge repo: <https://github.com/Certivity/industrial-ai-hackathon>, checked out as the `` submodule. Its data is licensed for this hackathon only, so keep this repo private.
 
 ```bash
 git submodule update --init                     # first checkout
 git -C upstream pull                            # Sunday morning: brings in the held-out case
-python3 upstream/tools/fetch_regulations.py     # download the regulation PDFs (links expire after the event)
+python3 tools/fetch_regulations.py     # download the regulation PDFs (links expire after the event)
 ```
 
 ## The task
@@ -34,16 +34,16 @@ Sub-goal: recall of the flagged requirements, plus accuracy of each stated chang
 Platform rules:
 - 5 uploads per hour per challenge; a file that fails validation doesn't count against that.
 - On the held-out case, **the last valid upload counts, not the best one**. Don't upload a worse file at the end.
-- Validate before uploading: `python3 upstream/tools/validate.py out.json`
-- Score the worked example locally at the regulation and page levels: `python3 upstream/tools/score_local.py out.json`
+- Validate before uploading: `python3 tools/validate.py out.json`
+- Score the worked example locally at the regulation and page levels: `python3 tools/score_local.py out.json`
 
 ## What's in the data
 
-- `upstream/regulations/index.json`: the **56 citable regulations** (UN R3 … R175, plus GTR 9). Each has a `base` version, and most also have a `latest` version. **The main goal must cite the base version.** A page from the latest PDF counts as a wrong page. The sub-goal is base vs latest.
-- `upstream/cases/dev-rear-lamp/`: the worked example (a rear lamp for an M1 vehicle) with its full expected answer:
+- `regulations/index.json`: the **56 citable regulations** (UN R3 … R175, plus GTR 9). Each has a `base` version, and most also have a `latest` version. **The main goal must cite the base version.** A page from the latest PDF counts as a wrong page. The sub-goal is base vs latest.
+- `cases/dev-rear-lamp/`: the worked example (a rear lamp for an M1 vehicle) with its full expected answer:
   - **190 requirements from just 4 regulations**: R148 (63), R48 (56), R150 (39) and R10 (32).
   - About 53 distinct pages, every requirement has a paragraph, and none has a test case.
-- `upstream/subgoal/dev/`: R175 (ACPE) with 94 old requirements. The expected answer has 24 changes: 17 added, 6 modified, 1 removed.
+- `subgoal/dev/`: R175 (ACPE) with 94 old requirements. The expected answer has 24 changes: 17 added, 6 modified, 1 removed.
   - Each `reason` is phrased mechanically, e.g. *"Paragraph 5.1.2 … was amended: 'X' was added"*. That points to a paragraph-level diff of the old and new text.
 
 ## Takeaways for our approach
