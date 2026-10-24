@@ -1,0 +1,21 @@
+# rear-lamp-swing-F-votes-logit.json
+# Scored Sat Oct 24 22:59:26 CEST 2026 (date).
+# Selector: log(votes) + logit(clip(p_keep_strong, 0.02, 0.98)), leave one regulation out,
+# cut where expected F2 is highest. 356 rows, expected 159.9 matched, expected F2 0.716.
+# This step made no API calls. Lane spend stays $1.25.
+
+===== validate (exit 0) =====
+OK: rear-lamp-swing-F-votes-logit.json is valid (356 requirements).
+
+===== score_local (exit 0) =====
+Scored against expected.json (offline: regulation and page level only)
+
+level        precision   recall      F1   cited / expected / matched
+regulation       1.000    1.000   1.000   4 / 4 / 4
+page             0.803    0.925   0.860   61 / 53 / 49
+
+===== eval.score (exit 0) =====
+level              P      R     F2   cited/expected/matched
+regulation     1.000  1.000  1.000   4/4/4
+page           0.803  0.925  0.897   61/53/49
+requirement    0.433  0.811  0.690   356/190/154
