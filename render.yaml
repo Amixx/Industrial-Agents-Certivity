@@ -1,6 +1,6 @@
 services:
   - type: web
-    name: certivity
+    name: sudo
     runtime: docker
-    plan: starter
+    plan: free
     healthCheckPath: /api/health
