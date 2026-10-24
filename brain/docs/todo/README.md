@@ -6,7 +6,7 @@ files, so they can run in parallel without merge conflicts.
 
 | File | Task | Owns | Status |
 |---|---|---|---|
-| [01-model-judge.md](01-model-judge.md) | Calibrate a model judge against the platform's dev scores | `eval/model_judge.py`, `eval/judge.py` | open |
+| [01-model-judge.md](01-model-judge.md) | Calibrate a model judge against the platform's dev scores | `eval/model_judge.py`, `eval/judge.py` | done: ranks uploads in the platform's order, ±2.5 matches; see Results |
 | [02-rewrite-granularity.md](02-rewrite-granularity.md) | Split obligations the way the gold does, with a strong model | `brain/rewrite.py`, `eval/rewrite_pass.py` | done on branch `kb-stack`, see Results |
 | [03-selection-stack.md](03-selection-stack.md) | Fewer paragraphs outside the gold: Jev, LLM and decision model combined | `brain/relevance.py`, `brain/features.py`, `brain/decide.py`, `data/decision_model.json`, a new `brain/jev.py` | done on branch `kb-stack`, see Results |
 | [04-bumper-regulations.md](04-bumper-regulations.md) | Decide the regulation list for every likely bumper spec | `brain/select_regs.py`, `data/bumper-labels/`, a new `docs/bumper-regulations.md` | open; `kb-stack` adds an obligation-base ranking and a light-source rule to `select_regs.py` |
@@ -93,10 +93,9 @@ bigger model does not fix granularity; the prompt has to.
 | `uv run python -m eval.rewrite_pass <source> <out> [--provider ...]` | Rewrites the paragraphs a submission cites with the current prompt, so a rewrite change is measured with selection held constant |
 | `uv run python -m eval.transfer` | Decision model on dev (leave one regulation out) and on the silver bumper labels |
 | `uv run python -m eval.suite --no-llm` | Deterministic run on dev and every synthetic case |
-| `uv run python -m eval.model_judge <file>` | Model judge through `claude -p` (task 01 calibrates it) |
+| `uv run python -m eval.model_judge <files>` | Calibrated model judge through `claude -p`, with a platform estimate per file |
 | `uv run python ../tools/validate.py <file>` | The platform's own format check |
 
-The local lexical judge finds 4 to 9 fewer matches than the platform on the Claude and gpt
-rewrites, but 5 more on verbatim text and 4 more on qwen's short split rows. Its error depends on
-the writing style, so it cannot compare two rewrite styles: use a dev upload for that until
-task 01 delivers a calibrated judge.
+The local lexical judge's error depends on the writing style (up to 18 matches), so it cannot
+compare two rewrite styles. Use `eval.model_judge` for that: on the 15 scored dev uploads it is
+within 2.5 matches of the platform on average and ranks them in the platform's order.

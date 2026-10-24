@@ -190,6 +190,7 @@ the file you want counted:
 ```bash
 uv run python -m eval.score out/dev.json                 # F2 at three levels against dev gold
 uv run python -m eval.score out/x.json --expected path/to/expected.json
+uv run python -m eval.model_judge out/dev.json [more.json ...]  # calibrated model judge, platform estimate
 uv run python -m eval.suite --no-llm --tag note          # dev + synthetic cases, appends eval/results.csv (local)
 uv run python -m eval.suite --no-llm --cases 'synth-a*'  # only the cases in ../synthetic/cases
 uv run python -m eval.cached_relevance --since "..."     # score cached relevance answers mid-run
@@ -199,11 +200,15 @@ uv run python -m eval.relevance_check                    # LLM relevance vs deci
 ```
 
 The regulation and page levels reuse Certivity's `tools/score_local.py`, so they should match
-the platform. **The requirement level is a lexical proxy** (`eval/judge.py`: token overlap,
-one-to-one matching within a regulation, zero for opposite polarity, a penalty for mismatched
-numbers). The platform uses an LLM judge, so treat the proxy as a relative signal between our
-own runs until a dev upload calibrates it. `eval.suite` without `--no-llm` follows `BRAIN_LLM`
-and makes paid calls for every case.
+the platform. In `eval.score` **the requirement level is a lexical proxy** (`eval/judge.py`: token
+overlap, one-to-one matching within a regulation), whose error depends on the writing style.
+`eval.model_judge` is calibrated against the 15 dev uploads the platform scored: Sonnet 5.5
+through `claude -p` grades the candidate pairs, the borderline ones are checked one by one, and
+the platform estimate is its match count minus 4. It is within 2.5 matches of the platform on
+average and ranks the uploads in the platform's order; the platform itself varies by up to 7
+matches between two uploads of the same file. Calibration table:
+[docs/todo/01-model-judge.md](docs/todo/01-model-judge.md). `eval.suite` without `--no-llm`
+follows `BRAIN_LLM` and makes paid calls for every case.
 
 ## Develop
 
