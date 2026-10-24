@@ -1,6 +1,6 @@
 # PDF extraction
 
-How to turn the regulation PDFs into paragraph records (regulation, version, page, paragraph label, text): what the Certivity PDFs look like, and what carries over from the PDF work in `sl26_g2_unifiedsearchengine` (its decisions 070 and 078, `eval/pdf-pages`, `eval/pdf-text` and the 2026-10-17 chunking survey).
+How to turn the regulation PDFs into paragraph records (regulation, version, page, paragraph label, text): what the Certivity PDFs look like, and which lessons from earlier PDF text extraction apply.
 
 ## The Certivity PDFs, measured
 
@@ -10,31 +10,31 @@ Run with PyMuPDF and pikepdf over everything in `regulations/pdf/` and `subgoal/
 - **No broken characters:**
   - The 56 base PDFs contain no U+FFFD and no ligature codepoints, and only 2 control characters.
   - Fonts are plain Times New Roman and Helvetica.
-  - So the failures `sl26_g2_unifiedsearchengine` hit (below) don't happen here.
+  - So the replacement-character failures described below don't happen here.
 - **Page numbers are PDF pages.** Every page has a header line `UN R148, version 1.6.0 | page 10 of 48`, so `source.page` is the PDF's own page number. For all 190 expected requirements in `cases/dev-rear-lamp`, the cited paragraph label appears on the cited page.
 - **Paragraphs start with their label at the left margin:** `6.19.7.3. The automatic operation …`. List items start with `(a)`, `(b)` and so on. The reading order from PyMuPDF's blocks is clean.
 - **All 56 base PDFs are tagged.** They carry a structure tree with roles `P`, `H1`/`H2`, `Table`/`TR`/`TD` and `Figure`. For example, R48 has 44 tables and R148 has 25. Figures have no alt text.
 - **No bookmarks and no links.** The outline is empty, so section structure has to come from the paragraph labels.
 
-## What `sl26_g2_unifiedsearchengine` tried
+## What worked and what didn't on earlier PDF text extraction
 
-Its stack was Extractous 0.3 (Apache Tika and PDFBox) in Rust, plus hayro for rendering. The lessons below are independent of the library.
+These lessons come from earlier PDF text extraction with Apache Tika and PDFBox, and they don't depend on the library.
 
 **Worked**
-- **Page boundaries from the extractor's own page markers.** Tika's XHTML wraps each page in `<div class="page">`, and the text inside equals the plain-text output byte for byte on 40 probed PDFs. The page starts recorded from those markers gave correct pages. PyMuPDF iterates pages natively, which gives the same result for free.
-- **Store the text whole, with page-start offsets beside it, rather than one value per page.** Splitting into per-page pieces broke phrases that cross a page boundary: only 11 of 461 boundary phrases still matched. For us, the equivalent is to stitch a paragraph's text across the page break and cite the page where its label sits, which is what the expected answers do.
-- **An independent reader as a check.** `align_pypdf.py` compared each page's words with pypdf's text of that page and its neighbours (Jaccard similarity on words). It caught any page drift. We can reuse the idea: check the corpus against the `page N of M` headers and the dev answers' paragraph-to-page pairs.
-- **Small units, provenance first** (chunking survey):
-  - Every unit keeps a pointer to its source: page and block, here page and paragraph label.
+- **Take page boundaries from the extractor's own pages.** Iterating pages, or reading the extractor's per-page markers, always gave correct pages. PyMuPDF iterates pages natively.
+- **Keep text whole across page breaks.** Cutting text into per-page pieces broke phrases at the page boundary: only 11 of 461 still matched. For us that means stitching a paragraph's text across the page break and citing the page where its label sits, which is what the expected answers do.
+- **Check against an independent source.** Comparing each page's words with a second reader's text of that page and its neighbours (Jaccard similarity on words) caught any page drift. Here the `page N of M` headers and the dev answers' paragraph-to-page pairs play that role.
+- **Small units, provenance first:**
+  - Every unit keeps a pointer to its source, here the page and paragraph label.
   - Context gets added on top, never in place of the source text.
   - A deterministic header ("Regulation / section heading / paragraph") beats LLM-generated context as a first step: it's cheap and can't invent facts.
 - **Index small, return big** (small-to-big, parent and child). Match on small units, then return the surrounding unit for context. Here that means matching on an obligation or sentence and showing the whole paragraph.
 
 **Didn't work**
-- **Using Tika's per-page character counts to find page boundaries.** The counts drifted from the extracted text by up to 12,814 characters, because Tika counts before PDFBox adds word and line separators. No multi-page PDF lined up. Take boundaries from page iteration, never by summing counts.
-- **Bookmarks as structure.** Tika appends bookmark titles after the last page with no page numbers. That's moot here, since the PDFs have no bookmarks.
-- **Assuming tagged structure nests inside pages.** Tika's marked-content mode handles structure and pages separately and defers content that crosses pages. If we read the structure tree, for example for tables, we have to map each element back to its page ourselves, through the marked-content IDs in each page's content stream.
-- **Replacement characters (U+FFFD).** They came from fonts whose ToUnicode maps glyphs to control characters, which lost ligatures ("Alster�eet"), and from embedded OCR layers. Stripping them hid the symptom without recovering text. As measured above, this doesn't happen in these files, but a one-line U+FFFD count stays in the corpus build as a guard.
+- **Finding page boundaries by summing per-page character counts.** Tika's counts drifted from the extracted text by up to 12,814 characters, because they're taken before word and line separators are added. Take boundaries from page iteration, never by summing counts.
+- **Bookmarks as structure.** Tika emits bookmark titles with no page numbers. That's moot here, since these PDFs have no bookmarks.
+- **Assuming tagged structure nests inside pages.** Tika's tagged-content mode handles structure and pages separately, and content that crosses a page break isn't assigned to a page. If we read the structure tree, for example for tables, we have to map each element back to its page ourselves, through the marked-content IDs in each page's content stream.
+- **Replacement characters (U+FFFD).** They came from fonts whose ToUnicode maps glyphs to control characters, which lost the fi, fl and ff ligatures, and from embedded OCR layers. Stripping them hid the symptom without recovering text. As measured above, this doesn't happen in these files, but a one-line U+FFFD count stays in the corpus build as a guard.
 
 ## What this means for our parser
 
