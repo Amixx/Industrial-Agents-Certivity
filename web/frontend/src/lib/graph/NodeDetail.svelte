@@ -9,7 +9,6 @@ let {
 }: { node: GraphNode | null; assessment: Assessment; onclose: () => void } = $props();
 
 const included = $derived(assessment.regulations.filter((r) => r.included));
-const excluded = $derived(assessment.regulations.filter((r) => !r.included));
 </script>
 
 {#if !node || node.kind === 'spec'}
@@ -24,10 +23,6 @@ const excluded = $derived(assessment.regulations.filter((r) => !r.included));
 			<dd class="text-4xl leading-none font-light text-cv-teal-700 tabular-nums">
 				{included.length}
 			</dd>
-		</div>
-		<div class="border-t border-black pt-1">
-			<dt class="text-xs">Excluded with a reason</dt>
-			<dd class="text-4xl leading-none font-light tabular-nums">{excluded.length}</dd>
 		</div>
 		<div class="col-span-2 border-t border-black pt-1">
 			<dt class="text-xs">Requirements</dt>
@@ -46,7 +41,7 @@ const excluded = $derived(assessment.regulations.filter((r) => !r.included));
 			{#if node.kind === 'facet'}
 				{groupLabels[node.group]}
 			{:else if node.kind === 'regulation'}
-				{node.decision.included ? 'Included regulation' : 'Excluded regulation'}
+				Included regulation
 			{:else}
 				Paragraph group
 			{/if}

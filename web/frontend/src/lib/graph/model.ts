@@ -46,7 +46,6 @@ export type Graph = {
 	nodes: GraphNode[];
 	edges: GraphEdge[];
 	headers: GroupHeader[];
-	excludedY: number;
 	width: number;
 	height: number;
 	connected: (id: string) => Set<string>;
@@ -68,8 +67,6 @@ const CLUSTER_GAP = 3;
 const CLUSTERS_SHOWN = 4;
 const BLOCK_GAP = 16;
 const REG_MIN_H = 70;
-const EXCLUDED_H = 18;
-const EXCLUDED_GAP = 2;
 /** Edge width per requirement, on every edge kind. */
 const PX_PER_REQUIREMENT = 0.45;
 
@@ -127,7 +124,8 @@ function ports(
 }
 
 export function buildGraph(assessment: Assessment): Graph {
-	const { profile, regulations, requirements } = assessment;
+	const { profile, requirements } = assessment;
+	const regulations = assessment.regulations.filter((r) => r.included);
 	const nodes: GraphNode[] = [];
 	const headers: GroupHeader[] = [];
 
@@ -184,7 +182,7 @@ export function buildGraph(assessment: Assessment): Graph {
 
 	y = GROUP_HEADER;
 	const clusterNodes: ClusterNode[] = [];
-	for (const decision of regulations.filter((r) => r.included)) {
+	for (const decision of regulations) {
 		const clusters = clustersFor(decision.regulation, requirements);
 		const blockH = clusters.length * (CLUSTER_H + CLUSTER_GAP) - CLUSTER_GAP;
 		const regH = Math.max(REG_MIN_H, decision.requirementCount * PX_PER_REQUIREMENT + 8);
@@ -215,20 +213,7 @@ export function buildGraph(assessment: Assessment): Graph {
 	}
 	nodes.push(...clusterNodes);
 
-	const excludedY = y + 8;
-	y = excludedY + GROUP_HEADER;
-	for (const decision of regulations.filter((r) => !r.included)) {
-		nodes.push({
-			kind: 'regulation',
-			id: `r:${decision.regulation}`,
-			decision,
-			...columns.regulation,
-			y,
-			h: EXCLUDED_H,
-		});
-		y += EXCLUDED_H + EXCLUDED_GAP;
-	}
-	const regBottom = y - EXCLUDED_GAP;
+	const regBottom = y - BLOCK_GAP;
 
 	const height = Math.max(facetBottom, regBottom);
 	const specH = 180;
@@ -327,7 +312,6 @@ export function buildGraph(assessment: Assessment): Graph {
 		nodes,
 		edges,
 		headers,
-		excludedY,
 		width: columns.cluster.x + columns.cluster.w,
 		height,
 		connected,

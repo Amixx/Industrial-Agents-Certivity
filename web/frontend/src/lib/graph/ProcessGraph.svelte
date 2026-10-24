@@ -14,16 +14,11 @@ let selected = $state<string | null>(null);
 const focus = $derived(hovered ?? selected);
 const active = $derived(focus ? graph.connected(focus) : null);
 const selectedNode = $derived(selected ? (byId.get(selected) ?? null) : null);
-const focusedExclusion = $derived.by(() => {
-	const node = focus ? byId.get(focus) : null;
-	return node?.kind === 'regulation' && !node.decision.included ? node : null;
-});
 
 const dim = (id: string) => (active && !active.has(id) ? 'dim' : '');
 const edgeOn = (from: string, to: string) => !!active && active.has(from) && active.has(to);
 
 const included = $derived(assessment.regulations.filter((r) => r.included));
-const excluded = $derived(assessment.regulations.filter((r) => !r.included));
 
 function pick(node: GraphNode) {
 	selected = selected === node.id ? null : node.id;
@@ -84,33 +79,13 @@ const PAD_TOP = 8;
 			<div class="label absolute" style:left="{columns.regulation.x}px" style:top="{PAD_TOP}px">
 				Included, {included.length}
 			</div>
-			<div
-				class="label absolute"
-				style:left="{columns.regulation.x}px"
-				style:top="{graph.excludedY + PAD_TOP}px"
-			>
-				Excluded with a reason, {excluded.length}
-			</div>
 
-			{#if focusedExclusion}
-				<div
-					class="reason absolute"
-					style:left="{columns.cluster.x - 60}px"
-					style:top="{focusedExclusion.y + PAD_TOP}px"
-					style:width="{graph.width - columns.cluster.x + 60}px"
-				>
-					<div class="font-bold">{focusedExclusion.decision.regulation}, excluded</div>
-					<div class="text-cv-ink-800">{focusedExclusion.decision.title}</div>
-					<p class="mt-1">{focusedExclusion.decision.reason}</p>
-				</div>
-			{/if}
 
 			{#each graph.nodes as node (node.id)}
 				<button
 					type="button"
 					class="node {node.kind} {dim(node.id)}"
 					class:selected={selected === node.id}
-					class:muted={node.kind === 'regulation' && !node.decision.included}
 					class:hot={!!active && focus !== node.id && active.has(node.id) && node.kind !== 'spec'}
 					style:left="{node.x}px"
 					style:top="{node.y + PAD_TOP}px"
