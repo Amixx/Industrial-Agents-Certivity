@@ -1,0 +1,66 @@
+{
+ "cuts": [
+  {
+   "deleted": 55,
+   "deleted_matched": 6,
+   "deleted_unmatched": 49,
+   "deleted_outside_gold_paragraphs": 44,
+   "deleted_inside_gold_unmatched": 5,
+   "file": "out/rear-lamp-swing-L-drop1.json",
+   "drop": [
+    1
+   ],
+   "rows": 333,
+   "matched": 140,
+   "f2": 0.64
+  },
+  {
+   "deleted": 73,
+   "deleted_matched": 8,
+   "deleted_unmatched": 65,
+   "deleted_outside_gold_paragraphs": 58,
+   "deleted_inside_gold_unmatched": 7,
+   "file": "out/rear-lamp-swing-L-drop12.json",
+   "drop": [
+    1,
+    2
+   ],
+   "rows": 315,
+   "matched": 138,
+   "f2": 0.642
+  },
+  {
+   "deleted": 129,
+   "deleted_matched": 31,
+   "deleted_unmatched": 98,
+   "deleted_outside_gold_paragraphs": 81,
+   "deleted_inside_gold_unmatched": 17,
+   "file": "out/rear-lamp-swing-L-drop123.json",
+   "drop": [
+    1,
+    2,
+    3
+   ],
+   "rows": 259,
+   "matched": 115,
+   "f2": 0.564
+  },
+  {
+   "deleted": 141,
+   "deleted_matched": 36,
+   "deleted_unmatched": 105,
+   "deleted_outside_gold_paragraphs": 87,
+   "deleted_inside_gold_unmatched": 18,
+   "file": "out/rear-lamp-swing-L-drop1234.json",
+   "drop": [
+    1,
+    2,
+    3,
+    4
+   ],
+   "rows": 247,
+   "matched": 110,
+   "f2": 0.546
+  }
+ ]
+}

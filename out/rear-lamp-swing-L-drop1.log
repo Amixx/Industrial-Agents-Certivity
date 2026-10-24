@@ -1,0 +1,12 @@
+file: rear-lamp-swing-L-drop1.json
+base: ../out/rear-lamp-main-a39acab.json
+drop classes: [1]
+rows: 333
+local matched: 140
+local F2: 0.640
+deleted: 55
+deleted matched on the unfiltered file: 6
+deleted unmatched: 49
+scored: 24 Oct 23:50 CEST, eval.score
+spend: $0
+method: brain/swing/l_filter.py text rules, no API call
