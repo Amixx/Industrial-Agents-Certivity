@@ -16,7 +16,7 @@ stays under $70, and must ask the owner above that.
 |---|---|---|---|---|---|
 | A votes | not started | | | $0 | out/experiments/A.md |
 | B maximum recall | running | 22:55 | B1 | $0 | out/experiments/B.md |
-| C maximum precision | running | 22:40 | C1 | $0 | out/experiments/C.md |
+| C maximum precision | waiting for upload: out/rear-lamp-swing-C-votes12.json, predicted 101 / 0.556 | 22:46 | C4 done, report written | $0 | out/experiments/C.md |
 | D hedged cuts | running | 22:50 | D1 | $0 | out/experiments/D.md |
 | E verbatim rows | running | 22:40 | E1 | $0 | out/experiments/E.md |
 | F row selector | running | 22:45 | F1 | $0 | out/experiments/F.md |
@@ -26,9 +26,11 @@ stays under $70, and must ask the owner above that.
 
 | Order | File | Lane | Question it answers | Predicted matched / F2 | Uploaded at | Platform matched / F2 |
 |---|---|---|---|---|---|---|
+| 1 | `out/rear-lamp-swing-C-votes12.json` (149 rows) | C | What precision does the platform give the rows 12 or 13 of 13 runs agree on? (Cannot raise the leaderboard.) | 101 / 0.556 (P 0.68) | | |
 
 ## Log
 
+- 23:08 Lane C done with its steps, nominated `rear-lamp-swing-C-votes12.json`; queued first, owner told.
 - 23:00 Lane G: `claude -p` answers "Not logged in" from lane agents, so the $0 route through
   `brain/brain/claude_cli.py` is closed until the owner runs `claude /login` in a terminal.
   Lanes use the API within their caps instead. Told B, E, F.
