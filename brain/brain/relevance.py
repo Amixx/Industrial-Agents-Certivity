@@ -30,6 +30,9 @@ WEIGHT = 0.7
 # 0.20: dev lamp (Opus) estimated requirement F2 0.61 against 0.62; plain bumper paragraph F2 on
 # the silver labels in data/bumper-labels 0.72 instead of 0.64 (Opus), 0.78 instead of 0.71 (GPT).
 RELATIVE = 0.3
+# Blended with Jev instead of the decision model: estimated requirement F2 on dev 0.677 at 0.25
+# against 0.653 at 0.3, synth-a03 0.586 against 0.578; plain bumper paragraph F2 0.775 at both.
+RELATIVE_JEV = 0.25
 MIN_CUT = 0.10
 # Keep at least the top FLOOR share (min FLOOR_MIN) of every selected regulation: no effect on
 # dev, but a product unlike the lamp (low decision-model scores) still gets its core regulation.
@@ -170,8 +173,10 @@ def blend(model_p: float, llm_p: float | None, weight: float = WEIGHT) -> float:
     return float(model_p ** (1 - weight) * max(llm_p, 1e-3) ** weight)
 
 
-def select(scores: list[tuple[Paragraph, float]], cut: float | None = None) -> set[str]:
-    """Ids to keep: per regulation, scores at RELATIVE times its best (at least MIN_CUT), or at
+def select(
+    scores: list[tuple[Paragraph, float]], cut: float | None = None, relative: float = RELATIVE
+) -> set[str]:
+    """Ids to keep: per regulation, scores at `relative` times its best (at least MIN_CUT), or at
     `cut` when one is given; plus each regulation's top FLOOR share."""
     by_reg: dict[str, list[tuple[Paragraph, float]]] = {}
     for p, s in scores:
@@ -179,7 +184,7 @@ def select(scores: list[tuple[Paragraph, float]], cut: float | None = None) -> s
     chosen: set[str] = set()
     for items in by_reg.values():
         ranked = sorted(items, key=lambda x: -x[1])
-        bar = cut if cut is not None else max(MIN_CUT, RELATIVE * ranked[0][1])
+        bar = cut if cut is not None else max(MIN_CUT, relative * ranked[0][1])
         chosen.update(p.id for p, s in ranked if s >= bar)
         chosen.update(p.id for p, _ in ranked[: max(FLOOR_MIN, int(FLOOR * len(items)))])
     return chosen
