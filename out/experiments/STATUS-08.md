@@ -19,7 +19,7 @@ A lane that would pass its planned cap stops, writes the estimate, and waits. Th
 | K same filter on votes4 | running | 23:52 | K2 scored, five extra matches next | $0 | out/experiments/K.md |
 | I table split into votes7 | done | 23:47 | I3 scored, 163 matched, F2 0.716, not nominated | $0 | out/experiments/I.md |
 | H vote of three new runs | running | 23:33 | dry-run, then the three runs if the estimate is within $6 | $0 | out/experiments/H.md |
-| L Sonnet 0.85 plus filter | running | 23:51 | L3 scored on the weight-0.7 file: best cut 315 rows, 138 matched, F2 0.642 | $0 | out/experiments/L.md |
+| L Sonnet 0.85 plus filter | done | 23:53 | L4 report on the weight-0.7 file; 0.85 lamp file was not scored; not nominated | $0 | out/experiments/L.md |
 
 ## Upload queue
 
@@ -33,6 +33,7 @@ Score with `tools/validate.py`, `tools/score_local.py`, and `uv run python -m ev
 
 ## Log
 
+- 23:53 Lane L done. Base `out/rear-lamp-main-a39acab.json` (weight 0.7): 388 rows, 146 matched, F2 0.636. Best filter drop 1+2: 315 / 138 / 0.642. votes7 is 351 / 156 / 0.702. Not within 5 matches. Not nominated. Spend $0. The weight-0.85 lamp file was not scored.
 - 23:52 Lane K step 2. Four cuts of votes4. Best is drop class 1: 407 rows, 158 matched, F2 0.677. None beats votes7 (351 / 156 / 0.702). Spend $0.
 - 23:51 Lane L step 3. Weight-0.7 file 388/146/0.636. Best cut is classes 1+2: 315/138/0.642, 18 matches behind votes7. Spend $0. Weight-0.85 lamp file still absent.
 - 23:50 Master checked lane I with `eval.errors`: 379 rows, 163 matched, F2 0.716. Biggest gap to 1.0 is the 151 rows outside gold paragraphs (dropping them reaches F2 0.825). Not uploaded.
