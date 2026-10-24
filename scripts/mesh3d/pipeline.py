@@ -36,7 +36,7 @@ def prepare(args):
         if ids is None:
             ids = [r["id"] for r in requirements if any(k.lower() in r["text"].lower() for k in part["keywords"])]
         parts.append({"id": part["id"], "name": part["name"], "file": None,
-                      "order": part["depth"], "offset": [0, 0, part["depth"] * 1.3],
+                      "order": part["depth"], "offset": [0, 0, round(part["depth"] * 2.3, 3)],
                       "requirementIds": ids, "crop": f'crops/{part["id"]}.png'})
     manifest = {"caseId": regions["caseId"], "mapping": "Supplied IDs where available; otherwise keyword matches, not reviewed compliance links.",
                 "geometry": "Independent single-image inferences, not CAD or recovered assembly dimensions.",
@@ -88,6 +88,7 @@ def generate(args):
                 image = Image.open(source).convert("RGBA")
                 image.putalpha(image.convert("RGB").convert("L").point(lambda value: 255 if value < 240 else 0))
                 source = args.output / "renders" / f'{part["id"]}-transparent.png'
+                source.parent.mkdir(exist_ok=True)
                 image.save(source)
             if args.shade_only:
                 record["render"] = str(source)

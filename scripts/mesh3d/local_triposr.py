@@ -27,7 +27,7 @@ parser.add_argument("--source", type=Path, required=True, help="VAST-AI-Research
 parser.add_argument("--output", type=Path, default=Path("web/frontend/static/mesh3d/dev-rear-lamp"))
 parser.add_argument("--part", action="append")
 parser.add_argument("--raw", action="store_true")
-parser.add_argument("--resolution", type=int, default=128)
+parser.add_argument("--resolution", type=int, default=256)
 parser.add_argument("--device", choices=["mps", "cpu"], default="mps")
 args = parser.parse_args()
 sys.path.insert(0, str(args.source.resolve()))
@@ -62,6 +62,7 @@ for part in manifest["parts"]:
         mesh = model.extract_mesh(scene, has_vertex_color=False, resolution=args.resolution)[0]
     # TripoSR is Z-up and faces +X; the viewer uses Y-up and faces +Z.
     mesh.apply_transform(np.array([[0, 1, 0, 0], [0, 0, 1, 0], [1, 0, 0, 0], [0, 0, 0, 1]]))
+    mesh.fix_normals(multibody=True)
     name = f'{part["id"]}-triposr-{"raw" if args.raw else "shaded"}.glb'
     mesh.export(args.output / name)
     part["file"] = name

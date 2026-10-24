@@ -31,7 +31,7 @@ export function createViewer(
 ) {
 	const scene = new THREE.Scene();
 	scene.background = new THREE.Color('#ffffff');
-	const camera = new THREE.PerspectiveCamera(35, 1, 0.01, 100);
+	const camera = new THREE.OrthographicCamera(-6, 6, 2.7, -2.7, 0.01, 100);
 	const renderer = new THREE.WebGLRenderer({ antialias: true });
 	renderer.setPixelRatio(Math.min(devicePixelRatio, 2));
 	renderer.outputColorSpace = THREE.SRGBColorSpace;
@@ -42,13 +42,13 @@ export function createViewer(
 	container.appendChild(renderer.domElement);
 	const controls = new OrbitControls(camera, renderer.domElement);
 	controls.enableDamping = true;
-	controls.minDistance = 3;
-	controls.maxDistance = 30;
-	scene.add(new THREE.HemisphereLight('#ffffff', '#77938e', 2.8));
-	const key = new THREE.DirectionalLight('#ffffff', 3.5);
+	controls.minZoom = 0.3;
+	controls.maxZoom = 4;
+	scene.add(new THREE.HemisphereLight('#ffffff', '#77938e', 1.4));
+	const key = new THREE.DirectionalLight('#ffffff', 2);
 	key.position.set(-3, 6, 7);
 	scene.add(key);
-	const fill = new THREE.DirectionalLight('#ffffff', 1.4);
+	const fill = new THREE.DirectionalLight('#ffffff', 0.7);
 	fill.position.set(4, 0, -5);
 	scene.add(fill);
 	const groups = new Map<string, THREE.Group>();
@@ -64,7 +64,7 @@ export function createViewer(
 
 	function colors() {
 		for (const [id, material] of materials) {
-			material.color.set(id === selected ? '#79f2de' : id === hovered ? '#b1d7d0' : '#b8bfbc');
+			material.color.set(id === selected ? '#79f2de' : id === hovered ? '#b1d7d0' : '#9da7a2');
 		}
 	}
 	function place() {
@@ -114,7 +114,7 @@ export function createViewer(
 				group.add(model);
 				group.scale.setScalar(3.3 / Math.max(size.x, size.y, size.z));
 				const material = new THREE.MeshStandardMaterial({
-					color: '#b8bfbc',
+					color: '#9da7a2',
 					roughness: 0.8,
 					metalness: 0,
 					side: THREE.DoubleSide,
@@ -139,7 +139,9 @@ export function createViewer(
 			}),
 	);
 	function reset() {
-		camera.position.set(8.8, 5.8, 10.5);
+		camera.position.set(10, 1.6, 7);
+		camera.zoom = 1;
+		camera.updateProjectionMatrix();
 		controls.target.set(0, 0, 0);
 		controls.update();
 	}
@@ -181,7 +183,12 @@ export function createViewer(
 	const observer = new ResizeObserver(() => {
 		const { width, height } = container.getBoundingClientRect();
 		renderer.setSize(width, height);
-		camera.aspect = width / height;
+		const aspect = width / height;
+		const halfHeight = Math.max(2.7, 6 / aspect);
+		camera.left = -halfHeight * aspect;
+		camera.right = halfHeight * aspect;
+		camera.top = halfHeight;
+		camera.bottom = -halfHeight;
 		camera.updateProjectionMatrix();
 	});
 	observer.observe(container);
