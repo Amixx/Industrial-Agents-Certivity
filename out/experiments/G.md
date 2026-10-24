@@ -53,7 +53,7 @@ Next: none. Lane G is done.
 | 24 Oct 23:08 | out/experiments/G-bumper-sensors-fog-haiku-base-s3-verbatim.json | seed 3, RW_VERBATIM | g_runs.py | 492 | P 0.41 R 0.49 (33/67) F2 0.474, AUC 0.857; 134 s | none | $0.253 |
 | 24 Oct 23:08 | out/experiments/G-bumper-sensors-fog-vote1-anchor-4.json | paragraph vote, min 1 of 4 Haiku runs | g_runs.py vote | 1120 | on the 4 labelled regs: P 0.34 R 0.66 (44/67) F2 0.554 | none | $0 |
 | 24 Oct 23:08 | out/experiments/G-bumper-sensors-fog-vote2-anchor-4.json | same, min 2 of 4 | g_runs.py vote | 711 | P 0.49 R 0.52 (35/67) F2 0.516 | none | $0 |
-| 24 Oct 23:08 | out/experiments/G-bumper-sensors-fog-vote3-anchor-4.json | same, min 3 of 4 | g_runs.py vote | 461 | not in the summary table; file kept | none | $0 |
+| 24 Oct 23:08 | out/experiments/G-bumper-sensors-fog-vote3-anchor-4.json | same, min 3 of 4 | g_runs.py vote | 461 | on the 4 labelled regs: P 0.65 R 0.48 (32/67) F2 0.505 | none | $0 |
 | 24 Oct 23:08 | out/experiments/G-bumper-sensors-fog-vote4-anchor-4.json | same, min 4 of 4 | g_runs.py vote | 249 | P 0.74 R 0.30 (20/67) F2 0.339 | none | $0 |
 | 24 Oct 23:11 | out/experiments/G-bumper-sensors-fog-sonnet-w85.json | Sonnet 5.5 relevance + rewrite, weight 0.85, eight regs fixed | g_runs.py | 519 | on the 4 labelled regs: P 0.74 R 0.79 (53/67) F2 0.779, AUC 0.981; 134 s | none | $4.330 |
 
