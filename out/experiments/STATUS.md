@@ -1,6 +1,6 @@
 # Big swings: status
 
-Updated: 24 Oct 23:11 CEST (system clock, `date`) by master (Cursor).
+Updated: 24 Oct 23:14 CEST (system clock, `date`) by master (Cursor). All seven lanes done.
 Task: brain/docs/todo/07-big-swings.md. Branch: big-swings. Setup done: yes, commit "swing master: setup".
 
 ## Handover to Cursor (22:48)
@@ -31,22 +31,20 @@ Before acting, a new master checks:
 Approved by the owner at 22:41: A $0, B $12, C $0, D $2, E $3, F $5, G $8 (the task's caps,
 $30 in all). Hard ceiling for the whole task: **$70 total** (the API account has a €100 limit).
 A lane that needs more than its cap asks the master; the master may grant it while the total
-stays under $70, and must ask the owner above that. Spend at 23:05, from lane files and the uncommitted logs of E and G:
-A $0, B $3.71, C $0, D $0.82, E $1.79 ($1.16 plus a finished v3 run at $0.63), F $1.25,
-G $2.25 ($1.72 committed, plus an uncommitted Sonnet blend at $0.26 and one fog Haiku run at $0.27).
-Total about $9.82 of the $70 ceiling.
+stays under $70, and must ask the owner above that. Final spend, from the lane files: A $0, B $3.71, C $0, D $0.82, E $1.79, F $1.25, G $7.35.
+Total $14.92 of the $70 ceiling.
 
 ## Lanes
 
 | Lane | State | Last update | Current step | Spend so far | Lane file |
 |---|---|---|---|---|---|
 | A votes | done | 22:58 (commit d930515) | report written. votes7: 351 rows, 156 matched, F2 0.702. votes4: 463 rows, 161 matched, F2 0.658. Both valid. | $0 | out/experiments/A.md |
-| B maximum recall | done locally; upload held | 22:58 (commit b58b7d9) | five files scored. ceiling 1,116 rows, 169 matched, F2 0.450. cut 0.20: 358 rows, 142 matched, F2 0.635. | $3.71 | out/experiments/B.md |
+| B maximum recall | done; upload held | 22:58 (commit b58b7d9) | ceiling 1,116 rows, 169 matched, F2 0.450. cut 0.20: 358 rows, 142 matched, F2 0.635. Tail below 0.20 is not worth writing on the lamp. | $3.71 | out/experiments/B.md |
 | C maximum precision | done; upload held | 22:58 (commit b04b377) | local scores added to the five precision files. No platform upload. | $0 | out/experiments/C.md |
 | D hedged cuts | done | 23:03 (commit 50d1b04) | best hedge 360 rows, 155 matched, F2 0.692. Hand read: the extra matches are shorter copies, not new obligations. | $0.82 | out/experiments/D.md |
 | E verbatim rows | done | 23:10 (commit b1465bd) | v3: 311 rows, 137 matched, F2 0.640. Fable on the same paragraphs: 141 / 0.646. Valid. No upload. | $1.79 | out/experiments/E.md |
 | F row selector | done | 23:02 (commit 959a605) | votes-logit: 356 rows, 154 matched, F2 0.690. AUC 0.892. Word share left out. | $1.25 | out/experiments/F.md |
-| G Sunday feasibility | running | 23:11 (transcript); G.md not yet updated | Fog Sonnet weight 0.85 finished: 519 rows, 310 paragraphs, $4.33, 134 s. Agent is scoring. Do not start another paid run: lane spend is about $7.08 of the $8 cap. | about $7.08 | out/experiments/G.md |
+| G Sunday feasibility | done | 23:13 (commit ee7b4d6) | Sunday file: one Sonnet run, blend weight 0.85. Plain paragraph F2 0.838. Fog F2 0.779, $4.33, 134 s. Haiku votes do not move F2. | $7.35 | out/experiments/G.md |
 
 ## Upload queue (held)
 
@@ -65,6 +63,7 @@ matched count and F2). The rows below stay as candidates, not as a request to up
 
 ## Log
 
+- 23:14 Every lane is done. Summary written into the Results section of `brain/docs/todo/07-big-swings.md`. Run-log rows folded into `out/README.md`. Recommendation: Sunday is one Sonnet run at blend weight 0.85. The lamp file to upload when a slot is free is `rear-lamp-swing-A-votes7.json` (local 156 / 0.702).
 - 23:11 Fog Sonnet at blend weight 0.85 finished: 519 rows, 310 paragraphs, $4.33, 134 s. Lane G is scoring it. Lane spend is about $7.08 of $8. No further paid G run.
 - 23:10 Lane E done, commit b1465bd. v3 is 137 matched, F2 0.640, behind Fable's 141 / 0.646 on the same paragraphs. Spend $1.79. No upload. Lane G is still scoring and has a fog Sonnet run in progress.
 - 23:09 Four fog Haiku runs finished (base seed 0 and 1, alt seed 0, verbatim seed 3). Lane G had aborted before scoring them, so it was restarted. No new paid run.

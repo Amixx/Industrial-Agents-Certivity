@@ -26,8 +26,61 @@ that produced the file; branch code is not on `main` unless it says so.
 | | `rear-lamp-qwen-split-rewrite.json` | Fable's 208 paragraphs rewritten by qwen3.5:9b, split prompt of `0ccae35` | `dcf1740` | 446 | 137 / 0.568 | (21:47) 133 / 0.551 | $0 |
 | 22:00 | `rear-lamp-mix-examples-cut.json` | Opus relevance, Sonnet rewrite with expert examples and the obligation cut | `brain-model-mix-examples` @ `e5e0d25` | 341 | 145 / 0.658 | (22:14) 138 / 0.627 | $1.13 |
 | 22:35 | `rear-lamp-main-a39acab.json` | `main`'s defaults at `a39acab`: Opus relevance, Sonnet rewrite with the prompt of `d7683cd` | `big-swings` (no code change) | 388 | 146 / 0.636 | not uploaded | $0.84 |
+| 22:55 | `rear-lamp-swing-A-votes7.json` | Vote over 14 dev runs, Jaccard 0.5, votes >= 7, share-claude text | `big-swings`, `swing/a_sweep.py` | 351 | 156 / 0.702 | not uploaded | $0 |
+| 22:55 | `rear-lamp-swing-A-votes4.json` | The same, votes >= 4 | `big-swings`, `swing/a_sweep.py` | 463 | 161 / 0.658 | not uploaded | $0 |
+| 22:41 | `rear-lamp-swing-B-full.json` | Opus relevance (cached), Sonnet rewrite, blend >= 0.03 | `big-swings`, `swing/b_recall.py` | 1,382 | 158 / 0.369 | not uploaded | $2.03 |
+| 22:45 | `rear-lamp-swing-B-full005.json` | The above, blend >= 0.05 | `swing/b_tail.py` | 862 | 158 / 0.487 | not uploaded | $0 |
+| 22:45 | `rear-lamp-swing-B-union.json` | B-full plus 254 uncovered pool medoids | `swing/b_tail.py` | 1,636 | 169 / 0.353 | not uploaded | $0 |
+| 22:45 | `rear-lamp-swing-B-ceiling.json` | The union, blend >= 0.05 | `swing/b_tail.py` | 1,116 | 169 / 0.450 | not uploaded | $0 |
+| 22:45 | `rear-lamp-swing-B-cut020.json` | B-full, blend >= 0.20 | `swing/b_tail.py` | 358 | 142 / 0.635 | not uploaded | $0 |
+| 22:42 | `rear-lamp-swing-C-votes13.json` | Clusters written by all 13 runs | `big-swings`, `swing/c_precision.py` | 105 | 71 / 0.410 | not uploaded | $0 |
+| 22:42 | `rear-lamp-swing-C-votes12.json` | Clusters written by 12 or 13 runs | `swing/c_precision.py` | 149 | 99 / 0.545 | not uploaded | $0 |
+| 22:42 | `rear-lamp-swing-C-votes10.json` | Clusters written by 10 or more runs | `swing/c_precision.py` | 217 | 118 / 0.604 | not uploaded | $0 |
+| 22:42 | `rear-lamp-swing-C-kbjev-top150.json` | kb-jev's 150 highest-confidence rows | `swing/c_precision.py` | 150 | 82 / 0.451 | not uploaded | $0 |
+| 22:42 | `rear-lamp-swing-C-both-v6-c05.json` | Votes >= 6 and confidence >= 0.5 | `swing/c_precision.py` | 120 | 78 / 0.443 | not uploaded | $0 |
+| 22:46 | `rear-lamp-swing-D-mix-cut-union.json` | Union of split and example-cut rewrites | `big-swings`, `d_hedge.py` | 660 | 155 / 0.546 | not uploaded | $0 |
+| 22:46 | `rear-lamp-swing-D-mix-cut-union-near06.json` | Same, drop second-file rows at similarity >= 0.6 | `d_hedge.py` | 439 | 152 / 0.634 | not uploaded | $0 |
+| 22:46 | `rear-lamp-swing-D-mix-cut-diff-fine.json` | Both cuts where row counts differ | `d_hedge.py` | 489 | 154 / 0.616 | not uploaded | $0 |
+| 22:46 | `rear-lamp-swing-D-mix-cut-rel0.5-coarse.json` | Both cuts where relevance >= 0.5 | `d_hedge.py` | 405 | 147 / 0.631 | not uploaded | $0 |
+| 22:46 | `rear-lamp-swing-D-mix-cut-rel0.5-or-diff.json` | Both cuts where relevance >= 0.5 or counts differ | `d_hedge.py` | 508 | 154 / 0.607 | not uploaded | $0 |
+| 22:46 | `rear-lamp-swing-D-mix-cut-first-near0.4.json` | Split, plus cut rows below similarity 0.4 | `d_hedge.py` | 408 | 148 / 0.634 | not uploaded | $0 |
+| 22:46 | `rear-lamp-swing-D-fable-mix-first-near0.4.json` | Fable plus split rows below similarity 0.4 | `d_hedge.py` | 359 | 150 / 0.670 | not uploaded | $0 |
+| 22:46 | `rear-lamp-swing-D-fable-mix-first-near0.5.json` | Same at similarity < 0.5 | `d_hedge.py` | 375 | 150 / 0.661 | not uploaded | $0 |
+| 22:46 | `rear-lamp-swing-D-kbjev-mix-first-near0.45.json` | kb-jev plus split rows below similarity 0.45 | `d_hedge.py` | 442 | 164 / 0.682 | not uploaded | $0 |
+| 22:46 | `rear-lamp-swing-D-cut-noex.json` | Obligation cut, no expert examples | `d_cut.py` | 337 | 148 / 0.675 | not uploaded | $0.82 |
+| 23:00 | `rear-lamp-swing-D-cutnoex-mix-first-near0.4.json` | No-example cut plus split rows below similarity 0.4 | `d_hedge.py` | 352 | 153 / 0.688 | not uploaded | $0 |
+| 23:00 | `rear-lamp-swing-D-cutnoex-mix-first-near0.45.json` | Same at similarity < 0.45 | `d_hedge.py` | 360 | 155 / 0.692 | not uploaded | $0 |
+| 22:43 | `rear-lamp-swing-E-v1.json` | Verbatim segments plus subject and condition, Fable's paragraphs | `swing/e_verbatim.py` | 316 | 133 / 0.618 | not uploaded | $0.58 |
+| 22:45 | `rear-lamp-swing-E-v2.json` | v1 plus rules for labels, lists, conditions | `swing/e_verbatim.py` | 300 | 130 / 0.613 | not uploaded | $0.58 |
+| 23:03 | `rear-lamp-swing-E-v3.json` | v2 plus list rebuild, provisos kept whole, device inserted | `swing/e_verbatim.py` | 311 | 137 / 0.640 | not uploaded | $0.63 |
+| 22:59 | `rear-lamp-swing-F-votes-logit.json` | Leave-one-regulation-out logistic on log(votes) and Opus keep score | `swing/f_fit.py` | 356 | 154 / 0.690 | not uploaded | $1.25 |
+| 22:44 | `experiments/G-bumper-plain-haiku-base-s0.json` | Haiku relevance and rewrite, plain bumper. Local column is silver paragraph P/R/F2, not the lamp judge | `swing/g_runs.py` | 173 | 0.55 / 0.54 / 0.541 | none (bumper) | $0.069 |
+| 22:47 | `experiments/G-bumper-plain-haiku-base-s1.json` | Same, seed 1. Paragraph P/R/F2 | `g_runs.py` | 243 | 0.46 / 0.60 / 0.563 | none | $0.071 |
+| 22:47 | `experiments/G-bumper-plain-haiku-alt-s0.json` | Reworded relevance prompt. Paragraph P/R/F2 | `g_runs.py` | 177 | 0.54 / 0.61 / 0.596 | none | $0.061 |
+| 22:47 | `experiments/G-bumper-plain-haiku-alt-s2.json` | Alt prompt, seed 2. Paragraph P/R/F2 | `g_runs.py` | 197 | 0.50 / 0.57 / 0.552 | none | $0.067 |
+| 22:48 | `experiments/G-bumper-plain-haiku-base-s3-verbatim.json` | Verbatim rewrite prompt. Paragraph P/R/F2 | `g_runs.py` | 169 | 0.48 / 0.63 / 0.590 | none | $0.065 |
+| 22:48 | `experiments/G-bumper-plain-haiku-base-s4-b40.json` | Seed 4, batch 40. Paragraph P/R/F2 | `g_runs.py` | 328 | 0.37 / 0.63 / 0.548 | none | $0.077 |
+| 22:57 | `experiments/G-bumper-plain-vote1-anchor-6.json` | Paragraph vote, min 1 of 6 Haiku runs. Paragraph P/R/F2 | `g_runs.py vote` | 456 | 0.31 / 0.78 / 0.598 | none | $0 |
+| 22:57 | `experiments/G-bumper-plain-vote2-anchor-6.json` | Min 2 of 6. Paragraph P/R/F2 | `g_runs.py vote` | 311 | 0.40 / 0.67 / 0.592 | none | $0 |
+| 22:57 | `experiments/G-bumper-plain-vote3-anchor-6.json` | Min 3 of 6. Paragraph P/R/F2 | `g_runs.py vote` | 232 | 0.48 / 0.64 / 0.602 | none | $0 |
+| 22:57 | `experiments/G-bumper-plain-vote4-anchor-6.json` | Min 4 of 6. Paragraph P/R/F2 | `g_runs.py vote` | 155 | 0.63 / 0.61 / 0.616 | none | $0 |
+| 22:57 | `experiments/G-bumper-plain-vote-cluster-mr2.json` | Row clusters, >= 2 runs. Paragraph P/R/F2 | `g_runs.py vote` | 301 | 0.41 / 0.67 / 0.595 | none | $0 |
+| 22:57 | `experiments/G-bumper-plain-vote-cluster-mr3.json` | Row clusters, >= 3 runs. Paragraph P/R/F2 | `g_runs.py vote` | 206 | 0.48 / 0.64 / 0.602 | none | $0 |
+| 22:57 | `experiments/G-bumper-plain-vote-cluster-mr4.json` | Row clusters, >= 4 runs. Paragraph P/R/F2 | `g_runs.py vote` | 134 | 0.63 / 0.60 / 0.604 | none | $0 |
+| 22:59 | `experiments/G-bumper-plain-sonnet-base-s0.json` | Sonnet relevance and rewrite, weight 0.7. Paragraph P/R/F2 | `g_runs.py` | 138 | 0.78 / 0.79 / 0.789 | none | $1.088 |
+| 23:00 | `experiments/G-bumper-plain-opus-ref.json` | Opus relevance (cached) plus Sonnet rewrite. Paragraph P/R/F2 | `g_runs.py` | 123 | 0.75 / 0.67 / 0.686 | none | $0.225 |
+| 23:03 | `experiments/G-bumper-plain-sonnet-w85.json` | Sonnet, blend weight 0.85. Paragraph P/R/F2 | `g_runs.py` | 143 | 0.79 / 0.85 / 0.838 | none | $0.257 |
+| 23:04 | `experiments/G-bumper-sensors-fog-haiku-base-s0.json` | Haiku, fog bumper. Paragraph P/R/F2 on the 4 labelled regulations | `g_runs.py` | 652 | 0.58 / 0.52 / 0.534 | none | $0.271 |
+| 23:08 | `experiments/G-bumper-sensors-fog-haiku-base-s1.json` | Same, seed 1. Paragraph P/R/F2 | `g_runs.py` | 717 | 0.39 / 0.49 / 0.467 | none | $0.266 |
+| 23:08 | `experiments/G-bumper-sensors-fog-haiku-alt-s0.json` | Alt prompt. Paragraph P/R/F2 | `g_runs.py` | 550 | 0.59 / 0.45 / 0.470 | none | $0.249 |
+| 23:08 | `experiments/G-bumper-sensors-fog-haiku-base-s3-verbatim.json` | Verbatim rewrite. Paragraph P/R/F2 | `g_runs.py` | 492 | 0.41 / 0.49 / 0.474 | none | $0.253 |
+| 23:08 | `experiments/G-bumper-sensors-fog-vote1-anchor-4.json` | Paragraph vote, min 1 of 4. Paragraph P/R/F2 | `g_runs.py vote` | 1120 | 0.34 / 0.66 / 0.554 | none | $0 |
+| 23:08 | `experiments/G-bumper-sensors-fog-vote2-anchor-4.json` | Min 2 of 4. Paragraph P/R/F2 | `g_runs.py vote` | 711 | 0.49 / 0.52 / 0.516 | none | $0 |
+| 23:08 | `experiments/G-bumper-sensors-fog-vote3-anchor-4.json` | Min 3 of 4. Paragraph P/R/F2 | `g_runs.py vote` | 461 | 0.65 / 0.48 / 0.505 | none | $0 |
+| 23:08 | `experiments/G-bumper-sensors-fog-vote4-anchor-4.json` | Min 4 of 4. Paragraph P/R/F2 | `g_runs.py vote` | 249 | 0.74 / 0.30 / 0.339 | none | $0 |
+| 23:11 | `experiments/G-bumper-sensors-fog-sonnet-w85.json` | Sonnet, blend weight 0.85, fog bumper. Paragraph P/R/F2 on the 4 labelled regulations | `g_runs.py` | 519 | 0.74 / 0.79 / 0.779 | none | $4.330 |
 
-Empty cells were not recorded when the run was made.
+Lane G's local column is paragraph precision / recall / F2 against 67 silver bumper paragraphs. Every other row is requirement matched / F2 on the rear lamp. Empty cells were not recorded when the run was made.
 
 ## What is measured
 
@@ -238,6 +291,12 @@ token count and cost). All submissions pass `tools/validate.py`.
 review and relevance with cut-off 0.10, and Sonnet for the rewrite. It selected R26 as a fifth
 regulation. Rescored with today's proxy: regulation F2 0.952, page F2 0.877, requirement F2
 0.591, requirement recall 0.726. Its cost was not tracked.
+
+### Big swings, 24 Oct 23:14
+
+Seven lanes on branch `big-swings`, scored locally because the platform hour was already at 4 of 5 uploads. Full write-up: the Results section of `brain/docs/todo/07-big-swings.md`.
+
+Agreement across existing runs is the lamp result that moves requirement F2: votes of 7 or more match 156 of 190 in 351 rows (F2 0.702), against Fable's local 141 / 0.646. Writing the low-relevance tail, hedging two cuts, a verbatim rewrite, and a learned row selector do not beat that. On the bumper, one Sonnet run at blend weight 0.85 is the Sunday file (plain paragraph F2 0.838, about $1.15 cold; fog F2 0.779, $4.33). A Haiku vote barely moves bumper F2. Spend for the task: $14.92.
 
 ## Run-to-run variance
 
