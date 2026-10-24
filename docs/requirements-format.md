@@ -51,25 +51,50 @@ Everything else stays near-verbatim, including the passive voice, references and
   - State: "While <state>, the <system> shall <response>."
   - Unwanted behaviour: "If <condition>, then the <system> shall <response>."
   - Optional feature: "Where <feature>, the <system> shall <response>."
-  - The golden set fits EARS well: "shall" throughout, explicit subject, conditions first.
+  - The golden set only partly fits EARS; see "Which format is it?" below.
 - **ISO/IEC/IEEE 29148**, the international standard for requirements: singular, unambiguous, verifiable, with "shall" for binding requirements.
 - **INCOSE Guide to Writing Requirements**: rules such as one thought per requirement, active voice, no vague terms, explicit units.
 - **US conventions:** MIL-STD-961 and the NASA systems-engineering handbook use a shall/will/should hierarchy. Here "will" states a fact or intent, not an obligation; in UN regulations "shall" is the only binding word.
 
 ## Recommendation
 
-- **Text:** one obligation per requirement, "shall", explicit subject, conditions first (EARS-shaped), near-verbatim otherwise. Keep passive voice, references and SI units as in the source. Don't paraphrase into "nicer" engineering language, because it risks drifting from the golden meaning.
+- **Text:** one obligation per requirement, ISO verbal forms ("shall", "shall not", and "may" only for permissions), explicit subject, and the condition where the source puts it. Close to the source otherwise; turn tables into sentences. Keep passive voice, references and SI units as in the source. Don't paraphrase into "nicer" engineering language, because it risks drifting from the golden meaning.
 - **Internally**, extract a structure first and render the sentence from it:
   - `subject`, `condition`, `modal` (shall / shall not), `constraint`, `value`, `unit`, `exceptions`, `references[]`
   - It makes the output consistent, lets the UI highlight values, and gives us `test_case` almost for free ("Measure X under condition Y; pass if ≤ value unit").
 - **Always** fill in `paragraph` and cite the base version.
 
-## Open question
+## Which format is it?
 
-**Which "US format" did Certivity mean?** Three readings, each with a different consequence:
+**Not strict EARS.** All 190 golden requirements, sorted by EARS pattern:
 
-1. **Units:** US customary vs SI. UN regulations are SI, so keep the source units. This is the transcript's units remark.
-2. **Regulatory system:** US FMVSS vs UN ECE regulations. We may only cite UN regulations from the index anyway.
-3. **Requirement-writing convention:** a US style (MIL-STD-961, shall/will/should) vs the international or European one (ISO 29148, EARS).
+| Pattern | Count |
+|---|---|
+| Ubiquitous ("The X shall …") | 95 |
+| Condition first: "When" (event) | 22 |
+| Condition first: "While" (state) | 7 |
+| Condition first: "If" (unwanted) | 1 |
+| Condition first: "Where", "In the case of" or "For" (scope) | 27 |
+| **Condition at the end** (", if …", ", except …", ", provided that …") | **30** |
+| Other ("There shall be…", "In normal use there shall be no…", "… may be installed…") | 8 |
 
-Settle it with Certivity, or from the meeting audio, before tuning the text style. Reading 3 is the only one that would change our sentences.
+- Strict EARS always puts the condition first and always uses the system as the subject. The golden set keeps the condition wherever the regulation had it, and its subjects are often properties ("The intensity of the light…", "The markings…").
+- It isn't verbatim either. The median similarity between a golden requirement and its closest source sentence is 0.68, and only 31 of 190 score 0.9 or higher.
+- The biggest rewrites:
+  - **Tables turned into sentences.** G-0029 spells out the minimum light-reflection values for Class IA and IB red retro-reflectors, which the source gives as a table.
+  - **Exceptions merged** into the sentence.
+  - **Subjects added** where the source sentence has none.
+
+**What it does follow is the ISO/IEC verbal-form convention** (ISO/IEC Directives Part 2, also used by UNECE):
+
+| Form | Meaning | In the golden set |
+|---|---|---|
+| shall / shall not | a requirement | 189 / 190 |
+| should | a recommendation | 0 |
+| may | a permission | 22, mostly inside obligations ("…may be installed…") |
+| can | a possibility | 5 |
+| must | (not used) | 0 |
+
+**The US convention to avoid:** US federal plain-language guidelines tell drafters to write "must" for obligations and to avoid "shall". The European and international style is "shall" for a binding requirement, which the UN regulations themselves use: R48 has 625 "shall" and 0 "must". So our text uses "shall", never "must", and doesn't rewrite into US plain-language style.
+
+**Summary of the format:** one obligation per requirement in ISO verbal forms, with an explicit subject, and the wording, units and references close to the source. EARS is a useful *internal* structure for the condition, subject and response, but it isn't a template to force onto the output.
