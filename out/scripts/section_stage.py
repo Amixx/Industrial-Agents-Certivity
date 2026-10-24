@@ -1,4 +1,4 @@
-"""Stage uploads: the section cut (p_keep * sqrt(p_section) >= 0.354) plus the pointer, umbrella and approval-mark rules.
+"""Stage uploads: the section cut (p_keep * sqrt(p_section) >= 0.3535) plus the pointer, umbrella and approval-mark rules.
 
     stage.py <out.json> <source.json> [--pkeep <source.pkeep.json>]
 
@@ -23,7 +23,7 @@ if '--pkeep' in sys.argv:
     pk = np.array(json.load(open(sys.argv[sys.argv.index('--pkeep') + 1])))
     ps = json.load(open(B / 'section/p_section.json'))
     sec = np.array([ps.get(f"{r['source']['regulation']}|{paragraph_key(r['source']['paragraph'])}", 1.0) for r in rows])
-    keep &= pk * np.sqrt(sec) >= 0.354
+    keep &= pk * np.sqrt(sec) >= 0.3535  # keeps p_keep 0.5 with p_section 0.5 (0.35355)
 sub['requirements'] = [r for r, k in zip(rows, keep) if k]
 sub['team_id'] = 'team-06'
 json.dump(sub, open(out, 'w'), indent=1, ensure_ascii=False)
