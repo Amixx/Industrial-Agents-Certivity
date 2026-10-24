@@ -1,6 +1,6 @@
 # Lane J: Delete the expert-skip classes from the 7-vote file
 
-State: running. Updated: 24 Oct 23:55 CEST.
+State: running. Updated: 24 Oct 23:58 CEST.
 Approved spend: $1 (STATUS-08 at 23:33). Spent: $0. No model call.
 
 ## Checklist
@@ -15,12 +15,14 @@ Approved spend: $1 (STATUS-08 at 23:33). Spent: $0. No model call.
       Found: baseline 351 / 156 / 0.702, 151 outside gold paragraphs. The four classes catch 86
       of those 151 and destroy 43 of the 156 matches. Every cut matches fewer than 151 and
       every F2 is below 0.702. No winning cut. Spend $0.
-- [ ] J3 Read 15 deleted rows and 10 kept rows that the judge did not match. The winning cut is
-      the best F2 that still matches at least 151.
+- [x] J3 Read 15 deleted rows and 10 kept rows that the judge did not match.
+      Done 24 Oct 23:58 CEST. File: `out/experiments/J-read.json`. There is no winning cut:
+      none of the four still matches 151. The read uses drop 1+2, the highest F2 in the sweep
+      (271 rows, 142 matched, 0.689), and it is not adopted. Spend $0.
 - [ ] J4 Report whether this is a Sunday rule (text only, no vote required) or whether it only
       works on rows a vote already kept.
 
-Next: read 15 deleted rows and 10 unmatched kept rows from the least-bad cut (drop 1+2), and say there is no cut that still matches 151. Then apply the same rules to a single run.
+Next: write the single-run comparison and close the report. The Sunday scores are already on disk.
 
 ## Run log rows
 
@@ -115,6 +117,44 @@ a cited paragraph is close (+0.104). Citing the gold paragraphs the file skips i
 rows missed on a cited paragraph, because the cut deleted matches. After all four classes the
 largest lift is citing the gold paragraphs the file now skips (+0.187), just ahead of recovering
 on-cited misses (+0.170).
+
+## Read of drop 1+2
+
+No cut still matches 151, so nothing is adopted. The 15 deleted rows are from drop 1+2, which has
+the highest F2 in the sweep and still loses to the unfiltered file. Fourteen of the fifteen had
+been matched. The tenth kept rows are unmatched rows that this cut still holds. Full text is in
+`out/experiments/J-read.json`.
+
+The matched deletions are requirements that name a test, a level, or a count.
+
+- "Shall be tested by the method ... for the levels given in Table 1", immunity "tested by the
+  method described in Annex 9", and immunity "with the test levels given in Tables 3a and 3b".
+  The rule heard "tested by the method" and dropped the sentence that says which test applies.
+- The pulses and the starting profile "shall be applied to the supply lines". That is the test
+  the judge had matched, not a lab choreography line.
+- Test voltage 6.75 V, 13.5 V or 28 V. Measurements from 20 to 6,000 MHz. Colour measured inside
+  the distribution grid. CIE Illuminant A at an angle of divergence of 1/3°. These carry values.
+- "Shall be rotated ... to the position of minimum RI, which must conform" is a procedure and a
+  pass criterion in the same row. Dropping the row drops the pass.
+- The saline-mist recipe, 5 parts salt in 95 parts water at 35 °C, was matched. A procedure
+  sentence can be the row the judge keeps.
+- The two matched count rows are not a bare "two in number". One names Class IA or IB and the
+  retro-reflector regulation. The other names two S1 or S2 devices and one S3 or S4 device.
+- The unmatched deletion in the fifteen is the clean case: radiation "shall be measured by the
+  method described in Annex 7", with no limit of its own.
+
+The ten kept unmatched rows are a mix. Some are outside the four classes and still unmatched:
+the 30 to 1,000 MHz limit for ALSE and OATS, the Annex 3 percentage grid, night-time colour
+limited to white, red or amber, a lamp on a movable component that must return to position, and
+the retro-reflector height of 250 mm to 900 mm (heights stay, and this one did not match).
+Others are class 3, so this cut kept them: voltage marking for a secondary operating mode, a
+replaceable source that fits only in the correct position, and lamps approved for replaceable
+categories 37, 99 or 128. The 25 m visibility check stayed because it states a distance, which
+kept it out of class 4. An ESA that is a light source, and must carry an approval number or a
+non-interchangeability report, was not called optional equipment.
+
+The definite rules are already enough to see the failure. The 40 ambiguous rows were not dropped,
+and the cuts still destroy matches.
 
 ## Report
 

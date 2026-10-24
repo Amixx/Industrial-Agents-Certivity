@@ -15,7 +15,7 @@ A lane that would pass its planned cap stops, writes the estimate, and waits. Th
 
 | Lane | State | Last update | Current step | Spend so far | Lane file |
 |---|---|---|---|---|---|
-| J skip classes on votes7 | running | 23:55 | J2 scored, no cut keeps 151 matches | $0 | out/experiments/J.md |
+| J skip classes on votes7 | running | 23:58 | J3 read the least-bad cut, sunday scores next | $0 | out/experiments/J.md |
 | K same filter on votes4 | done | 23:53 | K4: filter does not beat votes7, not nominated | $0 | out/experiments/K.md |
 | I table split into votes7 | done | 23:47 | I3 scored, 163 matched, F2 0.716, not nominated | $0 | out/experiments/I.md |
 | H vote of three new runs | running | 23:33 | dry-run, then the three runs if the estimate is within $6 | $0 | out/experiments/H.md |
@@ -33,6 +33,7 @@ Score with `tools/validate.py`, `tools/score_local.py`, and `uv run python -m ev
 
 ## Log
 
+- 23:58 Lane J step 3. No cut still matches 151. Read 15 deleted and 10 unmatched kept rows from drop 1+2 (271 / 142 / 0.689), not adopted. The matched deletions name a test, a level, or a count. Spend $0.
 - 23:55 Lane J step 2. Four cuts all lose to votes7. Best is drop 1+2: 271 rows, 142 matched, F2 0.689. Classes catch 86 of 151 outside rows and destroy 43 matches. No cut still matches 151. Spend $0.
 - 23:56 Master checked lane K with `eval.errors`. Best cut drop class 1: 407 rows, 158 matched, F2 0.677. Biggest gap to 1.0 is 172 rows outside gold paragraphs (dropping them reaches F2 0.794). Does not beat votes7. Not uploaded. Spend $0.
 - 23:56 Lane H wrote `out/rear-lamp-swing-H-sonnet-w85.json` (403 rows, 92 s, $3.16). Restarting lane L to filter that file only. No second paid copy.

@@ -1,0 +1,347 @@
+{
+ "read_at": "24 Oct 23:57 CEST",
+ "winner": "drop12",
+ "adopted": false,
+ "deleted_shown": [
+  {
+   "id": "R-0022",
+   "regulation": "UN R10",
+   "paragraph": "6.7.1",
+   "classes": [
+    1,
+    4
+   ],
+   "reasons": [
+    "class 1: measure by a named method",
+    "class 4: only demand is a table"
+   ],
+   "ambiguous": [],
+   "matched_before": true,
+   "text": "The emission of the ESA representative of its type shall be tested by the method(s) according to ISO 7637-2 as described in Annex 10 for the levels given in Table 1."
+  },
+  {
+   "id": "R-0026",
+   "regulation": "UN R10",
+   "paragraph": "6.8.2.1",
+   "classes": [
+    1
+   ],
+   "reasons": [
+    "class 1: measure by a named method"
+   ],
+   "ambiguous": [],
+   "matched_before": true,
+   "text": "The immunity to electromagnetic radiation of the ESA representative of its type shall be tested by the method(s) as described in Annex 9."
+  },
+  {
+   "id": "R-0030",
+   "regulation": "UN R10",
+   "paragraph": "6.9.1",
+   "classes": [
+    1,
+    4
+   ],
+   "reasons": [
+    "class 1: measure by a named method",
+    "class 4: only demand is a table"
+   ],
+   "ambiguous": [],
+   "matched_before": true,
+   "text": "The immunity of the ESA representative of this type shall be tested by the method(s) according to ISO 16750-2 for starting profile and ISO 7637-2 for pulses 1, 2a, 2b, 3a and 3b, as described in Annex 10, with the test levels given in Tables 3a and 3b."
+  },
+  {
+   "id": "R-0033",
+   "regulation": "UN R10",
+   "paragraph": "Annex 10 2",
+   "classes": [
+    1
+   ],
+   "reasons": [
+    "class 1: how to apply the test pulses"
+   ],
+   "ambiguous": [],
+   "matched_before": true,
+   "text": "For the test of immunity against transient disturbances conducted along 12/24 V supply lines, the test pulses 1, 2a, 2b, 3a and 3b according to the International Standard ISO 7637-2 shall be applied to the supply lines as well as to other connections of the ESA which may be operationally connected to supply lines."
+  },
+  {
+   "id": "R-0034",
+   "regulation": "UN R10",
+   "paragraph": "Annex 10 2",
+   "classes": [
+    1
+   ],
+   "reasons": [
+    "class 1: how to apply the test pulses"
+   ],
+   "ambiguous": [],
+   "matched_before": true,
+   "text": "For the test of immunity against transient disturbances conducted along 12/24 V supply lines, the starting profile according to the International Standard ISO 16750-2 shall be applied to the supply lines as well as to other connections of the ESA which may be operationally connected to supply lines, except that ESAs that are exclusively reserved for mounting on electric vehicles (vehicles without 12V/24V starter motor) are not subject to starting profile."
+  },
+  {
+   "id": "R-0047",
+   "regulation": "UN R10",
+   "paragraph": "Annex 9 3.1",
+   "classes": [
+    1
+   ],
+   "reasons": [
+    "class 1: how to measure"
+   ],
+   "ambiguous": [],
+   "matched_before": true,
+   "text": "Measurements shall be made in the 20 to 6,000 MHz frequency range with frequency steps according to ISO 11452-1."
+  },
+  {
+   "id": "R-0111",
+   "regulation": "UN R148",
+   "paragraph": "4.8.1.2",
+   "classes": [
+    1
+   ],
+   "reasons": [
+    "class 1: how to measure"
+   ],
+   "ambiguous": [
+    {
+     "class": "3",
+     "why": "non-replaceable light source: the product's LED modules may be this case"
+    }
+   ],
+   "matched_before": true,
+   "text": "In the case of a rear lamp equipped with light source module(s) or non-replaceable light source(s), all measurements shall be made with the light source(s) present in the lamp."
+  },
+  {
+   "id": "R-0115",
+   "regulation": "UN R148",
+   "paragraph": "4.8.2",
+   "classes": [
+    1
+   ],
+   "reasons": [
+    "class 1: set the test voltage"
+   ],
+   "ambiguous": [],
+   "matched_before": true,
+   "text": "Unless otherwise specified, for testing the voltage supplied at the lamp shall be either 6.75 V (6 Volt-Systems), 13.5 V (12 Volt-Systems) or 28 V (24 Volt-Systems)."
+  },
+  {
+   "id": "R-0127",
+   "regulation": "UN R148",
+   "paragraph": "4.9",
+   "classes": [
+    1
+   ],
+   "reasons": [
+    "class 1: how to measure"
+   ],
+   "ambiguous": [],
+   "matched_before": true,
+   "text": "The colour of the light emitted shall be measured inside the field of the light distribution grid defined for the specific function in the relevant paragraph of Annex 3."
+  },
+  {
+   "id": "R-0176",
+   "regulation": "UN R150",
+   "paragraph": "4.2.1.2",
+   "classes": [
+    1
+   ],
+   "reasons": [
+    "class 1: how to illuminate the sample"
+   ],
+   "ambiguous": [],
+   "matched_before": true,
+   "text": "For testing the colour of the retro-reflective device, the retro-reflective device shall be illuminated by CIE Standard Illuminant A, with an angle of divergence of 1/3° and an illumination angle of β1= β2= 0° or, if this produces a colourless surface reflection, an angle as specified in Annex 4, Part 1, paragraph 1.1. shall be used."
+  },
+  {
+   "id": "R-0205",
+   "regulation": "UN R150",
+   "paragraph": "Annex 4 Part 1 1.2",
+   "classes": [
+    1
+   ],
+   "reasons": [
+    "class 1: position the sample for measurement"
+   ],
+   "ambiguous": [],
+   "matched_before": true,
+   "text": "With an illumination angle β of β1 = β2 = 0°, or the angle specified in paragraph 5. of this Regulation, and an angle of divergence of 20', the retro-reflective device which is not marked \"TOP\" shall be rotated about its axis of reference to the position of minimum RI, which must conform to the value specified in paragraph 5. of this Regulation."
+  },
+  {
+   "id": "R-0228",
+   "regulation": "UN R150",
+   "paragraph": "Annex 6 Part 4 3",
+   "classes": [
+    1
+   ],
+   "reasons": [
+    "class 1: salt-spray the sample; produce the salt spray"
+   ],
+   "ambiguous": [],
+   "matched_before": true,
+   "text": "In the case of retro-reflective devices with essential metal components susceptible to corrosion, the saline mist shall be produced by atomizing, at a temperature of 35 °C ± 2 °C, a saline solution obtained by dissolving 5 parts by weight of sodium chloride in 95 parts of distilled water containing not more than 0.02 per cent of impurities."
+  },
+  {
+   "id": "R-0311",
+   "regulation": "UN R48",
+   "paragraph": "6.14.2",
+   "classes": [
+    2
+   ],
+   "reasons": [
+    "class 2: count"
+   ],
+   "ambiguous": [],
+   "matched_before": true,
+   "text": "The rear retro-reflectors shall be two in number, type-approved according to the requirements concerning Class IA or IB retro-reflectors in the 02 or subsequent series of amendments to UN Regulation No. 3, or in the 00 or subsequent series of amendments to UN Regulation No. 150."
+  },
+  {
+   "id": "R-0336",
+   "regulation": "UN R48",
+   "paragraph": "6.7.2",
+   "classes": [
+    2
+   ],
+   "reasons": [
+    "class 2: count"
+   ],
+   "ambiguous": [],
+   "matched_before": true,
+   "text": "The stop lamps shall be two S1 or S2 category devices and one S3 or S4 category device on all categories of vehicles."
+  },
+  {
+   "id": "R-0012",
+   "regulation": "UN R10",
+   "paragraph": "6.5.1",
+   "classes": [
+    1
+   ],
+   "reasons": [
+    "class 1: how to measure; measure by a named method"
+   ],
+   "ambiguous": [],
+   "matched_before": false,
+   "text": "The electromagnetic radiation generated by the ESA representative of its type shall be measured by the method described in Annex 7."
+  }
+ ],
+ "kept_unmatched_shown": [
+  {
+   "id": "R-0001",
+   "regulation": "UN R10",
+   "paragraph": "3.2.10",
+   "classes": [],
+   "reasons": [],
+   "ambiguous": [],
+   "matched_before": false,
+   "text": "In case of an ESA is (part of) a light source, the applicant shall specify the approval number according to Regulation No. 37, Regulation No. 99 or Regulation No. 128, granted to this ESA, or provide a test report by a Technical Service designated by the Type Approval Authority, stating that this ESA is not mechanically interchangeable with any light source according to Regulation No. 37, Regulation No. 99 or Regulation No. 128."
+  },
+  {
+   "id": "R-0041",
+   "regulation": "UN R10",
+   "paragraph": "Annex 7 4.1",
+   "classes": [],
+   "reasons": [],
+   "ambiguous": [],
+   "matched_before": false,
+   "text": "For measurements performed in an absorber lined shielded enclosure (ALSE) or open area test site (OATS), the limits shall apply throughout the frequency range 30 to 1,000 MHz."
+  },
+  {
+   "id": "R-0068",
+   "regulation": "UN R148",
+   "paragraph": "3.3.3.4",
+   "classes": [
+    3
+   ],
+   "reasons": [
+    "class 3: secondary operating mode"
+   ],
+   "ambiguous": [],
+   "matched_before": false,
+   "text": "The lamp shall bear marking of the rated voltage(s) (i.e. 6V, 12V or 24V) or the range of voltage, in the case of lamps with a secondary operating mode."
+  },
+  {
+   "id": "R-0102",
+   "regulation": "UN R148",
+   "paragraph": "4.7.2.2",
+   "classes": [
+    3
+   ],
+   "reasons": [
+    "class 3: replaceable light source"
+   ],
+   "ambiguous": [],
+   "matched_before": false,
+   "text": "In case of replaceable UN approved light source(s), the design of the lamp shall be such that the light source(s) can be fixed in no other position but the correct one."
+  },
+  {
+   "id": "R-0143",
+   "regulation": "UN R148",
+   "paragraph": "Annex 3 1.1",
+   "classes": [],
+   "reasons": [],
+   "ambiguous": [],
+   "matched_before": false,
+   "text": "Unless specified otherwise, the values shown in Figures A3-I to A3-XV for the various directions of measurement shall give the minimum intensities of the lamp as a percentage of the minimum intensities required, which shall be mathematically rounded down to three significant digits, except that, where the lamp is intended to be installed at a mounting height (using the H plane specified by the manufacturer) equal to or less than 750 mm above the ground, the photometric intensity is verified only up to an angle of 5° downwards for front and rear direction indicators lamps, front and rear position lamps, front and rear end-outline marker lamps, parking lamps, stop lamps of category S1, S2 and MS, and side marker lamps."
+  },
+  {
+   "id": "R-0175",
+   "regulation": "UN R150",
+   "paragraph": "4.2.1.1",
+   "classes": [],
+   "reasons": [],
+   "ambiguous": [],
+   "matched_before": false,
+   "text": "For the test procedure for night time colours, the specifications shall apply only to white, red or amber retro-reflective devices."
+  },
+  {
+   "id": "R-0241",
+   "regulation": "UN R48",
+   "paragraph": "5.10.4.1",
+   "classes": [],
+   "reasons": [],
+   "ambiguous": [
+    {
+     "class": "4",
+     "why": "verifies other paragraphs, and also states a distance or a limit"
+    }
+   ],
+   "matched_before": false,
+   "text": "To verify paragraphs 5.10.1. and 5.10.2., for the visibility of red light towards the front of a vehicle, with the exception of a red rearmost side-marker lamp, there shall be no direct visibility of the apparent surface of the red lamp if viewed by an observer moving within Zone 1 in a transverse plane situated 25 m in front of the vehicle (see Annex 4)."
+  },
+  {
+   "id": "R-0257",
+   "regulation": "UN R48",
+   "paragraph": "5.20",
+   "classes": [],
+   "reasons": [],
+   "ambiguous": [],
+   "matched_before": false,
+   "text": "When a lamp is installed on a movable component and the movable component is in the \"normal position(s) of use\", the lamp shall always return to the position(s) specified by the manufacturer in accordance with this Regulation."
+  },
+  {
+   "id": "R-0275",
+   "regulation": "UN R48",
+   "paragraph": "5.31",
+   "classes": [
+    3
+   ],
+   "reasons": [
+    "class 3: replaceable light-source categories"
+   ],
+   "ambiguous": [],
+   "matched_before": false,
+   "text": "The lamps installed on a vehicle which is approved according to this Regulation and approved for one or more replaceable light source categories according to Regulations Nos. 37, 99 or 128, shall be fitted with light sources approved according to these light source categories only, except that this requirement does not concern light source modules, LED modules and non-replaceable light sources, except for when they are required to be approved by the applicable Regulation."
+  },
+  {
+   "id": "R-0315",
+   "regulation": "UN R48",
+   "paragraph": "6.14.4.2",
+   "classes": [],
+   "reasons": [],
+   "ambiguous": [],
+   "matched_before": false,
+   "text": "The rear retro-reflector, non-triangular shall be not less than 250 mm nor more than 900 mm above the ground (not more than 1,200 mm if grouped with any rear lamp(s), 1,500 mm if the shape of the bodywork makes it impossible to keep within 900 mm or 1200 mm respectively)."
+  }
+ ],
+ "deleted_total": 80,
+ "kept_unmatched_total": 129
+}

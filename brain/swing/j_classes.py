@@ -709,8 +709,9 @@ def cmd_samples() -> int:
     self_check()
     sweep = json.loads(SWEEP.read_text())
     winner = sweep.get("winner")
+    adopted = winner is not None
     if not winner:
-        raise SystemExit("no winning cut in J-sweep.json")
+        winner = max(sweep["cuts"], key=lambda r: (r["f2"], -r["rows"]))["name"]
     tags = {row["id"]: row for row in json.loads(TAGS.read_text())["rows"]}
     source = load_submission(VOTES7)
     expected = load_submission(EXPECTED)["requirements"]
@@ -745,6 +746,7 @@ def cmd_samples() -> int:
             {
                 "read_at": stamp(),
                 "winner": winner,
+                "adopted": adopted,
                 "deleted_shown": chosen_deleted,
                 "kept_unmatched_shown": chosen_kept,
                 "deleted_total": len(deleted),
@@ -766,6 +768,7 @@ def cmd_sunday() -> int:
     bases = [
         ("fable", OUT / "rear-lamp-fable.json"),
         ("main", OUT / "rear-lamp-main-a39acab.json"),
+        ("sonnet", OUT / "rear-lamp-swing-H-sonnet-w85.json"),
     ]
     records = []
     for label, path in bases:
