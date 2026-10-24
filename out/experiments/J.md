@@ -1,6 +1,6 @@
 # Lane J: Delete the expert-skip classes from the 7-vote file
 
-State: running. Updated: 24 Oct 23:53 CEST.
+State: running. Updated: 24 Oct 23:55 CEST.
 Approved spend: $1 (STATUS-08 at 23:33). Spent: $0. No model call.
 
 ## Checklist
@@ -9,20 +9,28 @@ Approved spend: $1 (STATUS-08 at 23:33). Spent: $0. No model call.
       Done 24 Oct 23:53 CEST. Files: `out/experiments/J-tags.json`, `brain/swing/j_classes.py`.
       Found: 351 rows. Definite hits: class 1 is 63, class 2 is 17, class 3 is 43, class 4 is 24,
       139 rows in at least one class. 40 rows are ambiguous and are not dropped. Spend $0.
-- [ ] J2 Sweep: drop class 1, drop 1+2, drop 1+2+3, drop all four. For each file write rows,
-      matched, F2, and how many deleted rows were matched versus unmatched.
+- [x] J2 Sweep: drop class 1, drop 1+2, drop 1+2+3, drop all four.
+      Done 24 Oct 23:55 CEST. Files: `out/experiments/J-sweep.json`,
+      `out/rear-lamp-swing-J-drop1.json`, `drop12`, `drop123`, `drop1234`, each with a `.log`.
+      Found: baseline 351 / 156 / 0.702, 151 outside gold paragraphs. The four classes catch 86
+      of those 151 and destroy 43 of the 156 matches. Every cut matches fewer than 151 and
+      every F2 is below 0.702. No winning cut. Spend $0.
 - [ ] J3 Read 15 deleted rows and 10 kept rows that the judge did not match. The winning cut is
       the best F2 that still matches at least 151.
 - [ ] J4 Report whether this is a Sunday rule (text only, no vote required) or whether it only
       works on rows a vote already kept.
 
-Next: `cd brain && BRAIN_LLM= PYTHONPATH=. uv run python swing/j_classes.py sweep`
+Next: read 15 deleted rows and 10 unmatched kept rows from the least-bad cut (drop 1+2), and say there is no cut that still matches 151. Then apply the same rules to a single run.
 
 ## Run log rows
 
 | Run | File | Method | Code | Rows | Local matched / F2 | Platform (upload): matched / F2 | Spend |
 |---|---|---|---|---|---|---|---|
 | 24 Oct 23:53 | `out/experiments/J-tags.json` | text rules for the four classes, no model | `brain/swing/j_classes.py` | 351 tagged | not a submission | not nominated | $0 |
+| 24 Oct 23:55 | `out/rear-lamp-swing-J-drop1.json` | votes7, drop class 1 | `a5413b6` | 288 | 144 / 0.687 | not nominated | $0 |
+| 24 Oct 23:55 | `out/rear-lamp-swing-J-drop12.json` | votes7, drop classes 1+2 | `a5413b6` | 271 | 142 / 0.689 | not nominated | $0 |
+| 24 Oct 23:55 | `out/rear-lamp-swing-J-drop123.json` | votes7, drop classes 1+2+3 | `a5413b6` | 232 | 124 / 0.625 | not nominated | $0 |
+| 24 Oct 23:55 | `out/rear-lamp-swing-J-drop1234.json` | votes7, drop classes 1+2+3+4 | `a5413b6` | 212 | 114 / 0.586 | not nominated | $0 |
 
 ## Uploads
 
@@ -72,6 +80,41 @@ Ambiguous, listed in `J-tags.json`, not dropped (40 rows):
 
 STATUS-08 allows $1 for a model judgement of those 40. This step does not spend it. The sweep
 uses the definite tags.
+
+Sweep, local judge, 24 Oct 23:55 CEST. All four files pass `tools/validate.py`. Requirement
+matched and F2 are from `eval.score`. Page P/R/F1 are from `score_local.py`.
+
+| Cut | Rows | Matched | F2 | Matched deleted | Unmatched deleted | Page P / R / F1 |
+|---|---|---|---|---|---|---|
+| votes7 | 351 | 156 | 0.702 | | | |
+| drop 1 | 288 | 144 | 0.687 | 12 | 51 | 0.842 / 0.906 / 0.873 |
+| drop 1+2 | 271 | 142 | 0.689 | 14 | 66 | 0.842 / 0.906 / 0.873 |
+| drop 1+2+3 | 232 | 124 | 0.625 | 33 | 86 | 0.855 / 0.887 / 0.870 |
+| drop 1+2+3+4 | 212 | 114 | 0.586 | 43 | 96 | 0.846 / 0.830 / 0.838 |
+
+Of the 151 rows on paragraphs the experts never cite, the four classes catch 86. They destroy
+43 of the 156 matches. A row can be in more than one class, so the class rows below add to more
+than 86 and 43.
+
+| Class | Outside gold paragraphs | Matched | Unmatched, inside a gold paragraph |
+|---|---|---|---|
+| 1 test procedure | 46 | 12 | 5 |
+| 2 installation one-liner | 14 | 2 | 1 |
+| 3 optional or absent equipment | 21 | 19 | 3 |
+| 4 pointer | 10 | 13 | 1 |
+
+Break-even is about seven unmatched rows per match. Class 1 deletes about four unmatched rows
+per match. Class 3 deletes about one. Class 4 deletes more matches than outside rows. None of
+the four cuts still matches 151, so there is no winning cut. The least-bad F2 is drop 1+2 at
+0.689, still under 0.702, with 142 matches.
+
+Why F2 is not 1.0 (counterfactual lift, one change at a time). On votes7 the largest lift is
+dropping the 151 outside rows (+0.110, to about 0.812). Recovering the 23 gold rows missed on
+a cited paragraph is close (+0.104). Citing the gold paragraphs the file skips is smaller
+(+0.042). After drop 1, drop 1+2, and drop 1+2+3 the largest remaining lift is recovering gold
+rows missed on a cited paragraph, because the cut deleted matches. After all four classes the
+largest lift is citing the gold paragraphs the file now skips (+0.187), just ahead of recovering
+on-cited misses (+0.170).
 
 ## Report
 
