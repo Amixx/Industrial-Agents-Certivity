@@ -1,0 +1,27 @@
+24 Oct 23:58 CEST
+file rear-lamp-swing-J-fable-drop123.json
+drop classes [1, 2, 3]
+rows 238 matched 114 F2 0.571
+matched_deleted 27 unmatched_deleted 67
+
+OK: rear-lamp-swing-J-fable-drop123.json is valid (238 requirements).
+
+Scored against expected.json (offline: regulation and page level only)
+
+level        precision   recall      F1   cited / expected / matched
+regulation       1.000    1.000   1.000   4 / 4 / 4
+page             0.800    0.906   0.850   60 / 53 / 48
+
+The requirement-level score (do your requirements say what the expected ones say?) is computed on the submission platform.
+
+level              P      R     F2   cited/expected/matched
+regulation     1.000  1.000  1.000   4/4/4
+page           0.800  0.906  0.882   60/53/48
+requirement    0.479  0.600  0.571   238/190/114
+
+== /Users/troy/Documents/Projects/Industrial-Agents-Certivity/out/rear-lamp-swing-J-fable-drop123.json
+   rows 238: in gold paragraphs 145 (matched 114), outside 93 (matched 0)
+   gold rows missed: 39 on cited paragraphs, 37 on paragraphs never cited
+   gold paragraphs where we have fewer / equal / more rows than gold: 14 / 71 / 12
+   local judge: matched 114, P 0.479 R 0.600 F2 0.571
+   rows outside gold paragraphs dropped: P 0.786 R 0.600 F2 0.630

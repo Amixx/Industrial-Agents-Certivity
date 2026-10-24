@@ -1,6 +1,6 @@
 # Lane J: Delete the expert-skip classes from the 7-vote file
 
-State: running. Updated: 24 Oct 23:58 CEST.
+State: done. Updated: 24 Oct 23:59 CEST.
 Approved spend: $1 (STATUS-08 at 23:33). Spent: $0. No model call.
 
 ## Checklist
@@ -19,10 +19,14 @@ Approved spend: $1 (STATUS-08 at 23:33). Spent: $0. No model call.
       Done 24 Oct 23:58 CEST. File: `out/experiments/J-read.json`. There is no winning cut:
       none of the four still matches 151. The read uses drop 1+2, the highest F2 in the sweep
       (271 rows, 142 matched, 0.689), and it is not adopted. Spend $0.
-- [ ] J4 Report whether this is a Sunday rule (text only, no vote required) or whether it only
-      works on rows a vote already kept.
+- [x] J4 The same text rules on single runs, which did not pass through a vote.
+      Done 24 Oct 23:58 CEST. File: `out/experiments/J-sunday.json`, plus
+      `out/rear-lamp-swing-J-fable-*`, `J-main-*`, and `J-sonnet-*`.
+      Found: every cut lowers F2 on Fable (332 / 141 / 0.646), on main weight 0.7
+      (388 / 146 / 0.636), and on Sonnet weight 0.85 (403 / 136 / 0.585).
+      The rule is text only, and it does not help a vote file or a single run. Spend $0.
 
-Next: write the single-run comparison and close the report. The Sunday scores are already on disk.
+Next: none. The lane is done. Do not nominate an upload.
 
 ## Run log rows
 
@@ -33,6 +37,18 @@ Next: write the single-run comparison and close the report. The Sunday scores ar
 | 24 Oct 23:55 | `out/rear-lamp-swing-J-drop12.json` | votes7, drop classes 1+2 | `a5413b6` | 271 | 142 / 0.689 | not nominated | $0 |
 | 24 Oct 23:55 | `out/rear-lamp-swing-J-drop123.json` | votes7, drop classes 1+2+3 | `a5413b6` | 232 | 124 / 0.625 | not nominated | $0 |
 | 24 Oct 23:55 | `out/rear-lamp-swing-J-drop1234.json` | votes7, drop classes 1+2+3+4 | `a5413b6` | 212 | 114 / 0.586 | not nominated | $0 |
+| 24 Oct 23:58 | `out/rear-lamp-swing-J-fable-drop1.json` | Fable, drop class 1 | `172079f` | 278 | 129 / 0.621 | not nominated | $0 |
+| 24 Oct 23:58 | `out/rear-lamp-swing-J-fable-drop12.json` | Fable, drop classes 1+2 | `172079f` | 262 | 127 / 0.621 | not nominated | $0 |
+| 24 Oct 23:58 | `out/rear-lamp-swing-J-fable-drop123.json` | Fable, drop classes 1+2+3 | `172079f` | 238 | 114 / 0.571 | not nominated | $0 |
+| 24 Oct 23:58 | `out/rear-lamp-swing-J-fable-drop1234.json` | Fable, drop all four | `172079f` | 217 | 106 / 0.542 | not nominated | $0 |
+| 24 Oct 23:58 | `out/rear-lamp-swing-J-main-drop1.json` | main weight 0.7, drop class 1 | `172079f` | 328 | 135 / 0.620 | not nominated | $0 |
+| 24 Oct 23:58 | `out/rear-lamp-swing-J-main-drop12.json` | main weight 0.7, drop classes 1+2 | `172079f` | 317 | 135 / 0.627 | not nominated | $0 |
+| 24 Oct 23:58 | `out/rear-lamp-swing-J-main-drop123.json` | main weight 0.7, drop classes 1+2+3 | `172079f` | 283 | 121 / 0.580 | not nominated | $0 |
+| 24 Oct 23:58 | `out/rear-lamp-swing-J-main-drop1234.json` | main weight 0.7, drop all four | `172079f` | 261 | 112 / 0.548 | not nominated | $0 |
+| 24 Oct 23:58 | `out/rear-lamp-swing-J-sonnet-drop1.json` | Sonnet weight 0.85, drop class 1 | `172079f` | 347 | 128 / 0.578 | not nominated | $0 |
+| 24 Oct 23:58 | `out/rear-lamp-swing-J-sonnet-drop12.json` | Sonnet weight 0.85, drop classes 1+2 | `172079f` | 337 | 128 / 0.583 | not nominated | $0 |
+| 24 Oct 23:58 | `out/rear-lamp-swing-J-sonnet-drop123.json` | Sonnet weight 0.85, drop classes 1+2+3 | `172079f` | 318 | 125 / 0.580 | not nominated | $0 |
+| 24 Oct 23:58 | `out/rear-lamp-swing-J-sonnet-drop1234.json` | Sonnet weight 0.85, drop all four | `172079f` | 292 | 115 / 0.547 | not nominated | $0 |
 
 ## Uploads
 
@@ -156,6 +172,64 @@ non-interchangeability report, was not called optional equipment.
 The definite rules are already enough to see the failure. The 40 ambiguous rows were not dropped,
 and the cuts still destroy matches.
 
+## Single runs
+
+Same text rules, no vote. Scored 24 Oct 23:58 CEST. Each file passes `tools/validate.py`.
+Requirement F2 is from `eval.score`.
+
+| Base | Unfiltered rows / matched / F2 | Drop 1 | Drop 1+2 | Drop 1+2+3 | All four |
+|---|---|---|---|---|---|
+| Fable | 332 / 141 / 0.646 | 278 / 129 / 0.621 | 262 / 127 / 0.621 | 238 / 114 / 0.571 | 217 / 106 / 0.542 |
+| main, weight 0.7 | 388 / 146 / 0.636 | 328 / 135 / 0.620 | 317 / 135 / 0.627 | 283 / 121 / 0.580 | 261 / 112 / 0.548 |
+| Sonnet, weight 0.85 | 403 / 136 / 0.585 | 347 / 128 / 0.578 | 337 / 128 / 0.583 | 318 / 125 / 0.580 | 292 / 115 / 0.547 |
+
+Matched deleted / unmatched deleted for drop 1: Fable 12 / 42, main 11 / 49, Sonnet 9 / 47.
+For drop 1+2: Fable 14 / 56, main 12 / 59, Sonnet 9 / 57. None of these ratios clears the
+loss. The closest is Sonnet drop 1+2, F2 0.583 against an unfiltered 0.585.
+
+On the Fable and main cuts, the largest remaining gap to F2 1.0 is recovering gold rows missed
+on a cited paragraph: the filter deleted matches. On the Sonnet cuts, the largest gap is citing
+gold paragraphs the file skips.
+
 ## Report
 
-Not filled in yet.
+The four text classes catch 86 of the 151 votes7 rows that sit on paragraphs the experts never
+cite, and they destroy 43 of the 156 matches. No prescribed cut still matches 151, every cut's
+F2 is below 0.702, and the same rules also lower F2 on a single Fable run, on the weight-0.7
+main file, and on the Sonnet weight-0.85 file.
+
+| Cut on votes7 | Rows | Matched | F2 | Matched deleted | Unmatched deleted |
+|---|---|---|---|---|---|
+| unfiltered | 351 | 156 | 0.702 | | |
+| drop 1 | 288 | 144 | 0.687 | 12 | 51 |
+| drop 1+2 | 271 | 142 | 0.689 | 14 | 66 |
+| drop 1+2+3 | 232 | 124 | 0.625 | 33 | 86 |
+| all four | 212 | 114 | 0.586 | 43 | 96 |
+
+Per class, outside gold paragraphs / matches destroyed: class 1 is 46 / 12, class 2 is 14 / 2,
+class 3 is 21 / 19, class 4 is 10 / 13. Class 3 and class 4 are the damage. Class 1 is not
+harmless either: about four unmatched rows per match, under the break-even of about seven.
+
+There is no winning cut. Drop 1+2 is the highest F2 in the sweep, 0.689 at 142 matches, and it
+is not adopted. The read of that cut is above. The matched deletions are sentences that name
+the test, the level, or the count.
+
+It is a text rule, so it does not need a vote to run. It does not work better because a vote
+already kept the row. The vote file loses matches, and so does each single run. It is not a
+Sunday filter.
+
+Nominated upload: none. Nothing here beats 0.702, and the owner closed the queue at 23:36.
+votes7 stays the file to upload when a slot opens.
+
+Transfer: the rule was run on three single lamp files, above. It was not run on the bumper.
+It already loses on the lamp.
+
+Sunday: do not add this filter. Cost of the check was $0 and a few seconds,
+`cd brain && BRAIN_LLM= PYTHONPATH=. uv run python swing/j_classes.py sunday`.
+
+Why votes7's F2 is not 1.0: the largest single lift is dropping the 151 rows outside gold
+paragraphs (+0.110). Recovering the 23 gold rows missed on a cited paragraph is close (+0.104).
+Citing the gold paragraphs the file skips is smaller (+0.042). After the cuts, that order
+changes because the cuts delete matches. Drop 1, drop 1+2, and drop 1+2+3 are then limited by
+the gold rows missed on a cited paragraph. All four classes together are then limited by the
+gold paragraphs the file skips.

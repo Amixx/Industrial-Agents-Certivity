@@ -15,7 +15,7 @@ A lane that would pass its planned cap stops, writes the estimate, and waits. Th
 
 | Lane | State | Last update | Current step | Spend so far | Lane file |
 |---|---|---|---|---|---|
-| J skip classes on votes7 | running | 23:58 | J3 read the least-bad cut, sunday scores next | $0 | out/experiments/J.md |
+| J skip classes on votes7 | done | 23:59 | J4 text rule loses on the vote and on single runs, not nominated | $0 | out/experiments/J.md |
 | K same filter on votes4 | done | 23:53 | K4: filter does not beat votes7, not nominated | $0 | out/experiments/K.md |
 | I table split into votes7 | done | 23:47 | I3 scored, 163 matched, F2 0.716, not nominated | $0 | out/experiments/I.md |
 | H vote of three new runs | done | 23:59 | H4: 2 of 3 is 144/0.627, loses to run 1 and to votes7 | $4.34 | out/experiments/H.md |
@@ -33,6 +33,7 @@ Score with `tools/validate.py`, `tools/score_local.py`, and `uv run python -m ev
 
 ## Log
 
+- 23:59 Lane J done. Classes catch 86 of 151 outside rows and destroy 43 matches. No cut keeps 151 matches. Best votes7 cut is drop 1+2: 271 / 142 / 0.689. Same rules lower F2 on Fable, main weight 0.7, and Sonnet weight 0.85. Not a Sunday filter. Not nominated. Spend $0.
 - 00:01 Master checked lane L on the weight-0.85 file with `eval.errors`. Unfiltered 403 rows, 136 matched, F2 0.585. Best cut drop 1+2: 345 rows, 130 matched, F2 0.588. Biggest gap to 1.0 is 34 gold rows on paragraphs never cited (adding one row each reaches F2 0.720). Not uploaded. This step spent $0.
 - 23:59 Lane H done. Three selections do not reach votes7. Run 1 reused 388/146/0.636. Sonnet weight 0.85: 403/136/0.585 ($3.16). Haiku relevance: 520/138/0.539 ($1.17). Vote 2 of 3: 388/144/0.627. Vote 3 of 3: 253/111/0.548. Both votes lose to run 1. Spend $4.34. Not nominated.
 - 23:58 Lane L step 5 done. Weight-0.85 file 403 rows, 136 matched, F2 0.585. Best cut drop 1+2: 345 / 130 / 0.588. Biggest gap to 1.0 is the 34 gold rows on paragraphs never cited (adding one row each reaches F2 0.720). Not within 5 of votes7. Not nominated. Spend $0.
