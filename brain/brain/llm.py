@@ -126,6 +126,7 @@ def complete_json(
     }
     if prov == "local":
         payload["reasoning"] = local_reasoning()
+        payload["temperature"] = "0"  # earlier local answers were sampled at temperature 1
     cached = _cache_path(payload)
     if cached.exists():
         try:
@@ -222,6 +223,7 @@ def _openai_compatible(
     else:
         request["max_tokens"] = max_tokens
         request["reasoning_effort"] = local_reasoning()
+        request["temperature"] = 0  # Ollama's MLX tags default to temperature 1
     try:
         response = client.chat.completions.create(**request)
     except Exception as e:
@@ -239,13 +241,18 @@ def _openai_compatible(
     return parsed
 
 
-def _extract_json(text: str) -> Any:
-    """The first JSON object in a reply that may wrap it in a code fence, prose or a second
-    object."""
-    start = text.find("{")
-    if start < 0:
+def _extract_json(text: str, schema: dict[str, Any] | None = None) -> Any:
+    """The first JSON value in a reply that may wrap it in a code fence, prose or a second
+    object. A bare array (Qwen sometimes drops the wrapper) is wrapped when the schema is an
+    object with a single array property."""
+    starts = [i for i in (text.find("{"), text.find("[")) if i >= 0]
+    if not starts:
         raise ValueError("no JSON object in the reply")
-    obj, _ = json.JSONDecoder().raw_decode(text[start:])
+    obj, _ = json.JSONDecoder().raw_decode(text[min(starts) :])
+    props = (schema or {}).get("properties", {})
+    arrays = [k for k, v in props.items() if v.get("type") == "array"]
+    if isinstance(obj, list) and len(props) == 1 and arrays:
+        return {arrays[0]: obj}
     return obj
 
 
@@ -264,7 +271,7 @@ def _prompted_json(client: Any, request: dict[str, Any], schema: dict[str, Any])
         response = client.chat.completions.create(**{**request, "messages": messages})
         text = response.choices[0].message.content or ""
         try:
-            parsed = _extract_json(text)
+            parsed = _extract_json(text, schema)
             jsonschema.validate(parsed, schema)
             result: dict[str, Any] = parsed
             return result
