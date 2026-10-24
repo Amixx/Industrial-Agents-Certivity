@@ -1,11 +1,14 @@
 # Big swings: status
 
-Updated: 24 Oct 22:38 CEST by the session that wrote the task (before any master started).
+Updated: 24 Oct 22:42 CEST by master (Claude Code desktop, Opus 5.5).
 Task: brain/docs/todo/07-big-swings.md. Branch: big-swings. Setup done: yes, commit "swing master: setup".
 
 ## Budget
 
-Not asked yet. Caps in the task: A $0, B $12, C $0, D $2, E $3, F $5, G $8.
+Approved by the owner at 22:41: A $0, B $12, C $0, D $2, E $3, F $5, G $8 (the task's caps,
+$30 in all). Hard ceiling for the whole task: **$70 total** (the API account has a €100 limit).
+A lane that needs more than its cap asks the master; the master may grant it while the total
+stays under $70, and must ask the owner above that.
 
 ## Lanes
 
@@ -26,6 +29,8 @@ Not asked yet. Caps in the task: A $0, B $12, C $0, D $2, E $3, F $5, G $8.
 
 ## Log
 
+- 22:42 Master started lanes A and C ($0), asked the budget, owner answered: caps as written,
+  $70 total ceiling. Starting D, E, F, B, G.
 - 22:36 Setup: copied the four `brain-model-mix-examples` files into `out/`, added
   `brain/swing/run_costed.py`.
 - 22:35 A smoke test of the cost wrapper ran `main`'s defaults and made 23 Sonnet rewrite calls
