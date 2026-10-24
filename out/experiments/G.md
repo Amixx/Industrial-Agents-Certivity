@@ -1,7 +1,7 @@
 # Lane G: Sunday feasibility of the winners
 
-State: paused (handed to Cursor by the master at 22:48). Updated: 24 Oct 22:49 CEST.
-Approved spend: $8. Spent: $0.41 (six Haiku runs, plain bumper).
+State: running. Updated: 24 Oct 22:57 CEST.
+Approved spend: $8. Spent: $0.41 (six Haiku runs, plain bumper). The vote below is free.
 
 ## Checklist
 
@@ -11,30 +11,39 @@ Approved spend: $8. Spent: $0.41 (six Haiku runs, plain bumper).
       to 46 s and $0.06 to $0.08 each, $0.41 in all. Files: `out/experiments/G-bumper-plain-haiku-*`
       (`.json` submission, `.log`, `-scores.json` with llm, decision-model and blended score of
       all 923 candidate paragraphs, timings, spend). Code: `brain/swing/g_runs.py`.
-      Still to do: the vote over the six, the Sonnet run, the Opus reference, fog bumper.
+      Vote done 22:57, free. Files: `out/experiments/G-bumper-plain-vote{1,2,3,4}-anchor-6.json`,
+      `G-bumper-plain-vote-cluster-mr{2,3,4}.json`, `G-blend-sweep.json`. Against 67 silver
+      paragraphs, best single run is haiku-alt-s0 (P 0.54 R 0.61 F2 0.596, 38 s, $0.061).
+      Paragraph vote, anchor haiku-base-s0: min 1 (union) P 0.31 R 0.78 F2 0.598; min 2
+      P 0.40 R 0.67 F2 0.592; min 3 P 0.48 R 0.64 F2 0.602; min 4 P 0.63 R 0.61 F2 0.616
+      (best F2, recall does not beat the best single run). Row clusters at min-rows 2/3/4:
+      F2 0.595 / 0.602 / 0.604. Unions of k runs, mean recall: k=1 0.60, k=2 0.68, k=3 0.72,
+      k=4 0.74, k=6 0.78; F2 stays near 0.60. Averaging the six LLM scores and re-blending
+      (weight 0.7, cut 0.15, floor) selects 152 paragraphs at P 0.35 R 0.76 F2 0.614; the
+      default cut 0.20 is P 0.48 R 0.63 F2 0.590. Haiku weight 0.85 does not reach the 0.91
+      recall quoted for a stronger relevance model.
+      Still to do: the Sonnet run, the Opus reference, fog bumper.
 - [ ] G2 Paragraph recall and precision of the voted file against the silver bumper labels, next
       to a single run's.
 - [ ] G3 Exact Sunday commands for the best feasible variant, with wall-clock time and cost, as a
       proposal for task 06 (runbook not edited).
 
-Next (all from `brain/`; `P='--only "UN R42" "UN R26" "UN R127" "UN GTR 9"'`):
+Next (all from `brain/`):
 
-1. Vote, free: `PYTHONPATH=. uv run python swing/g_runs.py vote bumper-plain haiku-base-s0
-   haiku-base-s1 haiku-alt-s0 haiku-alt-s2 haiku-base-s3-verbatim haiku-base-s4-b40 --min 2`
-   (try `--min 1..4`, and `--rows cluster --min-rows 2`), then `swing/g_runs.py labels
-   bumper-plain vote2-anchor-6 ...`. Also worth doing offline from the `-scores.json` files:
-   average the six `llm` scores, re-blend with `model` (`brain.relevance.blend`) and sweep the cut.
+1. Vote: done at 22:57. See the G1 note.
 2. Sonnet run, about $1.40: `PYTHONPATH=. uv run python swing/g_runs.py run
    data/synthetic/bumper-plain --name sonnet-base-s0 --rel-model claude-sonnet-5-5 --rw-model
    claude-sonnet-5-5 --only "UN R42" "UN R26" "UN R127" "UN GTR 9" 2>
    ../out/experiments/G-bumper-plain-sonnet-base-s0.log`
 3. Opus reference (main's Sunday default), about $2.75 or less: lane B cached Opus profile,
-   regulation choice and relevance for bumper-plain with main's prompts at about 22:50, so
+   regulation choice and relevance for bumper-plain with main's prompts, so
    `--name opus-ref --rel-model claude-opus-5-5 --rw-model claude-sonnet-5-5 --seed 0` (seed 0 =
-   main's order) may be mostly cache hits; check the `[g] ... cache hits` line in the log.
-4. Fog bumper, four Haiku runs about $1.20: same `run` commands on
-   `data/synthetic/bumper-sensors-fog` with `--only "UN R10" "UN R48" "UN R149" "UN R148" "UN R127"
-   "UN GTR 9" "UN R42" "UN R26"`.
+   main's order) with the same `--only` may be mostly cache hits; check the `[g] ... cache hits`
+   line in the log before adding the printed spend.
+4. Fog bumper, four Haiku runs about $1.20: base seed 0, base seed 1, alt seed 0, verbatim seed 3
+   on `data/synthetic/bumper-sensors-fog` with `--only "UN R10" "UN R48" "UN R149" "UN R148"
+   "UN R127" "UN GTR 9" "UN R42" "UN R26"`. Stop if the first run prices the four above the
+   remaining cap.
 5. G2 and G3 as in the task file.
 
 Resuming a half-finished run: rerun the same `run` command. Finished LLM calls come back from
@@ -50,6 +59,13 @@ Resuming a half-finished run: rerun the same `run` command. Finished LLM calls c
 | 24 Oct 22:47 | out/experiments/G-bumper-plain-haiku-alt-s2.json | REL_ALT, seed 2, batch 15 | g_runs.py | 197 | P 0.50 R 0.57 F2 0.552, AUC 0.864; 43 s | none | $0.067 |
 | 24 Oct 22:48 | out/experiments/G-bumper-plain-haiku-base-s3-verbatim.json | seed 3, verbatim rewrite prompt (RW_VERBATIM) | g_runs.py | 169 | P 0.48 R 0.63 F2 0.590, AUC 0.883; 36 s | none | $0.065 |
 | 24 Oct 22:48 | out/experiments/G-bumper-plain-haiku-base-s4-b40.json | seed 4, batch 40 | g_runs.py | 328 | P 0.37 R 0.63 F2 0.548, AUC 0.871; 46 s | none | $0.077 |
+| 24 Oct 22:57 | out/experiments/G-bumper-plain-vote1-anchor-6.json | paragraph vote, keep paragraphs in at least 1 of 6 Haiku runs; rows from haiku-base-s0 | g_runs.py vote | 456 | P 0.31 R 0.78 (52/67) F2 0.598 | none | $0 |
+| 24 Oct 22:57 | out/experiments/G-bumper-plain-vote2-anchor-6.json | same, min 2 of 6 | g_runs.py vote | 311 | P 0.40 R 0.67 (45/67) F2 0.592 | none | $0 |
+| 24 Oct 22:57 | out/experiments/G-bumper-plain-vote3-anchor-6.json | same, min 3 of 6 | g_runs.py vote | 232 | P 0.48 R 0.64 (43/67) F2 0.602 | none | $0 |
+| 24 Oct 22:57 | out/experiments/G-bumper-plain-vote4-anchor-6.json | same, min 4 of 6 | g_runs.py vote | 155 | P 0.63 R 0.61 (41/67) F2 0.616 | none | $0 |
+| 24 Oct 22:57 | out/experiments/G-bumper-plain-vote-cluster-mr2.json | row clusters, Jaccard 0.6, keep a cluster written by >= 2 runs | g_runs.py vote | 301 | P 0.41 R 0.67 F2 0.595 | none | $0 |
+| 24 Oct 22:57 | out/experiments/G-bumper-plain-vote-cluster-mr3.json | same, >= 3 runs | g_runs.py vote | 206 | P 0.48 R 0.64 F2 0.602 | none | $0 |
+| 24 Oct 22:57 | out/experiments/G-bumper-plain-vote-cluster-mr4.json | same, >= 4 runs | g_runs.py vote | 134 | P 0.63 R 0.60 F2 0.604 | none | $0 |
 
 ## Uploads
 
@@ -74,5 +90,18 @@ None planned: lane G works on the bumper, which has no platform score before Sun
   flags for the bumper. The silver labels are Opus-made, so an Opus run will look better on them
   than it may be.
 - Haiku 5.5 takes no server-side fallback; `g_runs.py` strips `fallbacks` and its beta for Haiku.
+- Vote (22:57, free). Written-paragraph Jaccard between runs is 0.39 to 0.56, so the six
+  disagree. A union (min 1) lifts recall from 0.63 to 0.78 and drops precision from 0.54 to
+  0.31; F2 barely moves (0.596 to 0.598). The best F2 is min 4 (0.616) by raising precision
+  to 0.63 while recall stays at the best single run. Mean recall of a random union grows
+  with k (0.60, 0.68, 0.72, 0.74, 0.78 for k = 1, 2, 3, 4, 6) and mean F2 stays near 0.60.
+  Majority votes lose recall. `haiku-base-s0-scores.json` was rewritten by a cache-only rerun
+  (wall 1 s, $0, 47 hits); the $0.069 and 62 s in the run log are the original paid run.
+- Offline blend sweep (`G-blend-sweep.json`): the stored `selected` sets match
+  `relevance.blend` at weight 0.7, cut 0.20, plus the floor. Averaging the six LLM scores
+  does not beat a vote on F2. Raising the Haiku weight to 0.85 or 1.0 buys recall and spends
+  precision; it does not reproduce the 0.91 recall in `brain/relevance.py`, which was measured
+  for a stronger relevance model. Lane B's cached Opus blend on this case: pipeline
+  64 paragraphs, recall 0.69, precision 0.72; blend >= 0.10 is recall 0.91 at precision 0.43.
 
 ## Report
