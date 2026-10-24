@@ -35,6 +35,9 @@ that produced the file; branch code is not on `main` unless it says so.
 | 22:20 to 22:50 | `rear-lamp-agent-v3.json` | One Opus agent (`claude -p`, effort high) with only file tools, the spec, the image and the regulation texts with tables of contents; short prompt, TSV output converted to a submission | `out/scripts/agent-v3/` | 302 | 108 / 0.508 | (22:54) 116 / 0.546 | subscription |
 | 23:50 | `rear-lamp-kb-section-cut.json` | Rows of `rear-lamp-kb-recall-push.json` (filter off) kept when p_keep times a section-level Opus score is at least 0.2; the section score comes from one call per section with all its cited paragraphs side by side. Same 116 gold paragraphs, 24 fewer rows outside them | `out/scripts/section_select.py`, `section_measure.py` | 363 | 156 / 0.695 | (23:49) 151 / 0.672 | subscription |
 | 23:52 | `rear-lamp-kb-section-cut2.json` | Same rows and scores as the run above, kept when p_keep times the square root of the section score is at least 0.354 (the lowest 26% dropped); 115 gold paragraphs, 31 fewer rows | `out/scripts/section_select.py` | 332 | | (23:54) 149 / 0.682 | subscription |
+| 25 Oct 00:03 | `rear-lamp-kb-section-cut2-rules.json` | `rear-lamp-kb-section-cut2.json` without 6 rows whose quote only points elsewhere ("See Table 4", "Failure provisions: See paragraph 4.6.") or only brings other paragraphs into force ("shall conform to the requirements set forth in paragraphs 4. and 5."); none of the 6 is on a gold paragraph. Paragraph estimate 0.684 against 0.680 for the source | `out/scripts/section_stage.py` | 326 | | | $0 |
+| 24 Oct 23:56 to 23:59 | `rear-lamp-kb-splitless.json` | Recall-push setup (filter off) with a rewrite rule of one requirement per sentence, split only at lettered or numbered list items, tables and alternatives kept inside their sentence; 176 rows on gold paragraphs against 223 | `kb-stack` @ `1d8b22e` with an uncommitted prompt | 392 | | | subscription |
+| 25 Oct 00:03 | `rear-lamp-kb-splitless-cut2-rules.json` | The run above cut like section-cut2 (p_keep times the square root of the section score at least 0.354) plus the pointer rule; 162 rows on 110 gold paragraphs. Paragraph estimate 0.686, but only 151 gold rows have a row of their own on their paragraph (169 for section-cut2), so matches may drop | `out/scripts/section_stage.py` | 279 | | | subscription |
 
 Empty cells were not recorded when the run was made.
 
@@ -215,6 +218,11 @@ and relevance; Sonnet 5.5 for the rewrite), plus two rewrite changes behind flag
   Paragraph level only, no submission. Gemini 3.5 Flash reaches AUC 0.974 on 1,100 dev
   paragraphs (gpt-5.5 0.968 on the same ones), but the free tier allows about 20 requests per
   model per day, and UN R48 was not reached.
+
+### 25 Oct, 00:00: pointer rule and a split-less rewrite
+
+- **Pointer rule.** Six rows of section-cut2 quote a paragraph that holds no obligation of its own: a heading with "See Table 4" or "See paragraph 4.6.", or a clause that only brings other paragraphs into force. None sits on a gold paragraph, so dropping them should keep the 149 matches on 6 fewer rows.
+- **Split-less rewrite.** The expert list has 184 rows on the gold paragraphs we cite; our rewrite writes 223. A rule of one requirement per sentence, split only at list items, brings that to 176. After the section cut, 151 gold rows can still pair with a row on their own paragraph, against 169 before, so the platform may find fewer matches even though precision rises. The paragraph estimate (matches as 149/183 of the gold rows on cited paragraphs) cannot see that, so this file needs an upload to settle it.
 
 ### Cost per run
 
