@@ -1,7 +1,7 @@
 # Lane B: maximum recall, then measure the tail
 
-State: waiting for upload (B4, B6); every step and the transfer check done; stopped at the
-master's hand-off to Cursor. Updated: 24 Oct 22:48 CEST.
+State: waiting for upload (B4, B6); every step, the transfer check, and the local metrics are
+done. Updated: 24 Oct 22:56 CEST.
 Approved spend: $12. Spent: $3.71 ($2.03 lamp rewrite, $1.68 bumper-plain Opus relevance).
 
 ## Checklist
@@ -43,10 +43,11 @@ Approved spend: $12. Spent: $3.71 ($2.03 lamp rewrite, $1.68 bumper-plain Opus r
       (39 Opus calls: profile, regulation choice, relevance over 923 bumper paragraphs; now
       cached). Found: the lamp's cut does not transfer; see Report.
 
-Next: nothing to run. When the owner uploads B4 and B6, write the platform numbers into the
-Uploads table and the run-log rows, then fill the calibration line under Notes (platform
-matches in the tail = ceiling minus cut020; local 27) and adjust the Report's last paragraph if
-the platform tail is clearly richer than local. All commands rerun free from the cache, from
+Next: local metrics are in the run log and the report (24 Oct 22:56). Nothing else to run, and
+these two files are not asking for an upload slot. When the owner pastes platform numbers, write
+them into the Uploads table and the run-log rows, then fill the calibration line under Notes
+(platform matches in the tail = ceiling minus cut020; local 27) and adjust the Report if the
+platform tail is clearly richer than local. All commands rerun free from the cache, from
 `brain/`:
 `PYTHONPATH=. uv run python swing/b_recall.py run --cut 0.03 --approved -o ../out/rear-lamp-swing-B-full.json`
 (0 new calls), then `BRAIN_LLM= PYTHONPATH=. uv run python swing/b_tail.py union|curve|cut ...` as
@@ -64,6 +65,20 @@ the same command: finished batches come back from `brain/data/cache/llm/`.
 | 22:45 | `rear-lamp-swing-B-union.json` | `B-full` plus 254 medoids of lane A clusters it does not cover | `swing/b_tail.py union` | 1,636 | 169 / 0.353 | not uploaded | $0 |
 | 22:45 | `rear-lamp-swing-B-ceiling.json` | The union, blend >= 0.05 | `swing/b_tail.py cut` | 1,116 | 169 / 0.450 | nominated | $0 |
 | 22:45 | `rear-lamp-swing-B-cut020.json` | `B-full`, blend >= 0.20 (the pipeline's cut without its floor) | `swing/b_tail.py cut` | 358 | 142 / 0.635 | nominated | $0 |
+
+Local metrics, 24 Oct 22:56 CEST, from `brain/`: `uv run python ../tools/validate.py`,
+`uv run python ../tools/score_local.py`, `uv run python -m eval.score`. Regulation and page
+precision, recall and F1 are from `score_local`. Requirement matched count and F2 are from
+`eval.score` (that tool's requirement row: cited/expected/matched). All five files are main-goal
+submissions. Spend of this pass: $0.
+
+| File | Validate | Regulation P / R / F1 | Page P / R / F1 | Requirement matched / F2 |
+|---|---|---|---|---|
+| `rear-lamp-swing-B-ceiling.json` | pass (1116) | 1.000 / 1.000 / 1.000 (4/4/4) | 0.393 / 1.000 / 0.564 (135/53/53) | 169 / 0.450 |
+| `rear-lamp-swing-B-cut020.json` | pass (358) | 1.000 / 1.000 / 1.000 (4/4/4) | 0.855 / 0.887 / 0.870 (55/53/47) | 142 / 0.635 |
+| `rear-lamp-swing-B-full.json` | pass (1382) | 1.000 / 1.000 / 1.000 (4/4/4) | 0.285 / 1.000 / 0.444 (186/53/53) | 158 / 0.369 |
+| `rear-lamp-swing-B-full005.json` | pass (862) | 1.000 / 1.000 / 1.000 (4/4/4) | 0.396 / 1.000 / 0.567 (134/53/53) | 158 / 0.487 |
+| `rear-lamp-swing-B-union.json` | pass (1636) | 1.000 / 1.000 / 1.000 (4/4/4) | 0.283 / 1.000 / 0.442 (187/53/53) | 169 / 0.353 |
 
 ## Uploads
 
@@ -162,7 +177,22 @@ flat within 0.02 between 320 and 440 rows. Pool rows from other runs match at 0.
 | `out/rear-lamp-swing-B-cut020.json` | 358 | 142 / 0.635 | 147 / 0.657 | not uploaded |
 
 The pair measures the platform's matches in the tail (local: 27 over 758 rows). The ceiling is
-the recall ceiling for this rewrite; neither is expected to beat Fable's 0.682.
+the recall ceiling for this rewrite; neither is expected to beat Fable's 0.682. Predictions are
+unchanged. This hour is not a request to upload them.
+
+**Local metrics.** Same five files, scored 24 Oct 22:56 from `brain/` with `tools/validate.py`,
+`tools/score_local.py` and `eval.score`. Every file passes validate. Regulation precision, recall
+and F1 are 1.000 on each (4 cited, 4 expected, 4 matched). Page F1 is 0.870 on the 0.20 cut and
+0.564 on the ceiling: the wider files cite every gold page and add pages the experts do not.
+Requirement matched count and F2 below are `eval.score`; they match the run log.
+
+| File | Validate | Regulation P / R / F1 | Page P / R / F1 | Requirement matched / F2 |
+|---|---|---|---|---|
+| `out/rear-lamp-swing-B-ceiling.json` | pass (1116) | 1.000 / 1.000 / 1.000 (4/4/4) | 0.393 / 1.000 / 0.564 (135/53/53) | 169 / 0.450 |
+| `out/rear-lamp-swing-B-cut020.json` | pass (358) | 1.000 / 1.000 / 1.000 (4/4/4) | 0.855 / 0.887 / 0.870 (55/53/47) | 142 / 0.635 |
+| `out/rear-lamp-swing-B-full.json` | pass (1382) | 1.000 / 1.000 / 1.000 (4/4/4) | 0.285 / 1.000 / 0.444 (186/53/53) | 158 / 0.369 |
+| `out/rear-lamp-swing-B-full005.json` | pass (862) | 1.000 / 1.000 / 1.000 (4/4/4) | 0.396 / 1.000 / 0.567 (134/53/53) | 158 / 0.487 |
+| `out/rear-lamp-swing-B-union.json` | pass (1636) | 1.000 / 1.000 / 1.000 (4/4/4) | 0.283 / 1.000 / 0.442 (187/53/53) | 169 / 0.353 |
 
 **Transfer.** Bumper-plain silver labels (paragraph level, table under Notes): blend 0.20 keeps
 57% of the cited paragraphs, the pipeline's floor lifts it to 69%; 0.10 keeps 91% at precision
