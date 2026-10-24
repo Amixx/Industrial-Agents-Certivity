@@ -1,0 +1,2953 @@
+{
+ "regulations": [
+  {
+   "regulation": "UN R3",
+   "version": "2.17.0",
+   "nodes": 217,
+   "edges": {
+    "parent": 193,
+    "xref": 12,
+    "ref": 102
+   },
+   "references": {
+    "ref_exact": 117,
+    "ref_ancestor": 1,
+    "ref_none": 16,
+    "xref": 10,
+    "xref_unknown": 2,
+    "self": 2
+   },
+   "ref_resolution_exact": 0.873,
+   "ref_resolution_any": 0.881
+  },
+  {
+   "regulation": "UN R6",
+   "version": "2.0.0",
+   "nodes": 211,
+   "edges": {
+    "parent": 190,
+    "xref": 33,
+    "ref": 93,
+    "supersedes": 1
+   },
+   "references": {
+    "ref_exact": 95,
+    "ref_ancestor": 5,
+    "ref_none": 0,
+    "xref": 28,
+    "xref_unknown": 5,
+    "self": 8
+   },
+   "ref_resolution_exact": 0.95,
+   "ref_resolution_any": 1.0
+  },
+  {
+   "regulation": "UN R7",
+   "version": "3.0.0",
+   "nodes": 247,
+   "edges": {
+    "parent": 227,
+    "xref": 34,
+    "ref": 92,
+    "supersedes": 1
+   },
+   "references": {
+    "ref_exact": 86,
+    "ref_ancestor": 4,
+    "ref_none": 0,
+    "xref": 26,
+    "xref_unknown": 5,
+    "self": 22
+   },
+   "ref_resolution_exact": 0.956,
+   "ref_resolution_any": 1.0
+  },
+  {
+   "regulation": "UN R10",
+   "version": "7.2.0",
+   "nodes": 837,
+   "edges": {
+    "parent": 790,
+    "ref": 292,
+    "xref": 12
+   },
+   "references": {
+    "ref_exact": 309,
+    "ref_ancestor": 1,
+    "ref_none": 24,
+    "xref": 4,
+    "xref_unknown": 8,
+    "self": 11
+   },
+   "ref_resolution_exact": 0.925,
+   "ref_resolution_any": 0.928
+  },
+  {
+   "regulation": "UN R13H",
+   "version": "2.1.0",
+   "nodes": 691,
+   "edges": {
+    "parent": 670,
+    "ref": 349,
+    "xref": 21
+   },
+   "references": {
+    "ref_exact": 349,
+    "ref_ancestor": 6,
+    "ref_none": 2,
+    "xref": 7,
+    "xref_unknown": 11,
+    "self": 0
+   },
+   "ref_resolution_exact": 0.978,
+   "ref_resolution_any": 0.994
+  },
+  {
+   "regulation": "UN R19",
+   "version": "4.10.0",
+   "nodes": 426,
+   "edges": {
+    "parent": 399,
+    "ref": 257,
+    "xref": 44
+   },
+   "references": {
+    "ref_exact": 216,
+    "ref_ancestor": 4,
+    "ref_none": 0,
+    "xref": 27,
+    "xref_unknown": 17,
+    "self": 16
+   },
+   "ref_resolution_exact": 0.982,
+   "ref_resolution_any": 1.0
+  },
+  {
+   "regulation": "UN R23",
+   "version": "0.22.0",
+   "nodes": 173,
+   "edges": {
+    "parent": 155,
+    "xref": 20,
+    "ref": 54
+   },
+   "references": {
+    "ref_exact": 55,
+    "ref_ancestor": 4,
+    "ref_none": 0,
+    "xref": 19,
+    "xref_unknown": 1,
+    "self": 9
+   },
+   "ref_resolution_exact": 0.932,
+   "ref_resolution_any": 1.0
+  },
+  {
+   "regulation": "UN R26",
+   "version": "4.0.0",
+   "nodes": 211,
+   "edges": {
+    "parent": 195,
+    "ref": 75,
+    "xref": 2
+   },
+   "references": {
+    "ref_exact": 72,
+    "ref_ancestor": 3,
+    "ref_none": 0,
+    "xref": 0,
+    "xref_unknown": 2,
+    "self": 5
+   },
+   "ref_resolution_exact": 0.96,
+   "ref_resolution_any": 1.0
+  },
+  {
+   "regulation": "UN R32",
+   "version": "0.1.0",
+   "nodes": 115,
+   "edges": {
+    "parent": 100,
+    "ref": 40,
+    "xref": 2
+   },
+   "references": {
+    "ref_exact": 41,
+    "ref_ancestor": 0,
+    "ref_none": 1,
+    "xref": 0,
+    "xref_unknown": 2,
+    "self": 4
+   },
+   "ref_resolution_exact": 0.976,
+   "ref_resolution_any": 0.976
+  },
+  {
+   "regulation": "UN R37",
+   "version": "3.48.0",
+   "nodes": 257,
+   "edges": {
+    "parent": 238,
+    "ref": 101,
+    "xref": 3
+   },
+   "references": {
+    "ref_exact": 100,
+    "ref_ancestor": 8,
+    "ref_none": 0,
+    "xref": 3,
+    "xref_unknown": 0,
+    "self": 1
+   },
+   "ref_resolution_exact": 0.926,
+   "ref_resolution_any": 1.0
+  },
+  {
+   "regulation": "UN R38",
+   "version": "0.19.0",
+   "nodes": 178,
+   "edges": {
+    "parent": 160,
+    "xref": 23,
+    "ref": 54
+   },
+   "references": {
+    "ref_exact": 55,
+    "ref_ancestor": 4,
+    "ref_none": 0,
+    "xref": 22,
+    "xref_unknown": 1,
+    "self": 5
+   },
+   "ref_resolution_exact": 0.932,
+   "ref_resolution_any": 1.0
+  },
+  {
+   "regulation": "UN R39",
+   "version": "2.1.0",
+   "nodes": 185,
+   "edges": {
+    "parent": 170,
+    "ref": 63,
+    "xref": 9
+   },
+   "references": {
+    "ref_exact": 57,
+    "ref_ancestor": 1,
+    "ref_none": 1,
+    "xref": 3,
+    "xref_unknown": 6,
+    "self": 5
+   },
+   "ref_resolution_exact": 0.966,
+   "ref_resolution_any": 0.983
+  },
+  {
+   "regulation": "UN R40",
+   "version": "1.1.0",
+   "nodes": 365,
+   "edges": {
+    "parent": 343,
+    "ref": 74,
+    "xref": 2
+   },
+   "references": {
+    "ref_exact": 70,
+    "ref_ancestor": 1,
+    "ref_none": 0,
+    "xref": 0,
+    "xref_unknown": 2,
+    "self": 4
+   },
+   "ref_resolution_exact": 0.986,
+   "ref_resolution_any": 1.0
+  },
+  {
+   "regulation": "UN R42",
+   "version": "0.2.0",
+   "nodes": 120,
+   "edges": {
+    "parent": 106,
+    "ref": 25,
+    "xref": 3
+   },
+   "references": {
+    "ref_exact": 28,
+    "ref_ancestor": 0,
+    "ref_none": 0,
+    "xref": 1,
+    "xref_unknown": 2,
+    "self": 4
+   },
+   "ref_resolution_exact": 1.0,
+   "ref_resolution_any": 1.0
+  },
+  {
+   "regulation": "UN R43",
+   "version": "1.12.0",
+   "nodes": 1817,
+   "edges": {
+    "parent": 1777,
+    "ref": 830,
+    "xref": 3
+   },
+   "references": {
+    "ref_exact": 816,
+    "ref_ancestor": 11,
+    "ref_none": 0,
+    "xref": 1,
+    "xref_unknown": 2,
+    "self": 53
+   },
+   "ref_resolution_exact": 0.987,
+   "ref_resolution_any": 1.0
+  },
+  {
+   "regulation": "UN R48",
+   "version": "9.3.0",
+   "nodes": 1202,
+   "edges": {
+    "parent": 1173,
+    "xref": 122,
+    "ref": 528
+   },
+   "references": {
+    "ref_exact": 466,
+    "ref_ancestor": 24,
+    "ref_none": 0,
+    "xref": 89,
+    "xref_unknown": 29,
+    "self": 6
+   },
+   "ref_resolution_exact": 0.951,
+   "ref_resolution_any": 1.0
+  },
+  {
+   "regulation": "UN R49",
+   "version": "7.3.1",
+   "nodes": 14,
+   "edges": {
+    "xref": 4
+   },
+   "references": {
+    "ref_exact": 0,
+    "ref_ancestor": 0,
+    "ref_none": 72,
+    "xref": 0,
+    "xref_unknown": 4,
+    "self": 4
+   },
+   "ref_resolution_exact": 0.0,
+   "ref_resolution_any": 0.0
+  },
+  {
+   "regulation": "UN R51",
+   "version": "3.10.0",
+   "nodes": 0,
+   "edges": {},
+   "references": {},
+   "ref_resolution_exact": null,
+   "ref_resolution_any": null
+  },
+  {
+   "regulation": "UN R53",
+   "version": "4.0.0",
+   "nodes": 550,
+   "edges": {
+    "parent": 529,
+    "xref": 89,
+    "ref": 167
+   },
+   "references": {
+    "ref_exact": 166,
+    "ref_ancestor": 3,
+    "ref_none": 0,
+    "xref": 68,
+    "xref_unknown": 21,
+    "self": 5
+   },
+   "ref_resolution_exact": 0.982,
+   "ref_resolution_any": 1.0
+  },
+  {
+   "regulation": "UN R62",
+   "version": "1.0.0",
+   "nodes": 110,
+   "edges": {
+    "parent": 95,
+    "ref": 32,
+    "xref": 4
+   },
+   "references": {
+    "ref_exact": 32,
+    "ref_ancestor": 3,
+    "ref_none": 3,
+    "xref": 3,
+    "xref_unknown": 1,
+    "self": 4
+   },
+   "ref_resolution_exact": 0.842,
+   "ref_resolution_any": 0.921
+  },
+  {
+   "regulation": "UN R64",
+   "version": "3.1.0",
+   "nodes": 174,
+   "edges": {
+    "parent": 158,
+    "ref": 103,
+    "xref": 13
+   },
+   "references": {
+    "ref_exact": 94,
+    "ref_ancestor": 0,
+    "ref_none": 0,
+    "xref": 0,
+    "xref_unknown": 13,
+    "self": 3
+   },
+   "ref_resolution_exact": 1.0,
+   "ref_resolution_any": 1.0
+  },
+  {
+   "regulation": "UN R67",
+   "version": "4.2.0",
+   "nodes": 1355,
+   "edges": {
+    "parent": 1309,
+    "ref": 920,
+    "xref": 8
+   },
+   "references": {
+    "ref_exact": 911,
+    "ref_ancestor": 15,
+    "ref_none": 18,
+    "xref": 5,
+    "xref_unknown": 2,
+    "self": 10
+   },
+   "ref_resolution_exact": 0.965,
+   "ref_resolution_any": 0.981
+  },
+  {
+   "regulation": "UN R79",
+   "version": "4.11.0",
+   "nodes": 787,
+   "edges": {
+    "parent": 764,
+    "ref": 482,
+    "xref": 25
+   },
+   "references": {
+    "ref_exact": 372,
+    "ref_ancestor": 8,
+    "ref_none": 0,
+    "xref": 6,
+    "xref_unknown": 17,
+    "self": 24
+   },
+   "ref_resolution_exact": 0.979,
+   "ref_resolution_any": 1.0
+  },
+  {
+   "regulation": "UN R83",
+   "version": "9.0.0",
+   "nodes": 699,
+   "edges": {
+    "parent": 673,
+    "xref": 186,
+    "ref": 345
+   },
+   "references": {
+    "ref_exact": 300,
+    "ref_ancestor": 50,
+    "ref_none": 11,
+    "xref": 48,
+    "xref_unknown": 134,
+    "self": 7
+   },
+   "ref_resolution_exact": 0.831,
+   "ref_resolution_any": 0.97
+  },
+  {
+   "regulation": "UN R89",
+   "version": "0.3.0",
+   "nodes": 412,
+   "edges": {
+    "parent": 380,
+    "ref": 57,
+    "xref": 4
+   },
+   "references": {
+    "ref_exact": 62,
+    "ref_ancestor": 1,
+    "ref_none": 0,
+    "xref": 2,
+    "xref_unknown": 2,
+    "self": 9
+   },
+   "ref_resolution_exact": 0.984,
+   "ref_resolution_any": 1.0
+  },
+  {
+   "regulation": "UN R92",
+   "version": "2.0.0",
+   "nodes": 157,
+   "edges": {
+    "parent": 141,
+    "ref": 39,
+    "xref": 38
+   },
+   "references": {
+    "ref_exact": 38,
+    "ref_ancestor": 1,
+    "ref_none": 2,
+    "xref": 0,
+    "xref_unknown": 37,
+    "self": 7
+   },
+   "ref_resolution_exact": 0.927,
+   "ref_resolution_any": 0.951
+  },
+  {
+   "regulation": "UN R94",
+   "version": "5.1.0",
+   "nodes": 493,
+   "edges": {
+    "parent": 469,
+    "ref": 190,
+    "xref": 7
+   },
+   "references": {
+    "ref_exact": 146,
+    "ref_ancestor": 0,
+    "ref_none": 0,
+    "xref": 2,
+    "xref_unknown": 4,
+    "self": 4
+   },
+   "ref_resolution_exact": 1.0,
+   "ref_resolution_any": 1.0
+  },
+  {
+   "regulation": "UN R100",
+   "version": "5.0.0",
+   "nodes": 709,
+   "edges": {
+    "parent": 674,
+    "ref": 386,
+    "xref": 25
+   },
+   "references": {
+    "ref_exact": 339,
+    "ref_ancestor": 2,
+    "ref_none": 24,
+    "xref": 15,
+    "xref_unknown": 7,
+    "self": 10
+   },
+   "ref_resolution_exact": 0.929,
+   "ref_resolution_any": 0.934
+  },
+  {
+   "regulation": "UN R101",
+   "version": "1.12.0",
+   "nodes": 1155,
+   "edges": {
+    "parent": 1132,
+    "xref": 39,
+    "ref": 345
+   },
+   "references": {
+    "ref_exact": 320,
+    "ref_ancestor": 4,
+    "ref_none": 9,
+    "xref": 31,
+    "xref_unknown": 7,
+    "self": 7
+   },
+   "ref_resolution_exact": 0.961,
+   "ref_resolution_any": 0.973
+  },
+  {
+   "regulation": "UN R102",
+   "version": "0.0.0",
+   "nodes": 225,
+   "edges": {
+    "parent": 203,
+    "ref": 31,
+    "xref": 1
+   },
+   "references": {
+    "ref_exact": 35,
+    "ref_ancestor": 1,
+    "ref_none": 0,
+    "xref": 0,
+    "xref_unknown": 1,
+    "self": 4
+   },
+   "ref_resolution_exact": 0.972,
+   "ref_resolution_any": 1.0
+  },
+  {
+   "regulation": "UN R103",
+   "version": "0.3.0",
+   "nodes": 121,
+   "edges": {
+    "parent": 108,
+    "xref": 36,
+    "ref": 44
+   },
+   "references": {
+    "ref_exact": 39,
+    "ref_ancestor": 3,
+    "ref_none": 12,
+    "xref": 27,
+    "xref_unknown": 5,
+    "self": 5
+   },
+   "ref_resolution_exact": 0.722,
+   "ref_resolution_any": 0.778
+  },
+  {
+   "regulation": "UN R104",
+   "version": "0.9.0",
+   "nodes": 172,
+   "edges": {
+    "parent": 152,
+    "ref": 40,
+    "xref": 6
+   },
+   "references": {
+    "ref_exact": 47,
+    "ref_ancestor": 1,
+    "ref_none": 0,
+    "xref": 5,
+    "xref_unknown": 1,
+    "self": 2
+   },
+   "ref_resolution_exact": 0.979,
+   "ref_resolution_any": 1.0
+  },
+  {
+   "regulation": "UN R107",
+   "version": "11.1.0",
+   "nodes": 1320,
+   "edges": {
+    "parent": 1295,
+    "ref": 557,
+    "xref": 10
+   },
+   "references": {
+    "ref_exact": 480,
+    "ref_ancestor": 10,
+    "ref_none": 0,
+    "xref": 2,
+    "xref_unknown": 8,
+    "self": 18
+   },
+   "ref_resolution_exact": 0.98,
+   "ref_resolution_any": 1.0
+  },
+  {
+   "regulation": "UN R114",
+   "version": "0.0.0",
+   "nodes": 282,
+   "edges": {
+    "parent": 262,
+    "ref": 104,
+    "xref": 24
+   },
+   "references": {
+    "ref_exact": 68,
+    "ref_ancestor": 24,
+    "ref_none": 0,
+    "xref": 7,
+    "xref_unknown": 9,
+    "self": 3
+   },
+   "ref_resolution_exact": 0.739,
+   "ref_resolution_any": 1.0
+  },
+  {
+   "regulation": "UN R116",
+   "version": "1.3.0",
+   "nodes": 483,
+   "edges": {
+    "parent": 458,
+    "xref": 31,
+    "ref": 231
+   },
+   "references": {
+    "ref_exact": 222,
+    "ref_ancestor": 10,
+    "ref_none": 2,
+    "xref": 13,
+    "xref_unknown": 18,
+    "self": 4
+   },
+   "ref_resolution_exact": 0.949,
+   "ref_resolution_any": 0.991
+  },
+  {
+   "regulation": "UN R123",
+   "version": "2.1.0",
+   "nodes": 325,
+   "edges": {
+    "parent": 306,
+    "ref": 176,
+    "xref": 34
+   },
+   "references": {
+    "ref_exact": 171,
+    "ref_ancestor": 1,
+    "ref_none": 90,
+    "xref": 28,
+    "xref_unknown": 6,
+    "self": 1
+   },
+   "ref_resolution_exact": 0.653,
+   "ref_resolution_any": 0.656
+  },
+  {
+   "regulation": "UN R127",
+   "version": "4.3.0",
+   "nodes": 333,
+   "edges": {
+    "parent": 316,
+    "ref": 132
+   },
+   "references": {
+    "ref_exact": 135,
+    "ref_ancestor": 4,
+    "ref_none": 3,
+    "xref": 0,
+    "xref_unknown": 0,
+    "self": 5
+   },
+   "ref_resolution_exact": 0.951,
+   "ref_resolution_any": 0.979
+  },
+  {
+   "regulation": "UN R128",
+   "version": "0.11.0",
+   "nodes": 218,
+   "edges": {
+    "parent": 201,
+    "ref": 96,
+    "xref": 2
+   },
+   "references": {
+    "ref_exact": 104,
+    "ref_ancestor": 1,
+    "ref_none": 0,
+    "xref": 2,
+    "xref_unknown": 0,
+    "self": 0
+   },
+   "ref_resolution_exact": 0.99,
+   "ref_resolution_any": 1.0
+  },
+  {
+   "regulation": "UN R131",
+   "version": "2.3.0",
+   "nodes": 285,
+   "edges": {
+    "parent": 268,
+    "xref": 9,
+    "ref": 164
+   },
+   "references": {
+    "ref_exact": 135,
+    "ref_ancestor": 1,
+    "ref_none": 3,
+    "xref": 3,
+    "xref_unknown": 5,
+    "self": 8
+   },
+   "ref_resolution_exact": 0.971,
+   "ref_resolution_any": 0.978
+  },
+  {
+   "regulation": "UN R132",
+   "version": "1.0.0",
+   "nodes": 585,
+   "edges": {
+    "parent": 547,
+    "ref": 296,
+    "xref": 73
+   },
+   "references": {
+    "ref_exact": 223,
+    "ref_ancestor": 1,
+    "ref_none": 2,
+    "xref": 42,
+    "xref_unknown": 31,
+    "self": 5
+   },
+   "ref_resolution_exact": 0.987,
+   "ref_resolution_any": 0.991
+  },
+  {
+   "regulation": "UN R137",
+   "version": "4.0.0",
+   "nodes": 443,
+   "edges": {
+    "parent": 420,
+    "ref": 200,
+    "xref": 8
+   },
+   "references": {
+    "ref_exact": 143,
+    "ref_ancestor": 0,
+    "ref_none": 0,
+    "xref": 1,
+    "xref_unknown": 6,
+    "self": 7
+   },
+   "ref_resolution_exact": 1.0,
+   "ref_resolution_any": 1.0
+  },
+  {
+   "regulation": "UN R148",
+   "version": "1.6.0",
+   "nodes": 411,
+   "edges": {
+    "parent": 396,
+    "xref": 48,
+    "supersedes": 9,
+    "ref": 136
+   },
+   "references": {
+    "ref_exact": 136,
+    "ref_ancestor": 5,
+    "ref_none": 2,
+    "xref": 25,
+    "xref_unknown": 16,
+    "self": 2
+   },
+   "ref_resolution_exact": 0.951,
+   "ref_resolution_any": 0.986
+  },
+  {
+   "regulation": "UN R149",
+   "version": "1.6.0",
+   "nodes": 538,
+   "edges": {
+    "parent": 521,
+    "xref": 54,
+    "supersedes": 6,
+    "ref": 591
+   },
+   "references": {
+    "ref_exact": 221,
+    "ref_ancestor": 4,
+    "ref_none": 118,
+    "xref": 38,
+    "xref_unknown": 15,
+    "self": 2
+   },
+   "ref_resolution_exact": 0.644,
+   "ref_resolution_any": 0.656
+  },
+  {
+   "regulation": "UN R150",
+   "version": "1.2.1",
+   "nodes": 540,
+   "edges": {
+    "parent": 522,
+    "xref": 22,
+    "supersedes": 5,
+    "ref": 263
+   },
+   "references": {
+    "ref_exact": 245,
+    "ref_ancestor": 15,
+    "ref_none": 5,
+    "xref": 12,
+    "xref_unknown": 10,
+    "self": 2
+   },
+   "ref_resolution_exact": 0.925,
+   "ref_resolution_any": 0.981
+  },
+  {
+   "regulation": "UN R152",
+   "version": "2.5.0",
+   "nodes": 315,
+   "edges": {
+    "parent": 298,
+    "xref": 10,
+    "ref": 171
+   },
+   "references": {
+    "ref_exact": 134,
+    "ref_ancestor": 1,
+    "ref_none": 2,
+    "xref": 1,
+    "xref_unknown": 7,
+    "self": 2
+   },
+   "ref_resolution_exact": 0.978,
+   "ref_resolution_any": 0.985
+  },
+  {
+   "regulation": "UN R155",
+   "version": "0.2.0",
+   "nodes": 173,
+   "edges": {
+    "parent": 156,
+    "ref": 47
+   },
+   "references": {
+    "ref_exact": 52,
+    "ref_ancestor": 0,
+    "ref_none": 0,
+    "xref": 0,
+    "xref_unknown": 0,
+    "self": 0
+   },
+   "ref_resolution_exact": 1.0,
+   "ref_resolution_any": 1.0
+  },
+  {
+   "regulation": "UN R156",
+   "version": "0.1.0",
+   "nodes": 147,
+   "edges": {
+    "parent": 131,
+    "ref": 20
+   },
+   "references": {
+    "ref_exact": 24,
+    "ref_ancestor": 0,
+    "ref_none": 0,
+    "xref": 0,
+    "xref_unknown": 0,
+    "self": 4
+   },
+   "ref_resolution_exact": 1.0,
+   "ref_resolution_any": 1.0
+  },
+  {
+   "regulation": "UN R157",
+   "version": "1.4.0",
+   "nodes": 571,
+   "edges": {
+    "parent": 549,
+    "ref": 713,
+    "xref": 13
+   },
+   "references": {
+    "ref_exact": 218,
+    "ref_ancestor": 1,
+    "ref_none": 2,
+    "xref": 9,
+    "xref_unknown": 4,
+    "self": 12
+   },
+   "ref_resolution_exact": 0.986,
+   "ref_resolution_any": 0.991
+  },
+  {
+   "regulation": "UN R161",
+   "version": "0.5.0",
+   "nodes": 224,
+   "edges": {
+    "parent": 205,
+    "ref": 93,
+    "xref": 13
+   },
+   "references": {
+    "ref_exact": 81,
+    "ref_ancestor": 5,
+    "ref_none": 3,
+    "xref": 7,
+    "xref_unknown": 6,
+    "self": 0
+   },
+   "ref_resolution_exact": 0.91,
+   "ref_resolution_any": 0.966
+  },
+  {
+   "regulation": "UN R162",
+   "version": "0.6.0",
+   "nodes": 181,
+   "edges": {
+    "parent": 164,
+    "ref": 52,
+    "xref": 15
+   },
+   "references": {
+    "ref_exact": 51,
+    "ref_ancestor": 3,
+    "ref_none": 8,
+    "xref": 10,
+    "xref_unknown": 5,
+    "self": 2
+   },
+   "ref_resolution_exact": 0.823,
+   "ref_resolution_any": 0.871
+  },
+  {
+   "regulation": "UN R163",
+   "version": "0.3.0",
+   "nodes": 258,
+   "edges": {
+    "parent": 233,
+    "ref": 98,
+    "xref": 27
+   },
+   "references": {
+    "ref_exact": 105,
+    "ref_ancestor": 1,
+    "ref_none": 14,
+    "xref": 11,
+    "xref_unknown": 16,
+    "self": 0
+   },
+   "ref_resolution_exact": 0.875,
+   "ref_resolution_any": 0.883
+  },
+  {
+   "regulation": "UN R164",
+   "version": "0.0.0",
+   "nodes": 107,
+   "edges": {
+    "parent": 94,
+    "xref": 26,
+    "ref": 35
+   },
+   "references": {
+    "ref_exact": 38,
+    "ref_ancestor": 0,
+    "ref_none": 0,
+    "xref": 0,
+    "xref_unknown": 23,
+    "self": 0
+   },
+   "ref_resolution_exact": 1.0,
+   "ref_resolution_any": 1.0
+  },
+  {
+   "regulation": "UN R171",
+   "version": "1.1.0",
+   "nodes": 799,
+   "edges": {
+    "parent": 775,
+    "xref": 20,
+    "ref": 305
+   },
+   "references": {
+    "ref_exact": 295,
+    "ref_ancestor": 0,
+    "ref_none": 3,
+    "xref": 13,
+    "xref_unknown": 7,
+    "self": 10
+   },
+   "ref_resolution_exact": 0.99,
+   "ref_resolution_any": 0.99
+  },
+  {
+   "regulation": "UN R174",
+   "version": "1.0.1",
+   "nodes": 166,
+   "edges": {
+    "parent": 151,
+    "xref": 8,
+    "ref": 85
+   },
+   "references": {
+    "ref_exact": 61,
+    "ref_ancestor": 6,
+    "ref_none": 0,
+    "xref": 0,
+    "xref_unknown": 8,
+    "self": 2
+   },
+   "ref_resolution_exact": 0.91,
+   "ref_resolution_any": 1.0
+  },
+  {
+   "regulation": "UN R175",
+   "version": "0.1.0",
+   "nodes": 199,
+   "edges": {
+    "parent": 184,
+    "xref": 4,
+    "ref": 50
+   },
+   "references": {
+    "ref_exact": 52,
+    "ref_ancestor": 0,
+    "ref_none": 2,
+    "xref": 2,
+    "xref_unknown": 2,
+    "self": 0
+   },
+   "ref_resolution_exact": 0.963,
+   "ref_resolution_any": 0.963
+  },
+  {
+   "regulation": "UN GTR 9",
+   "version": "0.3.0",
+   "nodes": 598,
+   "edges": {
+    "parent": 291,
+    "ref": 243,
+    "xref": 80
+   },
+   "references": {
+    "ref_exact": 144,
+    "ref_ancestor": 3,
+    "ref_none": 5,
+    "xref": 58,
+    "xref_unknown": 22,
+    "self": 0
+   },
+   "ref_resolution_exact": 0.947,
+   "ref_resolution_any": 0.967
+  }
+ ],
+ "xref": [
+  {
+   "source": "UN GTR 9",
+   "target": "UN GTR 7",
+   "count": 1
+  },
+  {
+   "source": "UN GTR 9",
+   "target": "UN GTR 9",
+   "count": 52
+  },
+  {
+   "source": "UN GTR 9",
+   "target": "UN R127",
+   "count": 5
+  },
+  {
+   "source": "UN GTR 9",
+   "target": "UN R42",
+   "count": 1
+  },
+  {
+   "source": "UN GTR 9",
+   "target": "UN R9",
+   "count": 21
+  },
+  {
+   "source": "UN R10",
+   "target": "UN R128",
+   "count": 2
+  },
+  {
+   "source": "UN R10",
+   "target": "UN R138",
+   "count": 1
+  },
+  {
+   "source": "UN R10",
+   "target": "UN R144",
+   "count": 2
+  },
+  {
+   "source": "UN R10",
+   "target": "UN R33",
+   "count": 2
+  },
+  {
+   "source": "UN R10",
+   "target": "UN R37",
+   "count": 2
+  },
+  {
+   "source": "UN R10",
+   "target": "UN R46",
+   "count": 1
+  },
+  {
+   "source": "UN R10",
+   "target": "UN R99",
+   "count": 2
+  },
+  {
+   "source": "UN R100",
+   "target": "UN R134",
+   "count": 1
+  },
+  {
+   "source": "UN R100",
+   "target": "UN R137",
+   "count": 6
+  },
+  {
+   "source": "UN R100",
+   "target": "UN R42",
+   "count": 2
+  },
+  {
+   "source": "UN R100",
+   "target": "UN R83",
+   "count": 1
+  },
+  {
+   "source": "UN R100",
+   "target": "UN R94",
+   "count": 6
+  },
+  {
+   "source": "UN R100",
+   "target": "UN R95",
+   "count": 9
+  },
+  {
+   "source": "UN R101",
+   "target": "UN GTR 15",
+   "count": 6
+  },
+  {
+   "source": "UN R101",
+   "target": "UN R48",
+   "count": 1
+  },
+  {
+   "source": "UN R101",
+   "target": "UN R49",
+   "count": 1
+  },
+  {
+   "source": "UN R101",
+   "target": "UN R67",
+   "count": 2
+  },
+  {
+   "source": "UN R101",
+   "target": "UN R68",
+   "count": 1
+  },
+  {
+   "source": "UN R101",
+   "target": "UN R83",
+   "count": 28
+  },
+  {
+   "source": "UN R102",
+   "target": "UN R55",
+   "count": 1
+  },
+  {
+   "source": "UN R103",
+   "target": "UN R59",
+   "count": 4
+  },
+  {
+   "source": "UN R103",
+   "target": "UN R83",
+   "count": 31
+  },
+  {
+   "source": "UN R103",
+   "target": "UN R85",
+   "count": 1
+  },
+  {
+   "source": "UN R104",
+   "target": "UN R48",
+   "count": 5
+  },
+  {
+   "source": "UN R104",
+   "target": "UN R86",
+   "count": 1
+  },
+  {
+   "source": "UN R107",
+   "target": "UN R14",
+   "count": 4
+  },
+  {
+   "source": "UN R107",
+   "target": "UN R16",
+   "count": 3
+  },
+  {
+   "source": "UN R107",
+   "target": "UN R33",
+   "count": 1
+  },
+  {
+   "source": "UN R107",
+   "target": "UN R43",
+   "count": 2
+  },
+  {
+   "source": "UN R114",
+   "target": "UN R01",
+   "count": 6
+  },
+  {
+   "source": "UN R114",
+   "target": "UN R18",
+   "count": 1
+  },
+  {
+   "source": "UN R114",
+   "target": "UN R94",
+   "count": 15
+  },
+  {
+   "source": "UN R114",
+   "target": "UN R95",
+   "count": 2
+  },
+  {
+   "source": "UN R116",
+   "target": "UN R04",
+   "count": 3
+  },
+  {
+   "source": "UN R116",
+   "target": "UN R10",
+   "count": 3
+  },
+  {
+   "source": "UN R116",
+   "target": "UN R11",
+   "count": 2
+  },
+  {
+   "source": "UN R116",
+   "target": "UN R13",
+   "count": 3
+  },
+  {
+   "source": "UN R116",
+   "target": "UN R155",
+   "count": 2
+  },
+  {
+   "source": "UN R116",
+   "target": "UN R161",
+   "count": 1
+  },
+  {
+   "source": "UN R116",
+   "target": "UN R162",
+   "count": 1
+  },
+  {
+   "source": "UN R116",
+   "target": "UN R163",
+   "count": 2
+  },
+  {
+   "source": "UN R116",
+   "target": "UN R28",
+   "count": 10
+  },
+  {
+   "source": "UN R116",
+   "target": "UN R48",
+   "count": 3
+  },
+  {
+   "source": "UN R116",
+   "target": "UN R79",
+   "count": 1
+  },
+  {
+   "source": "UN R123",
+   "target": "UN R10",
+   "count": 1
+  },
+  {
+   "source": "UN R123",
+   "target": "UN R19",
+   "count": 1
+  },
+  {
+   "source": "UN R123",
+   "target": "UN R37",
+   "count": 6
+  },
+  {
+   "source": "UN R123",
+   "target": "UN R48",
+   "count": 15
+  },
+  {
+   "source": "UN R123",
+   "target": "UN R6",
+   "count": 3
+  },
+  {
+   "source": "UN R123",
+   "target": "UN R7",
+   "count": 2
+  },
+  {
+   "source": "UN R123",
+   "target": "UN R87",
+   "count": 1
+  },
+  {
+   "source": "UN R123",
+   "target": "UN R99",
+   "count": 5
+  },
+  {
+   "source": "UN R128",
+   "target": "UN R10",
+   "count": 1
+  },
+  {
+   "source": "UN R128",
+   "target": "UN R48",
+   "count": 1
+  },
+  {
+   "source": "UN R131",
+   "target": "UN R10",
+   "count": 1
+  },
+  {
+   "source": "UN R131",
+   "target": "UN R121",
+   "count": 1
+  },
+  {
+   "source": "UN R131",
+   "target": "UN R13",
+   "count": 5
+  },
+  {
+   "source": "UN R131",
+   "target": "UN R152",
+   "count": 2
+  },
+  {
+   "source": "UN R132",
+   "target": "UN R49",
+   "count": 41
+  },
+  {
+   "source": "UN R132",
+   "target": "UN R83",
+   "count": 1
+  },
+  {
+   "source": "UN R132",
+   "target": "UN R96",
+   "count": 31
+  },
+  {
+   "source": "UN R137",
+   "target": "UN R11",
+   "count": 2
+  },
+  {
+   "source": "UN R137",
+   "target": "UN R12",
+   "count": 1
+  },
+  {
+   "source": "UN R137",
+   "target": "UN R14",
+   "count": 1
+  },
+  {
+   "source": "UN R137",
+   "target": "UN R16",
+   "count": 3
+  },
+  {
+   "source": "UN R137",
+   "target": "UN R94",
+   "count": 1
+  },
+  {
+   "source": "UN R13H",
+   "target": "UN R10",
+   "count": 2
+  },
+  {
+   "source": "UN R13H",
+   "target": "UN R121",
+   "count": 1
+  },
+  {
+   "source": "UN R13H",
+   "target": "UN R13",
+   "count": 10
+  },
+  {
+   "source": "UN R13H",
+   "target": "UN R157",
+   "count": 1
+  },
+  {
+   "source": "UN R13H",
+   "target": "UN R24",
+   "count": 1
+  },
+  {
+   "source": "UN R13H",
+   "target": "UN R64",
+   "count": 4
+  },
+  {
+   "source": "UN R13H",
+   "target": "UN R79",
+   "count": 2
+  },
+  {
+   "source": "UN R148",
+   "target": "UN R128",
+   "count": 1
+  },
+  {
+   "source": "UN R148",
+   "target": "UN R23",
+   "count": 2
+  },
+  {
+   "source": "UN R148",
+   "target": "UN R37",
+   "count": 1
+  },
+  {
+   "source": "UN R148",
+   "target": "UN R38",
+   "count": 2
+  },
+  {
+   "source": "UN R148",
+   "target": "UN R4",
+   "count": 2
+  },
+  {
+   "source": "UN R148",
+   "target": "UN R48",
+   "count": 18
+  },
+  {
+   "source": "UN R148",
+   "target": "UN R50",
+   "count": 2
+  },
+  {
+   "source": "UN R148",
+   "target": "UN R53",
+   "count": 4
+  },
+  {
+   "source": "UN R148",
+   "target": "UN R6",
+   "count": 2
+  },
+  {
+   "source": "UN R148",
+   "target": "UN R7",
+   "count": 2
+  },
+  {
+   "source": "UN R148",
+   "target": "UN R74",
+   "count": 2
+  },
+  {
+   "source": "UN R148",
+   "target": "UN R77",
+   "count": 2
+  },
+  {
+   "source": "UN R148",
+   "target": "UN R86",
+   "count": 3
+  },
+  {
+   "source": "UN R148",
+   "target": "UN R87",
+   "count": 2
+  },
+  {
+   "source": "UN R148",
+   "target": "UN R91",
+   "count": 2
+  },
+  {
+   "source": "UN R148",
+   "target": "UN R99",
+   "count": 1
+  },
+  {
+   "source": "UN R149",
+   "target": "UN R10",
+   "count": 1
+  },
+  {
+   "source": "UN R149",
+   "target": "UN R112",
+   "count": 2
+  },
+  {
+   "source": "UN R149",
+   "target": "UN R113",
+   "count": 2
+  },
+  {
+   "source": "UN R149",
+   "target": "UN R119",
+   "count": 2
+  },
+  {
+   "source": "UN R149",
+   "target": "UN R123",
+   "count": 2
+  },
+  {
+   "source": "UN R149",
+   "target": "UN R128",
+   "count": 1
+  },
+  {
+   "source": "UN R149",
+   "target": "UN R148",
+   "count": 5
+  },
+  {
+   "source": "UN R149",
+   "target": "UN R19",
+   "count": 2
+  },
+  {
+   "source": "UN R149",
+   "target": "UN R37",
+   "count": 2
+  },
+  {
+   "source": "UN R149",
+   "target": "UN R48",
+   "count": 17
+  },
+  {
+   "source": "UN R149",
+   "target": "UN R53",
+   "count": 9
+  },
+  {
+   "source": "UN R149",
+   "target": "UN R74",
+   "count": 3
+  },
+  {
+   "source": "UN R149",
+   "target": "UN R86",
+   "count": 3
+  },
+  {
+   "source": "UN R149",
+   "target": "UN R98",
+   "count": 2
+  },
+  {
+   "source": "UN R149",
+   "target": "UN R99",
+   "count": 1
+  },
+  {
+   "source": "UN R150",
+   "target": "UN R104",
+   "count": 2
+  },
+  {
+   "source": "UN R150",
+   "target": "UN R27",
+   "count": 2
+  },
+  {
+   "source": "UN R150",
+   "target": "UN R3",
+   "count": 2
+  },
+  {
+   "source": "UN R150",
+   "target": "UN R48",
+   "count": 6
+  },
+  {
+   "source": "UN R150",
+   "target": "UN R53",
+   "count": 2
+  },
+  {
+   "source": "UN R150",
+   "target": "UN R69",
+   "count": 2
+  },
+  {
+   "source": "UN R150",
+   "target": "UN R70",
+   "count": 2
+  },
+  {
+   "source": "UN R150",
+   "target": "UN R74",
+   "count": 2
+  },
+  {
+   "source": "UN R150",
+   "target": "UN R86",
+   "count": 2
+  },
+  {
+   "source": "UN R152",
+   "target": "UN R10",
+   "count": 1
+  },
+  {
+   "source": "UN R152",
+   "target": "UN R121",
+   "count": 1
+  },
+  {
+   "source": "UN R152",
+   "target": "UN R13",
+   "count": 8
+  },
+  {
+   "source": "UN R157",
+   "target": "UN R10",
+   "count": 1
+  },
+  {
+   "source": "UN R157",
+   "target": "UN R100",
+   "count": 1
+  },
+  {
+   "source": "UN R157",
+   "target": "UN R121",
+   "count": 1
+  },
+  {
+   "source": "UN R157",
+   "target": "UN R13",
+   "count": 1
+  },
+  {
+   "source": "UN R157",
+   "target": "UN R137",
+   "count": 1
+  },
+  {
+   "source": "UN R157",
+   "target": "UN R155",
+   "count": 3
+  },
+  {
+   "source": "UN R157",
+   "target": "UN R156",
+   "count": 2
+  },
+  {
+   "source": "UN R157",
+   "target": "UN R31",
+   "count": 1
+  },
+  {
+   "source": "UN R157",
+   "target": "UN R94",
+   "count": 1
+  },
+  {
+   "source": "UN R157",
+   "target": "UN R95",
+   "count": 1
+  },
+  {
+   "source": "UN R161",
+   "target": "UN R06",
+   "count": 3
+  },
+  {
+   "source": "UN R161",
+   "target": "UN R10",
+   "count": 4
+  },
+  {
+   "source": "UN R161",
+   "target": "UN R13",
+   "count": 2
+  },
+  {
+   "source": "UN R161",
+   "target": "UN R155",
+   "count": 2
+  },
+  {
+   "source": "UN R161",
+   "target": "UN R50",
+   "count": 1
+  },
+  {
+   "source": "UN R161",
+   "target": "UN R79",
+   "count": 1
+  },
+  {
+   "source": "UN R162",
+   "target": "UN R06",
+   "count": 2
+  },
+  {
+   "source": "UN R162",
+   "target": "UN R10",
+   "count": 4
+  },
+  {
+   "source": "UN R162",
+   "target": "UN R116",
+   "count": 2
+  },
+  {
+   "source": "UN R162",
+   "target": "UN R13",
+   "count": 1
+  },
+  {
+   "source": "UN R162",
+   "target": "UN R155",
+   "count": 2
+  },
+  {
+   "source": "UN R162",
+   "target": "UN R48",
+   "count": 1
+  },
+  {
+   "source": "UN R162",
+   "target": "UN R79",
+   "count": 1
+  },
+  {
+   "source": "UN R162",
+   "target": "UN R97",
+   "count": 2
+  },
+  {
+   "source": "UN R163",
+   "target": "UN R06",
+   "count": 2
+  },
+  {
+   "source": "UN R163",
+   "target": "UN R10",
+   "count": 4
+  },
+  {
+   "source": "UN R163",
+   "target": "UN R116",
+   "count": 3
+  },
+  {
+   "source": "UN R163",
+   "target": "UN R155",
+   "count": 2
+  },
+  {
+   "source": "UN R163",
+   "target": "UN R28",
+   "count": 10
+  },
+  {
+   "source": "UN R163",
+   "target": "UN R48",
+   "count": 2
+  },
+  {
+   "source": "UN R163",
+   "target": "UN R50",
+   "count": 1
+  },
+  {
+   "source": "UN R163",
+   "target": "UN R97",
+   "count": 3
+  },
+  {
+   "source": "UN R164",
+   "target": "UN R117",
+   "count": 7
+  },
+  {
+   "source": "UN R164",
+   "target": "UN R30",
+   "count": 12
+  },
+  {
+   "source": "UN R164",
+   "target": "UN R54",
+   "count": 7
+  },
+  {
+   "source": "UN R171",
+   "target": "UN R121",
+   "count": 1
+  },
+  {
+   "source": "UN R171",
+   "target": "UN R130",
+   "count": 4
+  },
+  {
+   "source": "UN R171",
+   "target": "UN R131",
+   "count": 2
+  },
+  {
+   "source": "UN R171",
+   "target": "UN R152",
+   "count": 1
+  },
+  {
+   "source": "UN R171",
+   "target": "UN R156",
+   "count": 2
+  },
+  {
+   "source": "UN R171",
+   "target": "UN R31",
+   "count": 2
+  },
+  {
+   "source": "UN R171",
+   "target": "UN R79",
+   "count": 8
+  },
+  {
+   "source": "UN R174",
+   "target": "UN R08",
+   "count": 1
+  },
+  {
+   "source": "UN R174",
+   "target": "UN R121",
+   "count": 2
+  },
+  {
+   "source": "UN R174",
+   "target": "UN R16",
+   "count": 5
+  },
+  {
+   "source": "UN R175",
+   "target": "UN R10",
+   "count": 1
+  },
+  {
+   "source": "UN R175",
+   "target": "UN R13",
+   "count": 2
+  },
+  {
+   "source": "UN R175",
+   "target": "UN R152",
+   "count": 1
+  },
+  {
+   "source": "UN R19",
+   "target": "UN R112",
+   "count": 4
+  },
+  {
+   "source": "UN R19",
+   "target": "UN R23",
+   "count": 2
+  },
+  {
+   "source": "UN R19",
+   "target": "UN R37",
+   "count": 15
+  },
+  {
+   "source": "UN R19",
+   "target": "UN R48",
+   "count": 5
+  },
+  {
+   "source": "UN R19",
+   "target": "UN R53",
+   "count": 1
+  },
+  {
+   "source": "UN R19",
+   "target": "UN R6",
+   "count": 2
+  },
+  {
+   "source": "UN R19",
+   "target": "UN R7",
+   "count": 2
+  },
+  {
+   "source": "UN R19",
+   "target": "UN R86",
+   "count": 1
+  },
+  {
+   "source": "UN R19",
+   "target": "UN R98",
+   "count": 2
+  },
+  {
+   "source": "UN R19",
+   "target": "UN R99",
+   "count": 10
+  },
+  {
+   "source": "UN R23",
+   "target": "UN R128",
+   "count": 2
+  },
+  {
+   "source": "UN R23",
+   "target": "UN R3",
+   "count": 1
+  },
+  {
+   "source": "UN R23",
+   "target": "UN R37",
+   "count": 5
+  },
+  {
+   "source": "UN R23",
+   "target": "UN R38",
+   "count": 2
+  },
+  {
+   "source": "UN R23",
+   "target": "UN R48",
+   "count": 3
+  },
+  {
+   "source": "UN R23",
+   "target": "UN R6",
+   "count": 2
+  },
+  {
+   "source": "UN R23",
+   "target": "UN R7",
+   "count": 4
+  },
+  {
+   "source": "UN R23",
+   "target": "UN R86",
+   "count": 1
+  },
+  {
+   "source": "UN R26",
+   "target": "UN R24",
+   "count": 2
+  },
+  {
+   "source": "UN R3",
+   "target": "UN R23",
+   "count": 1
+  },
+  {
+   "source": "UN R3",
+   "target": "UN R38",
+   "count": 1
+  },
+  {
+   "source": "UN R3",
+   "target": "UN R48",
+   "count": 4
+  },
+  {
+   "source": "UN R3",
+   "target": "UN R53",
+   "count": 1
+  },
+  {
+   "source": "UN R3",
+   "target": "UN R6",
+   "count": 1
+  },
+  {
+   "source": "UN R3",
+   "target": "UN R7",
+   "count": 2
+  },
+  {
+   "source": "UN R3",
+   "target": "UN R74",
+   "count": 1
+  },
+  {
+   "source": "UN R3",
+   "target": "UN R86",
+   "count": 1
+  },
+  {
+   "source": "UN R32",
+   "target": "UN R24",
+   "count": 2
+  },
+  {
+   "source": "UN R37",
+   "target": "UN R10",
+   "count": 1
+  },
+  {
+   "source": "UN R37",
+   "target": "UN R48",
+   "count": 2
+  },
+  {
+   "source": "UN R38",
+   "target": "UN R128",
+   "count": 5
+  },
+  {
+   "source": "UN R38",
+   "target": "UN R23",
+   "count": 2
+  },
+  {
+   "source": "UN R38",
+   "target": "UN R37",
+   "count": 5
+  },
+  {
+   "source": "UN R38",
+   "target": "UN R48",
+   "count": 3
+  },
+  {
+   "source": "UN R38",
+   "target": "UN R53",
+   "count": 1
+  },
+  {
+   "source": "UN R38",
+   "target": "UN R6",
+   "count": 2
+  },
+  {
+   "source": "UN R38",
+   "target": "UN R7",
+   "count": 4
+  },
+  {
+   "source": "UN R38",
+   "target": "UN R86",
+   "count": 1
+  },
+  {
+   "source": "UN R39",
+   "target": "UN R125",
+   "count": 1
+  },
+  {
+   "source": "UN R39",
+   "target": "UN R154",
+   "count": 2
+  },
+  {
+   "source": "UN R39",
+   "target": "UN R155",
+   "count": 2
+  },
+  {
+   "source": "UN R39",
+   "target": "UN R176",
+   "count": 1
+  },
+  {
+   "source": "UN R39",
+   "target": "UN R33",
+   "count": 2
+  },
+  {
+   "source": "UN R39",
+   "target": "UN R49",
+   "count": 1
+  },
+  {
+   "source": "UN R40",
+   "target": "UN R33",
+   "count": 2
+  },
+  {
+   "source": "UN R42",
+   "target": "UN R33",
+   "count": 2
+  },
+  {
+   "source": "UN R42",
+   "target": "UN R40",
+   "count": 1
+  },
+  {
+   "source": "UN R43",
+   "target": "UN R107",
+   "count": 1
+  },
+  {
+   "source": "UN R43",
+   "target": "UN R52",
+   "count": 2
+  },
+  {
+   "source": "UN R48",
+   "target": "UN R104",
+   "count": 4
+  },
+  {
+   "source": "UN R48",
+   "target": "UN R107",
+   "count": 1
+  },
+  {
+   "source": "UN R48",
+   "target": "UN R112",
+   "count": 3
+  },
+  {
+   "source": "UN R48",
+   "target": "UN R116",
+   "count": 2
+  },
+  {
+   "source": "UN R48",
+   "target": "UN R119",
+   "count": 1
+  },
+  {
+   "source": "UN R48",
+   "target": "UN R121",
+   "count": 1
+  },
+  {
+   "source": "UN R48",
+   "target": "UN R125",
+   "count": 1
+  },
+  {
+   "source": "UN R48",
+   "target": "UN R128",
+   "count": 3
+  },
+  {
+   "source": "UN R48",
+   "target": "UN R13",
+   "count": 7
+  },
+  {
+   "source": "UN R48",
+   "target": "UN R148",
+   "count": 24
+  },
+  {
+   "source": "UN R48",
+   "target": "UN R149",
+   "count": 20
+  },
+  {
+   "source": "UN R48",
+   "target": "UN R150",
+   "count": 10
+  },
+  {
+   "source": "UN R48",
+   "target": "UN R158",
+   "count": 1
+  },
+  {
+   "source": "UN R48",
+   "target": "UN R162",
+   "count": 2
+  },
+  {
+   "source": "UN R48",
+   "target": "UN R163",
+   "count": 2
+  },
+  {
+   "source": "UN R48",
+   "target": "UN R19",
+   "count": 3
+  },
+  {
+   "source": "UN R48",
+   "target": "UN R23",
+   "count": 3
+  },
+  {
+   "source": "UN R48",
+   "target": "UN R3",
+   "count": 6
+  },
+  {
+   "source": "UN R48",
+   "target": "UN R33",
+   "count": 2
+  },
+  {
+   "source": "UN R48",
+   "target": "UN R37",
+   "count": 4
+  },
+  {
+   "source": "UN R48",
+   "target": "UN R38",
+   "count": 1
+  },
+  {
+   "source": "UN R48",
+   "target": "UN R4",
+   "count": 1
+  },
+  {
+   "source": "UN R48",
+   "target": "UN R45",
+   "count": 2
+  },
+  {
+   "source": "UN R48",
+   "target": "UN R6",
+   "count": 3
+  },
+  {
+   "source": "UN R48",
+   "target": "UN R7",
+   "count": 5
+  },
+  {
+   "source": "UN R48",
+   "target": "UN R70",
+   "count": 1
+  },
+  {
+   "source": "UN R48",
+   "target": "UN R77",
+   "count": 1
+  },
+  {
+   "source": "UN R48",
+   "target": "UN R87",
+   "count": 1
+  },
+  {
+   "source": "UN R48",
+   "target": "UN R88",
+   "count": 1
+  },
+  {
+   "source": "UN R48",
+   "target": "UN R91",
+   "count": 1
+  },
+  {
+   "source": "UN R48",
+   "target": "UN R97",
+   "count": 2
+  },
+  {
+   "source": "UN R48",
+   "target": "UN R98",
+   "count": 1
+  },
+  {
+   "source": "UN R48",
+   "target": "UN R99",
+   "count": 2
+  },
+  {
+   "source": "UN R49",
+   "target": "UN R07",
+   "count": 4
+  },
+  {
+   "source": "UN R53",
+   "target": "UN R148",
+   "count": 11
+  },
+  {
+   "source": "UN R53",
+   "target": "UN R149",
+   "count": 19
+  },
+  {
+   "source": "UN R53",
+   "target": "UN R150",
+   "count": 2
+  },
+  {
+   "source": "UN R53",
+   "target": "UN R19",
+   "count": 1
+  },
+  {
+   "source": "UN R53",
+   "target": "UN R3",
+   "count": 2
+  },
+  {
+   "source": "UN R53",
+   "target": "UN R38",
+   "count": 1
+  },
+  {
+   "source": "UN R53",
+   "target": "UN R48",
+   "count": 15
+  },
+  {
+   "source": "UN R53",
+   "target": "UN R49",
+   "count": 1
+  },
+  {
+   "source": "UN R53",
+   "target": "UN R50",
+   "count": 13
+  },
+  {
+   "source": "UN R53",
+   "target": "UN R6",
+   "count": 5
+  },
+  {
+   "source": "UN R53",
+   "target": "UN R7",
+   "count": 11
+  },
+  {
+   "source": "UN R53",
+   "target": "UN R78",
+   "count": 5
+  },
+  {
+   "source": "UN R53",
+   "target": "UN R87",
+   "count": 1
+  },
+  {
+   "source": "UN R53",
+   "target": "UN R97",
+   "count": 1
+  },
+  {
+   "source": "UN R53",
+   "target": "UN R99",
+   "count": 1
+  },
+  {
+   "source": "UN R6",
+   "target": "UN R1",
+   "count": 1
+  },
+  {
+   "source": "UN R6",
+   "target": "UN R128",
+   "count": 5
+  },
+  {
+   "source": "UN R6",
+   "target": "UN R148",
+   "count": 1
+  },
+  {
+   "source": "UN R6",
+   "target": "UN R19",
+   "count": 1
+  },
+  {
+   "source": "UN R6",
+   "target": "UN R20",
+   "count": 1
+  },
+  {
+   "source": "UN R6",
+   "target": "UN R23",
+   "count": 2
+  },
+  {
+   "source": "UN R6",
+   "target": "UN R37",
+   "count": 5
+  },
+  {
+   "source": "UN R6",
+   "target": "UN R38",
+   "count": 3
+  },
+  {
+   "source": "UN R6",
+   "target": "UN R48",
+   "count": 3
+  },
+  {
+   "source": "UN R6",
+   "target": "UN R53",
+   "count": 1
+  },
+  {
+   "source": "UN R6",
+   "target": "UN R7",
+   "count": 7
+  },
+  {
+   "source": "UN R6",
+   "target": "UN R74",
+   "count": 1
+  },
+  {
+   "source": "UN R6",
+   "target": "UN R8",
+   "count": 1
+  },
+  {
+   "source": "UN R6",
+   "target": "UN R86",
+   "count": 1
+  },
+  {
+   "source": "UN R62",
+   "target": "UN R06",
+   "count": 1
+  },
+  {
+   "source": "UN R62",
+   "target": "UN R10",
+   "count": 3
+  },
+  {
+   "source": "UN R64",
+   "target": "UN R13",
+   "count": 8
+  },
+  {
+   "source": "UN R64",
+   "target": "UN R141",
+   "count": 1
+  },
+  {
+   "source": "UN R64",
+   "target": "UN R30",
+   "count": 3
+  },
+  {
+   "source": "UN R64",
+   "target": "UN R54",
+   "count": 1
+  },
+  {
+   "source": "UN R67",
+   "target": "UN R02",
+   "count": 2
+  },
+  {
+   "source": "UN R67",
+   "target": "UN R10",
+   "count": 3
+  },
+  {
+   "source": "UN R67",
+   "target": "UN R83",
+   "count": 3
+  },
+  {
+   "source": "UN R7",
+   "target": "UN R1",
+   "count": 1
+  },
+  {
+   "source": "UN R7",
+   "target": "UN R128",
+   "count": 5
+  },
+  {
+   "source": "UN R7",
+   "target": "UN R148",
+   "count": 1
+  },
+  {
+   "source": "UN R7",
+   "target": "UN R19",
+   "count": 1
+  },
+  {
+   "source": "UN R7",
+   "target": "UN R20",
+   "count": 1
+  },
+  {
+   "source": "UN R7",
+   "target": "UN R23",
+   "count": 3
+  },
+  {
+   "source": "UN R7",
+   "target": "UN R3",
+   "count": 1
+  },
+  {
+   "source": "UN R7",
+   "target": "UN R37",
+   "count": 5
+  },
+  {
+   "source": "UN R7",
+   "target": "UN R38",
+   "count": 2
+  },
+  {
+   "source": "UN R7",
+   "target": "UN R48",
+   "count": 6
+  },
+  {
+   "source": "UN R7",
+   "target": "UN R53",
+   "count": 1
+  },
+  {
+   "source": "UN R7",
+   "target": "UN R6",
+   "count": 4
+  },
+  {
+   "source": "UN R7",
+   "target": "UN R74",
+   "count": 1
+  },
+  {
+   "source": "UN R7",
+   "target": "UN R8",
+   "count": 1
+  },
+  {
+   "source": "UN R7",
+   "target": "UN R86",
+   "count": 1
+  },
+  {
+   "source": "UN R79",
+   "target": "UN R10",
+   "count": 1
+  },
+  {
+   "source": "UN R79",
+   "target": "UN R13",
+   "count": 8
+  },
+  {
+   "source": "UN R79",
+   "target": "UN R130",
+   "count": 7
+  },
+  {
+   "source": "UN R79",
+   "target": "UN R157",
+   "count": 1
+  },
+  {
+   "source": "UN R79",
+   "target": "UN R171",
+   "count": 4
+  },
+  {
+   "source": "UN R79",
+   "target": "UN R31",
+   "count": 4
+  },
+  {
+   "source": "UN R83",
+   "target": "UN R09",
+   "count": 1
+  },
+  {
+   "source": "UN R83",
+   "target": "UN R154",
+   "count": 95
+  },
+  {
+   "source": "UN R83",
+   "target": "UN R155",
+   "count": 46
+  },
+  {
+   "source": "UN R83",
+   "target": "UN R156",
+   "count": 1
+  },
+  {
+   "source": "UN R83",
+   "target": "UN R168",
+   "count": 31
+  },
+  {
+   "source": "UN R83",
+   "target": "UN R177",
+   "count": 6
+  },
+  {
+   "source": "UN R83",
+   "target": "UN R39",
+   "count": 1
+  },
+  {
+   "source": "UN R83",
+   "target": "UN R85",
+   "count": 5
+  },
+  {
+   "source": "UN R89",
+   "target": "UN R10",
+   "count": 2
+  },
+  {
+   "source": "UN R89",
+   "target": "UN R31",
+   "count": 2
+  },
+  {
+   "source": "UN R92",
+   "target": "UN R41",
+   "count": 22
+  },
+  {
+   "source": "UN R92",
+   "target": "UN R63",
+   "count": 8
+  },
+  {
+   "source": "UN R92",
+   "target": "UN R9",
+   "count": 8
+  },
+  {
+   "source": "UN R94",
+   "target": "UN R11",
+   "count": 1
+  },
+  {
+   "source": "UN R94",
+   "target": "UN R137",
+   "count": 2
+  },
+  {
+   "source": "UN R94",
+   "target": "UN R14",
+   "count": 1
+  },
+  {
+   "source": "UN R94",
+   "target": "UN R16",
+   "count": 3
+  }
+ ],
+ "supersedes": [
+  {
+   "type": "supersedes",
+   "source": "UN R148",
+   "target": "UN R6",
+   "basis": "transitional",
+   "at": "UN R6|14.1",
+   "evidence": "As from 24 months after the official date of entry into force of UN Regulation N"
+  },
+  {
+   "type": "supersedes",
+   "source": "UN R148",
+   "target": "UN R7",
+   "basis": "transitional",
+   "at": "UN R7|14.1",
+   "evidence": "As from 24 months after the official date of entry into force of UN Regulation N"
+  },
+  {
+   "type": "supersedes",
+   "source": "UN R148",
+   "target": "UN R4",
+   "basis": "consolidates",
+   "in_corpus": false,
+   "at": "UN R148|Introduction",
+   "evidence": "Introduction (for information) This Regulation combines the provisions of indivi"
+  },
+  {
+   "type": "supersedes",
+   "source": "UN R148",
+   "target": "UN R6",
+   "basis": "consolidates",
+   "in_corpus": true,
+   "at": "UN R148|Introduction",
+   "evidence": "Introduction (for information) This Regulation combines the provisions of indivi"
+  },
+  {
+   "type": "supersedes",
+   "source": "UN R148",
+   "target": "UN R7",
+   "basis": "consolidates",
+   "in_corpus": true,
+   "at": "UN R148|Introduction",
+   "evidence": "Introduction (for information) This Regulation combines the provisions of indivi"
+  },
+  {
+   "type": "supersedes",
+   "source": "UN R148",
+   "target": "UN R23",
+   "basis": "consolidates",
+   "in_corpus": true,
+   "at": "UN R148|Introduction",
+   "evidence": "Introduction (for information) This Regulation combines the provisions of indivi"
+  },
+  {
+   "type": "supersedes",
+   "source": "UN R148",
+   "target": "UN R38",
+   "basis": "consolidates",
+   "in_corpus": true,
+   "at": "UN R148|Introduction",
+   "evidence": "Introduction (for information) This Regulation combines the provisions of indivi"
+  },
+  {
+   "type": "supersedes",
+   "source": "UN R148",
+   "target": "UN R50",
+   "basis": "consolidates",
+   "in_corpus": false,
+   "at": "UN R148|Introduction",
+   "evidence": "Introduction (for information) This Regulation combines the provisions of indivi"
+  },
+  {
+   "type": "supersedes",
+   "source": "UN R148",
+   "target": "UN R77",
+   "basis": "consolidates",
+   "in_corpus": false,
+   "at": "UN R148|Introduction",
+   "evidence": "Introduction (for information) This Regulation combines the provisions of indivi"
+  },
+  {
+   "type": "supersedes",
+   "source": "UN R148",
+   "target": "UN R87",
+   "basis": "consolidates",
+   "in_corpus": false,
+   "at": "UN R148|Introduction",
+   "evidence": "Introduction (for information) This Regulation combines the provisions of indivi"
+  },
+  {
+   "type": "supersedes",
+   "source": "UN R148",
+   "target": "UN R91",
+   "basis": "consolidates",
+   "in_corpus": false,
+   "at": "UN R148|Introduction",
+   "evidence": "Introduction (for information) This Regulation combines the provisions of indivi"
+  },
+  {
+   "type": "supersedes",
+   "source": "UN R149",
+   "target": "UN R19",
+   "basis": "consolidates",
+   "in_corpus": true,
+   "at": "UN R149|Introduction",
+   "evidence": "Introduction (for information) This Regulation combines the provisions of the in"
+  },
+  {
+   "type": "supersedes",
+   "source": "UN R149",
+   "target": "UN R98",
+   "basis": "consolidates",
+   "in_corpus": false,
+   "at": "UN R149|Introduction",
+   "evidence": "Introduction (for information) This Regulation combines the provisions of the in"
+  },
+  {
+   "type": "supersedes",
+   "source": "UN R149",
+   "target": "UN R112",
+   "basis": "consolidates",
+   "in_corpus": false,
+   "at": "UN R149|Introduction",
+   "evidence": "Introduction (for information) This Regulation combines the provisions of the in"
+  },
+  {
+   "type": "supersedes",
+   "source": "UN R149",
+   "target": "UN R113",
+   "basis": "consolidates",
+   "in_corpus": false,
+   "at": "UN R149|Introduction",
+   "evidence": "Introduction (for information) This Regulation combines the provisions of the in"
+  },
+  {
+   "type": "supersedes",
+   "source": "UN R149",
+   "target": "UN R119",
+   "basis": "consolidates",
+   "in_corpus": false,
+   "at": "UN R149|Introduction",
+   "evidence": "Introduction (for information) This Regulation combines the provisions of the in"
+  },
+  {
+   "type": "supersedes",
+   "source": "UN R149",
+   "target": "UN R123",
+   "basis": "consolidates",
+   "in_corpus": true,
+   "at": "UN R149|Introduction",
+   "evidence": "Introduction (for information) This Regulation combines the provisions of the in"
+  },
+  {
+   "type": "supersedes",
+   "source": "UN R150",
+   "target": "UN R3",
+   "basis": "consolidates",
+   "in_corpus": true,
+   "at": "UN R150|Introduction",
+   "evidence": "Introduction (for information) This Regulation combines the provisions of indivi"
+  },
+  {
+   "type": "supersedes",
+   "source": "UN R150",
+   "target": "UN R27",
+   "basis": "consolidates",
+   "in_corpus": false,
+   "at": "UN R150|Introduction",
+   "evidence": "Introduction (for information) This Regulation combines the provisions of indivi"
+  },
+  {
+   "type": "supersedes",
+   "source": "UN R150",
+   "target": "UN R69",
+   "basis": "consolidates",
+   "in_corpus": false,
+   "at": "UN R150|Introduction",
+   "evidence": "Introduction (for information) This Regulation combines the provisions of indivi"
+  },
+  {
+   "type": "supersedes",
+   "source": "UN R150",
+   "target": "UN R70",
+   "basis": "consolidates",
+   "in_corpus": false,
+   "at": "UN R150|Introduction",
+   "evidence": "Introduction (for information) This Regulation combines the provisions of indivi"
+  },
+  {
+   "type": "supersedes",
+   "source": "UN R150",
+   "target": "UN R104",
+   "basis": "consolidates",
+   "in_corpus": true,
+   "at": "UN R150|Introduction",
+   "evidence": "Introduction (for information) This Regulation combines the provisions of indivi"
+  }
+ ]
+}

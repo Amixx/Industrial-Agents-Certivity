@@ -1,0 +1,523 @@
+{
+ "golden_paragraphs": 121,
+ "golden_missing_from_graph": [],
+ "universe_nodes": 2990,
+ "stats": [
+  {
+   "regulation": "UN R10",
+   "nodes": 837,
+   "parent": 790,
+   "ref": 292,
+   "xref": 12,
+   "supersedes": 0,
+   "refs_found": 334,
+   "resolved_exact": 0.925,
+   "resolved_any": 0.928,
+   "top_referenced": "Annex 9 (14), Annex 6 (13), Annex 4 (11), 6 (8), Annex 13 (8)"
+  },
+  {
+   "regulation": "UN R48",
+   "nodes": 1202,
+   "parent": 1173,
+   "ref": 528,
+   "xref": 122,
+   "supersedes": 0,
+   "refs_found": 490,
+   "resolved_exact": 0.951,
+   "resolved_any": 1.0,
+   "top_referenced": "5.8.1 (25), 5.11 (13), Annex 5 (12), Annex 1 (11), Annex 9 (10)"
+  },
+  {
+   "regulation": "UN R148",
+   "nodes": 411,
+   "parent": 396,
+   "ref": 136,
+   "xref": 48,
+   "supersedes": 9,
+   "refs_found": 143,
+   "resolved_exact": 0.951,
+   "resolved_any": 0.986,
+   "top_referenced": "4.6 (12), 5 (9), Annex 3 (9), Annex 1 (8), 4.8 (7)"
+  },
+  {
+   "regulation": "UN R150",
+   "nodes": 540,
+   "parent": 522,
+   "ref": 263,
+   "xref": 22,
+   "supersedes": 5,
+   "refs_found": 265,
+   "resolved_exact": 0.925,
+   "resolved_any": 0.981,
+   "top_referenced": "Annex 4 Part 1 (21), 5 (18), 4 (13), Annex 5 (11), Annex 6 Part 6 (9)"
+  },
+  {
+   "regulation": "UN R7",
+   "nodes": 247,
+   "parent": 227,
+   "ref": 92,
+   "xref": 34,
+   "supersedes": 1,
+   "refs_found": 90,
+   "resolved_exact": 0.956,
+   "resolved_any": 1.0,
+   "top_referenced": "6.1 (5), Annex 4 (5), Annex 2 (4), 7 (4), 6 (3)"
+  }
+ ],
+ "connectivity": {
+  "parent/child": {
+   "1 hop": 16,
+   "2 hops": 82
+  },
+  "sibling": {
+   "1 hop": 69,
+   "2 hops": 69
+  },
+  "ref (either direction)": {
+   "1 hop": 20,
+   "2 hops": 36
+  },
+  "parent/child + ref": {
+   "1 hop": 33,
+   "2 hops": 102
+  },
+  "baseline: document order": {
+   "1 hop": 53,
+   "2 hops": 72
+  }
+ },
+ "expansion": {
+  "0.5": {
+   "parent": {
+    "recall_before": 0.5,
+    "recall_after": 0.516,
+    "golden_gained": 1.9,
+    "non_golden_pulled": 43.9,
+    "precision_of_pulled": 0.043
+   },
+   "children": {
+    "recall_before": 0.5,
+    "recall_after": 0.517,
+    "golden_gained": 2.1,
+    "non_golden_pulled": 18.9,
+    "precision_of_pulled": 0.1
+   },
+   "parent + children": {
+    "recall_before": 0.5,
+    "recall_after": 0.533,
+    "golden_gained": 4.0,
+    "non_golden_pulled": 62.8,
+    "precision_of_pulled": 0.061
+   },
+   "siblings": {
+    "recall_before": 0.5,
+    "recall_after": 0.69,
+    "golden_gained": 22.9,
+    "non_golden_pulled": 131.1,
+    "precision_of_pulled": 0.149
+   },
+   "ref out": {
+    "recall_before": 0.5,
+    "recall_after": 0.524,
+    "golden_gained": 2.9,
+    "non_golden_pulled": 32.4,
+    "precision_of_pulled": 0.081
+   },
+   "ref in": {
+    "recall_before": 0.5,
+    "recall_after": 0.523,
+    "golden_gained": 2.8,
+    "non_golden_pulled": 23.3,
+    "precision_of_pulled": 0.107
+   },
+   "ref both": {
+    "recall_before": 0.5,
+    "recall_after": 0.547,
+    "golden_gained": 5.7,
+    "non_golden_pulled": 55.6,
+    "precision_of_pulled": 0.092
+   },
+   "parent + ref out": {
+    "recall_before": 0.5,
+    "recall_after": 0.538,
+    "golden_gained": 4.7,
+    "non_golden_pulled": 73.7,
+    "precision_of_pulled": 0.059
+   },
+   "parent + children + ref both": {
+    "recall_before": 0.5,
+    "recall_after": 0.577,
+    "golden_gained": 9.3,
+    "non_golden_pulled": 114.5,
+    "precision_of_pulled": 0.076
+   },
+   "parent + children + ref both, 2 hops": {
+    "recall_before": 0.5,
+    "recall_after": 0.805,
+    "golden_gained": 36.9,
+    "non_golden_pulled": 433.6,
+    "precision_of_pulled": 0.078
+   },
+   "siblings + ref both": {
+    "recall_before": 0.5,
+    "recall_after": 0.706,
+    "golden_gained": 24.9,
+    "non_golden_pulled": 175.9,
+    "precision_of_pulled": 0.124
+   },
+   "baseline: next/previous paragraph": {
+    "recall_before": 0.5,
+    "recall_after": 0.611,
+    "golden_gained": 13.4,
+    "non_golden_pulled": 86.8,
+    "precision_of_pulled": 0.134
+   },
+   "baseline: 2 paragraphs either side": {
+    "recall_before": 0.5,
+    "recall_after": 0.679,
+    "golden_gained": 21.6,
+    "non_golden_pulled": 161.2,
+    "precision_of_pulled": 0.118
+   },
+   "baseline: same page": {
+    "recall_before": 0.5,
+    "recall_after": 0.824,
+    "golden_gained": 39.2,
+    "non_golden_pulled": 367.8,
+    "precision_of_pulled": 0.096
+   },
+   "baseline: 8 paragraphs either side": {
+    "recall_before": 0.5,
+    "recall_after": 0.888,
+    "golden_gained": 47.0,
+    "non_golden_pulled": 448.0,
+    "precision_of_pulled": 0.095
+   }
+  },
+  "0.25": {
+   "parent": {
+    "recall_before": 0.25,
+    "recall_after": 0.263,
+    "golden_gained": 1.6,
+    "non_golden_pulled": 24.3,
+    "precision_of_pulled": 0.062
+   },
+   "children": {
+    "recall_before": 0.25,
+    "recall_after": 0.263,
+    "golden_gained": 1.6,
+    "non_golden_pulled": 8.4,
+    "precision_of_pulled": 0.159
+   },
+   "parent + children": {
+    "recall_before": 0.25,
+    "recall_after": 0.276,
+    "golden_gained": 3.2,
+    "non_golden_pulled": 32.8,
+    "precision_of_pulled": 0.089
+   },
+   "siblings": {
+    "recall_before": 0.25,
+    "recall_after": 0.411,
+    "golden_gained": 19.4,
+    "non_golden_pulled": 77.6,
+    "precision_of_pulled": 0.2
+   },
+   "ref out": {
+    "recall_before": 0.25,
+    "recall_after": 0.274,
+    "golden_gained": 2.9,
+    "non_golden_pulled": 17.3,
+    "precision_of_pulled": 0.144
+   },
+   "ref in": {
+    "recall_before": 0.25,
+    "recall_after": 0.267,
+    "golden_gained": 2.0,
+    "non_golden_pulled": 11.3,
+    "precision_of_pulled": 0.154
+   },
+   "ref both": {
+    "recall_before": 0.25,
+    "recall_after": 0.291,
+    "golden_gained": 5.0,
+    "non_golden_pulled": 28.6,
+    "precision_of_pulled": 0.148
+   },
+   "parent + ref out": {
+    "recall_before": 0.25,
+    "recall_after": 0.287,
+    "golden_gained": 4.5,
+    "non_golden_pulled": 40.9,
+    "precision_of_pulled": 0.098
+   },
+   "parent + children + ref both": {
+    "recall_before": 0.25,
+    "recall_after": 0.316,
+    "golden_gained": 8.0,
+    "non_golden_pulled": 60.1,
+    "precision_of_pulled": 0.117
+   },
+   "parent + children + ref both, 2 hops": {
+    "recall_before": 0.25,
+    "recall_after": 0.533,
+    "golden_gained": 34.3,
+    "non_golden_pulled": 262.4,
+    "precision_of_pulled": 0.116
+   },
+   "siblings + ref both": {
+    "recall_before": 0.25,
+    "recall_after": 0.436,
+    "golden_gained": 22.4,
+    "non_golden_pulled": 102.4,
+    "precision_of_pulled": 0.18
+   },
+   "baseline: next/previous paragraph": {
+    "recall_before": 0.25,
+    "recall_after": 0.335,
+    "golden_gained": 10.2,
+    "non_golden_pulled": 44.4,
+    "precision_of_pulled": 0.188
+   },
+   "baseline: 2 paragraphs either side": {
+    "recall_before": 0.25,
+    "recall_after": 0.394,
+    "golden_gained": 17.4,
+    "non_golden_pulled": 86.9,
+    "precision_of_pulled": 0.167
+   },
+   "baseline: same page": {
+    "recall_before": 0.25,
+    "recall_after": 0.569,
+    "golden_gained": 38.6,
+    "non_golden_pulled": 230.7,
+    "precision_of_pulled": 0.143
+   },
+   "baseline: 8 paragraphs either side": {
+    "recall_before": 0.25,
+    "recall_after": 0.679,
+    "golden_gained": 51.9,
+    "non_golden_pulled": 287.9,
+    "precision_of_pulled": 0.153
+   }
+  }
+ },
+ "cross_regulation": {
+  "UN R10": {
+   "UN R48": 0,
+   "UN R148": 0,
+   "UN R150": 0,
+   "UN R7": 0,
+   "UN R6": 0,
+   "UN R23": 0,
+   "UN R3": 0
+  },
+  "UN R48": {
+   "UN R10": 0,
+   "UN R148": 24,
+   "UN R150": 10,
+   "UN R7": 5,
+   "UN R6": 3,
+   "UN R23": 3,
+   "UN R3": 6
+  },
+  "UN R148": {
+   "UN R10": 0,
+   "UN R48": 18,
+   "UN R150": 0,
+   "UN R7": 2,
+   "UN R6": 2,
+   "UN R23": 2,
+   "UN R3": 0
+  },
+  "UN R150": {
+   "UN R10": 0,
+   "UN R48": 6,
+   "UN R148": 0,
+   "UN R7": 0,
+   "UN R6": 0,
+   "UN R23": 0,
+   "UN R3": 2
+  },
+  "UN R7": {
+   "UN R10": 0,
+   "UN R48": 6,
+   "UN R148": 1,
+   "UN R150": 0,
+   "UN R6": 4,
+   "UN R23": 3,
+   "UN R3": 1
+  },
+  "UN R6": {
+   "UN R10": 0,
+   "UN R48": 3,
+   "UN R148": 1,
+   "UN R150": 0,
+   "UN R7": 7,
+   "UN R23": 2,
+   "UN R3": 0
+  },
+  "UN R23": {
+   "UN R10": 0,
+   "UN R48": 3,
+   "UN R148": 0,
+   "UN R150": 0,
+   "UN R7": 4,
+   "UN R6": 2,
+   "UN R3": 1
+  },
+  "UN R3": {
+   "UN R10": 0,
+   "UN R48": 4,
+   "UN R148": 0,
+   "UN R150": 0,
+   "UN R7": 2,
+   "UN R6": 1,
+   "UN R23": 1
+  }
+ },
+ "supersedes": [
+  {
+   "type": "supersedes",
+   "source": "UN R148",
+   "target": "UN R6",
+   "basis": "transitional",
+   "at": "UN R6|14.1",
+   "evidence": "As from 24 months after the official date of entry into force of UN Regulation N"
+  },
+  {
+   "type": "supersedes",
+   "source": "UN R148",
+   "target": "UN R7",
+   "basis": "transitional",
+   "at": "UN R7|14.1",
+   "evidence": "As from 24 months after the official date of entry into force of UN Regulation N"
+  },
+  {
+   "type": "supersedes",
+   "source": "UN R148",
+   "target": "UN R4",
+   "basis": "consolidates",
+   "in_corpus": false,
+   "at": "UN R148|Introduction",
+   "evidence": "Introduction (for information) This Regulation combines the provisions of indivi"
+  },
+  {
+   "type": "supersedes",
+   "source": "UN R148",
+   "target": "UN R6",
+   "basis": "consolidates",
+   "in_corpus": true,
+   "at": "UN R148|Introduction",
+   "evidence": "Introduction (for information) This Regulation combines the provisions of indivi"
+  },
+  {
+   "type": "supersedes",
+   "source": "UN R148",
+   "target": "UN R7",
+   "basis": "consolidates",
+   "in_corpus": true,
+   "at": "UN R148|Introduction",
+   "evidence": "Introduction (for information) This Regulation combines the provisions of indivi"
+  },
+  {
+   "type": "supersedes",
+   "source": "UN R148",
+   "target": "UN R23",
+   "basis": "consolidates",
+   "in_corpus": true,
+   "at": "UN R148|Introduction",
+   "evidence": "Introduction (for information) This Regulation combines the provisions of indivi"
+  },
+  {
+   "type": "supersedes",
+   "source": "UN R148",
+   "target": "UN R38",
+   "basis": "consolidates",
+   "in_corpus": true,
+   "at": "UN R148|Introduction",
+   "evidence": "Introduction (for information) This Regulation combines the provisions of indivi"
+  },
+  {
+   "type": "supersedes",
+   "source": "UN R148",
+   "target": "UN R50",
+   "basis": "consolidates",
+   "in_corpus": false,
+   "at": "UN R148|Introduction",
+   "evidence": "Introduction (for information) This Regulation combines the provisions of indivi"
+  },
+  {
+   "type": "supersedes",
+   "source": "UN R148",
+   "target": "UN R77",
+   "basis": "consolidates",
+   "in_corpus": false,
+   "at": "UN R148|Introduction",
+   "evidence": "Introduction (for information) This Regulation combines the provisions of indivi"
+  },
+  {
+   "type": "supersedes",
+   "source": "UN R148",
+   "target": "UN R87",
+   "basis": "consolidates",
+   "in_corpus": false,
+   "at": "UN R148|Introduction",
+   "evidence": "Introduction (for information) This Regulation combines the provisions of indivi"
+  },
+  {
+   "type": "supersedes",
+   "source": "UN R148",
+   "target": "UN R91",
+   "basis": "consolidates",
+   "in_corpus": false,
+   "at": "UN R148|Introduction",
+   "evidence": "Introduction (for information) This Regulation combines the provisions of indivi"
+  },
+  {
+   "type": "supersedes",
+   "source": "UN R150",
+   "target": "UN R3",
+   "basis": "consolidates",
+   "in_corpus": true,
+   "at": "UN R150|Introduction",
+   "evidence": "Introduction (for information) This Regulation combines the provisions of indivi"
+  },
+  {
+   "type": "supersedes",
+   "source": "UN R150",
+   "target": "UN R27",
+   "basis": "consolidates",
+   "in_corpus": false,
+   "at": "UN R150|Introduction",
+   "evidence": "Introduction (for information) This Regulation combines the provisions of indivi"
+  },
+  {
+   "type": "supersedes",
+   "source": "UN R150",
+   "target": "UN R69",
+   "basis": "consolidates",
+   "in_corpus": false,
+   "at": "UN R150|Introduction",
+   "evidence": "Introduction (for information) This Regulation combines the provisions of indivi"
+  },
+  {
+   "type": "supersedes",
+   "source": "UN R150",
+   "target": "UN R70",
+   "basis": "consolidates",
+   "in_corpus": false,
+   "at": "UN R150|Introduction",
+   "evidence": "Introduction (for information) This Regulation combines the provisions of indivi"
+  },
+  {
+   "type": "supersedes",
+   "source": "UN R150",
+   "target": "UN R104",
+   "basis": "consolidates",
+   "in_corpus": true,
+   "at": "UN R150|Introduction",
+   "evidence": "Introduction (for information) This Regulation combines the provisions of indivi"
+  }
+ ]
+}
