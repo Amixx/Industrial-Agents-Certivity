@@ -1,0 +1,5 @@
+[brain 22:52:12] profile: Rear lamp; 14 terms; electronics=True
+[brain 22:52:12] regulations: UN R48 1.00, UN R10 0.94, UN R148 0.94, UN R150 0.64
+[brain 22:52:12] paragraphs selected: 526
+[brain 22:52:12] requirements: 647 kept, 39 dropped
+[brain 22:52:13] wrote ../out/rear-lamp-deterministic-sibling.json (647 requirements)

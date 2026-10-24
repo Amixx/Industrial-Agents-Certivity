@@ -26,6 +26,10 @@ that produced the file; branch code is not on `main` unless it says so.
 | | `rear-lamp-qwen-split-rewrite.json` | Fable's 208 paragraphs rewritten by qwen3.5:9b, split prompt of `0ccae35` | `dcf1740` | 446 | 137 / 0.568 | (21:47) 133 / 0.551 | $0 |
 | 22:00 | `rear-lamp-mix-examples-cut.json` | Opus relevance, Sonnet rewrite with expert examples and the obligation cut | `brain-model-mix-examples` @ `e5e0d25` | 341 | 145 / 0.658 | (22:14) 138 / 0.627 | $1.13 |
 | 22:45 | `rear-lamp-kb-v5-rewrite.json` | Paragraphs of `kb-jev` rewritten by Opus; prompt names the device and repeats the condition in every row | `kb-stack` @ `1d8b22e` plus an uncommitted prompt | 363 | 158 / 0.703 | (22:48) 148 / 0.659 | subscription |
+| 21:55 | `rear-lamp-deterministic-sibling.json` | No LLM, with sibling routing and the regulation-title rule; decision model refit | `main` @ `b7d6ee2` (reproduced at `a39acab`) | 647 | 111 / 0.394 | | $0 |
+| 21:33 to 22:14 | `rear-lamp-qwen-split2-rewrite.json` | Fable's 208 paragraphs rewritten by qwen3.5:9b, narrowed table rule and empty-answer fallback | `main` @ `d7683cd`, `eval.rewrite_pass` | 411 | 143 / 0.611 | | $0 |
+| 22:15 to 22:28 | `rear-lamp-gemini-relevance.log` | Relevance only: gemini-3.8-flash (free tier) on 425 dev paragraphs; AUC 0.998 (gpt-5.5 0.987) | `main` @ `bb829ec`, `out/scripts/gemini_relevance.py` | n/a | | | $0 |
+| 22:30 to 22:49 | `rear-lamp-gemini-relevance.log` | Relevance only: gemini-3.5-flash (free tier) on 1,100 dev paragraphs; AUC 0.974 (gpt-5.5 0.968) | `main` @ `bb829ec`, `out/scripts/gemini_relevance.py` | n/a | | | $0 |
 
 Empty cells were not recorded when the run was made.
 
@@ -180,6 +184,26 @@ and relevance; Sonnet 5.5 for the rewrite), plus two rewrite changes behind flag
 - Relevance answers came from the cache of the Opus run, so the run paid only for the Sonnet
   rewrite ($1.13). From an empty cache it costs about $5.50.
 - One upload; identical files have scored up to 7 matches apart.
+
+### 24 Oct, 21:30 to 22:50: narrowed table rule, deterministic routing, Gemini relevance
+
+- **qwen3.5:9b rewrite with the narrowed table rule** (`rear-lamp-qwen-split2-rewrite.json`).
+  The same 208 paragraphs as `rear-lamp-qwen-split-rewrite.json`, with `d7683cd`: a paragraph
+  that points at a table stays one requirement, and an empty model answer keeps the
+  deterministic rows. Rows fall from 446 to 411 and inside gold paragraphs from 276 to 207;
+  local matches rise from 137 to 143 (Fable's own rewrite: 141). Not uploaded yet. The local
+  judge overcounted the previous qwen file by 4, so expect a platform score a little below the
+  local one. The run lost 5 batches when the Ollama server stopped at 22:04; the rerun took the
+  other 47 from the cache and recomputed those 5 (see the log).
+- **Deterministic path with sibling routing** (`rear-lamp-deterministic-sibling.json`). The
+  feature changes of `b7d6ee2`: sections next to one that names the product count as other
+  devices, and a regulation whose title names the product (R42) counts as about it. On dev 647
+  rows instead of 778, page F2 0.758 instead of 0.723, local requirement F2 0.394 instead of
+  0.364. This is the Sunday fallback when no model is available. Not uploaded yet.
+- **Gemini relevance** (`rear-lamp-gemini-relevance.log`, write-up in `brain/docs/gemini.md`).
+  Paragraph level only, no submission. Gemini 3.5 Flash reaches AUC 0.974 on 1,100 dev
+  paragraphs (gpt-5.5 0.968 on the same ones), but the free tier allows about 20 requests per
+  model per day, and UN R48 was not reached.
 
 ### Cost per run
 

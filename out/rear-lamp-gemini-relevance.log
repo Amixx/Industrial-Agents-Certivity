@@ -1,0 +1,34 @@
+# gemini-3.8-flash, batches of 25, 22:15 to 22:28: 17 batches scored, then the free quota (20 requests per day) ran out
+[relevance] 2380 paragraphs unscored, retrying
+[relevance] 2380 paragraphs unscored, retrying
+Traceback (most recent call last):
+  File "/private/tmp/claude-501/-Users-vladmoroshan-Desktop-Repos-Industrial-Agents-Certivity/9bc7a9bf-81c1-41ef-ad49-b21c49c90134/scratchpad/exp/gemini_relevance.py", line 65, in <module>
+    scores = relevance.score(paragraphs, graph, profile, batch=25, workers=3)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/vladmoroshan/Desktop/Repos/Industrial-Agents-Certivity/brain/brain/relevance.py", line 156, in score
+    raise RuntimeError(f"relevance: {len(todo)} paragraphs unscored after a retry, in {regs}")
+RuntimeError: relevance: 2380 paragraphs unscored after a retry, in ['UN R10', 'UN R148', 'UN R150', 'UN R48']
+
+# gemini-3.5-flash, batches of 100, 22:30 to 22:49
+[   15s] batch 1/29: 100 scored
+[   32s] batch 2/29: 200 scored
+[   48s] batch 3/29: 300 scored
+[   77s] batch 4 failed: InternalServerError("Error code: 503 - [{'error': {'code': 503, 'message': 'This model is currently experiencing high demand. Spikes in demand are usually tempo
+[   95s] batch 5/29: 400 scored
+[  115s] batch 6/29: 500 scored
+[  142s] batch 7/29: 600 scored
+[  159s] batch 8/29: 700 scored
+[  172s] batch 9/29: 800 scored
+[  189s] batch 10/29: 900 scored
+[  205s] batch 11/29: 1000 scored
+[ 1130s] batch 12/29: 1100 scored
+[ 1134s] batch 13 failed: RateLimitError("Error code: 429 - [{'error': {'code': 429, 'message': 'You exceeded your current quota, please check your plan and billing details. For more inf
+quota reached; scoring what finished
+gemini-3.5-flash: 1100 of 1100 scored in 1134s
+decision model (out of fold)             AUC 0.853  best F2 0.529 (P 0.22 R 0.80 at 0.06, n=214)
+gemini-3.5-flash                         AUC 0.974  best F2 0.746 (P 0.44 R 0.90 at 0.60, n=122)
+gpt-5.5 (cached)                         AUC 0.968  best F2 0.741 (P 0.49 R 0.85 at 0.52, n=104)
+blend gemini-3.5-flash + decision model  AUC 0.980  best F2 0.786 (P 0.45 R 0.97 at 0.23, n=129)
+   UN R10   gold  15/ 673  AUC gemini-3.5-flash 0.992  gpt-5.5 0.987
+   UN R148  gold  40/ 374  AUC gemini-3.5-flash 0.951  gpt-5.5 0.944
+   UN R150  gold   5/  53  AUC gemini-3.5-flash 0.931  gpt-5.5 0.925

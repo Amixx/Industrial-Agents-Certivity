@@ -1,0 +1,65 @@
+# 21:33 to 22:05: first pass; 5 of 52 batches failed when the Ollama server stopped (fell back to deterministic rows)
+[    24s] batch 1 done
+[    53s] batch 2 done
+[    93s] batch 3 done
+[   113s] batch 4 done
+[   133s] batch 5 done
+[   161s] batch 6 done
+[   216s] batch 7 done
+[   247s] batch 8 done
+[   274s] batch 9 done
+[   336s] batch 10 done
+[   362s] batch 11 done
+[   381s] batch 12 done
+[   408s] batch 13 done
+[   438s] batch 14 done
+[   475s] batch 15 done
+[   522s] batch 16 done
+[   547s] batch 17 done
+[   571s] batch 18 done
+[   646s] batch 19 done
+[   686s] batch 20 done
+[   722s] batch 21 done
+[   763s] batch 22 done
+[   805s] batch 23 done
+[   838s] batch 24 done
+[   881s] batch 25 done
+[   908s] batch 26 done
+[   960s] batch 27 done
+[  1002s] batch 28 done
+[  1052s] batch 29 done
+[  1088s] batch 30 done
+[  1172s] batch 31 done
+[  1249s] batch 32 done
+[  1301s] batch 33 done
+[  1337s] batch 34 done
+[  1364s] batch 35 done
+[  1386s] batch 36 done
+[  1427s] batch 37 done
+[  1480s] batch 38 done
+[  1522s] batch 39 done
+[  1557s] batch 40 done
+[  1637s] batch 41 done
+[  1672s] batch 42 done
+[  1728s] batch 43 done
+[  1767s] batch 44 done
+[  1789s] batch 45 done
+[  1812s] batch 46 done
+[  1865s] batch 47 done
+[rewrite] batch failed (APIConnectionError('Connection error.')); deterministic fallback
+[rewrite] batch failed (APIConnectionError('Connection error.')); deterministic fallback
+[rewrite] batch failed (APIConnectionError('Connection error.')); deterministic fallback
+[rewrite] batch failed (APIConnectionError('Connection error.')); deterministic fallback
+[rewrite] batch failed (APIConnectionError('Connection error.')); deterministic fallback
+0 labels not in the corpus
+208 paragraphs from rear-lamp-fable.json, product 'Rear lamp — exterior lighting & signalling module combining rear position lamp, stop lamp, reversing lamp, outer lens and retro-reflector in a single housing', model qwen3.5:9b
+drafts 400, kept 399, dropped 1
+47 batches in 1904s
+rear-lamp-fable.json         rows 332 matched 141 P 0.425 R 0.742 F2 0.646
+local-qwen-split2.json       rows 399 matched 139 P 0.348 R 0.732 F2 0.600
+# 22:11 to 22:14: rerun; 47 batches from cache, the 5 failed ones recomputed on qwen3.5:9b
+model qwen3.5:9b
+208 paragraphs (0 labels not in the corpus)
+drafts 412, kept 411, dropped 1, 209s
+../out/rear-lamp-fable.json: rows 332 matched 141 P 0.425 R 0.742 F2 0.646
+/private/tmp/claude-501/-Users-vladmoroshan-Desktop-Repos-Industrial-Agents-Certivity/9bc7a9bf-81c1-41ef-ad49-b21c49c90134/scratchpad/exp/local-qwen-split3.json: rows 411 matched 143 P 0.348 R 0.753 F2 0.611
