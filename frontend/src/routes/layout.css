@@ -1,1 +1,13 @@
 @import 'tailwindcss';
+
+@theme {
+	--color-cv-ink-950: #02312f;
+	--color-cv-ink-800: #11504b;
+	--color-cv-teal-700: #0b7a70;
+	--color-cv-teal-500: #0ebea9;
+	--color-cv-teal-400: #27dac2;
+	--color-cv-mint-300: #79f2de;
+	--color-cv-mint-50: #f0fdfa;
+	--color-white: #ffffff;
+	--color-black: #000000;
+}
