@@ -34,6 +34,7 @@ that produced the file; branch code is not on `main` unless it says so.
 | 23:34 | `rear-lamp-kb-own-subject.json` | The above with a rewrite prompt that keeps the sentence's own subject ("The markings shall ...") and names the device only when the sentence has none; model judge 163 against 150 for the run above | the above plus an uncommitted prompt | 396 | 163 / 0.705 | (23:39) 151 / 0.653 | subscription |
 | 22:20 to 22:50 | `rear-lamp-agent-v3.json` | One Opus agent (`claude -p`, effort high) with only file tools, the spec, the image and the regulation texts with tables of contents; short prompt, TSV output converted to a submission | `out/scripts/agent-v3/` | 302 | 108 / 0.508 | (22:54) 116 / 0.546 | subscription |
 | 23:50 | `rear-lamp-kb-section-cut.json` | Rows of `rear-lamp-kb-recall-push.json` (filter off) kept when p_keep times a section-level Opus score is at least 0.2; the section score comes from one call per section with all its cited paragraphs side by side. Same 116 gold paragraphs, 24 fewer rows outside them | `out/scripts/section_select.py`, `section_measure.py` | 363 | 156 / 0.695 | (23:49) 151 / 0.672 | subscription |
+| 23:52 | `rear-lamp-kb-section-cut2.json` | Same rows and scores as the run above, kept when p_keep times the square root of the section score is at least 0.354 (the lowest 26% dropped); 115 gold paragraphs, 31 fewer rows | `out/scripts/section_select.py` | 332 | | (23:54) 149 / 0.682 | subscription |
 
 Empty cells were not recorded when the run was made.
 
