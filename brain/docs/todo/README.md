@@ -12,7 +12,8 @@ files, so they can run in parallel without merge conflicts.
 | [04-bumper-regulations.md](04-bumper-regulations.md) | Decide the regulation list for every likely bumper spec | `brain/select_regs.py`, `data/bumper-labels/`, a new `docs/bumper-regulations.md` | open; `kb-stack` adds an obligation-base ranking and a light-source rule to `select_regs.py` |
 | [05-subgoal.md](05-subgoal.md) | The sub-goal: architecture, then an exact diff of two regulation versions (15% of the jury score) | `../docs/regulation-change.md`, `../scripts/diff_regulation.py` or a new `brain/subgoal.py`, `eval/subgoal_score.py` | open |
 | [06-sunday-rehearsal.md](06-sunday-rehearsal.md) | Dry-run the whole Sunday path and freeze the configuration | the runbook in `brain/README.md`, `brain/pipeline.py` for wiring fixes only | open |
-| [07-big-swings.md](07-big-swings.md) | Seven parallel lanes that swing to extremes (votes across runs, maximum recall, maximum precision, hedged cuts, verbatim rows, a row-level selector, Sunday feasibility) to learn what drives recall and precision | `swing/<lane>.py`, `../out/experiments/<lane>.md` | open |
+| [07-big-swings.md](07-big-swings.md) | Seven parallel lanes that swing to extremes (votes across runs, maximum recall, maximum precision, hedged cuts, verbatim rows, a row-level selector, Sunday feasibility) to learn what drives recall and precision | `swing/<lane>.py`, `../out/experiments/<lane>.md` | done 24 Oct 23:14, local scores only, summary in that file's Results |
+| [08-complex.md](08-complex.md) | Five strategies on top of the swing audit: drop expert-skip rows, filter the loose vote, split collapsed tables, a vote of three new runs, one Sonnet run at blend weight 0.85 | `swing/h_*` through `swing/l_*`, `../out/experiments/H.md` to `L.md`, `STATUS-08.md` | open |
 
 Paths are relative to `brain/` unless they start with `../`.
 
