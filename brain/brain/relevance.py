@@ -19,10 +19,10 @@ from .models import Paragraph, ProductProfile
 # Dev, strong tier, domain-neutral prompt (eval/relevance_check.py): LLM AUC 0.975 (bulk tier
 # 0.917), blend AUC 0.981; weight 0.7 with cut-off 0.20 gives paragraph F2 0.75 at recall 0.94.
 # The decision model is fitted on the lamp and transfers poorly: on silver labels for a plain
-# front bumper (data/bumper-labels) its AUC is 0.65 against 0.98 for the LLM, and at weight 0.7
-# it drags R42's impact-test paragraphs under the cut-off. Paragraph recall there at cut-off
-# 0.20 is 0.63 at weight 0.7, 0.91 at 0.85 and 0.97 at 1.0.
-WEIGHT = 0.85
+# front bumper (data/bumper-labels) its AUC is 0.65 against 0.98 for the LLM, and paragraph
+# recall there is 0.63 at weight 0.7 against 0.91 at 0.85. A higher weight floods the lamp's
+# large regulations instead (estimated dev requirement F2 0.61 at 0.7, 0.54 at 0.85).
+WEIGHT = 0.7
 THRESHOLD = 0.20
 # Keep at least the top FLOOR share (min FLOOR_MIN) of every selected regulation: no effect on
 # dev, but a product unlike the lamp (low decision-model scores) still gets its core regulation.
