@@ -40,6 +40,12 @@ that produced the file; branch code is not on `main` unless it says so.
 | 25 Oct 00:20 | `rear-lamp-kb-splitless-cut2-mark.json` | `rear-lamp-kb-splitless.json` with the section cut and all three rules | `out/scripts/section_stage.py` | 271 | | | $0 |
 | 24 Oct 23:56 to 23:59 | `rear-lamp-kb-splitless.json` | Recall-push setup (filter off) with a rewrite rule of one requirement per sentence, split only at lettered or numbered list items, tables and alternatives kept inside their sentence; 176 rows on gold paragraphs against 223 | `kb-stack` @ `1d8b22e` with an uncommitted prompt | 392 | | | subscription |
 | 25 Oct 00:03 | `rear-lamp-kb-splitless-cut2-rules.json` | The run above cut like section-cut2 (p_keep times the square root of the section score at least 0.354) plus the pointer rule; 162 rows on 110 gold paragraphs. Paragraph estimate 0.686, but only 151 gold rows have a row of their own on their paragraph (169 for section-cut2), so matches may drop | `out/scripts/section_stage.py` | 279 | | | subscription |
+| 24 Oct 23:57 to 00:06 | `rear-lamp-section-step.json` | `brain.pipeline` with the section cut (p_keep × √p_section ≥ 0.35); Opus strong tier, Sonnet rewrite, all through `claude -p`; no image | `section-step` @ `99974b7` | 334 | 149 / 0.681 | | subscription (API-equivalent $12.93) |
+| 25 Oct 00:06 | `rear-lamp-section-step-nocut.json` | The same run from cache with the section cut off | `section-step` @ `99974b7` | 394 | 156 / 0.676 | | cached |
+| 25 Oct 00:07 to 00:10 | `bumper-plain-section-step.json` | Same method on `data/synthetic/bumper-plain` with its paste-ready regulation line; silver paragraph F2 0.662 (0.734 without the cut) | `section-step` @ `99974b7` | 97 | | | subscription ($4.46) |
+| 25 Oct 00:10 | `bumper-plain-section-step-nocut.json` | Cached, section cut off | `section-step` @ `99974b7` | 113 | | | cached |
+| 25 Oct 00:10 to 00:21 | `bumper-sensors-fog-section-step.json` | Same method on `data/synthetic/bumper-sensors-fog`; silver paragraph F2 0.545 (0.621 without the cut) | `section-step` @ `99974b7` | 431 | | | subscription ($18.08) |
+| 25 Oct 00:21 | `bumper-sensors-fog-section-step-nocut.json` | Cached, section cut off | `section-step` @ `99974b7` | 531 | | | cached |
 
 Empty cells were not recorded when the run was made.
 
@@ -226,6 +232,30 @@ and relevance; Sonnet 5.5 for the rewrite), plus two rewrite changes behind flag
 - **Pointer rule.** Six rows of section-cut2 quote a paragraph that holds no obligation of its own: a heading with "See Table 4" or "See paragraph 4.6.", or a clause that only brings other paragraphs into force. None sits on a gold paragraph. Uploaded at 00:10: 150 matches on 326 rows, F2 0.691 (precision 46.0%, recall 78.9%), up from 0.682.
 - **Approval-mark rule.** Nine rows spell out the approval mark the authority assigns: the circled E, the regulation number followed by R, the symbols. None is on a gold paragraph, and no gold row reads like one.
 - **Split-less rewrite.** The expert list has 184 rows on the gold paragraphs we cite; our rewrite writes 223. A rule of one requirement per sentence, split only at list items, brings that to 176. After the section cut, 151 gold rows can still pair with a row on their own paragraph, against 169 before, so the platform may find fewer matches even though precision rises. The paragraph estimate (matches as 149/183 of the gold rows on cited paragraphs) cannot see that, so this file needs an upload to settle it.
+### 24 Oct 23:57 to 25 Oct 00:21: section cut in the pipeline
+
+`brain/sections.py` runs after the requirement filter: one Opus call per section with every cited
+paragraph side by side, then rows with p_keep × √p_section < 0.35 go. Dev counts are against the
+121 gold paragraphs and 190 gold rows; bumper scores are paragraph-level against the silver
+labels in `brain/data/bumper-labels/` (R42, R127, R26, GTR 9; 66 cited), so sensors-fog is
+scored on its base regulations only. The variant rows are recomputed from the same cached scores.
+
+| Case | Cut | Rows | Rows on gold paragraphs | Gold paragraphs | Gold rows covered | Silver P / R / F2 |
+|---|---|---|---|---|---|---|
+| dev | none | 394 | 203 | 110 | 176 | |
+| dev | √ ≥ 0.35 | 334 | 193 | 108 | 169 | |
+| dev | linear ≥ 0.2 | 363 | 198 | 109 | 173 | |
+| bumper-plain | none | 113 | | 48 | | 0.762 / 0.727 / 0.734 |
+| bumper-plain | √ ≥ 0.35 | 97 | | 42 | | 0.792 / 0.636 / 0.662 |
+| bumper-plain | linear ≥ 0.2 | 104 | | 47 | | 0.810 / 0.712 / 0.730 |
+| bumper-sensors-fog | none | 531 | | 39 | | 0.780 / 0.591 / 0.621 |
+| bumper-sensors-fog | √ ≥ 0.35 | 431 | | 33 | | 0.846 / 0.500 / 0.545 |
+| bumper-sensors-fog | linear ≥ 0.2 | 476 | | 39 | | 0.830 / 0.591 / 0.627 |
+
+The √ form at 0.35 cuts the bumper's test-procedure annexes (R127 Annex 5 2.4 to 2.7, R26
+Annex 3 1.2, 1.3, 2.2), which Opus scores at p_section 0.45 to 0.5 with p_keep 0.4 to 0.5. On dev
+it drops R10 Annex 9 3.1 and R48 6.10.8. The linear form at 0.2 loses at most one paragraph per
+case.
 
 ### Cost per run
 

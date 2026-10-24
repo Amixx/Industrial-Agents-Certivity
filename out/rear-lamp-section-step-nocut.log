@@ -1,0 +1,6 @@
+[brain 00:06:11] profile: Rear lamp: an exterior lighting and signalling module that holds several light functions, an outer lens and a retro-reflector in one housing; 18 terms; electronics=True
+[brain 00:06:11] regulations: UN R148 0.97, UN R48 0.92, UN R150 0.90, UN R10 0.85
+[brain 00:06:12] paragraphs selected: 325
+[brain 00:06:12] requirements: 512 kept, 8 dropped
+[brain 00:06:12] expert filter: 394 kept of 512
+[brain 00:06:12] wrote /Users/imantsliepins/Personal/bench-out/section-step/dev-rear-lamp-nocut.json (394 requirements)

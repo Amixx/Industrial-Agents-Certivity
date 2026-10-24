@@ -1,0 +1,7 @@
+[brain 00:10:35] profile: Front bumper: a front-end module with built-in front fog lamps, front position lamps and ultrasonic parking-assist sensors; 22 terms; electronics=True
+[brain 00:11:02] regulations: UN R127 0.90, UN R42 0.90, UN R10 0.85, UN R48 0.85, UN R149 0.85, UN R148 0.85, UN R26 0.60, UN GTR 9 0.55
+[brain 00:16:39] paragraphs selected: 426
+[brain 00:18:45] requirements: 714 kept, 3 dropped
+[brain 00:19:42] expert filter: 531 kept of 714
+[brain 00:20:40] section cut: 431 kept of 531
+[brain 00:20:40] wrote /Users/imantsliepins/Personal/bench-out/section-step/bumper-sensors-fog.json (431 requirements)
