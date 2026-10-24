@@ -26,7 +26,7 @@ def main(argv: list[str] | None = None) -> int:
     ap = argparse.ArgumentParser(description=__doc__.splitlines()[0])
     ap.add_argument("source", help="submission whose cited paragraphs are rewritten")
     ap.add_argument("out")
-    ap.add_argument("--provider", choices=["local", "anthropic", "openai"])
+    ap.add_argument("--provider", choices=["local", "anthropic", "openai", "claude-cli", "codex-cli"])
     ap.add_argument("--approved", action="store_true", help="the owner approved the paid run")
     args = ap.parse_args(argv)
     if args.provider in ("anthropic", "openai") and not args.approved:

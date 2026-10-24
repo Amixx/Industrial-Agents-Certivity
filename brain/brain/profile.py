@@ -8,6 +8,7 @@ configured, a model also reads the exploded view and maps the parts to regulatio
 from __future__ import annotations
 
 import re
+import sys
 from pathlib import Path
 
 from . import llm
@@ -136,8 +137,14 @@ def build_profile(
     if use_llm is False or (use_llm is None and not llm.available()):
         return base
     content: list[dict[str, object]] = []
-    if image is not None and image.exists() and llm.reads_images():
-        content.append(llm.image_block(image))
+    if image is not None and image.exists():
+        if llm.reads_images():
+            content.append(llm.image_block(image))
+        else:
+            print(
+                f"[profile] BRAIN_LLM={llm.provider()} reads no images; {image.name} is not used",
+                file=sys.stderr,
+            )
     content.append({"type": "text", "text": f"Specification:\n\n{spec}"})
     data = llm.complete_json(_SYSTEM, content, _SCHEMA, tier="strong")  # type: ignore[arg-type]
     found = ProductProfile.model_validate(data)

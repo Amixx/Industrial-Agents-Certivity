@@ -6,6 +6,9 @@ Providers (env BRAIN_LLM, default none; a key alone never enables a paid provide
     fallbacks.
   * openai: the OpenAI API with OPENAI_API_KEY (or OPENAI_KEY); models from BRAIN_OPENAI_STRONG /
     BRAIN_OPENAI_BULK (defaults gpt-5.5 / gpt-5.4-mini).
+  * claude-cli: `claude -p` on the logged-in Claude subscription (no API key); models from
+    BRAIN_CLAUDE_CLI_STRONG / BRAIN_CLAUDE_CLI_BULK (defaults claude-opus-5-5 /
+    claude-sonnet-5-5), at most BRAIN_CLAUDE_CLI_WORKERS (default 5) processes at once. Text only.
   * local: any OpenAI-compatible server (Ollama, LM Studio, mlx_lm.server) at BRAIN_LOCAL_URL,
     model BRAIN_LOCAL_MODEL. This is the "runs on the engineer's laptop" mode.
   * none: no model; callers fall back to their deterministic path.
@@ -121,6 +124,10 @@ def _load_dotenv(path: Path = PROJECT / ".env") -> None:
 
 _load_dotenv()
 
+CLI_WORKERS = int(os.environ.get("BRAIN_CLAUDE_CLI_WORKERS", "5"))
+# Each claude-cli call is a process; this caps them across every thread pool in the process.
+_CLI_SLOTS = threading.BoundedSemaphore(CLI_WORKERS)
+
 
 def provider() -> str:
     explicit = os.environ.get("BRAIN_LLM")
@@ -144,16 +151,21 @@ def local_reasoning() -> str:
 
 
 def reads_images() -> bool:
-    """Local models are treated as text-only unless BRAIN_LOCAL_VISION=1."""
+    """Local models are treated as text-only unless BRAIN_LOCAL_VISION=1; claude-cli is
+    text-only."""
+    if provider() in ("claude-cli", "codex-cli"):
+        return False
     return provider() != "local" or os.environ.get("BRAIN_LOCAL_VISION") == "1"
 
 
 def batching(cloud_batch: int, local_batch: int, cloud_workers: int) -> tuple[int, int]:
     """(batch size, workers). A local server answers one request at a time within a 16k
     context (OLLAMA_CONTEXT_LENGTH), so it gets small batches and no parallel requests that
-    would queue past the timeout."""
+    would queue past the timeout. claude-cli runs at most CLI_WORKERS processes."""
     if provider() == "local":
         return int(os.environ.get("BRAIN_LOCAL_BATCH", local_batch)), 1
+    if provider() in ("claude-cli", "codex-cli"):
+        return cloud_batch, min(cloud_workers, CLI_WORKERS)
     return cloud_batch, cloud_workers
 
 
@@ -164,6 +176,12 @@ def model_for(tier: Tier) -> str:
         if tier == "strong":
             return os.environ.get("BRAIN_OPENAI_STRONG", "gpt-5.5")
         return os.environ.get("BRAIN_OPENAI_BULK", "gpt-5.4-mini")
+    if provider() == "claude-cli":
+        if tier == "strong":
+            return os.environ.get("BRAIN_CLAUDE_CLI_STRONG", "claude-opus-5-5")
+        return os.environ.get("BRAIN_CLAUDE_CLI_BULK", "claude-sonnet-5-5")
+    if provider() == "codex-cli":
+        return os.environ.get("BRAIN_CODEX_MODEL", "gpt-6.1-sol")
     if tier == "strong":
         return os.environ.get("BRAIN_MODEL_STRONG", "claude-opus-5-5")
     return os.environ.get("BRAIN_MODEL_BULK", "claude-sonnet-5-5")
@@ -192,7 +210,7 @@ def complete_json(
     """A JSON object matching `schema`. Raises RuntimeError when no provider is configured."""
     prov = provider()
     if prov == "none":
-        raise RuntimeError("no LLM: set ANTHROPIC_API_KEY, OPENAI_KEY or BRAIN_LLM=local")
+        raise RuntimeError("no LLM: set BRAIN_LLM to openai, anthropic, claude-cli or local")
     model = model_for(tier)
     payload = {
         "provider": prov,
@@ -217,6 +235,18 @@ def complete_json(
     _local.cost = None
     if prov == "anthropic":
         result = _anthropic(model, system, content, schema, effort, max_tokens)
+    elif prov == "claude-cli":
+        result = _claude_cli(model, system, content, schema, effort)
+    elif prov == "codex-cli":
+        if not isinstance(content, str):
+            if any(b.get("type") != "text" for b in content):
+                raise ValueError("codex-cli takes text only; check llm.reads_images() first")
+            content = "\n\n".join(str(b["text"]) for b in content)
+        from . import codex_cli
+
+        with _CLI_SLOTS:
+            result = codex_cli.complete_json(system, content, schema, model=model)
+        _local.cost = record(model, 0, 0, cost=0.0)
     elif prov in ("openai", "local"):
         result = _openai_compatible(prov, model, system, content, schema, effort, max_tokens)
     else:
@@ -267,6 +297,37 @@ def _anthropic(
     text = next(b.text for b in response.content if b.type == "text")
     parsed: dict[str, Any] = json.loads(text)
     return parsed
+
+
+def _claude_cli(
+    model: str,
+    system: str,
+    content: str | list[dict[str, Any]],
+    schema: dict[str, Any],
+    effort: str,
+) -> dict[str, Any]:
+    from . import claude_cli
+
+    if isinstance(content, list):
+        if any(block["type"] != "text" for block in content):
+            raise ValueError("claude-cli takes text only; check llm.reads_images() first")
+        prompt = "\n\n".join(block["text"] for block in content)
+    else:
+        prompt = content
+
+    def on_usage(u: dict[str, Any], cost: float | None) -> None:
+        _local.cost = record(
+            model,
+            u.get("input_tokens", 0) + u.get("cache_creation_input_tokens", 0),
+            u.get("output_tokens", 0),
+            u.get("cache_read_input_tokens", 0),
+            cost=cost,
+        )
+
+    with _CLI_SLOTS:
+        return claude_cli.complete_json(
+            system, prompt, schema, model=model, effort=effort, on_usage=on_usage
+        )
 
 
 def _openai_compatible(
