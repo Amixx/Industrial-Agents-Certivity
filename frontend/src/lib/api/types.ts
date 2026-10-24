@@ -66,6 +66,9 @@ export type RequirementChange = {
 	newText?: string;
 	reason: string;
 	source: { page: number; paragraph: string };
+	/** Set on `added` changes: whether the new obligation plausibly applies to the assessed product. */
+	relevant?: boolean;
+	relevanceNote?: string;
 };
 
 export type RegulationUpdate = {
@@ -73,6 +76,8 @@ export type RegulationUpdate = {
 	fromVersion: string;
 	toVersion: string;
 	changes: RequirementChange[];
+	/** Paragraph-level counts from the full base-vs-latest diff. */
+	stats?: { changed: number; added: number; removed: number };
 	applied?: boolean;
 };
 

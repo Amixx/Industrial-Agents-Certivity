@@ -1,4 +1,5 @@
 import expected from './fixtures/expected.json';
+import realUpdates from './fixtures/regulation-updates.json';
 import { regulationIndex, regulationTitle } from './regulations.ts';
 import type {
 	ApiClient,
@@ -149,100 +150,6 @@ const paragraphCounts: Record<string, number> = {
 	'UN R10': 28
 };
 
-type UpdateDef = {
-	regulation: string;
-	fromVersion: string;
-	toVersion: string;
-	changes: (Omit<RequirementChange, 'oldText'> & { newId?: string })[];
-};
-
-const updateDefs: UpdateDef[] = [
-	{
-		regulation: 'UN R48',
-		fromVersion: '9.3.0',
-		toVersion: '9.4.0',
-		changes: [
-			{
-				requirementId: 'G-0057',
-				change: 'modified',
-				newText:
-					'For all light-signalling devices, including those mounted on the side panels, the reference axis of the lamp when fitted to the vehicle shall be parallel to the bearing plane of the vehicle on the road, with a tolerance of ±3° allowed in each direction; for lamps mounted on movable components this applies in every fixed position of use.',
-				reason: 'Supplement clarifies how the alignment tolerance applies to lamps on movable components such as tailgates.',
-				source: { page: 19, paragraph: '5.3' }
-			},
-			{
-				requirementId: 'G-0060',
-				change: 'modified',
-				newText:
-					'For all light-signalling devices, including those mounted on the side panels, any specific instructions as regards fitting laid down by the manufacturer and stated in the communication form shall be complied with.',
-				reason: 'Fitting instructions must now be documented in the type-approval communication form.',
-				source: { page: 19, paragraph: '5.3' }
-			},
-			{
-				requirementId: null,
-				newId: 'U-R48-01',
-				change: 'added',
-				newText:
-					'Where a stop lamp and a rear position lamp are reciprocally incorporated, the ratio between their luminous intensities shall be at least 5:1 in the area of the reference axis.',
-				reason: 'New paragraph on reciprocally incorporated rear position and stop functions.',
-				source: { page: 21, paragraph: '5.11.3' }
-			}
-		]
-	},
-	{
-		regulation: 'UN R148',
-		fromVersion: '1.6.0',
-		toVersion: '1.7.0',
-		changes: [
-			{
-				requirementId: 'G-0163',
-				change: 'modified',
-				newText: 'The value for ‘a’ shall be at least 4 mm with regard to the size of the approval marking.',
-				reason: 'Minimum marking size reduced to suit compact lamp designs.',
-				source: { page: 6, paragraph: '3.3.1.2' }
-			},
-			{
-				requirementId: 'G-0164',
-				change: 'removed',
-				reason: 'Sequential-number placement now governed by the Unique Identifier provisions of the 1958 Agreement.',
-				source: { page: 7, paragraph: '3.3.2.2' }
-			},
-			{
-				requirementId: 'G-0167',
-				change: 'modified',
-				newText:
-					'In the case of front or rear position lamps, front or rear end-outline marker lamps and side-marker lamps, the arrow shall be directed outwards from the vehicle.',
-				reason: 'Side-marker lamps added to the arrow-direction rule.',
-				source: { page: 7, paragraph: '3.3.2.5.1.1' }
-			}
-		]
-	},
-	{
-		regulation: 'UN R10',
-		fromVersion: '7.2.0',
-		toVersion: '7.3.0',
-		changes: [
-			{
-				requirementId: 'G-0130',
-				change: 'modified',
-				newText:
-					'When measurements are made using the method described in Annex 7, in the 400 to 2,500 MHz frequency band the limit shall remain constant at 63 dB microvolts/m.',
-				reason: 'Radiated-emission measurement range extended from 1 GHz to 2.5 GHz.',
-				source: { page: 10, paragraph: '6.5.2.1' }
-			},
-			{
-				requirementId: null,
-				newId: 'U-R10-01',
-				change: 'added',
-				newText:
-					'The ESA shall be tested for immunity to transient disturbances conducted along 12 V and 24 V supply lines using the method described in Annex 10.',
-				reason: 'Conducted transient immunity test made mandatory for all ESAs.',
-				source: { page: 11, paragraph: '6.8.1' }
-			}
-		]
-	}
-];
-
 function appliedKey(id: string) {
 	return `sudo.applied.${id}`;
 }
@@ -263,19 +170,82 @@ function markApplied(id: string, regulation: string) {
 	}
 }
 
+const lightingTerms = [
+	'lamp',
+	'light',
+	'signalling',
+	'reflect',
+	'lens',
+	'LED',
+	'colour',
+	'intensity',
+	'stop',
+	'position',
+	'reversing'
+];
+
+const otherProductTerms = [
+	'automated driving',
+	'ADS',
+	'driving task',
+	'headlamp',
+	'main-beam',
+	'main beam',
+	'dipped',
+	'passing beam',
+	'direction indicator',
+	'direction-indicator',
+	'fog',
+	'cornering',
+	'adaptive',
+	'projector',
+	'projection',
+	'daytime running',
+	'ambient',
+	'battery',
+	'seat'
+];
+
+const termRegex = (term: string) => new RegExp(`(?<![A-Za-z])${term.replace(/[-\s]/g, '[-\\s]')}`, term === term.toUpperCase() ? '' : 'i');
+
+function matchedTerms(text: string, terms: string[]) {
+	return terms.filter((t) => termRegex(t).test(text));
+}
+
+function profileTerms(profile: Profile) {
+	const words = [...profile.parts, ...profile.functions]
+		.flatMap((s) => s.toLowerCase().match(/[a-z]{4,}/g) ?? [])
+		.filter((w) => !['with', 'that', 'this', 'from', 'light', 'lamp', 'indication', 'presence', 'visibility'].includes(w));
+	return [...new Set(words)];
+}
+
+function relevance(text: string, profile: Profile): Pick<RequirementChange, 'relevant' | 'relevanceNote'> {
+	const other = matchedTerms(text, otherProductTerms);
+	if (other.length)
+		return {
+			relevant: false,
+			relevanceNote: `Concerns another kind of device or system (${other.join(', ')}), not this product's functions.`
+		};
+	const hits = matchedTerms(text, [...lightingTerms, ...profileTerms(profile)]);
+	return hits.length
+		? { relevant: true, relevanceNote: `Matches this product's lighting vocabulary: ${hits.join(', ')}.` }
+		: { relevant: false, relevanceNote: 'No lighting or product-specific terms.' };
+}
+
+const updateDefs = realUpdates as unknown as RegulationUpdate[];
+
 function updatesFor(assessment: Assessment): RegulationUpdate[] {
 	const applied = appliedFor(assessment.id);
-	const original = new Map(fixtureRequirements.map((r) => [r.id, r]));
+	const original = new Map(assessment.requirements.map((r) => [r.id, r]));
 	return updateDefs
 		.filter((def) => assessment.regulations.some((d) => d.included && d.regulation === def.regulation))
 		.map((def) => ({
-			regulation: def.regulation,
-			fromVersion: def.fromVersion,
-			toVersion: def.toVersion,
+			...def,
 			applied: applied.includes(def.regulation),
-			changes: def.changes.map(({ newId: _, ...c }) => ({
+			changes: def.changes.map((c) => ({
 				...c,
-				oldText: c.requirementId ? original.get(c.requirementId)?.text : undefined
+				oldText: c.oldText ?? (c.requirementId ? original.get(c.requirementId)?.text : undefined),
+				...(c.change === 'added' ? relevance(c.newText ?? '', assessment.profile) : {})
 			}))
 		}));
 }
@@ -391,34 +361,32 @@ export const mock: ApiClient = {
 	async applyUpdate(id, regulation) {
 		const assessment = await this.getAssessment(id);
 		if (!assessment) throw new Error(`Assessment ${id} not found`);
-		const def = updateDefs.find((d) => d.regulation === regulation);
+		const def = updatesFor(assessment).find((d) => d.regulation === regulation);
 		if (!def) throw new Error(`No update for ${regulation}`);
-		if (appliedFor(id).includes(regulation)) return assessment;
+		if (def.applied) return assessment;
 
 		let requirements = assessment.requirements.map((r) =>
 			r.source.regulation === regulation ? { ...r, source: { ...r.source, version: def.toVersion } } : r
 		);
-		for (const c of def.changes) {
+		def.changes.forEach((c, i) => {
 			if (c.change === 'removed') requirements = requirements.filter((r) => r.id !== c.requirementId);
 			if (c.change === 'modified')
 				requirements = requirements.map((r) =>
 					r.id === c.requirementId ? { ...r, text: c.newText ?? r.text, source: { ...r.source, ...c.source } } : r
 				);
-			if (c.change === 'added' && c.newId)
+			if (c.change === 'added' && c.relevant)
 				requirements.push({
-					id: c.newId,
+					id: `U-${regulation.replace('UN ', '')}-${String(i + 1).padStart(2, '0')}`,
 					text: c.newText ?? '',
 					source: { regulation, version: def.toVersion, ...c.source }
 				});
-		}
+		});
 		const counts = (reg: string) => requirements.filter((r) => r.source.regulation === reg).length;
 		const updated: Assessment = {
 			...assessment,
 			requirements,
 			regulations: assessment.regulations.map((d) =>
-				d.regulation === regulation
-					? { ...d, version: def.toVersion, requirementCount: counts(regulation) }
-					: d
+				d.regulation === regulation ? { ...d, version: def.toVersion, requirementCount: counts(regulation) } : d
 			)
 		};
 		save(updated);
