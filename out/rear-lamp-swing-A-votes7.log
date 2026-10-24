@@ -1,0 +1,5 @@
+lane A vote file: 14 voters, clusters at j0.50, votes >= 7, representative share-claude (TERSE = ['dev-upload', 'kb-jev-filter-v4', 'kb-sol-rewrite', 'qwen'])
+rows 351, local matched 156, local F2 0.702
+platform estimate (per-run platform/local ratio): 158.9 matched, F2 0.716
+representatives by run: [('fable', 103), ('opus', 40), ('mix-examples', 40), ('sonnet', 33), ('main-cli', 31), ('main-a39acab', 29), ('kb-jev', 28), ('mix-examples-cut', 24), ('mix', 17), ('mix-noimage', 6)]
+spend: $0 (no model call)
