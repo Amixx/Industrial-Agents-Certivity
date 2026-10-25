@@ -183,6 +183,7 @@ use `brain/brain/subgoal/score.py` (at the time `brain/eval/subgoal_score.py`).
 | 25 Oct 08:58 | `subgoal-heldout-inclusive-v5.json` | `--inclusive`: v4 plus added rows from every section but the administrative ones (transitional provisions, names and addresses, penalties, discontinued production, communication form, approval marks), new list items inside old paragraphs, and the v3 rule (an untouched requirement in a paragraph amended around it) | `main` plus uncommitted changes | 153 (43 modified, 4 removed, 106 added); a superset of v4 | (09:03:34) flag recall 78.1%, flag precision 32.7%, change accuracy 89.1% | $0 |
 | 25 Oct 09:10 | `subgoal-heldout-inclusive-v6.json` | `--inclusive` widened: every section (the administrative exclusion dropped), every new sentence with or without a modal verb, and requirements that moved unchanged to a new number ("was renumbered …; its wording did not change") | `main` plus uncommitted changes | 228 (56 modified, 4 removed, 168 added); a superset of v5 | (09:13:10) flag recall 81.2%, flag precision 22.8%, change accuracy 87.5% | $0 |
 | 25 Oct 09:15 | `subgoal-heldout-inclusive-v7.json` | v6 plus: a requirement whose cited paragraph has a changed paragraph below it (R-001, R-002, R-003, R-088) | the commit that adds `--inclusive` | 232 (60 modified, 4 removed, 168 added); a superset of v6 | (09:40:41) flag recall 84.4%, flag precision 23.3%, change accuracy 88.0% | $0 |
+| 25 Oct 10:27 | `subgoal-heldout-inclusive-v8.json` | v7 plus four inclusive buckets: a compound obligation also gives one row per verb ("shall be documented by A and assessed by B" gives two), an amended sentence that no old requirement covers is an added row, a new sentence inside a modified requirement's new text also gets its own row, a new list item inside an old paragraph is also fused with its lead-in | `main` plus uncommitted changes | 308 (60 modified, 4 removed, 244 added); a superset of v7 | not uploaded yet | $0 |
 
 ## What is measured
 
@@ -595,6 +596,27 @@ The remaining misses are most likely added rows that the gold splits or labels d
 produce), which no general rule here reaches. Uploaded at 09:40:41: flag recall 84.4% (54 of 64),
 flag precision 23.3%, change accuracy 88.0%; 2 of the 4 were in the gold. This is the counting
 held-out upload: second on the leaderboard at the time, behind 89.1%.
+
+### 25 Oct, 10:27: compound obligations and amended sentences without a requirement (v8)
+
+The old requirements show how the gold's extractor splits a sentence: "the manufacturer shall
+investigate … and shall inform …" is R-099 and R-100, "shall aim to detect restricted lanes … and
+refrain from …" is R-092 and R-093, "it shall transition into 'stand-by' mode and immediately notify
+… and terminate …" is R-013 to R-015. Our added rows kept such sentences whole, so one row could
+match only one gold row. `subgoal-heldout-inclusive-v8.json` keeps every v7 row and adds, in the
+inclusive mode only:
+- one more row per verb phrase of a compound obligation (`split_obligation`): a conjunct counts
+  when it has its own modal verb, is a participle after "shall be", or starts with a word that a
+  modal verb governs elsewhere in the regulation ("shall provide", "shall explain");
+- an amended sentence that no old requirement covers, as an added row with the new sentence
+  (5.3.7.1.4, 5.5.4.2.6.5, Annex 4 1 and others in every section); the gold may hold these as new requirements;
+- a new sentence already inside a modified requirement's new text, as its own row too (the
+  "highway-like roads" sentence of 5.5.4.2.6.5 sat inside R-077);
+- a new list item inside an old paragraph, also fused with its lead-in ("The system shall inform
+  or warn the driver about the basis for the system being disabled …", 5.5.4.1.1 (h)).
+
+308 rows (60 modified, 4 removed, 244 added). Dev is unchanged (`cmp` with
+`subgoal-dev-det-v6.json`), the synthetic edits stay at 216 of 216.
 
 ### Cost per run
 

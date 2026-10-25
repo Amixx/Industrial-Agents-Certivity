@@ -29,6 +29,7 @@ from brain.subgoal import (
     validate,
     word_ops,
 )
+from brain.subgoal.changes import split_obligation
 from brain.subgoal.score import score
 from brain.subgoal.survey import synthetic_pairs
 
@@ -829,7 +830,8 @@ def test_inclusive_mode_adds_items_every_section_and_sentences_without_a_modal()
     links = align(old, new)
     assert added_changes(links, {"5"}, "UN R1", "2.0.0") == []
     rows = added_changes(links, {"5"}, "UN R1", "2.0.0", inclusive=True)
-    assert [r["source"]["paragraph"] for r in rows] == ["5.1", "Annex 4 3", "16.1", "2.28"]
+    assert [r["source"]["paragraph"] for r in rows] == ["5.1", "5.1", "Annex 4 3", "16.1", "2.28"]
+    assert rows[1]["new_text"] == "X shall be red provided it is warm."
 
 
 def test_inclusive_mode_flags_an_untouched_sentence_in_a_paragraph_amended_in_place() -> None:
@@ -897,3 +899,70 @@ def test_inclusive_mode_flags_a_requirement_whose_cited_subtree_changed() -> Non
     assert c["reason"] == (
         "Paragraph 6.2 of UN R1 was amended in version 2.0.0: paragraph 6.2.1 below it changed."
     )
+
+
+def test_compound_obligation_splits_into_one_row_per_verb() -> None:
+    verbs = {"explain", "provide", "detect", "refrain"}
+    assert split_obligation(
+        "The strategy shall be documented by the manufacturer and assessed by the Type Approval "
+        "Authority.",
+        verbs,
+    ) == [
+        "The strategy shall be documented by the manufacturer.",
+        "The strategy shall be assessed by the Type Approval Authority.",
+    ]
+    assert split_obligation(
+        "In these cases, the manufacturer shall explain the distances to the authority, and "
+        "provide evidence of those situations.",
+        verbs,
+    ) == [
+        "In these cases, the manufacturer shall explain the distances to the authority.",
+        "In these cases, the manufacturer shall provide evidence of those situations.",
+    ]
+    assert split_obligation(
+        "The system shall aim to detect restricted lanes and refrain from lane changes.", verbs
+    ) == [
+        "The system shall aim to detect restricted lanes.",
+        "The system shall aim to refrain from lane changes.",
+    ]
+    assert split_obligation(
+        "The circumstances shall be described and shall be assessed according to Annex 3.", verbs
+    ) == [
+        "The circumstances shall be described.",
+        "The circumstances shall be assessed according to Annex 3.",
+    ]
+    # Nouns joined by "and" are one obligation.
+    assert split_obligation("The system shall respond to work zones and tolls.", verbs) == []
+    assert split_obligation("Lane changes and merges shall be safe.", verbs) == []
+
+
+def test_inclusive_mode_adds_split_rows_amended_orphans_consumed_and_fused_items() -> None:
+    old = [
+        para("5.1", "The system shall warn the driver."),
+        para("5.2", "The gap shall be 1 s."),
+        para("5.3", "X shall be checked as follows: (a) Look at it; (b) Touch it."),
+    ]
+    new = [
+        para(
+            "5.1",
+            "The system shall warn the driver. The record shall be kept by the manufacturer and "
+            "shown to the authority.",
+        ),
+        para("5.2", "The gap shall be 2 s."),
+        para("5.3", "X shall be checked as follows: (a) Look at it; (b) Touch it; (c) Smell it."),
+    ]
+    links = align(old, new)
+    texts = [r["new_text"] for r in added_changes(links, {"5"}, "UN R1", "2.0.0", inclusive=True)]
+    assert "The record shall be kept by the manufacturer." in texts
+    assert "The record shall be shown to the authority." in texts
+    assert "The gap shall be 2 s." in texts  # amended, and no requirement covers it
+    assert "(c) Smell it." in texts and "X shall be checked to smell it." in texts
+    consumed = {s.index for s in units(new) if s.text.startswith("The record")}
+    texts = [
+        r["new_text"]
+        for r in added_changes(links, {"5"}, "UN R1", "2.0.0", consumed=consumed, inclusive=True)
+    ]
+    assert "The record shall be kept by the manufacturer." in texts
+    # The default mode adds none of these.
+    default = [r["new_text"] for r in added_changes(links, {"5"}, "UN R1", "2.0.0")]
+    assert default == ["The record shall be kept by the manufacturer and shown to the authority."]
