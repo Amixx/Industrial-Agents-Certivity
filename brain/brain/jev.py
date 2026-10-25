@@ -82,7 +82,23 @@ def enabled() -> bool:
     return os.environ.get("BRAIN_JEV") == "1"
 
 
+def kb_variant() -> bool:
+    return os.environ.get("BRAIN_JEV_KB") == "1"
+
+
 def _questions(chunk: list[Paragraph], graph: Graph) -> dict[str, Any]:
+    nouls = dict(NOULS)
+    if kb_variant():
+        nouls["technical"] = (
+            "Does this paragraph state a technical requirement: construction, performance, colour, "
+            "dimensions, position, markings, or a limit the device or vehicle must meet in a test?",
+            "It states a technical requirement or test limit, such as a minimum luminous "
+            "intensity, "
+            "a required colour, a mounting height, or a marking the device must carry.",
+            "It is a definition, scope statement, administrative step (application, approval form, "
+            "extension, communication, transitional provision), or a description of test equipment "
+            "or laboratory set-up that sets no limit.",
+        )
     qs = {}
     for n, p in enumerate(chunk):
         para = json.dumps(
@@ -95,7 +111,7 @@ def _questions(chunk: list[Paragraph], graph: Graph) -> dict[str, Any]:
             },
             ensure_ascii=False,
         )
-        for name, (ask, yes, no) in NOULS.items():
+        for name, (ask, yes, no) in nouls.items():
             qs[f"{name}__{n}"] = {
                 "type": "noul",
                 "instructions": f"{ask}\n\nParagraph: {para}",
@@ -147,7 +163,9 @@ def _combine(answers: dict[str, float], model: dict[str, Any]) -> float:
 
 def score(paragraphs: list[Paragraph], graph: Graph, profile: ProductProfile) -> dict[str, float]:
     """P(cited) per paragraph id from Jev's judgements."""
-    model = json.loads(Path(MODEL_PATH).read_text())
+    model = json.loads(
+        (DATA / "jev_kb_model.json" if kb_variant() else Path(MODEL_PATH)).read_text()
+    )
     state = {
         "product": profile.model_dump(
             include={"product", "vehicle_categories", "functions", "parts", "electronics"}

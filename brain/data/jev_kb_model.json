@@ -1,0 +1,1 @@
+{"nouls": ["technical", "own_function", "other_function", "installation", "electronics"], "coef": [1.1683, -0.0403, -1.2987, -0.16, 0.013], "intercept": -6.678, "fit": "logistic regression (C=1) on the logits of Jev's answers, all 2,915 dev-rear-lamp candidate paragraphs of R10, R148, R150 and R48; out-of-fold AUC 0.959"}

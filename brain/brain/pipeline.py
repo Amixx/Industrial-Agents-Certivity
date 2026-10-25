@@ -140,9 +140,6 @@ def run(
     drafts = rewrite([p for p, _ in chosen], graph, product, use_llm=use_llm)
     kept, dropped = clean(drafts, graph.paragraphs)
     log(f"requirements: {len(kept)} kept, {len(dropped)} dropped")
-    n = len(kept)
-    kept = boilerplate.drop(kept)
-    log(f"pointer and approval-mark rows: {n - len(kept)} dropped")
     if use_llm and kept:
         p_keep = keep.scores(kept, product)
         if sections.ENABLED:
@@ -154,6 +151,9 @@ def run(
         else:
             kept = [d for d, pk in zip(kept, p_keep, strict=True) if pk >= keep.THRESHOLD]
             log(f"expert filter: {len(kept)} kept of {len(p_keep)}")
+    n = len(kept)
+    kept = boilerplate.drop(kept)
+    log(f"pointer, umbrella and approval-mark rows: {n - len(kept)} dropped")
     kept = verbatim.apply(kept)
     if consolidate.ENABLED:
         kept = consolidate.apply(kept, graph)

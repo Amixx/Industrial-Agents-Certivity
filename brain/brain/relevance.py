@@ -30,9 +30,8 @@ WEIGHT = 0.7
 # 0.20: dev lamp (Opus) estimated requirement F2 0.61 against 0.62; plain bumper paragraph F2 on
 # the silver labels in data/bumper-labels 0.72 instead of 0.64 (Opus), 0.78 instead of 0.71 (GPT).
 RELATIVE = 0.3
-# Blended with Jev instead of the decision model: estimated requirement F2 on dev 0.677 at 0.25
-# against 0.653 at 0.3, synth-a03 0.586 against 0.578; plain bumper paragraph F2 0.775 at both.
-RELATIVE_JEV = 0.25
+# The section stage makes the final cut; retain the Jev blend's recall at relative 0.20 here.
+RELATIVE_JEV = 0.20
 MIN_CUT = 0.10
 # Keep at least the top FLOOR share (min FLOOR_MIN) of every selected regulation: no effect on
 # dev, but a product unlike the lamp (low decision-model scores) still gets its core regulation.

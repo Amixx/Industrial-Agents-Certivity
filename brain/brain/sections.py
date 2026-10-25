@@ -12,11 +12,14 @@ bumper labels cite.
 
 from __future__ import annotations
 
+import json
+import os
 import re
 import sys
 from collections import defaultdict
 from collections.abc import Sequence
 from concurrent.futures import ThreadPoolExecutor
+from pathlib import Path
 
 from . import llm
 from .graph import Graph
@@ -129,13 +132,25 @@ def _ask(
 def scores(drafts: Sequence[Draft], graph: Graph, product: str) -> dict[str, float]:
     """p_section per cited paragraph id. Paragraphs a section's answer misses are asked once
     more on their own; a paragraph still unscored stops the run."""
+    out: dict[str, float] = {}
+    if path := os.environ.get("BRAIN_SECTION_SCORES"):
+        saved = json.loads(Path(path).read_text())
+        for draft in drafts:
+            p = draft.paragraph
+            key = f"{p.regulation}|{_key(p.label)}"
+            if key not in saved:
+                raise ValueError(f"section scores {path}: missing {key}")
+            score = float(saved[key])
+            if not 0 <= score <= 1:
+                raise ValueError(f"section scores {path}: {key} must be between 0 and 1")
+            out[p.id] = score
+        return out
     order = {pid: i for i, pid in enumerate(graph.paragraphs)}
     cited = sorted(
         {d.paragraph.id: d.paragraph for d in drafts}.values(), key=lambda p: order[p.id]
     )
     todo = sorted(groups(cited).items())
     _, workers = llm.batching(1, 1, 6)
-    out: dict[str, float] = {}
 
     def safe(item: tuple[tuple[str, str], list[Paragraph]]) -> dict[str, float]:
         (reg, name), ps = item

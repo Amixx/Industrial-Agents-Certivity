@@ -1,0 +1,47 @@
+ok   ruff
+ok   ruff-format
+ok   mypy
+ok   brain ruff
+FAIL brain ruff-format
+unformatted: File would be reformatted
+   --> docs/todo/07-big-swings.md:506:1
+    |
+505 | """Run brain.pipeline and log calls, cache hits and dollars per model."""
+506 +
+507 | import sys
+--------------------------------------------------------------------------------
+514 |
+    - PRICE = {"claude-sonnet-5-5": (2, 10, 0.2), "claude-opus-5-5": (4, 20, 0.2),
+    -          "claude-fable-5-1": (10, 50, 0.25)}
+515 + PRICE = {
+516 +     "claude-sonnet-5-5": (2, 10, 0.2),
+517 +     "claude-opus-5-5": (4, 20, 0.2),
+518 +     "claude-fable-5-1": (10, 50, 0.25),
+519 + }
+520 | usage = defaultdict(lambda: [0, 0, 0, 0])  # calls, in, out, cache read
+--------------------------------------------------------------------------------
+542 | def cj(system, content, schema, *, tier="bulk", **kw):
+    -     payload = {"provider": llm.provider(), "model": llm.model_for(tier), "system": system,
+    -                "content": content, "schema": schema, "effort": kw.get("effort", "medium")}
+543 +     payload = {
+544 +         "provider": llm.provider(),
+545 +         "model": llm.model_for(tier),
+546 +         "system": system,
+547 +         "content": content,
+548 +         "schema": schema,
+549 +         "effort": kw.get("effort", "medium"),
+550 +     }
+551 |     if llm._cache_path(payload).exists():
+--------------------------------------------------------------------------------
+565 |     total += cost
+    -     print(f"[cost] {m}: {c} new calls, {i:,} in / {o:,} out / {cr:,} cache read; ${cost:.2f}",
+    -           file=sys.stderr)
+566 +     print(
+567 +         f"[cost] {m}: {c} new calls, {i:,} in / {o:,} out / {cr:,} cache read; ${cost:.2f}",
+568 +         file=sys.stderr,
+569 +     )
+570 | for m, h in hits.items():
+    |
+
+1 file would be reformatted, 116 files already formatted
+make: *** [check] Error 1

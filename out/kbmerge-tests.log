@@ -1,0 +1,19 @@
+ok   brain pytest
+Command: make test from the repository root (the Makefile runs pytest in brain/).
+Final suite: 110 tests collected; make test exited 0.
+Branch: kb-into-ready, same commit as this log, based on origin/ready-for-main 6193621.
+Final full gate ran 25 Oct 2026 around 05:16–05:19 CEST.
+No network models are enabled in test runs; spend $0.
+
+Earlier development checks, all on this branch's intermediate integration:
+- make test from brain/ failed before execution: the Makefile lives at the repository root.
+- Direct pytest without the ingested corpus: 1 failed, 80 passed, 28 skipped.
+  The failure was the new corpus-cycle test indexing absent UN R148.
+- After ingest: 2 failed, 107 passed. These exposed the missing kb feature model and the lost
+  ready-lineage product-term guard. Both were fixed rather than changing the assertions.
+- Targeted test_steps.py + test_select_regs.py: 25 passed.
+- First complete make test after those fixes: exit 0 (109 tests at that point).
+- Final targeted steps/usage/consolidation run: 28 passed.
+- Final make test: exit 0, 110 tests including both Jev variants and saved-section replay.
+ok   brain pytest
+Repeated the full make test after final source cleanup: passed, 25 Oct 05:24 CEST.

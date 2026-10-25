@@ -229,8 +229,9 @@ def test_relevance_select_cuts_each_regulation_on_its_own_scale() -> None:
     assert len([i for i in absolute if i.startswith("UN R42")]) == 6  # only the FLOOR share
 
 
+@pytest.mark.parametrize("kb_variant, expected", [(False, 0.14543961), (True, 0.30029220)])
 def test_jev_combines_judgements_and_caches(
-    monkeypatch: pytest.MonkeyPatch, tmp_path: Path
+    monkeypatch: pytest.MonkeyPatch, tmp_path: Path, kb_variant: bool, expected: float
 ) -> None:
     from brain import jev
     from brain.graph import Graph
@@ -258,14 +259,20 @@ def test_jev_combines_judgements_and_caches(
 
     monkeypatch.setattr(jev, "_post", post)
     monkeypatch.setattr(jev, "CACHE", tmp_path)
+    monkeypatch.setenv("BRAIN_JEV_KB", "1" if kb_variant else "0")
     graph = Graph(paragraphs={p.id: p for p in paragraphs})
     first = jev.score(paragraphs, graph, ProductProfile(product="rear lamp"))
     again = jev.score(paragraphs, graph, ProductProfile(product="rear lamp"))
     assert len(calls) == 2 and first == again
     assert first["UN R48|0|0"] > first["UN R48|0|1"]
+    assert first["UN R48|0|0"] == pytest.approx(expected)
+    question = calls[0]["questions"]["technical__0"]["instructions"]
+    assert ("condition under which that test is carried out" in question) is not kb_variant
 
 
-def test_sections_group_split_score_and_cut(monkeypatch: pytest.MonkeyPatch) -> None:
+def test_sections_group_split_score_and_cut(
+    monkeypatch: pytest.MonkeyPatch, tmp_path: Path
+) -> None:
     from brain import sections
     from brain.rewrite import Draft
 
@@ -309,6 +316,27 @@ def test_sections_group_split_score_and_cut(monkeypatch: pytest.MonkeyPatch) -> 
 
     kept = sections.cut(drafts, [0.5, 0.6, 0.1, 0.5], p_section)
     assert [d.paragraph for d in kept] == [big[0], small[2]]
+
+    saved = tmp_path / "sections.json"
+    saved.write_text(
+        json.dumps(
+            {
+                "UN R42|2.1": 0.5,
+                "UN R42|6.1.1": 0.5,
+                "UN R42|annex 3 1": 0.5,
+                "UN R42|annex 3 2.4": 0.5,
+            }
+        )
+    )
+    monkeypatch.setenv("BRAIN_SECTION_SCORES", str(saved))
+    replayed = sections.scores(drafts, graph, "bumper")
+    assert [d.paragraph for d in sections.cut(drafts, [0.3, 0.29, 0.1, 0.8], replayed)] == [
+        small[0],
+        small[2],
+    ]
+    saved.write_text("{}")
+    with pytest.raises(ValueError, match="missing UN R42"):
+        sections.scores(drafts, graph, "bumper")
 
 
 def test_boilerplate_drops_pointers_umbrellas_and_approval_marks() -> None:

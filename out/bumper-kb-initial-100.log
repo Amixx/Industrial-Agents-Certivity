@@ -1,0 +1,16 @@
+Initial bumper diagnostic, 25 Oct 2026 05:04–05:06 CEST (04:04–04:06 CET).
+The integration was not final: ready-for-main's Jev question/model and boilerplate-first
+ordering were still active. Its first attempt exposed the renamed llm.write_atomic helper;
+the provider port was corrected and the run completed.
+Provider: claude-cli, strong and bulk claude-opus-5-5; BRAIN_JEV=1, BRAIN_CONSOLIDATE=1.
+Included UN R42, UN R127, UN R26; excluded UN GTR 9.
+Observed pipeline output:
+paragraphs selected: 90
+requirements: 144 kept, 1 dropped
+pointer and approval-mark rows: 0 dropped
+section cut: 102 kept of 144
+wrote brain/out/bumper-plain-l15-final.json (100 requirements); 129.2s,
+39 LLM calls + 12 cached, $2.91 API-equivalent subscription usage.
+Saved as out/bumper-kb-initial-100.json.
+Silver paragraphs: 44/50 matched, 60 cited, precision 0.733, recall 0.880, F2 0.846154.
+No paid LLM API calls. Jev calls were permitted separately; their spend was not metered.

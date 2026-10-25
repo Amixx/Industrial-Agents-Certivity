@@ -13,6 +13,11 @@ that produced the file; branch code is not on `main` unless it says so.
 
 | Run | File | Method | Code | Rows | Local matched / F2 | Platform (upload): matched / F2 | Spend |
 |---|---|---|---|---|---|---|---|
+| 25 Oct 04:58–05:01 CEST | `dev-kb-initial-392.json` + `.log` | Initial integration diagnostic: later Jev question/fit, preliminary CLI adapter, rules before scoring | `kb-into-ready`, intermediate edits over `6193621` | 392 | 139 / 0.603 | not uploaded | subscription; $5.96 API-equivalent; Jev unmetered |
+| 25 Oct 05:04–05:06 CEST | `bumper-kb-initial-100.json` + `.log` | Initial bumper diagnostic with the later Jev question/fit | `kb-into-ready`, intermediate edits over `6193621` | 100 | silver: 44/50 paragraphs, F2 0.846 | not uploaded | subscription; $2.91 API-equivalent; Jev unmetered |
+| 25 Oct 05:10; replay 05:18 CEST | `dev-kb-l15.json` + `.log`, `dev-kb-l15-diff.log` | kb features, kb Jev variant, relative 0.20, no hard requirement filter, saved sections linear 0.15, rules, verbatim, consolidate | `kb-into-ready`, this commit (base `6193621`) | 336 | 148 / 0.675; exact target pairs | not uploaded | subscription: one new CLI call ($0.07 equivalent), then 0 new calls |
+| 25 Oct 05:11–05:13 CEST | `bumper-plain-kb-l15.json` + `.log` | Same kb flags, ordinary section scoring; include R42/R127/R26, exclude GTR 9 | `kb-into-ready`, this commit (base `6193621`) | 89 | silver: 41/50 paragraphs, F2 0.807 | not uploaded | subscription; 12 new CLI calls ($1.16 equivalent), Jev unmetered |
+| 25 Oct, through 05:24 CEST | `kbmerge-tests.log`, `kbmerge-check.log`, `kbmerge-silver.log` | Full tests, targeted checks, lint/type/format gates and baseline comparison | `kb-into-ready`, this commit (base `6193621`) | n/a | 110 tests; no new gate failures | not uploaded | $0 |
 | before 18:45 | `brain/out/dev-upload.json` | gpt-5.5 relevance, gpt-5.4-mini rewrite; cited R26 too | `main` | 407 | 138 / 0.591 | (18:45) 145 / 0.621 | not logged |
 | 19:49 to 19:57 | `rear-lamp-sonnet.json` | Sonnet 5.5 on every step | `brain-claude-models` @ `fd2777b` | 344 | 131 / 0.593 | (20:10) 140 / 0.634 | $3.08 |
 | 19:49 to 19:57 | `rear-lamp-opus.json` | Opus 5.5 on every step | `brain-claude-models` @ `fd2777b` | 338 | 139 / 0.633 | (20:06) 143 / 0.651 | $6.36 |
@@ -162,6 +167,62 @@ what the cached responses cost when they were made. List prices in USD per milli
 | Claude Fable 5.1 (`claude-fable-5-1`) | 10 | 50 | 0.25 |
 
 ## Results
+
+### 25 Oct 2026, 05:18 CEST: kb lineage on ready-for-main
+
+Ported the obligation-base modules, aliases, enrichment answers and matching feature-model fit
+from `origin/backup/best-0724` onto `origin/ready-for-main` at `6193621`. The default selector and
+features use the kb; no `repro/` cache archive or SQLite blob is tracked. `store.connect()` built
+the database from the corpus and imported the committed answers. Verified complete batch
+coverage for R42 (6/6), R26 (9/9) and R127 (25/25), covering respectively 66, 151 and 386 source
+obligations. Ready's subgoal, consolidation and verbatim implementations remain unchanged.
+
+The initial 392-row diagnostic was not a reproduction: its product profile was sampled again,
+it used the newer Jev technical question and fit, and it dropped boilerplate before scoring.
+Matching the historical CLI provider/image handling, adding `BRAIN_JEV_KB=1` for the old question
+and its own fit, and scoring before dropping boilerplate reproduced all 448 clean drafts and
+every `p_keep` value. The later Jev test-condition question and its fit remain the default.
+The relative Jev cut is 0.20; section cutting is linear 0.15 with no separate p_keep threshold.
+
+`BRAIN_SECTION_SCORES` reads the historical per-paragraph section answers. The original harness
+had nondeterministic within-page paragraph ordering and different product JSON whitespace and
+CLI effort, so reconstructing prompts would not reliably hit its request cache. The loader
+requires every cited paragraph and rejects out-of-range probabilities instead of silently
+assuming a score of 1. Without the setting, the normal section stage runs end to end.
+
+The final dev run produced 336 rows, the same ordered `(regulation, paragraph, text)` triples
+as `~/Personal/bench-out/kbbump/dev-l15-final.json`. Added pairs: 0. Missing pairs: 0.
+`dev-kb-l15-diff.log` records the comparison and digest. A new subscription-only consolidation
+call gave the same decisions; the final replay took 2.4 seconds, 159 provider-cache hits and no
+live LLM calls (Jev also came from cache). The local lexical score is 148/190 and F2 0.675;
+this is not a new platform score. No files were uploaded to the platform.
+
+The requested bumper path, `~/Personal/wt-ready/brain/data/synthetic/bumper-plain`, completed with
+only R42, R127 and R26 selected: 28, 38 and 23 rows respectively (89 total). Ordinary section
+scoring was used, not dev scores. Against the two committed regulation-specific silver files,
+41/50 positive paragraphs were cited among 54 cited paragraphs (P 0.759, R 0.820, F2 0.807).
+The first diagnostic's 100 rows and higher silver score used the later Jev variant and a
+different sampled profile/scoring path; it was not substituted for the requested kb lineage.
+
+Differences from the standalone kb chain: ready's safeguards exclude generic vehicle and
+electronics terms from lexical regulation matching; section prompts use stable document order;
+full internal quotes are kept before verbatim rather than serializing them at 1,000 characters;
+consolidation drops exact text duplicates globally, not just within one paragraph, and keeps
+list paragraphs split above the platform's 2,000-character limit. None changes the final dev
+triples. Flags, cache preparation and replay commands are in `brain/README.md`.
+
+Verification: `make test` passes all 110 tests. Brain ruff, Python formatting and mypy pass;
+frontend svelte-check reports no errors or warnings. `make check` still fails formatting the
+unchanged Python example in `brain/docs/todo/07-big-swings.md`. Running the identical formatter
+on a clean archive of base `6193621` reports the same failure. Frontend Biome independently
+reports the same 41 errors, 4 warnings and 1 info on both base and this branch (unchanged
+frontend/configuration, including Tailwind parsing and the SVG title). No new gate failures
+were introduced; unrelated files were not reformatted. Earlier failed probes and fixes are
+recorded in `kbmerge-tests.log`. All model invocations used `claude -p`, never a paid LLM API;
+Jev was explicitly enabled through TypeSafe. No production settings were changed.
+
+Times in this section and its table are CEST (UTC+02), as required by the run log. The raw
+pipeline log timestamps are local CET (UTC+01) after the 25 Oct clock change, one hour earlier.
 
 Each Claude row runs one model on every step: product profile, regulation review, paragraph
 relevance and rewrite. Relevance cut-off 0.20.

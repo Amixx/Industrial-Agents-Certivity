@@ -1,0 +1,15 @@
+Initial integration diagnostic, 25 Oct 2026 04:58–05:01 CEST (03:58–04:01 CET).
+The integration was not final: ready-for-main's Jev question/model, a divergent CLI adapter,
+and boilerplate removal before requirement scoring were still active.
+Provider: claude-cli, strong and bulk claude-opus-5-5; BRAIN_JEV=1, BRAIN_CONSOLIDATE=1.
+Observed pipeline output:
+paragraphs selected: 362
+requirements: 514 kept, 22 dropped
+pointer and approval-mark rows: 13 dropped
+section cut: 425 kept of 501
+wrote brain/out/dev-l15-final.json (392 requirements); 194.6s,
+66 LLM calls + 0 cached, $5.96 API-equivalent subscription usage.
+Saved as out/dev-kb-initial-392.json.
+Against the 336-row target: 264 shared triples, 128 produced-only and 72 target-only.
+Local lexical proxy: 139/190 matches, requirement F2 0.603299.
+No paid LLM API calls. Jev calls were permitted separately; their spend was not metered.

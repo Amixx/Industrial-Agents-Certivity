@@ -44,6 +44,68 @@ uv run python -m brain.pipeline ../cases/dev-rear-lamp -o out/dev.json --team-id
 | `--exclude "UN GTR 9" ...` | Force regulations out (review gate). Unknown or conflicting ids are rejected. |
 | `--threshold 0.2` | Override the paragraph cut-off. With an LLM on, an absolute cut-off on the blended score replaces the per-regulation one. |
 
+The default pipeline uses the committed obligation knowledge base for regulation selection and
+paragraph features. On first use it builds `data/kb.sqlite` from the ingested corpus and the
+committed `data/kb_answers/` files; the SQLite file is generated and ignored, so a fresh checkout
+only needs the regulations and answer cache. The cache includes UN R42, UN R26, UN R127 and UN
+GTR 9.
+
+For the cached offline full path (no paid API calls), use the Claude Code subscription provider:
+
+```bash
+source ~/.config/secrets/secrets.env   # TYPESAFE_API_KEY for Jev only
+unset ANTHROPIC_API_KEY
+BRAIN_LLM=claude-cli BRAIN_JEV=1 BRAIN_JEV_KB=1 BRAIN_CONSOLIDATE=1 \
+  BRAIN_CLAUDE_CLI_BULK=claude-opus-5-5 \
+  uv run --frozen python -m brain.pipeline ../cases/dev-rear-lamp -o ../out/dev-kb-l15.json
+```
+
+`claude-cli` invokes `claude -p` and removes `ANTHROPIC_API_KEY` from its child environment.
+`BRAIN_CLAUDE_CLI_STRONG` and `BRAIN_CLAUDE_CLI_BULK` select its models; Jev uses TypeSafe
+separately when `BRAIN_JEV=1`. `BRAIN_JEV_KB=1` selects the kb lineage's technical-question
+wording and its matching fit (`data/jev_kb_model.json`). Without that flag, the later question
+that counts test conditions as technical, and its fit, remain available. Neither variant puts
+gold text in a prompt. With Jev enabled, paragraph selection uses the relative 0.20 cut,
+then the linear section cut `p_keep * p_section >= 0.15`; pointer, umbrella and approval-mark rows
+are removed, own quotes are used verbatim, and `BRAIN_CONSOLIDATE=1` performs MERGE/SPLIT,
+shared-quote collapse, duplicate removal and the 2,000-character cap.
+
+For an exact replay of the saved dev run, populate `data/cache/` from both existing caches,
+with the backup copied last, and load the historical section answers:
+
+```bash
+mkdir -p data/cache
+cp -R ~/Personal/Industrial-Agents-Certivity/brain/data/cache/. data/cache/
+cp -R ~/Personal/wt-backup-0724/repro/cache/.certivity-llm-cache/. data/cache/
+BRAIN_LLM=claude-cli BRAIN_JEV=1 BRAIN_JEV_KB=1 BRAIN_CONSOLIDATE=1 \
+  BRAIN_CLAUDE_CLI_BULK=claude-opus-5-5 \
+  BRAIN_SECTION_SCORES=~/Personal/wt-backup-0724/repro/p_section.json \
+  uv run --frozen python -m brain.pipeline ../cases/dev-rear-lamp \
+    --team-id team-06 -o ../out/dev-kb-l15.json
+```
+
+`BRAIN_SECTION_SCORES` accepts a JSON object mapping `regulation|normalised paragraph label` to
+a probability, such as `{"UN R42|annex 3 1.2": 0.8}`. Use only answers for the same product and
+draft set. Missing paragraphs or probabilities outside 0–1 stop the run; without this setting,
+sections are scored normally through the provider cache. The harness's section prompts used a
+different paragraph order, whitespace and default CLI effort, so replaying those probabilities
+avoids new sampling. No `repro/` blobs are committed.
+
+For bumper, leave `BRAIN_SECTION_SCORES` unset and use the same model flags with:
+
+```bash
+BRAIN_LLM=claude-cli BRAIN_JEV=1 BRAIN_JEV_KB=1 BRAIN_CONSOLIDATE=1 \
+  BRAIN_CLAUDE_CLI_BULK=claude-opus-5-5 \
+  uv run --frozen python -m brain.pipeline data/synthetic/bumper-plain \
+    --include "UN R42" "UN R127" "UN R26" --exclude "UN GTR 9" \
+    --team-id team-06 -o ../out/bumper-plain-kb-l15.json
+```
+
+The pipeline scores the complete clean draft list before applying the three boilerplate rules,
+as the kb harness did. It retains full internal quotes (the harness serialized them at 1,000
+characters before verbatim), and consolidation removes exact text duplicates across paragraphs
+rather than only within a paragraph. Neither difference changes the saved dev requirement pairs.
+
 The log on stderr shows each step: the product profile, the selected regulations with their
 probabilities, the paragraph count and the requirement count. The output file holds the
 submission plus extra fields the platform ignores: `confidence` and `quote` on each requirement,
@@ -80,6 +142,7 @@ ANTHROPIC_API_KEY=...
 
 | `BRAIN_LLM` | Strong model (profile, regulation review, relevance) | Bulk model (rewrite) |
 |---|---|---|
+| `claude-cli` | `claude-opus-5-5` (`BRAIN_CLAUDE_CLI_STRONG`) | `claude-sonnet-5-5` (`BRAIN_CLAUDE_CLI_BULK`) |
 | `openai` | `gpt-5.5` (`BRAIN_OPENAI_STRONG`) | `gpt-5.4-mini` (`BRAIN_OPENAI_BULK`) |
 | `anthropic` | `claude-opus-5-5` (`BRAIN_MODEL_STRONG`) | `claude-sonnet-5-5` (`BRAIN_MODEL_BULK`) |
 | `local` | `BRAIN_LOCAL_MODEL` at `BRAIN_LOCAL_URL` (default `qwen3:14b` on Ollama) | same |

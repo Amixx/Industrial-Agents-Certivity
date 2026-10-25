@@ -1,9 +1,9 @@
 """JSON-schema completions through the Claude Code CLI (`claude -p`) on the logged-in
 subscription, with a disk cache so reruns cost nothing.
 
-Meant for offline work (evaluation, corpus tagging), not for the pipeline at runtime. The API key
-is removed from the child's environment so calls never bill the API. Claude Code's own system
-prompt, tools, settings and MCP servers are switched off, so a call carries only the prompt.
+Used by the model judge and by `llm` under BRAIN_LLM=claude-cli. The API key is removed from
+the child's environment so calls never bill the API. Claude Code's own system prompt, tools,
+settings and MCP servers are switched off, so a call carries only the prompt.
 """
 
 from __future__ import annotations
@@ -12,6 +12,7 @@ import hashlib
 import json
 import os
 import subprocess
+from collections.abc import Callable
 from pathlib import Path
 from typing import Any
 
@@ -28,10 +29,19 @@ def _cache_path(payload: dict[str, Any]) -> Path:
 
 
 def complete_json(
-    system: str, prompt: str, schema: dict[str, Any], model: str = DEFAULT_MODEL
+    system: str,
+    prompt: str,
+    schema: dict[str, Any],
+    model: str = DEFAULT_MODEL,
+    effort: str | None = None,
+    on_usage: Callable[[dict[str, Any], float | None], None] | None = None,
 ) -> dict[str, Any]:
-    """A JSON object matching `schema`. Raises RuntimeError after ATTEMPTS failed calls."""
-    cached = _cache_path({"system": system, "prompt": prompt, "schema": schema, "model": model})
+    """A JSON object matching `schema`. `effort` (low to max) defaults to the CLI's own setting.
+    Raises RuntimeError after ATTEMPTS failed calls."""
+    key: dict[str, Any] = {"system": system, "prompt": prompt, "schema": schema, "model": model}
+    if effort is not None:
+        key["effort"] = effort
+    cached = _cache_path(key)
     if cached.exists():
         result: dict[str, Any] = json.loads(cached.read_text())
         return result
@@ -48,6 +58,8 @@ def complete_json(
         "--output-format", "json",
         "--json-schema", json.dumps(schema),
     ]  # fmt: skip
+    if effort is not None:
+        cmd += ["--effort", effort]
     error = ""
     for _ in range(ATTEMPTS):
         done = subprocess.run(cmd, capture_output=True, text=True, timeout=TIMEOUT, env=env)
@@ -61,6 +73,8 @@ def complete_json(
             error = str(reply.get("result"))[:300]
             continue
         result = reply.get("structured_output") or json.loads(reply["result"])
+        if on_usage is not None:
+            on_usage(reply.get("usage") or {}, reply.get("total_cost_usd"))
         cached.parent.mkdir(parents=True, exist_ok=True)
         tmp = cached.with_suffix(f".{os.getpid()}.tmp")
         tmp.write_text(json.dumps(result))

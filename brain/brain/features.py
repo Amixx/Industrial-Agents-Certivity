@@ -7,20 +7,27 @@ fitted on the rear lamp transfers to a bumper:
   * section kind: definitions, administrative, marking, test procedure, annex;
   * content: modal verbs, numbers with units, length, depth;
   * graph: referenced from function-matched paragraphs, in-degree;
-  * regulation probability from the regulation selector.
+  * regulation probability from the regulation selector;
+  * obligation base (brain.kb): how many obligations the paragraph holds, and whether they only
+    permit ("may"). Entities the product names through the base's aliases also add their
+    regulation names to the product terms ("tail light" -> "rear position lamp").
 """
 
 from __future__ import annotations
 
+import json
 import math
 import re
+import sqlite3
 from collections.abc import Iterable
 from dataclasses import dataclass, field
+from typing import Any
 
 import numpy as np
 
 from .graph import Graph
 from .ingest import sources
+from .kb import query
 from .models import Paragraph, ProductProfile
 
 FEATURES = [
@@ -48,7 +55,11 @@ FEATURES = [
     "log_refs_in",
     "under_func_annex",
     "rule",
+    "kb_n_obl",
+    "kb_may_only",
 ]
+
+MODAL_OBLIGATION = ("shall", "shall not", "must", "must not")
 
 ADMIN = re.compile(
     r"application for|communication|approval number|notice of approval|transitional|penalt|"
@@ -89,8 +100,57 @@ class Context:
     func_ids: set[str]  # paragraphs whose own heading path matches the product
     ref_from_func: set[str]
     func_annexes: set[tuple[str, str]]  # (regulation, "Annex 3") referenced by func paragraphs
+    obligations: dict[str, ObligationStats]  # paragraph id -> its source obligations
     other_sections: set[str] = field(default_factory=set)  # siblings of a section that matched
     about: set[str] = field(default_factory=set)  # regulations whose title names the product
+
+
+@dataclass(frozen=True)
+class ObligationStats:
+    n: int
+    modal: int  # shall, shall not, must, must not
+    may: int
+
+
+NO_OBLIGATIONS = ObligationStats(0, 0, 0)
+
+
+def obligation_stats(conn: sqlite3.Connection, ids: Iterable[str]) -> dict[str, ObligationStats]:
+    """Counts over the source obligations of each paragraph that has any (derived
+    sub-obligations excluded). Fails when a paragraph is not in the base, which is then stale."""
+    ids_json = json.dumps(list(ids))
+    missing = [
+        r[0]
+        for r in conn.execute(
+            "SELECT value FROM json_each(?) WHERE value NOT IN (SELECT id FROM node)", (ids_json,)
+        )
+    ]
+    if missing:
+        raise ValueError(
+            f"{len(missing)} paragraphs are not in the obligation base (e.g. {missing[0]!r}); "
+            "delete data/kb.sqlite so it is rebuilt from the current corpus"
+        )
+    rows = conn.execute(
+        "SELECT node_id, count(*), "
+        f"sum(modality IN ({','.join('?' * len(MODAL_OBLIGATION))})), sum(modality = 'may') "
+        "FROM obligation WHERE sub = 0 AND node_id IN (SELECT value FROM json_each(?)) "
+        "GROUP BY node_id ORDER BY node_id",
+        (*MODAL_OBLIGATION, ids_json),
+    ).fetchall()
+    return {r[0]: ObligationStats(int(r[1]), int(r[2]), int(r[3])) for r in rows}
+
+
+def product_entities(conn: sqlite3.Connection, profile: ProductProfile) -> list[dict[str, Any]]:
+    """Entities a product term names exactly or contains ("tail light optics" -> tail light).
+    Head-word matches ("rear lamp" -> Lamp) and entities that merely contain a term are left out,
+    since they name something broader or narrower than the product."""
+    terms = [*profile.keywords, *profile.parts, *profile.functions]
+    return [
+        r
+        for r in query.entities_for(conn, terms)
+        if r["via"] == "exact"
+        or (r["via"] == "contains" and len(r["alias"].split()) < len(r["term"].split()))
+    ]
 
 
 def _path_text(p: Paragraph, g: Graph) -> str:
@@ -147,7 +207,15 @@ def build_context(
     corpus: dict[str, list[Paragraph]],
     graph: Graph,
     reg_prob: dict[str, float],
+    kb: sqlite3.Connection | None = None,
 ) -> Context:
+    """`kb` is the obligation base; `store.connect()` opens the shared one when not given."""
+    if kb is None:
+        from .kb import store  # store builds through brain.rewrite, which imports this module
+
+        kb = store.connect()
+    names = [norm(e["name"]) for e in product_entities(kb, profile)]
+    entity_terms = [t for t in dict.fromkeys(names) if len(t.split()) >= 2]
     terms: dict[str, list[str]] = {}
     device_terms: dict[str, list[str]] = {}
     func_ids: set[str] = set()
@@ -162,6 +230,7 @@ def build_context(
         paths = {p.id: _path_text(p, graph) for p in ps}
         defined = {norm(m[1]) for p in ps if (m := DEFINITION.match(p.text))}
         terms[reg] = regulation_terms(profile, list(paths.values()), all_defined)
+        terms[reg] += [t for t in entity_terms if t not in terms[reg]]
         if _names(titles.get(reg, ""), product_terms(profile)):
             about.add(reg)
             func_ids.update(paths)
@@ -181,8 +250,18 @@ def build_context(
             q = graph.paragraphs[target]
             if q.annex:
                 func_annexes.add((q.regulation, " ".join(q.annex.split()[:2])))
+    stats = obligation_stats(kb, [p.id for ps in corpus.values() for p in ps])
     return Context(
-        graph, terms, device_terms, reg_prob, func_ids, ref_from_func, func_annexes, other, about
+        graph,
+        terms,
+        device_terms,
+        reg_prob,
+        func_ids,
+        ref_from_func,
+        func_annexes,
+        stats,
+        other,
+        about,
     )
 
 
@@ -274,7 +353,13 @@ def vector(p: Paragraph, ctx: Context) -> list[float]:
         math.log1p(len(g.refs_in.get(p.id, ()))) / 3,
         float(under_func_annex),
         float(rule),
+        *kb_vector(p, ctx),
     ]
+
+
+def kb_vector(p: Paragraph, ctx: Context) -> list[float]:
+    s = ctx.obligations.get(p.id, NO_OBLIGATIONS)
+    return [math.log1p(s.n) / 3, float(s.modal == 0 and s.may > 0)]
 
 
 def matrix(paragraphs: list[Paragraph], ctx: Context) -> np.ndarray:

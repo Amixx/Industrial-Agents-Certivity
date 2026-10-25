@@ -1,0 +1,335 @@
+unformatted: File would be reformatted
+   --> docs/todo/07-big-swings.md:506:1
+    |
+505 | """Run brain.pipeline and log calls, cache hits and dollars per model."""
+506 +
+507 | import sys
+--------------------------------------------------------------------------------
+514 |
+    - PRICE = {"claude-sonnet-5-5": (2, 10, 0.2), "claude-opus-5-5": (4, 20, 0.2),
+    -          "claude-fable-5-1": (10, 50, 0.25)}
+515 + PRICE = {
+516 +     "claude-sonnet-5-5": (2, 10, 0.2),
+517 +     "claude-opus-5-5": (4, 20, 0.2),
+518 +     "claude-fable-5-1": (10, 50, 0.25),
+519 + }
+520 | usage = defaultdict(lambda: [0, 0, 0, 0])  # calls, in, out, cache read
+--------------------------------------------------------------------------------
+542 | def cj(system, content, schema, *, tier="bulk", **kw):
+    -     payload = {"provider": llm.provider(), "model": llm.model_for(tier), "system": system,
+    -                "content": content, "schema": schema, "effort": kw.get("effort", "medium")}
+543 +     payload = {
+544 +         "provider": llm.provider(),
+545 +         "model": llm.model_for(tier),
+546 +         "system": system,
+547 +         "content": content,
+548 +         "schema": schema,
+549 +         "effort": kw.get("effort", "medium"),
+550 +     }
+551 |     if llm._cache_path(payload).exists():
+--------------------------------------------------------------------------------
+565 |     total += cost
+    -     print(f"[cost] {m}: {c} new calls, {i:,} in / {o:,} out / {cr:,} cache read; ${cost:.2f}",
+    -           file=sys.stderr)
+566 +     print(
+567 +         f"[cost] {m}: {c} new calls, {i:,} in / {o:,} out / {cr:,} cache read; ${cost:.2f}",
+568 +         file=sys.stderr,
+569 +     )
+570 | for m, h in hits.items():
+    |
+
+1 file would be reformatted, 102 files already formatted
+$ biome check .
+/Users/imantsliepins/Personal/wt-kbmerge/.amp/in/base/web/frontend/biome.json:2:13 deserialize ━━━━━━━━━━
+
+  i The configuration schema version does not match the CLI version 2.6.3
+
+    1 │ {
+  > 2 │ 	"$schema": "https://biomejs.dev/schemas/2.5.15/schema.json",
+      │ 	           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    3 │ 	"files": {
+    4 │ 		"includes": [
+
+  i   Expected:                     2.6.3
+      Found:                        2.5.15
+
+  i Run the command biome migrate to migrate the configuration file.
+
+biome.json:2:13 deserialize ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  i The configuration schema version does not match the CLI version 2.6.3
+
+    1 │ {
+  > 2 │ 	"$schema": "https://biomejs.dev/schemas/2.5.15/schema.json",
+      │ 	           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    3 │ 	"files": {
+    4 │ 		"includes": [
+
+  i   Expected:                     2.6.3
+      Found:                        2.5.15
+
+  i Run the command biome migrate to migrate the configuration file.
+
+src/lib/exploded/lamp3d.ts:154:14 lint/style/noNonNullAssertion ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  ! Forbidden non-null assertion.
+
+    152 │ 	const canvas = document.createElement('canvas');
+    153 │ 	canvas.width = canvas.height = 1024;
+  > 154 │ 	const ctx = canvas.getContext('2d')!;
+        │ 	            ^^^^^^^^^^^^^^^^^^^^^^^^
+    155 │ 	ctx.fillStyle = '#1f5b32';
+    156 │ 	ctx.fillRect(0, 0, 1024, 1024);
+
+  i A non-null assertion tells TypeScript to ignore a possible null or undefined value. If the value is missing at runtime, the code fails with an error that the compiler could not catch.
+
+  i Check that the value is defined before using it, for example with an if statement or optional chaining, instead of asserting it.
+
+src/lib/assets/favicon.svg:1:1 lint/a11y/noSvgWithoutTitle ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  × Alternative text title element cannot be empty
+
+   > 1 │ <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="32" height="32">
+       │ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   > 2 │ 	<rect width="32" height="32" rx="7" fill="#02312F" />
+   > 3 │ 	<g
+   > 4 │ 		transform="translate(10 19.6) scale(1.45)"
+        ...
+  > 10 │ 		<path d="M7.46,-8.75 A4,2.5 0 1 0 4,-5 A4,2.5 0 1 1 0.54,-1.25" stroke="#F0FDFA" />
+  > 11 │ 	</g>
+  > 12 │ </svg>
+       │ ^^^^^^
+    13 │
+
+  i For accessibility purposes, SVGs should have an alternative text, provided via title element. If the svg element has role="img", you should add the aria-label or aria-labelledby attribute.
+
+src/lib/ui/theme.css:1:2 parse ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  × Tailwind-specific syntax is disabled.
+
+  > 1 │ @reference '../../routes/layout.css';
+      │  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    2 │
+    3 │ @layer components {
+
+  i Enable `tailwindDirectives` in the css parser options, or remove this if you are not using Tailwind CSS.
+
+src/lib/ui/theme.css:5:4 parse ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  × Tailwind-specific syntax is disabled.
+
+    3 │ @layer components {
+    4 │ 	.ui-app {
+  > 5 │ 		@apply min-h-screen bg-white font-grotesk text-sm text-black;
+      │ 		 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    6 │ 		font-feature-settings: "ss01";
+    7 │ 	}
+
+  i Enable `tailwindDirectives` in the css parser options, or remove this if you are not using Tailwind CSS.
+
+src/lib/ui/theme.css:9:4 parse ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  × Tailwind-specific syntax is disabled.
+
+     7 │ 	}
+     8 │ 	.ui-gutter {
+   > 9 │ 		@apply px-8 xl:px-12;
+       │ 		 ^^^^^^^^^^^^^^^^^^^^
+    10 │ 	}
+    11 │ 	.ui-grid {
+
+  i Enable `tailwindDirectives` in the css parser options, or remove this if you are not using Tailwind CSS.
+
+src/lib/ui/theme.css:12:4 parse ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  × Tailwind-specific syntax is disabled.
+
+    10 │ 	}
+    11 │ 	.ui-grid {
+  > 12 │ 		@apply grid grid-cols-12 gap-x-4 xl:gap-x-6;
+       │ 		 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    13 │ 	}
+    14 │ 	.ui-section {
+
+  i Enable `tailwindDirectives` in the css parser options, or remove this if you are not using Tailwind CSS.
+
+src/lib/ui/theme.css:15:4 parse ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  × Tailwind-specific syntax is disabled.
+
+    13 │ 	}
+    14 │ 	.ui-section {
+  > 15 │ 		@apply border-t border-black pt-3;
+       │ 		 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    16 │ 	}
+    17 │ 	.ui-numeral {
+
+  i Enable `tailwindDirectives` in the css parser options, or remove this if you are not using Tailwind CSS.
+
+src/lib/ui/theme.css:18:4 parse ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  × Tailwind-specific syntax is disabled.
+
+    16 │ 	}
+    17 │ 	.ui-numeral {
+  > 18 │ 		@apply text-5xl leading-none font-light text-cv-teal-700 tabular-nums;
+       │ 		 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    19 │ 	}
+    20 │ 	.ui-count {
+
+  i Enable `tailwindDirectives` in the css parser options, or remove this if you are not using Tailwind CSS.
+
+src/lib/ui/theme.css:21:4 parse ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  × Tailwind-specific syntax is disabled.
+
+    19 │ 	}
+    20 │ 	.ui-count {
+  > 21 │ 		@apply leading-[0.85] font-bold tracking-tight text-cv-teal-700 tabular-nums;
+       │ 		 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    22 │ 	}
+    23 │ 	.ui-label {
+
+  i Enable `tailwindDirectives` in the css parser options, or remove this if you are not using Tailwind CSS.
+
+src/lib/ui/theme.css:24:4 parse ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  × Tailwind-specific syntax is disabled.
+
+    22 │ 	}
+    23 │ 	.ui-label {
+  > 24 │ 		@apply block text-[11px] font-bold;
+       │ 		 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    25 │ 	}
+    26 │ 	.ui-rule {
+
+  i Enable `tailwindDirectives` in the css parser options, or remove this if you are not using Tailwind CSS.
+
+src/lib/ui/theme.css:27:4 parse ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  × Tailwind-specific syntax is disabled.
+
+    25 │ 	}
+    26 │ 	.ui-rule {
+  > 27 │ 		@apply border-black;
+       │ 		 ^^^^^^^^^^^^^^^^^^^
+    28 │ 	}
+    29 │ 	.ui-rule-soft {
+
+  i Enable `tailwindDirectives` in the css parser options, or remove this if you are not using Tailwind CSS.
+
+src/lib/ui/theme.css:30:4 parse ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  × Tailwind-specific syntax is disabled.
+
+    28 │ 	}
+    29 │ 	.ui-rule-soft {
+  > 30 │ 		@apply border-black/15;
+       │ 		 ^^^^^^^^^^^^^^^^^^^^^^
+    31 │ 	}
+    32 │ 	.ui-surface {
+
+  i Enable `tailwindDirectives` in the css parser options, or remove this if you are not using Tailwind CSS.
+
+src/lib/ui/theme.css:33:4 parse ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  × Tailwind-specific syntax is disabled.
+
+    31 │ 	}
+    32 │ 	.ui-surface {
+  > 33 │ 		@apply bg-white;
+       │ 		 ^^^^^^^^^^^^^^^
+    34 │ 	}
+    35 │ 	.ui-panel {
+
+  i Enable `tailwindDirectives` in the css parser options, or remove this if you are not using Tailwind CSS.
+
+src/lib/ui/theme.css:36:4 parse ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  × Tailwind-specific syntax is disabled.
+
+    34 │ 	}
+    35 │ 	.ui-panel {
+  > 36 │ 		@apply rounded-panel;
+       │ 		 ^^^^^^^^^^^^^^^^^^^^
+    37 │ 	}
+    38 │ 	.ui-btn {
+
+  i Enable `tailwindDirectives` in the css parser options, or remove this if you are not using Tailwind CSS.
+
+src/lib/ui/theme.css:39:4 parse ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  × Tailwind-specific syntax is disabled.
+
+    37 │ 	}
+    38 │ 	.ui-btn {
+  > 39 │ 		@apply inline-flex h-9 cursor-pointer items-center justify-between gap-3 rounded-button border-2 border-black px-3 text-sm font-bold whitespace-nowrap hover:bg-black hover:text-white disabled:cursor-default disabled:opacity-30 disabled:hover:bg-transparent disabled:hover:text-black;
+       │ 		 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    40 │ 	}
+    41 │ 	.ui-btn-primary {
+
+  i Enable `tailwindDirectives` in the css parser options, or remove this if you are not using Tailwind CSS.
+
+src/lib/ui/theme.css:42:4 parse ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  × Tailwind-specific syntax is disabled.
+
+    40 │ 	}
+    41 │ 	.ui-btn-primary {
+  > 42 │ 		@apply bg-black text-white hover:bg-cv-ink-800 disabled:bg-cv-ink-800 disabled:opacity-100 disabled:hover:bg-cv-ink-800 disabled:hover:text-white;
+       │ 		 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    43 │ 	}
+    44 │ 	.ui-input {
+
+  i Enable `tailwindDirectives` in the css parser options, or remove this if you are not using Tailwind CSS.
+
+src/lib/ui/theme.css:45:4 parse ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  × Tailwind-specific syntax is disabled.
+
+    43 │ 	}
+    44 │ 	.ui-input {
+  > 45 │ 		@apply h-9 rounded-control border-b-2 border-black bg-white px-1 text-sm outline-none placeholder:text-black/40 focus:bg-cv-mint-50;
+       │ 		 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    46 │ 	}
+    47 │ 	.ui-tag {
+
+  i Enable `tailwindDirectives` in the css parser options, or remove this if you are not using Tailwind CSS.
+
+src/lib/ui/theme.css:48:4 parse ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  × Tailwind-specific syntax is disabled.
+
+    46 │ 	}
+    47 │ 	.ui-tag {
+  > 48 │ 		@apply inline-block rounded-control border border-black px-1.5 py-px text-[11px] font-bold;
+       │ 		 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    49 │ 	}
+    50 │ 	.ui-toggle {
+
+  i Enable `tailwindDirectives` in the css parser options, or remove this if you are not using Tailwind CSS.
+
+src/lib/ui/theme.css:51:4 parse ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  × Tailwind-specific syntax is disabled.
+
+    49 │ 	}
+    50 │ 	.ui-toggle {
+  > 51 │ 		@apply h-7 cursor-pointer rounded-control px-2 text-xs font-bold hover:bg-black/5;
+       │ 		 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    52 │ 	}
+    53 │ 	.ui-toggle-on {
+
+  i Enable `tailwindDirectives` in the css parser options, or remove this if you are not using Tailwind CSS.
+
+The number of diagnostics exceeds the limit allowed. Use --max-diagnostics to increase it.
+Diagnostics not shown: 26.
+Checked 77 files in 210ms. No fixes applied.
+Found 41 errors.
+Found 4 warnings.
+Found 1 info.
+check ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  × Some errors were emitted while running checks.
+
+error: script "lint" exited with code 1
