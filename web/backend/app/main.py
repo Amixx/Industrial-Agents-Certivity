@@ -1,4 +1,5 @@
 import json
+import os
 import subprocess
 from collections.abc import AsyncIterator
 from contextlib import asynccontextmanager
@@ -27,6 +28,12 @@ app = FastAPI(lifespan=lifespan)
 @app.get("/api/health")
 def health() -> dict[str, str]:
     return {"status": "ok"}
+
+
+@app.get("/api/version")
+def version() -> dict[str, str | None]:
+    """The commit this image was built from; Render passes it in as RENDER_GIT_COMMIT."""
+    return {"commit": os.environ.get("RENDER_GIT_COMMIT")}
 
 
 @app.get("/api/cases")

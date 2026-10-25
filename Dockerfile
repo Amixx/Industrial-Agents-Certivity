@@ -22,6 +22,8 @@ COPY data/regulation-updates/ data/regulation-updates/
 COPY data/briefs/ data/briefs/
 COPY brain/ brain/
 RUN cd brain && .venv/bin/python -m brain.ingest --role base
+ARG RENDER_GIT_COMMIT
+ENV RENDER_GIT_COMMIT=$RENDER_GIT_COMMIT
 WORKDIR /app/web/backend
 ENV PATH="/app/web/backend/.venv/bin:$PATH"
 CMD uvicorn app.main:app --host 0.0.0.0 --port ${PORT:-8000}
