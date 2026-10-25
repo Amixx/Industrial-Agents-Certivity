@@ -14,6 +14,7 @@ files, so they can run in parallel without merge conflicts.
 | [06-sunday-rehearsal.md](06-sunday-rehearsal.md) | Dry-run the whole Sunday path and freeze the configuration | the runbook in `brain/README.md`, `brain/pipeline.py` for wiring fixes only | open |
 | [07-big-swings.md](07-big-swings.md) | Seven parallel lanes that swing to extremes (votes across runs, maximum recall, maximum precision, hedged cuts, verbatim rows, a row-level selector, Sunday feasibility) to learn what drives recall and precision | `swing/<lane>.py`, `../out/experiments/<lane>.md` | done 24 Oct 23:14, local scores only, summary in that file's Results |
 | [08-complex.md](08-complex.md) | Five strategies on top of the swing audit: drop expert-skip rows, filter the loose vote, split collapsed tables, a vote of three new runs, one Sonnet run at blend weight 0.85 | `swing/h_*` through `swing/l_*`, `../out/experiments/H.md` to `L.md`, `STATUS-08.md` | done 25 Oct 00:24; table-split uploaded, platform 146 / 0.641, summary in that file's Results |
+| [09-subgoal-heldout.md](09-subgoal-heldout.md) | The sub-goal held-out pair (UN R171): from 84.4% to 100% flag recall, with fresh eyes | `brain/subgoal/`, `tests/test_subgoal.py`, `../out/subgoal-heldout-*` | open |
 
 Paths are relative to `brain/` unless they start with `../`.
 
