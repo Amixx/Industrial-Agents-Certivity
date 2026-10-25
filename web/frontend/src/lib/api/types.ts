@@ -138,6 +138,7 @@ export interface ApiClient {
 	getAssessment(id: string): Promise<Assessment | null>;
 	checkUpdates(id: string): Promise<RegulationUpdate[]>;
 	applyUpdate(id: string, regulation: string): Promise<Assessment>;
-	getBrief(requirements: Requirement[]): Promise<Brief>;
+	/** With `write` false, resolves to null unless a brief was already written. */
+	getBrief(requirements: Requirement[], write: boolean): Promise<Brief | null>;
 	ask(question: string, selection: string, requirements: Requirement[]): Promise<AskAnswer>;
 }

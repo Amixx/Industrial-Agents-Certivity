@@ -133,6 +133,8 @@ class Brief(Model):
 
 class BriefRequest(Model):
     requirements: list[Requirement]
+    write: bool = False
+    """Write the brief if none is cached; otherwise only a cached brief is returned."""
 
 
 class AskRequest(Model):

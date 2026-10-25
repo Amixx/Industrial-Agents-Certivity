@@ -60,12 +60,13 @@ export const http: ApiClient = {
 		});
 		return json<Assessment>(res);
 	},
-	async getBrief(requirements) {
+	async getBrief(requirements, write) {
 		const res = await fetch('/api/brief', {
 			method: 'POST',
 			headers: { 'Content-Type': 'application/json' },
-			body: JSON.stringify({ requirements }),
+			body: JSON.stringify({ requirements, write }),
 		});
+		if (!write && res.status === 404) return null;
 		return json<Brief>(res);
 	},
 	async ask(question, selection, requirements) {

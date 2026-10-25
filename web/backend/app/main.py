@@ -138,6 +138,11 @@ def apply_update(assessment_id: str, regulation: str) -> JSONResponse:
 
 @app.post("/api/brief")
 def get_brief(request: BriefRequest) -> JSONResponse:
+    if not request.write:
+        found = brief.cached(request.requirements)
+        if found is None:
+            raise HTTPException(404, "No brief written yet")
+        return JSONResponse(found.dump())
     try:
         written = brief.brief_for(request.requirements)
     except (

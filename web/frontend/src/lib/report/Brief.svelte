@@ -15,19 +15,29 @@ let {
 } = $props();
 
 let brief = $state<Brief | null>(null);
+/** Whether a cached brief was looked for, so the write button shows only when there is none. */
+let checked = $state(false);
+let writing = $state(false);
 let error = $state('');
 /** The open citation: a paragraph label cited by one sentence. */
 let open = $state<{ section: number; sentence: number; label: string } | null>(null);
 
 const byId = $derived(new Map(requirements.map((r) => [r.id, r])));
 
-onMount(async () => {
+onMount(() => load(false));
+
+async function load(write: boolean) {
+	writing = write;
+	error = '';
 	try {
-		brief = await api.getBrief(requirements);
+		brief = await api.getBrief(requirements, write);
 	} catch (e) {
 		error = e instanceof Error ? e.message : String(e);
+	} finally {
+		checked = true;
+		writing = false;
 	}
-});
+}
 
 /** A sentence's cited requirements, one group per regulation paragraph. */
 function citations(cites: string[]) {
@@ -110,12 +120,19 @@ function toggle(section: number, sentence: number, label: string) {
 				</div>
 			</div>
 		{/each}
-	{:else if error}
-		<p class="status">The brief could not be written. {error}</p>
-	{:else}
+	{:else if writing}
 		<p class="status">
-			Writing the brief from {requirements.length} requirements. The first time takes a minute or
-			two.
+			Writing the brief from {requirements.length} requirements. This takes a minute or two.
+		</p>
+	{:else if checked}
+		<p class="status">
+			{#if error}
+				The brief could not be written. {error}
+			{:else}
+				A model call writes a short brief from these {requirements.length} requirements, each
+				sentence cited.
+			{/if}
+			<button type="button" class="write" onclick={() => load(true)}>Write brief</button>
 		</p>
 	{/if}
 </section>
@@ -128,6 +145,20 @@ function toggle(section: number, sentence: number, label: string) {
 }
 .status {
 	color: var(--color-cv-ink-800);
+}
+.write {
+	margin-left: 2mm;
+	text-decoration: underline;
+	text-underline-offset: 2px;
+	cursor: pointer;
+}
+.write:hover {
+	color: var(--color-cv-teal-700);
+}
+@media print {
+	.status {
+		display: none;
+	}
 }
 .topic {
 	display: grid;

@@ -166,6 +166,11 @@ def key(requirements: list[Requirement]) -> str:
     return hashlib.sha256(blob.encode()).hexdigest()[:16]
 
 
+def cached(requirements: list[Requirement]) -> Brief | None:
+    path = BRIEFS / f"{key(requirements)}.json"
+    return Brief.model_validate_json(path.read_text()) if path.is_file() else None
+
+
 def brief_for(requirements: list[Requirement]) -> Brief:
     digest = key(requirements)
     path = BRIEFS / f"{digest}.json"
