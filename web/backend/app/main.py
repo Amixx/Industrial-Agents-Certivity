@@ -11,7 +11,7 @@ from fastapi.responses import FileResponse, JSONResponse, Response, StreamingRes
 from fastapi.staticfiles import StaticFiles
 from starlette.datastructures import UploadFile as StarletteUploadFile
 
-from . import ask, brief, pipeline, spend, store, updates, voice
+from . import ask, brief, coverage, pipeline, spend, store, updates, voice
 from .models import AskRequest, Assessment, BriefRequest, ReadAnswer, ReadRequest
 from .paths import CASES, FRONTEND_BUILD, REGULATIONS
 
@@ -118,6 +118,15 @@ def get_updates(assessment_id: str) -> JSONResponse:
     assessment = _find(assessment_id)
     found = updates.updates_for(assessment, store.applied.get(assessment_id, []))
     return JSONResponse([u.dump() for u in found])
+
+
+@app.get("/api/assessments/{assessment_id}/coverage")
+def get_coverage(assessment_id: str) -> JSONResponse:
+    try:
+        found = coverage.coverage_for(_find(assessment_id))
+    except (OSError, subprocess.SubprocessError) as e:
+        raise HTTPException(503, f"Local judge unavailable: {e}") from e
+    return JSONResponse(found.dump())
 
 
 @app.post("/api/assessments/{assessment_id}/updates/{regulation}")

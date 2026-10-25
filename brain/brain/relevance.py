@@ -172,18 +172,28 @@ def blend(model_p: float, llm_p: float | None, weight: float = WEIGHT) -> float:
     return float(model_p ** (1 - weight) * max(llm_p, 1e-3) ** weight)
 
 
+def bars(
+    scores: list[tuple[Paragraph, float]], cut: float | None = None, relative: float = RELATIVE
+) -> dict[str, float]:
+    """Each regulation's cut-off in `select`: `relative` times its best score (at least MIN_CUT),
+    or `cut` when one is given."""
+    best: dict[str, float] = {}
+    for p, s in scores:
+        best[p.regulation] = max(s, best.get(p.regulation, s))
+    return {r: cut if cut is not None else max(MIN_CUT, relative * b) for r, b in best.items()}
+
+
 def select(
     scores: list[tuple[Paragraph, float]], cut: float | None = None, relative: float = RELATIVE
 ) -> set[str]:
-    """Ids to keep: per regulation, scores at `relative` times its best (at least MIN_CUT), or at
-    `cut` when one is given; plus each regulation's top FLOOR share."""
+    """Ids to keep: per regulation, scores at its cut-off from `bars`, plus its top FLOOR share."""
     by_reg: dict[str, list[tuple[Paragraph, float]]] = {}
     for p, s in scores:
         by_reg.setdefault(p.regulation, []).append((p, s))
+    bar = bars(scores, cut, relative)
     chosen: set[str] = set()
-    for items in by_reg.values():
+    for reg, items in by_reg.items():
         ranked = sorted(items, key=lambda x: -x[1])
-        bar = cut if cut is not None else max(MIN_CUT, relative * ranked[0][1])
-        chosen.update(p.id for p, s in ranked if s >= bar)
+        chosen.update(p.id for p, s in ranked if s >= bar[reg])
         chosen.update(p.id for p, _ in ranked[: max(FLOOR_MIN, int(FLOOR * len(items)))])
     return chosen

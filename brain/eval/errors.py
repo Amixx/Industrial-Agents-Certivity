@@ -13,6 +13,7 @@ from __future__ import annotations
 import argparse
 import collections
 import json
+import re
 from pathlib import Path
 from typing import Any
 
@@ -21,21 +22,74 @@ from brain.paths import CASES
 from . import judge
 from .score import fbeta, paragraph_key
 
+# The gold sometimes names the table in the paragraph ("5.1.4.4.1. Table 3"); its paragraph is
+# the one before the table.
+_TABLE = re.compile(r"\s+table\s+\S+$")
+
 
 def _key(r: dict[str, Any]) -> tuple[str, str | None]:
-    return r["source"]["regulation"], paragraph_key(r["source"].get("paragraph"))
+    key = paragraph_key(r["source"].get("paragraph"))
+    return r["source"]["regulation"], _TABLE.sub("", key) if key else key
+
+
+def reason(
+    key: tuple[str, str | None], gold: collections.Counter[Any], ours: collections.Counter[Any]
+) -> str:
+    """Why a gold row on paragraph `key` went unmatched: the file never cites the paragraph
+    (`below_cut`), cites it with fewer rows than the gold (`split_finer`), or with as many rows
+    that the judge did not pair (`worded_differently`)."""
+    if not ours[key]:
+        return "below_cut"
+    return "split_finer" if ours[key] < gold[key] else "worded_differently"
+
+
+def breakdown(sub: list[dict[str, Any]], exp: list[dict[str, Any]]) -> dict[str, Any]:
+    """The judge's pairs, each unmatched gold row with its reason and the file's most similar row
+    on the same paragraph (index, similarity and the gold row the judge paired it with, or
+    None), and each unmatched row of the file with whether its paragraph is among the gold's."""
+    gold = collections.Counter(_key(r) for r in exp)
+    ours = collections.Counter(_key(r) for r in sub)
+    pairs = judge.match(sub, exp)
+    paired = {i: j for i, j, _ in pairs}
+    matched_exp = set(paired.values())
+    by_key: dict[tuple[str, str | None], list[int]] = collections.defaultdict(list)
+    for i, r in enumerate(sub):
+        by_key[_key(r)].append(i)
+    missed = []
+    for j, r in enumerate(exp):
+        if j in matched_exp:
+            continue
+        near = max(
+            ((judge.similarity(sub[i]["text"], r["text"]), i) for i in by_key[_key(r)]),
+            default=None,
+        )
+        missed.append(
+            {
+                "index": j,
+                "reason": reason(_key(r), gold, ours),
+                "nearest": None
+                if near is None
+                else {"index": near[1], "similarity": near[0], "paired_with": paired.get(near[1])},
+            }
+        )
+    extra = [
+        {"index": i, "on_gold_paragraph": _key(r) in gold}
+        for i, r in enumerate(sub)
+        if i not in paired
+    ]
+    return {"pairs": pairs, "missed": missed, "extra": extra}
 
 
 def report(sub: list[dict[str, Any]], exp: list[dict[str, Any]]) -> list[str]:
     gold = collections.Counter(_key(r) for r in exp)
     ours = collections.Counter(_key(r) for r in sub)
-    pairs = judge.match(sub, exp)
+    found = breakdown(sub, exp)
+    pairs = found["pairs"]
     matched_sub = {i for i, _, _ in pairs}
-    matched_exp = {j for _, j, _ in pairs}
     inside = [i for i, r in enumerate(sub) if _key(r) in gold]
     hit_inside = len(matched_sub & set(inside))
-    missed = [j for j in range(len(exp)) if j not in matched_exp]
-    on_cited = sum(1 for j in missed if _key(exp[j]) in ours)
+    missed = found["missed"]
+    on_cited = sum(1 for m in missed if m["reason"] != "below_cut")
     fewer = sum(1 for k, n in gold.items() if 0 < ours[k] < n)
     equal = sum(1 for k, n in gold.items() if ours[k] == n)
     more = sum(1 for k, n in gold.items() if ours[k] > n)

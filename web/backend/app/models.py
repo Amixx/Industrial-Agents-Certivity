@@ -61,6 +61,20 @@ class RunCost(Model):
     models: list[ModelCost]
 
 
+class CutParagraph(Model):
+    """A paragraph the run cut, with its score and the cut it fell under."""
+
+    regulation: str
+    version: str
+    page: int
+    paragraph: str
+    text: str | None = None
+    """The start of the paragraph, so a reader can tell what it is about."""
+    score: float
+    cut: float
+    stage: Literal["paragraph", "section", "confidence"]
+
+
 class Assessment(Model):
     id: str
     created_at: str
@@ -72,6 +86,7 @@ class Assessment(Model):
     requirements: list[Requirement]
     status: Literal["running", "complete", "failed"]
     cost: RunCost | None = None
+    below_cut: list[CutParagraph] | None = None
 
 
 class Partial(Model):
@@ -162,3 +177,76 @@ class AskAnswer(Model):
     budget_usd: float
     # Set when the server can voice the answer with ElevenLabs: GET /api/speak/{speech_id}.
     speech_id: str | None = None
+
+
+class CoverageRow(Model):
+    id: str
+    text: str
+    source: Source
+
+
+class Nearest(CoverageRow):
+    similarity: float
+    paired_with: str | None = None
+    """The expert row the judge paired this row with instead, if any."""
+
+
+class Miss(CoverageRow):
+    reason: Literal["below_cut", "split_finer", "worded_differently"]
+    score: float | None = None
+    cut: float | None = None
+    stage: Literal["paragraph", "section", "confidence"] | None = None
+    nearest: Nearest | None = None
+
+
+class Extra(CoverageRow):
+    on_expert_paragraph: bool
+
+
+class LocalScore(Model):
+    expected: int
+    submitted: int
+    matched: int
+    precision: float
+    recall: float
+    f2: float
+
+
+class PlatformUpload(Model):
+    at: str
+    """As the run log in out/README.md writes it, with its time zone."""
+    f2: float
+    matched: int | None = None
+    """Expert rows matched; None on the held-out case, whose expert answer is hidden."""
+    precision: float | None = None
+    recall: float | None = None
+
+
+class PlatformScore(Model):
+    file: str
+    rows: int
+    uploads: list[PlatformUpload]
+
+
+class NearCut(Model):
+    source: Source
+    text: str | None = None
+    score: float
+    cut: float | None = None
+    stage: Literal["paragraph", "section", "confidence"] | None = None
+    kept: bool
+
+
+class Coverage(Model):
+    case: str | None
+    has_answer: bool
+    local: LocalScore | None = None
+    platform: PlatformScore | None = None
+    missed: list[Miss] = []
+    extra: list[Extra] = []
+    excluded: list[RegulationDecision]
+    near_cut: list[NearCut] = []
+    expert_copies: int = 0
+    """Expert rows this assessment holds word for word; all of them means it measures nothing."""
+    engine_run: str | None = None
+    """A stored engine run on the same case, to compare instead."""
