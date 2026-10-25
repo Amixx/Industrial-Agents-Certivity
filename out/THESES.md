@@ -31,7 +31,7 @@ Measures:
 | 1 | Regulation choice is solved | proved | 4 of 4 on dev in every run | Check on the bumper |
 | 2 | Selection loses little on dev | proved | Reach 184 of 190 before cuts, and 1–3 rows by content | Bumper unknown: Jev was fit on lamp regulations |
 | 3 | Relative cut 0.20 or 0.15 beats 0.25 | open | Local dev reach +7 at 0.20, but the only platform pair goes the other way (0.20: 150, 0.25: 154), confounded with filter and prompt | Clean A/B upload |
-| 4 | Rows on paragraphs gold doesn't cite match nothing | open | The cut uploads only removed 6–9 rows. Thesis 8 is refuted, so wrongly cited rows can still match by text | After `thesis-nolabels` |
+| 4 | Rows on paragraphs gold doesn't cite match nothing | proved | `thesis-offgold`: those 106 rows alone match 2. Dropping them all would give F2 about 0.78 at the 0.724 file's mean of about 154 matches | A gold-free signal that finds them: the biggest lever left |
 | 5 | The judge rewards the regulation's own words | supported for fragments, open for full sentences | 2×2 of the cut2-mark uploads: both quoted 156, fragments only 151, full sentences only 146, neither 149. Only the all-quoted cell stands out (+7, at the noise limit). Subset: Opus-completed fragments 45 against 53 as quotes | Keep quoting; replicate the 0.724 file |
 | 6 | Plain sentence extraction converts as well as split and quote | refuted | Reach → matches: no-LLM 157 → 107, sentence-pick 181 → 142, splitless 175 → 140, ours 183 → 156 | none |
 | 7 | Fewer, coarser rows score better | refuted | Splitless −9, sentence-pick −14 | none |
