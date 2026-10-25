@@ -4,45 +4,48 @@ What we believe about scoring on the dev rear lamp, and the run that settled eac
 
 - **proved**: an upload or an exact local count settles it;
 - **supported**: the evidence points one way, with room for noise;
-- **refuted**: it lost;
-- **open**: not yet tested;
+- **refuted**: it lost beyond noise;
+- **open**: untested or confounded;
 - **shelved**: not worth a slot.
 
-Two measures recur:
-- **reach**: gold rows on paragraphs we cite. The paragraph metric counts it exactly from the files.
-- **subset upload**: a file holding only some rows. Its matches are those rows' exact contribution.
+Measures:
+- **reach**: gold rows on paragraphs we cite.
+- **capacity**: the sum over paragraphs of min(our rows, gold rows). It bounds matches only if the judge pairs within paragraphs (thesis 8).
+- **subset upload**: a file holding only some rows. Its matches equal those rows' share of the full file only if pairing is context-free, which is unproven. Subsets covering whole paragraphs are the safest.
 
-## Step by step: where the 0.724 file (156 matches, 317 rows) loses
+**Noise.** The same Fable file scored 149 and 142, uploaded a minute apart. Treat any single-pair difference under about 7 matches as noise. The 156 file is the best of about 30 uploads, so its expected score is lower.
+
+## Where the 0.724 file (156 matches, 317 rows) loses
 
 | Step | Gold rows left | Lost |
 |---|---|---|
 | Regulations | 190 | 0 |
-| Selection and rewrite | 184 | 6 |
+| Selection and rewrite | 184 | 6 by label; 1–3 by content (R150 Table 3 and Table A6-1 are covered under the parent paragraph; gold 4.5.3 and 5.18 sit beside our 4.5.3.1 and 5.18.1) |
 | Section cut and rules | 183 | 1 |
-| Platform match | 156 | 27: 13 because we have fewer rows than gold on that paragraph, 14 with a row that doesn't match |
-
-Precision side: 106 rows on paragraphs gold doesn't cite, and 41 rows beyond gold's count on gold paragraphs.
+| Platform match | 156 | 27. Capacity is 170, so 13 would need more rows on their paragraph if pairing is within paragraphs. |
 
 ## Theses
 
 | # | Thesis | Status | Evidence | Next |
 |---|---|---|---|---|
 | 1 | Regulation choice is solved | proved | 4 of 4 on dev in every run | Check on the bumper |
-| 2 | Selection loses little on dev | proved | Reach 184 of 190 before cuts | Bumper unknown: Jev was fit on dev |
-| 3 | Relative cut 0.20 or 0.15 beats 0.25 | supported | Dev reach +7 at 0.20; bumper silver hits 42 → 44 (0.20) and 48 (0.15) | Rewrite only the new paragraphs, then upload |
-| 4 | Rows on paragraphs gold doesn't cite match nothing | supported | Every cut upload landed within about 1 match of the paragraph metric, which assumes this | none |
-| 5 | The judge rewards the regulation's own words over completed or reworded text | supported | Verbatim 149 → 156. Fragment subset: 53 as bare quotes, 45 as standalone sentences. Full file, fragments quoted vs rewritten: 151 vs 146 | Keep quoting; stop rewording |
+| 2 | Selection loses little on dev | proved | Reach 184 of 190 before cuts, and 1–3 rows by content | Bumper unknown: Jev was fit on lamp regulations |
+| 3 | Relative cut 0.20 or 0.15 beats 0.25 | open | Local dev reach +7 at 0.20, but the only platform pair goes the other way (0.20: 150, 0.25: 154), confounded with filter and prompt | Clean A/B upload |
+| 4 | Rows on paragraphs gold doesn't cite match nothing | open | The cut uploads only removed 6–9 rows. Depends on thesis 8 | After `thesis-nolabels` |
+| 5 | The judge rewards the regulation's own words | supported for fragments, open for full sentences | 2×2 of the cut2-mark uploads: both quoted 156, fragments only 151, full sentences only 146, neither 149. Only the all-quoted cell stands out (+7, at the noise limit). Subset: Opus-completed fragments 45 against 53 as quotes | Keep quoting; replicate the 0.724 file |
 | 6 | Plain sentence extraction converts as well as split and quote | refuted | Reach → matches: no-LLM 157 → 107, sentence-pick 181 → 142, splitless 175 → 140, ours 183 → 156 | none |
 | 7 | Fewer, coarser rows score better | refuted | Splitless −9, sentence-pick −14 | none |
-| 8 | Matches follow the count ceiling: per paragraph, at most min(our rows, gold rows) | supported | Ceiling against matches: 170/156, 171/154, 151/140, 122/107 | none |
-| 9 | Under-splitting costs about 13 matches | open | 13 gold rows on cited paragraphs have no row of ours to pair with | One row per list item or table row where a paragraph has more items than rows, quoted |
-| 10 | Extra rows on over-split paragraphs are pure cost | open | 80 rows on 27 paragraphs that hold 39 gold rows | Subset upload `thesis-oversplit` (25 Oct 02:45) |
-| 11 | A stronger or different rewrite model helps | refuted | Sonnet, Sol, local models and Fable all land at 140–154; Fable's +6 came in an older setup | none |
-| 12 | Voting over several runs helps | refuted | 7-run vote: 146 | none |
+| 8 | The judge pairs within paragraphs (capacity bounds matches) | open | No file exceeds its capacity (r = 0.93 over 28 files), but the bound never binds (slack ≥ 3), the fit comes from the low cluster, and the challenge text doesn't say so | `thesis-nolabels`: every row cited as paragraph 1 |
+| 9 | Under-splitting costs matches | open | Capacity 170 against reach 183. Amp: 7 slots from merged separate obligations, 6 from obligations or cases we don't write at all | Targeted extraction of missing clauses |
+| 10 | Over-split paragraphs waste rows | supported | Subset of the 80 rows on 27 paragraphs where ours > gold (39 gold rows): 24 matches | Gold-free rules: 20 and 21 |
+| 11 | A stronger or different rewrite model helps | no effect detectable | Sonnet, Sol, local models and Fable all land at 140–154, inside ±7 | none |
+| 12 | Voting over several runs helps | shelved | The 7-run vote (146) also split R10 table rows, so it's confounded | none |
 | 13 | An agent with file tools beats the pipeline | refuted | agent-v3: 116 | none |
-| 14 | A hard p_keep filter at 0.40 helps | refuted | It cost kb-jev 6 matches | none |
-| 15 | An Opus "would an expert cite this paragraph" pass improves selection or cuts | refuted | Local: as a cut, reach falls 183 → 179 at p ≥ 0.1; as a selector, 99 of 121 gold paragraphs at 521 paragraphs | none |
-| 16 | Our local judge can rank writing changes | refuted | Own-subject: +13 local, +1 platform. Verbatim2: +2 local, −10 platform | Use subset uploads for writing questions |
-| 17 | Identical content can score up to about 7 matches apart | open | Reported in the knobs review, not yet reproduced by us | Re-upload one subset unchanged |
-| 18 | Paragraph labels don't matter at the requirement level | shelved | At most 3 gold rows have different labels, so the payoff is under 1 point | none |
-| 19 | Writing several wordings of each fragment wins more | shelved | An extra row pays only above a 15% hit rate, which would need 90+ matches against 53 | none |
+| 14 | A hard p_keep filter at 0.40 helps | open | kb-jev with filter and section cut: matches 154 → 148, but F2 0.670 → 0.681; confounded | none planned |
+| 15 | An Opus "would an expert cite this" pass improves selection or cuts | refuted | Local: as a cut, reach 183 → 179 at p ≥ 0.1; as a selector, 99 of 121 gold paragraphs at 521 paragraphs | none |
+| 16 | Our local judge can rank writing changes | refuted | Own-subject: +13 local, +1 platform. Verbatim2: +2 local, −10 platform | none |
+| 17 | Identical content scores up to about 7 apart | supported | Fable file: 149 and 142. Near-identical cut2, cut2-rules and cut2-mark: 149, 150, 149 | Re-upload the 0.724 file to check the winner's curse |
+| 18 | Paragraph labels gate requirement matching | open | Same question as thesis 8 | `thesis-nolabels` |
+| 19 | Several wordings per fragment win more | shelved | An extra row pays only above a 14.5% hit rate | none |
+| 20 | A list of cases or alternatives under one obligation is one gold row | open | Opus labels each list paragraph MERGE or SPLIT, with no gold in the prompt. It merged exactly the 4 paragraphs where gold has 1 row and split the 8 where gold has 3–8 | Full file `consolidate.json` |
+| 21 | Rows sharing one quote are one gold row | open | 12 clusters, 30 rows; collapsing them costs 1 capacity slot | Full file `consolidate.json` (287 rows, with 20 and exact-duplicate removal) |
