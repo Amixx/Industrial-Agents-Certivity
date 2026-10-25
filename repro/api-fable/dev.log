@@ -1,0 +1,57 @@
+[brain 04:18:15] profile: Rear lamp (exterior lighting and signalling module combining rear position lamp, stop lamp, reversing lamp, outer lens and retro-reflector in a single housing); 32 terms; electronics=True
+[brain 04:18:41] regulations: UN R148 0.97, UN R48 0.92, UN R150 0.90, UN R10 0.85
+[brain 04:20:11] paragraphs selected: 293
+[brain 04:21:33] requirements: 418 kept, 11 dropped
+[brain 04:21:45] expert filter: 418 kept of 418
+[brain 04:21:45] wrote /Users/imantsliepins/Personal/bench-out/apirun/dev.json (418 requirements); 218.6s, 267 LLM calls + 0 cached, $7.92 ($7.92 with a cold cache)
+api usage {"calls": 267, "cache_hits": 0, "input_tokens": 4276411, "output_tokens": 213492, "cost_usd": 7.921825690000005, "cold_cost_usd": 7.921825690000005, "unpriced_calls": 0}
+30 sections, 238 paragraphs
+api usage {"calls": 30, "cache_hits": 0, "input_tokens": 65291, "output_tokens": 13713, "cost_usd": 1.33856, "cold_cost_usd": 1.33856, "unpriced_calls": 0}
+missing p: 0
+/Users/imantsliepins/Personal/bench-out/apirun/dev-cut.json: 367 of 418 rows
+/Users/imantsliepins/Personal/bench-out/apirun/dev-verb.json: 316 of 367 rows verbatim
+api usage {"calls": 0, "cache_hits": 0, "input_tokens": 0, "output_tokens": 0, "cost_usd": 0.0, "cold_cost_usd": 0.0, "unpriced_calls": 0}
+Traceback (most recent call last):
+  File "/Users/imantsliepins/Personal/bench-out/apirun/api_llm.py", line 12, in <module>
+    runpy.run_path(script, run_name='__main__')
+  File "<frozen runpy>", line 286, in run_path
+  File "<frozen runpy>", line 98, in _run_module_code
+  File "<frozen runpy>", line 88, in _run_code
+  File "/Users/imantsliepins/Personal/wt-cp-0771/repro/kb-lin15/merge_llm_any.py", line 24, in <module>
+    res=claude_cli.complete_json(SYSTEM,"Paragraphs (JSON):\n"+json.dumps(items,ensure_ascii=False,indent=1),SCHEMA,model="claude-opus-5-5")
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/imantsliepins/Personal/bench-out/apirun/api_llm.py", line 8, in complete_json
+    return llm._anthropic(MODEL, system, prompt, schema, effort or EFFORT, 32000)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/imantsliepins/Personal/wt-backup-0724/brain/brain/llm.py", line 287, in _anthropic
+    response = client.beta.messages.create(**request)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/imantsliepins/.cache/uv/archive-v0/AdNBTxb57U2m51jEc7sjG/lib/python3.12/site-packages/anthropic/_utils/_utils.py", line 294, in wrapper
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/imantsliepins/.cache/uv/archive-v0/AdNBTxb57U2m51jEc7sjG/lib/python3.12/site-packages/anthropic/resources/beta/messages/messages.py", line 1244, in create
+    return self._post(
+           ^^^^^^^^^^^
+  File "/Users/imantsliepins/.cache/uv/archive-v0/AdNBTxb57U2m51jEc7sjG/lib/python3.12/site-packages/anthropic/_base_client.py", line 1676, in post
+    return cast(ResponseT, self.request(cast_to, opts, stream=stream, stream_cls=stream_cls))
+                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/imantsliepins/.cache/uv/archive-v0/AdNBTxb57U2m51jEc7sjG/lib/python3.12/site-packages/anthropic/_base_client.py", line 1227, in request
+    return self._request(cast_to, options, stream=stream, stream_cls=stream_cls)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/imantsliepins/.cache/uv/archive-v0/AdNBTxb57U2m51jEc7sjG/lib/python3.12/site-packages/anthropic/_base_client.py", line 1330, in _request
+    raise self._make_status_error_from_response(response) from None
+anthropic.BadRequestError: Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': "output_config.format.schema: For 'object' type, 'additionalProperties' must be explicitly set to false"}, 'request_id': 'req_011CgNEjcTocmjABoyKRe7Ji'}
+api usage {"calls": 1, "cache_hits": 0, "input_tokens": 3347, "output_tokens": 1066, "cost_usd": 0.08677, "cold_cost_usd": 0.08677, "unpriced_calls": 0}
+rows 367 -> 361  count ceiling 173 -> 173
+  ('UN R148 3.3.3.3', 'SPLIT', 2, 0)
+  ('UN R148 3.3.3.4', 'MERGE', 4, 1)
+  ('UN R148 3.3.3.5', 'SPLIT', 8, 8)
+  ('UN R148 4.5.5', 'SPLIT', 5, 5)
+  ('UN R148 4.7.2.4', 'SPLIT', 6, 5)
+  ('UN R148 4.8.3.1', 'SPLIT', 5, 5)
+  ('UN R48 5.7.2.2', 'MERGE', 2, 0)
+  ('UN R48 5.9.2', 'MERGE', 3, 1)
+  ('UN R48 5.26', 'SPLIT', 2, 0)
+  ('UN R150 5.1.1', 'SPLIT', 3, 3)
+  ('UN R10 annex 9 3.1', 'SPLIT', 5, 4)
+rows 361 -> shared-quote collapse 328 -> exact-duplicate drop 328
