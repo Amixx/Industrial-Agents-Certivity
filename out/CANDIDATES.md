@@ -1,0 +1,12 @@
+# Candidate branches
+
+Each branch rebuilds one candidate pipeline or file. Whatever goes on `ready-for-main` or `main`, the others stay here. Platform numbers are matches out of 190 gold rows on the dev rear lamp; bumper numbers are paragraph F2 against our silver labels for UN R42, R26 and R127 (`brain/data/bumper-labels/`), which are our own guesses, not gold. Uploads and methods are in the run log in [README.md](README.md); what each result proved is in [THESES.md](THESES.md).
+
+| Branch | What it is | Dev | Bumper silver | Why keep it |
+|---|---|---|---|---|
+| `checkpoint/0783-consolidate` | kb lineage, strict section cut (`p_keep * sqrt(p_section) >= 0.3535`), verbatim, list merge, shared-quote collapse, duplicate drop | 164 and 166 of 190 from 287 rows (F2 0.783, 0.793) | 0.651, 0.657 | Best on dev, replicated. Fewest wasted rows. The strict cut drops bumper paragraphs the silver labels cite, so it may generalise worse |
+| `checkpoint/0771-kb-lin15` | The same chain with the linear cut `p_keep * p_section >= 0.15` | 169 from 336 rows (F2 0.771) | 0.789, 0.743 | Best on the bumper silver labels and the most matches on dev. The bumper candidate and the target for `ready-for-main`. `repro/kb-lin15/run.sh` runs it on a new case |
+| `checkpoint/0787-v2-merge` | Best on dev plus Opus merging every paragraph it judges a single obligation | 160 from 256 rows (F2 0.787) | not run | Fewest rows for near-best F2. A wash on dev (thesis 23), worth retrying if a case over-splits |
+| `backup/best-0724` | kb lineage, strict cut, no consolidation; `repro/run.sh` rebuilds the file from cache | 156, 152 from 317 rows | 0.651, 0.657 | The base of every kb candidate, with the cached LLM and Jev answers |
+| `ready-for-main` | Main lineage: Jev, linear cut 0.15, verbatim, consolidation (`BRAIN_CONSOLIDATE=1`) | 154 from 364 rows (F2 0.685) | 0.714, 0.622 | What main runs today. Its plain-bumper run without Jev scored 0.764, a hint that Jev's lamp-fitted question transfers poorly |
+| `kb-into-ready` (in progress) | `ready-for-main` with the kb lineage merged in, configured as `checkpoint/0771-kb-lin15` | target: reproduce 336 rows | target: 0.789, 0.743 | Becomes `ready-for-main` once a plain run reproduces the kb-lin15 file |

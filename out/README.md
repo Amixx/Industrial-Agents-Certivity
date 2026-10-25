@@ -119,17 +119,9 @@ that produced the file; branch code is not on `main` unless it says so.
 | 23:57 | `rear-lamp-swing-H-vote3.json` | The same three runs, 3 of 3 | `swing/h_vote.py` | 253 | 111 / 0.548 | not uploaded | $0 |
 | 23:58 | `rear-lamp-swing-L-w85-drop12.json` | Sonnet weight 0.85, drop test-procedure and installation classes | `swing/l_filter.py` | 345 | 130 / 0.588 | not uploaded | $0 |
 
-## Top candidates and their branches (25 Oct, 03:50)
+## Candidate branches
 
-| Candidate | Dev platform | Bumper silver (plain, sensors-fog) | Branch |
-|---|---|---|---|
-| Best on dev: kb lineage, strict cut, consolidation | 164, 166 / 287 rows (F2 0.783, 0.793) | 0.651, 0.657 (paragraph F2 of the cut, before consolidation) | `checkpoint/0783-consolidate` |
-| Best on the bumper silver labels: kb lineage, linear cut 0.15, consolidation | 169 / 336 rows (F2 0.771) | 0.789, 0.743 | `checkpoint/0771-kb-lin15` |
-| Wider merge on top of the best on dev | 160 / 256 rows (F2 0.787) | not run | `checkpoint/0787-v2-merge` |
-| The 0.724 file (kb lineage, strict cut, no consolidation) | 156, 152 / 317 rows | 0.651, 0.657 | `backup/best-0724` |
-| ready-for-main with consolidation | 154 / 364 rows (F2 0.685) | 0.714, 0.622 | `ready-for-main` |
-
-`ready-for-main` is getting the kb lineage at the linear cut (branch `kb-into-ready`, in progress).
+The branches that rebuild each top candidate, and why each is kept: [CANDIDATES.md](CANDIDATES.md).
 
 
 Lane G's local column is paragraph precision / recall / F2 against 67 silver bumper paragraphs. Every other row is requirement matched / F2 on the rear lamp. Empty cells were not recorded when the run was made.
