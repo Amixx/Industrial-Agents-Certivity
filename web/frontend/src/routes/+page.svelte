@@ -199,6 +199,12 @@ $effect(() => scene?.setInset(viewportWidth >= 1024 ? 0.4 : 0));
 		<div class="pointer-events-auto"><Wordmark /></div>
 		<nav class="pointer-events-auto flex items-center gap-1">
 			<a
+				href="/about"
+				class="flex h-8 items-center rounded-button px-3 text-xs font-medium text-muted hover:bg-fg/5 hover:text-fg"
+			>
+				About
+			</a>
+			<a
 				href="/history"
 				class="flex h-8 items-center rounded-button px-3 text-xs font-medium text-muted hover:bg-fg/5 hover:text-fg"
 			>
