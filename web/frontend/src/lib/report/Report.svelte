@@ -43,7 +43,7 @@ const groups = $derived.by(() => {
 		{/each}
 	</section>
 </main>
-<Ask requirements={assessment.requirements} citeHref={sourceHref} />
+<Ask requirements={assessment.requirements} citeHref={sourceHref} assessmentId={assessment.id} />
 
 <style>
 .report {

@@ -1,15 +1,18 @@
 <script lang="ts">
 import { onMount } from 'svelte';
 import { api } from '#lib/api/client.ts';
-import type { AskAnswer, Requirement } from '#lib/api/types.ts';
+import type { AskAnswer, ReadAloud, Requirement } from '#lib/api/types.ts';
 import { citeLabel } from './cite.ts';
 
 let {
 	requirements,
 	within = '.report',
 	citeHref = (id) => `#req-${id}`,
+	assessmentId,
 }: {
 	requirements: Requirement[];
+	/** The saved report the text belongs to: "Read this" then uses its ElevenLabs voice. */
+	assessmentId?: string;
 	/** Selector for the part of the page whose selected text can be asked about. */
 	within?: string;
 	citeHref?: (id: string) => string;
@@ -53,7 +56,10 @@ let error = $state('');
 let asking = $state(false);
 let listening = $state(false);
 let speaking = $state(false);
+/** What is being read is the selection ("Read this"), not an answer in the popup. */
+let readingSelection = $state(false);
 let recognition: Recognition | null = null;
+let audio: HTMLAudioElement | null = null;
 /** A zero-size element at the top left of the positioned box the popup lives in. */
 let origin: HTMLElement | undefined = $state();
 
@@ -68,7 +74,7 @@ onMount(() => {
 	SpeechInput = w.SpeechRecognition ?? w.webkitSpeechRecognition;
 	return () => {
 		recognition?.stop();
-		speechSynthesis.cancel();
+		stopSpeaking();
 	};
 });
 
@@ -76,18 +82,24 @@ function onSelect() {
 	const sel = window.getSelection();
 	const text = sel?.toString().trim() ?? '';
 	if (!sel || !text || sel.rangeCount === 0) {
-		anchor = null;
+		clearAnchor();
 		return;
 	}
 	const range = sel.getRangeAt(0);
 	const node = range.commonAncestorContainer;
 	const el = node instanceof Element ? node : node.parentElement;
 	if (!el?.closest(within)) {
-		anchor = null;
+		clearAnchor();
 		return;
 	}
 	const rect = range.getBoundingClientRect();
 	anchor = { ...local(rect.left + rect.width / 2, rect.bottom + 8), text, rect };
+}
+
+/** Clicking away from the selection also stops reading it. */
+function clearAnchor() {
+	anchor = null;
+	if (readingSelection) stopSpeaking();
 }
 
 /** Below the selection when it sits in the upper half of the viewport, above it otherwise. */
@@ -103,6 +115,7 @@ function placeAt(rect: DOMRect) {
 
 function open() {
 	if (!anchor) return;
+	stopSpeaking();
 	placeAt(anchor.rect);
 	selection = anchor.text.slice(0, SELECTION_LIMIT);
 	anchor = null;
@@ -157,23 +170,76 @@ async function submit(spoken: boolean) {
 
 function speak() {
 	if (!answer) return;
+	stopSpeaking();
+	play(
+		answer.sentences.map((s) => s.text).join(' '),
+		answer.speechId,
+	);
+}
+
+async function readSelection() {
+	if (!anchor) return;
+	if (readingSelection) {
+		stopSpeaking();
+		return;
+	}
+	const text = anchor.text.slice(0, SELECTION_LIMIT);
+	stopSpeaking();
+	readingSelection = true;
+	speaking = true;
+	let read: ReadAloud = { text };
+	if (assessmentId) {
+		try {
+			read = await api.read(assessmentId, text);
+		} catch {
+			/* Not checkable against a saved report: the browser reads the selection as it is. */
+		}
+	}
+	if (readingSelection) play(read.text, read.speechId);
+}
+
+/** In the ElevenLabs voice when the server has one for this text, the browser's otherwise. */
+function play(text: string, speechId?: string) {
+	speaking = true;
+	if (!speechId) {
+		browserVoice(text);
+		return;
+	}
+	const el = new Audio(`/api/speak/${speechId}`);
+	audio = el;
+	// No ElevenLabs voice (quota, network): read it in the browser's voice instead.
+	const fallback = () => {
+		if (audio !== el) return;
+		audio = null;
+		browserVoice(text);
+	};
+	el.onended = () => {
+		if (audio !== el) return;
+		speaking = false;
+		readingSelection = false;
+	};
+	el.onerror = fallback;
+	el.play().catch(fallback);
+}
+
+function browserVoice(text: string) {
 	speechSynthesis.cancel();
-	const utterance = new SpeechSynthesisUtterance(answer.sentences.map((s) => s.text).join(' '));
+	const utterance = new SpeechSynthesisUtterance(text);
 	utterance.lang = 'en-US';
 	utterance.onend = () => {
 		speaking = false;
+		readingSelection = false;
 	};
 	speaking = true;
 	speechSynthesis.speak(utterance);
 }
 
 function stopSpeaking() {
+	audio?.pause();
+	audio = null;
 	speechSynthesis.cancel();
 	speaking = false;
-}
-
-function usd(value: number) {
-	return `$${value.toFixed(value < 0.1 ? 4 : 2)}`;
+	readingSelection = false;
 }
 </script>
 
@@ -185,15 +251,19 @@ function usd(value: number) {
 <span class="origin" bind:this={origin}></span>
 
 {#if anchor}
-	<button
-		type="button"
-		class="float"
-		style="left: {anchor.x}px; top: {anchor.y}px"
-		onmousedown={(e) => e.preventDefault()}
-		onclick={open}
-	>
-		Ask about this
-	</button>
+	<div class="float" style="left: {anchor.x}px; top: {anchor.y}px">
+		<button type="button" onmousedown={(e) => e.preventDefault()} onclick={open}>
+			Ask about this
+		</button>
+		<button
+			type="button"
+			aria-pressed={readingSelection}
+			onmousedown={(e) => e.preventDefault()}
+			onclick={readSelection}
+		>
+			{readingSelection ? 'Stop reading' : 'Read this'}
+		</button>
+	</div>
 {/if}
 
 {#if selection}
@@ -261,10 +331,6 @@ function usd(value: number) {
 					<button type="button" class="link" onclick={speaking ? stopSpeaking : speak}>
 						{speaking ? 'Stop reading' : 'Read aloud'}
 					</button>
-					<span>
-						This answer cost {usd(answer.costUsd)}. Spent {usd(answer.spentUsd)} of
-						{usd(answer.budgetUsd)}.
-					</span>
 				</p>
 			{/if}
 		</div>
@@ -280,17 +346,29 @@ function usd(value: number) {
 .float {
 	position: absolute;
 	z-index: 15;
+	display: flex;
+	gap: 1px;
 	transform: translateX(-50%);
+	background: rgb(255 255 255 / 0.3);
+	border-radius: 3px;
+	overflow: hidden;
+}
+.float button {
 	padding: 0.35rem 0.6rem;
 	background: black;
 	color: white;
 	font-size: 0.8rem;
 	font-weight: 700;
-	border-radius: 3px;
+	white-space: nowrap;
 	cursor: pointer;
 }
-.float:hover {
+.float button:hover {
 	background: var(--color-cv-ink-800);
+}
+.float button[aria-pressed="true"] {
+	background: var(--color-cv-ink-800);
+	text-decoration: underline 2px var(--color-mark);
+	text-underline-offset: 4px;
 }
 /* Corners grow with the element: 6px on the popup, 3px on its controls, 2px on cite chips. */
 .popup {

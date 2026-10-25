@@ -118,6 +118,14 @@ export type AskAnswer = {
 	costUsd: number;
 	spentUsd: number;
 	budgetUsd: number;
+	/** Set when the server voices answers with ElevenLabs: `GET /api/speak/{speechId}`. */
+	speechId?: string;
+};
+
+/** A selection to read aloud: the report's own text in it, and its ElevenLabs voice if any. */
+export type ReadAloud = {
+	text: string;
+	speechId?: string;
 };
 
 /** Download format expected by the challenge grader. */
@@ -141,4 +149,5 @@ export interface ApiClient {
 	/** With `write` false, resolves to null unless a brief was already written. */
 	getBrief(requirements: Requirement[], write: boolean): Promise<Brief | null>;
 	ask(question: string, selection: string, requirements: Requirement[]): Promise<AskAnswer>;
+	read(assessmentId: string, text: string): Promise<ReadAloud>;
 }

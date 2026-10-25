@@ -7,12 +7,12 @@ from typing import Any
 
 import anthropic
 from fastapi import FastAPI, File, Form, HTTPException, UploadFile
-from fastapi.responses import FileResponse, JSONResponse, StreamingResponse
+from fastapi.responses import FileResponse, JSONResponse, Response, StreamingResponse
 from fastapi.staticfiles import StaticFiles
 from starlette.datastructures import UploadFile as StarletteUploadFile
 
-from . import ask, brief, pipeline, spend, store, updates
-from .models import AskRequest, Assessment, BriefRequest
+from . import ask, brief, pipeline, spend, store, updates, voice
+from .models import AskRequest, Assessment, BriefRequest, ReadAnswer, ReadRequest
 from .paths import CASES, FRONTEND_BUILD, REGULATIONS
 
 
@@ -165,6 +165,29 @@ def ask_question(request: AskRequest) -> JSONResponse:
     except (anthropic.APIError, RuntimeError) as e:
         raise HTTPException(502, f"No answer: {e}") from e
     return JSONResponse(answer.dump())
+
+
+@app.post("/api/read")
+def read_aloud(request: ReadRequest) -> JSONResponse:
+    assessment = _find(request.assessment_id)
+    written = brief.cached(assessment.requirements)
+    report = [assessment.dump(), written.dump() if written else None]
+    text = voice.readable(request.text, report)
+    if not text:
+        raise HTTPException(422, "Nothing in the selection to read")
+    speech_id = voice.remember(text) if voice.enabled() else None
+    return JSONResponse(ReadAnswer(text=text, speech_id=speech_id).dump())
+
+
+@app.get("/api/speak/{speech_id}")
+def speak(speech_id: str) -> Response:
+    try:
+        mp3 = voice.audio(speech_id)
+    except KeyError as e:
+        raise HTTPException(404, "Unknown answer") from e
+    except OSError as e:
+        raise HTTPException(502, f"No voice: {e}") from e
+    return Response(mp3, media_type="audio/mpeg")
 
 
 @app.get("/api/spend")

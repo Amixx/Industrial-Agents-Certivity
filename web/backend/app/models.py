@@ -143,8 +143,22 @@ class AskRequest(Model):
     requirements: list[Requirement] = Field(max_length=2000)
 
 
+class ReadRequest(Model):
+    assessment_id: str = Field(max_length=64)
+    text: str = Field(max_length=6000)
+
+
+class ReadAnswer(Model):
+    """What will be read aloud: the selection without labels, and its voice when there is one."""
+
+    text: str
+    speech_id: str | None = None
+
+
 class AskAnswer(Model):
     sentences: list[BriefSentence]
     cost_usd: float
     spent_usd: float
     budget_usd: float
+    # Set when the server can voice the answer with ElevenLabs: GET /api/speak/{speech_id}.
+    speech_id: str | None = None

@@ -4,6 +4,7 @@ import type {
 	Assessment,
 	Brief,
 	PipelineEvent,
+	ReadAloud,
 	RegulationUpdate,
 } from './types.ts';
 
@@ -76,5 +77,13 @@ export const http: ApiClient = {
 			body: JSON.stringify({ question, selection, requirements }),
 		});
 		return json<AskAnswer>(res);
+	},
+	async read(assessmentId, text) {
+		const res = await fetch('/api/read', {
+			method: 'POST',
+			headers: { 'Content-Type': 'application/json' },
+			body: JSON.stringify({ assessmentId, text }),
+		});
+		return json<ReadAloud>(res);
 	},
 };

@@ -9,7 +9,7 @@ from typing import Any
 
 import anthropic
 
-from . import spend
+from . import spend, voice
 from .models import AskAnswer, Requirement
 
 MODEL = "claude-sonnet-5-5"
@@ -102,6 +102,9 @@ def ask(question: str, selection: str, requirements: list[Requirement]) -> AskAn
     if response.stop_reason != "end_turn":
         raise RuntimeError(f"Answer stopped early: {response.stop_reason}")
     text = next(b.text for b in response.content if b.type == "text")
-    return AskAnswer.model_validate(
+    answer = AskAnswer.model_validate(
         {**json.loads(text), "cost_usd": cost, "spent_usd": total, "budget_usd": spend.BUDGET_USD}
     )
+    if voice.enabled():
+        answer.speech_id = voice.remember(" ".join(s.text for s in answer.sentences))
+    return answer
