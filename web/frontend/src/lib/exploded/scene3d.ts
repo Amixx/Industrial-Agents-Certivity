@@ -20,6 +20,10 @@ export interface ProductModel {
 	spread: Record<string, THREE.Vector3>;
 	camera: THREE.Vector3;
 	target: THREE.Vector3;
+	/** Where the camera looks while the product is assembled, if not at `target`. */
+	assembledTarget?: THREE.Vector3;
+	/** Camera distance while assembled, as a share of the home distance; 0.72 by default. */
+	assembledDistance?: number;
 	/** Vertical field of view on a wide viewport. */
 	fov: number;
 	minDistance: number;
@@ -28,6 +32,8 @@ export interface ProductModel {
 	glow: Record<string, number>;
 	/** Ends of a dashed reference line along the explode axis, shown as the parts separate. */
 	axis?: [THREE.Vector3, THREE.Vector3];
+	/** Sets the labels in two rows, above and below the whole product, alternating, for parts in a long row. */
+	alternateLabels?: boolean;
 }
 
 export interface ExplodedScene {
@@ -97,6 +103,14 @@ export function createExplodedScene(
 		renderer.domElement.style.cursor = id ? 'pointer' : '';
 		onHover(id);
 	};
+	const leaderMaterial = new THREE.LineBasicMaterial({
+		color: 0x8a9096,
+		transparent: true,
+		opacity: 0,
+		depthWrite: false,
+	});
+	const whole = new THREE.Box3();
+	for (const group of parts.values()) whole.expandByObject(group);
 	for (const [id, group] of parts) {
 		product.add(group);
 		const info = labels.find((l) => l.id === id);
@@ -112,7 +126,24 @@ export function createExplodedScene(
 		el.addEventListener('pointerleave', () => hover(null));
 		const label = new CSS2DObject(el);
 		const box = new THREE.Box3().setFromObject(group);
-		label.position.set((box.min.x + box.max.x) / 2, box.max.y + 0.1, (box.min.z + box.max.z) / 2);
+		const below = labels.indexOf(info) % 2 === 1;
+		const y = model.alternateLabels
+			? below
+				? whole.min.y - 0.25
+				: whole.max.y + 0.25
+			: box.max.y + 0.1;
+		label.position.set((box.min.x + box.max.x) / 2, y, (box.min.z + box.max.z) / 2);
+		// A label set apart from its part gets a line back to it.
+		if (model.alternateLabels) {
+			const end = label.position.clone().setY(below ? box.min.y : box.max.y);
+			const leader = new THREE.Line(
+				new THREE.BufferGeometry().setFromPoints([label.position.clone(), end]),
+				leaderMaterial,
+			);
+			// Not something to hover or click.
+			leader.raycast = () => {};
+			group.add(leader);
+		}
 		group.add(label);
 		labelObjects.set(id, label);
 	}
@@ -230,6 +261,7 @@ export function createExplodedScene(
 		const labelOpacity = String(Math.min(1, Math.max(0, (explode - 0.55) / 0.35)));
 		for (const label of labelObjects.values()) label.element.style.opacity = labelOpacity;
 		axisMaterial.opacity = 0.45 * e;
+		leaderMaterial.opacity = 0.5 * Number(labelOpacity);
 		if (flight) {
 			const t = Math.min(1, (performance.now() - flight.start) / flight.ms);
 			const k = 1 - (1 - t) ** 3;
@@ -237,9 +269,12 @@ export function createExplodedScene(
 			controls.target.lerpVectors(flight.fromTarget, flight.toTarget, k);
 			for (const label of labelObjects.values()) label.element.style.opacity = String(1 - k);
 		} else if (idle) {
+			if (model.assembledTarget)
+				controls.target.lerpVectors(model.assembledTarget, model.target, e);
 			sway.copy(home);
 			// Closer on the assembled product, pulling back as it opens.
-			sway.radius = home.radius * (0.72 + 0.28 * e);
+			const near = model.assembledDistance ?? 0.72;
+			sway.radius = home.radius * (near + (1 - near) * e);
 			sway.theta += Math.sin(((performance.now() - swayStart) / 1000) * 0.3) * 0.2;
 			camera.position.setFromSpherical(sway).add(controls.target);
 		}

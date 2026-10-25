@@ -449,32 +449,59 @@ function buildParts() {
 	return parts;
 }
 
-// Exploded offset per part: trim forward, structure back, sensors lifted clear of the fascia.
-const SPREAD: Record<string, THREE.Vector3> = {
-	grill: new THREE.Vector3(0, 0.05, 3.0),
-	'plate-holder': new THREE.Vector3(0, -0.25, 2.3),
-	'decorative-lighting': new THREE.Vector3(0, 0.1, 1.6),
-	'side-lighting': new THREE.Vector3(0, 0.55, 0.85),
-	camera: new THREE.Vector3(0, 1.15, -0.5),
-	radar: new THREE.Vector3(0, 1.15, -1.2),
-	pdc: new THREE.Vector3(0, 1.25, -1.9),
-	'ped-sensors': new THREE.Vector3(0, 0.05, -1.2),
-	absorber: new THREE.Vector3(0, 0, -2.0),
-	'lower-stiffener': new THREE.Vector3(0, -0.2, -2.8),
-	brackets: new THREE.Vector3(0, 0.15, -3.6),
-};
+// Exploded, the parts line up front to back along the vehicle's long axis, each clear of the
+// next by the same gap, the fascia staying put, so each one has its own place on the row.
+const ORDER = [
+	'grill',
+	'plate-holder',
+	'decorative-lighting',
+	'side-lighting',
+	'fascia',
+	'camera',
+	'radar',
+	'pdc',
+	'ped-sensors',
+	'absorber',
+	'lower-stiffener',
+	'brackets',
+];
+const GAP = 0.32;
+
+function spread(parts: Map<string, THREE.Group>) {
+	const offsets: Record<string, THREE.Vector3> = {};
+	let front = 0;
+	for (const id of ORDER) {
+		const box = new THREE.Box3().setFromObject(parts.get(id) as THREE.Group);
+		const z = front - GAP - box.max.z;
+		offsets[id] = new THREE.Vector3(0, 0, z);
+		front = box.min.z + z;
+	}
+	const keep = offsets.fascia.z;
+	for (const offset of Object.values(offsets)) offset.z -= keep;
+	return offsets;
+}
 
 export function bumperModel(): ProductModel {
+	const parts = buildParts();
+	const offsets = spread(parts);
+	const zs = Object.values(offsets).map((o) => o.z);
+	const front = Math.max(...zs) + 0.6;
+	const back = Math.min(...zs) - 1.2;
+	const target = new THREE.Vector3(0, 0, (front + back) / 2);
 	return {
-		parts: buildParts(),
-		spread: SPREAD,
-		camera: new THREE.Vector3(-9.6, 4.0, 7.3),
-		target: new THREE.Vector3(0, 0.15, -0.4),
+		parts,
+		spread: offsets,
+		// From the front left, low and mostly side on, so the row runs across the view.
+		camera: target.clone().addScaledVector(new THREE.Vector3(-0.83, 0.27, 0.49), 19.5),
+		target,
+		assembledTarget: new THREE.Vector3(0, 0, -0.3),
+		assembledDistance: 0.5,
 		fov: 22,
 		minDistance: 3,
-		maxDistance: 30,
+		maxDistance: 40,
 		glow: { 'decorative-lighting': 1.6, 'side-lighting': 2.2 },
 		// The vehicle's centreline at bumper height, from behind the brackets to past the grill.
-		axis: [new THREE.Vector3(0, 0, -4.4), new THREE.Vector3(0, 0, 3.8)],
+		axis: [new THREE.Vector3(0, 0, back), new THREE.Vector3(0, 0, front)],
+		alternateLabels: true,
 	};
 }
