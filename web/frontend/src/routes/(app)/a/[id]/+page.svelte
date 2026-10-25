@@ -1,5 +1,5 @@
 <script lang="ts">
-import { Collapsible, Dialog } from 'bits-ui';
+import { Dialog } from 'bits-ui';
 import { tick } from 'svelte';
 import { api } from '#lib/api/client.ts';
 import { pdfUrl } from '#lib/api/regulations.ts';
@@ -9,7 +9,6 @@ import AssessmentHeader from '#lib/components/AssessmentHeader.svelte';
 import Markdown from '#lib/components/Markdown.svelte';
 import SourceViewer from '#lib/components/SourceViewer.svelte';
 import Citation from '#lib/ui/Citation.svelte';
-import Panel from '#lib/ui/Panel.svelte';
 import { page } from '$app/state';
 
 let assessment = $state<Assessment | null>(null);
@@ -18,7 +17,6 @@ let updates: RegulationUpdate[] = $state([]);
 let selectedId: string | null = $state(null);
 let query = $state('');
 let regulationFilter: string | null = $state(null);
-let excludedOpen = $state(false);
 let specOpen = $state(false);
 
 $effect(() => {
@@ -33,7 +31,6 @@ $effect(() => {
 });
 
 const included = $derived(assessment?.regulations.filter((r) => r.included) ?? []);
-const excluded = $derived(assessment?.regulations.filter((r) => !r.included) ?? []);
 
 const filtered = $derived.by(() => {
 	const q = query.trim().toLowerCase();
@@ -136,147 +133,52 @@ function onKeydown(e: KeyboardEvent) {
 	</Dialog.Root>
 
 	<div class="ui-grid min-h-0 flex-1">
-		<aside class="col-span-3 min-h-0 overflow-auto pb-6">
-			<Panel index={1} title="Profile" meta="From the spec">
-				<dl class="space-y-4 pb-8 text-xs">
-					<div>
-						<dt class="ui-label">Product</dt>
-						<dd class="text-sm leading-snug">{assessment.profile.productType}</dd>
-					</div>
-					<div>
-						<dt class="ui-label">Vehicle category</dt>
-						<dd class="leading-snug">{assessment.profile.vehicleCategory}</dd>
-					</div>
-					{#each [
-						{ label: 'Parts', items: assessment.profile.parts },
-						{ label: 'Functions', items: assessment.profile.functions },
-						{ label: 'Materials', items: assessment.profile.materials },
-					] as list (list.label)}
-						<div>
-							<dt class="ui-label flex justify-between border-b border-black pb-0.5">
-								<span>{list.label}</span>
-								<span class="tabular-nums">{list.items.length}</span>
-							</dt>
-							<dd>
-								<ul>
-									{#each list.items as item (item)}
-										<li class="ui-rule-soft border-b py-1 leading-snug">{item}</li>
-									{/each}
-								</ul>
-							</dd>
-						</div>
-					{/each}
-				</dl>
-			</Panel>
-
-			<Panel
-				index={2}
-				title="Regulations"
-				meta="{included.length} of {assessment.regulations.length} considered"
-			>
-				<ul class="border-t-2 border-black">
-					{#each included as reg (reg.regulation)}
-						{@const active = regulationFilter === reg.regulation}
-						<li class="ui-rule-soft border-b">
-							<button
-								type="button"
-								class="grid w-full cursor-pointer grid-cols-[1fr_auto] gap-x-3 py-3 pl-5 text-left text-xs hover:bg-black/[0.03] {active
-									? 'ui-row-selected'
-									: ''}"
-								style:--ui-marker-top="1rem"
-								onclick={() =>
-									(regulationFilter = regulationFilter === reg.regulation ? null : reg.regulation)}
-							>
-								<div>
-									<div class="text-sm">
-										<span class="font-bold">{reg.regulation}</span>
-										<span class="ml-1 tabular-nums">{reg.version}</span>
-									</div>
-									<div class="mt-0.5 font-medium">{reg.title}</div>
-									<p class="mt-1 leading-snug text-black/70">{reg.reason}</p>
-								</div>
-								<span class="text-3xl leading-none font-light text-cv-teal-700 tabular-nums"
-									>{reg.requirementCount}</span
-								>
-							</button>
-						</li>
-					{/each}
-				</ul>
-				<Collapsible.Root bind:open={excludedOpen}>
-					<Collapsible.Trigger
-						class="flex w-full cursor-pointer items-baseline justify-between rounded-control py-3 pl-5 text-left hover:bg-black/[0.03]"
-					>
-						<span class="text-xs font-bold">
-							Excluded <span class="ml-1 font-normal tabular-nums">{excluded.length}</span>
-						</span>
-						<span class="pr-1 text-sm">{excludedOpen ? '−' : '+'}</span>
-					</Collapsible.Trigger>
-					<Collapsible.Content>
-						<ul class="pb-2">
-							{#each excluded as reg (reg.regulation)}
-								<li class="ui-rule-soft border-t py-2 pl-5 text-xs">
-									<div>
-										<span class="font-bold">{reg.regulation}</span>
-										<span class="ml-1">{reg.title}</span>
-									</div>
-									<p class="mt-0.5 leading-snug text-black/70">{reg.reason}</p>
-								</li>
-							{/each}
-						</ul>
-					</Collapsible.Content>
-				</Collapsible.Root>
-			</Panel>
-		</aside>
-
-		<main class="col-span-5 flex min-h-0 flex-col">
-			<header class="ui-section flex items-end justify-between pb-3">
-				<div>
-					<div class="ui-numeral">3</div>
-					<h2 class="mt-2 text-sm font-bold">Requirements</h2>
-				</div>
+		<main class="col-span-4 flex min-h-0 flex-col">
+			<header class="flex items-end justify-between pt-4 pb-3">
+				<h2 class="text-sm font-bold">Requirements</h2>
 				<div class="text-right">
-					<div class="ui-count text-5xl">{ordered.length}</div>
-					<div class="mt-1 text-xs tabular-nums">of {assessment.requirements.length}</div>
+					<span class="ui-count text-4xl">{ordered.length}</span>
+					<span class="ml-1 text-xs tabular-nums">of {assessment.requirements.length}</span>
 				</div>
 			</header>
-			<div class="flex items-end gap-4 pb-2">
-				<input
-					type="search"
-					bind:value={query}
-					placeholder="Search requirements, ids, §"
-					class="ui-input min-w-0 flex-1"
+			<input
+				type="search"
+				bind:value={query}
+				placeholder="Search requirements, ids, §"
+				class="ui-input w-full"
+			>
+			<div class="flex flex-wrap gap-1 pt-2 pb-2">
+				<button
+					type="button"
+					class="ui-toggle {regulationFilter === null ? 'ui-toggle-on' : ''}"
+					onclick={() => (regulationFilter = null)}
 				>
-				<div class="flex gap-1">
+					All
+				</button>
+				{#each included as reg (reg.regulation)}
 					<button
 						type="button"
-						class="ui-toggle {regulationFilter === null ? 'ui-toggle-on' : ''}"
-						onclick={() => (regulationFilter = null)}
+						class="ui-toggle {regulationFilter === reg.regulation ? 'ui-toggle-on' : ''}"
+						title={reg.title}
+						onclick={() => (regulationFilter = reg.regulation)}
 					>
-						All
+						{reg.regulation.replace('UN ', '')}
+						<span class="ml-1 font-normal tabular-nums">{reg.requirementCount}</span>
 					</button>
-					{#each included as reg (reg.regulation)}
-						<button
-							type="button"
-							class="ui-toggle {regulationFilter === reg.regulation ? 'ui-toggle-on' : ''}"
-							onclick={() => (regulationFilter = reg.regulation)}
-						>
-							{reg.regulation.replace('UN ', '')}
-						</button>
-					{/each}
-				</div>
+				{/each}
 			</div>
 
 			<div class="min-h-0 flex-1 overflow-auto">
 				{#each groups as g (g.regulation)}
 					<section>
 						<h3
-							class="sticky top-0 z-10 grid grid-cols-[6.5rem_1fr] border-b-2 border-black bg-white pt-5 pb-1 pl-5 text-sm"
+							class="sticky top-0 z-10 flex justify-between gap-3 border-b-2 border-black bg-white pt-4 pb-1 pl-5 text-sm"
 						>
-							<span class="font-bold">{g.regulation}</span>
-							<span class="flex justify-between gap-3">
-								<span class="truncate font-medium">{g.title}</span>
-								<span class="tabular-nums">{g.requirements.length}</span>
-							</span>
+							<span class="truncate"
+								><span class="font-bold">{g.regulation}</span>
+								<span class="ml-1 font-medium">{g.title}</span></span
+							>
+							<span class="tabular-nums">{g.requirements.length}</span>
 						</h3>
 						<ul>
 							{#each g.requirements as req (req.id)}
@@ -284,29 +186,19 @@ function onKeydown(e: KeyboardEvent) {
 								<li id="req-{req.id}">
 									<button
 										type="button"
-										class="group ui-rule-soft grid w-full cursor-pointer grid-cols-[6.5rem_1fr] border-b py-3 pl-5 text-left outline-none focus-visible:bg-cv-mint-50 {active
-											? 'ui-row-selected'
+										class="group ui-rule-soft grid w-full cursor-pointer grid-cols-[4.5rem_1fr] border-b py-2.5 pl-5 text-left outline-none hover:bg-black/[0.03] focus-visible:bg-cv-mint-50 {active
+											? 'ui-row-selected bg-cv-mint-50'
 											: ''}"
-										style:--ui-marker-top="1.125rem"
+										style:--ui-marker-top="0.95rem"
 										onclick={() => select(req.id)}
 									>
 										<span
-											class="pr-2 text-xl leading-none font-light tracking-tight break-all text-cv-teal-700 tabular-nums group-hover:font-normal"
+											class="pr-2 text-base leading-tight font-light break-all text-cv-teal-700 tabular-nums"
 											>{req.source.paragraph}</span
 										>
-										<span>
-											<span class="block text-[15px] leading-snug {active ? 'font-medium' : ''}"
-												>{req.text}</span
-											>
-											<span class="mt-2 flex gap-4 text-xs">
-												<span class="font-bold">{req.id}</span>
-												<Citation
-													source={req.source}
-													showRegulation={false}
-													showParagraph={false}
-												/>
-											</span>
-										</span>
+										<span class="text-sm leading-snug {active ? 'font-medium' : 'line-clamp-3'}"
+											>{req.text}</span
+										>
 									</button>
 								</li>
 							{/each}
@@ -319,32 +211,28 @@ function onKeydown(e: KeyboardEvent) {
 			<div class="ui-rule-soft border-t py-1.5 text-xs">j / k or ↑ / ↓ to move</div>
 		</main>
 
-		<aside class="col-span-4 flex min-h-0 flex-col pb-4">
-			<header
-				class="ui-section flex items-end justify-between gap-4 border-b-2 border-b-black pb-2"
-			>
-				<div class="min-w-0">
-					<div class="ui-numeral">4</div>
-					<h2 class="mt-2 text-sm font-bold">Source page</h2>
-					{#if selected}
-						<div class="flex flex-wrap gap-x-4 text-xs">
+		<aside class="col-span-8 flex min-h-0 flex-col pb-4">
+			{#if selected}
+				<header class="flex items-end justify-between gap-6 pt-4 pb-3">
+					<div class="min-w-0">
+						<div class="flex flex-wrap items-baseline gap-x-4 text-xs">
 							<span class="font-bold">{selected.id}</span>
 							<Citation source={selected.source} />
 						</div>
-					{/if}
-				</div>
-				{#if selected}
-					<div class="ui-numeral shrink-0">p{selected.source.page}</div>
-				{/if}
-			</header>
-			{#if selected}
-				<p class="my-3 line-clamp-4 text-sm leading-snug">{selected.text}</p>
+						<p class="mt-1 line-clamp-2 text-base leading-snug font-medium">{selected.text}</p>
+					</div>
+					<div class="shrink-0 text-right">
+						<div class="ui-count text-5xl">§{selected.source.paragraph}</div>
+						<div class="mt-1 text-xs tabular-nums">page {selected.source.page}</div>
+					</div>
+				</header>
 				{#if selectedUrl}
 					<SourceViewer
 						url={selectedUrl}
 						page={selected.source.page}
 						highlight={{ paragraph: selected.source.paragraph, text: selected.text }}
-						class="ui-rule min-h-0 w-full flex-1 border-t"
+						label={selected.id}
+						class="min-h-0 w-full flex-1 border-t-2 border-black"
 					/>
 				{:else}
 					<p class="py-4 text-sm">

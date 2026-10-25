@@ -8,11 +8,14 @@ let {
 	url,
 	page,
 	highlight = null,
+	label = '',
 	class: className = '',
 }: {
 	url: string;
 	page: number;
 	highlight?: Highlight | null;
+	/** Shown as a tag on the highlighted paragraph. */
+	label?: string;
 	class?: string;
 } = $props();
 
@@ -120,7 +123,11 @@ async function render(
 				width: Math.abs(x1 - x0),
 				height: Math.abs(y1 - y0),
 			};
-			scroller.scrollTo({ top: pageEl.offsetTop + box.top - 24 });
+			const room = scroller.clientHeight - box.height;
+			scroller.scrollTo({
+				top: pageEl.offsetTop + box.top - Math.max(Math.min(room / 3, 160), 32),
+				behavior: 'smooth',
+			});
 		} else {
 			box = null;
 			scroller.scrollTo({ top: 0 });
@@ -213,13 +220,19 @@ const numPages = $derived(doc?.numPages ?? 0);
 		>
 			<canvas bind:this={canvas} class="absolute inset-0 h-full w-full"></canvas>
 			{#if box}
-				<div
-					class="pointer-events-none absolute border-l-4 border-cv-teal-700 bg-cv-mint-300/40 mix-blend-multiply"
-					style:left="{box.left}px"
-					style:top="{box.top}px"
-					style:width="{box.width}px"
-					style:height="{box.height}px"
-				></div>
+				<div class="spot pointer-events-none absolute inset-0 overflow-hidden">
+					<div
+						class="mark absolute"
+						style:left="{box.left}px"
+						style:top="{box.top}px"
+						style:width="{box.width}px"
+						style:height="{box.height}px"
+					>
+						{#if label}
+							<span class="tag">{label}</span>
+						{/if}
+					</div>
+				</div>
 			{/if}
 			<div bind:this={textLayerEl} class="textLayer"></div>
 		</div>
@@ -238,6 +251,27 @@ const numPages = $derived(doc?.numPages ?? 0);
 </div>
 
 <style>
+/* The rest of the page is dimmed by a wide outline around the highlighted paragraph. */
+.mark {
+	box-sizing: border-box;
+	outline: 200vmax solid rgb(0 0 0 / 0.28);
+	border: 2px solid black;
+	border-radius: 3px;
+	background: color-mix(in srgb, var(--color-cv-mint-300) 30%, transparent);
+}
+.tag {
+	position: absolute;
+	bottom: 100%;
+	left: 0;
+	margin-bottom: 4px;
+	padding: 1px 6px;
+	background: black;
+	color: white;
+	font-size: 11px;
+	font-weight: 700;
+	white-space: nowrap;
+	border-radius: 2px;
+}
 .pdf-page {
 	--scale-round-x: 1px;
 	--scale-round-y: 1px;

@@ -45,6 +45,14 @@ let asking = $state(false);
 let listening = $state(false);
 let speaking = $state(false);
 let recognition: Recognition | null = null;
+/** A zero-size element at the top left of the positioned box the popup lives in. */
+let origin: HTMLElement | undefined = $state();
+
+/** Viewport coordinates into the coordinates of `origin`'s box, which may scroll. */
+function local(x: number, y: number) {
+	const o = origin?.getBoundingClientRect() ?? { left: -scrollX, top: -scrollY };
+	return { x: x - o.left, y: y - o.top };
+}
 
 onMount(() => {
 	const w = window as unknown as RecognitionWindow;
@@ -70,7 +78,7 @@ function onSelect() {
 		return;
 	}
 	const rect = range.getBoundingClientRect();
-	anchor = { x: rect.left + rect.width / 2 + scrollX, y: rect.bottom + scrollY + 8, text, rect };
+	anchor = { ...local(rect.left + rect.width / 2, rect.bottom + 8), text, rect };
 }
 
 /** Below the selection when it sits in the upper half of the viewport, above it otherwise. */
@@ -80,13 +88,8 @@ function placeAt(rect: DOMRect) {
 	const left = Math.min(Math.max(centre - width / 2, GUTTER), innerWidth - width - GUTTER);
 	const above = rect.top + rect.height / 2 > innerHeight / 2;
 	const room = above ? rect.top - GUTTER - 8 : innerHeight - rect.bottom - GUTTER - 8;
-	place = {
-		left: left + scrollX,
-		top: (above ? rect.top - 8 : rect.bottom + 8) + scrollY,
-		width,
-		above,
-		maxHeight: Math.max(room, 240),
-	};
+	const at = local(left, above ? rect.top - 8 : rect.bottom + 8);
+	place = { left: at.x, top: at.y, width, above, maxHeight: Math.max(room, 240) };
 }
 
 function open() {
@@ -169,6 +172,8 @@ function usd(value: number) {
 	onmouseup={onSelect}
 	onkeyup={(e) => (e.key === 'Escape' && selection ? close() : onSelect())}
 />
+
+<span class="origin" bind:this={origin}></span>
 
 {#if anchor}
 	<button
@@ -258,6 +263,11 @@ function usd(value: number) {
 {/if}
 
 <style>
+.origin {
+	position: absolute;
+	top: 0;
+	left: 0;
+}
 .float {
 	position: absolute;
 	z-index: 15;
