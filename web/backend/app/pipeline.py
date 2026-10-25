@@ -79,6 +79,10 @@ def uses_llm() -> bool:
     return bool(os.environ.get("ANTHROPIC_API_KEY"))
 
 
+def uses_jev() -> bool:
+    return bool(os.environ.get("TYPESAFE_API_KEY"))
+
+
 def _env(budget: float) -> dict[str, str]:
     """The runner's environment. Explicit values win over anything in brain/.env."""
     env = dict(os.environ)
@@ -87,7 +91,7 @@ def _env(budget: float) -> dict[str, str]:
         BRAIN_MODEL_STRONG=STRONG_MODEL,
         BRAIN_MODEL_BULK=BULK_MODEL,
         BRAIN_RELEVANCE_TIER="strong",
-        BRAIN_JEV="0",
+        BRAIN_JEV="1" if uses_jev() else "0",
         RUN_PRICES=json.dumps(spend.PRICES),
         RUN_BUDGET_USD=str(budget),
         PYTHONPATH=str(BRAIN),
@@ -224,7 +228,7 @@ async def run_assessment(
 ) -> AsyncIterator[PipelineEvent]:
     """Yield progress events, ending with `done` (carrying the stored assessment's id) or
     `failed`. With an API key the brain uses STRONG_MODEL and BULK_MODEL; without one it runs
-    deterministically."""
+    deterministically. With TYPESAFE_API_KEY, Jev scores the paragraphs."""
     if _running.locked():
         yield PipelineEvent(step="failed", message="Another run is in progress", progress=1)
         return
@@ -238,6 +242,8 @@ async def run_assessment(
         budget = min(RUN_CAP_USD, spend.remaining())
     await _running.acquire()
     mode = f"{STRONG_MODEL} and {BULK_MODEL}" if uses_llm() else "no model, deterministic"
+    if uses_jev():
+        mode += ", Jev"
     last = PipelineEvent(step="profile", message=f"Reading spec ({mode})", progress=0.03)
     yield last
     events: asyncio.Queue[PipelineEvent | None] = asyncio.Queue()
