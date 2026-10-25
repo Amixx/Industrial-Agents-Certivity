@@ -141,6 +141,7 @@ that produced the file; branch code is not on `main` unless it says so.
 | 08:23 | `heldout-cut25-light.json` | As `heldout-cut20-light.json` with the cut at 0.25 (157 rows dropped). | `repro/heldout-cut20-light/build.py` with 0.25 | 393 | 43.3% / 81.7% / **69.4%** (100% / 100%), about 170 matched | $0 |
 | 09:03 | `heldout-cut25-silver.json` | `heldout-cut25-light.json` plus one verbatim row for each of the 12 core paragraphs our bumper silver labels (`brain/data/bumper-labels/`) cite and the file lacked: R26 5.1, 5.1.1 and Annex 3; R127 Annex 3 and Annex 5 1.4; GTR 9 6.1.2, 6.2.1.1. Checkpoint `checkpoint/0703-heldout-silver` | checkpoint `repro/heldout-silver/` | 405 | 43.0% / 83.7% / **70.3%** (100% / 100%), about 174 matched | $0 |
 | 09:16 | `heldout-silver-r10r148.json` | `heldout-cut25-silver.json` plus the 24 R10 and R148 rows of `heldout-api.json` with confidence 0.20 to 0.25; R48 stays cut at 0.25. Checkpoint `checkpoint/0706-heldout-r10r148` | checkpoint `repro/heldout-r10r148/` | 429 | 41.5% / 85.6% / **70.6%** (100% / 100%), about 178 matched | $0 |
+| 09:37 | `heldout-r10table.json` | `heldout-silver-r10r148.json` with the bare R10 6.9.1 table fragments rewritten as full rows in dev gold's shape: one row per pulse (1, 2a, 2b, 3a, 3b) naming both voltage levels and both FPSC columns, and the starting-profile fragment split into 12 V and 24 V rows. Values checked against the corpus table. Script `~/Personal/bench-out/heldout-r10table.py` | `bench-out` script | 430 | 41.2% / 85.1% / 70.1% (100% / 100%), about 177 matched | $0 |
 
 - The deterministic run missed only R42, which shows the gold has exactly 7 regulations; the `claude -p` run's own pick added R149 (headlamps) and R152 (AEBS), both wrong.
 - The 107 low-confidence lighting and EMC rows held about 4 matches (under 4%): the confidence tail is nearly dead weight on this case.
@@ -148,6 +149,7 @@ that produced the file; branch code is not on `main` unless it says so.
 - The 12 silver rows matched at about 33% (4 of 12): the silver labels track the gold well enough to steer recall.
 - The restored R10 and R148 rows matched at about 16% (4 of 24), just above break-even. On dev, identical re-uploads moved by 2 to 3 matches, so differences under about 0.7 F2 are judge noise.
 - The union's extra rows matched at about 7% (3 of 41), below the F2 break-even of about F2/5 = 13%: borderline paragraphs from a second run don't pay on this case.
+- The R10 table repair moved matches from about 178 to about 177, within judge noise: the judge already credited the bare fragments, or the held-out gold doesn't write that table out per pulse. Rewording rows we already have doesn't add matches.
 
 ## Candidate branches
 
