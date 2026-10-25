@@ -1,66 +1,6 @@
-"""Canned regulation decisions and updates for the dev-rear-lamp case."""
+"""Canned regulation updates for the dev-rear-lamp case."""
 
 from typing import NamedTuple
-
-INCLUDED: list[tuple[str, str, str]] = [
-    (
-        "UN R48",
-        "9.3.0",
-        "Installation of lighting and light-signalling devices: the rear lamp is a "
-        "light-signalling device installed on an M1 vehicle.",
-    ),
-    (
-        "UN R148",
-        "1.6.0",
-        "Device approval for the rear position, stop and reversing lamp functions the "
-        "product combines.",
-    ),
-    (
-        "UN R150",
-        "1.2.1",
-        "The housing integrates a rear retro-reflector (passive conspicuity), which needs "
-        "device approval as a retro-reflective device.",
-    ),
-    (
-        "UN R10",
-        "7.2.0",
-        "LED modules on a PCB make the lamp an electrical/electronic sub-assembly (ESA), "
-        "subject to EMC emission and immunity limits.",
-    ),
-]
-
-EXCLUDED: list[tuple[str, str]] = [
-    ("UN R7", "Position and stop lamps: superseded by the consolidated R148 for new approvals."),
-    ("UN R23", "Reversing lamps: superseded by the consolidated R148 for new approvals."),
-    ("UN R3", "Retro-reflecting devices: superseded by the consolidated R150 for new approvals."),
-    ("UN R6", "Direction indicator: not a function of this product."),
-    ("UN R19", "Front fog lamp: not a function of this product."),
-    ("UN R38", "Rear fog lamp: not among the functions listed in the spec."),
-    ("UN R37", "Filament light sources: the light source is LED modules, no filament bulbs."),
-    (
-        "UN R128",
-        "Replaceable LED light sources only: the LED modules here are non-replaceable and "
-        "approved as part of the lamp under R148.",
-    ),
-    (
-        "UN R149",
-        "Road illumination devices (headlamps): the rear lamp does not illuminate the road ahead.",
-    ),
-    ("UN R123", "Adaptive front-lighting systems: front lighting only."),
-    (
-        "UN R104",
-        "Retro-reflective marking tape for heavy vehicles and trailers (M2, M3, N, O): "
-        "not M1, and not a marking product.",
-    ),
-    ("UN R53", "Lighting installation for L3 motorcycles: the target vehicle is M1."),
-    ("UN R43", "Safety glazing: the PMMA outer lens is a lamp lens, not vehicle glazing."),
-    (
-        "UN R26",
-        "External projections: assessed on the whole vehicle, not on a component approval.",
-    ),
-]
-
-PARAGRAPH_COUNTS: dict[str, int] = {"UN R48": 88, "UN R148": 61, "UN R150": 37, "UN R10": 28}
 
 
 class FakeChange(NamedTuple):

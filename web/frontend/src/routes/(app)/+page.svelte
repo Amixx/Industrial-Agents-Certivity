@@ -99,26 +99,26 @@ function onDrop(e: DragEvent) {
 <svelte:head><title>New assessment | sudo</title></svelte:head>
 
 {#if running}
-	<div class="ui-grid ui-section min-h-0 flex-1 pb-6">
+	<div class="ui-grid min-h-0 flex-1 pb-6">
 		<div class="col-span-2">
-			<div class="ui-numeral">2</div>
-			<div class="mt-2 text-sm font-bold">Running assessment</div>
-			<div class="mt-1 text-xs">{caseName ?? 'Untitled spec'}</div>
+			<span class="ui-label">Step 02</span>
+			<h1 class="ui-display mt-3 text-[2.5rem]">Running <i>assessment</i></h1>
+			<div class="mt-3 font-mono text-xs text-muted">{caseName ?? 'Untitled spec'}</div>
 		</div>
 		<PipelineProgress {events} class="col-span-10" />
 	</div>
 {:else}
 	<form
-		class="ui-grid ui-section min-h-0 flex-1 pb-6"
+		class="ui-grid min-h-0 flex-1 pb-6"
 		onsubmit={(e) => {
 			e.preventDefault();
 			run();
 		}}
 	>
 		<div class="col-span-2">
-			<div class="ui-numeral">1</div>
-			<div class="mt-2 text-sm font-bold">New assessment</div>
-			<p class="mt-4 max-w-[24ch] text-xs leading-snug">
+			<span class="ui-label">Step 01</span>
+			<h1 class="ui-display mt-3 text-[2.5rem]">New <i>assessment</i></h1>
+			<p class="mt-4 max-w-[26ch] text-xs leading-relaxed text-muted">
 				Finds the UN Regulations that apply, explains the ones it rules out, and cites every
 				requirement to its page and paragraph.
 			</p>
@@ -126,7 +126,7 @@ function onDrop(e: DragEvent) {
 
 		<section
 			aria-label="Product spec"
-			class="col-span-7 flex min-h-0 flex-col"
+			class="ui-panel col-span-7 flex min-h-0 flex-col {dragging ? 'border-accent' : ''}"
 			ondragover={(e) => {
 				e.preventDefault();
 				dragging = true;
@@ -134,12 +134,12 @@ function onDrop(e: DragEvent) {
 			ondragleave={() => (dragging = false)}
 			ondrop={onDrop}
 		>
-			<div class="border-b-2 border-black pb-1.5">
+			<div class="flex items-baseline justify-between border-b border-line px-4 py-2.5">
 				<span class="ui-label">Product spec</span>
-				<span class="text-xs">{specName || 'Markdown'}</span>
+				<span class="font-mono text-[11px] text-faint">{specName || 'Markdown'}</span>
 			</div>
 			{#if pdfNote}
-				<p class="ui-rule-soft border-b py-1.5 text-xs">
+				<p class="border-b border-line bg-select px-4 py-1.5 text-xs">
 					{pdfNote}
 					Review and edit before running.
 				</p>
@@ -147,16 +147,15 @@ function onDrop(e: DragEvent) {
 			<SpecEditor
 				bind:value={spec}
 				placeholder="Paste or drop a product spec. Click any line to edit it."
-				class="min-h-0 flex-1 overflow-auto border-b-2 border-black py-3 {dragging
-					? 'bg-cv-mint-50'
-					: 'bg-white'}"
+				class="min-h-0 flex-1 overflow-auto px-2 py-3"
 			/>
 		</section>
 
-		<aside class="col-span-3 flex min-h-0 flex-col gap-8">
-			<div class="flex flex-col gap-3">
+		<aside class="col-span-3 flex min-h-0 flex-col gap-7">
+			<div class="flex flex-col gap-2">
+				<span class="ui-label mb-1">Spec</span>
 				<label class="block">
-					<span class="ui-label">Spec file, .md, .txt or .pdf</span>
+					<span class="sr-only">Spec file, .md, .txt or .pdf</span>
 					<input
 						type="file"
 						accept=".md,.txt,.pdf,text/*,application/pdf"
@@ -171,7 +170,7 @@ function onDrop(e: DragEvent) {
 			</div>
 
 			<div class="flex min-h-0 flex-1 flex-col">
-				<div class="flex items-baseline justify-between">
+				<div class="mb-2 flex items-baseline justify-between">
 					<span class="ui-label">Exploded view, optional</span>
 					{#if imageUrl}
 						<button type="button" class="ui-link text-xs" onclick={() => setImage(null)}>
@@ -179,15 +178,17 @@ function onDrop(e: DragEvent) {
 						</button>
 					{/if}
 				</div>
-				<div class="flex min-h-32 flex-1 items-center justify-center border-t-2 border-black">
+				<div
+					class="flex min-h-32 flex-1 items-center justify-center rounded-panel border border-dashed border-line-strong"
+				>
 					{#if imageUrl}
 						<img
 							src={imageUrl}
 							alt="Exploded view"
-							class="max-h-full max-w-full object-contain p-2"
+							class="max-h-full max-w-full rounded-control bg-white object-contain p-2"
 						>
 					{:else}
-						<span class="text-xs">No drawing</span>
+						<span class="text-xs text-faint">No drawing</span>
 					{/if}
 				</div>
 				<input
@@ -200,9 +201,9 @@ function onDrop(e: DragEvent) {
 
 			<div class="flex flex-col gap-2">
 				{#if error}
-					<p class="border-t-2 border-red-600 pt-2 text-sm font-medium text-red-600">{error}</p>
+					<p class="border-l-2 border-red-400 pl-2 text-xs text-red-300">{error}</p>
 				{/if}
-				<button type="submit" class="ui-btn ui-btn-primary h-11 w-full" disabled={!spec.trim()}>
+				<button type="submit" class="ui-btn ui-btn-primary h-10 w-full" disabled={!spec.trim()}>
 					Run assessment
 				</button>
 			</div>

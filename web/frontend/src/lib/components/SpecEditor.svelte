@@ -3,6 +3,7 @@ import { EditorState } from '@codemirror/state';
 import { placeholder as cmPlaceholder, EditorView } from '@codemirror/view';
 import { hybridMarkdown } from 'codemirror-markdown-hybrid';
 import { untrack } from 'svelte';
+import { colorScheme } from '#lib/ui/colorScheme.svelte.ts';
 
 let {
 	value = $bindable(''),
@@ -14,14 +15,16 @@ let host: HTMLDivElement;
 let view: EditorView | null = null;
 
 const theme = EditorView.theme({
-	'&': { backgroundColor: 'transparent', fontSize: '13px' },
+	'&': { backgroundColor: 'transparent !important', fontSize: '13px' },
+	'th, td': { borderColor: 'var(--color-line-strong) !important' },
+	th: { backgroundColor: 'var(--color-select) !important', color: 'var(--color-fg) !important' },
 	'&.cm-focused': { outline: 'none' },
-	'.cm-content': { fontFamily: 'var(--font-grotesk)', caretColor: '#02312f' },
+	'.cm-content': { fontFamily: 'var(--font-grotesk)', caretColor: 'var(--color-mark)' },
 	'.cm-line.cm-selectedLine, .cm-line.cm-selectedLine *': {
-		backgroundColor: '#f0fdfa !important',
-		color: '#02312f !important',
+		backgroundColor: 'var(--color-select) !important',
+		color: 'var(--color-fg) !important',
 	},
-	'.cm-placeholder': { color: 'rgb(0 0 0 / 0.4)' },
+	'.cm-placeholder': { color: 'var(--color-faint)' },
 });
 
 $effect(() => {
@@ -30,7 +33,7 @@ $effect(() => {
 		state: EditorState.create({
 			doc: untrack(() => value),
 			extensions: [
-				hybridMarkdown({ theme: 'light', enableCollapse: false }),
+				hybridMarkdown({ theme: colorScheme.current, enableCollapse: false }),
 				theme,
 				EditorView.lineWrapping,
 				cmPlaceholder(untrack(() => placeholder)),

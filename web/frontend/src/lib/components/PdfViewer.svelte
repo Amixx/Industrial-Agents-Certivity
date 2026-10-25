@@ -1,6 +1,6 @@
 <script lang="ts">
 import type { PDFDocumentProxy, RenderTask } from 'pdfjs-dist';
-import { onMount } from 'svelte';
+import { onMount, type Snippet } from 'svelte';
 import { findHighlight, type Highlight } from './pdf/highlight.ts';
 import { loadDocument, loadPdfJs } from './pdf/loader.ts';
 
@@ -8,17 +8,23 @@ let {
 	url,
 	page,
 	highlight = null,
+	label = '',
 	class: className = '',
+	children,
 }: {
 	url: string;
 	page: number;
 	highlight?: Highlight | null;
+	/** Shown as a tag on the highlighted paragraph. */
+	label?: string;
 	class?: string;
+	/** Rendered inside the scrolling area, so absolutely placed content scrolls with the page. */
+	children?: Snippet;
 } = $props();
 
 const PAD = 16;
-const toggle = 'h-7 cursor-pointer rounded-control px-2 font-bold hover:bg-black/5';
-const toggleOn = 'bg-black text-white hover:bg-black';
+const toggle = 'h-7 cursor-pointer rounded-control px-2 font-bold hover:bg-fg/5';
+const toggleOn = 'bg-select text-fg hover:bg-select';
 
 let scroller: HTMLDivElement;
 let pageEl: HTMLDivElement;
@@ -120,7 +126,11 @@ async function render(
 				width: Math.abs(x1 - x0),
 				height: Math.abs(y1 - y0),
 			};
-			scroller.scrollTo({ top: pageEl.offsetTop + box.top - 24 });
+			const room = scroller.clientHeight - box.height;
+			scroller.scrollTo({
+				top: pageEl.offsetTop + box.top - Math.max(Math.min(room / 3, 160), 32),
+				behavior: 'smooth',
+			});
 		} else {
 			box = null;
 			scroller.scrollTo({ top: 0 });
@@ -159,8 +169,8 @@ onMount(() => {
 const numPages = $derived(doc?.numPages ?? 0);
 </script>
 
-<div class="flex min-h-0 flex-col overflow-hidden bg-white {className}">
-	<div class="flex shrink-0 items-center gap-1 border-b border-black py-1.5 text-xs font-medium">
+<div class="flex min-h-0 flex-col overflow-hidden bg-canvas {className}">
+	<div class="flex shrink-0 items-center gap-1 border-b border-line py-1.5 text-xs font-medium">
 		<button
 			type="button"
 			class="{toggle} disabled:opacity-30"
@@ -180,7 +190,7 @@ const numPages = $derived(doc?.numPages ?? 0);
 		>
 			›
 		</button>
-		<span class="mx-2 h-4 w-px bg-black/20"></span>
+		<span class="mx-2 h-4 w-px bg-fg/20"></span>
 		<button
 			type="button"
 			class="{toggle} {zoom === 'fit' ? toggleOn : ''}"
@@ -192,10 +202,10 @@ const numPages = $derived(doc?.numPages ?? 0);
 			100%
 		</button>
 		{#if notLocated && !loading}
-			<span class="ml-2 text-black/60">Paragraph not located</span>
+			<span class="ml-2 text-muted">Paragraph not located</span>
 		{/if}
 		<a
-			class="ml-auto underline decoration-1 underline-offset-2 hover:text-cv-teal-700"
+			class="ml-auto underline decoration-1 underline-offset-2 hover:text-accent"
 			href="{url}#page={current}"
 			target="_blank"
 			rel="noopener"
@@ -203,29 +213,37 @@ const numPages = $derived(doc?.numPages ?? 0);
 		>
 	</div>
 
-	<div bind:this={scroller} class="relative min-h-0 flex-1 overflow-auto bg-black/[0.04]">
+	<div bind:this={scroller} class="relative min-h-0 flex-1 overflow-auto bg-panel">
 		<div
 			bind:this={pageEl}
-			class="pdf-page relative mx-auto my-4 bg-white outline outline-1 outline-black/15"
+			class="pdf-page relative mx-auto my-4 bg-white outline outline-1 outline-line"
 			class:invisible={!!error}
 			style:width="{size.width}px"
 			style:height="{size.height}px"
 		>
 			<canvas bind:this={canvas} class="absolute inset-0 h-full w-full"></canvas>
 			{#if box}
-				<div
-					class="pointer-events-none absolute border-l-4 border-cv-teal-700 bg-cv-mint-300/40 mix-blend-multiply"
-					style:left="{box.left}px"
-					style:top="{box.top}px"
-					style:width="{box.width}px"
-					style:height="{box.height}px"
-				></div>
+				<div class="spot pointer-events-none absolute inset-0 overflow-hidden">
+					<div
+						class="mark absolute"
+						style:left="{box.left}px"
+						style:top="{box.top}px"
+						style:width="{box.width}px"
+						style:height="{box.height}px"
+					>
+						{#if label}
+							<span class="tag">{label}</span>
+						{/if}
+					</div>
+				</div>
 			{/if}
 			<div bind:this={textLayerEl} class="textLayer"></div>
 		</div>
 
+		{@render children?.()}
+
 		{#if loading && !error}
-			<div class="absolute inset-0 flex items-center justify-center bg-white/60 text-sm">
+			<div class="absolute inset-0 flex items-center justify-center bg-canvas/60 text-sm">
 				Loading…
 			</div>
 		{/if}
@@ -238,6 +256,27 @@ const numPages = $derived(doc?.numPages ?? 0);
 </div>
 
 <style>
+/* The rest of the page is dimmed by a wide outline around the highlighted paragraph. */
+.mark {
+	box-sizing: border-box;
+	outline: 200vmax solid rgb(0 0 0 / 0.05);
+	border: 2px solid black;
+	border-radius: 3px;
+	background: color-mix(in srgb, var(--color-cv-mint-300) 30%, transparent);
+}
+.tag {
+	position: absolute;
+	bottom: 100%;
+	left: 0;
+	margin-bottom: 4px;
+	padding: 1px 6px;
+	background: black;
+	color: white;
+	font-size: 11px;
+	font-weight: 700;
+	white-space: nowrap;
+	border-radius: 2px;
+}
 .pdf-page {
 	--scale-round-x: 1px;
 	--scale-round-y: 1px;

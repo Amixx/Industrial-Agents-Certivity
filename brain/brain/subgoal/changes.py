@@ -3,7 +3,7 @@
 from __future__ import annotations
 
 import re
-from collections import defaultdict
+from collections import Counter, defaultdict
 from collections.abc import Sequence
 from typing import Any
 
@@ -15,6 +15,7 @@ from .text import (
     ITEM,
     MAX_TEXT,
     Op,
+    bare,
     describe,
     fit,
     norm,
@@ -32,6 +33,45 @@ SECOND_MODAL = re.compile(r",\s+and\s+(?=(?:shall|must|may)\b)")
 FOR_SUBJECT = re.compile(r"^For\s+(.+?),?\s+the\s", re.I)  # "For tests without a target the ACPE …"
 PROCEDURE = re.compile(r"\b(?:procedure|test|measurement|check|inspection)", re.I)
 TAIL = re.compile(r",\s+(?=[A-Z][a-z])")  # "(b) 4 km/h rearward, As reasonably practical …"
+ACRONYM = re.compile(r"\b[A-Z][A-Z0-9]{2,5}\b")
+# Acronyms of standards and bodies, which a regulation cites but is not about.
+NOT_SYSTEMS = {"ISO", "IEC", "ECE", "SAE", "ASTM", "TRANS", "CEN", "DIN", "UNECE", "EEC", "GRSG"}
+NOT_SYSTEMS |= {"GRVA", "GRSP", "GRE", "GRB", "GRPE", "GRRF", "WLTP", "ADR"}
+
+
+def system_name(paragraphs: Sequence[Paragraph], minimum: int = 10) -> str:
+    """The system the regulation is about, by its acronym ("ACPE" in UN R175), or "".
+
+    Candidates are the acronyms defined in parentheses in the scope, section 1 ("This Regulation
+    applies to … (ACPE)"); the most frequent across the document wins if it occurs `minimum` times.
+    """
+    scope = " ".join(
+        p.text for p in paragraphs if not p.annex and (p.label == "1" or p.label.startswith("1."))
+    )
+    candidates = set(re.findall(r"\(([A-Z][A-Z0-9]{2,5})\)", scope)) - NOT_SYSTEMS
+    counts = Counter(a for p in paragraphs for a in ACRONYM.findall(p.text) if a in candidates)
+    if not counts:
+        return ""
+    name, n = counts.most_common(1)[0]
+    return name if n >= minimum else ""
+
+
+def _renamed(text: str, headings: Sequence[str], new_words: str, system: str) -> str:
+    """The text with a name the new version no longer has replaced by the system's name.
+
+    A requirement often names the test or part its paragraph was about ("For the accelerator
+    control misapplication test, …", from the old heading). When that heading's words appear
+    nowhere in the new version, the name is stale: "accelerator control misapplication test"
+    becomes "ACPE test", keeping the head noun.
+    """
+    for heading in headings:
+        words = heading.rstrip(",.:").split()
+        if len(words) < 2 or f" {' '.join(bare(heading))} " in new_words:
+            continue
+        name = " ".join(words)
+        head = words[-1].lower()
+        text = re.sub(re.escape(name), f"{system} {head}" if system else head, text, flags=re.I)
+    return text
 
 
 def _within(label: str, cited: str) -> bool:
@@ -116,9 +156,18 @@ def map_requirements(
     links: Sequence[Link],
     regulation: str,
     to_version: str,
+    new: Sequence[Paragraph] = (),
+    system: str = "",
 ) -> list[dict[str, Any]]:
-    """Modified and removed changes, in requirement order. Unchanged requirements are left out."""
+    """Modified and removed changes, in requirement order. Unchanged requirements are left out.
+
+    With the new version's paragraphs and the system's name, a name the new version no longer
+    has is replaced in the modified text (see `_renamed`).
+    """
     old_units = units(old)
+    old_by_label = {p.label: p for p in old}
+    old_by_id = {p.id: p for p in old}
+    new_words = f" {' '.join(bare(' '.join(p.text for p in new)))} " if new else ""
     by_old: dict[int, list[Link]] = defaultdict(list)
     for link in links:
         if link.old:
@@ -160,6 +209,9 @@ def map_requirements(
         # control misapplication test procedures …"); the new sentence alone may not ("The test
         # procedures …"). The new wording is used only when an edit finds no place in it.
         text = patched if applied == len(ops) else new_text
+        if new_words and (para := old_by_label.get(old_label)):
+            chain = [para, *(old_by_id[i] for i in reversed(para.path) if i in old_by_id)]
+            text = _renamed(text, [p.heading for p in chain if p.heading], new_words, system)
         if len(text) > MAX_TEXT or len(req["text"]) >= MAX_TEXT:
             text = shorten(text, [op[2] for op in ops if op[2]])
         changes.append(

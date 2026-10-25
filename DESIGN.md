@@ -4,10 +4,13 @@ The web app lives in `web/`. This file covers how it looks and how its copy read
 
 ## Look
 
-- Base: variant 05, Swiss grid (`web/frontend/src/routes/v/05`). Strict grid, flush left, large light numerals, Hanken Grotesk.
-- Palette: Certivity's tokens in `web/frontend/src/routes/layout.css` (`cv-ink-*`, `cv-teal-*`, `cv-mint-*`). Mint is an accent for selection and highlights, never a large fill.
-- Branding: "sudo" large, "in collaboration with Certivity" small. Logo directions are in `web/frontend/static/brand/`.
-- Structure comes from rules, whitespace and the grid, not from boxes, cards or shadows.
+- Base: a dark Certivity-ink canvas with a strict grid, flush left. The printed report (`lib/report`) stays white paper with black type, shown on the ink canvas in the app.
+- Palette: Certivity's tokens in `web/frontend/src/routes/layout.css` (`cv-ink-*`, `cv-teal-*`, `cv-mint-*`) plus the app tokens built on them: `canvas`, `panel`, `select` for surfaces, `fg`, `muted`, `faint` for text, `line`, `line-strong` for rules. Use the tokens, never raw `black` or `white`, in app components.
+- Accent: `cv-teal-400` for the one primary action per view and for numerals, `cv-mint-300` for selection markers and hover. Neither is a large fill.
+- Type has three voices: Instrument Serif (`font-display`, `.ui-display`) for page titles and large numerals, with one italic word for emphasis; Hanken Grotesk for body text at 13px; JetBrains Mono (`font-mono`, `.ui-label`) in small uppercase for labels, metadata, ids and file names.
+- Branding: "sudo" in Hanken Grotesk bold in the app bar, "In collaboration with Certivity" beside it as a mono label. Logo directions are in `web/frontend/static/brand/`.
+- Structure comes from 1px low-contrast rules, whitespace and the grid. Panels (`.ui-panel`) are one step lighter than the canvas with a 1px `line` border; use them for working areas like the spec editor, not as decorative cards.
+- Corners are 3px on buttons, inputs and panels. Buttons are 1px outlines; only the primary one is filled.
 - No gradients, glows, blur, glassmorphism or drop shadows.
 
 ## Avoid AI-isms

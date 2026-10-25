@@ -25,7 +25,7 @@ const regulations = $derived(coverage.regulations);
 
 {#each regulations as reg (reg.regulation)}
 	<section class="mt-5">
-		<div class="flex items-baseline justify-between border-t-2 border-black pt-1">
+		<div class="flex items-baseline justify-between border-t-2 border-line pt-1">
 			<span class="text-sm font-bold">{reg.regulation}</span>
 			<span class="text-xs">
 				{#if reg.requirements.length}
@@ -38,10 +38,10 @@ const regulations = $derived(coverage.regulations);
 		</div>
 		<ol>
 			{#each reg.requirements as r (r.id)}
-				<li class="border-t border-black py-2">
+				<li class="border-t border-line py-2">
 					<div class="flex items-baseline justify-between gap-2 text-[11px]">
 						<span class="font-bold tabular-nums">{r.id}</span>
-						<span class="text-cv-ink-800">
+						<span class="text-muted">
 							{r.source.version}, p. {r.source.page}, § {r.source.paragraph}
 						</span>
 					</div>
@@ -51,7 +51,7 @@ const regulations = $derived(coverage.regulations);
 		</ol>
 	</section>
 {:else}
-	<p class="mt-5 border-t border-black py-2 text-sm">No regulation mentions this part.</p>
+	<p class="mt-5 border-t border-line py-2 text-sm">No regulation mentions this part.</p>
 {/each}
 
 <style>

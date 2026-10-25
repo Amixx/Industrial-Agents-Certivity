@@ -157,6 +157,7 @@ function onkeydown(e: KeyboardEvent) {
 
 		<div class="flex flex-col">
 			<button
+				type="submit"
 				disabled={app.loading}
 				class="flex-1 border-b-2 border-black bg-black text-xl font-black tracking-wide text-white uppercase hover:bg-cv-ink-950 disabled:cursor-wait"
 			>

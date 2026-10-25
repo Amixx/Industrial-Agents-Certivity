@@ -19,8 +19,10 @@ const parts = $derived.by(() => {
 	let i = 0;
 	let j = 0;
 	while (i < a.length && j < b.length) {
-		if (a[i] === b[j]) push(a[i++], 'same'), j++;
-		else if (lcs[i + 1][j] >= lcs[i][j + 1]) push(a[i++], 'del');
+		if (a[i] === b[j]) {
+			push(a[i++], 'same');
+			j++;
+		} else if (lcs[i + 1][j] >= lcs[i][j + 1]) push(a[i++], 'del');
 		else push(b[j++], 'ins');
 	}
 	while (i < a.length) push(a[i++], 'del');
@@ -32,9 +34,9 @@ const parts = $derived.by(() => {
 <p class="leading-relaxed">
 	{#each parts as part, i (i)}
 		{#if part.kind === 'del'}
-			<del class="text-black/50 decoration-1">{part.text}</del>
+			<del class="text-muted decoration-1">{part.text}</del>
 		{:else if part.kind === 'ins'}
-			<ins class="bg-cv-mint-300 no-underline">{part.text}</ins>
+			<ins class="bg-mark no-underline">{part.text}</ins>
 		{:else}
 			{part.text}
 		{/if}

@@ -151,7 +151,8 @@ function ribbedNormalMap() {
 function pcbTexture(spots: { x: number; y: number }[]) {
 	const canvas = document.createElement('canvas');
 	canvas.width = canvas.height = 1024;
-	const ctx = canvas.getContext('2d')!;
+	const ctx = canvas.getContext('2d');
+	if (!ctx) throw new Error('2D canvas unavailable');
 	ctx.fillStyle = '#1f5b32';
 	ctx.fillRect(0, 0, 1024, 1024);
 	// Shape UVs are the raw x/y, mapped onto the canvas by the texture's repeat and offset.

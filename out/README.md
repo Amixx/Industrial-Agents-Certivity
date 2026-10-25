@@ -41,16 +41,28 @@ that produced the file; branch code is not on `main` unless it says so.
 | 23:50 | `rear-lamp-kb-section-cut.json` | Rows of `rear-lamp-kb-recall-push.json` (filter off) kept when p_keep times a section-level Opus score is at least 0.2; the section score comes from one call per section with all its cited paragraphs side by side. Same 116 gold paragraphs, 24 fewer rows outside them | `out/scripts/section_select.py`, `section_measure.py` | 363 | 156 / 0.695 | (23:49) 151 / 0.672 | subscription |
 | 23:52 | `rear-lamp-kb-section-cut2.json` | Same rows and scores as the run above, kept when p_keep times the square root of the section score is at least 0.354 (the lowest 26% dropped); 115 gold paragraphs, 31 fewer rows | `out/scripts/section_select.py` | 332 | | (23:54) 149 / 0.682 | subscription |
 | 25 Oct 00:03 | `rear-lamp-kb-section-cut2-rules.json` | `rear-lamp-kb-section-cut2.json` without 6 rows whose quote only points elsewhere ("See Table 4", "Failure provisions: See paragraph 4.6.") or only brings other paragraphs into force ("shall conform to the requirements set forth in paragraphs 4. and 5."); none of the 6 is on a gold paragraph. Paragraph estimate 0.684 against 0.680 for the source | `out/scripts/section_stage.py` | 326 | | (25 Oct 00:10) 150 / 0.691 | $0 |
-| 25 Oct 00:20 | `rear-lamp-kb-section-cut2-mark.json` | The row above without 9 rows that spell out the approval mark ("a circle surrounding the letter E", "the number of this Regulation followed by the letter R"); none is on a gold paragraph and no gold row reads like one. Expect 150 matches, F2 0.696 | `out/scripts/section_stage.py` | 317 | | | $0 |
-| 25 Oct 00:20 | `rear-lamp-kb-splitless-cut2-mark.json` | `rear-lamp-kb-splitless.json` with the section cut and all three rules | `out/scripts/section_stage.py` | 271 | | | $0 |
-| 24 Oct 23:56 to 23:59 | `rear-lamp-kb-splitless.json` | Recall-push setup (filter off) with a rewrite rule of one requirement per sentence, split only at lettered or numbered list items, tables and alternatives kept inside their sentence; 176 rows on gold paragraphs against 223 | `kb-stack` @ `1d8b22e` with an uncommitted prompt | 392 | | | subscription |
-| 25 Oct 00:03 | `rear-lamp-kb-splitless-cut2-rules.json` | The run above cut like section-cut2 (p_keep times the square root of the section score at least 0.354) plus the pointer rule; 162 rows on 110 gold paragraphs. Paragraph estimate 0.686, but only 151 gold rows have a row of their own on their paragraph (169 for section-cut2), so matches may drop | `out/scripts/section_stage.py` | 279 | | | subscription |
-| 24 Oct 23:57 to 00:06 | `rear-lamp-section-step.json` | `brain.pipeline` with the section cut (p_keep × √p_section ≥ 0.35); Opus strong tier, Sonnet rewrite, all through `claude -p`; no image | `section-step` @ `99974b7` | 334 | 149 / 0.681 | | subscription (API-equivalent $12.93) |
-| 25 Oct 00:06 | `rear-lamp-section-step-nocut.json` | The same run from cache with the section cut off | `section-step` @ `99974b7` | 394 | 156 / 0.676 | | cached |
-| 25 Oct 00:07 to 00:10 | `bumper-plain-section-step.json` | Same method on `data/synthetic/bumper-plain` with its paste-ready regulation line; silver paragraph F2 0.662 (0.734 without the cut) | `section-step` @ `99974b7` | 97 | | | subscription ($4.46) |
-| 25 Oct 00:10 | `bumper-plain-section-step-nocut.json` | Cached, section cut off | `section-step` @ `99974b7` | 113 | | | cached |
-| 25 Oct 00:10 to 00:21 | `bumper-sensors-fog-section-step.json` | Same method on `data/synthetic/bumper-sensors-fog`; silver paragraph F2 0.545 (0.621 without the cut) | `section-step` @ `99974b7` | 431 | | | subscription ($18.08) |
-| 25 Oct 00:21 | `bumper-sensors-fog-section-step-nocut.json` | Cached, section cut off | `section-step` @ `99974b7` | 531 | | | cached |
+| 25 Oct 01:05 | `rear-lamp-kb-jev-cut.json` | Rows of `rear-lamp-kb-jev.json` (154 platform matches) cut with main's Sunday rule: filter p_keep at least 0.40, then p_keep times the section score at least 0.2, then the pointer and approval-mark rule. p_keep scored by Opus for the saved rows (`out/scripts/pkeep_saved.py`, saved as `rear-lamp-kb-jev.pkeep.json`); section scores from the section-cut run. Estimate was 153 matches, F2 0.705 | `out/scripts/pkeep_saved.py` | 326 | | (25 Oct 01:01) 148 / 0.681 | subscription |
+| 25 Oct 00:20 | `rear-lamp-kb-section-cut2-mark.json` | The row above without 9 rows that spell out the approval mark ("a circle surrounding the letter E", "the number of this Regulation followed by the letter R"); none is on a gold paragraph and no gold row reads like one. Expect 150 matches, F2 0.696 | `out/scripts/section_stage.py` | 317 | | (25 Oct 00:50) 149 / 0.692 | $0 |
+| 25 Oct 01:08 | `rear-lamp-kb-section-cut2-mark-verbatim.json` | `rear-lamp-kb-section-cut2-mark.json` with each row's text replaced by its `quote`, the exact source sentence, wherever that quote belongs to one row only (285 of 317); rows that share a quote (list items, table rows) keep the rewrite. Same rows, paragraphs and pages | inline script, see section below | 317 | | (25 Oct 01:10) **156 / 0.724**; re-uploaded unchanged (25 Oct 02:01 CET) 152 / 0.706 | $0 |
+| 25 Oct 01:12 | `rear-lamp-kb-section-cut2-mark-verbatim2.json` | The verbatim file with the rewrite kept for 75 rows whose quote is a fragment: list items ("(b) A variable luminous intensity control;"), clauses ending in ";" or ":", table cells; 210 of 317 rows verbatim | `out/scripts/verbatim.py` (without `--all`) | 317 | | (25 Oct 01:52) 146 / 0.678 | $0 |
+| 25 Oct 01:57 | `rear-lamp-kb-section-cut2-mark-fragquote.json` | The opposite split of the verbatim2 file: the 75 fragment rows (list items, ";"/":" clauses, table cells) take their quote, the 201 full-sentence rows keep the rewrite | inline script on the three files above | 317 | | (25 Oct 02:01) 151 / 0.701 | $0 |
+| 25 Oct 02:18 | `rear-lamp-subset-frag-quote.json` | Diagnostic subset: only the 124 rows of the 0.724 file whose text is a fragment quote (list item, table cell, lead-in ending in ":" or ";", or no modal verb), as uploaded there. Its match count is what those rows contribute | inline script on the 0.724 file | 124 | | (25 Oct 02:19) 53 / 0.300 | $0 |
+| 25 Oct 02:20 | `rear-lamp-subset-frag-standalone.json` | The same 124 rows completed by Opus into standalone sentences in the regulation's words: subject, verb and condition from the lead-in, table columns spelled out, no product name | `out/scripts/standalone_rewrite.py` | 124 | | (25 Oct 02:25) 45 / 0.255 | subscription |
+| 25 Oct 02:32 | `rear-lamp-thesis-oversplit.json` | Diagnostic subset: the 80 rows of the 0.724 file on the 27 paragraphs where it has more rows than gold (39 gold rows there) | inline script on the 0.724 file | 80 | | (25 Oct 02:46) 24 / 0.143 | $0 |
+| 25 Oct 02:30 | `rear-lamp-thesis-nolabels.json` | Diagnostic: the 0.724 file's 317 texts unchanged, every row cited as paragraph "1", page 1 | inline script on the 0.724 file | 317 | | (25 Oct 02:52) 93 / 0.432 | $0 |
+| 25 Oct 02:30 | `rear-lamp-thesis-offgold.json` | Diagnostic subset: the 106 rows of the 0.724 file on paragraphs gold doesn't cite | inline script on the 0.724 file | 106 | | (25 Oct 02:20 CET) 2 / 0.012 | $0 |
+| 25 Oct 02:10 | `rear-lamp-subset-full-quote.json` | Diagnostic subset: 152 full-sentence rows of the 0.724 file whose text is the quote and whose Opus rewrite differs; paired with the same rows as rewrites | inline script on the 0.724 file | 152 | | (25 Oct 02:26 CET) 107 / 0.587 | $0 |
+| 25 Oct 02:40 | `rear-lamp-opus-fresh.json` | A fresh Opus rewrite of the 0.724 file's 194 paragraphs with the same prompt (batches of 8, verbatim pass), same section cut and rules. 342 rows; capacity 177 against 170, so expect about 0.728 | `bench-out/models/run.py` (claude, opus) | 342 | | (25 Oct 02:46 CET) 146 / 0.662 | subscription |
+| 25 Oct 02:35 | `rear-lamp-consolidate.json` | The 0.724 file consolidated: Opus labels each list paragraph MERGE (items are cases or conditions of one obligation) or SPLIT, and a MERGE paragraph becomes one verbatim row; rows sharing a quote collapse to one; exact duplicates dropped. 19 paragraphs change, 53 rows → 23; on the 14 of them gold cites, 43 rows → 18 against 18 gold rows. Checkpoint `checkpoint/0783-consolidate` | `bench-out/thesis/merge_llm.py` + inline collapse (in the checkpoint's `repro/consolidate/`) | 287 | | (25 Oct 02:52 CET) **164 / 0.783**; re-uploaded unchanged (25 Oct 03:02 CET) **166 / 0.793** | subscription |
+| 25 Oct 03:10 | `rear-lamp-v2-merge.json` | `rear-lamp-consolidate.json` with every paragraph of 2+ rows judged by Opus: ONE (a single obligation with cases, conditions or details) becomes one verbatim row of the whole paragraph, SEVERAL stays. 24 paragraphs merged, 287 rows → 256; paragraphs over 2,000 characters stay split (the platform's text limit; the first build was rejected) | `bench-out/v2/build.py merge` | 256 | | (25 Oct 03:24 CET) 160 / 0.787; re-uploaded unchanged (25 Oct 04:27 CET) **161 / 0.792** | subscription |
+| 25 Oct 03:14 | `rear-lamp-rehearsal-ready-consolidate.json` | Rehearsal of the bumper runbook on dev: `ready-for-main` with Jev, Opus on both tiers via `claude -p`, section cut 0.15, verbatim, and the consolidation stage on (`BRAIN_CONSOLIDATE=1`). 8 minutes. 179 rows on paragraphs gold doesn't cite (consolidate: 101), reach 175 (181) | `ready-for-main` @ `f63cd34`, `out/scripts/claude_cli_run.py` | 364 | | (25 Oct 03:26 CET) 154 / 0.685 | subscription |
+| 25 Oct 03:40 | `rear-lamp-kb-lin15-consolidate.json` | The kb lineage (the 0.724 file's chain: Jev relative 0.20, no requirement filter) with the section cut `p_keep * p_section >= 0.15` instead of `p_keep * sqrt(p_section) >= 0.3535`, then verbatim, list merge and consolidation. The cut that does best on the bumper silver labels (plain 0.789, sensors-fog 0.743 paragraph F2; the strict cut 0.651, 0.657; ready-for-main 0.714, 0.622). Checkpoint `checkpoint/0771-kb-lin15` | `checkpoint/0771-kb-lin15` `repro/kb-lin15/` | 336 | | (25 Oct 03:47 CET) **169 / 0.771**; re-uploaded unchanged (25 Oct 03:56 CET) **172 / 0.785** | subscription |
+| 25 Oct 04:18 | `rear-lamp-api-fable-sections.json` (+ `.log`) | The kb-lin15 chain with every model call on the Anthropic API: Opus 5.5 for the pipeline, Fable 5.1 for the section scores and the list MERGE/SPLIT call; the duplicate drop keys on regulation, paragraph and text. The API reads the case image (profile 32 terms against 20), keeps 293 paragraphs against 330 and cites 110 gold paragraphs against 116; Fable's section scores separate cited paragraphs at AUC 0.753 against Opus's 0.711 on the paragraphs both scored. Checkpoint `checkpoint/0772-api-fable` | `checkpoint/0772-api-fable` `repro/api-fable/` | 328 | | (25 Oct 04:24 CET) **168 / 0.772** | $9.35 API |
+| 25 Oct 04:36 | `rear-lamp-ready-kb.json` | `ready-for-main` at `8807f07`: the kb lineage merged into the pipeline (`kb-into-ready`), duplicate drop keyed on paragraph and text. Replays the kb-lin15 chain from the `claude -p` cache with `BRAIN_JEV=1 BRAIN_JEV_KB=1 BRAIN_CONSOLIDATE=1` and the saved section scores; the same 341 rows as the fixed script chain. Checkpoint `checkpoint/0754-ready-kb` | `ready-for-main` @ `8807f07` | 341 | | (25 Oct 04:36 CET) **166 / 0.754** | $0 (cached) |
+| 25 Oct 04:45 | `rear-lamp-kb-split-repair.json` | The kb-lin15 file (341 rows, duplicate drop keyed on paragraph and text) plus a split repair: in body paragraphs of 600+ characters with 3+ numeric limits and 2+ rows, Opus (`claude -p`) splits the paragraph into verbatim quotes, one per obligation or limit, and quotes no existing row covers become rows. 7 paragraphs, +17 rows; room for gold matches 174 → 180. Checkpoint `checkpoint/0738-split-repair` | `checkpoint/0738-split-repair` `repro/split-repair/` | 358 | | (25 Oct 04:47 CET) **165 / 0.738** | subscription |
+| 25 Oct 01:22 | `rear-lamp-kb-sentence-pick-cut.json` | The 194 paragraphs of `rear-lamp-kb-section-cut2-mark.json` rewritten by Opus with one requirement per obligation sentence (minimal edit, no extra splits), text replaced by the quoted sentence, then Opus p_keep per row, the section cut and the three rules | `out/scripts/sentence_rewrite.py`, `out/scripts/pkeep_saved.py`, `out/scripts/section_stage.py` | 285 | | (25 Oct 01:25) 142 / 0.679 | not logged (two Opus passes, subscription) |
+| 25 Oct 01:26 | `rear-lamp-sunday-pipeline-verbatim.json` | The Sunday pipeline end to end on dev: `ready-for-main` with Jev (test conditions count as technical, refit on dev), Opus on both tiers via `claude -p`, the rewrite prompt of `6f5a1c1`, requirement filter 0.40, linear section cut 0.2, the three rules; then each row's text replaced by its quote (334 of 366) | `ready-for-main` @ `df982ee`, `out/scripts/claude_cli_run.py`, `out/scripts/verbatim.py --all` | 366 | | (25 Oct 01:45) 156 / 0.693 | $4.84 (reported by `claude -p`) |
+| 25 Oct 00:20 | `rear-lamp-kb-splitless-cut2-mark.json` | Recall-push setup (filter off) rewritten with one requirement per sentence, split only at lettered or numbered list items, then the section cut and the pointer, umbrella and approval-mark rules | `out/scripts/section_stage.py` | 271 | | (25 Oct 00:42) 140 / 0.679 | $0 |
 | 22:35 | `rear-lamp-main-a39acab.json` | `main`'s defaults at `a39acab`: Opus relevance, Sonnet rewrite with the prompt of `d7683cd` | `big-swings` (no code change) | 388 | 146 / 0.636 | not uploaded | $0.84 |
 | 22:55 | `rear-lamp-swing-A-votes7.json` | Vote over 14 dev runs, Jaccard 0.5, votes >= 7, share-claude text | `big-swings`, `swing/a_sweep.py` | 351 | 156 / 0.702 | not uploaded | $0 |
 | 22:55 | `rear-lamp-swing-A-votes4.json` | The same, votes >= 4 | `big-swings`, `swing/a_sweep.py` | 463 | 161 / 0.658 | not uploaded | $0 |
@@ -115,6 +127,11 @@ that produced the file; branch code is not on `main` unless it says so.
 | 23:57 | `rear-lamp-swing-H-vote3.json` | The same three runs, 3 of 3 | `swing/h_vote.py` | 253 | 111 / 0.548 | not uploaded | $0 |
 | 23:58 | `rear-lamp-swing-L-w85-drop12.json` | Sonnet weight 0.85, drop test-procedure and installation classes | `swing/l_filter.py` | 345 | 130 / 0.588 | not uploaded | $0 |
 
+## Candidate branches
+
+The branches that rebuild each top candidate, and why each is kept: [CANDIDATES.md](CANDIDATES.md).
+
+
 Lane G's local column is paragraph precision / recall / F2 against 67 silver bumper paragraphs. Every other row is requirement matched / F2 on the rear lamp. Empty cells were not recorded when the run was made.
 
 **Sub-goal runs** (UN R175 0.1.0 to 1.0.0, `subgoal/dev`, 24 changes in the gold). The code of
@@ -129,6 +146,7 @@ use `brain/brain/subgoal/score.py` (at the time `brain/eval/subgoal_score.py`).
 | 25 Oct 00:07 | `subgoal-dev-det-v3.json` | As v2, plus: a long or cut-off modified text drops its unfinished last fragment and unchanged sub-lists before its end; an item with its own modal keeps a procedure lead-in as "During …"; run-in headings read "For …, …" | `main` @ `d8e9235` plus staged changes | 24 (6 modified, 1 removed, 17 added) | 1.000 / 1.000 / 0.667 (new_text similarity 0.926; R-021 now equals the gold) | (00:08:18) flag recall 100.0%, flag precision 100.0%, change accuracy 95.7% | $0 |
 | 25 Oct 00:11 | `subgoal-dev-det-v4.json` | As v3, but a modified requirement always keeps its own text with the edits applied (the task's rule); the new sentence only when an edit finds no place | `main` @ `d8e9235` plus staged changes | 24 (6 modified, 1 removed, 17 added) | 1.000 / 1.000 / 0.667 (new_text similarity 0.910) | (00:12:40) flag recall 100.0%, flag precision 100.0%, change accuracy 95.7% | $0 |
 | 25 Oct 00:16 | `subgoal-dev-det-v5.json` | As v4, but a run-in heading stays in the quote and out of `new_text` (only 5.1.6.2 differs from v4): a one-row test | `main` @ `d8e9235` plus staged changes | 24 (6 modified, 1 removed, 17 added) | 1.000 / 1.000 / 0.667 (new_text similarity 0.909) | (00:18:03) flag recall 100.0%, flag precision 100.0%, change accuracy 95.7% | $0 |
+| 25 Oct 00:41 | `subgoal-dev-det-v6.json` | As v4, plus: a name the new version no longer has (the old heading "Accelerator control misapplication test") becomes the system named in the scope ("ACPE test") | `main` @ `8a75a2a` plus the commit that adds the stale-name rule | 24 (6 modified, 1 removed, 17 added) | 1.000 / 1.000 / 0.667 (new_text similarity 0.915) | (00:44:21) flag recall 100.0%, flag precision 100.0%, **change accuracy 100.0%** | $0 |
 
 ## What is measured
 
@@ -259,6 +277,10 @@ The misses on selected paragraphs stay at 26 to 37 for every model. Those come f
 rewrite splitting less finely than the gold (one gold row per table row, list item or optional
 case), which a larger model does not fix.
 
+
+### 25 Oct, 02:20: subset uploads isolate the fragment rows
+
+A file that holds only some rows gives those rows' exact match count (recall × 190), without the noise of the other rows. The 124 fragment rows of the 0.724 file match 53 gold rows as bare quotes and 45 when Opus completes them into standalone sentences. So completing fragments loses about 8 matches, although word overlap with gold suggested the opposite. The other 193 rows of the 0.724 file give at least about 103 of its 156 matches; subset counts add up only if the judge pairs rows independently of the rest of the file, which is unproven. The 80 rows on the 27 paragraphs where the 0.724 file has more rows than gold match 24 of the 39 gold rows there. Theses and their status are tracked in [THESES.md](THESES.md).
 ### Rewrite-only runs
 
 These hold paragraph selection fixed: they rewrite exactly the 208 paragraphs that
@@ -367,33 +389,14 @@ and relevance; Sonnet 5.5 for the rewrite), plus two rewrite changes behind flag
 ### 25 Oct, 00:00: pointer rule and a split-less rewrite
 
 - **Pointer rule.** Six rows of section-cut2 quote a paragraph that holds no obligation of its own: a heading with "See Table 4" or "See paragraph 4.6.", or a clause that only brings other paragraphs into force. None sits on a gold paragraph. Uploaded at 00:10: 150 matches on 326 rows, F2 0.691 (precision 46.0%, recall 78.9%), up from 0.682.
-- **Approval-mark rule.** Nine rows spell out the approval mark the authority assigns: the circled E, the regulation number followed by R, the symbols. None is on a gold paragraph, and no gold row reads like one.
-- **Split-less rewrite.** The expert list has 184 rows on the gold paragraphs we cite; our rewrite writes 223. A rule of one requirement per sentence, split only at list items, brings that to 176. After the section cut, 151 gold rows can still pair with a row on their own paragraph, against 169 before, so the platform may find fewer matches even though precision rises. The paragraph estimate (matches as 149/183 of the gold rows on cited paragraphs) cannot see that, so this file needs an upload to settle it.
-### 24 Oct 23:57 to 25 Oct 00:21: section cut in the pipeline
-
-`brain/sections.py` runs after the requirement filter: one Opus call per section with every cited
-paragraph side by side, then rows with p_keep × √p_section < 0.35 go. Dev counts are against the
-121 gold paragraphs and 190 gold rows; bumper scores are paragraph-level against the silver
-labels in `brain/data/bumper-labels/` (R42, R127, R26, GTR 9; 66 cited), so sensors-fog is
-scored on its base regulations only. The variant rows are recomputed from the same cached scores.
-
-| Case | Cut | Rows | Rows on gold paragraphs | Gold paragraphs | Gold rows covered | Silver P / R / F2 |
-|---|---|---|---|---|---|---|
-| dev | none | 394 | 203 | 110 | 176 | |
-| dev | √ ≥ 0.35 | 334 | 193 | 108 | 169 | |
-| dev | linear ≥ 0.2 | 363 | 198 | 109 | 173 | |
-| bumper-plain | none | 113 | | 48 | | 0.762 / 0.727 / 0.734 |
-| bumper-plain | √ ≥ 0.35 | 97 | | 42 | | 0.792 / 0.636 / 0.662 |
-| bumper-plain | linear ≥ 0.2 | 104 | | 47 | | 0.810 / 0.712 / 0.730 |
-| bumper-sensors-fog | none | 531 | | 39 | | 0.780 / 0.591 / 0.621 |
-| bumper-sensors-fog | √ ≥ 0.35 | 431 | | 33 | | 0.846 / 0.500 / 0.545 |
-| bumper-sensors-fog | linear ≥ 0.2 | 476 | | 39 | | 0.830 / 0.591 / 0.627 |
-
-The √ form at 0.35 cuts the bumper's test-procedure annexes (R127 Annex 5 2.4 to 2.7, R26
-Annex 3 1.2, 1.3, 2.2), which Opus scores at p_section 0.45 to 0.5 with p_keep 0.4 to 0.5. On dev
-it drops R10 Annex 9 3.1 and R48 6.10.8. The linear form at 0.2 loses at most one paragraph per
-case.
-
+- **Approval-mark rule.** Nine rows spell out the approval mark the authority assigns: the circled E, the regulation number followed by R, the symbols. None is on a gold paragraph, and no gold row reads like one. Uploaded at 00:50: 149 matches on 317 rows, F2 0.692 (precision 47.0%, recall 78.4%), a tie with the pointer-rule file (150 on 326, 0.691).
+- **Verbatim text.** The best file with each row's text swapped for its source sentence (285 of 317 rows; rows sharing a sentence keep the rewrite) scored 156 / 0.724 at 01:10, against 149 / 0.692 for the same rows rewritten: 7 more matches from wording alone, the first writing change that moved the platform. The expert rows keep the regulation's own sentence; the rewrite's narrowed subjects and added conditions cost matches.
+- **Fragments rewritten.** Keeping the rewrite for the 75 rows whose quote is a list item, a clause ending in ";" or ":", or a table cell scored 146 / 0.678 at 01:52 (precision 46.1%, recall 76.8%), 10 matches under the all-verbatim file on the same rows. The platform prefers the raw fragment too; the pipeline uses the quote for every row whose quote is its own. The calibrated local judge had predicted +2.
+- **Fragments quoted, sentences rewritten.** If the effects added up, quoting only the fragments would score 149 + 10 = 159. It scored 151 / 0.701 at 02:01 (precision 47.6%, recall 79.5%): above the all-rewrite file, below the all-quote file. The two halves interact, or the platform varies by several matches between uploads; quote everything stays the rule.
+- **Sentence picking.** Fable's diagnosis said our rows break sentences where the expert does not: on paragraphs where our row count equals the gold count, 90% of gold rows match, against 68% elsewhere. So Opus rewrote the best file's 194 paragraphs as one row per obligation sentence (396 rows), each row took its sentence as text, and Opus p_keep plus the section cut chose 285. Locally it reached 181 gold rows and matched the gold count on 80 paragraphs (78 for the best file). Uploaded at 01:25: 142 matches, F2 0.679 (precision 49.8%, recall 74.7%), 14 matches under the verbatim file. Whole sentences picked afresh convert worse than our rewrite's rows with their own quotes; the row boundaries the int prompt draws are worth keeping.
+- **The Sunday pipeline with verbatim text.** `ready-for-main` run fresh on dev, with the fixed Jev and the cut tuned for the bumper (filter 0.40, linear section cut), then the verbatim swap. Its paragraphs reach 175 gold rows against 183 for the best file, so we expected 0.66 to 0.70. Uploaded at 01:45: 156 matches on 366 rows, F2 0.693 (precision 42.6%, recall 82.1%). It matches as many rows as the best file, 89% of the reachable gold rows against 85%: the verbatim gain carries over to a fresh run, and the extra 49 rows are what separate it from 0.724.
+- **kb-jev with the Sunday cut.** The 154-match `kb-jev` upload, cut to 326 rows with main's rule (filter 0.40, linear section cut 0.2, the three rules), scored 148 / 0.681 at 01:01: the cut cost 6 matches, where on the recall-push rows it cost one. Pages recall fell to 92.5% (98.1% for section-cut2-mark).
+- **Split-less rewrite.** The expert list has 184 rows on the gold paragraphs we cite; our rewrite writes 223. A rule of one requirement per sentence, split only at list items, brings that to 176. After the section cut, 151 gold rows can still pair with a row on their own paragraph, against 169 before, so the platform may find fewer matches even though precision rises. The paragraph estimate (matches as 149/183 of the gold rows on cited paragraphs) cannot see that, so this file needs an upload to settle it. Uploaded with the approval-mark rule at 00:42: 140 matches on 271 rows, F2 0.679 (precision 51.7%, recall 73.7%). Writing fewer rows per paragraph lost 10 matches, more than the precision gained; the platform pays for the expert's split.
 ### 24 Oct, 23:18: the sub-goal on dev, no model
 
 `subgoal-dev-det.json`, from `brain.subgoal` (design in `docs/regulation-change.md`). Both PDFs
@@ -460,12 +463,33 @@ heading. Only (3) has a general fix, so `subgoal-dev-det-v5.json` tests it: it d
 in that one row. Uploaded at 00:18:03: still 95.7%, so (3) is ruled out and the v5 rule is
 reverted; the code again writes v4's file byte for byte.
 
-**Where this leaves the sub-goal on dev:** flag recall and flag precision 100%, change accuracy
+**Where this left the sub-goal on dev at 00:18** (overtaken at 00:44, see the next section):
+flag recall and flag precision 100%, change accuracy
 95.7% (22 of 23), with general rules only. The last row is most likely R-085: the gold drops
 "both in a forward and rearward direction", which the old requirement and the new paragraph
 both contain and which its own reason does not list as an edit. Matching it would mean deleting
 regulation text, which no general rule should do, so the 22 of 23 stands. The final dev file is
 `subgoal-dev-det-v4.json`.
+
+### 25 Oct, 00:41: names the new version no longer has
+
+`subgoal-dev-det-v6.json` tests a second explanation for R-085: its subject. v3 sent "The test
+procedures shall …" (the new sentence, no scope) and v4 "The accelerator control misapplication
+test procedures shall …" (the old name); both scored 95.7%. The gold says "The ACPE test
+procedures". The old name comes from the heading of old 6.5, and the words "accelerator control
+misapplication test" appear nowhere in the new version, so the name is stale. The rule: when the
+heading of a requirement's old paragraph (or of its parents) appears nowhere in the new version,
+its name in the modified text becomes the system the regulation's scope defines ("ACPE", from
+"… (ACPE)" in section 1) plus the head noun: "ACPE test". Without a system defined in the scope,
+only the head noun stays. On dev it changes R-084 ("For the ACPE test, …"), R-085 ("The ACPE test
+procedures …") and R-086 ("The procedure for each ACPE test …"); on R148, R10 and R48 with the
+main goal's rows it changes nothing.
+
+Uploaded at 00:44:21: flag recall 100.0%, flag precision 100.0%, change accuracy 100.0%. So the
+last row was R-085's subject, not the clause "both in a forward and rearward direction" that the
+gold drops: the judge accepts the extra clause but not a scope it cannot place. The earlier
+reading (a gold inconsistency, not worth a rule) was wrong; the rule is general and costs
+nothing elsewhere. v6 is the dev file of record.
 
 ### Cost per run
 

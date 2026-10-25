@@ -6,7 +6,7 @@ text, the reason and the paragraph in the new PDF (`schemas/submission_subgoal.s
 No model, no network; about 1 s per pair.
 
 On dev (UN R175 0.1.0 to 1.0.0) the platform scores flag recall 100.0%, flag precision 100.0%
-and change accuracy 95.7% (22 of 23). The results and every upload are in
+and change accuracy 100.0% (`out/subgoal-dev-det-v6.json`). The results and every upload are in
 [out/README.md](../out/README.md); the task and its Sunday steps in
 [brain/docs/todo/05-subgoal.md](../brain/docs/todo/05-subgoal.md).
 
@@ -92,6 +92,15 @@ merged or split is not flagged.
   states. This keeps the requirement's explicit subject: the new 6.6 sentence alone says "The
   test procedures shall …", R-085 says "The accelerator control misapplication test procedures
   shall …". When an edit finds no place in the requirement, `new_text` is the new span.
+  Both alternatives cost the last dev row on the platform: the new sentence alone ("The test
+  procedures …", no scope) and the old name kept ("The accelerator control misapplication test
+  procedures …", a test the new version no longer has).
+- **Stale names.** A requirement often names what its paragraph was about, from the paragraph's
+  heading ("For the accelerator control misapplication test, …"). When that heading's words
+  appear nowhere in the new version, the name is replaced by the system the scope defines
+  ("This Regulation applies to … (ACPE)" in section 1) plus the head noun: "ACPE test". Without a
+  system defined in the scope only the head noun stays. On R148, R10 and R48 this changes
+  nothing.
 - **Long texts.** The schema allows 2,000 characters. An old requirement of exactly that length
   was cut mid-clause, so its unfinished last fragment is dropped. A text still too long drops
   whole sub-lists that hold no edit, largest first ("(c) …, i.e.: (i) … (iv) …" becomes
@@ -172,7 +181,8 @@ of scope here.
 ## How it was checked
 
 - Dev: flag recall and change type 100% by `brain.subgoal.score`; on the platform flag recall
-  100.0%, flag precision 100.0%, change accuracy 95.7%.
+  100.0%, flag precision 100.0%, change accuracy 100.0% (six uploads: 87.0, 91.3, 95.7, 95.7,
+  95.7, 100.0; what each one taught is in `out/README.md`).
 - Six synthetic edits (renumber a section, insert, delete, change a number, split, whitespace
   only) on the base version of all 36 regulations: 216 of 216 found exactly, nothing flagged for
   the renumber, split and whitespace edits.
@@ -181,9 +191,6 @@ of scope here.
 
 ## Limits
 
-- **The last dev row.** Most likely R-085: the gold drops "both in a forward and rearward
-  direction", which the old requirement and the new paragraph both contain. Matching it would
-  mean deleting regulation text, so the 22 of 23 stands.
 - **Table headers.** In R10 the new parse holds a table header row ("Harmonic number n Maximum
   authorized harmonic current A") that the base parse lacks, which flags 4 requirements. The fix
   belongs in `brain/ingest.py`.

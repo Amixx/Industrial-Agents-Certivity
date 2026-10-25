@@ -6,6 +6,10 @@ export type Requirement = {
 	source: Source;
 	testCase?: string;
 	rationale?: string;
+	/** The regulation's own wording, from the PDF. */
+	quote?: string;
+	/** The brain's probability that its paragraph is cited. */
+	confidence?: number;
 };
 
 export type Profile = {
@@ -38,9 +42,29 @@ export type Assessment = {
 	regulations: RegulationDecision[];
 	requirements: Requirement[];
 	status: AssessmentStatus;
+	/** What the pipeline run spent on model calls; empty `models` for a run without a model. */
+	cost?: RunCost;
 };
 
-export type PipelineStep = 'profile' | 'selection' | 'paragraphs' | 'requirements' | 'done';
+export type ModelCost = {
+	model: string;
+	calls: number;
+	input: number;
+	output: number;
+	cacheWrite: number;
+	cacheRead: number;
+	costUsd: number;
+};
+
+export type RunCost = { totalUsd: number; models: ModelCost[] };
+
+export type PipelineStep =
+	| 'profile'
+	| 'selection'
+	| 'paragraphs'
+	| 'requirements'
+	| 'done'
+	| 'failed';
 
 export type PipelineEvent = {
 	step: PipelineStep;
@@ -81,6 +105,21 @@ export type RegulationUpdate = {
 	applied?: boolean;
 };
 
+export type BriefSentence = { text: string; cites: string[] };
+
+export type BriefSection = { title: string; sentences: BriefSentence[] };
+
+/** Prose summary for developers; every sentence cites requirement ids. */
+export type Brief = { sections: BriefSection[] };
+
+/** A spoken answer to a question about part of a report, with what it cost. */
+export type AskAnswer = {
+	sentences: BriefSentence[];
+	costUsd: number;
+	spentUsd: number;
+	budgetUsd: number;
+};
+
 /** Download format expected by the challenge grader. */
 export type Submission = {
 	team_id: string;
@@ -99,4 +138,7 @@ export interface ApiClient {
 	getAssessment(id: string): Promise<Assessment | null>;
 	checkUpdates(id: string): Promise<RegulationUpdate[]>;
 	applyUpdate(id: string, regulation: string): Promise<Assessment>;
+	/** With `write` false, resolves to null unless a brief was already written. */
+	getBrief(requirements: Requirement[], write: boolean): Promise<Brief | null>;
+	ask(question: string, selection: string, requirements: Requirement[]): Promise<AskAnswer>;
 }

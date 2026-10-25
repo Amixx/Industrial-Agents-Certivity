@@ -12,6 +12,7 @@ type Line = { text: string; x0: number; x1: number; y: number; h: number };
 const HEADER_RE = /\|\s*page \d+ of \d+/i;
 const LABEL_RE = /^(\d+(\.\d+)+\.?\s|\d+\.\s|Annex\s+\d)/;
 const MARGIN_SLACK = 2;
+const BODY_SLACK = 0.6;
 const PARAGRAPH_GAP = 1.15;
 const MIN_TEXT_SCORE = 0.4;
 
@@ -45,11 +46,25 @@ function buildLines(content: TextContent): Line[] {
 		.sort((a, b) => b.y - a.y);
 }
 
-/** Indices of lines that open a new paragraph: a label at the left margin after a paragraph gap. */
+/** The most common line height on the page, which is the body text's. */
+function bodyHeight(lines: Line[]): number {
+	const counts = new Map<number, number>();
+	for (const l of lines) {
+		const h = Math.round(l.h * 2) / 2;
+		counts.set(h, (counts.get(h) ?? 0) + 1);
+	}
+	return [...counts].sort((a, b) => b[1] - a[1])[0][0];
+}
+
+/** Indices of lines that open a new paragraph: a label at the left margin after a paragraph gap.
+ * Line spacing is measured between body-text lines only, since footnotes are set tighter. */
 function paragraphStarts(lines: Line[]): Set<number> {
 	const margin = Math.min(...lines.map((l) => l.x0));
+	const body = bodyHeight(lines);
+	const isBody = (l: Line) => Math.abs(l.h - body) <= BODY_SLACK;
 	const gaps = lines.slice(1).map((l, i) => lines[i].y - l.y);
-	const minGap = Math.min(...gaps.filter((g) => g > 4));
+	const bodyGaps = gaps.filter((g, i) => g > 4 && isBody(lines[i]) && isBody(lines[i + 1]));
+	const minGap = Math.min(...(bodyGaps.length ? bodyGaps : gaps.filter((g) => g > 4)));
 	const starts = new Set<number>([0]);
 	lines.forEach((l, i) => {
 		if (i === 0 || l.x0 > margin + MARGIN_SLACK || !LABEL_RE.test(l.text)) return;
@@ -117,7 +132,11 @@ function findByText(lines: Line[], starts: number[], text: string): number {
 	return best;
 }
 
-export function findHighlight(content: TextContent, highlight: Highlight): HighlightMatch | null {
+/** The lines of the paragraph `highlight` points at, in reading order. */
+function findBlock(
+	content: TextContent,
+	highlight: Highlight,
+): { lines: Line[]; via: HighlightMatch['via'] } | null {
 	const lines = buildLines(content);
 	if (lines.length === 0) return null;
 	const startSet = paragraphStarts(lines);
@@ -132,7 +151,13 @@ export function findHighlight(content: TextContent, highlight: Highlight): Highl
 	if (start < 0) return null;
 
 	const end = starts.find((s) => s > start) ?? lines.length;
-	const block = lines.slice(start, end);
+	return { lines: lines.slice(start, end), via };
+}
+
+export function findHighlight(content: TextContent, highlight: Highlight): HighlightMatch | null {
+	const found = findBlock(content, highlight);
+	if (!found) return null;
+	const { lines: block, via } = found;
 	const first = block[0];
 	const last = block[block.length - 1];
 	return {

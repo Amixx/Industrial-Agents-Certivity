@@ -1,6 +1,6 @@
 from typing import Any, Literal
 
-from pydantic import BaseModel, ConfigDict, model_serializer
+from pydantic import BaseModel, ConfigDict, Field, model_serializer
 from pydantic.alias_generators import to_camel
 
 
@@ -22,8 +22,11 @@ class Requirement(Model):
     id: str
     text: str
     source: Source
+    quote: str | None = None
     test_case: str | None = None
     rationale: str | None = None
+    confidence: float | None = None
+    """The brain's probability that its paragraph is cited."""
 
 
 class Profile(Model):
@@ -43,6 +46,21 @@ class RegulationDecision(Model):
     requirement_count: int
 
 
+class ModelCost(Model):
+    model: str
+    calls: int
+    input: int
+    output: int
+    cache_write: int
+    cache_read: int
+    cost_usd: float
+
+
+class RunCost(Model):
+    total_usd: float
+    models: list[ModelCost]
+
+
 class Assessment(Model):
     id: str
     created_at: str
@@ -53,6 +71,7 @@ class Assessment(Model):
     regulations: list[RegulationDecision]
     requirements: list[Requirement]
     status: Literal["running", "complete", "failed"]
+    cost: RunCost | None = None
 
 
 class Partial(Model):
@@ -63,7 +82,7 @@ class Partial(Model):
 
 
 class PipelineEvent(Model):
-    step: Literal["profile", "selection", "paragraphs", "requirements", "done"]
+    step: Literal["profile", "selection", "paragraphs", "requirements", "done", "failed"]
     message: str
     progress: float
     assessment_id: str | None = None
@@ -96,3 +115,36 @@ class RegulationUpdate(Model):
     to_version: str
     changes: list[RequirementChange]
     applied: bool | None = None
+
+
+class BriefSentence(Model):
+    text: str
+    cites: list[str]
+
+
+class BriefSection(Model):
+    title: str
+    sentences: list[BriefSentence]
+
+
+class Brief(Model):
+    sections: list[BriefSection]
+
+
+class BriefRequest(Model):
+    requirements: list[Requirement]
+    write: bool = False
+    """Write the brief if none is cached; otherwise only a cached brief is returned."""
+
+
+class AskRequest(Model):
+    question: str = Field(max_length=1000)
+    selection: str = Field(max_length=6000)
+    requirements: list[Requirement] = Field(max_length=2000)
+
+
+class AskAnswer(Model):
+    sentences: list[BriefSentence]
+    cost_usd: float
+    spent_usd: float
+    budget_usd: float

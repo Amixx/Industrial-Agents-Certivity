@@ -48,7 +48,7 @@ const PAD_TOP = 8;
 <div class="grid grid-cols-[minmax(0,1fr)_340px] gap-x-6">
 	<div class="min-w-0 overflow-x-auto">
 		<ol
-			class="relative grid border-t border-black pt-2 text-xs"
+			class="relative grid border-t border-line pt-2 text-xs"
 			style:width="{graph.width}px"
 			style:height="52px"
 		>
@@ -59,7 +59,7 @@ const PAD_TOP = 8;
 				['4', 'Paragraphs', columns.cluster],
 			] as const as [n, label, col] (n)}
 				<li class="absolute top-2" style:left="{col.x}px" style:width="{col.w}px">
-					<div class="text-3xl leading-none font-light text-cv-teal-700">{n}</div>
+					<div class="text-3xl leading-none font-light text-accent">{n}</div>
 					<div class="mt-1 font-bold">{label}</div>
 				</li>
 			{/each}
@@ -130,12 +130,12 @@ const PAD_TOP = 8;
 					{:else if node.kind === 'facet'}
 						{#if node.group === 'materials'}
 							<span class="truncate leading-tight font-medium">{node.label}</span>
-							<span class="truncate text-[10.5px] leading-tight text-cv-ink-800">
+							<span class="truncate text-[10.5px] leading-tight text-muted">
 								{node.detail}
 							</span>
 						{:else if node.group === 'product'}
 							<span class="truncate leading-tight font-medium">{node.label}</span>
-							<span class="truncate text-[10.5px] leading-tight text-cv-ink-800">
+							<span class="truncate text-[10.5px] leading-tight text-muted">
 								{node.detail}
 							</span>
 						{:else}
@@ -145,7 +145,7 @@ const PAD_TOP = 8;
 						{#if node.decision.included}
 							<span class="flex items-baseline justify-between">
 								<span class="text-sm font-bold">{node.decision.regulation}</span>
-								<span class="text-3xl leading-none font-light text-cv-teal-700 tabular-nums">
+								<span class="text-3xl leading-none font-light text-accent tabular-nums">
 									{node.decision.requirementCount}
 								</span>
 							</span>
@@ -170,7 +170,7 @@ const PAD_TOP = 8;
 	</div>
 
 	<aside
-		class="sticky top-6 max-h-[calc(100vh-3rem)] self-start overflow-y-auto border-t border-black pt-2"
+		class="sticky top-6 max-h-[calc(100vh-3rem)] self-start overflow-y-auto border-t border-line pt-2"
 	>
 		{#if part && !selectedNode}
 			<PartDetail {part} facets={focusFacets} {assessment} onclose={() => onclearpart?.()} />
@@ -188,7 +188,7 @@ const PAD_TOP = 8;
 }
 .edge {
 	fill: none;
-	stroke: var(--color-cv-ink-950);
+	stroke: var(--color-fg);
 	stroke-opacity: 0.13;
 	transition:
 		stroke-opacity 120ms,
@@ -202,15 +202,15 @@ const PAD_TOP = 8;
 	stroke-opacity: 0.3;
 }
 .edge.cluster {
-	stroke: var(--color-cv-teal-700);
+	stroke: var(--color-accent);
 	stroke-opacity: 0.22;
 }
 .edge.on {
-	stroke: var(--color-cv-teal-500);
+	stroke: var(--color-mark);
 	stroke-opacity: 0.75;
 }
 .edge.reason.on {
-	stroke: var(--color-cv-ink-800);
+	stroke: var(--color-muted);
 	stroke-opacity: 0.7;
 }
 .edge.off {
@@ -218,9 +218,9 @@ const PAD_TOP = 8;
 }
 .reason {
 	z-index: 1;
-	border: 1px solid var(--color-cv-ink-950);
+	border: 1px solid var(--color-line-strong);
 	border-radius: 2px;
-	background: white;
+	background: var(--color-panel);
 	padding: 6px 8px;
 	font-size: 11px;
 	line-height: 1.35;
@@ -232,13 +232,13 @@ const PAD_TOP = 8;
 	flex-direction: column;
 	justify-content: center;
 	overflow: hidden;
-	border: 1px solid var(--color-cv-ink-950);
+	border: 1px solid var(--color-line-strong);
 	border-radius: 2px;
-	background: white;
+	background: var(--color-panel);
 	padding: 0 8px;
 	text-align: left;
 	font-size: 12px;
-	color: black;
+	color: var(--color-fg);
 	transition: opacity 120ms;
 	cursor: pointer;
 }
@@ -255,33 +255,33 @@ const PAD_TOP = 8;
 }
 .node.muted {
 	border-color: transparent;
-	color: color-mix(in srgb, var(--color-cv-ink-950) 55%, white);
+	color: var(--color-faint);
 	padding: 0 4px;
 }
 .node.muted:hover,
 .node.muted.hot,
 .node.muted.selected {
-	color: var(--color-cv-ink-950);
-	border-color: var(--color-cv-ink-950);
+	color: var(--color-fg);
+	border-color: var(--color-line-strong);
 }
 .node:hover,
 .node.hot {
-	background: var(--color-cv-mint-50);
+	background: var(--color-select);
 }
 .node.spec:hover,
 .node.spec.hot {
-	background: white;
+	background: var(--color-panel);
 }
 .node.selected {
-	outline: 2px solid var(--color-cv-teal-400);
+	outline: 2px solid var(--color-accent);
 	outline-offset: 1px;
-	background: var(--color-cv-mint-50);
+	background: var(--color-select);
 }
 .node.dim {
 	opacity: 0.25;
 }
 .node:focus-visible {
-	outline: 2px solid var(--color-cv-teal-700);
+	outline: 2px solid var(--color-accent);
 	outline-offset: 1px;
 }
 </style>

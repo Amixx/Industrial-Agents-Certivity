@@ -17,7 +17,7 @@ let {
 	</h3>
 	{#each requirements as req (req.id)}
 		{@const href = pdfHref(req.source)}
-		<article>
+		<article id="req-{req.id}">
 			<p class="para">{req.source.paragraph}</p>
 			<div>
 				<p class="text">{req.text}</p>
@@ -68,6 +68,10 @@ article {
 	break-inside: avoid;
 	padding: 2.5mm 0;
 	border-bottom: 0.5pt solid rgb(0 0 0 / 0.2);
+	scroll-margin-top: 4rem;
+}
+article:target {
+	background: var(--color-cv-mint-50);
 }
 .para {
 	padding-right: 3mm;

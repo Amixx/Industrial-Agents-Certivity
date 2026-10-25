@@ -17,8 +17,6 @@ from dataclasses import dataclass
 from pathlib import Path
 
 import numpy as np
-from sklearn.linear_model import LogisticRegression
-from sklearn.metrics import roc_auc_score
 
 from . import features as F
 from .graph import build
@@ -107,6 +105,8 @@ class Model:
 
 
 def fit(X: np.ndarray, y: np.ndarray, threshold: float = 0.15) -> Model:
+    from sklearn.linear_model import LogisticRegression
+
     lr = LogisticRegression(C=0.01, class_weight="balanced", max_iter=3000)
     lr.fit(X, y)
     # class_weight="balanced" inflates P; recalibrate the intercept to the base rate.
@@ -151,6 +151,8 @@ def cross_validate(ds: Dataset) -> np.ndarray:
 
 
 def main() -> int:
+    from sklearn.metrics import roc_auc_score
+
     ds = dataset(CASES / "dev-rear-lamp")
     print(f"{len(ds.y)} candidate paragraphs, {ds.y.sum()} gold")
     oof = cross_validate(ds)

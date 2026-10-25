@@ -1,7 +1,17 @@
-import type { ApiClient, Assessment, PipelineEvent, RegulationUpdate } from './types.ts';
+import type {
+	ApiClient,
+	AskAnswer,
+	Assessment,
+	Brief,
+	PipelineEvent,
+	RegulationUpdate,
+} from './types.ts';
 
 async function json<T>(res: Response): Promise<T> {
-	if (!res.ok) throw new Error(`${res.status} ${res.statusText}`);
+	if (!res.ok) {
+		const body = await res.json().catch(() => null);
+		throw new Error(body?.detail ?? `${res.status} ${res.statusText}`);
+	}
 	return res.json();
 }
 
@@ -26,11 +36,12 @@ export const http: ApiClient = {
 			buffer = lines.pop() ?? '';
 			for (const line of lines.filter(Boolean)) {
 				const event: PipelineEvent = JSON.parse(line);
+				if (event.step === 'failed') throw new Error(event.message);
 				id = event.assessmentId ?? id;
 				onEvent(event);
 			}
 		}
-		if (!id) throw new Error('Pipeline ended without an assessment id');
+		if (!id) throw new Error('The server closed the run before it finished');
 		return json<Assessment>(await fetch(`/api/assessments/${id}`));
 	},
 	async listAssessments() {
@@ -48,5 +59,22 @@ export const http: ApiClient = {
 			method: 'POST',
 		});
 		return json<Assessment>(res);
+	},
+	async getBrief(requirements, write) {
+		const res = await fetch('/api/brief', {
+			method: 'POST',
+			headers: { 'Content-Type': 'application/json' },
+			body: JSON.stringify({ requirements, write }),
+		});
+		if (!write && res.status === 404) return null;
+		return json<Brief>(res);
+	},
+	async ask(question, selection, requirements) {
+		const res = await fetch('/api/ask', {
+			method: 'POST',
+			headers: { 'Content-Type': 'application/json' },
+			body: JSON.stringify({ question, selection, requirements }),
+		});
+		return json<AskAnswer>(res);
 	},
 };

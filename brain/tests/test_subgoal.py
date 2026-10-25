@@ -23,6 +23,7 @@ from brain.subgoal import (
     sentences,
     shorten,
     substantive,
+    system_name,
     validate,
     word_ops,
 )
@@ -602,3 +603,42 @@ def test_dev_long_requirement_keeps_its_amended_items() -> None:
     assert len(c["new_text"]) <= 2000
     assert c["new_text"].endswith("not more than 25 per cent of the vehicle width.")
     assert "The direction of travel is straight" not in c["new_text"]
+
+
+def test_system_name_is_the_most_frequent_acronym_not_a_standard() -> None:
+    new = [
+        para("1.1", "This Regulation applies to the Acceleration Control for Pedal Error (ACPE)."),
+        para("2.1", "Light emitting diode (LED) means a light source. The LED. The LED. The LED."),
+        para("5.1", "The ACPE shall act. The ACPE shall warn per ISO 1234 and ISO 5678."),
+        para("5.2", "The ACPE shall stop. The ACPE shall log. The ACPE shall reset."),
+    ]
+    assert system_name(new, minimum=3) == "ACPE"
+    assert system_name([para("5.1", "Per ISO 1 and ISO 2 and ISO 3.")], minimum=3) == ""
+    switched = [para("5.1", "Switch ON and OFF. OFF. OFF. OFF.")]  # frequent, never defined
+    assert system_name(switched, minimum=3) == ""
+
+
+def test_a_name_the_new_version_no_longer_has_becomes_the_system_name() -> None:
+    old = [
+        para(
+            "6.5",
+            "Misapplication test The test procedure shall be performed at 1.0 m.",
+            heading="Misapplication test",
+        )
+    ]
+    new = [
+        para(
+            "6.6",
+            "Test procedures The test procedures shall be performed at 1.5 m.",
+            heading="Test procedures",
+        )
+    ]
+    reqs = [
+        {
+            "id": "R-7",
+            "text": "The misapplication test procedure shall be performed at 1.0 m.",
+            "source": {"page": 1, "paragraph": "6.5"},
+        }
+    ]
+    [c] = map_requirements(reqs, old, align(old, new), "UN R1", "2.0.0", new=new, system="ACPE")
+    assert c["new_text"] == "The ACPE test procedures shall be performed at 1.5 m."

@@ -163,6 +163,7 @@ const plural = (n: number, word: string) => `${n} ${word}${n === 1 ? '' : 's'}`;
 
 					<div class="space-y-2 border-t border-cv-ink-800 pt-3">
 						<button
+							type="submit"
 							disabled={app.loading}
 							class="font-display w-full bg-cv-ink-800 py-2 text-[15px] font-semibold tracking-[0.12em] text-cv-mint-50 uppercase hover:bg-cv-ink-950 disabled:opacity-70"
 						>

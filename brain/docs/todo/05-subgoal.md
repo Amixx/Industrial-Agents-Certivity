@@ -242,6 +242,13 @@ Platform upload, 00:18:03: 95.7%, so the rule was reverted. Final dev result: fl
 100.0%, flag precision 100.0%, change accuracy 95.7% (22 of 23), with `subgoal-dev-det-v4.json`
 as the file of record; the code reproduces it byte for byte.
 
+Sixth dev file, `out/subgoal-dev-det-v6.json` (25 Oct 00:41): as v4, plus a name the new version
+no longer has (the old heading "Accelerator control misapplication test") becomes "ACPE test",
+from the system the scope defines. It changes R-084, R-085 and R-086 and tests whether R-085
+failed for its subject (the gold says "The ACPE test procedures"). Platform upload, 25 Oct
+00:44:21 CEST: flag recall 100.0%, flag precision 100.0%, change accuracy 100.0%. This is the
+dev result of record; the code reproduces the file byte for byte.
+
 **Generality.** Commands from `brain/`, staged on top of `d8e9235`.
 
 `uv run python -m brain.subgoal.survey --synthetic`: six synthetic edits (renumber a section,

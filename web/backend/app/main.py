@@ -1,15 +1,18 @@
 import json
+import os
+import subprocess
 from collections.abc import AsyncIterator
 from contextlib import asynccontextmanager
 from typing import Any
 
+import anthropic
 from fastapi import FastAPI, File, Form, HTTPException, UploadFile
 from fastapi.responses import FileResponse, JSONResponse, StreamingResponse
 from fastapi.staticfiles import StaticFiles
 from starlette.datastructures import UploadFile as StarletteUploadFile
 
-from . import pipeline, store, updates
-from .models import Assessment, PipelineEvent
+from . import ask, brief, pipeline, spend, store, updates
+from .models import AskRequest, Assessment, BriefRequest
 from .paths import CASES, FRONTEND_BUILD, REGULATIONS
 
 
@@ -25,6 +28,12 @@ app = FastAPI(lifespan=lifespan)
 @app.get("/api/health")
 def health() -> dict[str, str]:
     return {"status": "ok"}
+
+
+@app.get("/api/version")
+def version() -> dict[str, str | None]:
+    """The commit this image was built from; Render passes it in as RENDER_GIT_COMMIT."""
+    return {"commit": os.environ.get("RENDER_GIT_COMMIT")}
 
 
 @app.get("/api/cases")
@@ -79,14 +88,8 @@ async def create_assessment(
     image_bytes = await image.read() if image else None
 
     async def stream() -> AsyncIterator[str]:
-        async for item in pipeline.run_assessment(spec_text, image_bytes, case_name or None):
-            if isinstance(item, PipelineEvent):
-                yield json.dumps(item.dump()) + "\n"
-                continue
-            if image_bytes:
-                store.store_image(item.id, image_bytes)
-                item = item.model_copy(update={"image_url": f"/api/assessments/{item.id}/image"})
-            store.put(item)
+        async for event in pipeline.run_assessment(spec_text, image_bytes, case_name or None):
+            yield json.dumps(event.dump()) + "\n"
 
     return StreamingResponse(stream(), media_type="application/x-ndjson")
 
@@ -131,6 +134,42 @@ def apply_update(assessment_id: str, regulation: str) -> JSONResponse:
         done.append(regulation)
         store.put(assessment)
     return JSONResponse(assessment.dump())
+
+
+@app.post("/api/brief")
+def get_brief(request: BriefRequest) -> JSONResponse:
+    if not request.write:
+        found = brief.cached(request.requirements)
+        if found is None:
+            raise HTTPException(404, "No brief written yet")
+        return JSONResponse(found.dump())
+    try:
+        written = brief.brief_for(request.requirements)
+    except (
+        RuntimeError,
+        OSError,
+        subprocess.TimeoutExpired,
+        spend.BudgetExceeded,
+        anthropic.APIError,
+    ) as e:
+        raise HTTPException(503, f"Brief unavailable: {e}") from e
+    return JSONResponse(written.dump())
+
+
+@app.post("/api/ask")
+def ask_question(request: AskRequest) -> JSONResponse:
+    try:
+        answer = ask.ask(request.question, request.selection, request.requirements)
+    except spend.BudgetExceeded as e:
+        raise HTTPException(429, str(e)) from e
+    except (anthropic.APIError, RuntimeError) as e:
+        raise HTTPException(502, f"No answer: {e}") from e
+    return JSONResponse(answer.dump())
+
+
+@app.get("/api/spend")
+def get_spend() -> dict[str, float]:
+    return {"spentUsd": spend.spent(), "budgetUsd": spend.BUDGET_USD}
 
 
 @app.get("/api/regulations")

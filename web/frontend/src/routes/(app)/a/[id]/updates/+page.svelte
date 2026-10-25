@@ -9,14 +9,16 @@ import type {
 } from '#lib/api/types.ts';
 import AssessmentHeader from '#lib/components/AssessmentHeader.svelte';
 import WordDiff from '#lib/ui/WordDiff.svelte';
-import { page } from '$app/state';
+import type { PageProps } from './$types';
+
+let { params }: PageProps = $props();
 
 let assessment = $state<Assessment | null>(null);
 let updates: RegulationUpdate[] | null = $state(null);
 let applying: string | null = $state(null);
 
 $effect(() => {
-	const id = page.params.id!;
+	const id = params.id;
 	api.getAssessment(id).then((a) => (assessment = a));
 	api.checkUpdates(id).then((u) => (updates = u));
 });
@@ -46,9 +48,9 @@ function cited(regulation: string) {
 }
 
 const kindStyle: Record<ChangeKind, string> = {
-	modified: 'bg-white',
-	removed: 'bg-black text-white',
-	added: 'bg-cv-mint-300',
+	modified: 'bg-canvas',
+	removed: 'bg-fg text-canvas',
+	added: 'bg-mark text-cv-ink-950',
 };
 </script>
 
@@ -73,9 +75,9 @@ const kindStyle: Record<ChangeKind, string> = {
 			{#if c.change === 'modified'}
 				<WordDiff before={c.oldText} after={c.newText} />
 			{:else if c.change === 'removed'}
-				<p class="leading-relaxed text-black/50 line-through decoration-1">{c.oldText}</p>
+				<p class="leading-relaxed text-muted line-through decoration-1">{c.oldText}</p>
 			{:else}
-				<p class="leading-relaxed"><ins class="bg-cv-mint-300 no-underline">{c.newText}</ins></p>
+				<p class="leading-relaxed"><ins class="bg-mark no-underline">{c.newText}</ins></p>
 			{/if}
 			{#if c.relevanceNote}
 				<p class="mt-1 text-xs">{c.relevanceNote}</p>
@@ -144,8 +146,8 @@ const kindStyle: Record<ChangeKind, string> = {
 										['added', u.stats.added],
 										['removed', u.stats.removed],
 									] as const as [label, value] (label)}
-										<div class="border-t-2 border-black pt-2">
-											<div class="text-4xl leading-none font-light text-cv-teal-700 tabular-nums">
+										<div class="border-t-2 border-line pt-2">
+											<div class="text-4xl leading-none font-light text-accent tabular-nums">
 												{value}
 											</div>
 											<div class="mt-1 text-xs">{label}</div>
@@ -158,7 +160,7 @@ const kindStyle: Record<ChangeKind, string> = {
 						<div class="col-span-2 flex justify-end">
 							{#if u.applied}
 								<span class="flex items-center gap-2 text-sm font-bold">
-									<span class="size-2.5 bg-cv-mint-300 outline outline-1 outline-black"></span>
+									<span class="size-2.5 bg-mark"></span>
 									Applied
 								</span>
 							{:else}
@@ -173,7 +175,7 @@ const kindStyle: Record<ChangeKind, string> = {
 							{/if}
 						</div>
 					</div>
-					<ol class="mt-6 border-t-2 border-black">
+					<ol class="mt-6 border-t-2 border-line">
 						{#each relevant as c, i (i)}
 							{@render row(c, u, latest)}
 						{/each}

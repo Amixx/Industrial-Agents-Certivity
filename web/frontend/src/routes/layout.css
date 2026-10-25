@@ -1,4 +1,4 @@
-@import 'tailwindcss';
+@import "tailwindcss";
 
 @theme {
 	--color-cv-ink-950: #02312f;
@@ -10,11 +10,43 @@
 	--color-cv-mint-50: #f0fdfa;
 	--color-white: #ffffff;
 	--color-black: #000000;
+
+	--color-canvas: #fafcfb;
+	--color-panel: #f1f7f5;
+	--color-select: #dcf7f0;
+	--color-fg: #02312f;
+	--color-muted: #4b706b;
+	--color-faint: #87a6a1;
+	--color-line: #dbe7e4;
+	--color-line-strong: #b4ccc7;
+	--color-accent: #0b7a70;
+	--color-accent-fill: #02312f;
+	--color-accent-fill-hover: #11504b;
+	--color-on-accent: #ffffff;
+	--color-mark: #0ebea9;
+}
+
+:root[data-theme="dark"] {
+	--color-canvas: #031e1c;
+	--color-panel: #06292a;
+	--color-select: #0a3a36;
+	--color-fg: #eaf7f3;
+	--color-muted: #94bdb6;
+	--color-faint: #5d8e86;
+	--color-line: #123f3b;
+	--color-line-strong: #1f625b;
+	--color-accent: #27dac2;
+	--color-accent-fill: #27dac2;
+	--color-accent-fill-hover: #79f2de;
+	--color-on-accent: #02312f;
+	--color-mark: #79f2de;
 }
 
 @theme static {
 	--font-grotesk: "Hanken Grotesk", "Helvetica Neue", Arial, sans-serif;
-	--radius-panel: 2px;
-	--radius-control: 2px;
-	--radius-button: 0px;
+	--font-display: "Instrument Serif", Georgia, serif;
+	--font-mono: "JetBrains Mono", ui-monospace, Menlo, monospace;
+	--radius-panel: 3px;
+	--radius-control: 3px;
+	--radius-button: 3px;
 }

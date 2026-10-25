@@ -131,6 +131,7 @@ const pad = (n: number) => String(n).padStart(2, '0');
 				</div>
 				<div class="mt-auto grid grid-cols-2 gap-x-4 xl:gap-x-6">
 					<button
+						type="submit"
 						disabled={app.loading}
 						class="flex h-11 items-center justify-between bg-black px-3 text-sm font-bold text-white disabled:bg-cv-ink-800"
 					>
