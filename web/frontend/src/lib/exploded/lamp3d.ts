@@ -18,6 +18,8 @@ export interface LampLabel {
 export interface LampScene {
 	setExplode(value: number): void;
 	setSelected(id: string | null): void;
+	/** Isolates a part and flies the camera in to it. */
+	focus(id: string, ms: number): void;
 	setLit(lit: boolean): void;
 	/** Keeps this share of the width, from the left, clear of the model. */
 	setInset(fraction: number): void;
@@ -565,6 +567,15 @@ export function createLampScene(
 	observer.observe(host);
 	resize();
 
+	let flight: {
+		start: number;
+		ms: number;
+		fromCamera: THREE.Vector3;
+		toCamera: THREE.Vector3;
+		fromTarget: THREE.Vector3;
+		toTarget: THREE.Vector3;
+	} | null = null;
+
 	let frame = 0;
 	const loop = () => {
 		frame = requestAnimationFrame(loop);
@@ -573,7 +584,13 @@ export function createLampScene(
 		for (const [id, group] of parts) group.position.z = (SPREAD[id] ?? 0) * e;
 		const labelOpacity = String(Math.min(1, Math.max(0, (explode - 0.55) / 0.35)));
 		for (const label of labelObjects.values()) label.element.style.opacity = labelOpacity;
-		if (idle) {
+		if (flight) {
+			const t = Math.min(1, (performance.now() - flight.start) / flight.ms);
+			const k = 1 - (1 - t) ** 3;
+			camera.position.lerpVectors(flight.fromCamera, flight.toCamera, k);
+			controls.target.lerpVectors(flight.fromTarget, flight.toTarget, k);
+			for (const label of labelObjects.values()) label.element.style.opacity = String(1 - k);
+		} else if (idle) {
 			sway.copy(home);
 			// Closer on the assembled lamp, pulling back as the stack opens.
 			sway.radius = home.radius * (0.72 + 0.28 * e);
@@ -595,6 +612,24 @@ export function createLampScene(
 			applySelection();
 			for (const [labelId, label] of labelObjects)
 				label.element.classList.toggle('lamp3d-label-on', labelId === id);
+		},
+		focus(id, ms) {
+			const group = parts.get(id);
+			if (!group) return;
+			this.setSelected(id);
+			idle = false;
+			controls.enabled = false;
+			const toTarget = new THREE.Box3().setFromObject(group).getCenter(new THREE.Vector3());
+			// Same viewing angle, a third of the distance.
+			const offset = camera.position.clone().sub(controls.target).multiplyScalar(0.35);
+			flight = {
+				start: performance.now(),
+				ms,
+				fromCamera: camera.position.clone(),
+				toCamera: toTarget.clone().add(offset),
+				fromTarget: controls.target.clone(),
+				toTarget,
+			};
 		},
 		setLit(lit) {
 			for (const [id, list] of materials) {

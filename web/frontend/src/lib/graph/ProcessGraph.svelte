@@ -173,7 +173,9 @@ const PAD_TOP = 8;
 		class="sticky top-6 max-h-[calc(100vh-3rem)] self-start overflow-y-auto border-t border-line pt-2"
 	>
 		{#if part && !selectedNode}
-			<PartDetail {part} facets={focusFacets} {assessment} onclose={() => onclearpart?.()} />
+			<div style:view-transition-name="part-card">
+				<PartDetail {part} facets={focusFacets} {assessment} onclose={() => onclearpart?.()} />
+			</div>
 		{:else}
 			<NodeDetail node={selectedNode} {assessment} onclose={() => (selected = null)} />
 		{/if}

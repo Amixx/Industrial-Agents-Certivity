@@ -8,13 +8,15 @@ import { rearLamp } from '#lib/exploded/rearLamp.ts';
 import { buildGraph, partCoverage, partFacets } from '#lib/graph/model.ts';
 import { colorScheme } from '#lib/ui/colorScheme.svelte.ts';
 import Wordmark from '#lib/ui/Wordmark.svelte';
-import { goto } from '$app/navigation';
+import { goto, onNavigate } from '$app/navigation';
 
 /** The saved rear lamp assessment the lamp's numbers and links come from. */
 const SHOWCASE_ID = 'f14b0208';
 /** How long the model must sit untouched before the tour picks up again. */
 const TOUR_IDLE_MS = 5000;
 const TOUR_STEP_MS = 3200;
+/** How long the camera takes to fly in to a clicked part before the page changes. */
+const FLIGHT_MS = 700;
 
 let assessment = $state<Assessment | null>(null);
 let host: HTMLDivElement | undefined = $state();
@@ -28,11 +30,14 @@ let viewportWidth = $state(0);
 let tourId: string | null = $state(null);
 let tourPoint = $state({ x: 0, y: 0 });
 let lastTouch = 0;
+/** The part that was clicked, while the page flies in to it. */
+let openingId: string | null = $state(null);
+let openingAt = $state({ x: 0, y: 0 });
 
 const pad = (n: number) => String(n + 1).padStart(2, '0');
-const shownId = $derived(hoveredId ?? tourId);
+const shownId = $derived(openingId ?? hoveredId ?? tourId);
 const shownIndex = $derived(rearLamp.parts.findIndex((p) => p.id === shownId));
-const shownAt = $derived(hoveredId ? cursor : tourPoint);
+const shownAt = $derived(openingId ? openingAt : hoveredId ? cursor : tourPoint);
 
 const coverage = $derived.by(() => {
 	if (!assessment) return {};
@@ -63,9 +68,33 @@ const stats = $derived(
 		: [],
 );
 
+function open(id: string) {
+	if (!assessment || !scene || openingId) return;
+	openingAt =
+		hoveredId === id ? cursor : tourId === id ? tourPoint : (scene.screenPoint(id) ?? cursor);
+	openingId = id;
+	tourId = null;
+	scene.focus(id, FLIGHT_MS);
+	setTimeout(() => goto(`/a/${assessment?.id}/graph?part=${id}`), FLIGHT_MS - 150);
+}
+
+// The landing zooms away and the clicked part's card becomes the graph's part panel.
+onNavigate((navigation) => {
+	if (!openingId || !document.startViewTransition) return;
+	const root = document.documentElement;
+	root.dataset.transition = 'part';
+	return new Promise((resolve) => {
+		const transition = document.startViewTransition(async () => {
+			resolve();
+			await navigation.complete;
+		});
+		transition.finished.finally(() => delete root.dataset.transition);
+	});
+});
+
 function touch() {
 	lastTouch = performance.now();
-	if (tourId) tourId = null;
+	if (tourId && !openingId) tourId = null;
 }
 
 function track(e: PointerEvent) {
@@ -85,10 +114,10 @@ onMount(() => {
 		created = createLampScene(
 			host,
 			rearLamp.parts.map((p, i) => ({ id: p.id, number: pad(i), name: p.name })),
+			(id) => id && open(id),
 			(id) => {
-				if (id && assessment) goto(`/a/${assessment.id}/graph?part=${id}`);
+				if (!openingId) hoveredId = id;
 			},
-			(id) => (hoveredId = id),
 		);
 		scene = created;
 		timers.push(setTimeout(() => (explode = 1), 700));
@@ -97,7 +126,7 @@ onMount(() => {
 	// Until someone reaches for the model, step through the parts so it shows what hovering does.
 	let step = 0;
 	const tour = setInterval(() => {
-		if (!scene || !tourParts.length || hoveredId) return;
+		if (!scene || !tourParts.length || hoveredId || openingId) return;
 		if (performance.now() - lastTouch < TOUR_IDLE_MS) return;
 		const id = tourParts[step++ % tourParts.length];
 		tourPoint = scene.screenPoint(id) ?? tourPoint;
@@ -139,6 +168,7 @@ $effect(() => scene?.setInset(viewportWidth >= 1024 ? 0.4 : 0));
 				y={shownAt.y}
 				width={host?.clientWidth ?? 0}
 				height={host?.clientHeight ?? 0}
+				transitionName={openingId ? 'part-card' : undefined}
 			/>
 		{/if}
 	</div>

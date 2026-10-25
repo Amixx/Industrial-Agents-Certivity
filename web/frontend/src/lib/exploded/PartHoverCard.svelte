@@ -9,6 +9,7 @@ let {
 	y,
 	width,
 	height,
+	transitionName,
 }: {
 	number: string;
 	name: string;
@@ -19,6 +20,8 @@ let {
 	/** Size of the model area, to keep the card inside it. */
 	width: number;
 	height: number;
+	/** A view-transition-name, so a page transition can morph the card. */
+	transitionName?: string;
 } = $props();
 </script>
 
@@ -27,6 +30,7 @@ let {
 	style:left="{Math.min(x + 16, width - 256)}px"
 	style:top="{y + 16}px"
 	style:translate={y > height / 2 ? '0 calc(-100% - 32px)' : undefined}
+	style:view-transition-name={transitionName}
 >
 	<div class="flex items-baseline gap-2">
 		<span class="text-sm leading-none font-light text-accent tabular-nums">{number}</span>
