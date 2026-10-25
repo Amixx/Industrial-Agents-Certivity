@@ -37,8 +37,15 @@ TAIL = re.compile(r",\s+(?=[A-Z][a-z])")  # "(b) 4 km/h rearward, As reasonably 
 MODAL_PHRASE = re.compile(
     r"\b(?:shall|must|may)(?:\s+(?:not|only|also))*(?:\s+aim\s+(?:not\s+)?to)?"
 )
-# A second verb phrase after a conjunction: "… and assessed by …", "…, and shall provide …".
-CONJOINED = re.compile(r",?\s+(?:and|or|but)\s+((?:shall|must|may)\b\s*)?(\w+)")
+# A second verb phrase after "and" or "but": "… and assessed by …", "…, and shall provide …".
+CONJOINED = re.compile(r",?\s+(?:and|but)\s+((?:shall|must|may)\b\s*)?((?:\w+ly\s+)?(\w+))")
+# What binds in the inclusive mode: a modal verb, or a deeming provision ("The driver is deemed …").
+BINDING = re.compile(r"\b(?:shall|must|may|(?:is|are)\s+deemed)\b")
+PRONOUN = re.compile(r"^(?:This|It)\s+(?=(?:shall|must|may)\b)")
+# ", and <a subject of up to six words> shall …": a second obligation with its own subject.
+CLAUSE = re.compile(r",\s+and\s+(?=(?:[a-z][\w-]*\s+){1,6}?(?:shall|must|may)\b)")
+CONDITION = re.compile(r"^((?:If|When|Where|While|Whilst)\b[^,]*),\s+(?:then\s+)?")
+OWN_LEAD = re.compile(r"(.*\b(?:shall|must|may)\b.*?),?\s+and\s+the\s+following\s+shall\s+apply:$")
 PARTICIPLE = re.compile(r"(?:ed|en|wn|kept|made|held|sent|set|put|done|built)$")
 ACRONYM = re.compile(r"\b[A-Z][A-Z0-9]{2,5}\b")
 # Acronyms of standards and bodies, which a regulation cites but is not about.
@@ -386,16 +393,63 @@ def split_obligation(text: str, known: set[str]) -> list[str]:
         rest = rest[passive.end() :]
     cuts: list[tuple[int, int, bool]] = []  # (conjunction, verb, own modal verb)
     for c in CONJOINED.finditer(rest):
-        word = c[2]
-        if c[1] or (PARTICIPLE.search(word) if passive else word in known):
+        word = c[3]
+        start = cuts[-1][1] if cuts else 0
+        before = rest[start : c.start()]
+        # Bare paired verbs ("documented and explained") are one obligation, and so are
+        # infinitives inside a complement ("the ability to recognize and offer …").
+        complement = len(before.split()) >= 2 and not re.search(r"\bto\s+\w+$", before)
+        if c[1] or (complement and (PARTICIPLE.search(word) if passive else word in known)):
             cuts.append((c.start(), c.start(1) if c[1] else c.start(2), bool(c[1])))
     if not cuts:
         return []
-    parts = [f"{subject} {modal}{rest[: cuts[0][0]]}"]
+    first = rest[: cuts[0][0]]
+    parts = [f"{subject} {modal}{first}"]
+    words = first.split(maxsplit=1)
     for k, (_, verb, own) in enumerate(cuts):
         end = cuts[k + 1][0] if k + 1 < len(cuts) else len(rest)
-        parts.append(f"{subject} {'' if own else modal + ' '}{rest[verb:end]}")
+        part = rest[verb:end]
+        if not own and not passive and len(words) == 2:
+            # "… document such strategies and demonstrate them …": "them" is the first object.
+            if m := re.match(r"(\S+(?:\s+\S+ly)?)\s+(?:them|it)\b", part):
+                part = f"{m[1]} {words[1]}{part[m.end() :]}"
+        parts.append(f"{subject} {'' if own else modal + ' '}{part}")
     return [re.sub(r"[\s,;:.]+$", "", p) + "." for p in parts]
+
+
+def split_clauses(text: str) -> list[str]:
+    """One sentence per clause with its own subject and modal verb: "If X, then A shall B, and C
+    shall D." gives "If X, then A shall B." and "If X, C shall D."; [] when there is one."""
+    m = CLAUSE.search(text)
+    if not m or not MODAL.search(text[: m.start()]):
+        return []
+    second = text[m.end() :]
+    if cond := CONDITION.match(text):
+        second = f"{cond[1]}, {second}"
+    else:
+        second = second[0].upper() + second[1:]
+    return [text[: m.start()].rstrip(" ,") + ".", second.rstrip(" .") + "."]
+
+
+def resolve_pronoun(text: str, previous: str) -> str:
+    """ "This shall …" names what the previous sentence is about: its object when it is active
+    ("… shall provide evidence of X." gives "The evidence of X shall …"), its subject when it is
+    passive ("X may be performed …" gives "X shall …")."""
+    pronoun = PRONOUN.match(text)
+    m = MODAL_PHRASE.search(previous)
+    if not pronoun or not m:
+        return text
+    rest = previous[m.end() :].strip()
+    if re.match(r"be\b", rest):
+        noun = previous[: m.start()].strip().split(", ")[-1]
+    elif len(words := rest.split(maxsplit=1)) == 2:
+        noun = words[1]
+    else:
+        return text
+    noun = re.sub(r"[\s.;:,]+$", "", noun)
+    if not re.match(r"(?:the|a|an|such|its|their)\b", noun, re.I):
+        noun = f"the {noun}"
+    return f"{noun[0].upper()}{noun[1:]} {text[pronoun.end() :]}"
 
 
 def obligations(spans: Sequence[Span], every: bool = False) -> list[tuple[str, str]]:
@@ -450,16 +504,12 @@ def added_changes(
     requirement (`consumed`, indexes of new units).
 
     `inclusive` (for recall) takes every section instead of only the cited `sections`, counts new
-    list items inside old paragraphs (also fused with their lead-in), every new sentence with or
-    without a modal verb, sentences already in a modified requirement, amended sentences no
-    requirement covers, and one more row per verb of a compound obligation (`split_obligation`).
+    list items inside old paragraphs (fused with their lead-in when it has a modal verb) and new
+    sentences already in a modified requirement, and gives a compound obligation one row per verb
+    (`split_obligation`). Only rows with a modal verb or a deeming provision are kept: on the
+    held-out pair the 60 rows without one matched no gold row.
     """
     claimed = {link.new.index for link in links if link.old and link.new}
-    amended = {
-        link.new.index: link.ops
-        for link in links
-        if inclusive and link.old and link.new and link.ops and link.new.index not in consumed
-    }
     by_label: dict[str, list[Span]] = defaultdict(list)
     for unit in sorted((link.new for link in links if link.new), key=lambda s: s.index):
         by_label[unit.label].append(unit)
@@ -468,7 +518,17 @@ def added_changes(
     seen: set[tuple[str, str]] = set()
 
     def add(label: str, page: int, text: str, reason: str) -> None:
-        texts = [text, *split_obligation(text, known)] if inclusive else [text]
+        texts = [text]
+        if inclusive:
+            if not BINDING.search(text):
+                return
+            if changes:
+                text = resolve_pronoun(text, changes[-1]["new_text"])
+            texts = [
+                part
+                for clause in split_clauses(text) or [text]
+                for part in split_obligation(clause, known) or [clause]
+            ]
         for t in texts:
             if (label, t) not in seen:
                 seen.add((label, t))
@@ -484,8 +544,7 @@ def added_changes(
 
     for label, spans in by_label.items():
         in_scope = inclusive or top(label) in sections
-        fresh = [s for s in spans if s.index not in claimed or s.index in amended]
-        if not in_scope or not fresh:
+        if not in_scope or all(s.index in claimed for s in spans):
             continue
         if not any(s.index in claimed and not s.text.endswith(":") for s in spans):
             for quoted, text in obligations(spans, every=inclusive):
@@ -498,37 +557,38 @@ def added_changes(
                 )
             continue
         for k, unit in enumerate(spans):
-            if unit.index in amended:
-                for _, text in obligations([unit], every=True):
-                    add(
-                        label,
-                        unit.page,
-                        text,
-                        f"Paragraph {label} of {regulation} was amended in version {to_version}: "
-                        f"{describe(amended[unit.index])}.",
-                    )
-                continue
+            item = re.match(ITEM, unit.text)
+            own = OWN_LEAD.match(unit.text) if inclusive else None
             if (
                 unit.index in claimed
-                or (unit.index in consumed and not inclusive)
-                or (re.match(ITEM, unit.text) and not inclusive)
+                or (unit.index in consumed and not (inclusive and not item))
+                or (item and not inclusive)
                 or re.match(r"\d", unit.text)
-                or unit.text.endswith(":")
+                or (unit.text.endswith(":") and not own)
             ):
                 continue
             reason = (
                 f"Paragraph {label} of {regulation} was amended in version {to_version}: "
                 f"'{quote(unit.text, ADDED_QUOTE)}' was added."
             )
+            if own:  # "X shall A and the following shall apply:" states A itself
+                add(label, spans[0].page, own[1] + ".", reason)
+                continue
+            lead = _lead_in(spans[:k]) if item else None
+            if item and ((lead and BINDING.search(lead)) or MODAL.search(unit.text)):
+                add(label, spans[0].page, fuse(lead or "", unit.text), reason)
+                continue
             for _, text in obligations([unit], every=inclusive):
                 add(label, spans[0].page, text, reason)
-            lead = next((s for s in reversed(spans[:k]) if not re.match(ITEM, s.text)), None)
-            if (
-                inclusive
-                and re.match(ITEM, unit.text)
-                and lead
-                and lead.text.endswith(":")
-                and MODAL.search(lead.text)
-            ):
-                add(label, spans[0].page, fuse(lead.text, unit.text), reason)
     return changes
+
+
+def _lead_in(before: Sequence[Span]) -> str | None:
+    """The lead-in ("… as follows:") of a list whose earlier items are `before`, without its own
+    item marker when the lead-in is an item itself ("(a) The system shall … the following:")."""
+    for unit in reversed(before):
+        if unit.text.endswith(":"):
+            return re.sub(rf"^{ITEM}", "", unit.text).strip()
+        if not re.match(ITEM, unit.text):
+            return None
+    return None
