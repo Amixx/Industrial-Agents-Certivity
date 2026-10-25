@@ -59,7 +59,7 @@ function toggle(section: number, sentence: number, label: string) {
 }
 </script>
 
-<section class="brief">
+<section class="brief" class:unwritten={!brief}>
 	<h2>Developer brief</h2>
 	{#if brief}
 		<p class="lead">
@@ -156,7 +156,7 @@ function toggle(section: number, sentence: number, label: string) {
 	color: var(--color-cv-teal-700);
 }
 @media print {
-	.status {
+	.unwritten {
 		display: none;
 	}
 }
