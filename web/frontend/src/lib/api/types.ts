@@ -8,6 +8,8 @@ export type Requirement = {
 	rationale?: string;
 	/** The regulation's own wording, from the PDF. */
 	quote?: string;
+	/** The brain's probability that its paragraph is cited. */
+	confidence?: number;
 };
 
 export type Profile = {

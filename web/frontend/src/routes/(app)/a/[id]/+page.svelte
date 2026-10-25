@@ -273,6 +273,9 @@ function onKeydown(e: KeyboardEvent) {
 					<div class="shrink-0 text-right">
 						<div class="ui-count text-5xl">§{selected.source.paragraph}</div>
 						<div class="mt-1 text-xs tabular-nums">page {selected.source.page}</div>
+						{#if selected.confidence !== undefined}
+							<div class="text-xs tabular-nums">confidence {selected.confidence.toFixed(2)}</div>
+						{/if}
 					</div>
 				</header>
 				{#if selectedUrl}

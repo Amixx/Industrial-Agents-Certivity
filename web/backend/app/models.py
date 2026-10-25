@@ -25,6 +25,8 @@ class Requirement(Model):
     quote: str | None = None
     test_case: str | None = None
     rationale: str | None = None
+    confidence: float | None = None
+    """The brain's probability that its paragraph is cited."""
 
 
 class Profile(Model):
