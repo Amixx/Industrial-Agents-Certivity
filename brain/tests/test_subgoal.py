@@ -29,7 +29,7 @@ from brain.subgoal import (
     validate,
     word_ops,
 )
-from brain.subgoal.changes import split_obligation
+from brain.subgoal.changes import resolve_pronoun, split_clauses, split_obligation
 from brain.subgoal.score import score
 from brain.subgoal.survey import synthetic_pairs
 
@@ -815,7 +815,7 @@ def test_dev_added_rows_match_gold_paragraphs() -> None:
     )
 
 
-def test_inclusive_mode_adds_items_every_section_and_sentences_without_a_modal() -> None:
+def test_inclusive_mode_adds_fused_items_every_section_and_only_obligations() -> None:
     old = [
         para("5.1", "X shall be red provided: (a) It is day; (b) It is dry."),
         para("Annex 4 2", "The test shall be run once."),
@@ -830,8 +830,9 @@ def test_inclusive_mode_adds_items_every_section_and_sentences_without_a_modal()
     links = align(old, new)
     assert added_changes(links, {"5"}, "UN R1", "2.0.0") == []
     rows = added_changes(links, {"5"}, "UN R1", "2.0.0", inclusive=True)
-    assert [r["source"]["paragraph"] for r in rows] == ["5.1", "5.1", "Annex 4 3", "16.1", "2.28"]
-    assert rows[1]["new_text"] == "X shall be red provided it is warm."
+    # A sentence without a modal verb (2.28) is not an obligation; the new item takes its lead-in.
+    assert [r["source"]["paragraph"] for r in rows] == ["5.1", "Annex 4 3", "16.1"]
+    assert rows[0]["new_text"] == "X shall be red provided it is warm."
 
 
 def test_inclusive_mode_flags_an_untouched_sentence_in_a_paragraph_amended_in_place() -> None:
@@ -931,12 +932,21 @@ def test_compound_obligation_splits_into_one_row_per_verb() -> None:
         "The circumstances shall be described.",
         "The circumstances shall be assessed according to Annex 3.",
     ]
-    # Nouns joined by "and" are one obligation.
+    assert split_obligation(
+        "The system shall switch to off mode and immediately notify the driver.", {"notify"}
+    ) == [
+        "The system shall switch to off mode.",
+        "The system shall immediately notify the driver.",
+    ]
+    # Alternatives ("A or B"), bare paired verbs ("documented and explained") and nouns joined by
+    # "and" are one obligation.
+    assert split_obligation("The system shall warn the driver or detect a lane.", verbs) == []
+    assert split_obligation("The strategies shall be documented and explained.", verbs) == []
     assert split_obligation("The system shall respond to work zones and tolls.", verbs) == []
     assert split_obligation("Lane changes and merges shall be safe.", verbs) == []
 
 
-def test_inclusive_mode_adds_split_rows_amended_orphans_consumed_and_fused_items() -> None:
+def test_inclusive_mode_splits_compound_rows_and_keeps_consumed_sentences() -> None:
     old = [
         para("5.1", "The system shall warn the driver."),
         para("5.2", "The gap shall be 1 s."),
@@ -953,16 +963,80 @@ def test_inclusive_mode_adds_split_rows_amended_orphans_consumed_and_fused_items
     ]
     links = align(old, new)
     texts = [r["new_text"] for r in added_changes(links, {"5"}, "UN R1", "2.0.0", inclusive=True)]
-    assert "The record shall be kept by the manufacturer." in texts
-    assert "The record shall be shown to the authority." in texts
-    assert "The gap shall be 2 s." in texts  # amended, and no requirement covers it
-    assert "(c) Smell it." in texts and "X shall be checked to smell it." in texts
+    assert texts == [
+        "The record shall be kept by the manufacturer.",
+        "The record shall be shown to the authority.",
+        "X shall be checked to smell it.",
+    ]  # an amended sentence ("2 s") is not an added row
+    lead = (
+        [para("6.1", "Y may be blue.")],
+        [
+            para(
+                "6.1", "Y may be blue. Where Y is wet it shall dry and the following shall apply:"
+            ),
+            para("6.1.1", "Old text."),
+        ],
+    )
+    assert [
+        r["new_text"] for r in added_changes(align(*lead), {"6"}, "UN R1", "2.0.0", inclusive=True)
+    ][0] == "Where Y is wet it shall dry."
     consumed = {s.index for s in units(new) if s.text.startswith("The record")}
-    texts = [
-        r["new_text"]
-        for r in added_changes(links, {"5"}, "UN R1", "2.0.0", consumed=consumed, inclusive=True)
-    ]
-    assert "The record shall be kept by the manufacturer." in texts
-    # The default mode adds none of these.
+    rows = added_changes(links, {"5"}, "UN R1", "2.0.0", consumed=consumed, inclusive=True)
+    assert rows[0]["new_text"] == "The record shall be kept by the manufacturer."
+    # The default mode keeps the sentence whole and adds no item.
     default = [r["new_text"] for r in added_changes(links, {"5"}, "UN R1", "2.0.0")]
     assert default == ["The record shall be kept by the manufacturer and shown to the authority."]
+
+
+def test_pronoun_subject_takes_what_the_previous_sentence_names() -> None:
+    assert (
+        resolve_pronoun(
+            "This shall include a set of driving scenarios.",
+            "The manufacturer shall provide evidence of the system's ability to see.",
+        )
+        == "The evidence of the system's ability to see shall include a set of driving scenarios."
+    )
+    assert (
+        resolve_pronoun(
+            "This shall be demonstrated by a test.",
+            "The manufacturer shall demonstrate the system's ability to brake.",
+        )
+        == "The system's ability to brake shall be demonstrated by a test."
+    )
+    # A passive sentence: "this" is its subject.
+    assert (
+        resolve_pronoun(
+            "This shall only happen after warnings.",
+            "A system-initiated manoeuvre may be performed at any time.",
+        )
+        == "A system-initiated manoeuvre shall only happen after warnings."
+    )
+    assert resolve_pronoun("This visualization shall aim to be calm.", "X shall show Y.") == (
+        "This visualization shall aim to be calm."
+    )
+
+
+def test_clause_with_its_own_subject_is_its_own_obligation_under_the_same_condition() -> None:
+    assert split_clauses(
+        "If the driver is not engaged, then manoeuvres shall not be initiated, and appropriate "
+        "countermeasures shall be applied."
+    ) == [
+        "If the driver is not engaged, then manoeuvres shall not be initiated.",
+        "If the driver is not engaged, appropriate countermeasures shall be applied.",
+    ]
+    assert split_clauses("The system shall warn, and the driver shall respond.") == [
+        "The system shall warn.",
+        "The driver shall respond.",
+    ]
+    assert split_clauses("The system shall warn the driver and the passengers.") == []
+
+
+def test_infinitives_joined_by_and_stay_one_obligation() -> None:
+    assert (
+        split_obligation(
+            "The test shall confirm the capability of the system to recognize and offer right of "
+            "way.",
+            {"offer", "confirm"},
+        )
+        == []
+    )
