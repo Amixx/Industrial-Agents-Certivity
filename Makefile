@@ -34,8 +34,9 @@ fix: ## Apply ruff and biome fixes.
 	$(call step,brain ruff-format,cd $(BRAIN) && $(UV) ruff format)
 	$(call step,biome,cd $(FRONTEND) && $(BUN) run lint:fix)
 
-test: ## Brain tests (some need the corpus from brain.ingest).
+test: ## Brain and backend tests (some need the corpus from brain.ingest).
 	$(call step,brain pytest,cd $(BRAIN) && $(UV) pytest -q)
+	$(call step,backend pytest,cd $(BACKEND) && $(UV) pytest -q)
 
 dev-backend: ## API on :8000.
 	cd $(BACKEND) && uv run uvicorn app.main:app --reload

@@ -44,9 +44,11 @@ def select_paragraphs(
     choices: list[RegulationChoice],
     threshold: float | None = None,
     use_llm: bool = False,
+    below: list[dict[str, Any]] | None = None,
 ) -> tuple[list[tuple[Paragraph, float]], Any]:
     """Paragraphs to rewrite, with P(cited). With an LLM, its relevance score is blended in
-    (paragraph F2 on dev 0.39 -> 0.73, see eval/relevance_check.py)."""
+    (paragraph F2 on dev 0.39 -> 0.73, see eval/relevance_check.py). `below` receives the
+    paragraphs under the cut that score at least half of it, with their score and the cut."""
     regs = [c.regulation for c in choices if c.selected]
     sub = {r: corpus[r] for r in regs}
     graph = build(sub, set(corpus))
@@ -72,10 +74,36 @@ def select_paragraphs(
         scored = list(zip(paragraphs, map(float, probs), strict=True))
         relative = relevance.RELATIVE_JEV if jev.enabled() else relevance.RELATIVE
         keep = relevance.select(scored, threshold, relative)
+        bar = relevance.bars(scored, threshold, relative)
+        if below is not None:
+            below.extend(
+                _below(p, pr, bar[p.regulation], "paragraph")
+                for p, pr in scored
+                if p.id not in keep and pr >= bar[p.regulation] / 2
+            )
         return [(p, pr) for p, pr in scored if p.id in keep], graph
     cut = cut if threshold is None else threshold
     chosen = [(p, float(pr)) for p, pr in zip(paragraphs, probs, strict=True) if pr >= cut]
+    if below is not None:
+        below.extend(
+            _below(p, float(pr), cut, "paragraph")
+            for p, pr in zip(paragraphs, probs, strict=True)
+            if cut / 2 <= pr < cut
+        )
     return chosen, graph
+
+
+def _below(p: Paragraph, score: float, cut: float, stage: str) -> dict[str, Any]:
+    """A paragraph the run cut at `stage` ("paragraph" or "section"), with its score and the cut."""
+    return {
+        "regulation": p.regulation,
+        "version": p.version,
+        "page": p.page,
+        "paragraph": p.label,
+        "score": round(score, 3),
+        "cut": round(cut, 3),
+        "stage": stage,
+    }
 
 
 def review(
@@ -136,7 +164,8 @@ def run(
         "regulations: "
         + ", ".join(f"{c.regulation} {c.probability:.2f}" for c in choices if c.selected)
     )
-    chosen, graph = select_paragraphs(profile, corpus, choices, threshold, use_llm)
+    below_cut: list[dict[str, Any]] = []
+    chosen, graph = select_paragraphs(profile, corpus, choices, threshold, use_llm, below_cut)
     log(f"paragraphs selected: {len(chosen)}")
     confidence = {p.id: pr for p, pr in chosen}
     product = profile.model_dump_json(
@@ -151,7 +180,16 @@ def run(
             # p_keep enters the section cut only: a hard filter on it first drops rows the
             # section score would keep, and costs the bumper rehearsals paragraphs they cite.
             n = len(kept)
-            kept = sections.cut(kept, p_keep, sections.scores(kept, graph, product))
+            p_section = sections.scores(kept, graph, product)
+            cut = sections.cut(kept, p_keep, p_section)
+            survivors = {d.paragraph.id for d in cut}
+            lost: dict[str, tuple[Paragraph, float]] = {}
+            for d, pk in zip(kept, p_keep, strict=True):
+                p, score = d.paragraph, pk * p_section[d.paragraph.id]
+                if p.id not in survivors and score > lost.get(p.id, (p, -1.0))[1]:
+                    lost[p.id] = (p, score)
+            below_cut += [_below(p, s, sections.THRESHOLD, "section") for p, s in lost.values()]
+            kept = cut
             log(f"section cut: {len(kept)} kept of {n}")
         else:
             kept = [d for d, pk in zip(kept, p_keep, strict=True) if pk >= keep.THRESHOLD]
@@ -189,6 +227,8 @@ def run(
         "regulations": [c.model_dump() for c in choices if c.selected]
         + [c.model_dump() for c in choices if not c.selected][:10],
         "profile": profile.model_dump(),
+        # Paragraphs the run cut, with their score and the cut, for the coverage page.
+        "below_cut": below_cut,
         "run": {
             "wall_s": round(time.monotonic() - started, 1),
             "provider": llm_api.provider(),

@@ -1,0 +1,709 @@
+{
+ "79be69e25c20fb8d": {
+  "file": "heldout-api.json",
+  "rows": 550,
+  "uploads": [
+   {
+    "at": "25 Oct 08:16 CET",
+    "f2": 0.655,
+    "precision": 0.329,
+    "recall": 0.87
+   }
+  ]
+ },
+ "00084d322aea270c": {
+  "file": "heldout-cut-r48s6.json",
+  "rows": 371,
+  "uploads": [
+   {
+    "at": "25 Oct 10:58 CET",
+    "f2": 0.711,
+    "precision": 0.461,
+    "recall": 0.822
+   }
+  ]
+ },
+ "176a66be1d136ffa": {
+  "file": "heldout-cut2.json",
+  "rows": 326,
+  "uploads": [
+   {
+    "at": "25 Oct 11:18 CET",
+    "f2": 0.738,
+    "precision": 0.525,
+    "recall": 0.822
+   }
+  ]
+ },
+ "ffc6770ca3929e43": {
+  "file": "heldout-cut20-light.json",
+  "rows": 443,
+  "uploads": [
+   {
+    "at": "25 Oct 08:21 CET",
+    "f2": 0.694,
+    "precision": 0.4,
+    "recall": 0.851
+   }
+  ]
+ },
+ "44ecfc5cba985dd6": {
+  "file": "heldout-cut25-light.json",
+  "rows": 393,
+  "uploads": [
+   {
+    "at": "25 Oct 08:23 CET",
+    "f2": 0.694,
+    "precision": 0.433,
+    "recall": 0.817
+   }
+  ]
+ },
+ "b1c4794864775da0": {
+  "file": "heldout-cut25-silver.json",
+  "rows": 405,
+  "uploads": [
+   {
+    "at": "25 Oct 09:03 CET",
+    "f2": 0.703,
+    "precision": 0.43,
+    "recall": 0.837
+   }
+  ]
+ },
+ "6a178bb472cfadc5": {
+  "file": "heldout-det.json",
+  "rows": 1284,
+  "uploads": [
+   {
+    "at": "25 Oct 08:02 CET",
+    "f2": 0.234,
+    "precision": 0.077,
+    "recall": 0.476
+   }
+  ]
+ },
+ "ef89badd94d158f5": {
+  "file": "heldout-probe-r10.json",
+  "rows": 73,
+  "uploads": [
+   {
+    "at": "25 Oct 10:04 CET",
+    "f2": 0.182,
+    "precision": 0.452,
+    "recall": 0.159
+   }
+  ]
+ },
+ "5be5422e04dc58cc": {
+  "file": "heldout-probe-r148-rest.json",
+  "rows": 45,
+  "uploads": [
+   {
+    "at": "25 Oct 11:05 CET",
+    "f2": 0.017,
+    "precision": 0.067,
+    "recall": 0.014
+   }
+  ]
+ },
+ "c0cee2dd994ae14f": {
+  "file": "heldout-probe-r148-s3.json",
+  "rows": 32,
+  "uploads": [
+   {
+    "at": "25 Oct 10:38 CET",
+    "f2": 0.133,
+    "precision": 0.719,
+    "recall": 0.111
+   }
+  ]
+ },
+ "9d865b961b97a86f": {
+  "file": "heldout-probe-r148-s4.json",
+  "rows": 37,
+  "uploads": [
+   {
+    "at": "25 Oct 10:59 CET",
+    "f2": 0.115,
+    "precision": 0.541,
+    "recall": 0.096
+   }
+  ]
+ },
+ "259cac0afaa75050": {
+  "file": "heldout-probe-r148.json",
+  "rows": 114,
+  "uploads": [
+   {
+    "at": "25 Oct 09:58 CET",
+    "f2": 0.248,
+    "precision": 0.412,
+    "recall": 0.226
+   }
+  ]
+ },
+ "a11d527d2043d205": {
+  "file": "heldout-probe-r48-s6.json",
+  "rows": 58,
+  "uploads": [
+   {
+    "at": "25 Oct 10:17 CET",
+    "f2": 0.022,
+    "precision": 0.069,
+    "recall": 0.019
+   }
+  ]
+ },
+ "1a9b889610f9a175": {
+  "file": "heldout-probe-r48.json",
+  "rows": 105,
+  "uploads": [
+   {
+    "at": "25 Oct 09:57 CET",
+    "f2": 0.091,
+    "precision": 0.162,
+    "recall": 0.082
+   }
+  ]
+ },
+ "a97a3b95025c92df": {
+  "file": "heldout-r10table.json",
+  "rows": 430,
+  "uploads": [
+   {
+    "at": "25 Oct 09:37 CET",
+    "f2": 0.701,
+    "precision": 0.412,
+    "recall": 0.851
+   }
+  ]
+ },
+ "fa879845b49505ac": {
+  "file": "heldout-silver-r10r148.json",
+  "rows": 429,
+  "uploads": [
+   {
+    "at": "25 Oct 09:16 CET",
+    "f2": 0.706,
+    "precision": 0.415,
+    "recall": 0.856
+   }
+  ]
+ },
+ "e8b819a202007f24": {
+  "file": "heldout-union.json",
+  "rows": 591,
+  "uploads": [
+   {
+    "at": "25 Oct 08:18 CET",
+    "f2": 0.647,
+    "precision": 0.311,
+    "recall": 0.885
+   }
+  ]
+ },
+ "cf2c3866544e22dc": {
+  "file": "rear-lamp-agent-v3.json",
+  "rows": 302,
+  "uploads": [
+   {
+    "at": "24 Oct 22:54",
+    "matched": 116,
+    "f2": 0.546
+   }
+  ]
+ },
+ "77462a4fa68c323b": {
+  "file": "rear-lamp-api-fable-sections.json",
+  "rows": 328,
+  "uploads": [
+   {
+    "at": "25 Oct 04:24 CET",
+    "matched": 168,
+    "f2": 0.772
+   }
+  ]
+ },
+ "c1ffbd4cbb97372c": {
+  "file": "rear-lamp-consolidate-v2.json",
+  "rows": 292,
+  "uploads": [
+   {
+    "at": "25 Oct 04:57 CET",
+    "matched": 167,
+    "f2": 0.794
+   },
+   {
+    "at": "25 Oct 04:57 CET",
+    "matched": 167,
+    "f2": 0.794
+   }
+  ]
+ },
+ "0ec421d859970f6d": {
+  "file": "rear-lamp-consolidate.json",
+  "rows": 287,
+  "uploads": [
+   {
+    "at": "25 Oct 02:52 CET",
+    "matched": 164,
+    "f2": 0.783
+   },
+   {
+    "at": "25 Oct 03:02 CET",
+    "matched": 166,
+    "f2": 0.793
+   }
+  ]
+ },
+ "dc69443d39acbe94": {
+  "file": "rear-lamp-deterministic-sibling.json",
+  "rows": 647,
+  "uploads": [
+   {
+    "at": "24 Oct 22:57",
+    "matched": 106,
+    "f2": 0.377
+   }
+  ]
+ },
+ "57e38261d9e072d9": {
+  "file": "rear-lamp-deterministic.json",
+  "rows": 778,
+  "uploads": [
+   {
+    "at": "24 Oct 20:23",
+    "matched": 107,
+    "f2": 0.348
+   }
+  ]
+ },
+ "c76711d89c741b75": {
+  "file": "rear-lamp-fable.json",
+  "rows": 332,
+  "uploads": [
+   {
+    "at": "24 Oct 20:05",
+    "matched": 149,
+    "f2": 0.682
+   },
+   {
+    "at": "24 Oct 20:04, as team-00",
+    "matched": 142,
+    "f2": 0.65
+   }
+  ]
+ },
+ "4d67b12a29a8eef6": {
+  "file": "rear-lamp-kb-deterministic.json",
+  "rows": 864,
+  "uploads": [
+   {
+    "at": "24 Oct 21:05 to 22:16",
+    "matched": 108,
+    "f2": 0.333
+   }
+  ]
+ },
+ "f42be3cf65f86d01": {
+  "file": "rear-lamp-kb-jev-cut.json",
+  "rows": 326,
+  "uploads": [
+   {
+    "at": "25 Oct 01:01",
+    "matched": 148,
+    "f2": 0.681
+   }
+  ]
+ },
+ "8c46057e4e9647c8": {
+  "file": "rear-lamp-kb-jev-filter-v4.json",
+  "rows": 342,
+  "uploads": [
+   {
+    "at": "24 Oct 21:05 to 22:16",
+    "matched": 140,
+    "f2": 0.635
+   }
+  ]
+ },
+ "8daf26b8ce68641b": {
+  "file": "rear-lamp-kb-jev.json",
+  "rows": 389,
+  "uploads": [
+   {
+    "at": "24 Oct 21:05 to 22:16",
+    "matched": 154,
+    "f2": 0.67
+   }
+  ]
+ },
+ "c56b8c2d0e8c6b9d": {
+  "file": "rear-lamp-kb-lin15-consolidate.json",
+  "rows": 336,
+  "uploads": [
+   {
+    "at": "25 Oct 03:47 CET",
+    "matched": 169,
+    "f2": 0.771
+   },
+   {
+    "at": "25 Oct 03:56 CET",
+    "matched": 172,
+    "f2": 0.785
+   }
+  ]
+ },
+ "5218b7e95288c2b5": {
+  "file": "rear-lamp-kb-own-subject.json",
+  "rows": 396,
+  "uploads": [
+   {
+    "at": "24 Oct 23:39",
+    "matched": 151,
+    "f2": 0.653
+   }
+  ]
+ },
+ "e07242b4c48117be": {
+  "file": "rear-lamp-kb-recall-push.json",
+  "rows": 390,
+  "uploads": [
+   {
+    "at": "24 Oct 23:21",
+    "matched": 150,
+    "f2": 0.652
+   }
+  ]
+ },
+ "68c1e37c066b0bf7": {
+  "file": "rear-lamp-kb-section-cut.json",
+  "rows": 363,
+  "uploads": [
+   {
+    "at": "24 Oct 23:49",
+    "matched": 151,
+    "f2": 0.672
+   }
+  ]
+ },
+ "de1fdc4750f33ca2": {
+  "file": "rear-lamp-kb-section-cut2-mark-fragquote.json",
+  "rows": 317,
+  "uploads": [
+   {
+    "at": "25 Oct 02:01",
+    "matched": 151,
+    "f2": 0.701
+   }
+  ]
+ },
+ "7df50cffde5b9dee": {
+  "file": "rear-lamp-kb-section-cut2-mark-verbatim.json",
+  "rows": 317,
+  "uploads": [
+   {
+    "at": "25 Oct 01:10",
+    "matched": 156,
+    "f2": 0.724
+   },
+   {
+    "at": "25 Oct 02:01 CET",
+    "matched": 152,
+    "f2": 0.706
+   }
+  ]
+ },
+ "cbb7e250ca5613d3": {
+  "file": "rear-lamp-kb-section-cut2-mark-verbatim2.json",
+  "rows": 317,
+  "uploads": [
+   {
+    "at": "25 Oct 01:52",
+    "matched": 146,
+    "f2": 0.678
+   }
+  ]
+ },
+ "c0371ed8233fa7d7": {
+  "file": "rear-lamp-kb-section-cut2-mark.json",
+  "rows": 317,
+  "uploads": [
+   {
+    "at": "25 Oct 00:50",
+    "matched": 149,
+    "f2": 0.692
+   }
+  ]
+ },
+ "f012a5e28d02fd64": {
+  "file": "rear-lamp-kb-section-cut2-rules.json",
+  "rows": 326,
+  "uploads": [
+   {
+    "at": "25 Oct 00:10",
+    "matched": 150,
+    "f2": 0.691
+   }
+  ]
+ },
+ "223146bcae360fb5": {
+  "file": "rear-lamp-kb-section-cut2.json",
+  "rows": 332,
+  "uploads": [
+   {
+    "at": "24 Oct 23:54",
+    "matched": 149,
+    "f2": 0.682
+   }
+  ]
+ },
+ "b5534018c0dd6b19": {
+  "file": "rear-lamp-kb-sentence-pick-cut.json",
+  "rows": 285,
+  "uploads": [
+   {
+    "at": "25 Oct 01:25",
+    "matched": 142,
+    "f2": 0.679
+   }
+  ]
+ },
+ "060cf66079ecd5a3": {
+  "file": "rear-lamp-kb-sol-rewrite.json",
+  "rows": 420,
+  "uploads": [
+   {
+    "at": "24 Oct 21:05 to 22:16",
+    "matched": 143,
+    "f2": 0.606
+   }
+  ]
+ },
+ "aabf6ed31db86d01": {
+  "file": "rear-lamp-kb-split-repair.json",
+  "rows": 358,
+  "uploads": [
+   {
+    "at": "25 Oct 04:47 CET",
+    "matched": 165,
+    "f2": 0.738
+   }
+  ]
+ },
+ "516c07d8ed6c1033": {
+  "file": "rear-lamp-kb-splitless-cut2-mark.json",
+  "rows": 271,
+  "uploads": [
+   {
+    "at": "25 Oct 00:42",
+    "matched": 140,
+    "f2": 0.679
+   }
+  ]
+ },
+ "b75f0fd1e0a17f11": {
+  "file": "rear-lamp-kb-v5-rewrite.json",
+  "rows": 363,
+  "uploads": [
+   {
+    "at": "24 Oct 22:48",
+    "matched": 148,
+    "f2": 0.659
+   }
+  ]
+ },
+ "6d561bfb2800cf66": {
+  "file": "rear-lamp-main-cli.json",
+  "rows": 368,
+  "uploads": [
+   {
+    "at": "24 Oct 21:05 to 22:16",
+    "matched": 143,
+    "f2": 0.634
+   }
+  ]
+ },
+ "3dee673d41754df6": {
+  "file": "rear-lamp-mix-examples-cut.json",
+  "rows": 341,
+  "uploads": [
+   {
+    "at": "24 Oct 22:14",
+    "matched": 138,
+    "f2": 0.627
+   }
+  ]
+ },
+ "38333c0a7881439b": {
+  "file": "rear-lamp-opus-fresh.json",
+  "rows": 342,
+  "uploads": [
+   {
+    "at": "25 Oct 02:46 CET",
+    "matched": 146,
+    "f2": 0.662
+   }
+  ]
+ },
+ "3868941efe71a1ed": {
+  "file": "rear-lamp-opus.json",
+  "rows": 338,
+  "uploads": [
+   {
+    "at": "24 Oct 20:06",
+    "matched": 143,
+    "f2": 0.651
+   }
+  ]
+ },
+ "c3b73973f5321a5d": {
+  "file": "rear-lamp-qwen-split-rewrite.json",
+  "rows": 446,
+  "uploads": [
+   {
+    "at": "24 Oct 21:47",
+    "matched": 133,
+    "f2": 0.551
+   }
+  ]
+ },
+ "ceb85895c67d1525": {
+  "file": "rear-lamp-ready-kb.json",
+  "rows": 341,
+  "uploads": [
+   {
+    "at": "25 Oct 04:36 CET",
+    "matched": 166,
+    "f2": 0.754
+   }
+  ]
+ },
+ "03bd114b47045080": {
+  "file": "rear-lamp-rehearsal-ready-consolidate.json",
+  "rows": 364,
+  "uploads": [
+   {
+    "at": "25 Oct 03:26 CET",
+    "matched": 154,
+    "f2": 0.685
+   }
+  ]
+ },
+ "678f0db4e55e84d7": {
+  "file": "rear-lamp-sonnet.json",
+  "rows": 344,
+  "uploads": [
+   {
+    "at": "24 Oct 20:10",
+    "matched": 140,
+    "f2": 0.634
+   }
+  ]
+ },
+ "415266226f2407d1": {
+  "file": "rear-lamp-subset-frag-quote.json",
+  "rows": 124,
+  "uploads": [
+   {
+    "at": "25 Oct 02:19",
+    "matched": 53,
+    "f2": 0.3
+   }
+  ]
+ },
+ "8da830d916a9a7eb": {
+  "file": "rear-lamp-subset-frag-standalone.json",
+  "rows": 124,
+  "uploads": [
+   {
+    "at": "25 Oct 02:25",
+    "matched": 45,
+    "f2": 0.255
+   }
+  ]
+ },
+ "b24535dfda133c1c": {
+  "file": "rear-lamp-subset-full-quote.json",
+  "rows": 152,
+  "uploads": [
+   {
+    "at": "25 Oct 02:26 CET",
+    "matched": 107,
+    "f2": 0.587
+   }
+  ]
+ },
+ "26c195b87a2d5166": {
+  "file": "rear-lamp-sunday-pipeline-verbatim.json",
+  "rows": 366,
+  "uploads": [
+   {
+    "at": "25 Oct 01:45",
+    "matched": 156,
+    "f2": 0.693
+   }
+  ]
+ },
+ "9195685a519d61ac": {
+  "file": "rear-lamp-swing-I-tables.json",
+  "rows": 379,
+  "uploads": [
+   {
+    "at": "25 Oct 00:22",
+    "matched": 146,
+    "f2": 0.641
+   }
+  ]
+ },
+ "c16c8f8e91ab0722": {
+  "file": "rear-lamp-thesis-nolabels.json",
+  "rows": 317,
+  "uploads": [
+   {
+    "at": "25 Oct 02:52",
+    "matched": 93,
+    "f2": 0.432
+   }
+  ]
+ },
+ "c4bb59f494419eef": {
+  "file": "rear-lamp-thesis-offgold.json",
+  "rows": 106,
+  "uploads": [
+   {
+    "at": "25 Oct 02:20 CET",
+    "matched": 2,
+    "f2": 0.012
+   }
+  ]
+ },
+ "1796b5c1fd568fc0": {
+  "file": "rear-lamp-thesis-oversplit.json",
+  "rows": 80,
+  "uploads": [
+   {
+    "at": "25 Oct 02:46",
+    "matched": 24,
+    "f2": 0.143
+   }
+  ]
+ },
+ "25fa20b38d10f0b2": {
+  "file": "rear-lamp-v2-merge.json",
+  "rows": 256,
+  "uploads": [
+   {
+    "at": "25 Oct 03:24 CET",
+    "matched": 160,
+    "f2": 0.787
+   },
+   {
+    "at": "25 Oct 04:27 CET",
+    "matched": 161,
+    "f2": 0.792
+   }
+  ]
+ }
+}

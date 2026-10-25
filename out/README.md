@@ -61,6 +61,7 @@ that produced the file; branch code is not on `main` unless it says so.
 | 25 Oct 04:36 | `rear-lamp-ready-kb.json` | `ready-for-main` at `8807f07`: the kb lineage merged into the pipeline (`kb-into-ready`), duplicate drop keyed on paragraph and text. Replays the kb-lin15 chain from the `claude -p` cache with `BRAIN_JEV=1 BRAIN_JEV_KB=1 BRAIN_CONSOLIDATE=1` and the saved section scores; the same 341 rows as the fixed script chain. Checkpoint `checkpoint/0754-ready-kb` | `ready-for-main` @ `8807f07` | 341 | | (25 Oct 04:36 CET) **166 / 0.754** | $0 (cached) |
 | 25 Oct 04:45 | `rear-lamp-kb-split-repair.json` | The kb-lin15 file (341 rows, duplicate drop keyed on paragraph and text) plus a split repair: in body paragraphs of 600+ characters with 3+ numeric limits and 2+ rows, Opus (`claude -p`) splits the paragraph into verbatim quotes, one per obligation or limit, and quotes no existing row covers become rows. 7 paragraphs, +17 rows; room for gold matches 174 → 180. Checkpoint `checkpoint/0738-split-repair` | `checkpoint/0738-split-repair` `repro/split-repair/` | 358 | | (25 Oct 04:47 CET) **165 / 0.738** | subscription |
 | 25 Oct 04:50 | `rear-lamp-consolidate-v2.json` | `rear-lamp-consolidate.json` rebuilt from the same input with the duplicate drop keyed on regulation, paragraph and text: 5 rows back (2 on gold paragraphs, UN R148 5.5.7 and UN R150 3.3.6.2); room for gold matches 168 → 170. Checkpoint `checkpoint/0794-consolidate-v2` | `checkpoint/0794-consolidate-v2` `repro/consolidate/consolidate_v2.py` | 292 | | (25 Oct 04:57 CET) **167 / 0.794** | $0 |
+| 25 Oct 11:40 CET | `rear-lamp-consolidate-v2.json`, `rear-lamp-consolidate-v2-coverage.log` | Rescore of the 0.794 file for the coverage page: local judge, each missed expert row with one reason (`eval.coverage`, `eval.errors.breakdown`). No new rows, no model calls | `claude/coverage-page-f0879b` over `113e712`, on `main` with this commit | 292 | 147 / 0.699 | (25 Oct 04:57 CET) 167 / 0.794, unchanged | $0 |
 | 25 Oct 01:22 | `rear-lamp-kb-sentence-pick-cut.json` | The 194 paragraphs of `rear-lamp-kb-section-cut2-mark.json` rewritten by Opus with one requirement per obligation sentence (minimal edit, no extra splits), text replaced by the quoted sentence, then Opus p_keep per row, the section cut and the three rules | `out/scripts/sentence_rewrite.py`, `out/scripts/pkeep_saved.py`, `out/scripts/section_stage.py` | 285 | | (25 Oct 01:25) 142 / 0.679 | not logged (two Opus passes, subscription) |
 | 25 Oct 01:26 | `rear-lamp-sunday-pipeline-verbatim.json` | The Sunday pipeline end to end on dev: `ready-for-main` with Jev (test conditions count as technical, refit on dev), Opus on both tiers via `claude -p`, the rewrite prompt of `6f5a1c1`, requirement filter 0.40, linear section cut 0.2, the three rules; then each row's text replaced by its quote (334 of 366) | `ready-for-main` @ `df982ee`, `out/scripts/claude_cli_run.py`, `out/scripts/verbatim.py --all` | 366 | | (25 Oct 01:45) 156 / 0.693 | $4.84 (reported by `claude -p`) |
 | 25 Oct 00:20 | `rear-lamp-kb-splitless-cut2-mark.json` | Recall-push setup (filter off) rewritten with one requirement per sentence, split only at lettered or numbered list items, then the section cut and the pointer, umbrella and approval-mark rules | `out/scripts/section_stage.py` | 271 | | (25 Oct 00:42) 140 / 0.679 | $0 |
@@ -245,6 +246,18 @@ what the cached responses cost when they were made. List prices in USD per milli
 | Claude Fable 5.1 (`claude-fable-5-1`) | 10 | 50 | 0.25 |
 
 ## Results
+
+### 25 Oct 2026, 11:40 CET: why the 0.794 file misses what it misses
+
+The coverage page (`/a/<id>/coverage`) lists every expert row the local judge leaves unmatched in the best dev upload, with one reason. Same file, same judge as before: 147 of 190 matched, F2 0.699; the platform matched 167. Of the 43 misses:
+
+- 4 on paragraphs the file never cites ("below the cut"). Only UN R150 Annex 6 Part 4 3 has a kept score: 0.310 against the section cut of 0.3535 (p_keep times the square root of the section score, from the inputs on `checkpoint/0794-consolidate-v2`). UN R48 5.18, UN R48 6.14.7 and UN R148 4.5.3 are not among the checkpoint's 448 rows before the section cut, and the run kept no paragraph score for them.
+- 23 on paragraphs where the file has fewer rows than the expert ("split finer").
+- 16 on paragraphs where it has as many rows, unpaired ("worded differently"). For 2 of the 16, the most similar row on the paragraph is paired with another expert row; for the other 14 it scores under the judge's 0.45.
+
+`eval.errors` now reads an expert paragraph that names its table ("5.1.4.4.1. Table 3") as the paragraph itself. That moves 2 misses from "never cited" to "cited" (it was 37 / 6, now 39 / 4); the scores do not change. 145 rows of the file are unpaired: 44 on the expert's paragraphs, 101 elsewhere. From the platform's F2 and recall, it left 125 unpaired.
+
+The pipeline now keeps the scores of what it cuts (`below_cut` in the submission: paragraphs from half the cut up at the paragraph stage, and every paragraph the section cut empties), so the next run's misses carry their score.
 
 ### 25 Oct 2026, 05:18 CEST: kb lineage on ready-for-main
 

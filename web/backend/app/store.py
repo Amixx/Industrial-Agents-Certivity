@@ -2,11 +2,13 @@ import json
 from pathlib import Path
 
 from .models import Assessment
-from .paths import DATA_DIR
+from .paths import CASES, DATA_DIR
 
 _FILE = DATA_DIR / "assessments.json"
 # The rear lamp assessment the landing page shows, available even on an empty store.
 _SHOWCASE = Path(__file__).with_name("showcase.json")
+# Assessments built from uploaded files, for the coverage page (scripts/build_coverage.py).
+_SEEDS = Path(__file__).with_name("seeds.json")
 _IMAGES = DATA_DIR / "images"
 _IMAGE_TYPES = {b"\x89PNG": "png", b"\xff\xd8\xff": "jpg", b"RIFF": "webp", b"GIF8": "gif"}
 
@@ -17,6 +19,9 @@ applied: dict[str, list[str]] = {}
 def load() -> None:
     showcase = Assessment.model_validate_json(_SHOWCASE.read_text(encoding="utf-8"))
     assessments[showcase.id] = showcase
+    for item in json.loads(_SEEDS.read_text()):
+        seed = Assessment.model_validate(item)
+        assessments[seed.id] = seed
     if not _FILE.is_file():
         return
     raw = json.loads(_FILE.read_text(encoding="utf-8"))
@@ -24,6 +29,13 @@ def load() -> None:
         assessment = Assessment.model_validate(item)
         assessments[assessment.id] = assessment
     applied.update(raw["applied"])
+
+
+def seed_for(case: str) -> str | None:
+    """The id of the seeded engine run on `case`, by its spec."""
+    spec = (CASES / case / "spec.md").read_text(encoding="utf-8").strip()
+    seeds = [Assessment.model_validate(a) for a in json.loads(_SEEDS.read_text())]
+    return next((a.id for a in seeds if a.spec.strip() == spec), None)
 
 
 def save() -> None:

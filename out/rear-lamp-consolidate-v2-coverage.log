@@ -1,0 +1,18 @@
+# 25 Oct 2026 11:40 CET, coverage page rescore, local judge only, no model calls
+$ cd brain && uv run python -m eval.errors ../out/rear-lamp-consolidate-v2.json
+== ../out/rear-lamp-consolidate-v2.json
+   rows 292: in gold paragraphs 189 (matched 145), outside 103 (matched 2)
+   gold rows missed: 39 on cited paragraphs, 4 on paragraphs never cited
+   gold paragraphs where we have fewer / equal / more rows than gold: 13 / 85 / 17
+   local judge: matched 147, P 0.503 R 0.774 F2 0.699
+   rows outside gold paragraphs dropped: P 0.767 R 0.763 F2 0.764
+$ cd web/backend && uv run python -m scripts.build_coverage
+uploads.json: 55 uploaded files
+f14b0208 Lamp: platform no, local matched 190, missed 0
+2f185489 Rear lamp, F2 0.794: platform yes, local matched 147, missed 43
+8f93fc71 Front bumper, F2 0.706: platform yes
+# reasons in app/coverage_data/c1ffbd4cbb97372c.json
+{'worded_differently': 16, 'split_finer': 23, 'below_cut': 4}
+below the cut with a kept score: [('G-0050', 0.31, 0.3535, 'section')]
+nearest row paired with another expert row: 16
+extra rows: 145 on expert paragraphs: 44

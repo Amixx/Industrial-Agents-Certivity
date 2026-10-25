@@ -13,6 +13,7 @@ from typing import Any
 from . import spend, store
 from .models import (
     Assessment,
+    CutParagraph,
     Partial,
     PipelineEvent,
     Profile,
@@ -176,6 +177,7 @@ def _assessment(
         requirements=requirements,
         status="complete",
         cost=cost,
+        below_cut=[CutParagraph.model_validate(c) for c in submission.get("below_cut", [])],
     )
 
 
