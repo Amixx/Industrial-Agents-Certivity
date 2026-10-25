@@ -15,24 +15,24 @@ onMount(async () => {
 
 <div class="ui-grid ui-section min-h-0 flex-1">
 	<div class="col-span-2">
-		<div class="ui-numeral">1</div>
-		<h1 class="mt-2 text-sm font-bold">Saved assessments</h1>
+		<span class="ui-label">History</span>
+		<h1 class="ui-display mt-3 text-[2.5rem]">Saved <i>assessments</i></h1>
 	</div>
 	<div class="col-span-2">
 		<div class="ui-count text-7xl">{assessments?.length ?? ''}</div>
-		<div class="mt-2 text-xs">assessments in total</div>
+		<div class="ui-label mt-2">In total</div>
 	</div>
 
 	<div class="col-span-8 min-h-0 overflow-auto pb-10">
 		{#if assessments?.length}
 			<table class="w-full border-collapse text-left">
-				<thead class="sticky top-0 bg-white">
-					<tr class="border-b-2 border-black text-xs">
-						<th class="pr-4 pb-1.5 font-bold">Case</th>
-						<th class="pr-4 pb-1.5 font-bold">Product</th>
-						<th class="pr-4 pb-1.5 font-bold">Created</th>
-						<th class="pr-4 pb-1.5 font-bold">Regulations</th>
-						<th class="pb-1.5 text-right font-bold">Requirements</th>
+				<thead class="sticky top-0 bg-canvas">
+					<tr class="border-b border-line-strong">
+						<th class="pr-4 pb-1.5 ui-label table-cell">Case</th>
+						<th class="pr-4 pb-1.5 ui-label table-cell">Product</th>
+						<th class="pr-4 pb-1.5 ui-label table-cell">Created</th>
+						<th class="pr-4 pb-1.5 ui-label table-cell">Regulations</th>
+						<th class="pb-1.5 text-right ui-label table-cell">Requirements</th>
 					</tr>
 				</thead>
 				<tbody>
@@ -56,9 +56,7 @@ onMount(async () => {
 									</div>
 								{/each}
 							</td>
-							<td
-								class="py-3 text-right text-3xl leading-none font-light text-cv-teal-700 tabular-nums"
-							>
+							<td class="py-3 text-right text-3xl leading-none font-light text-accent tabular-nums">
 								{a.requirements.length}
 							</td>
 						</tr>

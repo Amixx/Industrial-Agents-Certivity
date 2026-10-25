@@ -24,7 +24,7 @@ $effect(() => {
 	<AssessmentHeader {assessment}>
 		<a href="/report/{assessment.id}" class="ui-toggle flex items-center">Print / Save as PDF</a>
 	</AssessmentHeader>
-	<div class="relative min-h-0 flex-1 overflow-auto bg-black/[0.04] px-4">
+	<div class="relative min-h-0 flex-1 overflow-auto bg-panel px-4">
 		<Report {assessment} inApp />
 	</div>
 {:else if loaded}

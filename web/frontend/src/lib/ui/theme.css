@@ -2,8 +2,15 @@
 
 @layer components {
 	.ui-app {
-		@apply min-h-screen bg-white font-grotesk text-sm text-black;
+		@apply min-h-screen bg-canvas font-grotesk text-[13px] text-fg;
 		font-feature-settings: "ss01";
+		color-scheme: light;
+	}
+	:root[data-theme="dark"] .ui-app {
+		color-scheme: dark;
+	}
+	.ui-app ::selection {
+		@apply bg-cv-teal-700 text-white;
 	}
 	.ui-gutter {
 		@apply px-8 xl:px-12;
@@ -12,58 +19,61 @@
 		@apply grid grid-cols-12 gap-x-4 xl:gap-x-6;
 	}
 	.ui-section {
-		@apply border-t border-black pt-3;
+		@apply border-t border-line pt-4;
+	}
+	.ui-display {
+		@apply font-display leading-none font-normal tracking-[-0.02em];
 	}
 	.ui-numeral {
-		@apply text-5xl leading-none font-light text-cv-teal-700 tabular-nums;
+		@apply font-display text-5xl leading-none text-accent tabular-nums;
 	}
 	.ui-count {
-		@apply leading-[0.85] font-bold tracking-tight text-cv-teal-700 tabular-nums;
+		@apply font-display leading-[0.85] tracking-tight text-accent tabular-nums;
 	}
 	.ui-label {
-		@apply block text-[11px] font-bold;
+		@apply block font-mono text-[10.5px] font-medium tracking-[0.08em] text-muted uppercase;
 	}
 	.ui-rule {
-		@apply border-black;
+		@apply border-line-strong;
 	}
 	.ui-rule-soft {
-		@apply border-black/15;
+		@apply border-line;
 	}
 	.ui-surface {
-		@apply bg-white;
+		@apply bg-canvas;
 	}
 	.ui-panel {
-		@apply rounded-panel;
+		@apply rounded-panel border border-line bg-panel;
 	}
 	.ui-btn {
-		@apply inline-flex h-9 cursor-pointer items-center justify-between gap-3 rounded-button border-2 border-black px-3 text-sm font-bold whitespace-nowrap hover:bg-black hover:text-white disabled:cursor-default disabled:opacity-30 disabled:hover:bg-transparent disabled:hover:text-black;
+		@apply inline-flex h-8 cursor-pointer items-center justify-between gap-3 rounded-button border border-line-strong px-3 text-xs font-medium whitespace-nowrap text-fg hover:border-muted hover:bg-fg/5 disabled:cursor-default disabled:opacity-40 disabled:hover:border-line-strong disabled:hover:bg-transparent;
 	}
 	.ui-btn-primary {
-		@apply bg-black text-white hover:bg-cv-ink-800 disabled:bg-cv-ink-800 disabled:opacity-100 disabled:hover:bg-cv-ink-800 disabled:hover:text-white;
+		@apply border-accent-fill bg-accent-fill font-semibold text-on-accent hover:border-accent-fill-hover hover:bg-accent-fill-hover disabled:hover:border-accent-fill disabled:hover:bg-accent-fill;
 	}
 	.ui-input {
-		@apply h-9 rounded-control border-b-2 border-black bg-white px-1 text-sm outline-none placeholder:text-black/40 focus:bg-cv-mint-50;
+		@apply h-8 rounded-control border border-line-strong bg-panel px-2 text-[13px] outline-none placeholder:text-faint focus:border-accent;
 	}
 	.ui-tag {
-		@apply inline-block rounded-control border border-black px-1.5 py-px text-[11px] font-bold;
+		@apply inline-block rounded-control border border-line-strong px-1.5 py-px font-mono text-[10.5px] text-muted;
 	}
 	.ui-toggle {
-		@apply h-7 cursor-pointer rounded-control px-2 text-xs font-bold hover:bg-black/5;
+		@apply h-7 cursor-pointer rounded-control px-2 text-xs font-medium text-muted hover:bg-fg/5 hover:text-fg;
 	}
 	.ui-toggle-on {
-		@apply bg-black text-white hover:bg-black;
+		@apply bg-select text-fg hover:bg-select;
 	}
 	.ui-link {
-		@apply underline decoration-1 underline-offset-2 hover:text-cv-teal-700;
+		@apply underline decoration-line-strong decoration-1 underline-offset-2 hover:text-accent hover:decoration-accent;
 	}
 	.ui-file {
-		@apply block w-full border-b border-black pb-1.5 text-xs file:mr-2 file:cursor-pointer file:rounded-button file:border-0 file:bg-black file:px-2 file:py-1 file:font-bold file:text-white;
+		@apply block w-full text-xs text-muted file:mr-2 file:h-7 file:cursor-pointer file:rounded-button file:border file:border-solid file:border-line-strong file:bg-transparent file:px-2 file:font-medium file:text-fg hover:file:bg-fg/5;
 	}
 	.ui-row-selected {
 		@apply relative;
 	}
 	.ui-row-selected::before {
-		@apply absolute top-[var(--ui-marker-top,0.875rem)] left-1 size-2.5 bg-cv-mint-300 outline outline-1 outline-black;
+		@apply absolute top-[var(--ui-marker-top,0.875rem)] left-1 size-2 bg-mark;
 		content: "";
 	}
 }

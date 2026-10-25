@@ -16,8 +16,8 @@ const tabs = $derived([
 </script>
 
 <div class="ui-grid ui-section items-end pb-4">
-	<div class="col-span-3 text-xs">
-		<div class="font-bold">Assessment</div>
+	<div class="col-span-3 font-mono text-[11px] text-muted">
+		<div class="ui-label">Assessment</div>
 		<div class="tabular-nums">{formatDate(assessment.createdAt)}</div>
 		<div class="tabular-nums">#{assessment.id}</div>
 		{#if assessment.cost}
@@ -26,10 +26,7 @@ const tabs = $derived([
 			</div>
 		{/if}
 	</div>
-	<a
-		href="/a/{assessment.id}"
-		class="col-span-4 truncate text-4xl leading-none font-bold tracking-tight hover:underline"
-	>
+	<a href="/a/{assessment.id}" class="ui-display col-span-4 truncate text-5xl hover:text-accent">
 		{assessment.caseName ?? 'Untitled spec'}
 	</a>
 	<div class="col-span-5 flex items-center justify-end gap-3">
@@ -47,7 +44,7 @@ const tabs = $derived([
 			aria-current={page.url.pathname === tab.href ? 'page' : undefined}
 		>
 			{#if page.url.pathname === tab.href}
-				<span class="size-2 bg-cv-mint-300 outline outline-1 outline-black"></span>
+				<span class="size-2 bg-mark"></span>
 			{/if}
 			{tab.label}
 		</a>

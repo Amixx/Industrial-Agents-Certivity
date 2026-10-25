@@ -47,19 +47,17 @@ function latestMessage(step: PipelineStep) {
 						: 'pending'}
 			<li
 				class="grid grid-cols-[2.5rem_1fr] border-b py-3 {i === 0
-					? 'border-t-2 border-t-black'
-					: ''} {state === 'active' ? 'ui-row-selected border-black' : 'ui-rule-soft'}"
+					? 'border-t-2 border-t-line-strong'
+					: ''} {state === 'active' ? 'ui-row-selected border-line' : 'ui-rule-soft'}"
 				class:opacity-30={state === 'pending'}
 				style:--ui-marker-top="1.125rem"
 			>
-				<span class="pl-5 text-2xl leading-none font-light text-cv-teal-700 tabular-nums"
-					>{i + 1}</span
-				>
+				<span class="pl-5 text-2xl leading-none font-light text-accent tabular-nums">{i + 1}</span>
 				<div class="pl-2">
 					<div class="font-bold">
 						{s.label}
 						{#if state === 'done'}
-							<span class="font-normal text-cv-teal-700">done</span>
+							<span class="font-normal text-accent">done</span>
 						{/if}
 					</div>
 					{#if latestMessage(s.step)}
@@ -70,9 +68,9 @@ function latestMessage(step: PipelineStep) {
 		{/each}
 		<li class="mt-6">
 			<div class="ui-count text-6xl">{Math.round((last?.progress ?? 0) * 100)}%</div>
-			<div class="mt-3 h-1.5 bg-black/10">
+			<div class="mt-3 h-1.5 bg-fg/10">
 				<div
-					class="h-full bg-black transition-[width] duration-300"
+					class="h-full bg-accent transition-[width] duration-300"
 					style:width="{(last?.progress ?? 0) * 100}%"
 				></div>
 			</div>
@@ -81,8 +79,8 @@ function latestMessage(step: PipelineStep) {
 
 	<div class="col-span-7 grid min-h-0 grid-cols-4 grid-rows-[auto_1fr] gap-x-4 xl:gap-x-6">
 		{#each stats as stat (stat.label)}
-			<div class="border-t-2 border-black pt-2">
-				<div class="text-6xl leading-[0.85] font-light text-cv-teal-700 tabular-nums">
+			<div class="border-t-2 border-line pt-2">
+				<div class="text-6xl leading-[0.85] font-light text-accent tabular-nums">
 					{stat.value ?? '–'}
 				</div>
 				<div class="mt-2 text-sm font-bold">{stat.label}</div>
@@ -92,7 +90,7 @@ function latestMessage(step: PipelineStep) {
 			</div>
 		{/each}
 
-		<div class="col-span-2 mt-8 min-h-0 overflow-auto border-t border-black pt-3">
+		<div class="col-span-2 mt-8 min-h-0 overflow-auto border-t border-line pt-3">
 			{#if partial?.profile}
 				<div class="ui-label">Understood from spec</div>
 				<p class="text-base font-medium">{partial.profile.productType}</p>
@@ -115,7 +113,7 @@ function latestMessage(step: PipelineStep) {
 			{/if}
 		</div>
 
-		<div class="col-span-2 mt-8 min-h-0 overflow-auto border-t border-black pt-3">
+		<div class="col-span-2 mt-8 min-h-0 overflow-auto border-t border-line pt-3">
 			<div class="ui-label">Requirements found</div>
 			<ul class="space-y-1 text-xs">
 				{#each (partial?.requirements ?? []).slice(-40).reverse() as r (r.id)}

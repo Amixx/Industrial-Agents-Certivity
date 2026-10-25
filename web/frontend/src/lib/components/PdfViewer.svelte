@@ -23,8 +23,8 @@ let {
 } = $props();
 
 const PAD = 16;
-const toggle = 'h-7 cursor-pointer rounded-control px-2 font-bold hover:bg-black/5';
-const toggleOn = 'bg-black text-white hover:bg-black';
+const toggle = 'h-7 cursor-pointer rounded-control px-2 font-bold hover:bg-fg/5';
+const toggleOn = 'bg-select text-fg hover:bg-select';
 
 let scroller: HTMLDivElement;
 let pageEl: HTMLDivElement;
@@ -169,8 +169,8 @@ onMount(() => {
 const numPages = $derived(doc?.numPages ?? 0);
 </script>
 
-<div class="flex min-h-0 flex-col overflow-hidden bg-white {className}">
-	<div class="flex shrink-0 items-center gap-1 border-b border-black py-1.5 text-xs font-medium">
+<div class="flex min-h-0 flex-col overflow-hidden bg-canvas {className}">
+	<div class="flex shrink-0 items-center gap-1 border-b border-line py-1.5 text-xs font-medium">
 		<button
 			type="button"
 			class="{toggle} disabled:opacity-30"
@@ -190,7 +190,7 @@ const numPages = $derived(doc?.numPages ?? 0);
 		>
 			›
 		</button>
-		<span class="mx-2 h-4 w-px bg-black/20"></span>
+		<span class="mx-2 h-4 w-px bg-fg/20"></span>
 		<button
 			type="button"
 			class="{toggle} {zoom === 'fit' ? toggleOn : ''}"
@@ -202,10 +202,10 @@ const numPages = $derived(doc?.numPages ?? 0);
 			100%
 		</button>
 		{#if notLocated && !loading}
-			<span class="ml-2 text-black/60">Paragraph not located</span>
+			<span class="ml-2 text-muted">Paragraph not located</span>
 		{/if}
 		<a
-			class="ml-auto underline decoration-1 underline-offset-2 hover:text-cv-teal-700"
+			class="ml-auto underline decoration-1 underline-offset-2 hover:text-accent"
 			href="{url}#page={current}"
 			target="_blank"
 			rel="noopener"
@@ -213,10 +213,10 @@ const numPages = $derived(doc?.numPages ?? 0);
 		>
 	</div>
 
-	<div bind:this={scroller} class="relative min-h-0 flex-1 overflow-auto bg-black/[0.04]">
+	<div bind:this={scroller} class="relative min-h-0 flex-1 overflow-auto bg-panel">
 		<div
 			bind:this={pageEl}
-			class="pdf-page relative mx-auto my-4 bg-white outline outline-1 outline-black/15"
+			class="pdf-page relative mx-auto my-4 bg-white outline outline-1 outline-line"
 			class:invisible={!!error}
 			style:width="{size.width}px"
 			style:height="{size.height}px"
@@ -243,7 +243,7 @@ const numPages = $derived(doc?.numPages ?? 0);
 		{@render children?.()}
 
 		{#if loading && !error}
-			<div class="absolute inset-0 flex items-center justify-center bg-white/60 text-sm">
+			<div class="absolute inset-0 flex items-center justify-center bg-canvas/60 text-sm">
 				Loading…
 			</div>
 		{/if}
@@ -259,7 +259,7 @@ const numPages = $derived(doc?.numPages ?? 0);
 /* The rest of the page is dimmed by a wide outline around the highlighted paragraph. */
 .mark {
 	box-sizing: border-box;
-	outline: 200vmax solid rgb(0 0 0 / 0.28);
+	outline: 200vmax solid rgb(0 0 0 / 0.05);
 	border: 2px solid black;
 	border-radius: 3px;
 	background: color-mix(in srgb, var(--color-cv-mint-300) 30%, transparent);

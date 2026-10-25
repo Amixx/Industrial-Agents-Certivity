@@ -130,7 +130,7 @@ function onKeydown(e: KeyboardEvent) {
 	<AssessmentHeader {assessment}>
 		{#if pending.length}
 			<a href="/a/{assessment.id}/updates" class="ui-btn justify-start">
-				<span class="size-2.5 shrink-0 bg-cv-mint-300 outline outline-1 outline-black"></span>
+				<span class="size-2.5 shrink-0 bg-mark"></span>
 				<span>{pending.length} regulation{pending.length === 1 ? '' : 's'} updated</span>
 				<span class="font-normal">{affected} requirements affected</span>
 			</a>
@@ -152,9 +152,9 @@ function onKeydown(e: KeyboardEvent) {
 		<Dialog.Portal>
 			<Dialog.Overlay class="fixed inset-0 z-40 bg-black/30" />
 			<Dialog.Content
-				class="ui-app fixed top-1/2 left-1/2 z-50 flex max-h-[85vh] min-h-0 w-[min(52rem,92vw)] -translate-x-1/2 -translate-y-1/2 flex-col rounded-control border-2 border-black bg-white"
+				class="ui-app fixed top-1/2 left-1/2 z-50 flex max-h-[85vh] min-h-0 w-[min(52rem,92vw)] -translate-x-1/2 -translate-y-1/2 flex-col rounded-control border border-line bg-canvas"
 			>
-				<header class="flex items-end justify-between border-b-2 border-black px-6 pt-4 pb-3">
+				<header class="flex items-end justify-between border-b-2 border-line px-6 pt-4 pb-3">
 					<Dialog.Title class="text-sm font-bold">
 						Spec <span class="ml-2 font-normal">{assessment.caseName ?? ''}</span>
 					</Dialog.Title>
@@ -186,7 +186,7 @@ function onKeydown(e: KeyboardEvent) {
 				class="ui-input w-full"
 			>
 			{#if partFilter}
-				<p class="flex items-baseline justify-between bg-cv-mint-50 py-1.5 pr-2 pl-5 text-xs">
+				<p class="flex items-baseline justify-between bg-select py-1.5 pr-2 pl-5 text-xs">
 					<span>Part <span class="font-bold">{partFilter.name}</span></span>
 					<a href="/a/{assessment.id}" class="ui-link">Show all parts</a>
 				</p>
@@ -216,7 +216,7 @@ function onKeydown(e: KeyboardEvent) {
 				{#each groups as g (g.regulation)}
 					<section>
 						<h3
-							class="sticky top-0 z-10 flex justify-between gap-3 border-b-2 border-black bg-white pt-4 pb-1 pl-5 text-sm"
+							class="sticky top-0 z-10 flex justify-between gap-3 border-b-2 border-line bg-canvas pt-4 pb-1 pl-5 text-sm"
 						>
 							<span class="truncate"
 								><span class="font-bold">{g.regulation}</span>
@@ -230,14 +230,14 @@ function onKeydown(e: KeyboardEvent) {
 								<li id="req-{req.id}">
 									<button
 										type="button"
-										class="group ui-rule-soft grid w-full cursor-pointer grid-cols-[4.5rem_1fr] border-b py-2.5 pl-5 text-left outline-none hover:bg-black/[0.03] focus-visible:bg-cv-mint-50 {active
-											? 'ui-row-selected bg-cv-mint-50'
+										class="group ui-rule-soft grid w-full cursor-pointer grid-cols-[4.5rem_1fr] border-b py-2.5 pl-5 text-left outline-none hover:bg-fg/[0.04] focus-visible:bg-select {active
+											? 'ui-row-selected bg-select'
 											: ''}"
 										style:--ui-marker-top="0.95rem"
 										onclick={() => select(req.id)}
 									>
 										<span
-											class="pr-2 text-base leading-tight font-light break-all text-cv-teal-700 tabular-nums"
+											class="pr-2 text-base leading-tight font-light break-all text-accent tabular-nums"
 											>{req.source.paragraph}</span
 										>
 										<span class="text-sm leading-snug {active ? 'font-medium' : 'line-clamp-3'}"
@@ -284,7 +284,7 @@ function onKeydown(e: KeyboardEvent) {
 						page={selected.source.page}
 						highlight={{ paragraph: selected.source.paragraph, text: selected.text }}
 						label={selected.id}
-						class="min-h-0 w-full flex-1 border-t-2 border-black"
+						class="min-h-0 w-full flex-1 border-t-2 border-line"
 					>
 						<Ask
 							requirements={assessment.requirements}

@@ -113,7 +113,7 @@ const pad = (n: number) => String(n + 1).padStart(2, '0');
 			>
 				<div class="relative" style:width="{stageW}px" style:height="{stageH}px">
 					<div
-						class="absolute inset-x-0 top-1/2 border-t border-dashed border-black/25"
+						class="absolute inset-x-0 top-1/2 border-t border-dashed border-line"
 						style:opacity={spread}
 						style:transform="scaleX({spread})"
 					></div>
@@ -137,21 +137,21 @@ const pad = (n: number) => String(n + 1).padStart(2, '0');
 					{#each layers as layer (layer.part.id)}
 						{@const bottom = (layer.part.y + layer.part.h) * k}
 						<div
-							class="absolute w-px origin-top bg-black/30"
+							class="absolute w-px origin-top bg-faint"
 							style:left="{layer.cx * k}px"
 							style:top="{bottom + 8}px"
 							style:height="{stageH - bottom + 24}px"
 							style:transform="scaleY({layer.reveal})"
 						></div>
 						<div
-							class="absolute border-t border-black pt-2 text-xs"
+							class="absolute border-t border-line pt-2 text-xs"
 							style:top="{stageH + 32}px"
 							style:left="{layer.i * column}px"
 							style:width="{column - 16}px"
 							style:opacity={layer.reveal}
 							style:transform="translateY({(1 - layer.reveal) * 10}px)"
 						>
-							<div class="text-2xl leading-none font-light text-cv-teal-700 tabular-nums">
+							<div class="text-2xl leading-none font-light text-accent tabular-nums">
 								{pad(layer.i)}
 							</div>
 							<div class="mt-2 font-bold">{layer.part.name}</div>
@@ -170,7 +170,7 @@ const pad = (n: number) => String(n + 1).padStart(2, '0');
 				Materials are representative values from the spec. The renders are illustrative.
 			</p>
 		</div>
-		<div class="ui-grid border-b-2 border-black pb-1 text-[11px] font-bold">
+		<div class="ui-grid border-b-2 border-line pb-1 text-[11px] font-bold">
 			<span class="col-span-1">No.</span>
 			<span class="col-span-3">Part</span>
 			<span class="col-span-3">Material</span>
@@ -178,7 +178,7 @@ const pad = (n: number) => String(n + 1).padStart(2, '0');
 		</div>
 		{#each assembly.parts as part, i (part.id)}
 			<div class="ui-grid ui-rule-soft items-baseline border-b py-3 text-sm">
-				<span class="col-span-1 text-2xl leading-none font-light text-cv-teal-700 tabular-nums"
+				<span class="col-span-1 text-2xl leading-none font-light text-accent tabular-nums"
 					>{pad(i)}</span
 				>
 				<span class="col-span-3 font-bold">{part.name}</span>

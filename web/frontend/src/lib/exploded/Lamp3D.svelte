@@ -80,21 +80,19 @@ $effect(() => scene?.setLit(lit));
 				Drag to rotate. Scroll to zoom. Click a part to see its regulations in the graph.
 			</p>
 		</div>
-		<ul class="border-t-2 border-black">
+		<ul class="border-t-2 border-line">
 			{#each assembly.parts as part, i (part.id)}
 				<li class="ui-rule-soft border-b">
 					<button
 						type="button"
-						class="grid w-full cursor-pointer grid-cols-[2.5rem_1fr] items-baseline py-2.5 pl-5 text-left hover:bg-black/[0.03] {selectedId ===
+						class="grid w-full cursor-pointer grid-cols-[2.5rem_1fr] items-baseline py-2.5 pl-5 text-left hover:bg-fg/[0.04] {selectedId ===
 						part.id
 							? 'ui-row-selected'
 							: ''}"
 						style:--ui-marker-top="0.95rem"
 						onclick={() => (selectedId = selectedId === part.id ? null : part.id)}
 					>
-						<span class="text-xl leading-none font-light text-cv-teal-700 tabular-nums"
-							>{pad(i)}</span
-						>
+						<span class="text-xl leading-none font-light text-accent tabular-nums">{pad(i)}</span>
 						<span class="text-sm font-bold">{part.name}</span>
 					</button>
 				</li>
@@ -128,7 +126,7 @@ $effect(() => scene?.setLit(lit));
 			{#if hoveredId && hoveredCoverage}
 				{@const part = assembly.parts[hoveredIndex]}
 				<div
-					class="hover-card pointer-events-none absolute z-10 w-60 border border-black bg-white px-3 pt-2 pb-2.5"
+					class="hover-card pointer-events-none absolute z-10 w-60 border border-line bg-panel px-3 pt-2 pb-2.5"
 					style:left="{Math.min(cursor.x + 16, (host?.clientWidth ?? 0) - 256)}px"
 					style:top="{cursor.y + 16}px"
 					style:translate={cursor.y > (host?.clientHeight ?? 0) / 2
@@ -136,33 +134,33 @@ $effect(() => scene?.setLit(lit));
 						: undefined}
 				>
 					<div class="flex items-baseline gap-2">
-						<span class="text-sm leading-none font-light text-cv-teal-700 tabular-nums">
+						<span class="text-sm leading-none font-light text-accent tabular-nums">
 							{pad(hoveredIndex)}
 						</span>
 						<span class="text-sm font-bold">{part.name}</span>
 					</div>
-					<dl class="mt-2 grid grid-cols-3 gap-x-3 border-t border-black pt-1">
+					<dl class="mt-2 grid grid-cols-3 gap-x-3 border-t border-line pt-1">
 						<div class="flex flex-col-reverse">
 							<dt class="mt-1 text-[10.5px]">Regulations</dt>
-							<dd class="text-2xl leading-none font-light text-cv-teal-700 tabular-nums">
+							<dd class="text-2xl leading-none font-light text-accent tabular-nums">
 								{hoveredCoverage.regulations.length}
 							</dd>
 						</div>
 						<div class="flex flex-col-reverse">
 							<dt class="mt-1 text-[10.5px]">Requirements</dt>
-							<dd class="text-2xl leading-none font-light text-cv-teal-700 tabular-nums">
+							<dd class="text-2xl leading-none font-light text-accent tabular-nums">
 								{hoveredCoverage.requirements}
 							</dd>
 						</div>
 						<div class="flex flex-col-reverse">
 							<dt class="mt-1 text-[10.5px]">Paragraphs</dt>
-							<dd class="text-2xl leading-none font-light text-cv-teal-700 tabular-nums">
+							<dd class="text-2xl leading-none font-light text-accent tabular-nums">
 								{hoveredCoverage.paragraphs}
 							</dd>
 						</div>
 					</dl>
 					{#if hoveredCoverage.regulations.length}
-						<ul class="mt-2 space-y-0.5 border-t border-black pt-1.5 text-[11px]">
+						<ul class="mt-2 space-y-0.5 border-t border-line pt-1.5 text-[11px]">
 							{#each hoveredCoverage.regulations as reg (reg.regulation)}
 								<li class="flex justify-between gap-2">
 									<span class="font-bold">{reg.regulation}</span>
@@ -175,11 +173,11 @@ $effect(() => scene?.setLit(lit));
 							{/each}
 						</ul>
 					{:else}
-						<p class="mt-2 border-t border-black pt-1.5 text-[11px]">
+						<p class="mt-2 border-t border-line pt-1.5 text-[11px]">
 							No regulation mentions this part.
 						</p>
 					{/if}
-					<p class="mt-2 text-[11px] text-cv-ink-800">Click to open it in the graph.</p>
+					<p class="mt-2 text-[11px] text-muted">Click to open it in the graph.</p>
 				</div>
 			{/if}
 		</div>
@@ -192,7 +190,7 @@ $effect(() => scene?.setLit(lit));
 					max="1"
 					step="0.01"
 					bind:value={explode}
-					class="w-56 accent-black"
+					class="w-56 accent-accent"
 					aria-label="Explode distance"
 				>
 				<span>Exploded</span>
@@ -233,18 +231,19 @@ $effect(() => scene?.setLit(lit));
 	font-size: 11px;
 	font-weight: 700;
 	white-space: nowrap;
-	background: white;
+	background: var(--color-panel);
+	color: var(--color-fg);
 	cursor: pointer;
 	pointer-events: auto;
 	transition: opacity 120ms linear;
 }
 .lamp3d :global(.lamp3d-label-no) {
-	color: var(--color-cv-teal-700);
+	color: var(--color-accent);
 	font-weight: 300;
 	font-variant-numeric: tabular-nums;
 }
 .lamp3d :global(.lamp3d-label-on) {
-	outline: 1px solid black;
-	border-left: 0.25rem solid var(--color-cv-mint-300);
+	outline: 1px solid var(--color-line-strong);
+	border-left: 0.25rem solid var(--color-mark);
 }
 </style>
