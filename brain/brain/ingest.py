@@ -24,8 +24,6 @@ from collections.abc import Iterable, Iterator
 from dataclasses import dataclass, field
 from pathlib import Path
 
-import pymupdf
-
 from .models import Paragraph, Role
 from .paths import CORPUS, INDEX, PDFS
 
@@ -300,6 +298,8 @@ def read_lines(pdf: Path) -> list[Line]:
 
 
 def _raw_lines(pdf: Path) -> Iterator[tuple[int, str]]:
+    import pymupdf
+
     doc = pymupdf.open(pdf)
     in_preamble = True
     for index, page in enumerate(doc, start=1):  # type: ignore[arg-type,var-annotated]

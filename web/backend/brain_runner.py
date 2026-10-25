@@ -14,8 +14,7 @@ count, rewritten requirements) as soon as it is known.
 OUT receives {"submission", "error", "cost"} whether or not the run succeeds, and holds the cost
 so far after every call, so a killed run still leaves its spend behind.
 
-To fit a 512 MB instance, pymupdf (about 145 MB, used only to ingest regulation PDFs) is never
-loaded, and every brain call shares one API client.
+Every brain call shares one API client.
 """
 
 import json
@@ -23,16 +22,13 @@ import os
 import sys
 import threading
 import traceback
-import types
 from pathlib import Path
 from typing import Any
 
-sys.modules["pymupdf"] = types.ModuleType("pymupdf")
-
-import anthropic  # noqa: E402
-import anthropic.resources.beta.messages as beta_messages  # noqa: E402
-import anthropic.resources.messages as messages  # noqa: E402
-import brain.pipeline as pipeline  # noqa: E402
+import anthropic
+import anthropic.resources.beta.messages as beta_messages
+import anthropic.resources.messages as messages
+import brain.pipeline as pipeline
 
 PRICES: dict[str, list[float]] = json.loads(os.environ["RUN_PRICES"])
 BUDGET_USD = float(os.environ["RUN_BUDGET_USD"])
