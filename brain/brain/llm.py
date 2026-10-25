@@ -1,6 +1,6 @@
 """One interface for every LLM call, with a disk cache so reruns cost nothing.
 
-Providers (env BRAIN_LLM, default none; a key alone never enables a paid provider):
+Providers (selected by the caller; a key alone never enables a paid provider):
   * anthropic: the official SDK; models from BRAIN_MODEL_STRONG / BRAIN_MODEL_BULK
     (defaults claude-opus-5-5 / claude-sonnet-5-5). Requests opt into server-side refusal
     fallbacks.
@@ -13,12 +13,13 @@ Providers (env BRAIN_LLM, default none; a key alone never enables a paid provide
     model BRAIN_LOCAL_MODEL. This is the "runs on the engineer's laptop" mode.
   * none: no model; callers fall back to their deterministic path.
 
-Keys can live in brain/.env (gitignored): ANTHROPIC_API_KEY=..., OPENAI_KEY=..., BRAIN_LLM=...
+Keys can live in brain/.env (gitignored): ANTHROPIC_API_KEY=..., OPENAI_KEY=...
 """
 
 from __future__ import annotations
 
 import base64
+import copy
 import hashlib
 import json
 import os
@@ -39,6 +40,7 @@ RETRIES = 3  # SDK retries with backoff on timeouts, rate limits and 5xx
 PRICES = {
     "claude-opus-5-5": (4.00, 20.00, 0.20),
     "claude-sonnet-5-5": (2.00, 10.00, 0.20),
+    "claude-fable-5-1": (10.00, 50.00, 0.25),
 }
 
 
@@ -110,6 +112,7 @@ def _record_hit(meta: Path) -> None:
 
 
 _local = threading.local()
+_provider = "none"
 
 
 def _load_dotenv(path: Path = PROJECT / ".env") -> None:
@@ -129,12 +132,19 @@ CLI_WORKERS = int(os.environ.get("BRAIN_CLAUDE_CLI_WORKERS", "5"))
 _CLI_SLOTS = threading.BoundedSemaphore(CLI_WORKERS)
 
 
+def use(route: str) -> None:
+    """Select the provider for this process; callers must choose it explicitly."""
+    global _provider
+    if route == "api":
+        _provider = "anthropic"
+    elif route in {"anthropic", "claude-cli", "openai", "codex-cli", "local", "none"}:
+        _provider = route
+    else:
+        raise ValueError(f"unknown LLM route {route!r}; expected api or claude-cli")
+
+
 def provider() -> str:
-    explicit = os.environ.get("BRAIN_LLM")
-    if explicit:
-        return explicit
-    # Paid providers are opt-in: a key alone never starts spending. Set BRAIN_LLM explicitly.
-    return "none"
+    return _provider
 
 
 def _openai_key() -> str | None:
@@ -208,7 +218,7 @@ def complete_json(
     """A JSON object matching `schema`. Raises RuntimeError when no provider is configured."""
     prov = provider()
     if prov == "none":
-        raise RuntimeError("no LLM: set BRAIN_LLM to openai, anthropic, claude-cli or local")
+        raise RuntimeError("no LLM provider selected; pass --llm api or --llm claude-cli")
     model = model_for(tier)
     payload = {
         "provider": prov,
@@ -238,11 +248,30 @@ def complete_json(
     elif prov in ("openai", "local"):
         result = _openai_compatible(prov, model, system, content, schema, effort, max_tokens)
     else:
-        raise RuntimeError(f"unknown BRAIN_LLM={prov}")
+        raise RuntimeError(f"unknown LLM provider {prov!r}")
     cached.parent.mkdir(parents=True, exist_ok=True)
     write_atomic(cached.with_suffix(".usage.json"), {"cost_usd": getattr(_local, "cost", None)})
     write_atomic(cached, result)
     return result
+
+
+def _close_object_schemas(schema: dict[str, Any]) -> dict[str, Any]:
+    """Anthropic structured output requires every object schema to be closed."""
+    schema = copy.deepcopy(schema)
+
+    def visit(node: Any) -> None:
+        if not isinstance(node, dict):
+            if isinstance(node, list):
+                for child in node:
+                    visit(child)
+            return
+        if node.get("type") == "object":
+            node["additionalProperties"] = False
+        for value in node.values():
+            visit(value)
+
+    visit(schema)
+    return schema
 
 
 def write_atomic(path: Path, data: Any) -> None:
@@ -261,6 +290,7 @@ def _anthropic(
 ) -> dict[str, Any]:
     import anthropic
 
+    schema = _close_object_schemas(schema)
     client = anthropic.Anthropic(timeout=TIMEOUT, max_retries=RETRIES)
     request: dict[str, Any] = {
         "model": model,

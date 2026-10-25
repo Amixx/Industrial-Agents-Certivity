@@ -14,14 +14,16 @@ from __future__ import annotations
 
 import argparse
 import json
+import os
 import sys
 import time
 from collections.abc import Sequence
 from pathlib import Path
 from typing import Any
 
-from . import boilerplate, consolidate, jev, keep, llm, relevance, sections, verbatim
+from . import boilerplate, consolidate, jev, keep, relevance, sections, verbatim
 from . import features as F
+from . import llm as llm_api
 from .decide import MODEL_PATH, Model
 from .graph import build
 from .ingest import load_all
@@ -107,6 +109,7 @@ def run(
     spec: str,
     image: Path | None = None,
     *,
+    llm: str,
     case_id: str = "web",
     team_id: str = "team-00",
     use_llm: bool | None = None,
@@ -114,13 +117,16 @@ def run(
     include: Sequence[str] = (),
     exclude: Sequence[str] = (),
 ) -> dict[str, Any]:  # type: ignore[assignment]
-    started, spent = time.monotonic(), llm.usage()
+    if not llm:
+        raise ValueError("LLM route is required; pass llm='api' or llm='claude-cli'")
+    llm_api.use(llm)
+    started, spent = time.monotonic(), llm_api.usage()
     if not any(CORPUS.glob("*_base.jsonl")):
         from .ingest import main as ingest_main
 
         ingest_main(["--role", "base"])
     corpus = load_all("base")
-    use_llm = llm.available() if use_llm is None else use_llm
+    use_llm = llm_api.available() if use_llm is None else use_llm
     profile = build_profile(spec, image, use_llm=use_llm)
     log(
         f"profile: {profile.product}; {len(profile.keywords)} terms; electronics="
@@ -146,7 +152,18 @@ def run(
             # p_keep enters the section cut only: a hard filter on it first drops rows the
             # section score would keep, and costs the bumper rehearsals paragraphs they cite.
             n = len(kept)
-            kept = sections.cut(kept, p_keep, sections.scores(kept, graph, product))
+            eligible = [d for d, pk in zip(kept, p_keep, strict=True) if pk >= keep.THRESHOLD]
+            eligible_p = [pk for pk, d in zip(p_keep, kept, strict=True) if d in eligible]
+            if path := os.environ.get("BRAIN_SECTION_SCORES"):
+                saved = json.loads(Path(path).read_text())
+                eligible_pairs = [
+                    (d, pk)
+                    for d, pk in zip(eligible, eligible_p, strict=True)
+                    if f"{d.paragraph.regulation}|{sections._key(d.paragraph.label)}" in saved
+                ]
+                eligible = [d for d, _ in eligible_pairs]
+                eligible_p = [pk for _, pk in eligible_pairs]
+            kept = sections.cut(eligible, eligible_p, sections.scores(eligible, graph, product))
             log(f"section cut: {len(kept)} kept of {n}")
         else:
             kept = [d for d, pk in zip(kept, p_keep, strict=True) if pk >= keep.THRESHOLD]
@@ -186,8 +203,8 @@ def run(
         "profile": profile.model_dump(),
         "run": {
             "wall_s": round(time.monotonic() - started, 1),
-            "provider": llm.provider(),
-            **llm.usage_since(spent),
+            "provider": llm_api.provider(),
+            **llm_api.usage_since(spent),
         },
     }
     problems = validate(submission)
@@ -201,6 +218,7 @@ def main(argv: list[str] | None = None) -> int:
     ap.add_argument("case", help="folder with spec.md and optionally exploded_view.png")
     ap.add_argument("-o", "--out")
     ap.add_argument("--team-id", default="team-00")
+    ap.add_argument("--llm", choices=["api", "claude-cli"], required=True)
     ap.add_argument("--no-llm", action="store_true")
     ap.add_argument("--threshold", type=float)
     ap.add_argument("--include", nargs="*", default=[], help="force regulations in, e.g. 'UN R42'")
@@ -213,6 +231,7 @@ def main(argv: list[str] | None = None) -> int:
         image if image.exists() else None,
         case_id=case.name,
         team_id=args.team_id,
+        llm=args.llm,
         use_llm=False if args.no_llm else None,
         threshold=args.threshold,
         include=args.include,

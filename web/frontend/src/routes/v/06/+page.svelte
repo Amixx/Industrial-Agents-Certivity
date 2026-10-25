@@ -218,10 +218,7 @@ const total = $derived(app.result?.requirements.length ?? 0);
 											<div
 												class="cc-typed flex items-baseline justify-between border-b-2 border-cv-teal-500 pb-1 text-xs"
 											>
-												<span class="font-bold"
-													>{req.source.regulation}
-													· {req.source.version}</span
-												>
+												<span class="font-bold">{req.source.regulation}· {req.source.version}</span>
 												<span>§ {req.source.paragraph ?? '—'}</span>
 											</div>
 											<p class="card-body mt-1 flex-1 text-[15px]">{req.text}</p>

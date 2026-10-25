@@ -90,7 +90,7 @@ def _env(budget: float) -> dict[str, str]:
     """The runner's environment. Explicit values win over anything in brain/.env."""
     env = dict(os.environ)
     env.update(
-        BRAIN_LLM="anthropic" if uses_llm() else "",
+        # The brain route is obligatory; the runner always chooses the Anthropic API.
         BRAIN_MODEL_STRONG=STRONG_MODEL,
         BRAIN_MODEL_BULK=BULK_MODEL,
         BRAIN_RELEVANCE_TIER="bulk",

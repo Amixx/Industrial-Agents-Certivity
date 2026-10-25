@@ -115,7 +115,7 @@ def test_pipeline_dev_case_is_valid_and_scores() -> None:
     from brain.pipeline import run
     from eval.score import score
 
-    sub = run((CASES / "dev-rear-lamp" / "spec.md").read_text(), use_llm=False)
+    sub = run((CASES / "dev-rear-lamp" / "spec.md").read_text(), llm="claude-cli", use_llm=False)
     expected = json.loads((CASES / "dev-rear-lamp" / "expected.json").read_text())
     result = score(sub, expected)
     assert result["regulation_level"]["f2"] == 1.0

@@ -156,7 +156,7 @@ def main() -> int:
     result: dict[str, Any] = {"submission": None, "error": None}
     try:
         result["submission"] = pipeline.run(
-            Path(spec).read_text(), Path(image) if image else None, case_id="web"
+            Path(spec).read_text(), Path(image) if image else None, llm="api", case_id="web"
         )
     except Exception as e:
         traceback.print_exc()

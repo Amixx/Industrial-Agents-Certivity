@@ -4,6 +4,7 @@ version = "0.1.0"
 description = "Spec + exploded view -> UN Regulation requirements for the Certivity challenge"
 requires-python = ">=3.12,<3.13"
 dependencies = [
+    "anthropic>=1.15.0",
     "jsonschema",
     "numpy",
     "pydantic>=2",

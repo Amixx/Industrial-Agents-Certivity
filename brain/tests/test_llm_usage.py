@@ -19,7 +19,7 @@ def test_price_counts_cache_reads_at_their_rate() -> None:
 
 def test_cache_hit_adds_cold_cost_but_not_spend(tmp_path: Path, monkeypatch: Any) -> None:
     monkeypatch.setattr(llm, "CACHE", tmp_path)
-    monkeypatch.setenv("BRAIN_LLM", "anthropic")
+    llm.use("api")
 
     def fake(*args: Any) -> dict[str, Any]:
         llm._local.cost = llm.record("claude-sonnet-5-5", 1000, 100)

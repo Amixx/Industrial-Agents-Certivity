@@ -16,7 +16,6 @@ from __future__ import annotations
 
 import argparse
 import json
-import os
 import sys
 import time
 from pathlib import Path
@@ -31,11 +30,6 @@ def main(argv: list[str] | None = None) -> int:
     args = ap.parse_args(argv)
     if args.provider in ("anthropic", "openai") and not args.approved:
         ap.error("a paid provider needs --approved; run without --provider first for the size")
-    if args.provider:
-        os.environ["BRAIN_LLM"] = args.provider
-    else:
-        os.environ.pop("BRAIN_LLM", None)
-
     from brain import llm, rewrite
     from brain.graph import build
     from brain.ingest import load_all
@@ -45,8 +39,6 @@ def main(argv: list[str] | None = None) -> int:
     from . import judge
     from .score import fbeta
 
-    if not args.provider:
-        os.environ.pop("BRAIN_LLM", None)  # brain.llm read brain/.env on import
     source = json.loads(Path(args.source).read_text())
     rows = source["requirements"]
     product = source.get("profile", {}).get("product", "")
@@ -66,6 +58,7 @@ def main(argv: list[str] | None = None) -> int:
             "input"
         )
         return 0
+    llm.use(args.provider)
     if not llm.available():
         raise SystemExit("no provider configured")
     print(f"model {llm.model_for('bulk')}", file=sys.stderr)

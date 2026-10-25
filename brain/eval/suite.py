@@ -33,6 +33,7 @@ def labelled_cases() -> list[Path]:
 def main(argv: list[str] | None = None) -> int:
     ap = argparse.ArgumentParser(description=__doc__.splitlines()[0])
     ap.add_argument("--no-llm", action="store_true")
+    ap.add_argument("--llm", choices=["api", "claude-cli"], required=True)
     ap.add_argument("--tag", default="")
     ap.add_argument("--cases", default="*", help="glob on case names, e.g. 'synth-a*'")
     ap.add_argument("--include", nargs="*", default=[], help="force regulations in, every case")
@@ -46,6 +47,7 @@ def main(argv: list[str] | None = None) -> int:
         sub = run(
             (case / "spec.md").read_text(),
             image if image.exists() else None,
+            llm=args.llm,
             case_id=case.name,
             use_llm=False if args.no_llm else None,
             include=args.include,

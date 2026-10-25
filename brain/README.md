@@ -31,8 +31,8 @@ A case is a folder with `spec.md` and optionally `exploded_view.png`, such as
 `../cases/dev-rear-lamp`.
 
 ```bash
-uv run python -m brain.pipeline ../cases/dev-rear-lamp --no-llm      # deterministic, free
-uv run python -m brain.pipeline ../cases/dev-rear-lamp -o out/dev.json --team-id team-07
+uv run python -m brain.pipeline ../cases/dev-rear-lamp --llm claude-cli --no-llm      # deterministic, free
+uv run python -m brain.pipeline ../cases/dev-rear-lamp --llm claude-cli -o out/dev.json --team-id team-07
 ```
 
 | Option | Meaning |
@@ -55,9 +55,9 @@ For the cached offline full path (no paid API calls), use the Claude Code subscr
 ```bash
 source ~/.config/secrets/secrets.env   # TYPESAFE_API_KEY for Jev only
 unset ANTHROPIC_API_KEY
-BRAIN_LLM=claude-cli BRAIN_JEV=1 BRAIN_JEV_KB=1 BRAIN_CONSOLIDATE=1 \
+BRAIN_JEV=1 BRAIN_JEV_KB=1 BRAIN_CONSOLIDATE=1 \
   BRAIN_CLAUDE_CLI_BULK=claude-opus-5-5 \
-  uv run --frozen python -m brain.pipeline ../cases/dev-rear-lamp -o ../out/dev-kb-l15.json
+  uv run --frozen python -m brain.pipeline ../cases/dev-rear-lamp --llm claude-cli -o ../out/dev-kb-l15.json
 ```
 
 `claude-cli` invokes `claude -p` and removes `ANTHROPIC_API_KEY` from its child environment.
@@ -77,10 +77,10 @@ with the backup copied last, and load the historical section answers:
 mkdir -p data/cache
 cp -R ~/Personal/Industrial-Agents-Certivity/brain/data/cache/. data/cache/
 cp -R ~/Personal/wt-backup-0724/repro/cache/.certivity-llm-cache/. data/cache/
-BRAIN_LLM=claude-cli BRAIN_JEV=1 BRAIN_JEV_KB=1 BRAIN_CONSOLIDATE=1 \
+BRAIN_JEV=1 BRAIN_JEV_KB=1 BRAIN_CONSOLIDATE=1 \
   BRAIN_CLAUDE_CLI_BULK=claude-opus-5-5 \
   BRAIN_SECTION_SCORES=~/Personal/wt-backup-0724/repro/p_section.json \
-  uv run --frozen python -m brain.pipeline ../cases/dev-rear-lamp \
+  uv run --frozen python -m brain.pipeline ../cases/dev-rear-lamp --llm claude-cli \
     --team-id team-06 -o ../out/dev-kb-l15.json
 ```
 
@@ -94,9 +94,9 @@ avoids new sampling. No `repro/` blobs are committed.
 For bumper, leave `BRAIN_SECTION_SCORES` unset and use the same model flags with:
 
 ```bash
-BRAIN_LLM=claude-cli BRAIN_JEV=1 BRAIN_JEV_KB=1 BRAIN_CONSOLIDATE=1 \
+BRAIN_JEV=1 BRAIN_JEV_KB=1 BRAIN_CONSOLIDATE=1 \
   BRAIN_CLAUDE_CLI_BULK=claude-opus-5-5 \
-  uv run --frozen python -m brain.pipeline data/synthetic/bumper-plain \
+  uv run --frozen python -m brain.pipeline data/synthetic/bumper-plain --llm claude-cli \
     --include "UN R42" "UN R127" "UN R26" --exclude "UN GTR 9" \
     --team-id team-06 -o ../out/bumper-plain-kb-l15.json
 ```
@@ -124,23 +124,26 @@ From Python, which is how the backend should call it:
 ```python
 from brain.pipeline import run
 
-submission = run(spec_text, image_path, case_id="heldout-front-bumper", team_id="team-07")
+submission = run(
+    spec_text, image_path, llm="api", case_id="heldout-front-bumper", team_id="team-07"
+)
 ```
 
 ## LLM modes
 
-Without configuration the pipeline is deterministic and makes no network calls. Paid providers
-are opt-in: a key in `.env` does nothing until `BRAIN_LLM` names the provider.
+Every pipeline run must select one route explicitly: `--llm api` for the Anthropic API or
+`--llm claude-cli` for the Claude Code subscription. A missing route fails before the run starts.
+The API route uses `BRAIN_MODEL_STRONG` and `BRAIN_MODEL_BULK`; the Claude route uses
+`BRAIN_CLAUDE_CLI_STRONG` and `BRAIN_CLAUDE_CLI_BULK`.
 
 Put the settings in `brain/.env` (gitignored):
 
 ```bash
-BRAIN_LLM=openai            # or anthropic, or local; unset means deterministic
 OPENAI_KEY=...              # or OPENAI_API_KEY
 ANTHROPIC_API_KEY=...
 ```
 
-| `BRAIN_LLM` | Strong model (profile, regulation review, relevance) | Bulk model (rewrite) |
+| route | Strong model (profile, regulation review, relevance) | Bulk model (rewrite) |
 |---|---|---|
 | `claude-cli` | `claude-opus-5-5` (`BRAIN_CLAUDE_CLI_STRONG`) | `claude-sonnet-5-5` (`BRAIN_CLAUDE_CLI_BULK`) |
 | `openai` | `gpt-5.5` (`BRAIN_OPENAI_STRONG`) | `gpt-5.4-mini` (`BRAIN_OPENAI_BULK`) |
@@ -226,7 +229,7 @@ lamps and sensors bring in R48 and R10. The provider's key must be in `brain/.en
 24 Oct it held only `OPENAI_KEY`).
 
 ```bash
-BRAIN_LLM=anthropic BRAIN_MODEL_STRONG=claude-fable-5-1 BRAIN_MODEL_BULK=claude-fable-5-1 \
+BRAIN_MODEL_STRONG=claude-fable-5-1 BRAIN_MODEL_BULK=claude-fable-5-1 \
   uv run python -m brain.pipeline $case --team-id team-06 -o out/heldout-llm.json \
   --include ... --exclude ...
 uv run python ../tools/validate.py out/heldout-llm.json
@@ -282,8 +285,8 @@ byte).
 uv run python -m eval.score out/dev.json                 # F2 at three levels against dev gold
 uv run python -m eval.score out/x.json --expected path/to/expected.json
 uv run python -m eval.model_judge out/dev.json [more.json ...]  # calibrated model judge, platform estimate
-uv run python -m eval.suite --no-llm --tag note          # dev + synthetic cases, appends eval/results.csv (local)
-uv run python -m eval.suite --no-llm --cases 'synth-a*'  # only the cases in ../synthetic/cases
+uv run python -m eval.suite --llm claude-cli --no-llm --tag note          # dev + synthetic cases, appends eval/results.csv (local)
+uv run python -m eval.suite --llm claude-cli --no-llm --cases 'synth-a*'  # only the cases in ../synthetic/cases
 uv run python -m eval.cached_relevance --since "..."     # score cached relevance answers mid-run
 uv run python -m eval.gold_check                         # every dev gold citation resolves on its page
 uv run python -m eval.synth                              # regenerate the Tier A synthetic cases
@@ -298,7 +301,7 @@ through `claude -p` grades each candidate pair on its own, and the platform esti
 count plus 4. It is within 4.7 matches of the platform on average (Spearman 0.84); the platform
 itself varies by up to 7 matches between two uploads of the same file. Calibration table:
 [docs/todo/01-model-judge.md](docs/todo/01-model-judge.md). `eval.suite` without `--no-llm`
-follows `BRAIN_LLM` and makes paid calls for every case.
+uses the provider selected by that tool's explicit option.
 
 ## Develop
 
