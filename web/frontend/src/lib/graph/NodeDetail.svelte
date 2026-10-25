@@ -1,12 +1,19 @@
 <script lang="ts">
-import type { Assessment } from '#lib/api/types.ts';
+import type { Assessment, Requirement } from '#lib/api/types.ts';
 import { type GraphNode, groupLabels } from './model.ts';
 
 let {
 	node,
 	assessment,
 	onclose,
-}: { node: GraphNode | null; assessment: Assessment; onclose: () => void } = $props();
+	onread,
+}: {
+	node: GraphNode | null;
+	assessment: Assessment;
+	onclose: () => void;
+	/** Opens a requirement's source paragraph, stepping through the list it came from. */
+	onread?: (list: Requirement[], r: Requirement) => void;
+} = $props();
 
 const included = $derived(assessment.regulations.filter((r) => r.included));
 </script>
@@ -97,15 +104,21 @@ const included = $derived(assessment.regulations.filter((r) => r.included));
 		<p class="text-xs">{node.requirements.length} requirements</p>
 		<ol class="mt-4">
 			{#each node.requirements as r (r.id)}
-				<li class="border-t border-line py-2">
-					<div class="flex items-baseline justify-between gap-2 text-[12px]">
-						<span class="font-bold tabular-nums">{r.id}</span>
-						<span class="text-muted">
-							{r.source.regulation}
-							{r.source.version}, p. {r.source.page}, § {r.source.paragraph}
-						</span>
-					</div>
-					<p class="mt-1 text-[14px] leading-snug">{r.text}</p>
+				<li class="border-t border-line">
+					<button
+						type="button"
+						class="block w-full cursor-pointer py-2 text-left hover:bg-fg/[0.04]"
+						onclick={() => onread?.(node.requirements, r)}
+					>
+						<div class="flex items-baseline justify-between gap-2 text-[12px]">
+							<span class="font-bold tabular-nums">{r.id}</span>
+							<span class="text-muted">
+								{r.source.regulation}
+								{r.source.version}, p. {r.source.page}, § {r.source.paragraph}
+							</span>
+						</div>
+						<p class="mt-1 text-[14px] leading-snug">{r.text}</p>
+					</button>
 				</li>
 			{/each}
 		</ol>

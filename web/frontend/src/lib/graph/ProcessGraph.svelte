@@ -1,5 +1,5 @@
 <script lang="ts">
-import type { Assessment } from '#lib/api/types.ts';
+import type { Assessment, Requirement } from '#lib/api/types.ts';
 import {
 	buildGraph,
 	columns,
@@ -10,6 +10,7 @@ import {
 } from './model.ts';
 import NodeDetail from './NodeDetail.svelte';
 import PartDetail from './PartDetail.svelte';
+import PdfDrawer from './PdfDrawer.svelte';
 
 let {
 	assessment,
@@ -38,8 +39,18 @@ const edgeOn = (from: string, to: string) => !!active && active.has(from) && act
 
 const included = $derived(assessment.regulations.filter((r) => r.included));
 
+/** The requirements open in the PDF drawer, and which one is showing. */
+let reading = $state<{ list: Requirement[]; index: number } | null>(null);
+
+function read(list: Requirement[], r: Requirement) {
+	reading = { list, index: Math.max(0, list.indexOf(r)) };
+}
+
 function pick(node: GraphNode) {
 	selected = selected === node.id ? null : node.id;
+	// A paragraph group opens straight to its first requirement's source.
+	if (node.kind === 'cluster' && selected && node.requirements.length)
+		read(node.requirements, node.requirements[0]);
 }
 
 const PAD_TOP = 8;
@@ -174,13 +185,28 @@ const PAD_TOP = 8;
 	>
 		{#if part && !selectedNode}
 			<div style:view-transition-name="part-card">
-				<PartDetail {part} facets={focusFacets} {assessment} onclose={() => onclearpart?.()} />
+				<PartDetail
+					{part}
+					facets={focusFacets}
+					{assessment}
+					onclose={() => onclearpart?.()}
+					onread={read}
+				/>
 			</div>
 		{:else}
-			<NodeDetail node={selectedNode} {assessment} onclose={() => (selected = null)} />
+			<NodeDetail
+				node={selectedNode}
+				{assessment}
+				onclose={() => (selected = null)}
+				onread={read}
+			/>
 		{/if}
 	</aside>
 </div>
+
+{#if reading}
+	<PdfDrawer list={reading.list} bind:index={reading.index} onclose={() => (reading = null)} />
+{/if}
 
 <style>
 .label {
