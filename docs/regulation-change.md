@@ -191,8 +191,13 @@ is in `regulations/index.json`:
 }
 ```
 
-`web/backend` can call it with the assessment's requirements and the two PDF paths. The UI is out
-of scope here.
+The web app runs it on an assessment's Updates tab (`/a/{id}/updates`): upload a newer PDF of a
+cited regulation, or compare with the newest version in the corpus. `web/backend/subgoal_runner.py`
+calls `diff_parsed` (the same diff on versions already parsed and aligned) and turns the alignment
+links into one hunk per changed paragraph for the page's word diff. Unchanged sentences, formatting
+and renumbering are left out, and so is text that only moved within a paragraph. An upload whose
+sentences are less than 50% unchanged against the cited version is refused as a different
+document. Precomputed runs for the seeded assessments are in `data/regulation-updates/`.
 
 ## How it was checked
 

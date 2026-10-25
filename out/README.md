@@ -730,6 +730,31 @@ when this leads to:". v10 dropped them because the lead-in has no modal verb; th
 when …"). v11 adds the two items with their lead-in and words "demonstrate them" (5.5.4.2.6.5) as
 "demonstrate such strategies". Dev unchanged, synthetic edits 216 of 216, 133 tests pass.
 
+### 25 Oct, 11:47 CET: update runs for the web app
+
+`brain.subgoal` in default mode (not inclusive) on the corpus base and latest PDFs, with the
+seeded assessments' rows as old requirements, through `web/backend/subgoal_runner.py`
+(`cd web/backend && uv run --no-sync python -m app.demo_data`, on `main` after `113e712`). These
+are the precomputed runs the Updates pages open, in `data/regulation-updates/`, not submissions.
+No model, $0. The rear lamp rows are the dev expert answer (`app/showcase.json`), the front bumper
+rows `heldout-silver-r10r148.json`. Share unchanged is the share of the old version's sentences
+found unchanged; the whole-file guard refuses an upload under 50% (a different regulation as the
+new version scores 1% to 5%).
+
+| Assessment | Pair | Paragraphs amended / new / deleted | Unchanged | Modified / removed / added |
+|---|---|---|---|---|
+| Rear lamp | UN R48 9.3.0 to 9.4.0 | 55 / 55 / 0 | 97.2% | 0 / 0 / 40 |
+| Rear lamp | UN R148 1.6.0 to 1.7.0 | 4 / 16 / 0 | 99.3% | 0 / 0 / 10 |
+| Rear lamp | UN R10 7.2.0 to 7.3.0 | 19 / 8 / 3 | 97.3% | 0 / 0 / 6 |
+| Front bumper | UN R10 7.2.0 to 7.3.0 | 19 / 8 / 3 | 97.3% | 0 / 0 / 7 |
+| Front bumper | UN R48 9.3.0 to 9.4.0 | 55 / 55 / 0 | 97.2% | 4 / 0 / 40 |
+| Front bumper | UN R148 1.6.0 to 1.7.0 | 4 / 16 / 0 | 99.3% | 0 / 0 / 10 |
+| Front bumper | UN R127 4.3.0 to 4.4.0 | 17 / 10 / 13 | 95.4% | 0 / 0 / 2 |
+
+The expert's rear lamp rows cite no paragraph that changed wording, so its updates are all added
+obligations. The bumper's R48 rows give the 4 modified rows, among them R-0155 at 5.9.1 ("'direction
+indicator projections,' was added") and R-0233 at 6.5.7 ("'the ADS or by' was added").
+
 ### Cost per run
 
 From the pipeline logs (`rear-lamp-<model>.log`).

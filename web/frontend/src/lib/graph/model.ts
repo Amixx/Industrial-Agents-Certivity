@@ -24,6 +24,8 @@ export type RegulationNode = Box & { kind: 'regulation'; decision: RegulationDec
 export type ClusterNode = Box & {
 	kind: 'cluster';
 	regulation: string;
+	/** The paragraph group ("5.13", "Annex 9"); empty for the "more groups" node. */
+	key: string;
 	label: string;
 	requirements: Requirement[];
 };
@@ -114,7 +116,7 @@ const PX_PER_REQUIREMENT = 0.45;
 const edgeWidth = (weight: number) => Math.max(1.5, weight * PX_PER_REQUIREMENT);
 
 /** Groups at the second paragraph level ("6.10"), or by annex ("Annex 9"). */
-function paragraphGroup(paragraph: string) {
+export function paragraphGroup(paragraph: string) {
 	const annex = paragraph.match(/^Annex \d+/);
 	return annex ? annex[0] : paragraph.split('.').slice(0, 2).join('.');
 }
@@ -122,20 +124,27 @@ function paragraphGroup(paragraph: string) {
 const naturalCompare = (a: string, b: string) =>
 	a.localeCompare(b, 'en', { numeric: true, sensitivity: 'base' });
 
-function clustersFor(regulation: string, requirements: Requirement[]) {
-	const groups = new Map<string, Requirement[]>();
+/** The largest groups, plus every `pinned` group (even an empty one), then one node for the
+ * rest. */
+function clustersFor(regulation: string, requirements: Requirement[], pinned: string[] = []) {
+	const groups = new Map<string, Requirement[]>(pinned.map((key) => [key, []]));
 	for (const r of requirements.filter((r) => r.source.regulation === regulation)) {
 		const key = paragraphGroup(r.source.paragraph);
 		groups.set(key, [...(groups.get(key) ?? []), r]);
 	}
-	const bySize = [...groups].sort((a, b) => b[1].length - a[1].length);
-	const shown = bySize
-		.slice(0, CLUSTERS_SHOWN)
+	const bySize = [...groups]
+		.filter(([key]) => !pinned.includes(key))
+		.sort((a, b) => b[1].length - a[1].length);
+	const shown = [
+		...bySize.slice(0, CLUSTERS_SHOWN),
+		...pinned.map((key) => [key, groups.get(key) ?? []] as const),
+	]
 		.sort((a, b) => naturalCompare(a[0], b[0]))
-		.map(([key, reqs]) => ({ label: key.startsWith('Annex') ? key : `§ ${key}`, reqs }));
+		.map(([key, reqs]) => ({ key, label: key.startsWith('Annex') ? key : `§ ${key}`, reqs }));
 	const rest = bySize.slice(CLUSTERS_SHOWN);
 	if (rest.length)
 		shown.push({
+			key: '',
 			label: `${rest.length} more groups`,
 			reqs: rest.flatMap(([, reqs]) => reqs),
 		});
@@ -164,7 +173,9 @@ function ports(
 	return out;
 }
 
-export function buildGraph(assessment: Assessment): Graph {
+/** `pinned`: paragraph groups per regulation that get their own node whatever their size, as
+ * the groups an update changes do. */
+export function buildGraph(assessment: Assessment, pinned: Record<string, string[]> = {}): Graph {
 	const { profile, requirements } = assessment;
 	const regulations = assessment.regulations.filter((r) => r.included);
 	const nodes: GraphNode[] = [];
@@ -224,7 +235,7 @@ export function buildGraph(assessment: Assessment): Graph {
 	y = GROUP_HEADER;
 	const clusterNodes: ClusterNode[] = [];
 	for (const decision of regulations) {
-		const clusters = clustersFor(decision.regulation, requirements);
+		const clusters = clustersFor(decision.regulation, requirements, pinned[decision.regulation]);
 		const blockH = clusters.length * (CLUSTER_H + CLUSTER_GAP) - CLUSTER_GAP;
 		const regH = Math.max(REG_MIN_H, decision.requirementCount * PX_PER_REQUIREMENT + 8);
 		const height = Math.max(blockH, regH);
@@ -242,6 +253,7 @@ export function buildGraph(assessment: Assessment): Graph {
 				kind: 'cluster',
 				id: `c:${decision.regulation}:${c.label}`,
 				regulation: decision.regulation,
+				key: c.key,
 				label: c.label,
 				requirements: c.reqs,
 				...columns.cluster,

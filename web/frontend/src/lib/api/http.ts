@@ -3,9 +3,11 @@ import type {
 	AskAnswer,
 	Assessment,
 	Brief,
+	CitedRegulation,
 	PipelineEvent,
-	RegulationUpdate,
+	UpdateRun,
 } from './types.ts';
+import { UpdateRefusal } from './types.ts';
 
 async function json<T>(res: Response): Promise<T> {
 	if (!res.ok) {
@@ -51,14 +53,32 @@ export const http: ApiClient = {
 		const res = await fetch(`/api/assessments/${id}`);
 		return res.status === 404 ? null : json<Assessment>(res);
 	},
-	async checkUpdates(id) {
-		return json<RegulationUpdate[]>(await fetch(`/api/assessments/${id}/updates`));
+	async listUpdates(id) {
+		return json<CitedRegulation[]>(await fetch(`/api/assessments/${id}/updates`));
 	},
-	async applyUpdate(id, regulation) {
-		const res = await fetch(`/api/assessments/${id}/updates/${encodeURIComponent(regulation)}`, {
-			method: 'POST',
-		});
-		return json<Assessment>(res);
+	async createUpdate(id, request, toVersion) {
+		const body = new FormData();
+		if ('file' in request) body.set('file', request.file);
+		else body.set('regulation', request.regulation);
+		if (toVersion) body.set('to_version', toVersion);
+		const res = await fetch(`/api/assessments/${id}/updates`, { method: 'POST', body });
+		if (res.status === 422) {
+			const refusal = await res.json();
+			throw new UpdateRefusal(refusal.detail, refusal.code, refusal.regulation, refusal.version);
+		}
+		return json<UpdateRun>(res);
+	},
+	async getUpdate(id, run) {
+		const res = await fetch(`/api/assessments/${id}/updates/${encodeURIComponent(run)}`);
+		return res.status === 404 ? null : json<UpdateRun>(res);
+	},
+	async applyUpdate(id, run) {
+		const url = `/api/assessments/${id}/updates/${encodeURIComponent(run)}/apply`;
+		return json<Assessment>(await fetch(url, { method: 'POST' }));
+	},
+	async undoUpdate(id, run) {
+		const url = `/api/assessments/${id}/updates/${encodeURIComponent(run)}/undo`;
+		return json<Assessment>(await fetch(url, { method: 'POST' }));
 	},
 	async getBrief(requirements, write) {
 		const res = await fetch('/api/brief', {

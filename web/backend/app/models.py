@@ -100,7 +100,14 @@ class RequirementChange(Model):
     old_text: str | None = None
     new_text: str | None = None
     reason: str
-    source: ChangeSource
+    source: ChangeSource | None = None
+    """The paragraph in the new version; removed rows have none."""
+    new_id: str | None = None
+    """The id an added requirement gets when the update is applied."""
+    old_paragraph: str | None = None
+    """The paragraph the old requirement cites, on modified and removed rows."""
+    hunk: str | None = None
+    """The id of the paragraph hunk this change comes from."""
 
     @model_serializer(mode="wrap")
     def _keep_requirement_id(self, handler: Any) -> dict[str, Any]:
@@ -109,12 +116,85 @@ class RequirementChange(Model):
         return data
 
 
-class RegulationUpdate(Model):
+HunkStatus = Literal["amended", "moved and amended", "new", "deleted"]
+
+
+class HunkRow(Model):
+    kind: Literal["unchanged", "amended", "new", "deleted"]
+    segments: list[tuple[Literal["same", "del", "ins"], str]]
+
+
+class Hunk(Model):
+    """One changed paragraph of the regulation, as a unified word diff of its units."""
+
+    id: str
+    label: str
+    old_label: str | None = None
+    page: int
+    """The page in the new version (the old one for a deleted paragraph)."""
+    old_page: int | None = None
+    status: HunkStatus
+    heading: str = ""
+    rows: list[HunkRow]
+    added_words: int
+    removed_words: int
+    cited_by: list[str] = []
+    """Requirements that cite this paragraph or one of its ancestors."""
+    changes: list[str] = []
+    """Ids of the requirement changes (requirement id, or new id for added rows) it causes."""
+
+
+class StepSeconds(Model):
+    parse: float
+    align: float
+    map: float
+
+
+class RunStats(Model):
+    old_paragraphs: int
+    new_paragraphs: int
+    old_units: int
+    new_units: int
+    unchanged_share: float
+    amended: int
+    new: int
+    deleted: int
+    renumbered: int
+    requirements: int
+    cited_paragraphs: int
+    changed_cited_paragraphs: int
+    seconds: StepSeconds
+
+
+class UpdateRun(Model):
+    """One comparison of a cited regulation with a newer version, for one assessment."""
+
+    id: str
+    assessment_id: str
     regulation: str
+    title: str
     from_version: str
     to_version: str
+    created_at: str
+    identified_by: Literal["sha256", "first page", "corpus"]
+    file_name: str
+    stats: RunStats
+    hunks: list[Hunk]
     changes: list[RequirementChange]
-    applied: bool | None = None
+    applied: bool = False
+
+
+class CitedRegulation(Model):
+    regulation: str
+    title: str
+    version: str
+    latest: str | None = None
+    """The newest version in the corpus when it is newer than the cited one."""
+    requirement_count: int
+    run: str | None = None
+    """A stored run that compares the cited version with `latest`."""
+    applied_run: str | None = None
+    """The run applied to reach the cited version, if any."""
 
 
 class BriefSentence(Model):
