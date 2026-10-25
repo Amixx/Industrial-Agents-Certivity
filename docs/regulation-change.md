@@ -135,7 +135,8 @@ the default it adds:
   paragraph below its cited one changed.
 
 The default stays the dev-exact behaviour (100% on dev). On the held-out pair (UN R171) the
-default scored flag recall 64.1%; the inclusive steps took it to 78.1% and then 81.2%.
+default scored flag recall 64.1%; the inclusive steps took it to 78.1%, 81.2% and 84.4%
+(`out/subgoal-heldout-inclusive-v7.json`, change accuracy 88.0%).
 
 ## 5. Reasons and sources
 
