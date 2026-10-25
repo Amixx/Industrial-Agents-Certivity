@@ -38,7 +38,7 @@ Measures:
 | 8 | The judge pairs only within paragraphs (capacity bounds matches) | refuted as a hard rule | `thesis-nolabels`: the same 317 texts cited as paragraph 1 still match 93. Pairing across paragraphs happens, so capacity is a soft guide, not a bound | none |
 | 9 | Under-splitting costs matches, and adding the missing obligations wins them back | refuted locally for a broad pass | Capacity 170 against reach 183. Amp: 7 slots from merged separate obligations, 6 from obligations we don't write at all. An Opus pass adding every uncovered obligation as an exact quote (`bench-out/thesis/coverage.py`) added 108 rows for +8 capacity: 7% per row, below the 14.5% break-even. p_section doesn't pick out the useful ones | Only a much more targeted repair |
 | 10 | Over-split paragraphs waste rows | supported | Subset of the 80 rows on 27 paragraphs where ours > gold (39 gold rows): 24 matches | Gold-free rules: 20 and 21 |
-| 11 | A stronger or different rewrite model helps | no effect detectable | Sonnet, Sol, local models and Fable all land at 140–154, inside ±7 | none |
+| 11 | A stronger or different rewrite model helps | refuted for a fresh Opus run | Sonnet, Sol, local models and Fable all land at 140–154. `opus-fresh` (same prompt, 342 rows, capacity 177): 146, about 8 below the 0.724 file's mean | none |
 | 12 | Voting over several runs helps | shelved | The 7-run vote (146) also split R10 table rows, so it's confounded | none |
 | 13 | An agent with file tools beats the pipeline | refuted | agent-v3: 116 | none |
 | 14 | A hard p_keep filter at 0.40 helps | open | kb-jev with filter and section cut: matches 154 → 148, but F2 0.670 → 0.681; confounded | none planned |
@@ -49,3 +49,4 @@ Measures:
 | 19 | Several wordings per fragment win more | shelved | An extra row pays only above a 14.5% hit rate | none |
 | 20 | A list of cases or alternatives under one obligation is one gold row | open | Opus labels each list paragraph MERGE or SPLIT, with no gold in the prompt. It merged exactly the 4 paragraphs where gold has 1 row and split the 8 where gold has 3–8 | Full file `consolidate.json` |
 | 21 | Rows sharing one quote are one gold row | open | 12 clusters, 30 rows; collapsing them costs 1 capacity slot | Full file `consolidate.json` (287 rows, with 20 and exact-duplicate removal) |
+| 22 | Capacity predicts matches between files | refuted | `opus-fresh` had capacity 177 against the 0.724 file's 170 and matched 146 against about 154. More rows on gold paragraphs is not more matches | Judge candidates by upload, not by capacity |
