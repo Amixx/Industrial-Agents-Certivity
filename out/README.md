@@ -182,7 +182,7 @@ use `brain/brain/subgoal/score.py` (at the time `brain/eval/subgoal_score.py`).
 | 25 Oct 08:47 | `subgoal-heldout-det-v4.json` | v2 (the v3 rule reverted), plus: a new full sentence inside an old paragraph is an added row ("Paragraph X … was amended …: '…' was added."), unless it is a list item, a footnote, or already in the new text of a modified requirement | `main` plus uncommitted changes | 63 (21 modified, 4 removed, 38 added) | (08:55:18) flag recall 64.1%, flag precision 65.1%, change accuracy 94.6% | $0 |
 | 25 Oct 08:58 | `subgoal-heldout-inclusive-v5.json` | `--inclusive`: v4 plus added rows from every section but the administrative ones (transitional provisions, names and addresses, penalties, discontinued production, communication form, approval marks), new list items inside old paragraphs, and the v3 rule (an untouched requirement in a paragraph amended around it) | `main` plus uncommitted changes | 153 (43 modified, 4 removed, 106 added); a superset of v4 | (09:03:34) flag recall 78.1%, flag precision 32.7%, change accuracy 89.1% | $0 |
 | 25 Oct 09:10 | `subgoal-heldout-inclusive-v6.json` | `--inclusive` widened: every section (the administrative exclusion dropped), every new sentence with or without a modal verb, and requirements that moved unchanged to a new number ("was renumbered …; its wording did not change") | `main` plus uncommitted changes | 228 (56 modified, 4 removed, 168 added); a superset of v5 | (09:13:10) flag recall 81.2%, flag precision 22.8%, change accuracy 87.5% | $0 |
-| 25 Oct 09:15 | `subgoal-heldout-inclusive-v7.json` | v6 plus: a requirement whose cited paragraph has a changed paragraph below it (R-001, R-002, R-003, R-088) | the commit that adds `--inclusive` | 232 (60 modified, 4 removed, 168 added); a superset of v6 | | $0 |
+| 25 Oct 09:15 | `subgoal-heldout-inclusive-v7.json` | v6 plus: a requirement whose cited paragraph has a changed paragraph below it (R-001, R-002, R-003, R-088) | the commit that adds `--inclusive` | 232 (60 modified, 4 removed, 168 added); a superset of v6 | (09:40:41) flag recall 84.4%, flag precision 23.3%, change accuracy 88.0% | $0 |
 
 ## What is measured
 
@@ -592,7 +592,9 @@ Of the 57 requirements still unflagged, only 4 have any change in their cited pa
 it; for the rest the diff sees no change at all. `subgoal-heldout-inclusive-v7.json` adds those 4.
 The remaining misses are most likely added rows that the gold splits or labels differently
 (some old requirements cite tables by an id such as `tb:678427e5…`, which our parser does not
-produce), which no general rule here reaches.
+produce), which no general rule here reaches. Uploaded at 09:40:41: flag recall 84.4% (54 of 64),
+flag precision 23.3%, change accuracy 88.0%; 2 of the 4 were in the gold. This is the counting
+held-out upload: second on the leaderboard at the time, behind 89.1%.
 
 ### Cost per run
 
