@@ -1040,3 +1040,32 @@ def test_infinitives_joined_by_and_stay_one_obligation() -> None:
         )
         == []
     )
+
+
+def test_inclusive_mode_counts_a_deeming_lead_in_as_an_obligation() -> None:
+    old = [
+        para(
+            "5.8", "The driver is deemed to be tired when this leads to: (a) One stop; or (b) Two."
+        )
+    ]
+    new = [
+        para(
+            "5.8",
+            "The driver is deemed to be tired when this leads to: (a) One stop; (b) Two; or "
+            "(c) One warning after a manoeuvre.",
+        )
+    ]
+    rows = added_changes(align(old, new), {"5"}, "UN R1", "2.0.0", inclusive=True)
+    assert [r["new_text"] for r in rows] == [
+        "The driver is deemed to be tired when this leads to one warning after a manoeuvre."
+    ]
+
+
+def test_split_verb_takes_the_first_object_for_them() -> None:
+    assert split_obligation(
+        "The manufacturer shall document such strategies and demonstrate them to the authority.",
+        {"demonstrate"},
+    ) == [
+        "The manufacturer shall document such strategies.",
+        "The manufacturer shall demonstrate such strategies to the authority.",
+    ]

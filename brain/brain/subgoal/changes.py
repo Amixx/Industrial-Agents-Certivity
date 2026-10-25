@@ -39,6 +39,8 @@ MODAL_PHRASE = re.compile(
 )
 # A second verb phrase after "and" or "but": "… and assessed by …", "…, and shall provide …".
 CONJOINED = re.compile(r",?\s+(?:and|but)\s+((?:shall|must|may)\b\s*)?((?:\w+ly\s+)?(\w+))")
+# What binds in the inclusive mode: a modal verb, or a deeming provision ("The driver is deemed …").
+BINDING = re.compile(r"\b(?:shall|must|may|(?:is|are)\s+deemed)\b")
 PRONOUN = re.compile(r"^(?:This|It)\s+(?=(?:shall|must|may)\b)")
 # ", and <a subject of up to six words> shall …": a second obligation with its own subject.
 CLAUSE = re.compile(r",\s+and\s+(?=(?:[a-z][\w-]*\s+){1,6}?(?:shall|must|may)\b)")
@@ -401,10 +403,17 @@ def split_obligation(text: str, known: set[str]) -> list[str]:
             cuts.append((c.start(), c.start(1) if c[1] else c.start(2), bool(c[1])))
     if not cuts:
         return []
-    parts = [f"{subject} {modal}{rest[: cuts[0][0]]}"]
+    first = rest[: cuts[0][0]]
+    parts = [f"{subject} {modal}{first}"]
+    words = first.split(maxsplit=1)
     for k, (_, verb, own) in enumerate(cuts):
         end = cuts[k + 1][0] if k + 1 < len(cuts) else len(rest)
-        parts.append(f"{subject} {'' if own else modal + ' '}{rest[verb:end]}")
+        part = rest[verb:end]
+        if not own and not passive and len(words) == 2:
+            # "… document such strategies and demonstrate them …": "them" is the first object.
+            if m := re.match(r"(\S+(?:\s+\S+ly)?)\s+(?:them|it)\b", part):
+                part = f"{m[1]} {words[1]}{part[m.end() :]}"
+        parts.append(f"{subject} {'' if own else modal + ' '}{part}")
     return [re.sub(r"[\s,;:.]+$", "", p) + "." for p in parts]
 
 
@@ -497,8 +506,8 @@ def added_changes(
     `inclusive` (for recall) takes every section instead of only the cited `sections`, counts new
     list items inside old paragraphs (fused with their lead-in when it has a modal verb) and new
     sentences already in a modified requirement, and gives a compound obligation one row per verb
-    (`split_obligation`). Only rows with a modal verb are kept: on the held-out pair the 60 rows
-    without one matched no gold row.
+    (`split_obligation`). Only rows with a modal verb or a deeming provision are kept: on the
+    held-out pair the 60 rows without one matched no gold row.
     """
     claimed = {link.new.index for link in links if link.old and link.new}
     by_label: dict[str, list[Span]] = defaultdict(list)
@@ -511,7 +520,7 @@ def added_changes(
     def add(label: str, page: int, text: str, reason: str) -> None:
         texts = [text]
         if inclusive:
-            if not MODAL.search(text):
+            if not BINDING.search(text):
                 return
             if changes:
                 text = resolve_pronoun(text, changes[-1]["new_text"])
@@ -566,7 +575,7 @@ def added_changes(
                 add(label, spans[0].page, own[1] + ".", reason)
                 continue
             lead = _lead_in(spans[:k]) if item else None
-            if item and ((lead and MODAL.search(lead)) or MODAL.search(unit.text)):
+            if item and ((lead and BINDING.search(lead)) or MODAL.search(unit.text)):
                 add(label, spans[0].page, fuse(lead or "", unit.text), reason)
                 continue
             for _, text in obligations([unit], every=inclusive):

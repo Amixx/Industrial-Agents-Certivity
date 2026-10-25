@@ -194,9 +194,11 @@ use `brain/brain/subgoal/score.py` (at the time `brain/eval/subgoal_score.py`).
 | 25 Oct 10:15 | `subgoal-heldout-probe-modal-only.json` | Probe: v7 without its 60 added rows that have no modal verb (headings such as "Base Test:", raw rows of the 7.2.3.1 reporting table, scope and form text) | scratch script on v7 | 172 (60 modified, 4 removed, 108 added) | (10:15:43) flag recall 84.4%, flag precision 31.4%, change accuracy 90.0% (54 matched, as v7) | $0 |
 | 25 Oct 10:15 | `subgoal-heldout-probe-pruned.json` | Probe: v7 without both groups | scratch script on v7 | 120 | not uploaded | $0 |
 | 25 Oct 10:22 | `subgoal-heldout-inclusive-v9.json` | `--inclusive` rebuilt to replace rows, not add them (on top of `-modal-only`): only added rows with a modal verb; a compound obligation gives one row per verb in place of the whole sentence, split as the old requirements were (two verbs each with its own complement, on "and" or "but", never "or"; "documented and explained" stays whole); a new list item takes its lead-in ("The system shall inform or warn the driver about …"); a lead-in "X shall A and the following shall apply:" gives "X shall A."; v8's amended-sentence rows dropped | `main` @ `914623f` plus uncommitted changes | 184 (60 modified, 4 removed, 120 added); the modified and removed rows equal v7's | (10:41:40) flag recall 90.6%, flag precision 31.5%, change accuracy 88.9% (58 matched) | $0 |
-| 25 Oct 10:46 | `subgoal-heldout-inclusive-v10.json` | v9 plus: a row that starts "This shall …" names what the sentence before it is about (its object if active, its subject if passive); ", and <subject> shall …" is a second obligation under the same condition; infinitives joined by "and" are not split | `main` @ `914623f` plus uncommitted changes | 184 (60 modified, 4 removed, 120 added); 7 rows of v9 replaced by 8 | not uploaded | $0 |
+| 25 Oct 10:46 | `subgoal-heldout-inclusive-v10.json` | v9 plus: a row that starts "This shall …" names what the sentence before it is about (its object if active, its subject if passive); ", and <subject> shall …" is a second obligation under the same condition; infinitives joined by "and" are not split | `main` @ `914623f` plus uncommitted changes | 184 (60 modified, 4 removed, 120 added); 7 rows of v9 replaced by 8 | (10:58:15) flag recall 95.3%, flag precision 33.2%, change accuracy 87.7% (61 matched) | $0 |
 | 25 Oct 10:58 | `subgoal-heldout-inclusive-v10-lean.json` | v10 without three groups that earlier uploads showed bring at most 3 gold rows: 21 v3-rule rows (own sentence unchanged in an amended paragraph; R-013 kept, the one whose own words the edit changed: "transition into 'stand-by' mode"), 13 renumbered requirements with unchanged wording, 6 added rows in the introduction and transitional provisions (sections 1 and 16) | scratch script on v10 | 144 (26 modified, 4 removed, 114 added) | not uploaded | $0 |
 | 25 Oct 10:58 | `subgoal-heldout-inclusive-v10-lean-no-annex4.json` | `-lean` without the 52 added rows in Annex 4 (test procedures; no old requirement cites Annex 4, and on dev the gold adds rows only in cited sections) | scratch script on v10 | 92 (26 modified, 4 removed, 62 added) | not uploaded | $0 |
+| 25 Oct 11:03 | `subgoal-heldout-inclusive-v11.json` | v10 plus: a deeming provision ("The driver is deemed to have insufficient engagement when this leads to:") binds like a modal verb, so its new items (d) and (e) of 5.5.4.2.8.2 become rows with their lead-in; in a split, "demonstrate them" takes the first verb's object ("demonstrate such strategies") | `main` @ `914623f` plus uncommitted changes | 186 (60 modified, 4 removed, 122 added); v10 plus 2 rows, 1 row reworded | not uploaded | $0 |
+| 25 Oct 11:05 | `subgoal-heldout-inclusive-v11-lean.json`, `-v11-lean-no-annex4.json` | v11 without the same groups as `v10-lean` and `v10-lean-no-annex4` | scratch script on v11 | 146 and 94 | not uploaded | $0 |
 
 ## What is measured
 
@@ -701,6 +703,10 @@ countermeasures shall be applied …" into two rows under the same condition, an
 "the system to recognize and offer right of way" (Annex 4). Dev unchanged, synthetic edits 216 of
 216, 131 tests pass.
 
+Uploaded at 10:58:15: flag recall 95.3% (61 of 64), flag precision 33.2%, change accuracy 87.7%.
+Three gold rows more than v9 from 7 rewritten rows: the gold names the subject where the text
+says "This shall …". This is now the counting upload; 3 gold rows remain.
+
 ### 25 Oct, 10:58: precision (v10-lean)
 
 Flag precision is not judged (recall and change accuracy are), but it shows on the leaderboard and
@@ -711,6 +717,18 @@ requirements only R-013 contains two or more words that the amendment of its par
 ("transition into 'stand-by' mode" became "leave the 'active' mode, …"), so it is most likely the
 one gold row and stays. `-lean` drops the rest of these groups (144 rows); `-lean-no-annex4` also
 drops Annex 4 (92 rows). If they keep v10's recall, precision rises to about 40% and 63%.
+
+### 25 Oct, 11:03: the new sentences no row covers (v11)
+
+With 61 of 64 found, every new or amended sentence of the diff was compared with v10's rows (share
+of its words in the closest row). Most of what no row covers is definitions, the introduction,
+the reporting table of 7.2.3.1 and the forms; the old requirements contain none of these, so the
+gold most likely does not either. The exception is 5.5.4.2.8.2, two new conditions for
+insufficient engagement, (d) and (e), under "The driver is deemed to have insufficient engagement
+when this leads to:". v10 dropped them because the lead-in has no modal verb; the gold treats
+"deemed" provisions as requirements (R-070: "The driver shall be deemed to be visually disengaged
+when …"). v11 adds the two items with their lead-in and words "demonstrate them" (5.5.4.2.6.5) as
+"demonstrate such strategies". Dev unchanged, synthetic edits 216 of 216, 133 tests pass.
 
 ### Cost per run
 
