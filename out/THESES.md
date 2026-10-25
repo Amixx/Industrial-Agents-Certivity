@@ -44,7 +44,7 @@ Measures:
 | 14 | A hard p_keep filter at 0.40 helps | open | kb-jev with filter and section cut: matches 154 → 148, but F2 0.670 → 0.681; confounded | none planned |
 | 15 | An Opus "would an expert cite this" pass improves selection or cuts | refuted | Local: as a cut, reach 183 → 179 at p ≥ 0.1; as a selector, 99 of 121 gold paragraphs at 521 paragraphs | none |
 | 16 | Our local judge can rank writing changes | refuted | Own-subject: +13 local, +1 platform. Verbatim2: +2 local, −10 platform | none |
-| 17 | Identical content scores up to about 7 apart | supported | Fable file: 149 and 142. Near-identical cut2, cut2-rules and cut2-mark: 149, 150, 149 | Re-upload the 0.724 file to check the winner's curse |
+| 17 | Identical content scores up to about 7 apart | proved | Fable file: 149 and 142. The 0.724 file: 156, then 152 when re-uploaded unchanged. Near-identical cut2, cut2-rules and cut2-mark: 149, 150, 149 | Compare candidates against about 154, the 0.724 file's mean |
 | 18 | Correct paragraph labels matter for requirement matching | proved | Same texts: 156 with our labels, 93 with every row cited as paragraph 1. Labels are worth about 63 matches | Label table rows and parent/child paragraphs the way gold does |
 | 19 | Several wordings per fragment win more | shelved | An extra row pays only above a 14.5% hit rate | none |
 | 20 | A list of cases or alternatives under one obligation is one gold row | open | Opus labels each list paragraph MERGE or SPLIT, with no gold in the prompt. It merged exactly the 4 paragraphs where gold has 1 row and split the 8 where gold has 3–8 | Full file `consolidate.json` |
