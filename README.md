@@ -3,7 +3,7 @@
 Entry for the Certivity challenge at the Industrial AI hackathon.
 
 - Brief: [docs/certivity-challenge-brief.pdf](docs/certivity-challenge-brief.pdf)
-- Official challenge repo: <https://github.com/Certivity/industrial-ai-hackathon>, merged in at the repo root like a fork, with its README at [docs/CHALLENGE.md](docs/CHALLENGE.md). Its data is licensed for this hackathon only, so keep this repo private.
+- Official challenge repo: <https://github.com/Certivity/industrial-ai-hackathon>, merged in at the repo root like a fork, with its README at [docs/CHALLENGE.md](docs/CHALLENGE.md). Its data (`cases/`, `subgoal/`, `regulations/index.json`) is licensed for this hackathon only and is not in this repo: get it from the official repo.
 - The regulation PDFs are committed under `regulations/pdf/` and `subgoal/dev/`, because the download links expire after the event.
 
 ```bash

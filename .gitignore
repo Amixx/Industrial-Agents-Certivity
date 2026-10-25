@@ -21,3 +21,9 @@ web/frontend/.svelte-kit/
 # Local assessment store
 web/backend/.data/
 .amp/
+
+# Certivity hackathon data: licensed for the event only, not redistributed
+/cases/
+/subgoal/
+/regulations/index.json
+/docs/meeting with organizers/
