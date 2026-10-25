@@ -5,6 +5,8 @@ from .models import Assessment
 from .paths import DATA_DIR
 
 _FILE = DATA_DIR / "assessments.json"
+# The rear lamp assessment the landing page shows, available even on an empty store.
+_SHOWCASE = Path(__file__).with_name("showcase.json")
 _IMAGES = DATA_DIR / "images"
 _IMAGE_TYPES = {b"\x89PNG": "png", b"\xff\xd8\xff": "jpg", b"RIFF": "webp", b"GIF8": "gif"}
 
@@ -13,6 +15,8 @@ applied: dict[str, list[str]] = {}
 
 
 def load() -> None:
+    showcase = Assessment.model_validate_json(_SHOWCASE.read_text())
+    assessments[showcase.id] = showcase
     if not _FILE.is_file():
         return
     raw = json.loads(_FILE.read_text())

@@ -1,5 +1,4 @@
 <script lang="ts">
-import '#lib/ui/theme.css';
 import { colorScheme } from '#lib/ui/colorScheme.svelte.ts';
 import Wordmark from '#lib/ui/Wordmark.svelte';
 import { page } from '$app/state';
@@ -7,19 +6,10 @@ import { page } from '$app/state';
 let { children } = $props();
 
 const nav = [
-	{ href: '/', label: 'New assessment' },
+	{ href: '/new', label: 'New assessment' },
 	{ href: '/history', label: 'History' },
 ];
 </script>
-
-<svelte:head>
-	<link rel="preconnect" href="https://fonts.googleapis.com">
-	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous">
-	<link
-		rel="stylesheet"
-		href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@300;400;500;600;700;800&family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;500&display=swap"
-	>
-</svelte:head>
 
 <div class="ui-app flex h-screen flex-col">
 	<header class="ui-gutter flex items-center justify-between border-b border-line py-3">

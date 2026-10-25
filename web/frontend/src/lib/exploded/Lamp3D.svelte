@@ -3,6 +3,7 @@ import { onMount, untrack } from 'svelte';
 import type { PartCoverage } from '#lib/graph/model.ts';
 import { goto } from '$app/navigation';
 import type { LampScene } from './lamp3d.ts';
+import PartHoverCard from './PartHoverCard.svelte';
 import type { ExplodedAssembly } from './rearLamp.ts';
 
 let {
@@ -124,61 +125,15 @@ $effect(() => scene?.setLit(lit));
 				<p class="absolute inset-0 grid place-items-center text-xs">Loading model</p>
 			{/if}
 			{#if hoveredId && hoveredCoverage}
-				{@const part = assembly.parts[hoveredIndex]}
-				<div
-					class="hover-card pointer-events-none absolute z-10 w-60 border border-line bg-panel px-3 pt-2 pb-2.5"
-					style:left="{Math.min(cursor.x + 16, (host?.clientWidth ?? 0) - 256)}px"
-					style:top="{cursor.y + 16}px"
-					style:translate={cursor.y > (host?.clientHeight ?? 0) / 2
-						? '0 calc(-100% - 32px)'
-						: undefined}
-				>
-					<div class="flex items-baseline gap-2">
-						<span class="text-sm leading-none font-light text-accent tabular-nums">
-							{pad(hoveredIndex)}
-						</span>
-						<span class="text-sm font-bold">{part.name}</span>
-					</div>
-					<dl class="mt-2 grid grid-cols-3 gap-x-3 border-t border-line pt-1">
-						<div class="flex flex-col-reverse">
-							<dt class="mt-1 text-[11.5px]">Regulations</dt>
-							<dd class="text-2xl leading-none font-light text-accent tabular-nums">
-								{hoveredCoverage.regulations.length}
-							</dd>
-						</div>
-						<div class="flex flex-col-reverse">
-							<dt class="mt-1 text-[11.5px]">Requirements</dt>
-							<dd class="text-2xl leading-none font-light text-accent tabular-nums">
-								{hoveredCoverage.requirements}
-							</dd>
-						</div>
-						<div class="flex flex-col-reverse">
-							<dt class="mt-1 text-[11.5px]">Paragraphs</dt>
-							<dd class="text-2xl leading-none font-light text-accent tabular-nums">
-								{hoveredCoverage.paragraphs}
-							</dd>
-						</div>
-					</dl>
-					{#if hoveredCoverage.regulations.length}
-						<ul class="mt-2 space-y-0.5 border-t border-line pt-1.5 text-[12px]">
-							{#each hoveredCoverage.regulations as reg (reg.regulation)}
-								<li class="flex justify-between gap-2">
-									<span class="font-bold">{reg.regulation}</span>
-									<span class="tabular-nums">
-										{reg.requirements.length
-											? `${reg.requirements.length} requirements`
-											: 'named in the selection reason'}
-									</span>
-								</li>
-							{/each}
-						</ul>
-					{:else}
-						<p class="mt-2 border-t border-line pt-1.5 text-[12px]">
-							No regulation mentions this part.
-						</p>
-					{/if}
-					<p class="mt-2 text-[12px] text-muted">Click to open it in the graph.</p>
-				</div>
+				<PartHoverCard
+					number={pad(hoveredIndex)}
+					name={assembly.parts[hoveredIndex].name}
+					coverage={hoveredCoverage}
+					x={cursor.x}
+					y={cursor.y}
+					width={host?.clientWidth ?? 0}
+					height={host?.clientHeight ?? 0}
+				/>
 			{/if}
 		</div>
 		<div class="ui-section flex flex-wrap items-center gap-x-6 gap-y-3">
@@ -221,29 +176,3 @@ $effect(() => scene?.setLit(lit));
 		</div>
 	</div>
 </div>
-
-<style>
-.lamp3d :global(.lamp3d-label) {
-	display: flex;
-	align-items: baseline;
-	gap: 0.375rem;
-	padding: 0 0.25rem;
-	font-size: 12px;
-	font-weight: 700;
-	white-space: nowrap;
-	background: var(--color-panel);
-	color: var(--color-fg);
-	cursor: pointer;
-	pointer-events: auto;
-	transition: opacity 120ms linear;
-}
-.lamp3d :global(.lamp3d-label-no) {
-	color: var(--color-accent);
-	font-weight: 300;
-	font-variant-numeric: tabular-nums;
-}
-.lamp3d :global(.lamp3d-label-on) {
-	outline: 1px solid var(--color-line-strong);
-	border-left: 0.25rem solid var(--color-mark);
-}
-</style>
