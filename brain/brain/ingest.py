@@ -33,6 +33,7 @@ HEADER = re.compile(r"^.+, version [\w.]+ \| page (\d+) of (\d+)\s*$")
 PREAMBLE_END = re.compile(r"^Role in the hackathon:")
 LABEL_DOT = re.compile(r"^(\d{1,2}(?:\.\d{1,3})*)\.(?:\s+(\S.*))?$")
 LABEL_NODOT = re.compile(r"^(\d{1,2}(?:\.\d{1,3})+)\s+([A-Z(\"“].*)$")
+INLINE_LABEL = re.compile(r"(?<![\w.])(\d{1,2}(?:\.\d{1,3})*)\.(?=\s+[A-Z(\"“])")
 ANNEX = re.compile(r"^Annex\s+(\d{1,2})([A-Z]?)(?:\s*[-–]\s*Appendix\s+(\d+))?(?:\s+(\S.*))?$")
 APPENDIX = re.compile(r"^Appendix\s+(\d{1,2})(?:\s*[:.]\s*|\s+)([A-Z].*)?$")
 NORMATIVE = re.compile(
@@ -147,6 +148,31 @@ def _label(line: Line) -> tuple[str, str | None] | None:
     return m[1], m[2]
 
 
+def _inline_lines(lines: list[Line]) -> list[Line]:
+    """Split a line at paragraph labels that are part of the surrounding prose."""
+    out: list[Line] = []
+    for line in lines:
+        matches = [
+            match
+            for match in INLINE_LABEL.finditer(line.text)
+            if line.text[: match.start()].rstrip().endswith(("or", "and"))
+        ]
+        if not matches:
+            out.append(line)
+            continue
+        parts = [line.text[: matches[0].start()]]
+        parts.extend(
+            line.text[m.start() : n.start() if n else None]
+            for m, n in zip(matches, [*matches[1:], None], strict=False)
+        )
+        prev = line.prev
+        for part in parts:
+            if part:
+                out.append(Line(line.page, part.strip(), prev))
+                prev = part.strip()
+    return out
+
+
 def _chain(candidates: list[tuple[int, tuple[int, ...]]]) -> set[int]:
     """Line indices of the longest chain of candidates whose numbers follow each other."""
     n = len(candidates)
@@ -197,14 +223,24 @@ class _Open:
 
 
 def parse_lines(lines: list[Line], regulation: str, version: str, role: Role) -> list[Paragraph]:
+    lines = _inline_lines(lines)
     scopes = _scopes(lines)
     heads = {s.index: s for s in scopes if s.index >= 0}
     bounds = [s.index for s in scopes] + [len(lines)]
     starts: dict[int, tuple[str, str | None]] = {}
     for k in range(len(scopes)):
-        candidates = []
+        candidates: list[tuple[int, tuple[int, ...]]] = []
         for i in range(bounds[k] + 1, bounds[k + 1]):
-            if found := _label(lines[i]):
+            found = _label(lines[i])
+            if found is None and candidates and candidates[-1][0] == i - 1:
+                possible = LABEL_DOT.match(lines[i].text) or LABEL_NODOT.match(lines[i].text)
+                if (
+                    possible
+                    and lines[i].prev.rstrip().endswith(("or", "and"))
+                    and follows(_components(possible[1]), candidates[-1][1])
+                ):
+                    found = possible[1], possible[2]
+            if found:
                 candidates.append((i, _components(found[0])))
                 starts[i] = found
         chosen = _chain(candidates)

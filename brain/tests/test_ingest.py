@@ -2,7 +2,7 @@ import json
 
 import pytest
 
-from brain.ingest import CORPUS, Line, follows, load, parse_lines
+from brain.ingest import CORPUS, Line, follows, load, parse_lines, parse_pdf, sources
 from brain.paths import CASES
 from eval.gold_check import missing
 
@@ -42,6 +42,37 @@ def test_wrapped_reference_is_not_a_label() -> None:
     paragraphs = parse_lines(lines, "UN R148", "1.6.0", "base")
     assert [p.label for p in paragraphs] == ["5.1"]
     assert paragraphs[0].text.endswith("5.2. of this Regulation.")
+
+
+def test_inline_sequential_labels_split_paragraphs() -> None:
+    lines = _lines("5.1.1. First condition, or 5.1.2. Second condition, or 5.1.3. Third condition.")
+    paragraphs = parse_lines(lines, "UN R26", "4.0.0", "base")
+    assert [p.label for p in paragraphs] == ["5.1.1", "5.1.2", "5.1.3"]
+    assert [p.text for p in paragraphs] == [
+        "First condition, or",
+        "Second condition, or",
+        "Third condition.",
+    ]
+
+
+def test_inline_cross_reference_does_not_split() -> None:
+    lines = _lines("5.1. First condition, see paragraph 5.1.2. The next condition.")
+    paragraphs = parse_lines(lines, "UN R26", "4.0.0", "base")
+    assert [p.label for p in paragraphs] == ["5.1"]
+    assert "paragraph 5.1.2." in paragraphs[0].text
+
+
+def test_r26_sequential_labels_have_separate_text_boundaries() -> None:
+    source = next(s for s in sources() if s.regulation == "UN R26" and s.role == "base")
+    paragraphs = parse_pdf(source.pdf, source.regulation, source.version, source.role)
+    selected = [p for p in paragraphs if p.label in {"5.1.1", "5.1.2", "5.1.3"}]
+    assert [p.label for p in selected] == ["5.1.1", "5.1.2", "5.1.3"]
+    assert selected[0].text.endswith("or")
+    assert selected[1].text.endswith("or")
+    assert "5.1.2." not in selected[0].text
+    assert "5.1.3." not in selected[1].text
+    assert selected[1].parent == selected[0].parent
+    assert selected[2].parent == selected[0].parent
 
 
 def test_annex_parts_prefix_labels() -> None:
