@@ -139,6 +139,19 @@ def apply_ops(req_text: str, old_text: str, ops: Sequence[Op]) -> tuple[str, int
     return norm(text), applied
 
 
+def own_words_edit(req_text: str, edits: Sequence[Op]) -> str | None:
+    """The requirement with the paragraph's replacements applied, when it holds a replaced phrase
+    of at least two words; None when it holds none (a one-word match such as "it" is chance)."""
+    own = [op for op in edits if op[0] == "replace" and len(op[1].split()) >= 2]
+    own = [op for op in own if op[1] in req_text]
+    if not own:
+        return None
+    text = req_text
+    for _, old, new, _ in own:
+        text = text.replace(old, new, 1)
+    return re.sub(r"[\s,;]+\.$", ".", norm(text))
+
+
 def _region(
     run: Sequence[Span], by_old: dict[int, list[Link]], new_units: Sequence[Span]
 ) -> list[Span]:
@@ -251,7 +264,7 @@ def map_requirements(
                         {
                             "requirement_id": req["id"],
                             "change": "modified",
-                            "new_text": fit(req["text"]),
+                            "new_text": fit(own_words_edit(req["text"], edits) or req["text"]),
                             "reason": f"Paragraph {old_label} of {regulation} was amended in "
                             f"version {to_version}: {describe(edits)}.",
                             "source": {"page": region[0].page, "paragraph": old_label},

@@ -31,6 +31,7 @@ from brain.subgoal import (
 )
 from brain.subgoal.changes import (
     cited_sections,
+    own_words_edit,
     resolve_pronoun,
     split_clauses,
     split_obligation,
@@ -1054,3 +1055,15 @@ def test_a_citation_by_table_id_counts_the_section_of_its_page() -> None:
         {"id": "R-2", "text": "Y shall be blue.", "source": {"page": 9, "paragraph": "tb:ab12"}},
     ]
     assert cited_sections(reqs, old) == {"5", "Annex 3"}
+
+
+def test_own_words_edit_applies_a_replaced_phrase_of_two_words_or_more() -> None:
+    edits = [
+        ("replace", "it", "the system", 3),
+        ("replace", "transition into stand-by mode", "leave the active mode, except X,", 5),
+    ]
+    assert own_words_edit("Then the DCAS shall transition into stand-by mode.", edits) == (
+        "Then the DCAS shall leave the active mode, except X."
+    )
+    # A one-word phrase ("it") or a phrase the requirement does not hold changes nothing.
+    assert own_words_edit("Then it shall warn the driver.", edits) is None
