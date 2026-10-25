@@ -126,7 +126,13 @@ onMount(() => {
 		);
 		scene = created;
 		timers.push(setTimeout(() => (explode = 1), 700));
-		timers.push(setTimeout(() => (lit = true), 2200));
+		// One blink, then it stays on.
+		for (const [at, on] of [
+			[2200, true],
+			[2380, false],
+			[2600, true],
+		] as const)
+			timers.push(setTimeout(() => (lit = on), at));
 	});
 	// Until someone reaches for the model, step through the parts so it shows what hovering does.
 	let step = 0;
