@@ -1,4 +1,5 @@
 <script lang="ts">
+import type { Snippet } from 'svelte';
 import Viewer from './PdfViewer.svelte';
 
 let props: {
@@ -7,6 +8,7 @@ let props: {
 	highlight?: { paragraph?: string; text?: string } | null;
 	label?: string;
 	class?: string;
+	children?: Snippet;
 } = $props();
 </script>
 

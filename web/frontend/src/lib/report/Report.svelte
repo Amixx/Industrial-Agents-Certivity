@@ -8,7 +8,9 @@ import Regulations from './Regulations.svelte';
 import RequirementGroup from './RequirementGroup.svelte';
 import RunCost from './RunCost.svelte';
 
-let { assessment }: { assessment: Assessment } = $props();
+let { assessment, inApp = false }: { assessment: Assessment; inApp?: boolean } = $props();
+
+const sourceHref = $derived(inApp ? (id: string) => `/a/${assessment.id}?req=${id}` : undefined);
 
 const groups = $derived.by(() => {
 	const map = new Map(assessment.regulations.map((r) => [r.regulation, r.title]));
@@ -33,7 +35,7 @@ const groups = $derived.by(() => {
 	{#if assessment.cost}
 		<RunCost cost={assessment.cost} />
 	{/if}
-	<Brief requirements={assessment.requirements} />
+	<Brief requirements={assessment.requirements} {sourceHref} />
 	<section>
 		<h2>Requirements</h2>
 		{#each groups as g (g.regulation)}
@@ -41,7 +43,7 @@ const groups = $derived.by(() => {
 		{/each}
 	</section>
 </main>
-<Ask requirements={assessment.requirements} />
+<Ask requirements={assessment.requirements} citeHref={sourceHref} />
 
 <style>
 .report {

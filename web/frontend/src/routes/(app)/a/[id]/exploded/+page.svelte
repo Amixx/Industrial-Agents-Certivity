@@ -54,6 +54,8 @@ $effect(() => {
 			assembly={rearLamp}
 			{coverage}
 			graphHref={(id) => `/a/${assessment?.id}/graph?part=${id}`}
+			requirementsHref={(id) => `/a/${assessment?.id}?part=${id}`}
+			initialPart={page.url.searchParams.get('part')}
 		/>
 	{:else}
 		<ExplodedView assembly={rearLamp} />

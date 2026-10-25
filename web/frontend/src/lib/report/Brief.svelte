@@ -5,7 +5,14 @@ import type { Brief, Requirement } from '#lib/api/types.ts';
 import { citeLabel } from './cite.ts';
 import { pdfHref } from './pdf.ts';
 
-let { requirements }: { requirements: Requirement[] } = $props();
+let {
+	requirements,
+	sourceHref,
+}: {
+	requirements: Requirement[];
+	/** In-app page that shows a requirement highlighted in its source PDF. */
+	sourceHref?: (id: string) => string;
+} = $props();
 
 let brief = $state<Brief | null>(null);
 let error = $state('');
@@ -88,7 +95,9 @@ function toggle(section: number, sentence: number, label: string) {
 								</p>
 								<p class="passage">{req.quote ?? req.text}</p>
 								<p class="links">
-									{#if href}
+									{#if sourceHref}
+										<a href={sourceHref(req.id)}>Show it highlighted in the source</a>
+									{:else if href}
 										<a {href} target="_blank" rel="noreferrer"
 											>Open page {req.source.page} of the PDF</a
 										>

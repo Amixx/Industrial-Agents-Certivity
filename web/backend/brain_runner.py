@@ -7,9 +7,12 @@ output, cache write, cache read) lists the only models an API call may use; a ca
 model fails. Calls go out without server-side fallbacks, so a declined request never moves to
 another model. Once the run's spend reaches RUN_BUDGET_USD, further calls fail.
 
-Progress goes to stderr: the brain's own log lines, plus a `[cost] calls=N usd=X` line every few
-calls. OUT receives {"submission", "error", "cost"} whether or not the run succeeds, and holds the
-cost so far after every call, so a killed run still leaves its spend behind.
+Progress goes to stderr: the brain's own log lines, a `[cost] calls=N usd=X` line every few
+calls, and a `[partial] {json}` line with each step's result (profile, regulations, paragraph
+count, rewritten requirements) as soon as it is known.
+
+OUT receives {"submission", "error", "cost"} whether or not the run succeeds, and holds the cost
+so far after every call, so a killed run still leaves its spend behind.
 
 To fit a 512 MB instance, pymupdf (about 145 MB, used only to ingest regulation PDFs) is never
 loaded, and every brain call shares one API client.
@@ -29,7 +32,7 @@ sys.modules["pymupdf"] = types.ModuleType("pymupdf")
 import anthropic  # noqa: E402
 import anthropic.resources.beta.messages as beta_messages  # noqa: E402
 import anthropic.resources.messages as messages  # noqa: E402
-from brain.pipeline import run  # noqa: E402
+import brain.pipeline as pipeline  # noqa: E402
 
 PRICES: dict[str, list[float]] = json.loads(os.environ["RUN_PRICES"])
 BUDGET_USD = float(os.environ["RUN_BUDGET_USD"])
@@ -116,11 +119,47 @@ messages.Messages.create = _guard(messages.Messages.create)  # type: ignore[meth
 anthropic.Anthropic = _shared_client  # type: ignore[misc,assignment]
 
 
+def _partial(data: dict[str, Any]) -> None:
+    print(f"[partial] {json.dumps(data)}", file=sys.stderr, flush=True)
+
+
+def _report(name: str, describe: Any) -> None:
+    """Wrap pipeline step `name` so its result is also printed as a partial."""
+    step = getattr(pipeline, name)
+
+    def wrapped(*args: Any, **kw: Any) -> Any:
+        result = step(*args, **kw)
+        _partial(describe(result))
+        return result
+
+    setattr(pipeline, name, wrapped)
+
+
+_report("build_profile", lambda profile: {"profile": profile.model_dump()})
+_report("review", lambda choices: {"regulations": [c.model_dump() for c in choices]})
+_report("select_paragraphs", lambda result: {"paragraph_count": len(result[0])})
+_report(
+    "clean",
+    lambda result: {
+        "requirements": [
+            {
+                "text": d.text,
+                "regulation": d.paragraph.regulation,
+                "version": d.paragraph.version,
+                "page": d.paragraph.page,
+                "paragraph": d.paragraph.label,
+            }
+            for d in result[0]
+        ]
+    },
+)
+
+
 def main() -> int:
     spec, image = sys.argv[1:3]
     result: dict[str, Any] = {"submission": None, "error": None}
     try:
-        result["submission"] = run(
+        result["submission"] = pipeline.run(
             Path(spec).read_text(), Path(image) if image else None, case_id="web"
         )
     except Exception as e:

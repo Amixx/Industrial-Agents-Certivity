@@ -13,6 +13,7 @@ from typing import Any
 from . import spend, store
 from .models import (
     Assessment,
+    Partial,
     PipelineEvent,
     Profile,
     RegulationDecision,
@@ -31,6 +32,8 @@ BULK_MODEL = "claude-haiku-5-5"
 # A run starts only with this much budget left, and stops spending at RUN_CAP_USD.
 RUN_RESERVE_USD = 1.5
 RUN_CAP_USD = 2.0
+# A `[partial]` line carries every rewritten requirement, far past asyncio's 64 KiB default.
+STDERR_LINE_LIMIT = 2**24
 # Seconds without brain output before the stream repeats its last event, so proxies keep it open.
 HEARTBEAT_S = 15
 
@@ -109,11 +112,53 @@ def _event(line: str) -> PipelineEvent | None:
     return None
 
 
+def _profile(raw: dict[str, Any]) -> Profile:
+    return Profile(
+        product_type=raw["product"],
+        vehicle_category=", ".join(raw["vehicle_categories"]),
+        parts=raw["parts"],
+        functions=raw["functions"],
+        materials=raw["materials"],
+    )
+
+
+def _regulation(choice: dict[str, Any], requirement_count: int) -> RegulationDecision:
+    return RegulationDecision(
+        regulation=choice["regulation"],
+        version=choice["version"],
+        title=_title(choice["regulation"]),
+        included=choice["selected"],
+        reason=choice["rationale"],
+        requirement_count=requirement_count,
+    )
+
+
+def _update(partial: Partial, data: dict[str, Any]) -> Partial:
+    """`partial` with one `[partial]` line from the runner applied."""
+    if "profile" in data:
+        return partial.model_copy(update={"profile": _profile(data["profile"])})
+    if "regulations" in data:
+        regulations = [_regulation(c, 0) for c in data["regulations"]]
+        return partial.model_copy(update={"regulations": regulations})
+    if "paragraph_count" in data:
+        return partial.model_copy(update={"paragraph_count": data["paragraph_count"]})
+    requirements = [
+        Requirement.model_validate(
+            {
+                "id": f"R-{i:04d}",
+                "text": r["text"],
+                "source": {k: r[k] for k in ("regulation", "version", "page", "paragraph")},
+            }
+        )
+        for i, r in enumerate(data["requirements"], start=1)
+    ]
+    return partial.model_copy(update={"requirements": requirements})
+
+
 def _assessment(
     submission: dict[str, Any], spec: str, case_name: str | None, cost: RunCost
 ) -> Assessment:
     requirements = [Requirement.model_validate(r) for r in submission["requirements"]]
-    profile = submission["profile"]
 
     def count(regulation: str) -> int:
         return sum(1 for r in requirements if r.source.regulation == regulation)
@@ -123,24 +168,8 @@ def _assessment(
         created_at=datetime.now(UTC).isoformat(timespec="milliseconds").replace("+00:00", "Z"),
         case_name=case_name,
         spec=spec,
-        profile=Profile(
-            product_type=profile["product"],
-            vehicle_category=", ".join(profile["vehicle_categories"]),
-            parts=profile["parts"],
-            functions=profile["functions"],
-            materials=profile["materials"],
-        ),
-        regulations=[
-            RegulationDecision(
-                regulation=c["regulation"],
-                version=c["version"],
-                title=_title(c["regulation"]),
-                included=c["selected"],
-                reason=c["rationale"],
-                requirement_count=count(c["regulation"]),
-            )
-            for c in submission["regulations"]
-        ],
+        profile=_profile(submission["profile"]),
+        regulations=[_regulation(c, count(c["regulation"])) for c in submission["regulations"]],
         requirements=requirements,
         status="complete",
         cost=cost,
@@ -176,21 +205,25 @@ async def _run(
                 env=_env(budget),
                 stdout=asyncio.subprocess.DEVNULL,
                 stderr=asyncio.subprocess.PIPE,
+                limit=STDERR_LINE_LIMIT,
             )
             assert proc.stderr
+            partial = Partial()
             async for raw in proc.stderr:
                 line = raw.decode().rstrip()
+                if line.startswith("[partial] "):
+                    partial = _update(partial, json.loads(line.removeprefix("[partial] ")))
+                    continue
                 log.info("brain: %s", line)
+                event = _event(line)
                 if m := re.match(r"\[cost\] calls=(\d+) usd=([\d.]+)", line):
-                    await events.put(
-                        PipelineEvent(
-                            step="paragraphs",
-                            message=f"{m[1]} model calls so far, ${float(m[2]):.2f}",
-                            progress=0.6,
-                        )
+                    event = PipelineEvent(
+                        step="paragraphs",
+                        message=f"{m[1]} model calls so far, ${float(m[2]):.2f}",
+                        progress=0.6,
                     )
-                elif event := _event(line):
-                    await events.put(event)
+                if event:
+                    await events.put(event.model_copy(update={"partial": partial}))
             code = await proc.wait()
             if not out_path.exists():
                 raise RuntimeError(f"brain exited with code {code} before any output")
@@ -213,6 +246,7 @@ async def _run(
                 message=f"{len(assessment.requirements)} requirements{spent}",
                 progress=1,
                 assessment_id=assessment.id,
+                partial=partial,
             )
         )
     except Exception as e:

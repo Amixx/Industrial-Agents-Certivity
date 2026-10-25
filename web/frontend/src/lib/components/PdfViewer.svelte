@@ -1,6 +1,6 @@
 <script lang="ts">
 import type { PDFDocumentProxy, RenderTask } from 'pdfjs-dist';
-import { onMount } from 'svelte';
+import { onMount, type Snippet } from 'svelte';
 import { findHighlight, type Highlight } from './pdf/highlight.ts';
 import { loadDocument, loadPdfJs } from './pdf/loader.ts';
 
@@ -10,6 +10,7 @@ let {
 	highlight = null,
 	label = '',
 	class: className = '',
+	children,
 }: {
 	url: string;
 	page: number;
@@ -17,6 +18,8 @@ let {
 	/** Shown as a tag on the highlighted paragraph. */
 	label?: string;
 	class?: string;
+	/** Rendered inside the scrolling area, so absolutely placed content scrolls with the page. */
+	children?: Snippet;
 } = $props();
 
 const PAD = 16;
@@ -236,6 +239,8 @@ const numPages = $derived(doc?.numPages ?? 0);
 			{/if}
 			<div bind:this={textLayerEl} class="textLayer"></div>
 		</div>
+
+		{@render children?.()}
 
 		{#if loading && !error}
 			<div class="absolute inset-0 flex items-center justify-center bg-white/60 text-sm">

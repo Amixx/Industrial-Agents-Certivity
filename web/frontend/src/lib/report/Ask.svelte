@@ -4,7 +4,16 @@ import { api } from '#lib/api/client.ts';
 import type { AskAnswer, Requirement } from '#lib/api/types.ts';
 import { citeLabel } from './cite.ts';
 
-let { requirements }: { requirements: Requirement[] } = $props();
+let {
+	requirements,
+	within = '.report',
+	citeHref = (id) => `#req-${id}`,
+}: {
+	requirements: Requirement[];
+	/** Selector for the part of the page whose selected text can be asked about. */
+	within?: string;
+	citeHref?: (id: string) => string;
+} = $props();
 
 type Recognition = {
 	lang: string;
@@ -73,7 +82,7 @@ function onSelect() {
 	const range = sel.getRangeAt(0);
 	const node = range.commonAncestorContainer;
 	const el = node instanceof Element ? node : node.parentElement;
-	if (!el?.closest('.report')) {
+	if (!el?.closest(within)) {
 		anchor = null;
 		return;
 	}
@@ -239,7 +248,7 @@ function usd(value: number) {
 							{#if req}
 								<a
 									class="cite"
-									href="#req-{id}"
+									href={citeHref(id)}
 									title="{req.source.regulation}, page {req.source.page}"
 									>{citeLabel(req)}</a
 								>

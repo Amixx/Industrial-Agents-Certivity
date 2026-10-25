@@ -1,5 +1,5 @@
 <script lang="ts">
-import { onMount } from 'svelte';
+import { onMount, untrack } from 'svelte';
 import type { PartCoverage } from '#lib/graph/model.ts';
 import { goto } from '$app/navigation';
 import type { LampScene } from './lamp3d.ts';
@@ -9,16 +9,21 @@ let {
 	assembly,
 	coverage,
 	graphHref,
+	requirementsHref,
+	initialPart = null,
 }: {
 	assembly: ExplodedAssembly;
 	coverage: Record<string, PartCoverage>;
 	graphHref: (id: string) => string;
+	/** The requirement list filtered to one part. */
+	requirementsHref: (id: string) => string;
+	initialPart?: string | null;
 } = $props();
 
 let host: HTMLDivElement | undefined = $state();
 let scene: LampScene | null = $state(null);
 let explode = $state(0);
-let selectedId: string | null = $state(null);
+let selectedId: string | null = $state(untrack(() => initialPart));
 let lit = $state(false);
 let hoveredId: string | null = $state(null);
 /** Pointer position inside the model area, for the hover card. */
@@ -105,7 +110,12 @@ $effect(() => scene?.setLit(lit));
 					<dt class="ui-label">Check</dt>
 					<dd class="text-sm leading-snug">{selected.check}</dd>
 				</div>
-				<a href={graphHref(selected.id)} class="ui-link inline-block text-xs">Show in graph</a>
+				<div class="flex gap-4">
+					<a href={requirementsHref(selected.id)} class="ui-link text-xs"
+						>Show its {coverage[selected.id]?.requirements ?? 0} requirements</a
+					>
+					<a href={graphHref(selected.id)} class="ui-link text-xs">Show in graph</a>
+				</div>
 			</dl>
 		{/if}
 	</aside>
