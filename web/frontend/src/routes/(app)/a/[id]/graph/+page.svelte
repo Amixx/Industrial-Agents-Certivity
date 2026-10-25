@@ -16,7 +16,7 @@ const part = $derived(rearLamp.parts.find((p) => p.id === page.url.searchParams.
 
 {#if assessment}
 	<AssessmentHeader {assessment} />
-	<div class="min-h-0 flex-1 overflow-auto pt-6 pb-12">
+	<div class="min-h-0 flex-1 overflow-auto pt-4 pb-12">
 		<ProcessGraph
 			{assessment}
 			{part}

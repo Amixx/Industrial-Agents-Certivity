@@ -15,38 +15,37 @@ const tabs = $derived([
 ]);
 </script>
 
-<div class="ui-grid ui-section items-end pb-4">
-	<div class="col-span-3 font-mono text-[12px] text-muted">
-		<div class="ui-label">Assessment</div>
-		<div class="tabular-nums">{formatDate(assessment.createdAt)}</div>
-		<div class="tabular-nums">#{assessment.id}</div>
-		{#if assessment.cost}
-			<div class="tabular-nums" title="Model cost of the pipeline run">
-				Run cost {costSummary(assessment.cost)}
-			</div>
-		{/if}
-	</div>
-	<a href="/a/{assessment.id}" class="ui-display col-span-4 truncate text-5xl hover:text-accent">
+<div class="ui-rule-soft flex flex-wrap items-center gap-x-6 gap-y-2 border-t border-b pt-2 pb-2">
+	<a
+		href="/a/{assessment.id}"
+		class="ui-display max-w-[24ch] truncate text-[1.75rem] hover:text-accent"
+	>
 		{assessment.caseName ?? 'Untitled spec'}
 	</a>
-	<div class="col-span-5 flex items-center justify-end gap-3">
+	<div class="flex gap-3 font-mono text-[12px] text-muted tabular-nums">
+		<span>#{assessment.id}</span>
+		<span>{formatDate(assessment.createdAt)}</span>
+		{#if assessment.cost}
+			<span title="Model cost of the pipeline run">Run cost {costSummary(assessment.cost)}</span>
+		{/if}
+	</div>
+	<nav class="flex items-baseline gap-5 text-sm">
+		{#each tabs as tab (tab.href)}
+			<a
+				href={tab.href}
+				class="flex items-center gap-2 {page.url.pathname === tab.href
+					? 'font-bold'
+					: 'hover:underline'}"
+				aria-current={page.url.pathname === tab.href ? 'page' : undefined}
+			>
+				{#if page.url.pathname === tab.href}
+					<span class="size-2 bg-mark"></span>
+				{/if}
+				{tab.label}
+			</a>
+		{/each}
+	</nav>
+	<div class="ml-auto flex items-center gap-3">
 		{@render children?.()}
 	</div>
 </div>
-
-<nav class="ui-rule-soft flex items-baseline gap-6 border-b pb-2 text-sm">
-	{#each tabs as tab (tab.href)}
-		<a
-			href={tab.href}
-			class="flex items-center gap-2 {page.url.pathname === tab.href
-				? 'font-bold'
-				: 'hover:underline'}"
-			aria-current={page.url.pathname === tab.href ? 'page' : undefined}
-		>
-			{#if page.url.pathname === tab.href}
-				<span class="size-2 bg-mark"></span>
-			{/if}
-			{tab.label}
-		</a>
-	{/each}
-</nav>
