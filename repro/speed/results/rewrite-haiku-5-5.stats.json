@@ -1,0 +1,72 @@
+{
+ "models": {
+  "rewrite": "claude-haiku-5-5"
+ },
+ "workers": 10,
+ "rows": 316,
+ "seconds": {
+  "pipeline": 182.5,
+  "sections": 16.3,
+  "merge": 11.9
+ },
+ "live_usd": 1.275,
+ "cold_usd": 10.201,
+ "stages": {
+  "profile": {
+   "model": "claude-opus-5-5",
+   "calls": 1,
+   "hits": 1,
+   "live_usd": 0.0,
+   "cold_usd": 0.034,
+   "span_s": 0.0
+  },
+  "select_regs": {
+   "model": "claude-opus-5-5",
+   "calls": 1,
+   "hits": 1,
+   "live_usd": 0.0,
+   "cold_usd": 0.155,
+   "span_s": 0.0
+  },
+  "relevance": {
+   "model": "claude-opus-5-5",
+   "calls": 113,
+   "hits": 113,
+   "live_usd": 0.0,
+   "cold_usd": 8.737,
+   "span_s": 0.1
+  },
+  "rewrite": {
+   "model": "claude-haiku-5-5",
+   "calls": 28,
+   "hits": 0,
+   "live_usd": 0.179,
+   "cold_usd": 0.179,
+   "span_s": 151.1
+  },
+  "keep": {
+   "model": "claude-opus-5-5",
+   "calls": 19,
+   "hits": 0,
+   "live_usd": 0.804,
+   "cold_usd": 0.804,
+   "span_s": 29.4
+  },
+  "sections": {
+   "model": "claude-opus-5-5",
+   "calls": 30,
+   "hits": 22,
+   "live_usd": 0.252,
+   "cold_usd": 0.252,
+   "span_s": 16.3
+  },
+  "merge": {
+   "model": "claude-opus-5-5",
+   "calls": 1,
+   "hits": 0,
+   "live_usd": 0.04,
+   "cold_usd": 0.04,
+   "span_s": 11.9
+  }
+ }
+}

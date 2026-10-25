@@ -55,7 +55,9 @@ def complete_json(
                 "-o", str(answer),
                 f"{system}\n\n{prompt}",
             ]  # fmt: skip
-            done = subprocess.run(cmd, capture_output=True, text=True, timeout=TIMEOUT)
+            done = subprocess.run(
+                cmd, stdin=subprocess.DEVNULL, capture_output=True, text=True, timeout=TIMEOUT
+            )
             if done.returncode != 0 or not answer.exists():
                 error = done.stderr[-300:]
                 continue

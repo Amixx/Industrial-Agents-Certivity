@@ -1,0 +1,72 @@
+{
+ "models": {
+  "keep": "codex:gpt-6-luna"
+ },
+ "workers": 10,
+ "rows": 242,
+ "seconds": {
+  "pipeline": 18.2,
+  "sections": 0.0,
+  "merge": 6.0
+ },
+ "live_usd": 0.031,
+ "cold_usd": 12.663,
+ "stages": {
+  "profile": {
+   "model": "claude-opus-5-5",
+   "calls": 1,
+   "hits": 1,
+   "live_usd": 0.0,
+   "cold_usd": 0.034,
+   "span_s": 0.0
+  },
+  "select_regs": {
+   "model": "claude-opus-5-5",
+   "calls": 1,
+   "hits": 1,
+   "live_usd": 0.0,
+   "cold_usd": 0.155,
+   "span_s": 0.0
+  },
+  "relevance": {
+   "model": "claude-opus-5-5",
+   "calls": 113,
+   "hits": 113,
+   "live_usd": 0.0,
+   "cold_usd": 8.737,
+   "span_s": 0.1
+  },
+  "rewrite": {
+   "model": "claude-opus-5-5",
+   "calls": 28,
+   "hits": 28,
+   "live_usd": 0.0,
+   "cold_usd": 3.707,
+   "span_s": 0.0
+  },
+  "keep": {
+   "model": "codex:gpt-6-luna",
+   "calls": 15,
+   "hits": 0,
+   "live_usd": 0.0,
+   "cold_usd": 0.0,
+   "span_s": 16.3
+  },
+  "sections": {
+   "model": "claude-opus-5-5",
+   "calls": 30,
+   "hits": 30,
+   "live_usd": 0.0,
+   "cold_usd": 0.0,
+   "span_s": 0.0
+  },
+  "merge": {
+   "model": "claude-opus-5-5",
+   "calls": 1,
+   "hits": 0,
+   "live_usd": 0.031,
+   "cold_usd": 0.031,
+   "span_s": 6.0
+  }
+ }
+}

@@ -3,7 +3,9 @@ subscription, with a disk cache so reruns cost nothing.
 
 Used by the model judge and by `llm` under BRAIN_LLM=claude-cli. The API key is removed from
 the child's environment so calls never bill the API. Claude Code's own system prompt, tools,
-settings and MCP servers are switched off, so a call carries only the prompt.
+settings and MCP servers are switched off, so a call carries only the prompt. Prompt caching is off
+too: each call is a fresh process with its own prompt, so Claude Code's one-hour cache writes
+(twice the input price) would never be read.
 """
 
 from __future__ import annotations
@@ -46,6 +48,7 @@ def complete_json(
         result: dict[str, Any] = json.loads(cached.read_text())
         return result
     env = {k: v for k, v in os.environ.items() if k != "ANTHROPIC_API_KEY"}
+    env["DISABLE_PROMPT_CACHING"] = "1"
     cmd = [
         "claude", "-p", prompt,
         "--model", model,

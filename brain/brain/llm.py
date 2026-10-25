@@ -8,7 +8,7 @@ Providers (env BRAIN_LLM, default none; a key alone never enables a paid provide
     BRAIN_OPENAI_BULK (defaults gpt-5.5 / gpt-5.4-mini).
   * claude-cli: `claude -p` on the logged-in Claude subscription (no API key); models from
     BRAIN_CLAUDE_CLI_STRONG / BRAIN_CLAUDE_CLI_BULK (defaults claude-opus-5-5 /
-    claude-sonnet-5-5), at most BRAIN_CLAUDE_CLI_WORKERS (default 5) processes at once. Text only.
+    claude-sonnet-5-5), at most BRAIN_CLAUDE_CLI_WORKERS (default 10) processes at once. Text only.
   * local: any OpenAI-compatible server (Ollama, LM Studio, mlx_lm.server) at BRAIN_LOCAL_URL,
     model BRAIN_LOCAL_MODEL. This is the "runs on the engineer's laptop" mode.
   * none: no model; callers fall back to their deterministic path.
@@ -124,7 +124,7 @@ def _load_dotenv(path: Path = PROJECT / ".env") -> None:
 
 _load_dotenv()
 
-CLI_WORKERS = int(os.environ.get("BRAIN_CLAUDE_CLI_WORKERS", "5"))
+CLI_WORKERS = int(os.environ.get("BRAIN_CLAUDE_CLI_WORKERS", "10"))
 # Each claude-cli call is a process; this caps them across every thread pool in the process.
 _CLI_SLOTS = threading.BoundedSemaphore(CLI_WORKERS)
 
