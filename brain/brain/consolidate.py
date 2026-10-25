@@ -129,12 +129,14 @@ def _collapse_shared_quotes(drafts: Sequence[Draft]) -> list[Draft]:
 
 
 def _drop_exact_duplicates(drafts: Sequence[Draft]) -> list[Draft]:
-    seen: set[str] = set()
+    """Identical text under two paragraphs states two obligations, so only same-paragraph copies go."""
+    seen: set[tuple[str, str]] = set()
     out: list[Draft] = []
     for draft in drafts:
-        if draft.text in seen:
+        key = (draft.paragraph.id, draft.text)
+        if key in seen:
             continue
-        seen.add(draft.text)
+        seen.add(key)
         out.append(draft)
     return out
 

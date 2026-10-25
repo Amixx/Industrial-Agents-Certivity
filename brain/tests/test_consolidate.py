@@ -52,7 +52,7 @@ def test_split_keeps_rows_and_rules_run_in_order(monkeypatch: pytest.MonkeyPatch
         lambda *args, **kwargs: {"paragraphs": [{"key": "UN R42|5.1", "decision": "SPLIT"}]},
     )
     out = consolidate.apply(drafts, graph)
-    assert [d.text for d in out] == [quote]
+    assert [(d.paragraph.id, d.text) for d in out] == [(paragraph.id, quote), (other.id, quote)]
     assert out[0].text == out[0].quote
 
 
