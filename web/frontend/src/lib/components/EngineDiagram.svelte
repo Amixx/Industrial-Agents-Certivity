@@ -1,15 +1,179 @@
 <script lang="ts">
 // The engine's data flow, one step at a time: the stages of brain/pipeline.py on a model lane
-// and a code lane, with one real paragraph (UN R42 6.1.1, front bumper run) traced through each.
-// Counts and texts come from out/heldout-api.json and its log.
+// and a code lane, with a real paragraph traced through each. Every loop traces the next of
+// seven paragraphs from the front bumper run, one per selected regulation; counts, scores and rows come from
+// out/heldout-api.json and its log, paragraph texts from the parsed corpus.
+import StepControls from './StepControls.svelte';
+import StepDetail from './StepDetail.svelte';
+import { type Detail, type Row, Stepper } from './stepper.svelte.ts';
 
-type Row = { label: string; body: string | string[]; mono?: boolean };
-type Step = {
-	name: string;
-	who: string;
-	file: string;
-	desc: string;
-	trace: Row[];
+type Example = {
+	reg: string;
+	title: string;
+	prob: string;
+	version: string;
+	page: number;
+	label: string;
+	text: string;
+	parent: { label: string; text: string };
+	// What the paragraph or its parent points to, from the reference graph.
+	cites?: string;
+	score: string;
+	numbers: string;
+	rows: { id: string; text: string }[];
+};
+
+const SELECTED = ['UN R10', 'UN R26', 'UN R42', 'UN R48', 'UN R127', 'UN R148', 'UN GTR 9'];
+
+// Ordered so consecutive rounds switch regulation and topic: impact, lighting, EMC.
+const examples: Example[] = [
+	{
+		reg: 'UN R26',
+		title: 'External projections of passenger cars',
+		prob: '0.85',
+		version: '4.0.0',
+		page: 6,
+		label: '6.5.2',
+		text: 'If the line of the bumper which corresponds to the outline contour of the car vertical projection is on a rigid surface, that surface shall have a minimum radius of curvature of 5 mm at all its points lying from the contour line to 20 mm inward, and a minimum radius of curvature of 2.5 mm in all other cases. This provision applies to that part of the zone lying from the contour line to 20 mm inward which is situated between and in front (or rear in case of the rear bumper) of tangential points with the contour line of two vertical planes each forming with the longitudinal plane of symmetry of the vehicle an angle of 15° (see Fig. 1).',
+		parent: { label: '6.5', text: 'Bumpers' },
+		score: '0.84',
+		numbers: '5 mm, 20 mm and 2.5 mm, all in the source paragraph',
+		rows: [
+			{
+				id: 'R-0111',
+				text: 'If the line of the bumper which corresponds to the outline contour of the car vertical projection is on a rigid surface, that surface shall have a minimum radius of curvature of 5 mm at all its points lying from the contour line to 20 mm inward',
+			},
+			{ id: 'R-0112', text: 'and a minimum radius of curvature of 2.5 mm in all other cases.' },
+		],
+	},
+	{
+		reg: 'UN R48',
+		title: 'Installation of lighting and light-signalling devices',
+		prob: '0.85',
+		version: '9.3.0',
+		page: 42,
+		label: '6.5.4.2.2',
+		text: 'The height of the direction-indicator lamps of categories 1, 1a, 1b, 2a and 2b, measured in accordance with paragraph 5.8., shall not be less than 350 mm and not more than 1,500 mm.',
+		parent: { label: '6.5.4.2', text: 'In height: above the ground.' },
+		cites: 'Paragraph 5.8, how lamp heights are measured',
+		score: '0.47',
+		numbers: '350 mm and 1,500 mm, both in the source paragraph',
+		rows: [
+			{
+				id: 'R-0221',
+				text: 'The height of the direction-indicator lamps of categories 1, 1a, 1b, 2a and 2b, measured in accordance with paragraph 5.8., shall not be less than 350 mm and not more than 1,500 mm.',
+			},
+		],
+	},
+	{
+		reg: 'UN GTR 9',
+		title: 'Pedestrian safety',
+		prob: '0.50',
+		version: '0.3.0',
+		page: 85,
+		label: '5.1.2',
+		text: 'When tested in accordance with paragraph 7.1.2. (upper legform to bumper), the instantaneous sum of the impact forces with respect to time shall not exceed 7.5 kN and the bending moment on the test impactor shall not exceed 510 Nm.',
+		parent: { label: '5.1', text: 'Legform to bumper:' },
+		cites: 'Paragraph 7.1.2, the upper legform to bumper test',
+		score: '0.79',
+		numbers: '7.5 kN and 510 Nm, both in the source paragraph',
+		rows: [
+			{
+				id: 'R-0523',
+				text: 'When tested in accordance with paragraph 7.1.2. (upper legform to bumper), the instantaneous sum of the impact forces with respect to time shall not exceed 7.5 kN',
+			},
+			{ id: 'R-0524', text: 'the bending moment on the test impactor shall not exceed 510 Nm.' },
+		],
+	},
+	{
+		reg: 'UN R148',
+		title: 'Light-Signalling Devices (LSD)',
+		prob: '0.85',
+		version: '1.6.0',
+		page: 19,
+		label: '5.4.3',
+		text: 'Minimum or maximum area of apparent surface: The area of the apparent surface in the direction of the axis of reference of the daytime running lamp shall be not less than 25 cm2 and not more than 200 cm2. When a daytime running lamp is to be type approved as a lamp marked “D”, the apparent surface of such a lamp shall not be more than 100 cm2.',
+		parent: { label: '5.4', text: 'Daytime running lamps (RL)' },
+		score: '0.48',
+		numbers: '25 cm2, 200 cm2 and 100 cm2, all in the source paragraph',
+		rows: [
+			{
+				id: 'R-0413',
+				text: 'The area of the apparent surface in the direction of the axis of reference of the daytime running lamp shall be not less than 25 cm2 and not more than 200 cm2.',
+			},
+			{
+				id: 'R-0414',
+				text: 'When a daytime running lamp is to be type approved as a lamp marked “D”, the apparent surface of such a lamp shall not be more than 100 cm2.',
+			},
+		],
+	},
+	{
+		reg: 'UN R42',
+		title: 'Front and rear protective devices',
+		prob: '0.75',
+		version: '0.2.0',
+		page: 3,
+		label: '6.1.1',
+		text: 'The lighting and signalling devices shall continue to operate correctly and to remain visible. Should the adjustment of the factory-fitted lighting devices be disturbed, it may be corrected to conform to the required specifications, provided this can be done by the normal means of adjustment. Bulbs may be replaced in the event of filament failure.',
+		parent: {
+			label: '6.1',
+			text: 'After each impact test made in accordance with the conditions and procedure specified in annex 3 to this Regulation, the vehicle shall meet the following requirements:',
+		},
+		cites: 'Annex 3, through its parent: the impact test conditions and procedure',
+		score: '0.55',
+		numbers: 'None to check',
+		rows: [
+			{
+				id: 'R-0487',
+				text: 'The lighting and signalling devices shall continue to operate correctly and to remain visible.',
+			},
+			{
+				id: 'R-0488',
+				text: 'Should the adjustment of the factory-fitted lighting devices be disturbed, it may be corrected to conform to the required specifications, provided this can be done by the normal means of adjustment.',
+			},
+		],
+	},
+	{
+		reg: 'UN R10',
+		title: 'Electromagnetic compatibility',
+		prob: '0.95',
+		version: '7.2.0',
+		page: 12,
+		label: '6.8.2.2',
+		text: 'The ESA representative of its type shall be considered as complying with immunity requirements if, during the tests performed in accordance with Annex 9, there shall be no degradation of performance of "immunity related functions".',
+		parent: { label: '6.8.2', text: 'ESA immunity type approval limits' },
+		cites: 'Annex 9, the immunity test methods',
+		score: '0.63',
+		numbers: 'None to check',
+		rows: [
+			{
+				id: 'R-0029',
+				text: 'The ESA representative of its type shall be considered as complying with immunity requirements if, during the tests performed in accordance with Annex 9, there shall be no degradation of performance of "immunity related functions".',
+			},
+		],
+	},
+	{
+		reg: 'UN R127',
+		title: 'Pedestrian safety',
+		prob: '0.85',
+		version: '4.3.0',
+		page: 36,
+		label: 'Annex 5 2.7',
+		text: 'The impact velocity of the upper legform impactor when striking the bumper shall be 11.1 m/s ± 0.2 m/s.',
+		parent: { label: 'Annex 5 2', text: 'Upper legform to bumper' },
+		score: '0.41',
+		numbers: '11.1 m/s and 0.2 m/s, both in the source paragraph',
+		rows: [
+			{
+				id: 'R-0486',
+				text: 'The impact velocity of the upper legform impactor when striking the bumper shall be 11.1 m/s ± 0.2 m/s.',
+			},
+		],
+	},
+];
+
+type Step = Omit<Detail, 'trace'> & {
+	trace: (e: Example) => Row[];
 	// Node on each lane, with a tag when someone other than the usual worker does it;
 	// undefined means the lane is not used.
 	model?: string;
@@ -18,13 +182,47 @@ type Step = {
 	unit?: string;
 };
 
+// Real candidate paragraphs of the seven regulations, flicked through while Jev scores all 3,240.
+const CANDIDATES = [
+	'UN R42, page 7, Annex 3 2.3',
+	'UN R26, page 2, 2.7.4',
+	'UN R48, page 91, Annex 1 9.32',
+	'UN R10, page 22, 7.15',
+	'UN R127, page 7, 2.18',
+	'UN GTR 9, page 76, 3.36',
+	'UN R148, page 25, 5.10.6',
+	'UN R48, page 118, Annex 12 2.1',
+	'UN R10, page 10, 6.7',
+	'UN R26, page 4, 5',
+	'UN R148, page 42, Annex 4 1.2.1',
+	'UN R42, page 7, Annex 3 2.3.6',
+	'UN R127, page 44, Annex 6 2.4.1',
+	'UN GTR 9, page 74, 3.24',
+	'UN R127, page 24, Annex 1 11',
+	'UN GTR 9, page 114, 8.3.2',
+	'UN R48, page 25, 5.21',
+	'UN R10, page 96, Annex 8 3.2',
+	'UN R148, page 9, 3.3.5.1.1',
+	'UN R42, page 7, Annex 3 2.2.5',
+	'UN R26, page 5, 6.4.2',
+	'UN R127, page 12, 2.43',
+	'UN R148, page 30, Annex 1 9.1.5',
+	'UN R26, page 14, Annex 3 1.2',
+	'UN R10, page 7, 3.2.10',
+	'UN R42, page 7, Annex 3 2.2.4',
+	'UN R48, page 7, 2.7.5.3',
+	'UN GTR 9, page 92, 6.3.1.2.2',
+];
+
+const both = (e: Example, two: string, one: string) => (e.rows.length > 1 ? two : one);
+
 const steps: Step[] = [
 	{
 		name: 'Spec and exploded view',
 		who: 'Input',
 		file: 'cases/heldout-front-bumper/spec.md',
 		desc: 'A product specification in Markdown and, when there is one, the exploded-view image.',
-		trace: [
+		trace: () => [
 			{
 				label: 'spec.md',
 				body: 'Bumper (front): exterior body/trim module combining fascia, energy-management structure, and integrated sensing, lighting, and electronics.',
@@ -40,12 +238,9 @@ const steps: Step[] = [
 		code: '',
 		count: '56',
 		unit: 'regulations',
-		trace: [
-			{
-				label: 'UN R42, page 3',
-				body: '6.1.1 The lighting and signalling devices shall continue to operate correctly and to remain visible. Should the adjustment of the factory-fitted lighting devices be disturbed, it may be corrected to conform to the required specifications, provided this can be done by the normal means of adjustment. Bulbs may be replaced in the event of filament failure.',
-			},
-			{ label: 'Record', body: 'UN R42 | 0.2.0 | 6.1.1, page 3', mono: true },
+		trace: (e) => [
+			{ label: `${e.reg}, page ${e.page}`, body: `${e.label} ${e.text}` },
+			{ label: 'Record', body: `${e.reg} | ${e.version} | ${e.label}, page ${e.page}`, mono: true },
 		],
 	},
 	{
@@ -56,7 +251,7 @@ const steps: Step[] = [
 		model: '',
 		count: '55',
 		unit: 'terms',
-		trace: [
+		trace: () => [
 			{
 				label: 'Product',
 				body: 'Front bumper module: fascia, absorber, lower stiffener, integrated sensing, lighting and electronics',
@@ -74,10 +269,10 @@ const steps: Step[] = [
 		code: 'reviewer',
 		count: '7',
 		unit: 'regulations',
-		trace: [
-			{ label: 'UN R42', body: 'Front and rear protective devices' },
-			{ label: 'Verdict', body: 'Kept, probability 0.75' },
-			{ label: 'Also kept', body: 'UN R10, R26, R48, R127, R148, GTR 9' },
+		trace: (e) => [
+			{ label: e.reg, body: e.title },
+			{ label: 'Verdict', body: `Kept, probability ${e.prob}` },
+			{ label: 'Also kept', body: SELECTED.filter((r) => r !== e.reg).join(', ') },
 		],
 	},
 	{
@@ -86,12 +281,9 @@ const steps: Step[] = [
 		file: 'brain/graph.py',
 		desc: 'Regular expressions link each paragraph to its parent, to the paragraphs and annexes it cites, and to the definitions it uses. Later stages read a paragraph together with this context.',
 		code: '',
-		trace: [
-			{
-				label: 'Parent, 6.1',
-				body: 'After each impact test made in accordance with the conditions and procedure specified in annex 3 to this Regulation, the vehicle shall meet the following requirements:',
-			},
-			{ label: 'Cites', body: 'Annex 3, the impact test conditions and procedure' },
+		trace: (e) => [
+			{ label: `Parent, ${e.parent.label}`, body: e.parent.text },
+			...(e.cites ? [{ label: 'Cites', body: e.cites }] : []),
 		],
 	},
 	{
@@ -103,7 +295,8 @@ const steps: Step[] = [
 		code: '',
 		count: '3,240',
 		unit: 'scored',
-		trace: [
+		trace: () => [
+			{ label: 'Scored', body: 'All 3,240 candidate paragraphs of the 7 regulations' },
 			{
 				label: 'Five questions',
 				body: [
@@ -125,8 +318,8 @@ const steps: Step[] = [
 		code: '',
 		count: '476',
 		unit: 'paragraphs',
-		trace: [
-			{ label: 'Blended score', body: '0.55' },
+		trace: (e) => [
+			{ label: 'Blended score', body: e.score },
 			{ label: 'Result', body: 'Kept, one of 476 paragraphs' },
 		],
 	},
@@ -138,16 +331,11 @@ const steps: Step[] = [
 		model: '',
 		count: '840',
 		unit: 'drafts',
-		trace: [
-			{
-				label: 'Row 1 quotes',
-				body: 'The lighting and signalling devices shall continue to operate correctly and to remain visible.',
-			},
-			{
-				label: 'Row 2 quotes',
-				body: 'Should the adjustment of the factory-fitted lighting devices be disturbed, it may be corrected to conform to the required specifications, provided this can be done by the normal means of adjustment.',
-			},
-		],
+		trace: (e) =>
+			e.rows.map((r, i) => ({
+				label: e.rows.length > 1 ? `Row ${i + 1} quotes` : 'One row, quoting',
+				body: r.text,
+			})),
 	},
 	{
 		name: 'Verify',
@@ -157,10 +345,10 @@ const steps: Step[] = [
 		code: '',
 		count: '810',
 		unit: 'drafts',
-		trace: [
-			{ label: 'Numbers', body: 'None to check' },
-			{ label: 'Version', body: '0.2.0, the base version' },
-			{ label: 'Result', body: 'Both rows pass' },
+		trace: (e) => [
+			{ label: 'Numbers', body: e.numbers },
+			{ label: 'Version', body: `${e.version}, the base version` },
+			{ label: 'Result', body: both(e, 'Both rows pass', 'The row passes') },
 		],
 	},
 	{
@@ -172,8 +360,8 @@ const steps: Step[] = [
 		code: '',
 		count: '601',
 		unit: 'rows',
-		trace: [
-			{ label: 'Result', body: 'Both rows kept' },
+		trace: (e) => [
+			{ label: 'Result', body: both(e, 'Both rows kept', 'Kept') },
 			{ label: 'Text', body: 'Set to the exact source sentence' },
 		],
 	},
@@ -186,26 +374,30 @@ const steps: Step[] = [
 		code: '',
 		count: '550',
 		unit: 'rows',
-		trace: [{ label: '6.1.1', body: 'Two separate obligations, so two rows' }],
+		trace: (e) => [
+			{
+				label: e.label,
+				body: both(e, 'Two separate obligations, so two rows', 'One obligation, one row'),
+			},
+		],
 	},
 	{
 		name: 'Cited requirements',
 		who: 'Output',
 		file: 'requirements.json',
 		desc: 'One row per obligation. Each cites the regulation, base version, page and paragraph, and keeps its quote, so a reviewer checks it in seconds.',
-		trace: [
+		trace: (e) => [
 			{
-				label: 'R-0487',
+				label: e.rows[0].id,
 				mono: true,
-				body: `{
-  "text": "The lighting and signalling devices shall continue to operate correctly and to remain visible.",
-  "source": {
-    "regulation": "UN R42",
-    "version": "0.2.0",
-    "page": 3,
-    "paragraph": "6.1.1"
-  }
-}`,
+				body: JSON.stringify(
+					{
+						text: e.rows[0].text,
+						source: { regulation: e.reg, version: e.version, page: e.page, paragraph: e.label },
+					},
+					null,
+					2,
+				),
 			},
 		],
 	},
@@ -218,60 +410,24 @@ const phases = [
 	{ name: 'Find the paragraphs', from: 4, to: 6 },
 	{ name: 'Write and check', from: 7, to: 10 },
 ];
-// From Obligation drafts on, 6.1.1 travels as two rows.
+// From Obligation drafts on, a paragraph with two obligations travels as two rows.
 const SPLIT = 7;
 
-const last = steps.length - 1;
-const still = matchMedia('(prefers-reduced-motion: reduce)').matches;
-const PACE = 2600;
-
-let step = $state(still ? last : 0);
-let playing = $state(false);
-let started = false;
-const cur = $derived(steps[step]);
-
-const go = (i: number) => (step = Math.max(0, Math.min(last, i)));
-function pick(i: number) {
-	playing = false;
-	go(i);
-}
-function toggle() {
-	if (!playing && step === last) step = 0;
-	playing = !playing;
-}
-function key(e: KeyboardEvent) {
-	if (e.key === 'ArrowRight') pick(step + 1);
-	else if (e.key === 'ArrowLeft') pick(step - 1);
-	else return;
-	e.preventDefault();
-}
-
+const st = new Stepper(steps.length, { loop: true });
+const last = st.last;
+const step = $derived(st.step);
+const ex = $derived(examples[st.round % examples.length]);
+const cur = $derived({ ...steps[st.step], trace: steps[st.step].trace(ex) });
+const split = $derived(step >= SPLIT && ex.rows.length > 1);
+// During screening the citation flicks through other candidates, then settles on the traced one.
+const SCREEN = 5;
+let tick = $state(0);
+const scanning = $derived(step === SCREEN && !st.still);
 $effect(() => {
-	if (!playing) return;
-	const t = setInterval(() => {
-		if (step >= last) playing = false;
-		else step += 1;
-	}, PACE);
+	if (!scanning) return;
+	const t = setInterval(() => tick++, 140);
 	return () => clearInterval(t);
 });
-
-// Plays through once, the first time the diagram is mostly on screen.
-function autoplay(node: HTMLElement) {
-	if (still) return;
-	const io = new IntersectionObserver(
-		([e]) => {
-			if (!e.isIntersecting || started) return;
-			started = true;
-			playing = true;
-			io.disconnect();
-		},
-		{ threshold: 0.5 },
-	);
-	io.observe(node);
-	return { destroy: () => io.disconnect() };
-}
-
-const pad = (n: number) => String(n).padStart(2, '0');
 </script>
 
 <!-- Arrow keys step through the stages once any control inside has focus. -->
@@ -279,22 +435,13 @@ const pad = (n: number) => String(n).padStart(2, '0');
 <figure
 	class="engine"
 	aria-label="Engine diagram, arrow keys step through the stages"
-	onkeydown={key}
-	use:autoplay
+	onkeydown={st.key}
+	use:st.autoplay
 >
-	<div class="flex flex-wrap items-center gap-2">
-		<button type="button" class="ui-btn ui-btn-primary w-20 justify-center" onclick={toggle}>
-			{playing ? 'Pause' : step === last ? 'Replay' : 'Play'}
-		</button>
-		<button type="button" class="ui-btn" onclick={() => pick(step - 1)} disabled={step === 0}>
-			Previous
-		</button>
-		<button type="button" class="ui-btn" onclick={() => pick(step + 1)} disabled={step === last}>
-			Next
-		</button>
-		<span class="ui-label ml-3 tabular-nums">{pad(step + 1)} / {pad(steps.length)}</span>
-		<span class="ui-label ml-auto hidden sm:block">Front bumper run</span>
-	</div>
+	<StepControls
+		{st}
+		caption="Front bumper run, paragraph {(st.round % examples.length) + 1} of {examples.length}"
+	/>
 
 	<div class="mt-6 overflow-x-auto pb-2">
 		<div class="flex min-w-[1120px]" aria-hidden="true">
@@ -328,23 +475,25 @@ const pad = (n: number) => String(n).padStart(2, '0');
 				</span>
 				{#if step >= 1}
 					<span
-						class="cite-head ui-label"
+						class="cite-head ui-label {scanning ? 'scan' : ''}"
 						style="left: calc((100% / var(--n)) * {step + 0.5}); transform: translateX({step ===
 						last
 							? 'calc(-100% + 3rem)'
 							: '-50%'})"
 						aria-hidden="true"
 					>
-						UN R42, page 3, 6.1.1
+						{scanning
+							? CANDIDATES[tick % CANDIDATES.length]
+							: `${ex.reg}, page ${ex.page}, ${ex.label}`}
 					</span>
 				{/if}
 				<span
-					class="packet {step >= SPLIT ? 'split' : ''}"
+					class="packet {split ? 'split' : ''}"
 					style="left: calc((100% / var(--n)) * {step + 0.5} - 7px)"
 					aria-hidden="true"
 				></span>
 				<span
-					class="packet twin {step >= SPLIT ? 'split' : ''}"
+					class="packet twin {split ? 'split' : ''}"
 					style="left: calc((100% / var(--n)) * {step + 0.5} - 7px)"
 					aria-hidden="true"
 				></span>
@@ -355,7 +504,7 @@ const pad = (n: number) => String(n).padStart(2, '0');
 						class="col {phase}"
 						aria-label={s.name}
 						aria-current={i === step ? 'step' : undefined}
-						onclick={() => pick(i)}
+						onclick={() => st.pick(i)}
 					>
 						<span class="node-area">
 							{#if i > 0}
@@ -406,43 +555,11 @@ const pad = (n: number) => String(n).padStart(2, '0');
 		</div>
 	</div>
 
-	<div class="detail mt-6 grid gap-6 border-t border-line pt-6 md:grid-cols-12">
-		<div class="md:col-span-5">
-			<span class="ui-label">{pad(step + 1)}, {cur.who}</span>
-			<h3 class="ui-display mt-2 text-[2rem]">{cur.name}</h3>
-			<p class="mt-3 max-w-[52ch] leading-relaxed text-muted">{cur.desc}</p>
-			<p class="ui-label mt-4 normal-case tracking-normal text-faint">{cur.file}</p>
-		</div>
-		<div class="ui-panel p-5 md:col-span-7">
-			<span class="ui-label">
-				{step === 0 ? 'The case' : 'One paragraph: UN R42 6.1.1'}
-			</span>
-			{#key step}
-				<dl class="trace mt-3 space-y-3">
-					{#each cur.trace as r}
-						<div>
-							<dt class="ui-label text-faint">{r.label}</dt>
-							<dd class="mt-1 leading-relaxed">
-								{#if Array.isArray(r.body)}
-									<ol class="list-decimal space-y-1 pl-5">
-										{#each r.body as q}
-											<li>{q}</li>
-										{/each}
-									</ol>
-								{:else if r.mono}
-									<pre
-										class="overflow-x-auto font-mono text-[13px] whitespace-pre-wrap"
-									>{r.body}</pre>
-								{:else}
-									{r.body}
-								{/if}
-							</dd>
-						</div>
-					{/each}
-				</dl>
-			{/key}
-		</div>
-	</div>
+	<StepDetail
+		{step}
+		{cur}
+		title={step === 0 ? 'The case' : `One paragraph: ${ex.reg} ${ex.label}`}
+	/>
 </figure>
 
 <style>
@@ -556,6 +673,9 @@ const pad = (n: number) => String(n).padStart(2, '0');
 	color: var(--color-accent);
 	pointer-events: none;
 	transition: left 700ms cubic-bezier(0.65, 0, 0.35, 1);
+}
+.cite-head.scan {
+	color: var(--color-faint);
 }
 /* The spine: the path a paragraph takes, lit up to the current stage. */
 .seg {
@@ -707,15 +827,6 @@ const pad = (n: number) => String(n).padStart(2, '0');
 	opacity: 1;
 	transform: translateY(10px);
 }
-.trace {
-	animation: trace-in 350ms cubic-bezier(0.2, 0.7, 0.2, 1);
-}
-@keyframes trace-in {
-	from {
-		opacity: 0;
-		transform: translateY(0.5rem);
-	}
-}
 
 @media (prefers-reduced-motion: reduce) {
 	.seg,
@@ -731,9 +842,6 @@ const pad = (n: number) => String(n).padStart(2, '0');
 	.cite-tick,
 	.cite-head {
 		transition: none;
-	}
-	.trace {
-		animation: none;
 	}
 }
 </style>

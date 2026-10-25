@@ -1,6 +1,7 @@
 <script lang="ts">
 import { cubicOut } from 'svelte/easing';
 import { Tween } from 'svelte/motion';
+import ChangeDiagram from '#lib/components/ChangeDiagram.svelte';
 import EngineDiagram from '#lib/components/EngineDiagram.svelte';
 
 // Who does the work in each stage, one column each in the table.
@@ -15,7 +16,7 @@ const stages: { name: string; desc: string; by: Part[] }[] = [
 	},
 	{
 		name: 'Regulation pick',
-		desc: 'The obligation base ranks the 36 UN regulations by scope. The model keeps the ones that apply, each with a probability.',
+		desc: 'The obligation base ranks the 56 UN regulations by scope. The model keeps the ones that apply, each with a probability.',
 		by: ['Language model', 'Obligation base'],
 	},
 	{
@@ -133,13 +134,32 @@ const path = front.map((r, i) => `${i ? 'L' : 'M'}${x(r.cost)} ${y(r.f2)}`).join
 		</div>
 		<div class="col-span-12 lg:col-span-9">
 			<p class="max-w-[60ch] leading-relaxed text-muted">
-				Follow one real paragraph of UN R42 from its PDF page to a cited requirement, on the front
-				bumper case. Models make the judgement calls; code owns the checks, the cuts and the
-				citation, which no model ever touches. Press play, pick a stage, or use the arrow keys.
+				Follow a real paragraph of the front bumper case from its PDF page to a cited requirement;
+				each round traces one from another regulation. Models make the judgement calls; code owns
+				the checks, the cuts and the citation, which no model ever touches. Press play, pick a
+				stage, or use the arrow keys.
 			</p>
 		</div>
-		<div class="col-span-12 mt-8">
+		<div class="col-span-12 mt-8 min-w-0">
 			<EngineDiagram />
+		</div>
+	</section>
+
+	<section class="reveal ui-grid ui-section mt-12" use:reveal>
+		<div class="col-span-12 lg:col-span-3">
+			<span class="ui-label text-[13px]">Sub-goal</span>
+			<h2 class="ui-display mt-3 text-[2.25rem]">When a regulation <i>changes</i></h2>
+		</div>
+		<div class="col-span-12 lg:col-span-9">
+			<p class="max-w-[60ch] leading-relaxed text-muted">
+				Regulations get amended. Given the requirements written against one version and a later
+				version, sudo finds which requirements must change, and why. No model is involved: the two
+				texts are aligned sentence by sentence. The example is the challenge's worked pair, UN R175
+				from version 0.1.0 to 1.0.0.
+			</p>
+		</div>
+		<div class="col-span-12 mt-8 min-w-0">
+			<ChangeDiagram />
 		</div>
 	</section>
 
@@ -238,7 +258,7 @@ const path = front.map((r, i) => `${i ? 'L' : 'M'}${x(r.cost)} ${y(r.f2)}`).join
 				</div>
 				<div>
 					<dt class="ui-label">Obligation base</dt>
-					<dd class="mt-1">Scope cards for the 36 regulations, in SQLite.</dd>
+					<dd class="mt-1">Scope cards for the 56 regulations, in SQLite.</dd>
 				</div>
 				<div>
 					<dt class="ui-label">Rules</dt>
