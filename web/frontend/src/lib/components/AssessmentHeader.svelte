@@ -11,6 +11,7 @@ const tabs = $derived([
 	{ href: `/a/${assessment.id}`, label: 'Requirements' },
 	{ href: `/a/${assessment.id}/graph`, label: 'Graph' },
 	{ href: `/a/${assessment.id}/exploded`, label: 'Exploded view' },
+	{ href: `/a/${assessment.id}/report`, label: 'Report' },
 ]);
 </script>
 
@@ -51,5 +52,4 @@ const tabs = $derived([
 			{tab.label}
 		</a>
 	{/each}
-	<a href="/report/{assessment.id}" class="ml-auto text-xs hover:underline">Printable report</a>
 </nav>
