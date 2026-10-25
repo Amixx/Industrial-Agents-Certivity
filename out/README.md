@@ -51,6 +51,7 @@ that produced the file; branch code is not on `main` unless it says so.
 | 25 Oct 02:35 | `rear-lamp-consolidate.json` | The 0.724 file consolidated: Opus labels each list paragraph MERGE (items are cases or conditions of one obligation) or SPLIT, and a MERGE paragraph becomes one verbatim row; rows sharing a quote collapse to one; exact duplicates dropped. 19 paragraphs change, 53 rows → 23; on the 14 of them gold cites, 43 rows → 18 against 18 gold rows. Checkpoint `checkpoint/0783-consolidate` | `bench-out/thesis/merge_llm.py` + inline collapse (in the checkpoint's `repro/consolidate/`) | 287 | | (25 Oct 02:52 CET) **164 / 0.783**; re-uploaded unchanged (25 Oct 03:02 CET) **166 / 0.793** | subscription |
 | 25 Oct 03:10 | `rear-lamp-v2-merge.json` | `rear-lamp-consolidate.json` with every paragraph of 2+ rows judged by Opus: ONE (a single obligation with cases, conditions or details) becomes one verbatim row of the whole paragraph, SEVERAL stays. 24 paragraphs merged, 287 rows → 256; paragraphs over 2,000 characters stay split (the platform's text limit; the first build was rejected) | `bench-out/v2/build.py merge` | 256 | | (25 Oct 03:24 CET) 160 / 0.787 | subscription |
 | 25 Oct 03:14 | `rear-lamp-rehearsal-ready-consolidate.json` | Rehearsal of the bumper runbook on dev: `ready-for-main` with Jev, Opus on both tiers via `claude -p`, section cut 0.15, verbatim, and the consolidation stage on (`BRAIN_CONSOLIDATE=1`). 8 minutes. 179 rows on paragraphs gold doesn't cite (consolidate: 101), reach 175 (181) | `ready-for-main` @ `f63cd34`, `out/scripts/claude_cli_run.py` | 364 | | (25 Oct 03:26 CET) 154 / 0.685 | subscription |
+| 25 Oct 03:40 | `rear-lamp-kb-lin15-consolidate.json` | The kb lineage (the 0.724 file's chain: Jev relative 0.20, no requirement filter) with the section cut `p_keep * p_section >= 0.15` instead of `p_keep * sqrt(p_section) >= 0.3535`, then verbatim, list merge and consolidation. The cut that does best on the bumper silver labels (plain 0.789, sensors-fog 0.743 paragraph F2; the strict cut 0.651, 0.657; ready-for-main 0.714, 0.622). Checkpoint `checkpoint/0771-kb-lin15` | `checkpoint/0771-kb-lin15` `repro/kb-lin15/` | 336 | | (25 Oct 03:47 CET) **169 / 0.771** | subscription |
 | 25 Oct 01:22 | `rear-lamp-kb-sentence-pick-cut.json` | The 194 paragraphs of `rear-lamp-kb-section-cut2-mark.json` rewritten by Opus with one requirement per obligation sentence (minimal edit, no extra splits), text replaced by the quoted sentence, then Opus p_keep per row, the section cut and the three rules | `out/scripts/sentence_rewrite.py`, `out/scripts/pkeep_saved.py`, `out/scripts/section_stage.py` | 285 | | (25 Oct 01:25) 142 / 0.679 | not logged (two Opus passes, subscription) |
 | 25 Oct 01:26 | `rear-lamp-sunday-pipeline-verbatim.json` | The Sunday pipeline end to end on dev: `ready-for-main` with Jev (test conditions count as technical, refit on dev), Opus on both tiers via `claude -p`, the rewrite prompt of `6f5a1c1`, requirement filter 0.40, linear section cut 0.2, the three rules; then each row's text replaced by its quote (334 of 366) | `ready-for-main` @ `df982ee`, `out/scripts/claude_cli_run.py`, `out/scripts/verbatim.py --all` | 366 | | (25 Oct 01:45) 156 / 0.693 | $4.84 (reported by `claude -p`) |
 | 25 Oct 00:20 | `rear-lamp-kb-splitless-cut2-mark.json` | Recall-push setup (filter off) rewritten with one requirement per sentence, split only at lettered or numbered list items, then the section cut and the pointer, umbrella and approval-mark rules | `out/scripts/section_stage.py` | 271 | | (25 Oct 00:42) 140 / 0.679 | $0 |
@@ -117,6 +118,19 @@ that produced the file; branch code is not on `main` unless it says so.
 | 23:57 | `rear-lamp-swing-H-vote2.json` | Vote of the Opus 0.7 run, the Sonnet 0.85 run and the Haiku run, 2 of 3 | `swing/h_vote.py` | 388 | 144 / 0.627 | not uploaded | $0 |
 | 23:57 | `rear-lamp-swing-H-vote3.json` | The same three runs, 3 of 3 | `swing/h_vote.py` | 253 | 111 / 0.548 | not uploaded | $0 |
 | 23:58 | `rear-lamp-swing-L-w85-drop12.json` | Sonnet weight 0.85, drop test-procedure and installation classes | `swing/l_filter.py` | 345 | 130 / 0.588 | not uploaded | $0 |
+
+## Top candidates and their branches (25 Oct, 03:50)
+
+| Candidate | Dev platform | Bumper silver (plain, sensors-fog) | Branch |
+|---|---|---|---|
+| Best on dev: kb lineage, strict cut, consolidation | 164, 166 / 287 rows (F2 0.783, 0.793) | 0.651, 0.657 (paragraph F2 of the cut, before consolidation) | `checkpoint/0783-consolidate` |
+| Best on the bumper silver labels: kb lineage, linear cut 0.15, consolidation | 169 / 336 rows (F2 0.771) | 0.789, 0.743 | `checkpoint/0771-kb-lin15` |
+| Wider merge on top of the best on dev | 160 / 256 rows (F2 0.787) | not run | `checkpoint/0787-v2-merge` |
+| The 0.724 file (kb lineage, strict cut, no consolidation) | 156, 152 / 317 rows | 0.651, 0.657 | `backup/best-0724` |
+| ready-for-main with consolidation | 154 / 364 rows (F2 0.685) | 0.714, 0.622 | `ready-for-main` |
+
+`ready-for-main` is getting the kb lineage at the linear cut (branch `kb-into-ready`, in progress).
+
 
 Lane G's local column is paragraph precision / recall / F2 against 67 silver bumper paragraphs. Every other row is requirement matched / F2 on the rear lamp. Empty cells were not recorded when the run was made.
 
