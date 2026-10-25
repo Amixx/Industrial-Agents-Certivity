@@ -834,13 +834,10 @@ def test_inclusive_mode_adds_fused_items_every_section_and_only_obligations() ->
     ]
     links = align(old, new)
     assert added_changes(links, {"5"}, "UN R1", "2.0.0") == []
-    rows = added_changes(links, {"5", "Annex 4"}, "UN R1", "2.0.0", inclusive=True)
+    rows = added_changes(links, {"5"}, "UN R1", "2.0.0", inclusive=True)
     # A sentence without a modal verb (2.28) is not an obligation; the new item takes its lead-in.
     assert [r["source"]["paragraph"] for r in rows] == ["5.1", "Annex 4 3", "16.1"]
     assert rows[0]["new_text"] == "X shall be red provided it is warm."
-    # An annex no old requirement cites adds nothing, even in the inclusive mode.
-    rows = added_changes(links, {"5"}, "UN R1", "2.0.0", inclusive=True)
-    assert [r["source"]["paragraph"] for r in rows] == ["5.1", "16.1"]
 
 
 def test_inclusive_mode_flags_an_untouched_sentence_in_a_paragraph_amended_in_place() -> None:

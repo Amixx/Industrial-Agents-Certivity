@@ -508,9 +508,7 @@ def added_changes(
     item (part of the list's requirement), a footnote, or already in the new text of a modified
     requirement (`consumed`, indexes of new units).
 
-    `inclusive` (for recall) takes every section, but only the cited annexes (on the held-out pair
-    Annex 4, which no old requirement cites, held no gold row), instead of only the cited
-    `sections`; it counts new
+    `inclusive` (for recall) takes every section instead of only the cited `sections`, counts new
     list items inside old paragraphs (fused with their lead-in when it has a modal verb) and new
     sentences already in a modified requirement, and gives a compound obligation one row per verb
     (`split_obligation`). Only rows with a modal verb are kept: on the held-out pair the 60 rows
@@ -550,7 +548,7 @@ def added_changes(
                 )
 
     for label, spans in by_label.items():
-        in_scope = (inclusive and not label.startswith("Annex")) or top(label) in sections
+        in_scope = inclusive or top(label) in sections
         if not in_scope or all(s.index in claimed for s in spans):
             continue
         if not any(s.index in claimed and not s.text.endswith(":") for s in spans):

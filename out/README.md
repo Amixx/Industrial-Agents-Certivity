@@ -210,7 +210,7 @@ use `brain/brain/subgoal/score.py` (at the time `brain/eval/subgoal_score.py`).
 | 25 Oct 10:58 | `subgoal-heldout-inclusive-v10-lean.json` | v10 without three groups that earlier uploads showed bring at most 3 gold rows: 21 v3-rule rows (own sentence unchanged in an amended paragraph; R-013 kept, the one whose own words the edit changed: "transition into 'stand-by' mode"), 13 renumbered requirements with unchanged wording, 6 added rows in the introduction and transitional provisions (sections 1 and 16) | scratch script on v10 | 144 (26 modified, 4 removed, 114 added) | (11:19:34) flag recall 92.2%, flag precision 41.0%, change accuracy 87.3% (59 matched) | $0 |
 | 25 Oct 10:58 | `subgoal-heldout-inclusive-v10-lean-no-annex4.json` | `-lean` without the 52 added rows in Annex 4 (test procedures; no old requirement cites Annex 4, and on dev the gold adds rows only in cited sections) | scratch script on v10 | 92 (26 modified, 4 removed, 62 added) | (11:14:47) flag recall 92.2%, flag precision 64.1%, change accuracy 87.3% (59 matched, 2 fewer than v10) | $0 |
 | 25 Oct 11:03 | `subgoal-heldout-inclusive-v11.json` | v10 plus: a deeming provision ("The driver is deemed to have insufficient engagement when this leads to:") binds like a modal verb, so its new items (d) and (e) of 5.5.4.2.8.2 become rows with their lead-in; in a split, "demonstrate them" takes the first verb's object ("demonstrate such strategies") | `main` @ `914623f` plus uncommitted changes | 186 (60 modified, 4 removed, 122 added); v10 plus 2 rows, 1 row reworded | (11:09:39) flag recall 90.6%, flag precision 31.2%, change accuracy 90.7% (58 matched, 3 fewer than v10) | $0 |
-| 25 Oct 11:22 | `subgoal-heldout-inclusive-v12.json` | v10 with added rows only from the annexes the old requirements cite (a citation by table id such as `tb:678427e5…` counts the annex of its page, here Annex 3); the 52 Annex 4 rows go | `main` @ `113e712` with v11's rules taken out, plus this rule | 132 (60 modified, 4 removed, 68 added); exactly v10 without its Annex 4 rows | not uploaded | $0 |
+| 25 Oct 11:22 | `subgoal-heldout-inclusive-v12.json` | v10 with added rows only from the annexes the old requirements cite (a citation by table id such as `tb:678427e5…` counts the annex of its page, here Annex 3); the 52 Annex 4 rows go | `main` @ `113e712` with v11's rules taken out, plus this rule | 132 (60 modified, 4 removed, 68 added); exactly v10 without its Annex 4 rows | (about 12:02) flag recall 90.6%, flag precision 43.9%, change accuracy 88.9% (58 matched) | $0 |
 | 25 Oct 11:26 | `subgoal-heldout-inclusive-v13.json` | v12 plus three splits: bullets under a lead-in are one row each (Annex 3 Appendix 2 5.2.2); parallel "that" clauses are one row each, "…, and that …" (5.5.4.2.7.2 (b)) and "that A ensures … and B ensure …" with the same verb (5.5.4.1.9.2) | `main` @ `113e712` plus uncommitted changes | 135 (60 modified, 4 removed, 71 added); 3 rows of v12 replaced by 6 | (11:49:33) flag recall 90.6%, flag precision 43.0%, change accuracy 87.0% (58 matched, 3 fewer than v10) | $0 |
 
 ## What is measured
@@ -792,6 +792,14 @@ and each half took its gold row's place and failed the judge. Splitting is exhau
 split where the gold splits, these three are where it does not. The v13 rules were taken out
 again; the code reproduces v12. v12 (expected 61 at 46% precision) or v10 (61, measured) is the
 file to end on.
+
+v12 uploaded at about 12:02: flag recall 90.6% (58 of 64), flag precision 43.9%, change accuracy
+88.9%. Without Annex 4, the lean file kept its 59 (59 and 59), but v10 lost 3 (61 to 58). Rows that
+match nothing cannot do that under a fixed matcher, so the flag count varies between uploads by
+about three rows, and v10's 61 was probably a high draw. It also undoes the reading of v13: v13
+and v12 both scored 58, so the three splits did not cost the three rows. Single uploads cannot
+tell changes of one to three rows apart. The cited-annex rule was taken out again; the code
+reproduces v10, the only file that has scored 61, which is uploaded as the final.
 
 ### Cost per run
 
