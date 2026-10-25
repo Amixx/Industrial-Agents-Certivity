@@ -20,6 +20,7 @@ from pathlib import Path
 from typing import Any
 
 from brain.ingest import parse_pdf
+from brain.models import Paragraph
 from brain.paths import INDEX, TOOLS
 
 from .align import Kind, Link, Span, align, kind, units
@@ -44,6 +45,7 @@ __all__ = [
     "bare",
     "describe",
     "diff_assessment",
+    "diff_parsed",
     "fit",
     "fuse",
     "kind",
@@ -89,7 +91,20 @@ def diff_assessment(
     regulation = requirements[0]["source"]["regulation"]
     old = parse_pdf(old_pdf, regulation, version_of(old_pdf) or "old", "base")
     new = parse_pdf(new_pdf, regulation, to_version, "latest")
-    links = align(old, new)
+    return diff_parsed(old, new, align(old, new), requirements, regulation, to_version, inclusive)
+
+
+def diff_parsed(
+    old: Sequence[Paragraph],
+    new: Sequence[Paragraph],
+    links: Sequence[Link],
+    requirements: Sequence[dict[str, Any]],
+    regulation: str,
+    to_version: str,
+    inclusive: bool = False,
+) -> list[dict[str, Any]]:
+    """`diff_assessment` on versions already parsed and aligned, for callers that also need the
+    paragraphs and links, such as the web app's paragraph diff."""
     sections = cited_sections(requirements, old)
     modified = map_requirements(
         requirements,

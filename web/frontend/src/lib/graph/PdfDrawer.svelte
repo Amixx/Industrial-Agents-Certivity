@@ -1,7 +1,7 @@
 <script lang="ts">
 import { fly } from 'svelte/transition';
 import { pdfUrl } from '#lib/api/regulations.ts';
-import type { Requirement } from '#lib/api/types.ts';
+import type { Requirement, Source } from '#lib/api/types.ts';
 import SourceViewer from '#lib/components/SourceViewer.svelte';
 
 let {
@@ -9,14 +9,17 @@ let {
 	index = $bindable(),
 	onclose,
 }: {
-	/** The requirements the drawer steps through, in the order the panel lists them. */
-	list: Requirement[];
+	/** The requirements the drawer steps through, in the order the panel lists them. An entry
+	 * with `before` (a changed paragraph) gets a toggle to the other version. */
+	list: (Requirement & { before?: { source: Source; text: string } })[];
 	index: number;
 	onclose: () => void;
 } = $props();
 
 const req = $derived(list[index]);
-const url = $derived(pdfUrl(req.source));
+let showBefore = $state(false);
+const shown = $derived(showBefore && req.before ? req.before : req);
+const url = $derived(pdfUrl(shown.source));
 
 function onkeydown(e: KeyboardEvent) {
 	if (e.key === 'Escape') onclose();
@@ -36,13 +39,30 @@ function onkeydown(e: KeyboardEvent) {
 		<div class="min-w-0 flex-1">
 			<div class="flex items-baseline gap-3 font-mono text-[12px] text-muted tabular-nums">
 				<span class="font-bold text-fg">{req.id}</span>
-				<span>{req.source.regulation} {req.source.version}</span>
-				<span>p. {req.source.page}</span>
-				<span>§ {req.source.paragraph}</span>
+				<span>{shown.source.regulation} {shown.source.version}</span>
+				<span>p. {shown.source.page}</span>
+				<span>§ {shown.source.paragraph}</span>
 			</div>
-			<p class="mt-1.5 line-clamp-2 text-[14px] leading-snug">{req.text}</p>
+			<p class="mt-1.5 line-clamp-2 text-[14px] leading-snug">{shown.text}</p>
 		</div>
 		<div class="flex shrink-0 items-center gap-1">
+			{#if req.before}
+				<div class="mr-2 flex">
+					{#each [
+						[true, req.before.source.version],
+						[false, req.source.version],
+					] as const as [before, version] (version)}
+						<button
+							type="button"
+							class="ui-toggle font-mono tabular-nums {showBefore === before ? 'ui-toggle-on' : ''}"
+							aria-pressed={showBefore === before}
+							onclick={() => (showBefore = before)}
+						>
+							{version}
+						</button>
+					{/each}
+				</div>
+			{/if}
 			{#if list.length > 1}
 				<button
 					type="button"
@@ -73,12 +93,12 @@ function onkeydown(e: KeyboardEvent) {
 	{#if url}
 		<SourceViewer
 			{url}
-			page={req.source.page}
-			highlight={{ paragraph: req.source.paragraph, text: req.text }}
+			page={shown.source.page}
+			highlight={{ paragraph: shown.source.paragraph, text: shown.text }}
 			label={req.id}
 			class="min-h-0 w-full flex-1"
 		/>
 	{:else}
-		<p class="p-5 text-sm">No PDF on file for {req.source.regulation} {req.source.version}.</p>
+		<p class="p-5 text-sm">No PDF on file for {shown.source.regulation} {shown.source.version}.</p>
 	{/if}
 </aside>

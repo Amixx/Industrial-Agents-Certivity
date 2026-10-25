@@ -4,7 +4,7 @@ import { tick, untrack } from 'svelte';
 import { api } from '#lib/api/client.ts';
 import { pdfUrl } from '#lib/api/regulations.ts';
 import { downloadSubmission } from '#lib/api/submission.ts';
-import type { Assessment, RegulationUpdate } from '#lib/api/types.ts';
+import type { Assessment } from '#lib/api/types.ts';
 import AssessmentHeader from '#lib/components/AssessmentHeader.svelte';
 import Markdown from '#lib/components/Markdown.svelte';
 import SourceViewer from '#lib/components/SourceViewer.svelte';
@@ -19,7 +19,6 @@ let { params }: PageProps = $props();
 
 let assessment = $state<Assessment | null>(null);
 let loaded = $state(false);
-let updates: RegulationUpdate[] = $state([]);
 let selectedId: string | null = $state(null);
 let query = $state('');
 let regulationFilter: string | null = $state(null);
@@ -34,7 +33,6 @@ $effect(() => {
 		const wanted = untrack(() => page.url.searchParams.get('req'));
 		selectedId = a?.requirements.find((r) => r.id === wanted)?.id ?? a?.requirements[0]?.id ?? null;
 	});
-	api.checkUpdates(id).then((u) => (updates = u));
 });
 
 /** `?req=` opens that requirement, also when a cited answer links to it from this page. */
@@ -94,14 +92,6 @@ const ordered = $derived(groups.flatMap((g) => g.requirements));
 const selected = $derived(assessment?.requirements.find((r) => r.id === selectedId) ?? null);
 const selectedUrl = $derived(selected ? pdfUrl(selected.source) : null);
 
-const pending = $derived(updates.filter((u) => !u.applied));
-const affected = $derived(
-	pending.reduce(
-		(n, u) => n + u.changes.filter((c) => c.change !== 'added' || c.relevant).length,
-		0,
-	),
-);
-
 async function select(id: string) {
 	selectedId = id;
 	await tick();
@@ -128,16 +118,6 @@ function onKeydown(e: KeyboardEvent) {
 
 {#if assessment}
 	<AssessmentHeader {assessment}>
-		{#if pending.length}
-			<a href="/a/{assessment.id}/updates" class="ui-btn justify-start">
-				<span class="size-2.5 shrink-0 bg-mark"></span>
-				<span>{pending.length} regulation{pending.length === 1 ? '' : 's'} updated</span>
-				<span class="font-normal">{affected} requirements affected</span>
-			</a>
-		{:else if updates.length}
-			<span class="text-xs">Up to date</span>
-			<a href="/a/{assessment.id}/updates" class="ui-link text-xs">Update log</a>
-		{/if}
 		<button type="button" class="ui-btn" onclick={() => (specOpen = true)}>Spec</button>
 		<button
 			type="button"

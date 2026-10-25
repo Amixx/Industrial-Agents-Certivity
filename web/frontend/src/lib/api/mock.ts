@@ -1,5 +1,4 @@
 import expected from './fixtures/expected.json';
-import realUpdates from './fixtures/regulation-updates.json';
 import { http } from './http.ts';
 import { regulationIndex, regulationTitle } from './regulations.ts';
 import type {
@@ -8,9 +7,7 @@ import type {
 	PipelineEvent,
 	Profile,
 	RegulationDecision,
-	RegulationUpdate,
 	Requirement,
-	RequirementChange,
 } from './types.ts';
 
 const fixtureRequirements: Requirement[] = expected.requirements;
@@ -164,131 +161,6 @@ const paragraphCounts: Record<string, number> = {
 	'UN R10': 28,
 };
 
-function appliedKey(id: string) {
-	return `sudo.applied.${id}`;
-}
-
-function appliedFor(id: string): string[] {
-	try {
-		return JSON.parse(localStorage.getItem(appliedKey(id)) ?? '[]');
-	} catch {
-		return [];
-	}
-}
-
-function markApplied(id: string, regulation: string) {
-	try {
-		localStorage.setItem(appliedKey(id), JSON.stringify([...appliedFor(id), regulation]));
-	} catch {
-		/* storage unavailable */
-	}
-}
-
-const lightingTerms = [
-	'lamp',
-	'light',
-	'signalling',
-	'reflect',
-	'lens',
-	'LED',
-	'colour',
-	'intensity',
-	'stop',
-	'position',
-	'reversing',
-];
-
-const otherProductTerms = [
-	'automated driving',
-	'ADS',
-	'driving task',
-	'headlamp',
-	'main-beam',
-	'main beam',
-	'dipped',
-	'passing beam',
-	'direction indicator',
-	'direction-indicator',
-	'fog',
-	'cornering',
-	'adaptive',
-	'projector',
-	'projection',
-	'daytime running',
-	'ambient',
-	'battery',
-	'seat',
-];
-
-const termRegex = (term: string) =>
-	new RegExp(
-		`(?<![A-Za-z])${term.replace(/[-\s]/g, '[-\\s]')}`,
-		term === term.toUpperCase() ? '' : 'i',
-	);
-
-function matchedTerms(text: string, terms: string[]) {
-	return terms.filter((t) => termRegex(t).test(text));
-}
-
-function profileTerms(profile: Profile) {
-	const words = [...profile.parts, ...profile.functions]
-		.flatMap((s) => s.toLowerCase().match(/[a-z]{4,}/g) ?? [])
-		.filter(
-			(w) =>
-				![
-					'with',
-					'that',
-					'this',
-					'from',
-					'light',
-					'lamp',
-					'indication',
-					'presence',
-					'visibility',
-				].includes(w),
-		);
-	return [...new Set(words)];
-}
-
-function relevance(
-	text: string,
-	profile: Profile,
-): Pick<RequirementChange, 'relevant' | 'relevanceNote'> {
-	const other = matchedTerms(text, otherProductTerms);
-	if (other.length)
-		return {
-			relevant: false,
-			relevanceNote: `Concerns another kind of device or system (${other.join(', ')}), not this product's functions.`,
-		};
-	const hits = matchedTerms(text, [...lightingTerms, ...profileTerms(profile)]);
-	return hits.length
-		? {
-				relevant: true,
-				relevanceNote: `Matches this product's lighting vocabulary: ${hits.join(', ')}.`,
-			}
-		: { relevant: false, relevanceNote: 'No lighting or product-specific terms.' };
-}
-
-const updateDefs = realUpdates as unknown as RegulationUpdate[];
-
-function updatesFor(assessment: Assessment): RegulationUpdate[] {
-	const applied = appliedFor(assessment.id);
-	const original = new Map(assessment.requirements.map((r) => [r.id, r]));
-	return updateDefs
-		.filter((def) =>
-			assessment.regulations.some((d) => d.included && d.regulation === def.regulation),
-		)
-		.map((def) => ({
-			...def,
-			applied: applied.includes(def.regulation),
-			changes: def.changes.map((c) => ({
-				...c,
-				oldText: c.oldText ?? (c.requirementId ? original.get(c.requirementId)?.text : undefined),
-				...(c.change === 'added' ? relevance(c.newText ?? '', assessment.profile) : {}),
-			})),
-		}));
-}
-
 function readDataUrl(blob: Blob): Promise<string> {
 	return new Promise((resolve, reject) => {
 		const reader = new FileReader();
@@ -396,54 +268,12 @@ export const mock: ApiClient = {
 		return load().find((a) => a.id === id) ?? null;
 	},
 
-	async checkUpdates(id) {
-		await sleep(300);
-		const assessment = await this.getAssessment(id);
-		return assessment ? updatesFor(assessment) : [];
-	},
-
-	async applyUpdate(id, regulation) {
-		const assessment = await this.getAssessment(id);
-		if (!assessment) throw new Error(`Assessment ${id} not found`);
-		const def = updatesFor(assessment).find((d) => d.regulation === regulation);
-		if (!def) throw new Error(`No update for ${regulation}`);
-		if (def.applied) return assessment;
-
-		let requirements = assessment.requirements.map((r) =>
-			r.source.regulation === regulation
-				? { ...r, source: { ...r.source, version: def.toVersion } }
-				: r,
-		);
-		def.changes.forEach((c, i) => {
-			if (c.change === 'removed')
-				requirements = requirements.filter((r) => r.id !== c.requirementId);
-			if (c.change === 'modified')
-				requirements = requirements.map((r) =>
-					r.id === c.requirementId
-						? { ...r, text: c.newText ?? r.text, source: { ...r.source, ...c.source } }
-						: r,
-				);
-			if (c.change === 'added' && c.relevant)
-				requirements.push({
-					id: `U-${regulation.replace('UN ', '')}-${String(i + 1).padStart(2, '0')}`,
-					text: c.newText ?? '',
-					source: { regulation, version: def.toVersion, ...c.source },
-				});
-		});
-		const counts = (reg: string) => requirements.filter((r) => r.source.regulation === reg).length;
-		const updated: Assessment = {
-			...assessment,
-			requirements,
-			regulations: assessment.regulations.map((d) =>
-				d.regulation === regulation
-					? { ...d, version: def.toVersion, requirementCount: counts(regulation) }
-					: d,
-			),
-		};
-		save(updated);
-		markApplied(id, regulation);
-		return updated;
-	},
+	/** Regulation updates run the diff engine, which only the backend has. */
+	listUpdates: http.listUpdates,
+	createUpdate: http.createUpdate,
+	getUpdate: http.getUpdate,
+	applyUpdate: http.applyUpdate,
+	undoUpdate: http.undoUpdate,
 
 	/** The brief and answers come from the backend even here: an LLM writes them there. */
 	getBrief: http.getBrief,

@@ -34,7 +34,7 @@ fix: ## Apply ruff and biome fixes.
 	$(call step,brain ruff-format,cd $(BRAIN) && $(UV) ruff format)
 	$(call step,biome,cd $(FRONTEND) && $(BUN) run lint:fix)
 
-test: ## Brain and backend tests (some need the corpus from brain.ingest).
+test: ## Brain and backend tests (some need the corpus from brain.ingest; backend tests need brain/.venv).
 	$(call step,brain pytest,cd $(BRAIN) && $(UV) pytest -q)
 	$(call step,backend pytest,cd $(BACKEND) && $(UV) pytest -q)
 

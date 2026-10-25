@@ -1,3 +1,4 @@
+import asyncio
 import json
 import os
 import subprocess
@@ -12,7 +13,7 @@ from fastapi.staticfiles import StaticFiles
 from starlette.datastructures import UploadFile as StarletteUploadFile
 
 from . import ask, brief, coverage, pipeline, spend, store, updates, voice
-from .models import AskRequest, Assessment, BriefRequest, ReadAnswer, ReadRequest
+from .models import AskRequest, Assessment, BriefRequest, ReadAnswer, ReadRequest, UpdateRun
 from .paths import CASES, FRONTEND_BUILD, REGULATIONS
 
 
@@ -113,11 +114,19 @@ def get_assessment_image(assessment_id: str) -> FileResponse:
     return FileResponse(path)
 
 
+def _run(assessment_id: str, run_id: str) -> UpdateRun:
+    run = store.runs.get((assessment_id, run_id))
+    if not run:
+        raise HTTPException(404, "Unknown update run")
+    return run
+
+
 @app.get("/api/assessments/{assessment_id}/updates")
 def get_updates(assessment_id: str) -> JSONResponse:
+    """The assessment's cited regulations, each with the newest version in the corpus."""
     assessment = _find(assessment_id)
-    found = updates.updates_for(assessment, store.applied.get(assessment_id, []))
-    return JSONResponse([u.dump() for u in found])
+    found = updates.cited(assessment, store.runs_for(assessment_id))
+    return JSONResponse([c.dump() for c in found])
 
 
 @app.get("/api/assessments/{assessment_id}/coverage")
@@ -129,20 +138,81 @@ def get_coverage(assessment_id: str) -> JSONResponse:
     return JSONResponse(found.dump())
 
 
-@app.post("/api/assessments/{assessment_id}/updates/{regulation}")
-def apply_update(assessment_id: str, regulation: str) -> JSONResponse:
+@app.post("/api/assessments/{assessment_id}/updates")
+async def create_update(
+    assessment_id: str,
+    file: UploadFile | None = File(None),
+    regulation: str | None = Form(None),
+    to_version: str | None = Form(None),
+) -> JSONResponse:
+    """Compare a cited regulation with a newer version: an uploaded PDF, or the newest version
+    of `regulation` in the corpus. Refusals are 422 with a one-sentence `detail`."""
     assessment = _find(assessment_id)
-    done = store.applied.setdefault(assessment_id, [])
-    if regulation not in done:
-        update = next(
-            (u for u in updates.updates_for(assessment, done) if u.regulation == regulation), None
+    pdf = await file.read() if file else None
+    runs = store.runs_for(assessment_id)
+    try:
+        old, new, identified_by, digest = await asyncio.to_thread(
+            updates.resolve,
+            assessment,
+            pdf,
+            file.filename if file else None,
+            regulation,
+            to_version or None,
+            runs,
+            store.upload_dir(),
         )
-        if not update:
-            raise HTTPException(404, f"No update for {regulation}")
-        assessment = updates.apply_update(assessment, update)
-        done.append(regulation)
-        store.put(assessment)
+        file_name = (file.filename if file else None) or new.pdf.name
+        run_id = updates.run_id(old.regulation, new.version, digest)
+        stored = store.runs.get((assessment_id, run_id))
+        if stored and stored.from_version == old.version and not updates.engine_available():
+            return JSONResponse(stored.dump())
+        if not updates.engine_available():
+            raise HTTPException(503, "The diff engine is not installed on this server.")
+        run = await asyncio.to_thread(
+            updates.compare, assessment, old, new, identified_by, digest, file_name
+        )
+    except updates.Refusal as e:
+        return JSONResponse({"detail": str(e), "code": e.code, **e.extra}, status_code=422)
+    store.put_run(run)
+    return JSONResponse(run.dump())
+
+
+@app.get("/api/assessments/{assessment_id}/updates/{run_id}")
+def get_update(assessment_id: str, run_id: str) -> JSONResponse:
+    _find(assessment_id)
+    return JSONResponse(_run(assessment_id, run_id).dump())
+
+
+@app.post("/api/assessments/{assessment_id}/updates/{run_id}/apply")
+def apply_update(assessment_id: str, run_id: str) -> JSONResponse:
+    assessment = _find(assessment_id)
+    run = _run(assessment_id, run_id)
+    if not run.applied:
+        cited = next((d for d in assessment.regulations if d.regulation == run.regulation), None)
+        if not cited or cited.version != run.from_version:
+            raise HTTPException(
+                409,
+                f"This assessment cites {run.regulation} {cited.version if cited else 'no version'}"
+                f", not {run.from_version}.",
+            )
+        store.before[assessment_id, run_id] = assessment
+        assessment = updates.apply_update(assessment, run)
+        store.assessments[assessment.id] = assessment
+        store.put_run(run.model_copy(update={"applied": True}))
     return JSONResponse(assessment.dump())
+
+
+@app.post("/api/assessments/{assessment_id}/updates/{run_id}/undo")
+def undo_update(assessment_id: str, run_id: str) -> JSONResponse:
+    """Put the assessment back as it was before the run was applied."""
+    _find(assessment_id)
+    run = _run(assessment_id, run_id)
+    snapshot = store.before.pop((assessment_id, run_id), None)
+    if not run.applied or not snapshot:
+        raise HTTPException(409, "This update is not applied.")
+    store.assessments[assessment_id] = snapshot
+    store.put_run(run.model_copy(update={"applied": False}))
+    return JSONResponse(snapshot.dump())
 
 
 @app.post("/api/brief")

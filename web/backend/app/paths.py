@@ -9,5 +9,6 @@ BRIEFS = ROOT / "data" / "briefs"
 BRAIN = ROOT / "brain"
 BRAIN_PYTHON = BRAIN / ".venv" / "bin" / "python"
 BRAIN_RUNNER = Path(__file__).resolve().parents[1] / "brain_runner.py"
+SUBGOAL_RUNNER = Path(__file__).resolve().parents[1] / "subgoal_runner.py"
 FRONTEND_BUILD = ROOT / "web" / "frontend" / "build"
 DATA_DIR = Path(os.environ.get("DATA_DIR") or Path(__file__).resolve().parents[1] / ".data")
