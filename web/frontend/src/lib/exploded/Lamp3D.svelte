@@ -141,26 +141,26 @@ $effect(() => scene?.setLit(lit));
 					</div>
 					<dl class="mt-2 grid grid-cols-3 gap-x-3 border-t border-line pt-1">
 						<div class="flex flex-col-reverse">
-							<dt class="mt-1 text-[10.5px]">Regulations</dt>
+							<dt class="mt-1 text-[11.5px]">Regulations</dt>
 							<dd class="text-2xl leading-none font-light text-accent tabular-nums">
 								{hoveredCoverage.regulations.length}
 							</dd>
 						</div>
 						<div class="flex flex-col-reverse">
-							<dt class="mt-1 text-[10.5px]">Requirements</dt>
+							<dt class="mt-1 text-[11.5px]">Requirements</dt>
 							<dd class="text-2xl leading-none font-light text-accent tabular-nums">
 								{hoveredCoverage.requirements}
 							</dd>
 						</div>
 						<div class="flex flex-col-reverse">
-							<dt class="mt-1 text-[10.5px]">Paragraphs</dt>
+							<dt class="mt-1 text-[11.5px]">Paragraphs</dt>
 							<dd class="text-2xl leading-none font-light text-accent tabular-nums">
 								{hoveredCoverage.paragraphs}
 							</dd>
 						</div>
 					</dl>
 					{#if hoveredCoverage.regulations.length}
-						<ul class="mt-2 space-y-0.5 border-t border-line pt-1.5 text-[11px]">
+						<ul class="mt-2 space-y-0.5 border-t border-line pt-1.5 text-[12px]">
 							{#each hoveredCoverage.regulations as reg (reg.regulation)}
 								<li class="flex justify-between gap-2">
 									<span class="font-bold">{reg.regulation}</span>
@@ -173,11 +173,11 @@ $effect(() => scene?.setLit(lit));
 							{/each}
 						</ul>
 					{:else}
-						<p class="mt-2 border-t border-line pt-1.5 text-[11px]">
+						<p class="mt-2 border-t border-line pt-1.5 text-[12px]">
 							No regulation mentions this part.
 						</p>
 					{/if}
-					<p class="mt-2 text-[11px] text-muted">Click to open it in the graph.</p>
+					<p class="mt-2 text-[12px] text-muted">Click to open it in the graph.</p>
 				</div>
 			{/if}
 		</div>
@@ -228,7 +228,7 @@ $effect(() => scene?.setLit(lit));
 	align-items: baseline;
 	gap: 0.375rem;
 	padding: 0 0.25rem;
-	font-size: 11px;
+	font-size: 12px;
 	font-weight: 700;
 	white-space: nowrap;
 	background: var(--color-panel);

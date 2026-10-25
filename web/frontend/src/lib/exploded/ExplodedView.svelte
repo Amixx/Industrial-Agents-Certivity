@@ -170,7 +170,7 @@ const pad = (n: number) => String(n + 1).padStart(2, '0');
 				Materials are representative values from the spec. The renders are illustrative.
 			</p>
 		</div>
-		<div class="ui-grid border-b-2 border-line pb-1 text-[11px] font-bold">
+		<div class="ui-grid border-b-2 border-line pb-1 text-[12px] font-bold">
 			<span class="col-span-1">No.</span>
 			<span class="col-span-3">Part</span>
 			<span class="col-span-3">Material</span>

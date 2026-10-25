@@ -80,10 +80,10 @@ const path = front.map((r, i) => `${i ? 'L' : 'M'}${x(r.cost)} ${y(r.f2)}`).join
 
 <svelte:head><title>About | sudo</title></svelte:head>
 
-<div class="min-h-0 flex-1 overflow-auto pb-16 text-[15px]">
+<div class="min-h-0 flex-1 overflow-auto pb-16 text-[16px]">
 	<div class="ui-grid">
 		<div class="col-span-12 lg:col-span-7">
-			<span class="ui-label text-[12px]">About</span>
+			<span class="ui-label text-[13px]">About</span>
 			<h1 class="ui-display mt-3 text-[3.25rem]">Requirements from a spec, <i>cited</i></h1>
 			<p class="mt-5 max-w-[60ch] text-[18px] leading-relaxed text-muted">
 				sudo reads a product specification and its exploded view, decides which UN regulations
@@ -96,7 +96,7 @@ const path = front.map((r, i) => `${i ? 'L' : 'M'}${x(r.cost)} ${y(r.f2)}`).join
 
 	<section class="ui-grid ui-section mt-12">
 		<div class="col-span-12 lg:col-span-3">
-			<span class="ui-label text-[12px]">Architecture</span>
+			<span class="ui-label text-[13px]">Architecture</span>
 			<h2 class="ui-display mt-3 text-[2.25rem]">The engine</h2>
 		</div>
 		<div class="col-span-12 lg:col-span-9">
@@ -186,13 +186,13 @@ const path = front.map((r, i) => `${i ? 'L' : 'M'}${x(r.cost)} ${y(r.f2)}`).join
 					<line x1="218" y1={ly} x2="226" y2={ly} class="a" marker-end="url(#arr)" />
 				{/each}
 			</svg>
-			<p class="mt-3 max-w-[760px] text-[13px] text-faint">
+			<p class="mt-3 max-w-[760px] text-[14px] text-faint">
 				Opus 5.5 in our best runs. The hosted app runs Sonnet 5.5 and Haiku 5.5.
 			</p>
 			<ol class="mt-8 grid max-w-[760px] gap-x-8 gap-y-5 sm:grid-cols-2">
 				{#each stages as [name, desc], i}
 					<li class="border-t border-line pt-3">
-						<span class="ui-label text-[12px]">{String(i + 1).padStart(2, '0')}</span>
+						<span class="ui-label text-[13px]">{String(i + 1).padStart(2, '0')}</span>
 						<div class="mt-1 text-[17px] font-semibold">{name}</div>
 						<p class="mt-1 leading-relaxed text-muted">{desc}</p>
 					</li>
@@ -203,7 +203,7 @@ const path = front.map((r, i) => `${i ? 'L' : 'M'}${x(r.cost)} ${y(r.f2)}`).join
 
 	<section class="ui-grid ui-section mt-12">
 		<div class="col-span-12 lg:col-span-3">
-			<span class="ui-label text-[12px]">Experiments</span>
+			<span class="ui-label text-[13px]">Experiments</span>
 			<h2 class="ui-display mt-3 text-[2.25rem]">Cost against <i>quality</i></h2>
 			<p class="mt-4 leading-relaxed text-muted">
 				Score on the worked example (rear lamp) against the cost of one run. The line is the
@@ -245,15 +245,15 @@ const path = front.map((r, i) => `${i ? 'L' : 'M'}${x(r.cost)} ${y(r.f2)}`).join
 			</svg>
 			<dl class="mt-8 grid max-w-[760px] gap-x-8 gap-y-5 sm:grid-cols-3">
 				<div class="border-t border-line pt-3">
-					<dt class="ui-label text-[12px]">Uploads on the worked example</dt>
+					<dt class="ui-label text-[13px]">Uploads on the worked example</dt>
 					<dd class="ui-numeral mt-2 text-6xl">60+</dd>
 				</div>
 				<div class="border-t border-line pt-3">
-					<dt class="ui-label text-[12px]">Model families compared</dt>
+					<dt class="ui-label text-[13px]">Model families compared</dt>
 					<dd class="ui-numeral mt-2 text-6xl">5</dd>
 				</div>
 				<div class="border-t border-line pt-3">
-					<dt class="ui-label text-[12px]">Best worked example F2</dt>
+					<dt class="ui-label text-[13px]">Best worked example F2</dt>
 					<dd class="ui-numeral mt-2 text-6xl">79.4</dd>
 				</div>
 			</dl>
@@ -291,13 +291,13 @@ svg .node-api rect {
 }
 svg .t {
 	fill: var(--color-fg);
-	font-size: 15px;
+	font-size: 16px;
 	font-weight: 600;
 	text-anchor: middle;
 }
 svg .s {
 	fill: var(--color-muted);
-	font-size: 12.5px;
+	font-size: 13.5px;
 	text-anchor: middle;
 }
 svg .a {
@@ -315,7 +315,7 @@ svg .grid {
 svg .tick {
 	fill: var(--color-faint);
 	font-family: var(--font-mono);
-	font-size: 12px;
+	font-size: 13px;
 }
 svg .front {
 	fill: none;
@@ -332,6 +332,6 @@ svg .pt-off {
 }
 svg .pl {
 	fill: var(--color-fg);
-	font-size: 13.5px;
+	font-size: 14.5px;
 }
 </style>

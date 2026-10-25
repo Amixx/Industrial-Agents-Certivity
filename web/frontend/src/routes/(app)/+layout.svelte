@@ -39,7 +39,7 @@ const nav = [
 			{/each}
 			<button
 				type="button"
-				class="ml-3 flex h-8 cursor-pointer items-center rounded-button border border-line px-3 font-mono text-[10.5px] tracking-[0.08em] text-muted uppercase hover:border-line-strong hover:text-fg"
+				class="ml-3 flex h-8 cursor-pointer items-center rounded-button border border-line px-3 font-mono text-[11.5px] tracking-[0.08em] text-muted uppercase hover:border-line-strong hover:text-fg"
 				onclick={() => colorScheme.toggle()}
 			>
 				{colorScheme.current === 'dark' ? 'Light' : 'Dark'}

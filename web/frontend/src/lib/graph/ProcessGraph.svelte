@@ -115,11 +115,11 @@ const PAD_TOP = 8;
 					onclick={() => pick(node)}
 				>
 					{#if node.kind === 'spec'}
-						<span class="block text-[11px]">{assessment.caseName ?? 'Spec'}</span>
+						<span class="block text-[12px]">{assessment.caseName ?? 'Spec'}</span>
 						<span class="mt-1 block text-xl leading-tight font-bold">
 							{assessment.profile.productType.split(/\s+[—-]\s+/)[0]}
 						</span>
-						<span class="mt-auto block text-[11px] leading-snug">
+						<span class="mt-auto block text-[12px] leading-snug">
 							{assessment.profile.parts.length}
 							parts<br>
 							{assessment.profile.functions.length}
@@ -130,12 +130,12 @@ const PAD_TOP = 8;
 					{:else if node.kind === 'facet'}
 						{#if node.group === 'materials'}
 							<span class="truncate leading-tight font-medium">{node.label}</span>
-							<span class="truncate text-[10.5px] leading-tight text-muted">
+							<span class="truncate text-[11.5px] leading-tight text-muted">
 								{node.detail}
 							</span>
 						{:else if node.group === 'product'}
 							<span class="truncate leading-tight font-medium">{node.label}</span>
-							<span class="truncate text-[10.5px] leading-tight text-muted">
+							<span class="truncate text-[11.5px] leading-tight text-muted">
 								{node.detail}
 							</span>
 						{:else}
@@ -149,17 +149,17 @@ const PAD_TOP = 8;
 									{node.decision.requirementCount}
 								</span>
 							</span>
-							<span class="mt-1 line-clamp-2 text-[11px] leading-tight">
+							<span class="mt-1 line-clamp-2 text-[12px] leading-tight">
 								{node.decision.title}
 							</span>
 						{:else}
-							<span class="flex gap-2 truncate text-[11px] leading-none">
+							<span class="flex gap-2 truncate text-[12px] leading-none">
 								<span class="w-12 shrink-0 font-bold">{node.decision.regulation}</span>
 								<span class="truncate">{node.decision.reason}</span>
 							</span>
 						{/if}
 					{:else}
-						<span class="flex items-center justify-between gap-2 text-[11px]">
+						<span class="flex items-center justify-between gap-2 text-[12px]">
 							<span class="truncate font-medium">{node.label}</span>
 							<span class="tabular-nums">{node.requirements.length}</span>
 						</span>
@@ -222,7 +222,7 @@ const PAD_TOP = 8;
 	border-radius: 2px;
 	background: var(--color-panel);
 	padding: 6px 8px;
-	font-size: 11px;
+	font-size: 12px;
 	line-height: 1.35;
 	pointer-events: none;
 }
@@ -237,7 +237,7 @@ const PAD_TOP = 8;
 	background: var(--color-panel);
 	padding: 0 8px;
 	text-align: left;
-	font-size: 12px;
+	font-size: 13px;
 	color: var(--color-fg);
 	transition: opacity 120ms;
 	cursor: pointer;

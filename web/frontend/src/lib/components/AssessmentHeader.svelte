@@ -16,7 +16,7 @@ const tabs = $derived([
 </script>
 
 <div class="ui-grid ui-section items-end pb-4">
-	<div class="col-span-3 font-mono text-[11px] text-muted">
+	<div class="col-span-3 font-mono text-[12px] text-muted">
 		<div class="ui-label">Assessment</div>
 		<div class="tabular-nums">{formatDate(assessment.createdAt)}</div>
 		<div class="tabular-nums">#{assessment.id}</div>

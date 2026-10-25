@@ -136,7 +136,7 @@ function onDrop(e: DragEvent) {
 		>
 			<div class="flex items-baseline justify-between border-b border-line px-4 py-2.5">
 				<span class="ui-label">Product spec</span>
-				<span class="font-mono text-[11px] text-faint">{specName || 'Markdown'}</span>
+				<span class="font-mono text-[12px] text-faint">{specName || 'Markdown'}</span>
 			</div>
 			{#if pdfNote}
 				<p class="border-b border-line bg-select px-4 py-1.5 text-xs">

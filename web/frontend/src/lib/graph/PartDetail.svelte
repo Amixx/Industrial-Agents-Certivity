@@ -39,13 +39,13 @@ const regulations = $derived(coverage.regulations);
 		<ol>
 			{#each reg.requirements as r (r.id)}
 				<li class="border-t border-line py-2">
-					<div class="flex items-baseline justify-between gap-2 text-[11px]">
+					<div class="flex items-baseline justify-between gap-2 text-[12px]">
 						<span class="font-bold tabular-nums">{r.id}</span>
 						<span class="text-muted">
 							{r.source.version}, p. {r.source.page}, § {r.source.paragraph}
 						</span>
 					</div>
-					<p class="mt-1 text-[13px] leading-snug">{r.text}</p>
+					<p class="mt-1 text-[14px] leading-snug">{r.text}</p>
 				</li>
 			{/each}
 		</ol>

@@ -43,6 +43,9 @@
 }
 
 @theme static {
+	--text-xs: 0.8125rem;
+	--text-sm: 0.9375rem;
+	--text-base: 1.0625rem;
 	--font-grotesk: "Hanken Grotesk", "Helvetica Neue", Arial, sans-serif;
 	--font-display: "Instrument Serif", Georgia, serif;
 	--font-mono: "JetBrains Mono", ui-monospace, Menlo, monospace;

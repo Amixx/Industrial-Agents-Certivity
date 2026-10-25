@@ -272,7 +272,7 @@ const numPages = $derived(doc?.numPages ?? 0);
 	padding: 1px 6px;
 	background: black;
 	color: white;
-	font-size: 11px;
+	font-size: 12px;
 	font-weight: 700;
 	white-space: nowrap;
 	border-radius: 2px;
