@@ -474,5 +474,7 @@ export function bumperModel(): ProductModel {
 		minDistance: 3,
 		maxDistance: 30,
 		glow: { 'decorative-lighting': 1.6, 'side-lighting': 2.2 },
+		// The vehicle's centreline at bumper height, from behind the brackets to past the grill.
+		axis: [new THREE.Vector3(0, 0, -4.4), new THREE.Vector3(0, 0, 3.8)],
 	};
 }

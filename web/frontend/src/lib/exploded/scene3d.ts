@@ -26,6 +26,8 @@ export interface ProductModel {
 	maxDistance: number;
 	/** Emissive intensity per part when the lights are on. */
 	glow: Record<string, number>;
+	/** Ends of a dashed reference line along the explode axis, shown as the parts separate. */
+	axis?: [THREE.Vector3, THREE.Vector3];
 }
 
 export interface ExplodedScene {
@@ -115,6 +117,20 @@ export function createExplodedScene(
 		labelObjects.set(id, label);
 	}
 	scene.add(product);
+
+	const axisMaterial = new THREE.LineDashedMaterial({
+		color: 0x8a9096,
+		dashSize: 0.12,
+		gapSize: 0.08,
+		transparent: true,
+		opacity: 0,
+		depthWrite: false,
+	});
+	if (model.axis) {
+		const axis = new THREE.Line(new THREE.BufferGeometry().setFromPoints(model.axis), axisMaterial);
+		axis.computeLineDistances();
+		scene.add(axis);
+	}
 
 	const materials = new Map<string, THREE.Material[]>();
 	for (const [id, group] of parts) {
@@ -213,6 +229,7 @@ export function createExplodedScene(
 			group.position.copy(model.spread[id] ?? none).multiplyScalar(e);
 		const labelOpacity = String(Math.min(1, Math.max(0, (explode - 0.55) / 0.35)));
 		for (const label of labelObjects.values()) label.element.style.opacity = labelOpacity;
+		axisMaterial.opacity = 0.45 * e;
 		if (flight) {
 			const t = Math.min(1, (performance.now() - flight.start) / flight.ms);
 			const k = 1 - (1 - t) ** 3;
@@ -297,7 +314,7 @@ export function createExplodedScene(
 			renderer.domElement.removeEventListener('pointermove', onMove);
 			renderer.domElement.removeEventListener('pointerleave', onLeave);
 			scene.traverse((o) => {
-				if (o instanceof THREE.Mesh) {
+				if (o instanceof THREE.Mesh || o instanceof THREE.Line) {
 					o.geometry.dispose();
 					const m = o.material as THREE.MeshStandardMaterial;
 					m.map?.dispose();
