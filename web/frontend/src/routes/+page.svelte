@@ -48,6 +48,11 @@ const coverage = $derived.by(() => {
 	);
 });
 const shownCoverage = $derived(shownId ? coverage[shownId] : undefined);
+/** The first requirement cited for the part on show, quoted under the headline. */
+const citation = $derived.by(() => {
+	const reg = shownCoverage?.regulations.find((r) => r.requirements.length);
+	return reg ? { reg: reg.regulation, req: reg.requirements[0] } : null;
+});
 const tourParts = $derived(
 	rearLamp.parts.filter((p) => coverage[p.id]?.regulations.length).map((p) => p.id),
 );
@@ -55,15 +60,15 @@ const tourParts = $derived(
 const stats = $derived(
 	assessment
 		? [
+				{ value: assessment.regulations.length, label: 'Regulations checked' },
+				{ value: assessment.regulations.filter((r) => r.included).length, label: 'Apply' },
+				{ value: assessment.requirements.length, label: 'Requirements' },
 				{
-					value: assessment.regulations.filter((r) => r.included).length,
-					label: 'Regulations apply',
+					value: new Set(
+						assessment.requirements.map((r) => `${r.source.regulation} ${r.source.paragraph}`),
+					).size,
+					label: 'Source paragraphs',
 				},
-				{
-					value: assessment.regulations.filter((r) => !r.included).length,
-					label: 'Ruled out, with reasons',
-				},
-				{ value: assessment.requirements.length, label: 'Requirements cited' },
 			]
 		: [],
 );
@@ -126,7 +131,7 @@ onMount(() => {
 	// Until someone reaches for the model, step through the parts so it shows what hovering does.
 	let step = 0;
 	const tour = setInterval(() => {
-		if (!scene || !tourParts.length || hoveredId || openingId) return;
+		if (!scene || !lit || !tourParts.length || hoveredId || openingId) return;
 		if (performance.now() - lastTouch < TOUR_IDLE_MS) return;
 		const id = tourParts[step++ % tourParts.length];
 		tourPoint = scene.screenPoint(id) ?? tourPoint;
@@ -199,22 +204,41 @@ $effect(() => scene?.setInset(viewportWidth >= 1024 ? 0.4 : 0));
 		class="ui-gutter intro pointer-events-none absolute bottom-0 left-0 z-20 w-full pb-10 md:w-auto md:max-w-[40rem]"
 	>
 		<span class="ui-label">Type approval, rear lamp example</span>
-		<h1 class="ui-display mt-4 text-[3.25rem] md:text-[5.25rem]">
-			Every part,<br>
-			<i class="text-accent">traced</i>
-			to its paragraph
+		<h1 class="mt-4 text-[2.5rem] leading-[0.95] font-bold tracking-[-0.045em] md:text-[3.75rem]">
+			Point at a part.<br>
+			Read the paragraph<br>
+			it has to meet.
 		</h1>
-		<p class="mt-5 max-w-[46ch] text-sm leading-relaxed text-muted">
-			sudo reads a product spec, finds the UN Regulations that apply, explains the ones it rules out
-			and cites every requirement to its page and paragraph. Hover a part to see what it answers to.
-			Click it to open the graph.
-		</p>
+		<div class="mt-6 h-[5.5rem] border-l-2 border-mark pl-4" aria-live="polite">
+			{#if citation && shownId}
+				{#key shownId}
+					<div class="cite">
+						<div class="flex items-baseline gap-3 font-mono text-[12px] tabular-nums">
+							<span class="text-accent">{pad(shownIndex)}</span>
+							<span class="font-medium text-fg">{rearLamp.parts[shownIndex].name}</span>
+							<span class="text-muted">
+								{citation.reg}
+								§ {citation.req.source.paragraph}, p. {citation.req.source.page}
+							</span>
+						</div>
+						<p class="mt-1.5 line-clamp-3 max-w-[52ch] text-[13px] leading-snug text-muted">
+							{citation.req.text}
+						</p>
+					</div>
+				{/key}
+			{:else}
+				<p class="max-w-[46ch] text-sm leading-relaxed text-muted">
+					sudo reads a product spec, finds the UN Regulations that apply, explains the ones it rules
+					out and cites every requirement to its page and paragraph.
+				</p>
+			{/if}
+		</div>
 		{#if stats.length}
-			<dl class="mt-7 flex gap-10 border-t border-line pt-4">
+			<dl class="mt-7 flex gap-8 border-t border-line pt-4">
 				{#each stats as s (s.label)}
 					<div class="flex flex-col-reverse">
 						<dt class="ui-label mt-2">{s.label}</dt>
-						<dd class="ui-count text-6xl">{s.value}</dd>
+						<dd class="ui-count text-5xl">{s.value}</dd>
 					</div>
 				{/each}
 			</dl>
@@ -232,7 +256,7 @@ $effect(() => scene?.setInset(viewportWidth >= 1024 ? 0.4 : 0));
 	<div
 		class="ui-gutter pointer-events-none absolute right-0 bottom-0 z-20 hidden flex-col items-end gap-3 pb-10 md:flex"
 	>
-		<span class="ui-label">Hover a part, click it, drag to rotate</span>
+		<span class="ui-label">Click a part to open its graph</span>
 		<div class="pointer-events-auto flex items-center gap-4">
 			<label class="flex items-center gap-3 text-xs font-bold">
 				<span>Assembled</span>
@@ -268,6 +292,9 @@ $effect(() => scene?.setInset(viewportWidth >= 1024 ? 0.4 : 0));
 .intro > :global(:nth-child(3)) {
 	animation-delay: 240ms;
 }
+.cite {
+	animation: rise 420ms cubic-bezier(0.2, 0.7, 0.2, 1) both;
+}
 .intro > :global(:nth-child(4)) {
 	animation-delay: 1400ms;
 }
@@ -281,7 +308,8 @@ $effect(() => scene?.setInset(viewportWidth >= 1024 ? 0.4 : 0));
 	}
 }
 @media (prefers-reduced-motion: reduce) {
-	.intro > :global(*) {
+	.intro > :global(*),
+	.cite {
 		animation: none;
 	}
 }
