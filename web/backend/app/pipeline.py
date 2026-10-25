@@ -154,7 +154,11 @@ async def _run(
     and end with None. Runs to the end even when nobody reads `events` any more."""
     try:
         with tempfile.TemporaryDirectory() as tmp:
-            spec_path, image_path, out_path = (Path(tmp, n) for n in ("spec.md", "image", "out"))
+            # The brain takes the image's media type from its suffix.
+            suffix = ".png" if image and image.startswith(b"\x89PNG") else ".jpg"
+            spec_path, image_path, out_path = (
+                Path(tmp, n) for n in ("spec.md", f"image{suffix}", "out")
+            )
             spec_path.write_text(spec)
             if image:
                 image_path.write_bytes(image)
