@@ -138,11 +138,13 @@ that produced the file; branch code is not on `main` unless it says so.
 | 08:16 | `heldout-api.json` (+ `.log`) | kb config on the API, Opus for strong and bulk, reads the case image, `--include` the 7 regulations (R42, R26, R127, R10, R48, R148, GTR 9). Checkpoint `checkpoint/0655-heldout-api` | `main` @ `5aff4b6` | 550 | 32.9% / 87.0% / **65.5%** (100% / 100%), about 181 matched | $11.60 API |
 | 08:18 | `heldout-union.json` | `heldout-api.json` plus the 41 rows of the 33 paragraphs only a `claude -p` kb run selected (`heldout-kb-cli.log`; its R149 and R152 rows dropped) | `bench-out` script | 591 | 31.1% / 88.5% / 64.7% (100% / 100%), about 184 matched | subscription ($28 API-equivalent) |
 | 08:21 | `heldout-cut20-light.json` | `heldout-api.json` without its R48, R148 and R10 rows under confidence 0.20 (107 rows); R42, R26, R127 and GTR 9 untouched. On dev the bottom sixth of rows by confidence (under 0.24) cites a gold paragraph only 14% of the time. Checkpoint `checkpoint/0694-heldout-cut20-light` | `repro/heldout-cut20-light/build.py` on the checkpoint | 443 | 40.0% / 85.1% / **69.4%** (100% / 100%), about 177 matched | $0 |
-| 08:23 | `heldout-cut25-light.json` | As `heldout-cut20-light.json` with the cut at 0.25 (157 rows dropped). Currently the counted upload | `repro/heldout-cut20-light/build.py` with 0.25 | 393 | 43.3% / 81.7% / **69.4%** (100% / 100%), about 170 matched | $0 |
+| 08:23 | `heldout-cut25-light.json` | As `heldout-cut20-light.json` with the cut at 0.25 (157 rows dropped). | `repro/heldout-cut20-light/build.py` with 0.25 | 393 | 43.3% / 81.7% / **69.4%** (100% / 100%), about 170 matched | $0 |
+| 09:03 | `heldout-cut25-silver.json` | `heldout-cut25-light.json` plus one verbatim row for each of the 12 core paragraphs our bumper silver labels (`brain/data/bumper-labels/`) cite and the file lacked: R26 5.1, 5.1.1 and Annex 3; R127 Annex 3 and Annex 5 1.4; GTR 9 6.1.2, 6.2.1.1. Checkpoint `checkpoint/0703-heldout-silver` | checkpoint `repro/heldout-silver/` | 405 | 43.0% / 83.7% / **70.3%** (100% / 100%), about 174 matched | $0 |
 
 - The deterministic run missed only R42, which shows the gold has exactly 7 regulations; the `claude -p` run's own pick added R149 (headlamps) and R152 (AEBS), both wrong.
 - The 107 low-confidence lighting and EMC rows held about 4 matches (under 4%): the confidence tail is nearly dead weight on this case.
 - The 50 rows between confidence 0.20 and 0.25 held 7 matches (14%), right at break-even: the lighting cut is saturated, so further gains need recall.
+- The 12 silver rows matched at about 33% (4 of 12): the silver labels track the gold well enough to steer recall.
 - The union's extra rows matched at about 7% (3 of 41), below the F2 break-even of about F2/5 = 13%: borderline paragraphs from a second run don't pay on this case.
 
 ## Candidate branches
