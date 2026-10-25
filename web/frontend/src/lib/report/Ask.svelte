@@ -19,20 +19,25 @@ type Recognition = {
 	start(): void;
 	stop(): void;
 };
+type Place = { left: number; top: number; width: number; above: boolean; maxHeight: number };
 type RecognitionWindow = {
 	SpeechRecognition?: new () => Recognition;
 	webkitSpeechRecognition?: new () => Recognition;
 };
 
 const SELECTION_LIMIT = 6000;
+const POPUP_WIDTH = 416;
+const GUTTER = 16;
 
 const byId = $derived(new Map(requirements.map((r) => [r.id, r])));
 
 let SpeechInput = $state<(new () => Recognition) | undefined>();
 /** The floating "Ask" button, in page coordinates, while report text is selected. */
-let anchor = $state<{ x: number; y: number; text: string } | null>(null);
-/** The selected text the open panel asks about; empty while the panel is closed. */
+let anchor = $state<{ x: number; y: number; text: string; rect: DOMRect } | null>(null);
+/** The selected text the open popup asks about; empty while the popup is closed. */
 let selection = $state('');
+/** Where the popup sits, in page coordinates. Above the selection it grows upward from `top`. */
+let place = $state<Place>({ left: 0, top: 0, width: POPUP_WIDTH, above: false, maxHeight: 0 });
 let question = $state('');
 let answer = $state<AskAnswer | null>(null);
 let error = $state('');
@@ -65,11 +70,28 @@ function onSelect() {
 		return;
 	}
 	const rect = range.getBoundingClientRect();
-	anchor = { x: rect.left + rect.width / 2 + scrollX, y: rect.bottom + scrollY + 8, text };
+	anchor = { x: rect.left + rect.width / 2 + scrollX, y: rect.bottom + scrollY + 8, text, rect };
+}
+
+/** Below the selection when it sits in the upper half of the viewport, above it otherwise. */
+function placeAt(rect: DOMRect) {
+	const width = Math.min(POPUP_WIDTH, innerWidth - 2 * GUTTER);
+	const centre = rect.left + rect.width / 2;
+	const left = Math.min(Math.max(centre - width / 2, GUTTER), innerWidth - width - GUTTER);
+	const above = rect.top + rect.height / 2 > innerHeight / 2;
+	const room = above ? rect.top - GUTTER - 8 : innerHeight - rect.bottom - GUTTER - 8;
+	place = {
+		left: left + scrollX,
+		top: (above ? rect.top - 8 : rect.bottom + 8) + scrollY,
+		width,
+		above,
+		maxHeight: Math.max(room, 240),
+	};
 }
 
 function open() {
 	if (!anchor) return;
+	placeAt(anchor.rect);
 	selection = anchor.text.slice(0, SELECTION_LIMIT);
 	anchor = null;
 	window.getSelection()?.removeAllRanges();
@@ -143,7 +165,10 @@ function usd(value: number) {
 }
 </script>
 
-<svelte:document onmouseup={onSelect} onkeyup={onSelect} />
+<svelte:document
+	onmouseup={onSelect}
+	onkeyup={(e) => (e.key === 'Escape' && selection ? close() : onSelect())}
+/>
 
 {#if anchor}
 	<button
@@ -158,7 +183,12 @@ function usd(value: number) {
 {/if}
 
 {#if selection}
-	<aside class="panel" aria-label="Ask about the selection">
+	<aside
+		class="popup"
+		class:above={place.above}
+		aria-label="Ask about the selection"
+		style="left: {place.left}px; top: {place.top}px; width: {place.width}px; max-height: {place.maxHeight}px"
+	>
 		<div class="inner">
 			<div class="head">
 				<p class="label">Asking about</p>
@@ -237,28 +267,27 @@ function usd(value: number) {
 	color: white;
 	font-size: 0.8rem;
 	font-weight: 700;
-	border-radius: var(--radius-button);
+	border-radius: 3px;
 	cursor: pointer;
 }
 .float:hover {
 	background: var(--color-cv-ink-800);
 }
-.panel {
-	position: fixed;
-	right: 0;
-	bottom: 0;
-	left: 0;
+/* Corners grow with the element: 6px on the popup, 3px on its controls, 2px on cite chips. */
+.popup {
+	position: absolute;
 	z-index: 20;
-	max-height: 50vh;
 	overflow-y: auto;
 	background: white;
-	border-top: 1.5pt solid black;
+	border: 1px solid rgb(0 0 0 / 0.16);
+	border-radius: 6px;
 	font-size: 0.9rem;
 }
+.popup.above {
+	transform: translateY(-100%);
+}
 .inner {
-	max-width: 210mm;
-	margin: 0 auto;
-	padding: 1rem 16mm 1.25rem;
+	padding: 0.875rem 1.125rem 1.125rem;
 }
 .head {
 	display: flex;
@@ -279,15 +308,21 @@ blockquote {
 }
 form {
 	display: flex;
+	flex-wrap: wrap;
 	gap: 0.5rem;
 	margin-top: 0.75rem;
 }
 input {
 	flex: 1;
+	min-width: 10rem;
 	height: 2.25rem;
 	padding: 0 0.6rem;
-	border: 1px solid black;
-	border-radius: var(--radius-control);
+	border: 1px solid rgb(0 0 0 / 0.3);
+	border-radius: 3px;
+}
+input:focus {
+	border-color: black;
+	outline: none;
 }
 form button {
 	height: 2.25rem;
@@ -295,7 +330,7 @@ form button {
 	background: black;
 	color: white;
 	font-weight: 700;
-	border-radius: var(--radius-button);
+	border-radius: 3px;
 	cursor: pointer;
 }
 form button:disabled {
@@ -320,7 +355,7 @@ form button:disabled {
 	margin-left: 0.2rem;
 	padding: 0 0.2rem;
 	border: 0.5pt solid currentColor;
-	border-radius: var(--radius-control);
+	border-radius: 2px;
 	font-size: 0.7rem;
 	font-weight: 600;
 	line-height: 1.5;
@@ -350,7 +385,7 @@ form button:disabled {
 
 @media print {
 	.float,
-	.panel {
+	.popup {
 		display: none;
 	}
 }

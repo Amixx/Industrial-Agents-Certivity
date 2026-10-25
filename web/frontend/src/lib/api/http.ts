@@ -41,7 +41,7 @@ export const http: ApiClient = {
 				onEvent(event);
 			}
 		}
-		if (!id) throw new Error('Pipeline ended without an assessment id');
+		if (!id) throw new Error('The server closed the run before it finished');
 		return json<Assessment>(await fetch(`/api/assessments/${id}`));
 	},
 	async listAssessments() {

@@ -31,6 +31,8 @@ BULK_MODEL = "claude-haiku-5-5"
 # A run starts only with this much budget left, and stops spending at RUN_CAP_USD.
 RUN_RESERVE_USD = 4.0
 RUN_CAP_USD = 5.0
+# Seconds without brain output before the stream repeats its last event, so proxies keep it open.
+HEARTBEAT_S = 15
 
 # Progress for the brain's log lines, by prefix.
 STEPS: list[tuple[str, str, float]] = [
@@ -181,12 +183,14 @@ async def _run(
                     )
                 elif event := _event(line):
                     await events.put(event)
-            await proc.wait()
+            code = await proc.wait()
+            if not out_path.exists():
+                raise RuntimeError(f"brain exited with code {code} before any output")
             result = json.loads(out_path.read_text())
         cost = RunCost.model_validate(result["cost"])
         spend.record(cost.total_usd)
         if result["error"]:
-            raise RuntimeError(result["error"])
+            raise RuntimeError(f"{result['error']} (exit code {code}, ${cost.total_usd:.2f} spent)")
         assessment = _assessment(result["submission"], spec, case_name, cost)
         if image:
             store.store_image(assessment.id, image)
@@ -230,10 +234,21 @@ async def run_assessment(
         budget = min(RUN_CAP_USD, spend.remaining())
     await _running.acquire()
     mode = f"{STRONG_MODEL} and {BULK_MODEL}" if uses_llm() else "no model, deterministic"
-    yield PipelineEvent(step="profile", message=f"Reading spec ({mode})", progress=0.03)
+    last = PipelineEvent(step="profile", message=f"Reading spec ({mode})", progress=0.03)
+    yield last
     events: asyncio.Queue[PipelineEvent | None] = asyncio.Queue()
     task = asyncio.create_task(_run(spec, image, case_name, budget, events))
     _tasks.add(task)
     task.add_done_callback(_tasks.discard)
-    while (event := await events.get()) is not None:
+    clock = asyncio.get_running_loop().time
+    started = clock()
+    while True:
+        try:
+            event = await asyncio.wait_for(events.get(), HEARTBEAT_S)
+        except TimeoutError:
+            yield last.model_copy(update={"message": f"{last.message}, {clock() - started:.0f} s"})
+            continue
+        if event is None:
+            return
+        last = event
         yield event

@@ -8,7 +8,11 @@ model fails. Calls go out without server-side fallbacks, so a declined request n
 another model. Once the run's spend reaches RUN_BUDGET_USD, further calls fail.
 
 Progress goes to stderr: the brain's own log lines, plus a `[cost] calls=N usd=X` line every few
-calls. OUT receives {"submission", "error", "cost"} whether or not the run succeeds.
+calls. OUT receives {"submission", "error", "cost"} whether or not the run succeeds, and holds the
+cost so far after every call, so a killed run still leaves its spend behind.
+
+To fit a 512 MB instance, pymupdf (about 145 MB, used only to ingest regulation PDFs) is never
+loaded, and every brain call shares one API client.
 """
 
 import json
@@ -16,19 +20,40 @@ import os
 import sys
 import threading
 import traceback
+import types
 from pathlib import Path
 from typing import Any
 
-import anthropic.resources.beta.messages as beta_messages
-import anthropic.resources.messages as messages
-from brain.pipeline import run
+sys.modules["pymupdf"] = types.ModuleType("pymupdf")
+
+import anthropic  # noqa: E402
+import anthropic.resources.beta.messages as beta_messages  # noqa: E402
+import anthropic.resources.messages as messages  # noqa: E402
+from brain.pipeline import run  # noqa: E402
 
 PRICES: dict[str, list[float]] = json.loads(os.environ["RUN_PRICES"])
 BUDGET_USD = float(os.environ["RUN_BUDGET_USD"])
 COST_EVERY = 10  # calls between [cost] lines
 
+OUT = Path(sys.argv[3])
+
 _lock = threading.Lock()
 _usage: dict[str, dict[str, int]] = {}
+_client: anthropic.Anthropic | None = None
+_new_client = anthropic.Anthropic
+
+
+def _shared_client(**kw: Any) -> anthropic.Anthropic:
+    global _client
+    with _lock:
+        _client = _client or _new_client(**kw)
+        return _client
+
+
+def _write(result: dict[str, Any]) -> None:
+    tmp = OUT.with_suffix(".tmp")
+    tmp.write_text(json.dumps(result))
+    tmp.replace(OUT)
 
 
 def _cost(model: str, u: dict[str, int]) -> float:
@@ -78,6 +103,7 @@ def _guard(create: Any) -> Any:
             row["cache_write"] += u.cache_creation_input_tokens or 0
             row["cache_read"] += u.cache_read_input_tokens or 0
             calls = sum(r["calls"] for r in _usage.values())
+            _write({"submission": None, "error": "run did not finish", "cost": _summary()})
             if calls % COST_EVERY == 0:
                 print(f"[cost] calls={calls} usd={_total():.4f}", file=sys.stderr, flush=True)
         return response
@@ -87,10 +113,11 @@ def _guard(create: Any) -> Any:
 
 beta_messages.Messages.create = _guard(beta_messages.Messages.create)  # type: ignore[method-assign]
 messages.Messages.create = _guard(messages.Messages.create)  # type: ignore[method-assign]
+anthropic.Anthropic = _shared_client  # type: ignore[misc,assignment]
 
 
 def main() -> int:
-    spec, image, out = sys.argv[1:4]
+    spec, image = sys.argv[1:3]
     result: dict[str, Any] = {"submission": None, "error": None}
     try:
         result["submission"] = run(
@@ -101,7 +128,7 @@ def main() -> int:
         result["error"] = f"{type(e).__name__}: {e}"
     with _lock:
         result["cost"] = _summary()
-    Path(out).write_text(json.dumps(result))
+        _write(result)
     return 0 if result["error"] is None else 1
 
 
