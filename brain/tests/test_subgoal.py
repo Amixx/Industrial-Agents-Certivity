@@ -32,10 +32,8 @@ from brain.subgoal import (
 from brain.subgoal.changes import (
     cited_sections,
     resolve_pronoun,
-    split_bullets,
     split_clauses,
     split_obligation,
-    split_that,
 )
 from brain.subgoal.score import score
 from brain.subgoal.survey import synthetic_pairs
@@ -1059,38 +1057,3 @@ def test_a_citation_by_table_id_counts_the_section_of_its_page() -> None:
         {"id": "R-2", "text": "Y shall be blue.", "source": {"page": 9, "paragraph": "tb:ab12"}},
     ]
     assert cited_sections(reqs, old) == {"5", "Annex 3"}
-
-
-def test_bullets_under_a_lead_in_are_one_row_each() -> None:
-    assert split_bullets(
-        "The evidence shall include situations where: • The driver is cancelling a manoeuvre; "
-        "• The driver is aborting a manoeuvre."
-    ) == [
-        "The evidence shall include situations where the driver is cancelling a manoeuvre.",
-        "The evidence shall include situations where the driver is aborting a manoeuvre.",
-    ]
-    assert split_bullets("The system shall warn the driver.") == []
-
-
-def test_parallel_that_clauses_are_one_row_each() -> None:
-    assert split_that(
-        "The system shall check that the driver looks ahead, and that this does not degrade."
-    ) == [
-        "The system shall check that the driver looks ahead.",
-        "The system shall check that this does not degrade.",
-    ]
-    assert (
-        split_that(
-            "X shall show that the driver is awake by: that the eyes move, and that this lasts."
-        )[1]
-        == "X shall show that the driver is awake by: that this lasts."
-    )
-    # Two clauses with the same verb: "… that A ensures X and B ensure Y".
-    assert split_that(
-        "The manufacturer shall show that the timing ensures a response and the strategies "
-        "employed ensure the drivers notice it."
-    ) == [
-        "The manufacturer shall show that the timing ensures a response.",
-        "The manufacturer shall show that the strategies employed ensure the drivers notice it.",
-    ]
-    assert split_that("The system shall check that the lane and the road are free.") == []

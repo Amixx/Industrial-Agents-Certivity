@@ -436,40 +436,6 @@ def split_clauses(text: str) -> list[str]:
     return [text[: m.start()].rstrip(" ,") + ".", second.rstrip(" .") + "."]
 
 
-def split_bullets(text: str) -> list[str]:
-    """ "X shall include: • A; • B." gives "X shall include A." and "X shall include B."."""
-    lead, colon, rest = text.partition(":")
-    items = [i for i in re.split(r"\s*•\s*", rest) if i.strip()] if colon else []
-    if len(items) < 2 or not rest.lstrip().startswith("•") or not MODAL.search(lead):
-        return []
-    return [fuse(lead + ":", item) for item in items]
-
-
-def split_that(text: str) -> list[str]:
-    """Parallel "that" clauses: "X shall check that A, and that B." gives "X shall check that A."
-    and "X shall check that B."; so does "… that A ensures C and B ensure D" (the same verb)."""
-    m = re.search(r"\bthat\s+", text)
-    if not m or not MODAL.search(text[: m.start()]):
-        return []
-    head, body = text[: m.end()], text[m.end() :]
-    c = re.search(r",\s+and\s+that\s+", body)
-    for and_the in [] if c else re.finditer(r"\s+and\s+(?=(?:the|its|their)\s)", body):
-        # The verb of the first clause, not a word after "the" (a noun), comes back after the
-        # second clause's subject: "the strategies employed ensure".
-        first = body[: and_the.start()].split()
-        stems = {w[:5] for k, w in enumerate(first) if len(w) >= 5 and k and first[k - 1] != "the"}
-        after = body[and_the.end() :].split()[2:5]
-        if any(len(w) >= 5 and w[:5] in stems for w in after):
-            c = and_the
-            break
-    if c is None:
-        return []
-    # The second clause repeats the last "that" before it: "… the following: that A, and that B".
-    last = [t.end() for t in re.finditer(r"\bthat\s+", body[: c.start()])]
-    lead = head + body[: last[-1]] if last else head
-    return [head + body[: c.start()].rstrip(" ,") + ".", lead + body[c.end() :].rstrip(" .") + "."]
-
-
 def resolve_pronoun(text: str, previous: str) -> str:
     """ "This shall …" names what the previous sentence is about: its object when it is active
     ("… shall provide evidence of X." gives "The evidence of X shall …"), its subject when it is
@@ -566,10 +532,9 @@ def added_changes(
             if changes:
                 text = resolve_pronoun(text, changes[-1]["new_text"])
             texts = [
-                piece
+                part
                 for clause in split_clauses(text) or [text]
                 for part in split_obligation(clause, known) or [clause]
-                for piece in split_bullets(part) or split_that(part) or [part]
             ]
         for t in texts:
             if (label, t) not in seen:
