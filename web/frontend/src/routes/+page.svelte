@@ -15,6 +15,8 @@ const SHOWCASE_ID = 'f14b0208';
 /** How long the model must sit untouched before the tour picks up again. */
 const TOUR_IDLE_MS = 5000;
 const TOUR_STEP_MS = 3200;
+/** From the scene appearing to the tour's first part: the explode, then a few seconds to look. */
+const TOUR_START_MS = 4700;
 /** How long the camera takes to fly in to a clicked part before the page changes. */
 const FLIGHT_MS = 700;
 
@@ -133,16 +135,23 @@ onMount(() => {
 			[2600, true],
 		] as const)
 			timers.push(setTimeout(() => (lit = on), at));
+		timers.push(
+			setTimeout(() => {
+				showNext();
+				tour = setInterval(showNext, TOUR_STEP_MS);
+			}, TOUR_START_MS),
+		);
 	});
 	// Until someone reaches for the model, step through the parts so it shows what hovering does.
 	let step = 0;
-	const tour = setInterval(() => {
-		if (!scene || !lit || !tourParts.length || hoveredId || openingId) return;
+	let tour: ReturnType<typeof setInterval> | undefined;
+	const showNext = () => {
+		if (!scene || !tourParts.length || hoveredId || openingId) return;
 		if (performance.now() - lastTouch < TOUR_IDLE_MS) return;
 		const id = tourParts[step++ % tourParts.length];
 		tourPoint = scene.screenPoint(id) ?? tourPoint;
 		tourId = id;
-	}, TOUR_STEP_MS);
+	};
 	return () => {
 		disposed = true;
 		clearInterval(tour);
