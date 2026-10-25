@@ -1,26 +1,48 @@
 <script lang="ts">
-const stages = [
+// [name, description, diagram subtitle, served by the Anthropic API]
+const stages: [string, string, string, boolean][] = [
 	[
 		'Product profile',
-		'Reads the spec and the exploded view and lists the parts, functions and vehicle category.',
+		'Opus reads the spec and the exploded view and lists the parts, functions, vehicle category and electronics.',
+		'Reads spec and exploded view',
+		true,
 	],
 	[
 		'Regulation pick',
-		'Chooses the applicable UN regulations out of 36, with a probability for each.',
+		'The obligation base ranks the 36 UN regulations by scope; Opus picks the applicable ones, each with a probability.',
+		'Ranks 36, picks with probability',
+		true,
 	],
 	[
-		'Paragraph search',
-		'Scores every paragraph of the chosen regulations for relevance, with calibrated yes/no answers from Jev.',
+		'Paragraph screening',
+		'The Jev decision model answers calibrated yes/no questions about every paragraph of the chosen regulations and combines them into the probability that an expert cites it.',
+		'Jev scores every paragraph',
+		false,
+	],
+	[
+		'Relevance ranking',
+		'Opus scores how relevant each paragraph is to the product; blended with the Jev score, it ranks the paragraphs and the top share goes on.',
+		'Blended with Jev, top kept',
+		true,
 	],
 	[
 		'Obligation drafts',
-		'Turns each relevant paragraph into requirements that quote the regulation and cite its page.',
+		'Opus rewrites each selected paragraph into standalone EARS obligations that keep the numbers and quote the source.',
+		'EARS obligations with quotes',
+		true,
 	],
 	[
 		'Expert-likeness cut',
-		'Scores every draft for whether an expert would list it, and drops the ones that would not.',
+		'Opus scores each draft for whether an expert would list it and how central its section is; rules drop pointers and approval marks.',
+		'Keep score times section score',
+		true,
 	],
-	['Consolidation', 'Merges rows an expert writes as one, splits lists, removes duplicates.'],
+	[
+		'Consolidation',
+		'Opus decides which lists an expert writes as one requirement or several; rules drop duplicates and cap the length.',
+		'Merge or split lists',
+		true,
+	],
 ];
 
 // Worked example (rear lamp), requirement F2 on the platform, cost of one run in US dollars.
@@ -44,7 +66,7 @@ const frontier = [
 
 const W = 640,
 	H = 300,
-	L = 48,
+	L = 52,
 	R = 20,
 	T = 16,
 	B = 40;
@@ -58,12 +80,12 @@ const path = front.map((r, i) => `${i ? 'L' : 'M'}${x(r.cost)} ${y(r.f2)}`).join
 
 <svelte:head><title>About | sudo</title></svelte:head>
 
-<div class="min-h-0 flex-1 overflow-auto pb-16">
+<div class="min-h-0 flex-1 overflow-auto pb-16 text-[15px]">
 	<div class="ui-grid">
 		<div class="col-span-12 lg:col-span-7">
-			<span class="ui-label">About</span>
-			<h1 class="ui-display mt-3 text-[2.75rem]">Requirements from a spec, <i>cited</i></h1>
-			<p class="mt-5 max-w-[60ch] text-[15px] leading-relaxed text-muted">
+			<span class="ui-label text-[12px]">About</span>
+			<h1 class="ui-display mt-3 text-[3.25rem]">Requirements from a spec, <i>cited</i></h1>
+			<p class="mt-5 max-w-[60ch] text-[18px] leading-relaxed text-muted">
 				sudo reads a product specification and its exploded view, decides which UN regulations
 				apply, and writes the requirement list a homologation engineer would start from. Every
 				requirement quotes the regulation and points to its page, so a reviewer checks it in seconds
@@ -74,19 +96,20 @@ const path = front.map((r, i) => `${i ? 'L' : 'M'}${x(r.cost)} ${y(r.f2)}`).join
 
 	<section class="ui-grid ui-section mt-12">
 		<div class="col-span-12 lg:col-span-3">
-			<span class="ui-label">Architecture</span>
-			<h2 class="ui-display mt-3 text-[1.75rem]">The engine</h2>
+			<span class="ui-label text-[12px]">Architecture</span>
+			<h2 class="ui-display mt-3 text-[2.25rem]">The engine</h2>
 		</div>
 		<div class="col-span-12 lg:col-span-9">
 			<svg
-				viewBox="0 0 680 400"
+				viewBox="0 0 680 650"
 				class="w-full max-w-[760px]"
 				role="img"
 				aria-labelledby="arch-title"
 			>
 				<title id="arch-title">
-					The product spec goes into the requirement engine, which runs six stages and calls the
-					Anthropic API, TypeSafe Jev and the regulation corpus.
+					Seven stages turn the product spec into a requirement list. Opus serves every stage except
+					the screening, which the Jev decision model runs; the obligation base feeds the regulation
+					pick, and deterministic rules run in the cut and the consolidation.
 				</title>
 				<defs>
 					<marker
@@ -101,7 +124,7 @@ const path = front.map((r, i) => `${i ? 'L' : 'M'}${x(r.cost)} ${y(r.f2)}`).join
 						<path
 							d="M2 1L8 5L2 9"
 							fill="none"
-							stroke="var(--color-muted)"
+							stroke="context-stroke"
 							stroke-width="1.5"
 							stroke-linecap="round"
 							stroke-linejoin="round"
@@ -109,59 +132,68 @@ const path = front.map((r, i) => `${i ? 'L' : 'M'}${x(r.cost)} ${y(r.f2)}`).join
 					</marker>
 				</defs>
 				<g class="node-ext">
-					<rect x="260" y="10" width="160" height="50" rx="3" />
-					<text x="340" y="30" class="t">Product spec</text>
-					<text x="340" y="47" class="s">Text and drawing</text>
+					<rect x="270" y="20" width="170" height="40" rx="3" />
+					<text x="355" y="45" class="t">Product spec</text>
 				</g>
-				<line x1="340" y1="62" x2="340" y2="86" class="a" marker-end="url(#arr)" />
-				<rect x="40" y="88" width="600" height="205" rx="3" class="box" />
-				<text x="60" y="110" class="lbl">REQUIREMENT ENGINE</text>
-				{#each [
-					[70, 125],
-					[260, 125],
-					[450, 125],
-					[450, 220],
-					[260, 220],
-					[70, 220],
-				] as [bx, by], i}
+				<line x1="355" y1="62" x2="355" y2="84" class="a" marker-end="url(#arr)" />
+				{#each stages as [name, , sub, api], i}
+					{@const sy = 86 + i * 70}
 					<g class="node">
-						<rect x={bx} y={by} width="160" height="52" rx="3" />
-						<text x={bx + 80} y={by + 21} class="t">{stages[i][0]}</text>
-						<text x={bx + 80} y={by + 38} class="s">
-							{[
-								'Parts and functions',
-								'From 36 UN regulations',
-								'Relevance and Jev',
-								'Quoted and cited',
-								'Scores every row',
-								'Merge, split, dedupe',
-							][i]}
-						</text>
+						<rect x="230" y={sy} width="250" height="52" rx="3" />
+						<text x="355" y={sy + 22} class="t">{name}</text>
+						<text x="355" y={sy + 40} class="s">{sub}</text>
 					</g>
+					{#if i < stages.length - 1}
+						<line x1="355" y1={sy + 54} x2="355" y2={sy + 68} class="a" marker-end="url(#arr)" />
+					{/if}
+					{#if api}
+						<line x1="518" y1={sy + 26} x2="484" y2={sy + 26} class="api" marker-end="url(#arr)" />
+					{/if}
 				{/each}
-				<line x1="232" y1="151" x2="256" y2="151" class="a" marker-end="url(#arr)" />
-				<line x1="422" y1="151" x2="446" y2="151" class="a" marker-end="url(#arr)" />
-				<line x1="530" y1="179" x2="530" y2="216" class="a" marker-end="url(#arr)" />
-				<line x1="448" y1="246" x2="424" y2="246" class="a" marker-end="url(#arr)" />
-				<line x1="258" y1="246" x2="234" y2="246" class="a" marker-end="url(#arr)" />
-				{#each [
-					[130, 'Anthropic API', 'Opus, Sonnet, Haiku'],
-					[340, 'TypeSafe Jev', 'Calibrated yes/no'],
-					[550, 'Regulation corpus', 'Obligation base, SQLite'],
-				] as [cx, t, s]}
-					<line x1={cx} y1="293" x2={cx} y2="330" class="d" />
-					<g class="node-ext">
-						<rect x={Number(cx) - 90} y="330" width="180" height="52" rx="3" />
-						<text x={cx} y="351" class="t">{t}</text>
-						<text x={cx} y="368" class="s">{s}</text>
-					</g>
+				<line x1="355" y1="560" x2="355" y2="588" class="a" marker-end="url(#arr)" />
+				<g class="node-ext">
+					<rect x="260" y="590" width="190" height="40" rx="3" />
+					<text x="355" y="615" class="t">Requirement list</text>
+				</g>
+				<g class="node-api">
+					<rect x="520" y="86" width="140" height="472" rx="3" />
+					<text x="590" y="314" class="t">Anthropic API</text>
+					<text x="590" y="334" class="s">Opus 5.5</text>
+				</g>
+				<g class="node-ext">
+					<rect x="12" y="156" width="204" height="52" rx="3" />
+					<text x="114" y="178" class="t">Obligation base</text>
+					<text x="114" y="196" class="s">SQLite scope cards</text>
+				</g>
+				<g class="node-jev">
+					<rect x="12" y="226" width="204" height="52" rx="3" />
+					<text x="114" y="248" class="t">Decision model (Jev)</text>
+					<text x="114" y="266" class="s">TypeSafe, calibrated yes/no</text>
+				</g>
+				<g class="node-ext">
+					<rect x="12" y="436" width="204" height="122" rx="3" />
+					<text x="114" y="462" class="t">Rules</text>
+					{#each [
+						'Boilerplate filter',
+						'Verbatim quotes',
+						'Duplicate drop',
+						'2,000-character cap',
+					] as r, j}
+						<text x="114" y={484 + j * 19} class="s">{r}</text>
+					{/each}
+				</g>
+				{#each [182, 252, 462, 532] as ly}
+					<line x1="218" y1={ly} x2="226" y2={ly} class="a" marker-end="url(#arr)" />
 				{/each}
 			</svg>
+			<p class="mt-3 max-w-[760px] text-[13px] text-faint">
+				Opus 5.5 in our best runs. The hosted app runs Sonnet 5.5 and Haiku 5.5.
+			</p>
 			<ol class="mt-8 grid max-w-[760px] gap-x-8 gap-y-5 sm:grid-cols-2">
 				{#each stages as [name, desc], i}
 					<li class="border-t border-line pt-3">
-						<span class="ui-label">{String(i + 1).padStart(2, '0')}</span>
-						<div class="mt-1 text-[14px] font-semibold">{name}</div>
+						<span class="ui-label text-[12px]">{String(i + 1).padStart(2, '0')}</span>
+						<div class="mt-1 text-[17px] font-semibold">{name}</div>
 						<p class="mt-1 leading-relaxed text-muted">{desc}</p>
 					</li>
 				{/each}
@@ -171,8 +203,8 @@ const path = front.map((r, i) => `${i ? 'L' : 'M'}${x(r.cost)} ${y(r.f2)}`).join
 
 	<section class="ui-grid ui-section mt-12">
 		<div class="col-span-12 lg:col-span-3">
-			<span class="ui-label">Experiments</span>
-			<h2 class="ui-display mt-3 text-[1.75rem]">Cost against <i>quality</i></h2>
+			<span class="ui-label text-[12px]">Experiments</span>
+			<h2 class="ui-display mt-3 text-[2.25rem]">Cost against <i>quality</i></h2>
 			<p class="mt-4 leading-relaxed text-muted">
 				Score on the worked example (rear lamp) against the cost of one run. The line is the
 				frontier: no other setup we tried scores higher for less. Sonnet, Opus and Fable are one
@@ -213,16 +245,16 @@ const path = front.map((r, i) => `${i ? 'L' : 'M'}${x(r.cost)} ${y(r.f2)}`).join
 			</svg>
 			<dl class="mt-8 grid max-w-[760px] gap-x-8 gap-y-5 sm:grid-cols-3">
 				<div class="border-t border-line pt-3">
-					<dt class="ui-label">Uploads on the worked example</dt>
-					<dd class="ui-numeral mt-2">60+</dd>
+					<dt class="ui-label text-[12px]">Uploads on the worked example</dt>
+					<dd class="ui-numeral mt-2 text-6xl">60+</dd>
 				</div>
 				<div class="border-t border-line pt-3">
-					<dt class="ui-label">Model families compared</dt>
-					<dd class="ui-numeral mt-2">5</dd>
+					<dt class="ui-label text-[12px]">Model families compared</dt>
+					<dd class="ui-numeral mt-2 text-6xl">5</dd>
 				</div>
 				<div class="border-t border-line pt-3">
-					<dt class="ui-label">Best worked example F2</dt>
-					<dd class="ui-numeral mt-2">79.4</dd>
+					<dt class="ui-label text-[12px]">Best worked example F2</dt>
+					<dd class="ui-numeral mt-2 text-6xl">79.4</dd>
 				</div>
 			</dl>
 			<p class="mt-6 max-w-[60ch] leading-relaxed text-muted">
@@ -236,12 +268,6 @@ const path = front.map((r, i) => `${i ? 'L' : 'M'}${x(r.cost)} ${y(r.f2)}`).join
 </div>
 
 <style>
-svg .box {
-	fill: none;
-	stroke: var(--color-line-strong);
-	stroke-width: 1;
-	stroke-dasharray: 4 4;
-}
 svg .node rect {
 	fill: var(--color-panel);
 	stroke: var(--color-accent);
@@ -252,31 +278,35 @@ svg .node-ext rect {
 	stroke: var(--color-line-strong);
 	stroke-width: 1;
 }
+svg .node-jev rect {
+	fill: none;
+	stroke: var(--color-fg);
+	stroke-width: 1;
+}
+svg .node-api rect {
+	fill: none;
+	stroke: var(--color-accent);
+	stroke-width: 1;
+	stroke-dasharray: 4 3;
+}
 svg .t {
 	fill: var(--color-fg);
-	font-size: 13px;
+	font-size: 15px;
 	font-weight: 600;
 	text-anchor: middle;
 }
 svg .s {
 	fill: var(--color-muted);
-	font-size: 11px;
+	font-size: 12.5px;
 	text-anchor: middle;
-}
-svg .lbl {
-	fill: var(--color-muted);
-	font-family: var(--font-mono);
-	font-size: 10.5px;
-	letter-spacing: 0.08em;
 }
 svg .a {
 	stroke: var(--color-muted);
 	stroke-width: 1;
 }
-svg .d {
-	stroke: var(--color-faint);
+svg .api {
+	stroke: var(--color-accent);
 	stroke-width: 1;
-	stroke-dasharray: 3 3;
 }
 svg .grid {
 	stroke: var(--color-line);
@@ -285,7 +315,7 @@ svg .grid {
 svg .tick {
 	fill: var(--color-faint);
 	font-family: var(--font-mono);
-	font-size: 10.5px;
+	font-size: 12px;
 }
 svg .front {
 	fill: none;
@@ -302,6 +332,6 @@ svg .pt-off {
 }
 svg .pl {
 	fill: var(--color-fg);
-	font-size: 11.5px;
+	font-size: 13.5px;
 }
 </style>
