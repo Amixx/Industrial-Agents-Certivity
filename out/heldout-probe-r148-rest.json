@@ -1,0 +1,893 @@
+{
+ "team_id": "team-06",
+ "case_id": "heldout-front-bumper",
+ "requirements": [
+  {
+   "id": "R-0400",
+   "text": "The light emitted by each of the two samples supplied shall meet the requirements in Table 3. ... Minimum luminous intensity in cd (Par. 4.8.3.1. (a)) ... A, MA or AM 4∙100",
+   "source": {
+    "regulation": "UN R148",
+    "version": "1.6.0",
+    "page": 16,
+    "paragraph": "5.1.1"
+   },
+   "confidence": 0.537,
+   "quote": "The light emitted by each of the two samples supplied shall meet the requirements in Table 3. ... Minimum luminous intensity in cd (Par. 4.8.3.1. (a)) ... A, MA or AM 4∙100"
+  },
+  {
+   "id": "R-0401",
+   "text": "Maximum luminous intensity in cd when used as (Par. 4.8.3.1. (b)) A single lamp ... 1.40∙102",
+   "source": {
+    "regulation": "UN R148",
+    "version": "1.6.0",
+    "page": 16,
+    "paragraph": "5.1.1"
+   },
+   "confidence": 0.537,
+   "quote": "Maximum luminous intensity in cd when used as (Par. 4.8.3.1. (b)) A single lamp ... 1.40∙102"
+  },
+  {
+   "id": "R-0402",
+   "text": "A lamp marked \"D\" (Par. 3.3.2.5.2.) ... 7.0∙101",
+   "source": {
+    "regulation": "UN R148",
+    "version": "1.6.0",
+    "page": 16,
+    "paragraph": "5.1.1"
+   },
+   "confidence": 0.537,
+   "quote": "A lamp marked \"D\" (Par. 3.3.2.5.2.) ... 7.0∙101"
+  },
+  {
+   "id": "R-0403",
+   "text": "Standard light distribution (Par. 4.8.3.1. (c)) ... Figure A3-I",
+   "source": {
+    "regulation": "UN R148",
+    "version": "1.6.0",
+    "page": 16,
+    "paragraph": "5.1.1"
+   },
+   "confidence": 0.537,
+   "quote": "Standard light distribution (Par. 4.8.3.1. (c)) ... Figure A3-I"
+  },
+  {
+   "id": "R-0404",
+   "text": "Angles of geometric visibility (Par. 4.8.3.1. (d)) Definition Minimum luminous intensity in cd ... Table A2- 1 5∙10-2",
+   "source": {
+    "regulation": "UN R148",
+    "version": "1.6.0",
+    "page": 16,
+    "paragraph": "5.1.1"
+   },
+   "confidence": 0.537,
+   "quote": "Angles of geometric visibility (Par. 4.8.3.1. (d)) Definition Minimum luminous intensity in cd ... Table A2- 1 5∙10-2"
+  },
+  {
+   "id": "R-0405",
+   "text": "Colour: The colour of the light emitted shall be white, however the lamp identified by symbol MA may be amber.",
+   "source": {
+    "regulation": "UN R148",
+    "version": "1.6.0",
+    "page": 17,
+    "paragraph": "5.1.7"
+   },
+   "confidence": 0.53,
+   "quote": "Colour: The colour of the light emitted shall be white, however the lamp identified by symbol MA may be amber."
+  },
+  {
+   "id": "R-0407",
+   "text": "The light emitted by each of the two samples supplied shall meet the requirements in Table 5.",
+   "source": {
+    "regulation": "UN R148",
+    "version": "1.6.0",
+    "page": 18,
+    "paragraph": "5.3.1"
+   },
+   "confidence": 0.277,
+   "quote": "The light emitted by each of the two samples supplied shall meet the requirements in Table 5.",
+   "atomic": [
+    "The forward facing parking lamp shall have a minimum luminous intensity of 2∙10^0 cd (Par. 4.8.3.1. (a)).",
+    "The forward facing parking lamp shall have a maximum luminous intensity of 6.0∙10^1 cd (Par. 4.8.3.1. (b)).",
+    "The forward facing parking lamp shall meet the standard light distribution of Figure A3-I (Par. 4.8.3.1. (c)).",
+    "The forward facing parking lamp shall meet the angles of geometric visibility of Table A2-1 (Par. 4.8.3.1. (d))."
+   ]
+  },
+  {
+   "id": "R-0408",
+   "text": "The colour of light emitted shall: (a) For front parking lamps be white;",
+   "source": {
+    "regulation": "UN R148",
+    "version": "1.6.0",
+    "page": 18,
+    "paragraph": "5.3.7"
+   },
+   "confidence": 0.367,
+   "quote": "The colour of light emitted shall: (a) For front parking lamps be white;"
+  },
+  {
+   "id": "R-0409",
+   "text": "The light emitted by each of the two samples supplied shall meet the requirements in Table 6.",
+   "source": {
+    "regulation": "UN R148",
+    "version": "1.6.0",
+    "page": 18,
+    "paragraph": "5.4.1"
+   },
+   "confidence": 0.485,
+   "quote": "The light emitted by each of the two samples supplied shall meet the requirements in Table 6.",
+   "atomic": [
+    "The daytime running lamp shall have a minimum luminous intensity of 4.00∙10^2 cd (Par. 4.8.3.1. (a)).",
+    "The daytime running lamp shall meet the standard light distribution of Figure A3-II (Par. 4.8.3.1. (c)).",
+    "The daytime running lamp shall meet the angles of geometric visibility of Table A2-1 (Par. 4.8.3.1. (d))."
+   ]
+  },
+  {
+   "id": "R-0410",
+   "text": "Maximum luminous intensity in cd when used as (Par. 4.8.3.1. (b)) A single lamp ... 1.20∙10^3",
+   "source": {
+    "regulation": "UN R148",
+    "version": "1.6.0",
+    "page": 18,
+    "paragraph": "5.4.1"
+   },
+   "confidence": 0.485,
+   "quote": "Maximum luminous intensity in cd when used as (Par. 4.8.3.1. (b)) A single lamp ... 1.20∙10^3"
+  },
+  {
+   "id": "R-0411",
+   "text": "A lamp marked \"D\" (Par. 3.3.2.5.2.) ... 6.00∙10²",
+   "source": {
+    "regulation": "UN R148",
+    "version": "1.6.0",
+    "page": 18,
+    "paragraph": "5.4.1"
+   },
+   "confidence": 0.485,
+   "quote": "A lamp marked \"D\" (Par. 3.3.2.5.2.) ... 6.00∙10²"
+  },
+  {
+   "id": "R-0412",
+   "text": "In case the luminous intensity of the daytime running lamp is intended to be reduced, according to the relevant requirements of paragraph 6.19.7. of the 08 or any of the subsequent series of amendments to UN Regulation No. 48, the reduced designed maximum luminous intensity shall not exceed 1.40∙10^2 cd.",
+   "source": {
+    "regulation": "UN R148",
+    "version": "1.6.0",
+    "page": 19,
+    "paragraph": "5.4.1.1"
+   },
+   "confidence": 0.346,
+   "quote": "In case the luminous intensity of the daytime running lamp is intended to be reduced, according to the relevant requirements of paragraph 6.19.7. of the 08 or any of the subsequent series of amendments to UN Regulation No. 48, the reduced designed maximum luminous intensity shall not exceed 1.40∙10^2 cd."
+  },
+  {
+   "id": "R-0413",
+   "text": "The area of the apparent surface in the direction of the axis of reference of the daytime running lamp shall be not less than 25 cm2 and not more than 200 cm2.",
+   "source": {
+    "regulation": "UN R148",
+    "version": "1.6.0",
+    "page": 19,
+    "paragraph": "5.4.3"
+   },
+   "confidence": 0.483,
+   "quote": "The area of the apparent surface in the direction of the axis of reference of the daytime running lamp shall be not less than 25 cm2 and not more than 200 cm2.",
+   "atomic": [
+    "The area of the apparent surface in the direction of the axis of reference of the daytime running lamp shall be not less than 25 cm2.",
+    "The area of the apparent surface in the direction of the axis of reference of the daytime running lamp shall be not more than 200 cm2."
+   ]
+  },
+  {
+   "id": "R-0414",
+   "text": "When a daytime running lamp is to be type approved as a lamp marked “D”, the apparent surface of such a lamp shall not be more than 100 cm2.",
+   "source": {
+    "regulation": "UN R148",
+    "version": "1.6.0",
+    "page": 19,
+    "paragraph": "5.4.3"
+   },
+   "confidence": 0.483,
+   "quote": "When a daytime running lamp is to be type approved as a lamp marked “D”, the apparent surface of such a lamp shall not be more than 100 cm2."
+  },
+  {
+   "id": "R-0415",
+   "text": "The daytime running lamp shall be subjected to the heat resistance test specified in Annex 6.",
+   "source": {
+    "regulation": "UN R148",
+    "version": "1.6.0",
+    "page": 19,
+    "paragraph": "5.4.5"
+   },
+   "confidence": 0.316,
+   "quote": "The daytime running lamp shall be subjected to the heat resistance test specified in Annex 6."
+  },
+  {
+   "id": "R-0416",
+   "text": "The colour of the light emitted shall be white.",
+   "source": {
+    "regulation": "UN R148",
+    "version": "1.6.0",
+    "page": 19,
+    "paragraph": "5.4.7"
+   },
+   "confidence": 0.456,
+   "quote": "The colour of the light emitted shall be white."
+  },
+  {
+   "id": "R-0417",
+   "text": "The light emitted by each of the two samples supplied shall meet the requirements in Table 8 where the minimum luminous intensities shall be fulfilled: (a) In the case of direction indicators of categories 1, 1a, 1b, ... in the reference axis;",
+   "source": {
+    "regulation": "UN R148",
+    "version": "1.6.0",
+    "page": 20,
+    "paragraph": "5.6.1"
+   },
+   "confidence": 0.53,
+   "quote": "The light emitted by each of the two samples supplied shall meet the requirements in Table 8 where the minimum luminous intensities shall be fulfilled: (a) In the case of direction indicators of categories 1, 1a, 1b, ... in the reference axis;",
+   "atomic": [
+    "The direction indicator of category 1 shall have a minimum luminous intensity of 1.75∙10^2 cd in the reference axis.",
+    "When used as a single lamp, the direction indicator of category 1 shall have a maximum luminous intensity of 1.20∙10^3 cd.",
+    "Where the direction indicator of category 1 is a lamp marked \"D\" (Par. 3.3.2.5.2.), it shall have a maximum luminous intensity of 6.00∙10^2 cd.",
+    "The direction indicator of category 1 shall meet the standard light distribution of Figure A3-I.",
+    "The direction indicator of category 1 shall meet the angles of geometric visibility of Table A2-1."
+   ]
+  },
+  {
+   "id": "R-0418",
+   "text": "(b) in the case of direction indicators of categories 5 and 6 in direction A according to Annex 2.",
+   "source": {
+    "regulation": "UN R148",
+    "version": "1.6.0",
+    "page": 20,
+    "paragraph": "5.6.1"
+   },
+   "confidence": 0.53,
+   "quote": "(b) in the case of direction indicators of categories 5 and 6 in direction A according to Annex 2.",
+   "atomic": [
+    "The direction indicator of category 5 shall have a minimum luminous intensity of 6∙10-1 cd in direction A according to Annex 2.",
+    "When used as a single lamp, the direction indicator of category 5 shall have a maximum luminous intensity of 2.80∙10^2 cd.",
+    "Where the direction indicator of category 5 is a lamp marked \"D\" (Par. 3.3.2.5.2.), it shall have a maximum luminous intensity of 1.40∙10^2 cd.",
+    "The direction indicator of category 5 shall meet the standard light distribution of Table A2-2.",
+    "The direction indicator of category 5 shall meet the angles of geometric visibility of Table A2-2."
+   ]
+  },
+  {
+   "id": "R-0419",
+   "text": "In general, the intensities shall be measured with the light source(s) continuously alight. However, depending on the construction of the lamp, for example, the use of light-emitting diodes (LED), or the need to take precautions to avoid overheating, it is allowed to measure the lamps in flashing mode.",
+   "source": {
+    "regulation": "UN R148",
+    "version": "1.6.0",
+    "page": 21,
+    "paragraph": "5.6.4"
+   },
+   "confidence": 0.292,
+   "quote": "In general, the intensities shall be measured with the light source(s) continuously alight. However, depending on the construction of the lamp, for example, the use of light-emitting diodes (LED), or the need to take precautions to avoid overheating, it is allowed to measure the lamps in flashing mode."
+  },
+  {
+   "id": "R-0420",
+   "text": "(a) This shall be achieved by switching with a frequency of f = 1.5 ± 0.5 Hz with the pulse width greater than 0.3 s, measured at 95 per cent peak light intensity.",
+   "source": {
+    "regulation": "UN R148",
+    "version": "1.6.0",
+    "page": 21,
+    "paragraph": "5.6.4"
+   },
+   "confidence": 0.292,
+   "quote": "(a) This shall be achieved by switching with a frequency of f = 1.5 ± 0.5 Hz with the pulse width greater than 0.3 s, measured at 95 per cent peak light intensity.",
+   "atomic": [
+    "Where the direction indicator lamp is measured in flashing mode, the switching frequency shall be f = 1.5 ± 0.5 Hz.",
+    "Where the direction indicator lamp is measured in flashing mode, the pulse width shall be greater than 0.3 s, measured at 95 per cent peak light intensity."
+   ]
+  },
+  {
+   "id": "R-0421",
+   "text": "In all other cases the voltage as required in paragraph 4.8. shall be switched with a rise time and fall time shorter than 0.01 s; no overshoot is allowed;",
+   "source": {
+    "regulation": "UN R148",
+    "version": "1.6.0",
+    "page": 21,
+    "paragraph": "5.6.4"
+   },
+   "confidence": 0.292,
+   "quote": "In all other cases the voltage as required in paragraph 4.8. shall be switched with a rise time and fall time shorter than 0.01 s; no overshoot is allowed;",
+   "atomic": [
+    "Where the direction indicator lamp is measured in flashing mode, the voltage as required in paragraph 4.8. shall be switched with a rise time shorter than 0.01 s.",
+    "Where the direction indicator lamp is measured in flashing mode, the voltage as required in paragraph 4.8. shall be switched with a fall time shorter than 0.01 s.",
+    "Where the direction indicator lamp is measured in flashing mode, the switched voltage shall have no overshoot."
+   ]
+  },
+  {
+   "id": "R-0422",
+   "text": "(b) In the case of measurements taken in flashing mode the reported luminous intensity shall be represented by the maximum intensity.",
+   "source": {
+    "regulation": "UN R148",
+    "version": "1.6.0",
+    "page": 21,
+    "paragraph": "5.6.4"
+   },
+   "confidence": 0.292,
+   "quote": "(b) In the case of measurements taken in flashing mode the reported luminous intensity shall be represented by the maximum intensity."
+  },
+  {
+   "id": "R-0423",
+   "text": "(a) Each light source, after its activation, shall remain lit until the end of the ON cycle;",
+   "source": {
+    "regulation": "UN R148",
+    "version": "1.6.0",
+    "page": 21,
+    "paragraph": "5.6.5"
+   },
+   "confidence": 0.455,
+   "quote": "(a) Each light source, after its activation, shall remain lit until the end of the ON cycle;"
+  },
+  {
+   "id": "R-0424",
+   "text": "(b) The sequence of activation of the light sources shall produce a signal which proceeds in a uniform progressive manner from inboard towards the outboard edge of the light emitting surface;",
+   "source": {
+    "regulation": "UN R148",
+    "version": "1.6.0",
+    "page": 21,
+    "paragraph": "5.6.5"
+   },
+   "confidence": 0.455,
+   "quote": "(b) The sequence of activation of the light sources shall produce a signal which proceeds in a uniform progressive manner from inboard towards the outboard edge of the light emitting surface;"
+  },
+  {
+   "id": "R-0425",
+   "text": "(c) It shall be one signal with no interruption and no vertical oscillations (e.g. not more than one change of direction along the vertical axis).",
+   "source": {
+    "regulation": "UN R148",
+    "version": "1.6.0",
+    "page": 21,
+    "paragraph": "5.6.5"
+   },
+   "confidence": 0.455,
+   "quote": "(c) It shall be one signal with no interruption and no vertical oscillations (e.g. not more than one change of direction along the vertical axis).",
+   "atomic": [
+    "Where the flash is produced by sequential activation, the sequential direction indicator signal shall be one signal with no interruption.",
+    "Where the flash is produced by sequential activation, the sequential direction indicator signal shall have no vertical oscillations (not more than one change of direction along the vertical axis)."
+   ]
+  },
+  {
+   "id": "R-0426",
+   "text": "The distance between two adjacent/tangential distinct parts of the light emitting surface of the sequential direction indicator shall not exceed 50mm, when measured perpendicularly to the reference axis, instead of the values defined in paragraph 5.7.2. of UN Regulation No. 48 or paragraph 5.7.2. of UN Regulation No. 86 or paragraph 5.6.2. of UN Regulation No. 53.",
+   "source": {
+    "regulation": "UN R148",
+    "version": "1.6.0",
+    "page": 21,
+    "paragraph": "5.6.5"
+   },
+   "confidence": 0.455,
+   "quote": "The distance between two adjacent/tangential distinct parts of the light emitting surface of the sequential direction indicator shall not exceed 50mm, when measured perpendicularly to the reference axis, instead of the values defined in paragraph 5.7.2. of UN Regulation No. 48 or paragraph 5.7.2. of UN Regulation No. 86 or paragraph 5.6.2. of UN Regulation No. 53."
+  },
+  {
+   "id": "R-0427",
+   "text": "These interruptions of the signal shall not create any overlap in the vertical axis between the different parts, from inboard towards the outboard of the vehicle,",
+   "source": {
+    "regulation": "UN R148",
+    "version": "1.6.0",
+    "page": 21,
+    "paragraph": "5.6.5"
+   },
+   "confidence": 0.455,
+   "quote": "These interruptions of the signal shall not create any overlap in the vertical axis between the different parts, from inboard towards the outboard of the vehicle,"
+  },
+  {
+   "id": "R-0428",
+   "text": "and shall not be used for any other lighting or light signalling functions;",
+   "source": {
+    "regulation": "UN R148",
+    "version": "1.6.0",
+    "page": 21,
+    "paragraph": "5.6.5"
+   },
+   "confidence": 0.455,
+   "quote": "and shall not be used for any other lighting or light signalling functions;"
+  },
+  {
+   "id": "R-0429",
+   "text": "(d) The variation shall finish no more than 200ms after the beginning of the ON cycle;",
+   "source": {
+    "regulation": "UN R148",
+    "version": "1.6.0",
+    "page": 21,
+    "paragraph": "5.6.5"
+   },
+   "confidence": 0.455,
+   "quote": "(d) The variation shall finish no more than 200ms after the beginning of the ON cycle;"
+  },
+  {
+   "id": "R-0430",
+   "text": "(e) The orthogonal projection of the light emitting surfaces of the direction indicator in the direction of the axis of reference shall be circumscribed by a rectangle on a plane normal to the axis of reference and having its longer sides parallel to the H-plane. The ratio of the horizontal to the vertical sides shall not be less than 1.7.",
+   "source": {
+    "regulation": "UN R148",
+    "version": "1.6.0",
+    "page": 21,
+    "paragraph": "5.6.5"
+   },
+   "confidence": 0.455,
+   "quote": "(e) The orthogonal projection of the light emitting surfaces of the direction indicator in the direction of the axis of reference shall be circumscribed by a rectangle on a plane normal to the axis of reference and having its longer sides parallel to the H-plane. The ratio of the horizontal to the vertical sides shall not be less than 1.7.",
+   "atomic": [
+    "The circumscribing rectangle of the projected light emitting surfaces of the sequential direction indicator shall have its longer sides parallel to the H-plane.",
+    "The ratio of the horizontal to the vertical sides of the circumscribing rectangle shall not be less than 1.7."
+   ]
+  },
+  {
+   "id": "R-0431",
+   "text": "Compliance to the conditions mentioned above shall be verified in flashing mode.",
+   "source": {
+    "regulation": "UN R148",
+    "version": "1.6.0",
+    "page": 21,
+    "paragraph": "5.6.5"
+   },
+   "confidence": 0.455,
+   "quote": "Compliance to the conditions mentioned above shall be verified in flashing mode."
+  },
+  {
+   "id": "R-0432",
+   "text": "The colour of light emitted shall be amber.",
+   "source": {
+    "regulation": "UN R148",
+    "version": "1.6.0",
+    "page": 22,
+    "paragraph": "5.6.7"
+   },
+   "confidence": 0.528,
+   "quote": "The colour of light emitted shall be amber."
+  },
+  {
+   "id": "R-0433",
+   "text": "The light emitted by each of the two samples supplied shall meet the requirements in Table 9.",
+   "source": {
+    "regulation": "UN R148",
+    "version": "1.6.0",
+    "page": 22,
+    "paragraph": "5.7.1"
+   },
+   "confidence": 0.405,
+   "quote": "The light emitted by each of the two samples supplied shall meet the requirements in Table 9.",
+   "atomic": [
+    "The SM1 side marker lamp shall have a luminous intensity in the axis of reference of not less than 4.0∙10^0 cd.",
+    "The SM1 side marker lamp shall have a luminous intensity within the standard light distribution (Figure A3-VII) of not less than 6∙10^-1 cd.",
+    "The SM1 side marker lamp shall have a luminous intensity of not more than 2.50∙10^1 cd.",
+    "The SM1 side marker lamp shall have a luminous intensity within the angles of geometric visibility (Table A2-3) of not less than 6∙10^-1 cd."
+   ]
+  },
+  {
+   "id": "R-0434",
+   "text": "The colour of the light emitted shall be amber.",
+   "source": {
+    "regulation": "UN R148",
+    "version": "1.6.0",
+    "page": 23,
+    "paragraph": "5.7.7"
+   },
+   "confidence": 0.374,
+   "quote": "The colour of the light emitted shall be amber."
+  },
+  {
+   "id": "R-0435",
+   "text": "Unless specified otherwise, the values shown in Figures A3-I to A3-XV give, for the various directions of measurement, the minimum intensities as a percentage of the minimum intensities required, which shall be mathematically rounded down to three significant digits.",
+   "source": {
+    "regulation": "UN R148",
+    "version": "1.6.0",
+    "page": 35,
+    "paragraph": "Annex 3 1.1"
+   },
+   "confidence": 0.254,
+   "quote": "Unless specified otherwise, the values shown in Figures A3-I to A3-XV give, for the various directions of measurement, the minimum intensities as a percentage of the minimum intensities required, which shall be mathematically rounded down to three significant digits.",
+   "atomic": [
+    "The lamp shall meet the minimum intensities of Figures A3-I to A3-XV as a percentage of the minimum intensities required, rounded down to three significant digits.",
+    "Where the lamp is a front direction indicator, front position lamp, front end-outline marker lamp, parking lamp or side marker lamp mounted at a height equal to or less than 750 mm, the photometric intensity shall be verified up to an angle of 5° downwards."
+   ]
+  },
+  {
+   "id": "R-0436",
+   "text": "Within the field of light distribution schematically shown as a grid, the light pattern should be substantially uniform, i.e. the light intensity in each direction of a part of the field formed by the grid lines shall meet at least the lowest minimum value being shown on the grid lines surrounding the questioned direction as a percentage.",
+   "source": {
+    "regulation": "UN R148",
+    "version": "1.6.0",
+    "page": 35,
+    "paragraph": "Annex 3 1.2"
+   },
+   "confidence": 0.364,
+   "quote": "Within the field of light distribution schematically shown as a grid, the light pattern should be substantially uniform, i.e. the light intensity in each direction of a part of the field formed by the grid lines shall meet at least the lowest minimum value being shown on the grid lines surrounding the questioned direction as a percentage."
+  },
+  {
+   "id": "R-0442",
+   "text": "After the lamp has been stabilized at the ambient temperature, no distortion, deformation, cracking or colour modification shall be perceptible.",
+   "source": {
+    "regulation": "UN R148",
+    "version": "1.6.0",
+    "page": 45,
+    "paragraph": "Annex 6 3"
+   },
+   "confidence": 0.309,
+   "quote": "After the lamp has been stabilized at the ambient temperature, no distortion, deformation, cracking or colour modification shall be perceptible.",
+   "atomic": [
+    "After the daytime running lamp has been stabilized at the ambient temperature following the heat resistance test, no distortion shall be perceptible.",
+    "After the daytime running lamp has been stabilized at the ambient temperature following the heat resistance test, no deformation shall be perceptible.",
+    "After the daytime running lamp has been stabilized at the ambient temperature following the heat resistance test, no cracking shall be perceptible.",
+    "After the daytime running lamp has been stabilized at the ambient temperature following the heat resistance test, no colour modification shall be perceptible."
+   ]
+  },
+  {
+   "id": "R-0443",
+   "text": "In case of doubt the intensity of light shall be measured according to paragraph 5. of this Regulation. At that measurement the values shall reach at least 90 per cent of the values obtained before the heat resistance test on the same lamp.",
+   "source": {
+    "regulation": "UN R148",
+    "version": "1.6.0",
+    "page": 45,
+    "paragraph": "Annex 6 3"
+   },
+   "confidence": 0.309,
+   "quote": "In case of doubt the intensity of light shall be measured according to paragraph 5. of this Regulation. At that measurement the values shall reach at least 90 per cent of the values obtained before the heat resistance test on the same lamp.",
+   "atomic": [
+    "In case of doubt after the heat resistance test, the intensity of light of the daytime running lamp shall be measured according to paragraph 5. of this Regulation.",
+    "In case of doubt after the heat resistance test, the measured intensity values of the daytime running lamp shall reach at least 90 per cent of the values obtained before the heat resistance test on the same lamp."
+   ]
+  },
+  {
+   "id": "R-0444",
+   "text": "For lamps (functions) using incandescent technology only, the luminous intensities measured after photometric stability shall comply with the minimum and maximum requirements.",
+   "source": {
+    "regulation": "UN R148",
+    "version": "1.6.0",
+    "page": 47,
+    "paragraph": "Annex 8 1.1"
+   },
+   "confidence": 0.319,
+   "quote": "For lamps (functions) using incandescent technology only, the luminous intensities measured after photometric stability shall comply with the minimum and maximum requirements."
+  },
+  {
+   "id": "R-0445",
+   "text": "For all other lamps, the luminous intensities measured after 1 min and either - after 30 minutes of operation, or - after photometric stability has occurred shall comply with the minimum and maximum requirements.",
+   "source": {
+    "regulation": "UN R148",
+    "version": "1.6.0",
+    "page": 47,
+    "paragraph": "Annex 8 1.2.2"
+   },
+   "confidence": 0.325,
+   "quote": "For all other lamps, the luminous intensities measured after 1 min and either - after 30 minutes of operation, or - after photometric stability has occurred shall comply with the minimum and maximum requirements.",
+   "atomic": [
+    "For lamps (functions) using light source technologies other than incandescent technology only, the luminous intensities of the lamp measured after 1 min of operation shall comply with the minimum and maximum requirements.",
+    "For lamps (functions) using light source technologies other than incandescent technology only, the luminous intensities of the lamp measured either after 30 minutes of operation or after photometric stability has occurred shall comply with the minimum and maximum requirements."
+   ]
+  },
+  {
+   "id": "R-0446",
+   "text": "Operation of direction indicator lamps shall be done in flashing mode (f = 1.5 Hz, duty factor 50 per cent).",
+   "source": {
+    "regulation": "UN R148",
+    "version": "1.6.0",
+    "page": 47,
+    "paragraph": "Annex 8 1.2.2"
+   },
+   "confidence": 0.325,
+   "quote": "Operation of direction indicator lamps shall be done in flashing mode (f = 1.5 Hz, duty factor 50 per cent)."
+  },
+  {
+   "id": "R-0437",
+   "text": "The values shown give, for the various directions of measurement, the minimum intensities as a percentage of the minimum intensities required (see Tables 3, 4, 5, 7 and 8).",
+   "source": {
+    "regulation": "UN R148",
+    "version": "1.6.0",
+    "page": 36,
+    "paragraph": "Annex 3 2.1"
+   },
+   "confidence": 0.216,
+   "quote": "The values shown give, for the various directions of measurement, the minimum intensities as a percentage of the minimum intensities required (see Tables 3, 4, 5, 7 and 8).",
+   "atomic": [
+    "The front position lamps shall provide, for the various directions of measurement, at least the minimum intensities given in Figure A3-I as a percentage of the minimum intensities required.",
+    "The parking lamps shall provide, for the various directions of measurement, at least the minimum intensities given in Figure A3-I as a percentage of the minimum intensities required.",
+    "The front end-outline marker lamps shall provide, for the various directions of measurement, at least the minimum intensities given in Figure A3-I as a percentage of the minimum intensities required.",
+    "The direction indicator lamps of categories 1, 1a, 1b, 2a, 2b, 11, 11a, 11b, 11c, 12 shall provide, for the various directions of measurement, at least the minimum intensities given in Figure A3-I as a percentage of the minimum intensities required."
+   ]
+  },
+  {
+   "id": "R-0439",
+   "text": "The lamp shall be subjected to a one-hour test of continuous operation following a warm-up period of 20 minutes.",
+   "source": {
+    "regulation": "UN R148",
+    "version": "1.6.0",
+    "page": 45,
+    "paragraph": "Annex 6 1"
+   },
+   "confidence": 0.2,
+   "quote": "The lamp shall be subjected to a one-hour test of continuous operation following a warm-up period of 20 minutes."
+  },
+  {
+   "id": "R-0440",
+   "text": "The ambient temperature shall be 23 °C ± 5 °C.",
+   "source": {
+    "regulation": "UN R148",
+    "version": "1.6.0",
+    "page": 45,
+    "paragraph": "Annex 6 1"
+   },
+   "confidence": 0.2,
+   "quote": "The ambient temperature shall be 23 °C ± 5 °C."
+  },
+  {
+   "id": "R-0441",
+   "text": "The light source used shall be a light source of the category specified for the lamp and shall be supplied with a current at a voltage such that it gives the specified average power at the corresponding test voltage. However, for lamps equipped with non-replaceable light sources (filament light sources and other), the test shall be made with the light sources present in the lamp, in accordance with paragraph 5.4.5. of this Regulation.",
+   "source": {
+    "regulation": "UN R148",
+    "version": "1.6.0",
+    "page": 45,
+    "paragraph": "Annex 6 1"
+   },
+   "confidence": 0.2,
+   "quote": "The light source used shall be a light source of the category specified for the lamp and shall be supplied with a current at a voltage such that it gives the specified average power at the corresponding test voltage. However, for lamps equipped with non-replaceable light sources (filament light sources and other), the test shall be made with the light sources present in the lamp, in accordance with paragraph 5.4.5. of this Regulation.",
+   "atomic": [
+    "For the heat resistance test of the daytime running lamp, the light source used shall be a light source of the category specified for the lamp.",
+    "For the heat resistance test of the daytime running lamp, the light source shall be supplied with a current at a voltage such that it gives the specified average power at the corresponding test voltage.",
+    "Where the daytime running lamp is equipped with non-replaceable light sources, the heat resistance test shall be made with the light sources present in the lamp, in accordance with paragraph 5.4.5. of this Regulation."
+   ]
+  }
+ ],
+ "regulations": [
+  {
+   "regulation": "UN R10",
+   "version": "7.2.0",
+   "probability": 0.95,
+   "selected": true,
+   "rationale": "The module contains radar, camera, PDC, heating, lighting and keyless electronics, so it is an ESA needing EMC approval. (Electromagnetic compatibility. Scope: This Regulation applies to: Vehicles of categories L, M, N O, T, R and S1 with regard to electromagnetic compatibility; Components and separate technical units intended to be fitted in these vehicles with the limitation given in paragrap... Spec terms 20.5, obligation base 27.6.)"
+  },
+  {
+   "regulation": "UN R26",
+   "version": "4.0.0",
+   "probability": 0.85,
+   "selected": true,
+   "rationale": "The front bumper fascia and grille are exterior bodywork on an M1 vehicle and are subject to external projection requirements. (Vehicle approval. Scope: This Regulation applies to external projections of category M1 vehicles. It does not apply to exterior devices for indirect vision or to the ball of towing devices. The purpose of this Regulation is to reduce the risk or seriousness of b... Spec terms 20.5, obligation base 19.1.)"
+  },
+  {
+   "regulation": "UN R48",
+   "version": "9.3.0",
+   "probability": 0.85,
+   "selected": true,
+   "rationale": "Integrated signalling lamps (side markers, direction indicators, position lamps) installed on an M1 vehicle fall under the lighting installation rules. (Installation regulation. Scope: This Regulation applies to vehicles of categories M, N, and to their trailers (category O) with regard to the installation of lighting and light-signalling devices. Spec terms 11.4, obligation base 18.2.)"
+  },
+  {
+   "regulation": "UN R148",
+   "version": "1.6.0",
+   "probability": 0.85,
+   "selected": true,
+   "rationale": "Integrated direction indicators, position lamps and side marker lamps are light-signalling devices approved under R148. (Device approval. Scope: This Regulation applies to the following light-signalling devices (lamps): • Rear-registration plate illuminating lamps • Direction indicator lamps • Position lamps • Stop lamps • End-outline marker lamps • Reversing lamps • Manoeuvring... Spec terms 10.1, obligation base 12.0.)"
+  },
+  {
+   "regulation": "UN R127",
+   "version": "4.3.0",
+   "probability": 0.85,
+   "selected": true,
+   "rationale": "The bumper's fascia and absorber form the M1 frontal surface tested for pedestrian leg impact. (Vehicle approval. Scope: This Regulation applies to motor vehicles of categories M1 and N1. However, vehicles of category N1 where the driver’s position \"R-point\" is either forward of the front axle or longitudinally rearwards of the front axle transverse centre... Spec terms 9.4, obligation base 8.8.)"
+  },
+  {
+   "regulation": "UN R42",
+   "version": "0.2.0",
+   "probability": 0.75,
+   "selected": true,
+   "rationale": "This regulation governs the low-speed collision behaviour of M1 front protective devices, i.e. the bumper. (Vehicle approval. Scope: This Regulation applies to vehicles of category M1 with regard to the behaviour of their front and rear protective devices when involved in a collision at low speed. Spec terms 2.7, obligation base 3.9.)"
+  },
+  {
+   "regulation": "UN GTR 9",
+   "version": "0.3.0",
+   "probability": 0.5,
+   "selected": true,
+   "rationale": "GTR 9 sets pedestrian frontal surface requirements equivalent to R127 and directly relevant to the bumper design. (Global technical regulation. Scope: This global technical regulation (gtr) shall apply to the frontal surfaces of power driven vehicles of category 1-1 with a gross vehicle mass exceeding 500 kg; and of category 1-2 with a gross vehicle mass exceeding 500 kg but not exceed... Spec terms 14.7, obligation base 10.4.)"
+  },
+  {
+   "regulation": "UN R94",
+   "version": "5.1.0",
+   "probability": 0.3,
+   "selected": false,
+   "rationale": "The bumper's energy-management structure contributes to frontal crash behaviour, but this is a vehicle-level occupant protection test rather than a product requirement. (Vehicle approval. Scope: This Regulation applies to vehicles of category M1 of a total permissible mass not exceeding 3,500 kg and to vehicles of category N1 of a total permissible mass not exceeding 2,500 kg; other vehicles may be approved at the request of the... Spec terms 2.1, obligation base 0.0.)"
+  },
+  {
+   "regulation": "UN R152",
+   "version": "2.5.0",
+   "probability": 0.3,
+   "selected": false,
+   "rationale": "The bumper carries radar and camera sensors, but AEBS approval is of the vehicle system rather than the bumper module. (Vehicle approval. Scope: This Regulation applies to the approval of vehicles of Category M1 and N1 with regard to an on-board system to (a) Avoid or mitigate the severity of a rear-end in lane collision with a passenger car, (b) Avoid or mitigate the severity of... Spec terms 1.0, obligation base 0.0.)"
+  },
+  {
+   "regulation": "UN R149",
+   "version": "1.6.0",
+   "probability": 0.25,
+   "selected": false,
+   "rationale": "No headlamps, fog lamps or cornering lamps are explicitly listed; the integrated lighting is signalling and decorative. (Device approval. Scope: This Regulation applies to the following road illumination devices (lamps): • Headlamps emitting a driving-beam and/or an asymmetrical passing-beam for vehicles of categories L, M, N and T • Adaptive front-lighting systems (AFS) for vehi... Spec terms 2.4, obligation base 0.0.)"
+  },
+  {
+   "regulation": "UN R150",
+   "version": "1.2.1",
+   "probability": 0.2,
+   "selected": false,
+   "rationale": "No retro-reflectors are listed among the parts. (Device approval. Scope: This Regulation applies to retro-reflective devices as: • Retro-reflectors of the Classes IA, IB, IIIA, IIIB and IVA • Retro-reflective Marking Materials of the Classes C, D, E and F, D/E • Retro-reflective Marking Plates for Heavy and L... Spec terms 0.9, obligation base 0.0.)"
+  },
+  {
+   "regulation": "UN R100",
+   "version": "5.0.0",
+   "probability": 0.15,
+   "selected": false,
+   "rationale": "Only the charge port flap is integrated; electric powertrain safety concerns other systems. (Device approval. Scope: Part I: Safety requirements with respect to the electric power train of road vehicles of categories M, N and O1, with a maximum design speed exceeding 25 km/h, equipped with electric power train, excluding vehicles permanently connected... Spec terms 2.1, obligation base 1.8.)"
+  },
+  {
+   "regulation": "UN R161",
+   "version": "0.5.0",
+   "probability": 0.1,
+   "selected": false,
+   "rationale": "The keyless aerial is only an antenna; anti-theft device approval concerns other vehicle systems. (Vehicle approval. Scope: This Regulation applies to: Approval of a vehicle of category M1 and N1 with regard to its devices to prevent unauthorized use. The fitting of devices to vehicles of other categories is optional but any such device fitted is required to... Spec terms 1.6, obligation base 2.4.)"
+  },
+  {
+   "regulation": "UN R157",
+   "version": "1.4.0",
+   "probability": 0.1,
+   "selected": false,
+   "rationale": "ALKS is a vehicle system, even though the bumper carries sensors for it. (Vehicle approval. Scope: This Regulation applies to the type approval of vehicles of Category M and N1 with regards to their Automated Lane Keeping System. Spec terms 1.7, obligation base 0.0.)"
+  },
+  {
+   "regulation": "UN R128",
+   "version": "0.11.0",
+   "probability": 0.1,
+   "selected": false,
+   "rationale": "The lamp light sources are built into the lamps, and no replaceable LED light source is supplied. (Light sources. Scope: This Regulation applies to LED light sources shown in Annex 1 and intended for use in approved lamps of power-driven vehicles and of their trailers. Spec terms 1.1, obligation base 0.0.)"
+  },
+  {
+   "regulation": "UN R155",
+   "version": "0.2.0",
+   "probability": 0.1,
+   "selected": false,
+   "rationale": "Cyber security is a vehicle-level management system requirement, not a product requirement for the bumper. (Vehicle approval. Scope: This Regulation applies to vehicles, with regard to cyber security, of the Categories M and N. This Regulation also applies to vehicles of Category O if fitted with at least one electronic control unit. This Regulation also applies to ve... Spec terms 0.0, obligation base 0.0.)"
+  },
+  {
+   "regulation": "UN R116",
+   "version": "1.3.0",
+   "probability": 0.08,
+   "selected": false,
+   "rationale": "The keyless aerial is not an anti-theft device in itself. (Vehicle approval. Scope: This Regulation applies to: PART I - Approval of a vehicle of category M1 and N1 with regard to its devices to prevent unauthorized use. PART II - Approval of vehicle alarm systems (VAS) which are intended to be permanently fitted to veh... Spec terms 1.6, obligation base 0.0.)"
+  }
+ ],
+ "profile": {
+  "product": "Front bumper module — exterior body/trim module combining fascia (cover part), energy-management structure (absorber, lower stiffener) and integrated sensing, lighting and electronics",
+  "vehicle_categories": [
+   "M1"
+  ],
+  "functions": [
+   "Styling / exterior appearance",
+   "Impact & energy management",
+   "crash and pedestrian protection",
+   "Sensing & driver assistance carrier",
+   "radar, LIDAR, camera, PDC, thermal",
+   "Lighting integration",
+   "signalling, decorative, functional",
+   "Thermal / airflow management",
+   "Feature integration",
+   "towing cover, keyless-entry aerial, EV charge port",
+   "Impact and energy management (crash protection)",
+   "Pedestrian protection",
+   "Underrun protection (lower stiffener)",
+   "Sensing and driver assistance carrier (radar, LIDAR, camera, PDC, thermal)",
+   "Lighting integration (signalling, decorative, functional)",
+   "License plate mounting",
+   "Towing device access cover",
+   "Keyless entry aerial integration",
+   "EV charge port (\"fuel filler cap\") integration"
+  ],
+  "parts": [
+   "Cover part",
+   "fascia",
+   "Grill",
+   "Radiator",
+   "Absorber",
+   "Lower stiffener",
+   "underrun protection",
+   "License plate area / holder",
+   "Towing device cover",
+   "Camera",
+   "Radar sensor",
+   "Radar / LIDAR sensor",
+   "incl. heating",
+   "PDC sensor",
+   "Pedestrian impact sensors",
+   "Temperature / thermal sensor",
+   "Lighting — decorative",
+   "Lighting — signalling",
+   "Side",
+   "Aerial",
+   "keyless entry",
+   "\"Fuel filler cap\"",
+   "for EVs",
+   "Cover part (fascia)",
+   "(Radiator) Grill",
+   "Lower stiffener (underrun protection)",
+   "Radar / LIDAR sensor incl. heating",
+   "Lighting (decorative)",
+   "(Side) Lighting (signalling)",
+   "Aerial (keyless entry)",
+   "\"Fuel filler cap\" (for EVs)",
+   "Wiring harness",
+   "Sensor brackets / housings",
+   "Sensor lenses / radomes",
+   "Fasteners / clips"
+  ],
+  "materials": [
+   "Cover part (fascia): PP / PP-EPDM (talc-filled), painted",
+   "Grill: PP, ABS or PC/ABS",
+   "Absorber: Expanded polypropylene (EPP) foam",
+   "Lower stiffener / beam: Steel, aluminium, or PP-GF",
+   "License plate holder: PP / ABS",
+   "Towing device cover: Painted PP",
+   "Sensor brackets / housings: PP, PA, or PA-GF",
+   "Sensor lenses / radomes: PC or PMMA",
+   "Lighting housings / lenses: PC (lens), PP/PA (housing)",
+   "Fasteners / clips: PA, POM, or steel"
+  ],
+  "electronics": true,
+  "keywords": [
+   "bumper (front)",
+   "styling / exterior appearance",
+   "impact & energy management",
+   "crash and pedestrian protection",
+   "sensing & driver assistance carrier",
+   "radar, lidar, camera, pdc, thermal",
+   "lighting integration",
+   "signalling, decorative, functional",
+   "thermal / airflow management",
+   "feature integration",
+   "towing cover, keyless-entry aerial, ev charge port",
+   "cover part",
+   "fascia",
+   "grill",
+   "radiator",
+   "absorber",
+   "lower stiffener",
+   "underrun protection",
+   "license plate area / holder",
+   "towing device cover",
+   "camera",
+   "radar sensor",
+   "radar / lidar sensor",
+   "incl. heating",
+   "pdc sensor",
+   "pedestrian impact sensors",
+   "temperature / thermal sensor",
+   "lighting — decorative",
+   "lighting — signalling",
+   "side",
+   "aerial",
+   "keyless entry",
+   "\"fuel filler cap\"",
+   "for evs",
+   "electrical/electronic sub-assembly",
+   "esa",
+   "bumper",
+   "front protective device",
+   "pedestrian protection",
+   "front underrun protection",
+   "external projections",
+   "electronic sub-assembly",
+   "electromagnetic compatibility",
+   "radar",
+   "lidar",
+   "parking distance control",
+   "side marker lamp",
+   "direction indicator",
+   "front position lamp",
+   "decorative lighting",
+   "space for mounting front registration plate",
+   "towing device",
+   "electric charging inlet",
+   "energy absorber",
+   "grille"
+  ]
+ },
+ "run": {
+  "wall_s": 298.4,
+  "provider": "anthropic",
+  "calls": 242,
+  "cache_hits": 0,
+  "input_tokens": 1401638,
+  "output_tokens": 326463,
+  "cost_usd": 11.6041,
+  "cold_cost_usd": 11.6041,
+  "unpriced_calls": 0
+ }
+}
