@@ -307,7 +307,7 @@ def test_sections_group_split_score_and_cut(monkeypatch: pytest.MonkeyPatch) -> 
     assert p_section == {small[0].id: 0.25, big[0].id: 0.9, small[1].id: 0.9, small[2].id: 0.9}
     assert sorted(asked) == ["2", "6", "annex 3", "annex 3"]
 
-    kept = sections.cut(drafts, [0.6, 0.6, 0.2, 0.5], p_section)
+    kept = sections.cut(drafts, [0.5, 0.6, 0.1, 0.5], p_section)
     assert [d.paragraph for d in kept] == [big[0], small[2]]
 
 

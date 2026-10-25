@@ -3,8 +3,11 @@
 The requirement filter judges one requirement at a time; here the strong model sees every
 paragraph the kept requirements cite in one section of a regulation together, and gives each a
 probability that an expert's list for the product cites it. A requirement goes when
-p_keep * p_section < THRESHOLD. A square root on p_section with a higher threshold scores better
-on dev but cuts the test-procedure annexes the bumper labels cite.
+p_keep * p_section < THRESHOLD, with no separate filter on p_keep. On cached scores this keeps
+the dev estimate (0.694) and raises paragraph F2 on the bumper silver labels from 0.777 to 0.798
+(plain) and 0.613 to 0.718 (sensors-fog) against filter 0.40 plus 0.2. A square root on
+p_section with a higher threshold scores better on dev but cuts the test-procedure annexes the
+bumper labels cite.
 """
 
 from __future__ import annotations
@@ -21,7 +24,7 @@ from .models import Paragraph
 from .rewrite import Draft
 
 ENABLED = True
-THRESHOLD = 0.2
+THRESHOLD = 0.15
 MAX_SECTION = 25  # a top-level section with more cited paragraphs is split into subsections
 MAX_CHUNK = 20  # consecutive subsections are merged up to this many paragraphs
 TEXT_CHARS = 700

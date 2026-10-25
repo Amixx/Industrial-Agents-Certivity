@@ -145,13 +145,15 @@ def run(
     log(f"pointer and approval-mark rows: {n - len(kept)} dropped")
     if use_llm and kept:
         p_keep = keep.scores(kept, product)
-        scored = [(d, pk) for d, pk in zip(kept, p_keep, strict=True) if pk >= keep.THRESHOLD]
-        kept = [d for d, _ in scored]
-        log(f"expert filter: {len(kept)} kept of {len(p_keep)}")
-        if sections.ENABLED and kept:
-            p_section = sections.scores(kept, graph, product)
-            kept = sections.cut(kept, [pk for _, pk in scored], p_section)
-            log(f"section cut: {len(kept)} kept of {len(scored)}")
+        if sections.ENABLED:
+            # p_keep enters the section cut only: a hard filter on it first drops rows the
+            # section score would keep, and costs the bumper rehearsals paragraphs they cite.
+            n = len(kept)
+            kept = sections.cut(kept, p_keep, sections.scores(kept, graph, product))
+            log(f"section cut: {len(kept)} kept of {n}")
+        else:
+            kept = [d for d, pk in zip(kept, p_keep, strict=True) if pk >= keep.THRESHOLD]
+            log(f"expert filter: {len(kept)} kept of {len(p_keep)}")
     kept = verbatim.apply(kept)
     requirements = []
     for i, d in enumerate(kept, start=1):
