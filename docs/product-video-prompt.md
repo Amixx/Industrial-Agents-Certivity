@@ -1,15 +1,16 @@
 # Product video prompt
 
-A 72-second motion-graphics product video for the sudo submission to the Certivity challenge, in four parts:
+A 90-second motion-graphics product video for the sudo submission to the Certivity challenge, in four parts:
 
 | Time | Part | What it shows |
 | --- | --- | --- |
 | 0:00 to 0:37 | Main goal | Requirements from a spec |
-| 0:37 to 0:49 | What we miss | Where the engine falls short of the expert answer, and why |
-| 0:49 to 1:09 | Sub-goal | What changes when a regulation changes |
-| 1:09 to 1:12 | Close | The closing line |
+| 0:37 to 0:55 | How it works | Which steps a model does, which steps code does, and what each adds to the score |
+| 0:55 to 1:07 | What we miss | Where the engine falls short of the expert answer, and why |
+| 1:07 to 1:27 | Sub-goal | What changes when a regulation changes |
+| 1:27 to 1:30 | Close | The closing line |
 
-Two of the parts need pages that don't exist yet:
+The "How it works" part is recorded on the About page (`/about?preview`). Two of the parts need pages that don't exist yet:
 - "What we miss" needs the coverage page from `docs/coverage-ui-prompt.md`.
 - The sub-goal part needs the pages from `docs/regulation-change-ui-prompt.md`.
 
@@ -19,21 +20,24 @@ Paste everything below the line into the video tool and attach the ten reference
 
 ## Brief
 
-Make a 72-second, 16:9, 1920×1080, 30 fps motion-graphics product launch video for **sudo**, built for the Certivity challenge at the Industrial AI hackathon ("In collaboration with Certivity").
+Make a 90-second, 16:9, 1920×1080, 30 fps motion-graphics product launch video for **sudo**, built for the Certivity challenge at the Industrial AI hackathon ("In collaboration with Certivity").
 
 sudo reads a product specification and its exploded view, decides which UN Regulations apply, and writes the requirement list a homologation engineer starts from. Every requirement quotes the regulation and points to its page and paragraph, so a reviewer checks it in seconds instead of searching for it. The demo products are an automotive **rear lamp** and a **front bumper** for an M1 passenger car.
 
+Under the hood, code and models split the work. Code parses all 56 regulations into numbered paragraphs with their pages and owns every citation: no model ever writes a page number. A model picks the regulations that apply (7 of 56 for the front bumper, and the engineer can override). All 3,240 candidate paragraphs are scored: Jev, TypeSafe's decision model, answers five calibrated yes/no questions per paragraph, the language model rates relevance, and code keeps the best. Each kept paragraph becomes standalone obligations, and code checks every number against the source. Last, the model drops rows an expert wouldn't list and merges lists that are one obligation. On the worked example, rules alone score 35 F2, the best single model pass 68 and the full engine 79. A 9-billion-parameter model on a laptop can write the drafts and still score 55.
+
 sudo shows where it falls short. On the worked example, where Certivity published the expert's answer, a coverage page lists every expert requirement sudo did not match and the reason. The engine leans toward recall on purpose: a missed requirement costs the engineer more than an extra one to strike out.
 
-sudo also keeps an assessment current. When a new version of a cited regulation comes out, the engineer uploads it. sudo compares it with the old version paragraph by paragraph and shows which requirements are modified, removed or added, each with a reason and the new paragraph. This step uses no model: it takes about a second and the same input always gives the same result.
+sudo also keeps an assessment current. When a new version of a cited regulation comes out, the engineer uploads it. sudo compares it with the old version paragraph by paragraph and shows which requirements are modified, removed or added, each with a reason and the new paragraph. This step uses no model. It aligns the old and new versions sentence by sentence across the whole document, so a paragraph that was only renumbered (5.1.4.1, for example) is not flagged. It takes about a second, the same input always gives the same result, and on the held-out pair it finds 61 of the 64 changes the expert listed.
 
 The video has to make one idea land: **from regulation PDF to requirement and back, every step is traceable. That includes the steps where it falls short and the ones that follow a change in the regulation.** The audience is a jury of homologation and compliance engineers. They should come away knowing:
 - what goes in and what comes out;
 - that they can click any requirement and see the exact paragraph it came from;
+- that models make the judgement calls and code keeps the citations true;
 - that the team measured where the engine misses and says so;
 - that a new regulation version shows up as a diff they can review, not a fresh start.
 
-## Storyline (72 s)
+## Storyline (90 s)
 
 ### Part one, requirements from a spec (0:00 to 0:37)
 
@@ -52,37 +56,49 @@ The video has to make one idea land: **from regulation PDF to requirement and ba
    - The camera pushes in until the paragraph fills the frame next to the requirement, so the viewer can see that one came from the other.
    - The cursor steps to the next requirement ("2 of N") and the highlight jumps to a new paragraph.
 
-### Part two, what we miss (0:37 to 0:49)
+### Part two, how it works (0:37 to 0:55)
 
-7. **The score, said plainly (0:37 to 0:40).** Chapter tag "05 What we miss". The coverage page floats in. Two large numerals sit side by side: "167 of 190" expert requirements matched, and F2 "0.794". The label underneath reads "Worked example, scored by the challenge platform". A thin bar shows the share matched and the share missed.
-8. **Every miss, with its reason (0:40 to 0:45).** The camera crops in on the list of missed expert requirements. They are grouped by reason, each group with a count:
+7. **Code owns the citations (0:37 to 0:43).** Chapter tag "05 How it works". The About page's "How it works" diagram floats in, paused, and steps forward one stage at a time.
+   - Step 02, Parse: 56 regulation PDFs collapse into stacks of numbered paragraphs, each with its page.
+   - Step 04, Regulation pick: the model keeps 7 of 56 regulations for the front bumper; the rest dim. A small "Override" tag shows the engineer can change it.
+8. **Models judge, code checks (0:43 to 0:49).** The diagram steps on.
+   - Step 06, Paragraph screening: citations flicker past as a counter rolls to 3,240 candidate paragraphs. Three small flow cards: "Jev, five yes/no questions", "Language model, relevance", "Code keeps the best".
+   - Steps 08 and 09: a kept paragraph splits into standalone obligations, and a "Verify" tick lands on each number checked against the source.
+   - Steps 10 to 12: rows an expert wouldn't list drop out, a list merges into one obligation, and the final JSON row settles.
+9. **Cost against quality (0:49 to 0:55).** Cut to the "Cost against quality" chart. The Pareto line draws itself, and the dots label in order: rules alone 35, best single model pass 68, full engine 79. A fourth dot, a 9B model on a laptop, reads 55. Caption: "Most of the gain comes from the engine around the model."
+
+### Part three, what we miss (0:55 to 1:07)
+
+10. **The score, said plainly (0:55 to 0:58).** Chapter tag "06 What we miss". The coverage page floats in. Two large numerals sit side by side: "167 of 190" expert requirements matched, and F2 "0.794". The label underneath reads "Worked example, scored by the challenge platform". A thin bar shows the share matched and the share missed.
+11. **Every miss, with its reason (0:58 to 1:03).** The camera crops in on the list of missed expert requirements. They are grouped by reason, each group with a count:
    - "Paragraph ranked below the cut": the row shows the paragraph's score next to the cut, for example 0.12 against 0.15.
    - "Expert splits it finer": one expert row per table row or list item, where sudo wrote one requirement for the paragraph.
    - "Same paragraph, different wording": the matcher did not pair them.
 
    The cursor opens one miss. It shows the expert's text, its paragraph, and sudo's nearest requirement on that paragraph beside it. Nothing is hidden or rounded off.
-9. **Why it leans toward recall (0:45 to 0:49).** A second card slides in: "Rows the expert did not list: 125". The note under it reads: "We keep them. A missed requirement costs more than an extra one to strike out." Below it is a short list of regulations left out on purpose, each with a one-line reason: UN R7, R23 and R3, which UN R148 and R150 replaced. Caption: "Where it misses, and why."
+12. **Why it leans toward recall (1:03 to 1:07).** A second card slides in: "Rows the expert did not list: 125". The note under it reads: "We keep them. A missed requirement costs more than an extra one to strike out." Below it is a short list of regulations left out on purpose, each with a one-line reason: UN R7, R23 and R3, which UN R148 and R150 replaced. Caption: "Where it misses, and why."
 
-### Part three, when a regulation changes (0:49 to 1:09)
+### Part four, when a regulation changes (1:07 to 1:27)
 
-10. **A new version lands (0:49 to 0:54).** A short title card in the light studio: "Regulations change. Your requirements follow." Then chapter tag "06 When a regulation changes".
+13. **A new version lands (1:07 to 1:12).** A short title card in the light studio: "Regulations change. Your requirements follow." Then chapter tag "07 When a regulation changes".
     - This part runs on the **front bumper** assessment, because its update touches paragraphs the assessment cites.
     - On the floating Updates screen, the table of cited regulations shows UN R48 at 9.3.0, with 9.4.0 available.
     - A PDF named "UN R48 9.4.0" drops onto the upload zone.
     - The steps tick through fast: Identify regulation, Parse both versions, Align paragraphs, Map requirements, Done.
     - A mono caption: "9.3.0 to 9.4.0, compared in about a second".
-11. **The regulation diff (0:54 to 0:59).** Chapter tag "07 What changed". The run page reads like a pull request: changed paragraphs on the left rail with +/− counts, and diff hunks in the main column.
+14. **The regulation diff (1:12 to 1:17).** Chapter tag "08 What changed". The run page reads like a pull request: changed paragraphs on the left rail with +/− counts, and diff hunks in the main column.
     - The camera pushes into one hunk header on a paragraph the bumper cites, then into a word-level edit: the old words struck through, the new ones highlighted in mint.
     - The rail skips unchanged and renumbered paragraphs. Only real wording changes are shown.
-12. **What it does to the requirements (0:59 to 1:05).** Chapter tag "08 What it means for you".
+    - A number card floats in: "61 of 64 expert changes found", label "Held-out pair, sentence-level alignment, no model".
+15. **What it does to the requirements (1:17 to 1:23).** Chapter tag "09 What it means for you".
     - The view scrolls to the requirement impact band. Modified, removed and added rows fall into place, each tagged and counted, with the word diff on a modified requirement.
     - Cut to the graph in diff mode. The R48 node flips from "9.3.0" to "9.4.0", changed paragraph groups light up in mint while the rest dim, and new edges draw to the requirements they touch.
     - The cursor clicks one new paragraph, and the PDF drawer opens on the new version with that paragraph highlighted.
-13. **Apply (1:05 to 1:09).** The cursor clicks "Apply update". The button turns into "Applied", the requirement counter rolls to its new value, and the R48 version on the assessment reads 9.4.0.
+16. **Apply (1:23 to 1:27).** The cursor clicks "Apply update". The button turns into "Applied", the requirement counter rolls to its new value, and the R48 version on the assessment reads 9.4.0.
 
-### Close (1:09 to 1:12)
+### Close (1:27 to 1:30)
 
-14. **Close (1:09 to 1:12).** An empty light studio. Headline: "Every requirement points to its *paragraph*.", with "paragraph" in italic in the accent colour. Under it are the sudo wordmark and "In collaboration with Certivity".
+17. **Close (1:27 to 1:30).** An empty light studio. Headline: "Every requirement points to its *paragraph*.", with "paragraph" in italic in the accent colour. Under it are the sudo wordmark and "In collaboration with Certivity".
 
 ## Look and feel
 
@@ -150,27 +166,38 @@ Ten stills from the BMW trailer are in `docs/video-refs/`; attach them. Copy the
 | 0:27 to 0:31 | 03 Regulation to requirement, crop | Push along the lit path to a paragraph group; the right panel lists its requirements with regulation, version, page and paragraph. | "Excluded regulations keep their reason" | 04 |
 | 0:31 to 0:35 | 04 Traceability | Click a requirement, PDF drawer slides in, cited paragraph highlighted, rest of page dimmed. | "Read the paragraph it has to meet" / R148 00, P. 23, § 5.4.1 | 05, 09 |
 | 0:35 to 0:37 | 04 Traceability, crop | Push in on the highlight beside the requirement text, step to "2 of N", highlight jumps. | "Every requirement, cited" | 09 |
-| 0:37 to 0:40 | 05 What we miss | Coverage page, "167 of 190" matched and F2 0.794, matched and missed bar. | "Measured against the expert's answer" / WORKED EXAMPLE, PLATFORM SCORE | 01, 08 |
-| 0:40 to 0:45 | 05 What we miss, crop | Missed expert requirements grouped by reason with counts; one opened, expert text beside sudo's nearest requirement. | "Every miss, with its reason" / BELOW THE CUT, SPLIT FINER, WORDED DIFFERENTLY | 04, 05, 07 |
-| 0:45 to 0:49 | 05 What we miss, crop | "Rows the expert did not list: 125" with the recall note; regulations left out on purpose, each with its reason. | "Where it misses, and why" | 08 |
-| 0:49 to 0:51 | Title card | "Regulations change. Your requirements follow." | none | 06 |
-| 0:51 to 0:54 | 06 When a regulation changes | Front bumper Updates screen, cited regulations with versions, "UN R48 9.4.0" PDF dropped on the upload zone, steps tick through. | "Upload the new version" / UN R48 9.3.0 TO 9.4.0, ABOUT 1 S | 03 |
-| 0:54 to 0:57 | 07 What changed | Run page as a pull request: changed-paragraph rail, diff hunks, summary numerals for amended, new and deleted. | "Only the paragraphs that changed" / RENUMBERING AND FORMATTING LEFT OUT | 01, 02 |
-| 0:57 to 0:59 | 07 What changed, crop | One hunk header on a cited paragraph and a word-level edit, struck old words, mint new words. | "§ <cited paragraph>, amended in 9.4.0" | 09 |
-| 0:59 to 1:02 | 08 What it means for you | Requirement impact band, modified, removed and added rows with counts and a word diff. | "Each requirement updated, with its reason" | 04 |
-| 1:02 to 1:05 | 08 What it means for you, crop | Graph in diff mode, R48 node flips version, changed paragraph groups light mint, PDF drawer opens on the new paragraph. | "Traced through the same graph" | 01, 07 |
-| 1:05 to 1:09 | Apply | "Apply update" clicked, "Applied", counter rolls, version reads 9.4.0. | "Review it, then apply it" | 10 |
-| 1:09 to 1:12 | Close | "Every requirement points to its *paragraph*." Wordmark and Certivity label. | none | 06 |
+| 0:37 to 0:40 | 05 How it works | About page diagram, step 02 Parse: 56 regulations become numbered paragraphs with pages. | "Code owns every citation" / NO MODEL WRITES A PAGE NUMBER | 01 |
+| 0:40 to 0:43 | 05 How it works, crop | Step 04 Regulation pick: 7 of 56 kept for the front bumper, the rest dimmed, override tag. | "The model picks, the engineer can override" / 7 OF 56 | 04 |
+| 0:43 to 0:46 | 05 How it works | Step 06 Paragraph screening, citations flicker, counter to 3,240, three flow cards. | "Every candidate paragraph scored" / JEV, LANGUAGE MODEL, CODE | 07 |
+| 0:46 to 0:49 | 05 How it works, crop | Steps 08 to 12: obligations split out, numbers verified, the final JSON row. | "Models judge, code keeps the citations true" / VERIFY AGAINST THE SOURCE | 04 |
+| 0:49 to 0:55 | 05 How it works | Cost against quality chart, Pareto line draws, dots 35, 68, 79 and the laptop model at 55. | "Most of the gain comes from the engine" / F2 ON THE WORKED EXAMPLE | 02, 08 |
+| 0:55 to 0:58 | 06 What we miss | Coverage page, "167 of 190" matched and F2 0.794, matched and missed bar. | "Measured against the expert's answer" / WORKED EXAMPLE, PLATFORM SCORE | 01, 08 |
+| 0:58 to 1:03 | 06 What we miss, crop | Missed expert requirements grouped by reason with counts; one opened, expert text beside sudo's nearest requirement. | "Every miss, with its reason" / BELOW THE CUT, SPLIT FINER, WORDED DIFFERENTLY | 04, 05, 07 |
+| 1:03 to 1:07 | 06 What we miss, crop | "Rows the expert did not list: 125" with the recall note; regulations left out on purpose, each with its reason. | "Where it misses, and why" | 08 |
+| 1:07 to 1:09 | Title card | "Regulations change. Your requirements follow." | none | 06 |
+| 1:09 to 1:12 | 07 When a regulation changes | Front bumper Updates screen, cited regulations with versions, "UN R48 9.4.0" PDF dropped on the upload zone, steps tick through. | "Upload the new version" / UN R48 9.3.0 TO 9.4.0, ABOUT 1 S | 03 |
+| 1:12 to 1:15 | 08 What changed | Run page as a pull request: changed-paragraph rail, diff hunks, summary numerals for amended, new and deleted. | "Only the paragraphs that changed" / RENUMBERING AND FORMATTING LEFT OUT | 01, 02 |
+| 1:15 to 1:17 | 08 What changed, crop | One hunk header on a cited paragraph and a word-level edit, struck old words, mint new words. | "§ <cited paragraph>, amended in 9.4.0" | 09 |
+| 1:17 to 1:20 | 09 What it means for you | Requirement impact band, modified, removed and added rows with counts and a word diff. | "Each requirement updated, with its reason" | 04 |
+| 1:20 to 1:23 | 09 What it means for you, crop | Graph in diff mode, R48 node flips version, changed paragraph groups light mint, PDF drawer opens on the new paragraph. | "Traced through the same graph" | 01, 07 |
+| 1:23 to 1:27 | Apply | "Apply update" clicked, "Applied", counter rolls, version reads 9.4.0. | "Review it, then apply it" | 10 |
+| 1:27 to 1:30 | Close | "Every requirement points to its *paragraph*." Wordmark and Certivity label. | none | 06 |
 
-The citations (R148 00, p. 23, § 5.4.1 and the R48 hunk paragraph), the scores (167 of 190, F2 0.794, 125 extra rows) and the example cut (0.12 against 0.15) are placeholders from the run log. Replace them with what the recordings show. Every number on screen must be one the app actually produced.
+The technical figures (56 regulations, 7 of 56, 3,240 paragraphs, 35, 68, 79, 55, 61 of 64) come from the About page and `out/README.md` (61 of 64 is the v10 held-out upload). The citations (R148 00, p. 23, § 5.4.1 and the R48 hunk paragraph), the scores (167 of 190, F2 0.794, 125 extra rows) and the example cut (0.12 against 0.15) are placeholders from the run log. Replace them with what the recordings show. Every number on screen must be one the app actually produced.
 
-## Optional voice-over (about 165 words)
+## Optional voice-over (about 230 words)
 
 > A rear lamp has to meet dozens of UN Regulations. Finding the right paragraphs takes days.
 > sudo reads the spec and the exploded view, picks the regulations that apply, and screens every paragraph.
 > Point at a part, and you see what it has to meet.
 > Follow it from the spec, through the regulations, down to each requirement.
 > Click one, and the regulation opens on the cited paragraph.
+>
+> Under the hood, code parses all 56 regulations into numbered paragraphs with their pages. No model ever writes a page number.
+> A model keeps the regulations that apply: 7 of 56 for the front bumper, and an engineer can override.
+> Then 3,240 candidate paragraphs are scored. Jev, TypeSafe's decision model, answers five yes/no questions per paragraph, our language model rates relevance, and code keeps the best.
+> Each kept paragraph becomes obligations, and code checks every number against the source.
+> Rules alone score 35. The best single model pass scores 68. The full engine scores 79.
 >
 > On the worked example, sudo matches 167 of the expert's 190 requirements.
 > Every one it misses is listed, with the reason: ranked below the cut, split differently, or worded differently.
@@ -179,7 +206,8 @@ The citations (R148 00, p. 23, § 5.4.1 and the R48 hunk paragraph), the scores 
 > It works the same on a front bumper.
 >
 > Then a regulation changes. Upload the new version.
-> sudo compares it paragraph by paragraph, leaves out what only moved, and shows the wording that changed.
+> sudo aligns the two versions sentence by sentence, with no model. A paragraph that was only renumbered isn't flagged.
+> On the held-out pair it finds 61 of the 64 changes the expert listed.
 > Each requirement it touches is modified, removed or added, with the reason and the new paragraph.
 > Review it in the same graph, then apply it.
 >
@@ -200,12 +228,19 @@ Part one, on the rear lamp assessment:
 6. **PDF drawer**: click a requirement so the drawer opens on the highlighted paragraph, then press next twice.
 7. **Stills**: the rear lamp spec PDF and the four regulation PDF covers (R48, R148, R150, R10), for the fan-out. For the opening, a clean render of the 3D lamp from the landing page on a transparent background, lamp on.
 
-Part two, after the coverage page from `docs/coverage-ui-prompt.md` is built:
+Part two, on the About page (`/about?preview`). Pause both diagrams and step them with the arrow keys; on autoplay they move every 2.6 seconds:
+
+8a. **How it works**: step through 02 Parse, 04 Regulation pick, 06 Paragraph screening (let the citations flicker), 07, 08, 09 Verify, 10 and 12 (the JSON row).
+8b. **The engine table**: click "Language model", then "Rules", so their marks light up.
+8c. **Cost against quality**: scroll slowly so the Pareto line draws itself, and hold on the 35, 68, 79 and 55 labels.
+8d. **When a regulation changes** diagram: steps 03, 04 (5.1.4.1 renumbered, not flagged) and 07, for part four.
+
+Part three, after the coverage page from `docs/coverage-ui-prompt.md` is built:
 
 8. **Coverage page** (`/a/<id>/coverage`): hold on the numerals, scroll slowly through the reason groups, then open one miss.
 9. **Coverage page, extras and exclusions**: scroll to the rows the expert did not list and the excluded regulations.
 
-Part three, on the front bumper assessment (`8f93fc71`). Its UN R48 9.3.0 to 9.4.0 run changes 5 cited paragraphs; the rear lamp's R148 run changes none, so it has nothing to show in the impact band:
+Part four, on the front bumper assessment (`8f93fc71`). Its UN R48 9.3.0 to 9.4.0 run changes 5 cited paragraphs; the rear lamp's R148 run changes none, so it has nothing to show in the impact band:
 
 10. **Updates start page** (`/a/<id>/updates`): the cited-regulation table. Drag the R48 9.4.0 PDF from `regulations/pdf/UN_R48/latest/` onto the upload zone and let the steps run to the run page.
 11. **Run page** (`/a/<id>/updates/<run>`): a slow scroll from the summary numerals through the diff rail and two or three hunks, hovering a hunk's affected requirement ids, then down to the requirement impact band.
