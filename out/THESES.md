@@ -31,11 +31,11 @@ Measures:
 | 1 | Regulation choice is solved | proved | 4 of 4 on dev in every run | Check on the bumper |
 | 2 | Selection loses little on dev | proved | Reach 184 of 190 before cuts, and 1–3 rows by content | Bumper unknown: Jev was fit on lamp regulations |
 | 3 | Relative cut 0.20 or 0.15 beats 0.25 | open | Local dev reach +7 at 0.20, but the only platform pair goes the other way (0.20: 150, 0.25: 154), confounded with filter and prompt | Clean A/B upload |
-| 4 | Rows on paragraphs gold doesn't cite match nothing | open | The cut uploads only removed 6–9 rows. Depends on thesis 8 | After `thesis-nolabels` |
+| 4 | Rows on paragraphs gold doesn't cite match nothing | open | The cut uploads only removed 6–9 rows. Thesis 8 is refuted, so wrongly cited rows can still match by text | After `thesis-nolabels` |
 | 5 | The judge rewards the regulation's own words | supported for fragments, open for full sentences | 2×2 of the cut2-mark uploads: both quoted 156, fragments only 151, full sentences only 146, neither 149. Only the all-quoted cell stands out (+7, at the noise limit). Subset: Opus-completed fragments 45 against 53 as quotes | Keep quoting; replicate the 0.724 file |
 | 6 | Plain sentence extraction converts as well as split and quote | refuted | Reach → matches: no-LLM 157 → 107, sentence-pick 181 → 142, splitless 175 → 140, ours 183 → 156 | none |
 | 7 | Fewer, coarser rows score better | refuted | Splitless −9, sentence-pick −14 | none |
-| 8 | The judge pairs within paragraphs (capacity bounds matches) | open | No file exceeds its capacity (r = 0.93 over 28 files), but the bound never binds (slack ≥ 3), the fit comes from the low cluster, and the challenge text doesn't say so | `thesis-nolabels`: every row cited as paragraph 1 |
+| 8 | The judge pairs only within paragraphs (capacity bounds matches) | refuted as a hard rule | `thesis-nolabels`: the same 317 texts cited as paragraph 1 still match 93. Pairing across paragraphs happens, so capacity is a soft guide, not a bound | none |
 | 9 | Under-splitting costs matches | open | Capacity 170 against reach 183. Amp: 7 slots from merged separate obligations, 6 from obligations or cases we don't write at all | Targeted extraction of missing clauses |
 | 10 | Over-split paragraphs waste rows | supported | Subset of the 80 rows on 27 paragraphs where ours > gold (39 gold rows): 24 matches | Gold-free rules: 20 and 21 |
 | 11 | A stronger or different rewrite model helps | no effect detectable | Sonnet, Sol, local models and Fable all land at 140–154, inside ±7 | none |
@@ -45,7 +45,7 @@ Measures:
 | 15 | An Opus "would an expert cite this" pass improves selection or cuts | refuted | Local: as a cut, reach 183 → 179 at p ≥ 0.1; as a selector, 99 of 121 gold paragraphs at 521 paragraphs | none |
 | 16 | Our local judge can rank writing changes | refuted | Own-subject: +13 local, +1 platform. Verbatim2: +2 local, −10 platform | none |
 | 17 | Identical content scores up to about 7 apart | supported | Fable file: 149 and 142. Near-identical cut2, cut2-rules and cut2-mark: 149, 150, 149 | Re-upload the 0.724 file to check the winner's curse |
-| 18 | Paragraph labels gate requirement matching | open | Same question as thesis 8 | `thesis-nolabels` |
+| 18 | Correct paragraph labels matter for requirement matching | proved | Same texts: 156 with our labels, 93 with every row cited as paragraph 1. Labels are worth about 63 matches | Label table rows and parent/child paragraphs the way gold does |
 | 19 | Several wordings per fragment win more | shelved | An extra row pays only above a 14.5% hit rate | none |
 | 20 | A list of cases or alternatives under one obligation is one gold row | open | Opus labels each list paragraph MERGE or SPLIT, with no gold in the prompt. It merged exactly the 4 paragraphs where gold has 1 row and split the 8 where gold has 3–8 | Full file `consolidate.json` |
 | 21 | Rows sharing one quote are one gold row | open | 12 clusters, 30 rows; collapsing them costs 1 capacity slot | Full file `consolidate.json` (287 rows, with 20 and exact-duplicate removal) |
