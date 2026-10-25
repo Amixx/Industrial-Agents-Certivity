@@ -97,8 +97,10 @@ def upload_index() -> dict[str, dict[str, Any]]:
     for name, found in sorted(scores.items()):
         path = OUT / name
         rows = requirements(path) if path.is_file() else None
+        # A row that rescores a file repeats its upload; keep each upload once.
+        once = list({(u["at"], u.get("matched"), u["f2"]): u for u in found}.values())
         if rows:
-            index[coverage.fingerprint(rows)] = {"file": name, "rows": len(rows), "uploads": found}
+            index[coverage.fingerprint(rows)] = {"file": name, "rows": len(rows), "uploads": once}
     return index
 
 

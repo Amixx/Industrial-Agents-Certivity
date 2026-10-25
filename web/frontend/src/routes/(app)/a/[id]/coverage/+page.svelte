@@ -222,23 +222,27 @@ const onExpert = $derived(coverage?.extra.filter((e) => e.onExpertParagraph).len
 		{/if}
 		<!-- 1. Score -->
 		<section class="ui-grid ui-section mt-6">
-			<div class="col-span-2">
+			<div class="col-span-12 mb-4 lg:col-span-2 lg:mb-0">
 				<span class="ui-label">01 Score</span>
 				<p class="mt-2 text-sm font-bold">Against the expert's answer</p>
 				<p class="mt-1 font-mono text-[12px] text-muted">cases/{coverage.case}/expected.json</p>
 			</div>
-			<div class="col-span-10 grid grid-cols-10 gap-x-4 xl:gap-x-6">
-				<div class="col-span-6">
-					<div class="flex items-end gap-12">
+			<div class="col-span-12 lg:col-span-10 grid grid-cols-10 gap-x-4 xl:gap-x-6">
+				<div class="col-span-10 xl:col-span-6">
+					<div class="flex flex-wrap items-end gap-x-12 gap-y-4">
 						<div>
 							<div class="flex items-baseline gap-3">
-								<span class="ui-count text-[7.5rem]">{Math.round(rolled.matched.current)}</span>
+								<span class="ui-count text-[clamp(4.5rem,7vw,7.5rem)]"
+									>{Math.round(rolled.matched.current)}</span
+								>
 								<span class="ui-display text-4xl text-muted">of {local.expected}</span>
 							</div>
 							<p class="mt-2 text-sm">expert requirements matched</p>
 						</div>
 						<div>
-							<span class="ui-count text-[7.5rem]">{rolled.f2.current.toFixed(3)}</span>
+							<span class="ui-count text-[clamp(4.5rem,7vw,7.5rem)]"
+								>{rolled.f2.current.toFixed(3)}</span
+							>
 							<p class="mt-2 text-sm">F2</p>
 						</div>
 					</div>
@@ -269,7 +273,7 @@ const onExpert = $derived(coverage?.extra.filter((e) => e.onExpertParagraph).len
 					{/if}
 				</div>
 				{#if upload}
-					<div class="col-span-3 col-start-8 self-end">
+					<div class="col-span-10 mt-8 self-end xl:col-span-3 xl:col-start-8 xl:mt-0">
 						<div class="flex items-baseline gap-6">
 							<div>
 								<span class="ui-count text-5xl">{local.matched}</span>
@@ -300,7 +304,7 @@ const onExpert = $derived(coverage?.extra.filter((e) => e.onExpertParagraph).len
 
 		<!-- 2. Missed expert requirements -->
 		<section class="ui-grid ui-section mt-14">
-			<div class="col-span-2">
+			<div class="col-span-12 mb-4 lg:col-span-2 lg:mb-0">
 				<span class="ui-label">02 Missed</span>
 				<div class="ui-numeral mt-3">{coverage.missed.length}</div>
 				<p class="mt-2 text-sm font-bold">Expert requirements the local judge did not match</p>
@@ -313,7 +317,7 @@ const onExpert = $derived(coverage?.extra.filter((e) => e.onExpertParagraph).len
 					{/if}
 				</p>
 			</div>
-			<div class="col-span-10">
+			<div class="col-span-12 lg:col-span-10">
 				{#each groups as g (g.reason)}
 					{@const rows = coverage.missed.filter((m) => m.reason === g.reason)}
 					<div class="mb-10">
@@ -338,7 +342,7 @@ const onExpert = $derived(coverage?.extra.filter((e) => e.onExpertParagraph).len
 
 		<!-- 3. Rows the expert did not list -->
 		<section class="ui-grid ui-section mt-4">
-			<div class="col-span-2">
+			<div class="col-span-12 mb-4 lg:col-span-2 lg:mb-0">
 				<span class="ui-label">03 Extra</span>
 				<div class="ui-numeral mt-3">{Math.round(rolled.extra.current)}</div>
 				<p class="mt-2 text-sm font-bold">Rows the expert did not list</p>
@@ -349,7 +353,7 @@ const onExpert = $derived(coverage?.extra.filter((e) => e.onExpertParagraph).len
 					{/if}
 				</p>
 			</div>
-			<div class="col-span-10">
+			<div class="col-span-12 lg:col-span-10">
 				<div class="grid grid-cols-10 gap-x-4 xl:gap-x-6">
 					<div class="col-span-2 border-t-2 border-line pt-2">
 						<div class="ui-count text-4xl">{onExpert}</div>
@@ -408,10 +412,10 @@ const onExpert = $derived(coverage?.extra.filter((e) => e.onExpertParagraph).len
 	{:else}
 		<!-- No expert answer: the paragraph cut stands in for the comparison. -->
 		<section class="ui-grid ui-section mt-6">
-			<div class="col-span-2">
+			<div class="col-span-12 mb-4 lg:col-span-2 lg:mb-0">
 				<span class="ui-label">01 Score</span>
 			</div>
-			<div class="col-span-10">
+			<div class="col-span-12 lg:col-span-10">
 				<p class="max-w-[48ch] text-xl leading-tight font-medium">
 					There is no public expert answer for this case to compare against.
 				</p>
@@ -424,14 +428,14 @@ const onExpert = $derived(coverage?.extra.filter((e) => e.onExpertParagraph).len
 			</div>
 		</section>
 		<section class="ui-grid ui-section mt-12">
-			<div class="col-span-2">
+			<div class="col-span-12 mb-4 lg:col-span-2 lg:mb-0">
 				<span class="ui-label">02 Near the cut</span>
 				<p class="mt-2 text-sm font-bold">Paragraphs closest to the threshold</p>
 				<p class="mt-2 text-xs leading-snug text-muted">
 					The score is the engine's probability that an expert cites the paragraph.
 				</p>
 			</div>
-			<div class="col-span-10 grid grid-cols-10 gap-x-4 xl:gap-x-6">
+			<div class="col-span-12 lg:col-span-10 grid grid-cols-10 gap-x-4 xl:gap-x-6">
 				{#each [false, true] as kept (kept)}
 					{@const rows = coverage.nearCut.filter((n) => n.kept === kept)}
 					<div class="col-span-5">
@@ -462,13 +466,13 @@ const onExpert = $derived(coverage?.extra.filter((e) => e.onExpertParagraph).len
 	{#if coverage}
 		<!-- 4. Regulations left out on purpose -->
 		<section class="ui-grid ui-section mt-12">
-			<div class="col-span-2">
+			<div class="col-span-12 mb-4 lg:col-span-2 lg:mb-0">
 				<span class="ui-label">{coverage.hasAnswer ? '04' : '03'} Left out</span>
 				<div class="ui-numeral mt-3">{coverage.excluded.length}</div>
 				<p class="mt-2 text-sm font-bold">Regulations left out on purpose</p>
 				<p class="mt-2 text-xs leading-snug text-muted">The regulation pick's own reasons.</p>
 			</div>
-			<ul class="col-span-10 border-t-2 border-line">
+			<ul class="col-span-12 border-t-2 border-line lg:col-span-10">
 				{#each coverage.excluded as d (d.regulation)}
 					<li class="ui-rule-soft grid grid-cols-10 gap-x-4 border-b py-2.5 xl:gap-x-6">
 						<span class="col-span-2 text-sm font-bold">{d.regulation}</span>
