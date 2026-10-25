@@ -100,6 +100,7 @@ def _below(p: Paragraph, score: float, cut: float, stage: str) -> dict[str, Any]
         "version": p.version,
         "page": p.page,
         "paragraph": p.label,
+        "text": p.text[:600],
         "score": round(score, 3),
         "cut": round(cut, 3),
         "stage": stage,

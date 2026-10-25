@@ -46,6 +46,8 @@ export type PlatformScore = { file: string; rows: number; uploads: PlatformUploa
 
 export type NearCut = {
 	source: Source;
+	/** The start of the paragraph. */
+	text?: string;
 	score: number;
 	cut?: number;
 	stage?: CutStage;

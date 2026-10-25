@@ -88,13 +88,17 @@ def near_cut(assessment: Assessment) -> list[NearCut]:
             source=Source(
                 regulation=c.regulation, version=c.version, page=c.page, paragraph=c.paragraph
             ),
+            text=c.text,
             score=c.score,
             cut=c.cut,
             stage=c.stage,
             kept=False,
         )
         for c in under
-    ] + [NearCut(source=r.source, score=r.confidence or 0.0, kept=True) for r in over]
+    ] + [
+        NearCut(source=r.source, text=r.quote or r.text, score=r.confidence or 0.0, kept=True)
+        for r in over
+    ]
 
 
 def coverage_for(assessment: Assessment) -> Coverage:
@@ -121,6 +125,7 @@ def coverage_for(assessment: Assessment) -> Coverage:
             "has_answer": True,
             "platform": score,
             "excluded": excluded,
+            "near_cut": near_cut(assessment),
             "expert_copies": copies,
             "engine_run": store.seed_for(case) if case and copies == len(gold) else None,
         }

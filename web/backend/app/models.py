@@ -68,6 +68,8 @@ class CutParagraph(Model):
     version: str
     page: int
     paragraph: str
+    text: str | None = None
+    """The start of the paragraph, so a reader can tell what it is about."""
     score: float
     cut: float
     stage: Literal["paragraph", "section", "confidence"]
@@ -228,6 +230,7 @@ class PlatformScore(Model):
 
 class NearCut(Model):
     source: Source
+    text: str | None = None
     score: float
     cut: float | None = None
     stage: Literal["paragraph", "section", "confidence"] | None = None

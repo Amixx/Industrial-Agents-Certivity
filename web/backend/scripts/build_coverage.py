@@ -111,9 +111,11 @@ def _git_json(path: str) -> Any:
     return json.loads(shown.stdout)
 
 
-def _cut(source: dict[str, Any], score: float, cut: float, stage: str) -> CutParagraph:
+def _cut(row: dict[str, Any], score: float, cut: float, stage: str) -> CutParagraph:
+    """A cut paragraph from its best row, with that row's quote as the paragraph's text."""
+    text = row.get("quote") or row["text"]
     return CutParagraph.model_validate(
-        {**source, "score": round(score, 3), "cut": cut, "stage": stage}
+        {**row["source"], "text": text, "score": round(score, 3), "cut": cut, "stage": stage}
     )
 
 
@@ -124,17 +126,17 @@ def lamp_below_cut(final: list[dict[str, Any]]) -> list[CutParagraph]:
     p_keep = _git_json("repro/j20f-all.pkeep.json")
     p_section = _git_json("repro/p_section.json")
     cited = {(r["source"]["regulation"], r["source"]["paragraph"]) for r in final}
-    best: dict[tuple[str, str], tuple[dict[str, Any], float]] = {}
+    best: dict[tuple[str, str], tuple[dict[str, Any], float]] = {}  # paragraph: best row, score
     for row, pk in zip(rows, p_keep, strict=True):
         s = row["source"]
         key = (s["regulation"], s["paragraph"])
         ps = p_section.get(f"{s['regulation']}|{paragraph_key(s['paragraph'])}", 1.0)
         score = pk * math.sqrt(ps)
-        if score > best.get(key, (s, -1.0))[1]:
-            best[key] = (s, score)
+        if score > best.get(key, (row, -1.0))[1]:
+            best[key] = (row, score)
     return [
-        _cut(s, score, 0.3535, "section")
-        for key, (s, score) in best.items()
+        _cut(row, score, 0.3535, "section")
+        for key, (row, score) in best.items()
         if key not in cited and score < 0.3535
     ]
 
@@ -151,7 +153,7 @@ def bumper_below_cut(final: list[dict[str, Any]]) -> list[CutParagraph]:
         key = (s["regulation"], s["paragraph"])
         cut = cuts.get(s["regulation"])
         if cut and key not in cited and score < cut:
-            found[key] = _cut(s, score, cut, "confidence")
+            found[key] = _cut(row, score, cut, "confidence")
     return list(found.values())
 
 

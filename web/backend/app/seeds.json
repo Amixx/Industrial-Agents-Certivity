@@ -3673,6 +3673,7 @@
     "version": "7.2.0",
     "page": 26,
     "paragraph": "9.3.1",
+    "text": "When the conformity of a vehicle, component or ESA taken from the series is being verified, production shall be deemed to conform to the requirements of this Regulation in relation to broadband electromagnetic disturbances and narrowband electromagnetic disturbances if the levels measured do not exceed by more than 4 dB (60 per cent) the reference limits prescribed in paragraphs 6.2.2.1., 6.2.2.2., 6.3.2.1., 6.3.2.2. and, if applicable, paragraphs 7.2.2.1. and 7.2.2.2. for vehicles and paragraphs 6.5.2.1., 6.6.2.1., and, if applicable, paragraph 7.10.2.1. above for ESAs (as appropriate).",
     "score": 0.348,
     "cut": 0.3535,
     "stage": "section"
@@ -3682,6 +3683,7 @@
     "version": "7.2.0",
     "page": 98,
     "paragraph": "Annex 9 2.2",
+    "text": "The ESA under test shall be switched on and shall be stimulated to be in normal operation condition.",
     "score": 0.31,
     "cut": 0.3535,
     "stage": "section"
@@ -3691,6 +3693,7 @@
     "version": "7.2.0",
     "page": 99,
     "paragraph": "Annex 9 3.2",
+    "text": "The Technical Service shall perform the test at the intervals specified in ISO 11452-1, throughout the frequency range 20 to 6,000 MHz.",
     "score": 0.302,
     "cut": 0.3535,
     "stage": "section"
@@ -3700,6 +3703,7 @@
     "version": "7.2.0",
     "page": 98,
     "paragraph": "Annex 9 2.1",
+    "text": "The test conditions shall be according to ISO 11452-1.",
     "score": 0.247,
     "cut": 0.3535,
     "stage": "section"
@@ -3709,6 +3713,7 @@
     "version": "7.2.0",
     "page": 96,
     "paragraph": "Annex 8 3.1",
+    "text": "The test shall be performed according to ALSE method described in paragraph 6.4. of CISPR 25.",
     "score": 0.235,
     "cut": 0.3535,
     "stage": "section"
@@ -3718,6 +3723,7 @@
     "version": "7.2.0",
     "page": 8,
     "paragraph": "5.3",
+    "text": "An international approval mark shall be affixed, in a conspicuous and easily accessible place specified on the approval communication form, on each vehicle conforming to the type approved under this Regulation.",
     "score": 0.222,
     "cut": 0.3535,
     "stage": "section"
@@ -3727,6 +3733,7 @@
     "version": "7.2.0",
     "page": 97,
     "paragraph": "Annex 8 4.4",
+    "text": "Alternatively, if the manufacturer provides measurement to data for the whole frequency band from a test laboratory accredited to the applicable parts of ISO 17025 and recognized by the Type Approval Authority, the Technical Service may divide the frequency range in 14 frequency bands ... and perform tests at the 14 frequencies giving the highest emission levels within each band to confirm that the ESA meets the requirements of this Annex.",
     "score": 0.221,
     "cut": 0.3535,
     "stage": "section"
@@ -3736,6 +3743,7 @@
     "version": "7.2.0",
     "page": 97,
     "paragraph": "Annex 8 4.5",
+    "text": "The maximum of the readings relative to the limit (horizontal/vertical polarisation) in each of the 14 frequency bands shall be taken as the characteristic reading at the frequency at which the measurements were made.",
     "score": 0.216,
     "cut": 0.3535,
     "stage": "section"
@@ -3745,6 +3753,7 @@
     "version": "7.2.0",
     "page": 93,
     "paragraph": "Annex 7 4.5",
+    "text": "The maximum of the readings relative to the limit (horizontal/vertical polarization) in each of the 14 frequency bands shall be taken as the characteristic reading at the frequency at which the measurements were made.",
     "score": 0.212,
     "cut": 0.3535,
     "stage": "section"
@@ -3754,6 +3763,7 @@
     "version": "7.2.0",
     "page": 19,
     "paragraph": "7.10.2.1",
+    "text": "If measurements are made using the method described in Annex 7, the limits shall be 62 to 52 dB\u00b5V/m in the 30 to 75 MHz frequency band, this limit decreasing logarithmically with frequencies above 30 MHz, and 52 to 63 dB\u00b5V/m in the 75 to 400 MHz band, this limit increasing logarithmically with frequencies above 75 MHz as shown in Appendix 6.",
     "score": 0.211,
     "cut": 0.3535,
     "stage": "section"
@@ -3763,6 +3773,7 @@
     "version": "7.2.0",
     "page": 100,
     "paragraph": "Annex 9 4.3.2",
+    "text": "The test shall be performed according to ISO 11452-4 on a test bench with the following characteristics: BCI test method with substitution method and injection probe positioned at 150 mm distance to the ESA;",
     "score": 0.207,
     "cut": 0.3535,
     "stage": "section"
@@ -3772,6 +3783,7 @@
     "version": "7.2.0",
     "page": 92,
     "paragraph": "Annex 7 4.3",
+    "text": "Note: If a spectrum analyser is used for peak measurements, the video bandwidth shall be at least three times the resolution bandwidth (RBW).",
     "score": 0.194,
     "cut": 0.3535,
     "stage": "section"
@@ -3781,6 +3793,7 @@
     "version": "7.2.0",
     "page": 96,
     "paragraph": "Annex 8 4.2",
+    "text": "Measurements shall be performed with an average detector.",
     "score": 0.194,
     "cut": 0.3535,
     "stage": "section"
@@ -3790,6 +3803,7 @@
     "version": "7.2.0",
     "page": 101,
     "paragraph": "Annex 9 4.4.2",
+    "text": "The test shall be performed according to ISO 11452-5.",
     "score": 0.192,
     "cut": 0.3535,
     "stage": "section"
@@ -3799,6 +3813,7 @@
     "version": "7.2.0",
     "page": 93,
     "paragraph": "Annex 7 4.4",
+    "text": "Unless otherwise specified the configuration with the LV harness closer to the antenna shall be tested.",
     "score": 0.185,
     "cut": 0.3535,
     "stage": "section"
@@ -3808,6 +3823,7 @@
     "version": "7.2.0",
     "page": 8,
     "paragraph": "6.1.1.1",
+    "text": "A vehicle shall be tested for radiated emissions and for immunity to radiated disturbances.",
     "score": 0.157,
     "cut": 0.3535,
     "stage": "section"
@@ -3817,6 +3833,7 @@
     "version": "7.2.0",
     "page": 19,
     "paragraph": "7.10.2.2",
+    "text": "dB\u00b5V/m, shall be below the type approval limits.",
     "score": 0.157,
     "cut": 0.3535,
     "stage": "section"
@@ -3826,6 +3843,7 @@
     "version": "7.2.0",
     "page": 96,
     "paragraph": "Annex 8 3.3",
+    "text": "In this measurement, the extraneous noise or signal shall be at least 6 dB below the limits of interference given in paragraph 6.6.2.1. of this Regulation, except for intentional narrowband ambient transmissions.",
     "score": 0.154,
     "cut": 0.3535,
     "stage": "section"
@@ -3835,6 +3853,7 @@
     "version": "7.2.0",
     "page": 96,
     "paragraph": "Annex 8 4.3",
+    "text": "The measurements shall be performed with a spectrum analyser or a scanning receiver.",
     "score": 0.126,
     "cut": 0.3535,
     "stage": "section"
@@ -3844,6 +3863,7 @@
     "version": "7.2.0",
     "page": 96,
     "paragraph": "Annex 8 3.2",
+    "text": "As an alternative to an absorber lined shielded enclosure (ALSE) an open area test site (OATS) which complies with the requirements of CISPR 16-1-4 may be used (see Figure 1 of the appendix to Annex 7).",
     "score": 0.118,
     "cut": 0.3535,
     "stage": "section"
@@ -3853,6 +3873,7 @@
     "version": "7.2.0",
     "page": 98,
     "paragraph": "Annex 9 2.4",
+    "text": "Any extraneous equipment required to operate the ESA under test shall not be in place during the calibration phase.",
     "score": 0.11,
     "cut": 0.3535,
     "stage": "section"
@@ -3862,6 +3883,7 @@
     "version": "7.2.0",
     "page": 10,
     "paragraph": "6.4.2.1",
+    "text": "If tests are made using the method described in Annex 6, in accordance with ISO 11451-2, the field strength shall be 30 volts/m in over 90 per cent of the 20 to 2,000 MHz frequency band and a minimum of 25 volts/m over the whole 20 to 2,000 MHz frequency band.",
     "score": 0.104,
     "cut": 0.3535,
     "stage": "section"
@@ -3871,6 +3893,7 @@
     "version": "7.2.0",
     "page": 9,
     "paragraph": "6.2.2.1",
+    "text": "If measurements are made using the method described in Annex 4 using a vehicle-to-antenna spacing of 10.0 \u00b1 0.2 m, the limits shall be 32 dB microvolts/m in the 30 to 75 MHz frequency band and 32 to 43 dB microvolts/m in the 75 to 400 MHz frequency band, this limit increasing logarithmically with frequencies above 75 MHz as shown in Appendix 2 to this Regulation.",
     "score": 0.095,
     "cut": 0.3535,
     "stage": "section"
@@ -3880,6 +3903,7 @@
     "version": "7.2.0",
     "page": 9,
     "paragraph": "6.2.2.2",
+    "text": "If measurements are made using the method described in Annex 4 using a vehicle-to-antenna spacing of 3.0 \u00b1 0.05 m, the limits shall be 42 dB microvolts/m in the 30 to 75 MHz frequency band and 42 to 53 dB microvolts/m in the 75 to 400 MHz frequency band, this limit increasing logarithmically with frequencies above 75 MHz as shown in Appendix 3 to this Regulation.",
     "score": 0.095,
     "cut": 0.3535,
     "stage": "section"
@@ -3889,6 +3913,7 @@
     "version": "7.2.0",
     "page": 9,
     "paragraph": "6.3.2.2",
+    "text": "If measurements are made using the method described in Annex 5 using a vehicle-to-antenna spacing of 3.0 \u00b1 0.05 m, the limits shall be 38 dB microvolts/m in the 30 to 230 MHz frequency band and 45 dB microvolts/m in the 230 to 1,000 MHz frequency band.",
     "score": 0.095,
     "cut": 0.3535,
     "stage": "section"
@@ -3898,6 +3923,7 @@
     "version": "1.6.0",
     "page": 13,
     "paragraph": "4.8.1.5",
+    "text": "In the case where the lamp may be installed on the vehicle in more than one or in a field of different positions the photometric measurements shall be repeated for each position or for the extreme positions of the field of the reference axis specified by the manufacturer.",
     "score": 0.335,
     "cut": 0.3535,
     "stage": "section"
@@ -3907,6 +3933,7 @@
     "version": "1.6.0",
     "page": 14,
     "paragraph": "4.8.2.2",
+    "text": "In case of a lamp not controlled by an electronic light source control gear or a variable intensity control: 4.8.2.2.1. in the case of light source module(s) or non-replaceable light source(s) the lamp shall be operated as specified by the applicant;",
     "score": 0.322,
     "cut": 0.3535,
     "stage": "section"
@@ -3916,6 +3943,7 @@
     "version": "1.6.0",
     "page": 14,
     "paragraph": "4.8.2.1",
+    "text": "In case of a lamp controlled by an electronic light source control gear or a variable intensity control, the lamp shall be operated as specified by the applicant;",
     "score": 0.31,
     "cut": 0.3535,
     "stage": "section"
@@ -3925,6 +3953,7 @@
     "version": "1.6.0",
     "page": 13,
     "paragraph": "4.8.1.3",
+    "text": "In case of a lamp (function) using light sources which are subject to more than one of the conditions prescribed in paragraph 4.8., the photometric measurements shall be made separately, in accordance with each applicable condition(s) set forth in paragraph 4.8.",
     "score": 0.302,
     "cut": 0.3535,
     "stage": "section"
@@ -3934,6 +3963,7 @@
     "version": "1.6.0",
     "page": 14,
     "paragraph": "4.8.2.3",
+    "text": "4.8.2.3.1. shall be operated at a voltage or electrical current setting such that the actual luminous fluxes of the light sources do not deviate by more than 5 per cent from the average luminous flux of the light sources.",
     "score": 0.246,
     "cut": 0.3535,
     "stage": "section"
@@ -3943,6 +3973,7 @@
     "version": "1.2.1",
     "page": 25,
     "paragraph": "Annex 2 1.3",
+    "text": "The chromaticity coordinates shall be complied with.",
     "score": 0.335,
     "cut": 0.3535,
     "stage": "section"
@@ -3952,6 +3983,7 @@
     "version": "1.2.1",
     "page": 28,
     "paragraph": "Annex 4 Part 1 1.1",
+    "text": "When the RI of a retro-reflective device is measured for an angle \u03b2 of \u03b21 = \u03b22 = 0\u00b0, it shall be ascertained whether any mirror effect is produced by slightly turning the device.",
     "score": 0.335,
     "cut": 0.3535,
     "stage": "section"
@@ -3961,6 +3993,7 @@
     "version": "1.2.1",
     "page": 5,
     "paragraph": "3.2.3",
+    "text": "An approval number shall be assigned to each type approved and shall be marked on the device following the requirements of paragraph 3.3.",
     "score": 0.329,
     "cut": 0.3535,
     "stage": "section"
@@ -3970,6 +4003,7 @@
     "version": "1.2.1",
     "page": 11,
     "paragraph": "4.2.1.1",
+    "text": "These specifications shall apply only to white, red or amber retro-reflective devices",
     "score": 0.322,
     "cut": 0.3535,
     "stage": "section"
@@ -3979,6 +4013,7 @@
     "version": "1.2.1",
     "page": 45,
     "paragraph": "Annex 6 Part 4 3",
+    "text": "In the case of retro-reflective devices with essential metal components susceptible to corrosion, the saline mist shall be produced by atomizing, at a temperature of 35 \u00b0C \u00b1 2 \u00b0C, a saline solution obtained by dissolving 5 parts by weight of sodium chloride in 95 parts of distilled water containing not more than 0.02 per cent of impurities.",
     "score": 0.31,
     "cut": 0.3535,
     "stage": "section"
@@ -3988,6 +4023,7 @@
     "version": "1.2.1",
     "page": 28,
     "paragraph": "Annex 4 Part 1 1.4",
+    "text": "If for the direction \u03b21 = \u03b22 = 0\u00b0, and for \u03b5 = 0\u00b0 the RI exceeds the specified value by 50 per cent or more, all measurements for all angles of illumination and divergence shall be made for \u03b5 = 0\u00b0.",
     "score": 0.284,
     "cut": 0.3535,
     "stage": "section"
@@ -3997,6 +4033,7 @@
     "version": "1.2.1",
     "page": 7,
     "paragraph": "3.3.2",
+    "text": "The approval marking shall consist of:",
     "score": 0.247,
     "cut": 0.3535,
     "stage": "section"
@@ -4006,6 +4043,7 @@
     "version": "1.2.1",
     "page": 11,
     "paragraph": "4.2.1.3",
+    "text": "White retro-reflective devices must not produce a selective reflection, that is to say, the trichromatic coordinates \"x\" and \"y\" of Standard Illuminant \"A\" used to illuminate the retro-reflective device must not undergo a change of more than 0.01 after reflection by the retro-reflective device.",
     "score": 0.237,
     "cut": 0.3535,
     "stage": "section"
@@ -4015,6 +4053,7 @@
     "version": "1.2.1",
     "page": 30,
     "paragraph": "Annex 4 Part 1 3.4",
+    "text": "Angular diameter of the source -\u03b4\u226410'",
     "score": 0.141,
     "cut": 0.3535,
     "stage": "section"
@@ -4024,6 +4063,7 @@
     "version": "1.2.1",
     "page": 30,
     "paragraph": "Annex 4 Part 1 3.7",
+    "text": "The illuminance over the useful area of the retro-reflective device, measured perpendicular to the incident light shall be sufficiently uniform. ... The variation in the value of the illuminance shall then comply with the condition: max/min \u2264 1.05",
     "score": 0.139,
     "cut": 0.3535,
     "stage": "section"
@@ -4033,6 +4073,7 @@
     "version": "9.3.0",
     "page": 47,
     "paragraph": "6.7.8",
+    "text": "Tell-tale optional, however a tell-tale indicating failure is mandatory if required by the component regulation.",
     "score": 0.35,
     "cut": 0.3535,
     "stage": "section"
@@ -4042,6 +4083,7 @@
     "version": "9.3.0",
     "page": 25,
     "paragraph": "5.19",
+    "text": "When the movable components are in a position other than a \"normal position of use\", the devices installed on them shall not cause undue discomfort to road users.",
     "score": 0.329,
     "cut": 0.3535,
     "stage": "section"
@@ -4051,6 +4093,7 @@
     "version": "9.3.0",
     "page": 25,
     "paragraph": "5.20",
+    "text": "When a lamp is installed on a movable component and the movable component is in the \"normal position(s) of use\", the lamp shall always return to the position(s) specified by the manufacturer in accordance with this Regulation.",
     "score": 0.329,
     "cut": 0.3535,
     "stage": "section"
@@ -4060,6 +4103,7 @@
     "version": "9.3.0",
     "page": 26,
     "paragraph": "5.24",
+    "text": "Any temporary fail-safe replacement of the light-signalling function of a rear position lamp is allowed, provided that the replacement function in case of a failure is similar in colour, main intensity and position to the function that has ceased to operate",
     "score": 0.325,
     "cut": 0.3535,
     "stage": "section"
@@ -4069,6 +4113,7 @@
     "version": "9.3.0",
     "page": 20,
     "paragraph": "5.7.2.2",
+    "text": "(a) Either the projection of the apparent surfaces in the direction of the reference axis of the two lamps or retro reflectors occupies not less than 60 per cent of the smallest quadrilateral circumscribing the projections of the said apparent surfaces in the direction of the reference axis;",
     "score": 0.301,
     "cut": 0.3535,
     "stage": "section"
@@ -4078,6 +4123,7 @@
     "version": "9.3.0",
     "page": 21,
     "paragraph": "5.8",
+    "text": "The maximum height above the ground shall be measured from the highest point and the minimum height from the lowest point of the apparent surface in the direction of the reference axis.",
     "score": 0.301,
     "cut": 0.3535,
     "stage": "section"
@@ -4087,6 +4133,7 @@
     "version": "9.3.0",
     "page": 26,
     "paragraph": "5.21.1",
+    "text": "Additional lamps satisfying all the position, geometric visibility, colorimetric and photometric requirements for the above indicated lamps shall be switched ON when the apparent surface in the direction of the reference axis of these lamps is more than 50 per cent hidden by the movable component",
     "score": 0.301,
     "cut": 0.3535,
     "stage": "section"
@@ -4096,6 +4143,7 @@
     "version": "9.3.0",
     "page": 61,
     "paragraph": "6.19.7.5",
+    "text": "When daytime running lamps are switched ON, the rear position lamps shall be switched ON. In addition, any other lamp(s) mentioned in paragraph 5.11. may also be switched ON. However, the rear position lamps and the other lamp(s) mentioned in paragraph 5.11. may be switched OFF when the daytime running lamps are switched ON, and may remain switched OFF as long as the ambient light conditions outside vehicle are above 7,000 lux (measured according to the requirements of Annex 13).",
     "score": 0.3,
     "cut": 0.3535,
     "stage": "section"
@@ -4105,6 +4153,7 @@
     "version": "9.3.0",
     "page": 20,
     "paragraph": "5.7.1.2",
+    "text": "Stop lamps and direction-indicator lamps are not permitted to be reciprocally incorporated.",
     "score": 0.282,
     "cut": 0.3535,
     "stage": "section"
@@ -4114,6 +4163,7 @@
     "version": "9.3.0",
     "page": 40,
     "paragraph": "6.4.8",
+    "text": "Tell-tale optional, however a tell-tale indicating failure is mandatory if required by the component regulation.",
     "score": 0.275,
     "cut": 0.3535,
     "stage": "section"
@@ -4123,6 +4173,7 @@
     "version": "9.3.0",
     "page": 27,
     "paragraph": "5.28.2",
+    "text": "If measurements are taken closer to the lamp, the direction of observation shall be shifted parallel to achieve the same accuracy.",
     "score": 0.253,
     "cut": 0.3535,
     "stage": "section"
@@ -4132,6 +4183,7 @@
     "version": "9.3.0",
     "page": 114,
     "paragraph": "Annex 9 1.2.1",
+    "text": "The values measured for the angles shall be such that the individual specifications applicable to each lamp are fulfilled except that the limits of the angles may have an allowance corresponding to the \u00b13\u00ba variation permitted in paragraph 5.3. for the mounting of the light-signalling devices.",
     "score": 0.253,
     "cut": 0.3535,
     "stage": "section"
@@ -4141,6 +4193,7 @@
     "version": "9.3.0",
     "page": 19,
     "paragraph": "5.6",
+    "text": "On vehicles whose external shape is asymmetrical the above requirements shall be satisfied so far as is possible.",
     "score": 0.246,
     "cut": 0.3535,
     "stage": "section"
@@ -4150,6 +4203,7 @@
     "version": "9.3.0",
     "page": 114,
     "paragraph": "Annex 9 1.1",
+    "text": "The values measured for the distances shall be such that the individual specifications applicable to each lamp are fulfilled.",
     "score": 0.219,
     "cut": 0.3535,
     "stage": "section"
@@ -4159,6 +4213,7 @@
     "version": "9.3.0",
     "page": 19,
     "paragraph": "5.5",
+    "text": "In the absence of specific instructions lamps constituting a pair shall:",
     "score": 0.201,
     "cut": 0.3535,
     "stage": "section"
@@ -4168,6 +4223,7 @@
     "version": "9.3.0",
     "page": 39,
     "paragraph": "6.4.4.1",
+    "text": "In width: no special requirement.",
     "score": 0.177,
     "cut": 0.3535,
     "stage": "section"
@@ -4177,6 +4233,7 @@
     "version": "9.3.0",
     "page": 28,
     "paragraph": "5.34",
+    "text": "To verify that this statement is respected, both at the type approval and in the conformity of production verification, the presence of the marking on the lamps related to the use of LED substitute light source(s) shall be checked.",
     "score": 0.137,
     "cut": 0.3535,
     "stage": "section"
@@ -4186,6 +4243,7 @@
     "version": "9.3.0",
     "page": 46,
     "paragraph": "6.7.4.2.2",
+    "text": "The horizontal plane tangential to the lower edge of the apparent surface shall: either not be more than 150 mm below the horizontal plane tangential to the lower edge of the exposed surface of the glass or glazing of the rear window, or not be less than 850 mm above the ground. However, the horizontal plane tangential to the lower edge of the apparent surface of a S3 or S4 category device shall be above the horizontal plane tangential to the upper edge of the apparent surface of S1 or S2 categories devices.",
     "score": 0.089,
     "cut": 0.3535,
     "stage": "section"
@@ -9567,6 +9625,7 @@
     "version": "7.2.0",
     "page": 101,
     "paragraph": "Annex 9 4.4.2",
+    "text": "The test shall be performed according to ISO 11452-5.",
     "score": 0.199,
     "cut": 0.2,
     "stage": "confidence"
@@ -9576,6 +9635,7 @@
     "version": "7.2.0",
     "page": 10,
     "paragraph": "6.6.1",
+    "text": "The electromagnetic radiation generated by the ESA representative of its type shall be measured by the method described in Annex 8.",
     "score": 0.197,
     "cut": 0.2,
     "stage": "confidence"
@@ -9585,6 +9645,7 @@
     "version": "7.2.0",
     "page": 96,
     "paragraph": "Annex 8 3.3",
+    "text": "In this measurement, the extraneous noise or signal shall be at least 6 dB below the limits of interference given in paragraph 6.6.2.1. of this Regulation, except for intentional narrowband ambient transmissions.",
     "score": 0.197,
     "cut": 0.2,
     "stage": "confidence"
@@ -9594,6 +9655,7 @@
     "version": "7.2.0",
     "page": 10,
     "paragraph": "6.5.1",
+    "text": "The electromagnetic radiation generated by the ESA representative of its type shall be measured by the method described in Annex 7.",
     "score": 0.196,
     "cut": 0.2,
     "stage": "confidence"
@@ -9603,6 +9665,7 @@
     "version": "7.2.0",
     "page": 96,
     "paragraph": "Annex 8 4.2",
+    "text": "Measurements shall be performed with an average detector.",
     "score": 0.196,
     "cut": 0.2,
     "stage": "confidence"
@@ -9612,6 +9675,7 @@
     "version": "7.2.0",
     "page": 13,
     "paragraph": "6.10.3",
+    "text": "ESAs with no immunity related functions need not be tested for immunity to radiated disturbances and shall be deemed to comply with paragraph 6.8. and with Annex 9 to this Regulation.",
     "score": 0.193,
     "cut": 0.2,
     "stage": "confidence"
@@ -9621,6 +9685,7 @@
     "version": "7.2.0",
     "page": 93,
     "paragraph": "Annex 7 4.4",
+    "text": "In the event that the limit is exceeded during the test, investigations shall be made to ensure that this is due to the ESA and not to background radiation.",
     "score": 0.19,
     "cut": 0.2,
     "stage": "confidence"
@@ -9630,6 +9695,7 @@
     "version": "7.2.0",
     "page": 98,
     "paragraph": "Annex 9 2.1",
+    "text": "The test conditions shall be according to ISO 11452-1.",
     "score": 0.181,
     "cut": 0.2,
     "stage": "confidence"
@@ -9639,6 +9705,7 @@
     "version": "7.2.0",
     "page": 12,
     "paragraph": "6.10.1",
+    "text": "Where a vehicle or electrical/electronic system or ESA does not include an electronic oscillator with an operating frequency greater than 9 kHz, it shall be deemed to comply with paragraph 6.3.2. or 6.6.2. and with Annexes 5 and 8.",
     "score": 0.177,
     "cut": 0.2,
     "stage": "confidence"
@@ -9648,6 +9715,7 @@
     "version": "7.2.0",
     "page": 97,
     "paragraph": "Annex 8 4.4",
+    "text": "In the event that the limit is exceeded during the test, investigations shall be made to ensure that this is due to the ESA and not to background radiation including broadband radiation from the ESA.",
     "score": 0.166,
     "cut": 0.2,
     "stage": "confidence"
@@ -9657,6 +9725,7 @@
     "version": "7.2.0",
     "page": 99,
     "paragraph": "Annex 9 3.3",
+    "text": "If an ESA fails the tests defined in this Annex, it shall be verified as having failed under the relevant test conditions and not as a result of the generation of uncontrolled fields.",
     "score": 0.166,
     "cut": 0.2,
     "stage": "confidence"
@@ -9666,6 +9735,7 @@
     "version": "7.2.0",
     "page": 96,
     "paragraph": "Annex 8 4.3",
+    "text": "Table 2 Scanning receiver parameters Frequency range MHz Average detector BW at -6 dB Maximum step size Minimum dwell time 30 to 1,000 120 kHz 60 kHz 5 ms",
     "score": 0.165,
     "cut": 0.2,
     "stage": "confidence"
@@ -9675,6 +9745,7 @@
     "version": "7.2.0",
     "page": 13,
     "paragraph": "7.1.1",
+    "text": "A vehicle and its electrical/electronic system(s) or ESA(s) shall be so designed, constructed and fitted as to enable the vehicle, in configuration \"REESS charging mode coupled to the power grid\", to comply with the requirements of this Regulation.",
     "score": 0.159,
     "cut": 0.2,
     "stage": "confidence"
@@ -9684,6 +9755,7 @@
     "version": "1.6.0",
     "page": 48,
     "paragraph": "Annex 8 2.1.4",
+    "text": "In case a lamp (function) uses more than one light generating technology, the corresponding intensity requirements of a lamp (function) are tested following the strictest time requirements according to paragraphs 2.1.1. to 2.1.3. for the combination of them and checked for compliance.",
     "score": 0.189,
     "cut": 0.2,
     "stage": "confidence"
@@ -9693,6 +9765,7 @@
     "version": "1.6.0",
     "page": 7,
     "paragraph": "3.3.2.5.1.2",
+    "text": "The arrow shall be directed towards the front of the vehicle in the case of direction indicators of categories 5 and 6 and combined parking lamps",
     "score": 0.187,
     "cut": 0.2,
     "stage": "confidence"
@@ -9702,6 +9775,7 @@
     "version": "1.6.0",
     "page": 8,
     "paragraph": "3.3.2.5.3",
+    "text": "On lamps with reduced light distribution, see paragraph 1.1. of Annex 3, a vertical arrow starting from a horizontal segment and directed downwards.",
     "score": 0.184,
     "cut": 0.2,
     "stage": "confidence"
@@ -9711,6 +9785,7 @@
     "version": "1.6.0",
     "page": 13,
     "paragraph": "4.8.1.5",
+    "text": "In the case where the lamp may be installed on the vehicle in more than one or in a field of different positions the photometric measurements shall be repeated for each position or for the extreme positions of the field of the reference axis specified by the manufacturer.",
     "score": 0.182,
     "cut": 0.2,
     "stage": "confidence"
@@ -9720,6 +9795,7 @@
     "version": "1.6.0",
     "page": 48,
     "paragraph": "Annex 8 2.1.5",
+    "text": "In case of doubt (e.g. unexpected run-up behaviour), the corresponding minimum intensity requirements of a lamp (function) are tested and checked for compliance at all points in time starting at the corresponding point in time listed in Table A8-1 and ending when photometric stability is reached.",
     "score": 0.182,
     "cut": 0.2,
     "stage": "confidence"
@@ -9729,6 +9805,7 @@
     "version": "1.6.0",
     "page": 36,
     "paragraph": "Annex 3 2.2",
+    "text": "The values shown give, for the various directions of measurement, the minimum intensities as a percentage of the minimum intensity required (see Table 6).",
     "score": 0.175,
     "cut": 0.2,
     "stage": "confidence"
@@ -9738,6 +9815,7 @@
     "version": "1.6.0",
     "page": 48,
     "paragraph": "Annex 8 2.1.3",
+    "text": "In case a lamp (function) uses any other light generating technology, the corresponding intensity requirements of a lamp (function) are tested and checked for compliance at the corresponding point in time listed in Table A8-1 and ending when photometric stability is reached.",
     "score": 0.17,
     "cut": 0.2,
     "stage": "confidence"
@@ -9747,6 +9825,7 @@
     "version": "1.6.0",
     "page": 15,
     "paragraph": "4.8.3.4",
+    "text": "The variable intensity control shall not generate signals which cause luminous intensities:",
     "score": 0.165,
     "cut": 0.2,
     "stage": "confidence"
@@ -9756,6 +9835,7 @@
     "version": "1.6.0",
     "page": 14,
     "paragraph": "4.8.1.8.3",
+    "text": "The intensity requirement for a particular direction of observation shall be deemed to be satisfied if that requirement is met in a direction deviating by not more than one-quarter of a degree from the direction of observation.",
     "score": 0.163,
     "cut": 0.2,
     "stage": "confidence"
@@ -9765,6 +9845,7 @@
     "version": "1.6.0",
     "page": 13,
     "paragraph": "4.8.1.2",
+    "text": "In the case of a lamp equipped with light source module(s) or non-replaceable light source(s), all measurements shall be made with the light source(s) present in the lamp.",
     "score": 0.157,
     "cut": 0.2,
     "stage": "confidence"
@@ -9774,6 +9855,7 @@
     "version": "1.6.0",
     "page": 13,
     "paragraph": "4.8.1.3",
+    "text": "All separate measurement results shall be added together.",
     "score": 0.15,
     "cut": 0.2,
     "stage": "confidence"
@@ -9783,6 +9865,7 @@
     "version": "1.6.0",
     "page": 15,
     "paragraph": "4.8.3.3",
+    "text": "An interdependent lamp system shall meet the requirements when all its interdependent lamps are operated together.",
     "score": 0.146,
     "cut": 0.2,
     "stage": "confidence"
@@ -9792,6 +9875,7 @@
     "version": "1.6.0",
     "page": 47,
     "paragraph": "Annex 8 2.1",
+    "text": "Side marker 4 HV",
     "score": 0.146,
     "cut": 0.2,
     "stage": "confidence"
@@ -9801,6 +9885,7 @@
     "version": "1.6.0",
     "page": 14,
     "paragraph": "4.8.1.7",
+    "text": "If not otherwise specified, the intensities shall be measured with the light source continuously lit.",
     "score": 0.14,
     "cut": 0.2,
     "stage": "confidence"
@@ -9810,6 +9895,7 @@
     "version": "1.6.0",
     "page": 11,
     "paragraph": "4.6.1.1",
+    "text": "In a single lamp containing more than one light source, a group of light sources, wired so that the failure of any one of them causes all of them to stop emitting light, shall be considered to be one light source.",
     "score": 0.127,
     "cut": 0.2,
     "stage": "confidence"
@@ -9819,6 +9905,7 @@
     "version": "1.6.0",
     "page": 7,
     "paragraph": "3.3.2.5.1.3",
+    "text": "For direction indicators of category 6 an indication \"R\" or \"L\" shall be shown on the lamp, indicating the right or left side of the vehicle.",
     "score": 0.125,
     "cut": 0.2,
     "stage": "confidence"
@@ -9828,6 +9915,7 @@
     "version": "1.6.0",
     "page": 16,
     "paragraph": "4.8.3.6",
+    "text": "Tests for compliance of the luminous intensities shall be carried out according to Annex 8.",
     "score": 0.122,
     "cut": 0.2,
     "stage": "confidence"
@@ -9837,6 +9925,7 @@
     "version": "9.3.0",
     "page": 44,
     "paragraph": "6.5.9",
+    "text": "In the event of failure, other than short-circuit, of one direction-indicator lamp, the others shall continue to flash, but the frequency in this condition may be different from that prescribed.",
     "score": 0.249,
     "cut": 0.25,
     "stage": "confidence"
@@ -9846,6 +9935,7 @@
     "version": "9.3.0",
     "page": 60,
     "paragraph": "6.19.6",
+    "text": "Orientation Towards the front.",
     "score": 0.243,
     "cut": 0.25,
     "stage": "confidence"
@@ -9855,6 +9945,7 @@
     "version": "9.3.0",
     "page": 62,
     "paragraph": "6.20.4.2",
+    "text": "In length: not further than 1,000 mm from the front.",
     "score": 0.238,
     "cut": 0.25,
     "stage": "confidence"
@@ -9864,6 +9955,7 @@
     "version": "9.3.0",
     "page": 22,
     "paragraph": "5.11",
+    "text": "The electrical connections shall be such that the front and rear position lamps, the end-outline marker lamps, if they exist, the side-marker lamps, if they exist, and the rear registration plate lamp can only be switched ON and OFF simultaneously.",
     "score": 0.235,
     "cut": 0.25,
     "stage": "confidence"
@@ -9873,6 +9965,7 @@
     "version": "9.3.0",
     "page": 28,
     "paragraph": "5.28.4",
+    "text": "When the vertical angle of geometric visibility below the horizontal may be reduced to 5\u00ba (lamp at less than 750 mm above the ground measured according to the provisions of paragraph 5.8.1. above) the photometric field of measurements of the installed optical unit may be reduced to 5\u00ba below the horizontal.",
     "score": 0.235,
     "cut": 0.25,
     "stage": "confidence"
@@ -9882,6 +9975,7 @@
     "version": "9.3.0",
     "page": 53,
     "paragraph": "6.12.4.1",
+    "text": "Furthermore, if there are two lamps, they shall be on the sides of the vehicle.",
     "score": 0.233,
     "cut": 0.25,
     "stage": "confidence"
@@ -9891,6 +9985,7 @@
     "version": "9.3.0",
     "page": 48,
     "paragraph": "6.9.1",
+    "text": "Presence Mandatory on all motor vehicles.",
     "score": 0.232,
     "cut": 0.25,
     "stage": "confidence"
@@ -9900,6 +9995,7 @@
     "version": "9.3.0",
     "page": 20,
     "paragraph": "5.7.2.4",
+    "text": "the light-emitting surface may be constituted by a number of juxtaposed elements on condition that these individual light-emitting surfaces, when projected on a transverse plane fulfil the requirements of paragraph 5.7.2.1.",
     "score": 0.23,
     "cut": 0.25,
     "stage": "confidence"
@@ -9909,6 +10005,7 @@
     "version": "9.3.0",
     "page": 60,
     "paragraph": "6.19.2",
+    "text": "Number. Two, type-approved according to the 00 or subsequent series of amendments to UN Regulation No. 87, or to the 00 or subsequent series of amendments to UN Regulation No. 148",
     "score": 0.222,
     "cut": 0.25,
     "stage": "confidence"
@@ -9918,6 +10015,7 @@
     "version": "9.3.0",
     "page": 59,
     "paragraph": "6.18.6",
+    "text": "Orientation Towards the side.",
     "score": 0.22,
     "cut": 0.25,
     "stage": "confidence"
@@ -9927,6 +10025,7 @@
     "version": "9.3.0",
     "page": 59,
     "paragraph": "6.18.5",
+    "text": "Vertical angle: 10\u00b0 above and below the horizontal. However, where a lamp is mounted below 750 mm (measured according to the provisions of paragraph 5.8.1. above), the downward angle of 10\u00b0 may be reduced to 5\u00b0.",
     "score": 0.216,
     "cut": 0.25,
     "stage": "confidence"
@@ -9936,6 +10035,7 @@
     "version": "9.3.0",
     "page": 61,
     "paragraph": "6.19.7.7.1",
+    "text": "Totally common apparent surfaces, the electrical connections shall be such that the daytime running lamp function on the relevant side of the vehicle is switched OFF during the entire period (both ON and OFF cycle) of operation of the front direction-indicator lamp or 6.19.7.7.2. Partially common apparent surfaces, the electrical connections of the daytime running lamp shall be such that, either: (a) The whole daytime running lamp function on the relevant side of the vehicle is switched OFF during the entire period (both ON and OFF cycle) of activation of the front direction-indicator lamp; or (b) For category 1a or 1b front direction-indicator lamp the daytime running lamp function on the relevant side of the vehicle is switched OFF for the part of the apparent surface in common with the one of the front direction indicator lamp and the luminous intensity of the part of the apparent surface not in common is reduced during the entire period (both ON and OFF cycle) of operation of the f",
     "score": 0.213,
     "cut": 0.25,
     "stage": "confidence"
@@ -9945,6 +10045,7 @@
     "version": "9.3.0",
     "page": 49,
     "paragraph": "6.9.7",
+    "text": "Electrical connections In accordance with paragraph 5.11. However, if a front position lamp is reciprocally incorporated with a direction-indicator the electrical connection of the front position lamp on the relevant side of the vehicle or the reciprocally incorporated part of it may be such that it is switched OFF during the entire time (both ON and OFF cycle) of operation of the direction-indicator lamp.",
     "score": 0.211,
     "cut": 0.25,
     "stage": "confidence"
@@ -9954,6 +10055,7 @@
     "version": "9.3.0",
     "page": 48,
     "paragraph": "6.9.2",
+    "text": "Number Two, type-approved according to the 02 or subsequent series of amendments to UN Regulation No. 7, or to the 00 or subsequent series of amendments to UN Regulation No. 148.",
     "score": 0.207,
     "cut": 0.25,
     "stage": "confidence"
@@ -9963,6 +10065,7 @@
     "version": "9.3.0",
     "page": 59,
     "paragraph": "6.18.2",
+    "text": "The devices shall be type-approved according to the 00 or subsequent series of amendments to UN Regulation No. 91, or to the 00 or subsequent series of amendments to UN Regulation No. 148.",
     "score": 0.201,
     "cut": 0.25,
     "stage": "confidence"
@@ -9972,6 +10075,7 @@
     "version": "9.3.0",
     "page": 62,
     "paragraph": "6.20.4.1",
+    "text": "In width: one cornering lamp shall be located on each side of the vehicle's median longitudinal plane.",
     "score": 0.198,
     "cut": 0.25,
     "stage": "confidence"
@@ -9981,6 +10085,7 @@
     "version": "9.3.0",
     "page": 44,
     "paragraph": "6.6.1",
+    "text": "All direction indicators of the category 1 (1, 1a, 1b) activated simultaneously shall operate in the same mode; i.e. static or sequential.",
     "score": 0.197,
     "cut": 0.25,
     "stage": "confidence"
@@ -9990,6 +10095,7 @@
     "version": "9.3.0",
     "page": 21,
     "paragraph": "5.9.3",
+    "text": "The photometric characteristics of a direction indicator lamp of categories 1, 1a, 1b, 2a or 2b may be varied during a flash by sequential activation of light sources as specified in paragraph 5.6. of UN Regulation No. 6. or paragraph 5.6.11. of UN Regulation No. [LSD].",
     "score": 0.196,
     "cut": 0.25,
     "stage": "confidence"
@@ -9999,6 +10105,7 @@
     "version": "9.3.0",
     "page": 42,
     "paragraph": "6.5.4.2",
+    "text": "In height: above the ground.",
     "score": 0.195,
     "cut": 0.25,
     "stage": "confidence"
@@ -10008,6 +10115,7 @@
     "version": "9.3.0",
     "page": 57,
     "paragraph": "6.16.6",
+    "text": "Orientation Towards the front.",
     "score": 0.193,
     "cut": 0.25,
     "stage": "confidence"
@@ -10017,6 +10125,7 @@
     "version": "9.3.0",
     "page": 59,
     "paragraph": "6.18.7",
+    "text": "On M1 and N1 category vehicles less than 6 m in length amber side-marker lamps may be wired to flash, provided that this flashing is in phase and at the same frequency with the direction-indicator lamps at the same side of the vehicle.",
     "score": 0.19,
     "cut": 0.25,
     "stage": "confidence"
@@ -10026,6 +10135,7 @@
     "version": "9.3.0",
     "page": 40,
     "paragraph": "6.5.1",
+    "text": "Arrangement \"A\" shall apply to all motor vehicles.",
     "score": 0.189,
     "cut": 0.25,
     "stage": "confidence"
@@ -10035,6 +10145,7 @@
     "version": "9.3.0",
     "page": 60,
     "paragraph": "6.19.1",
+    "text": "Presence Mandatory on motor vehicles.",
     "score": 0.186,
     "cut": 0.25,
     "stage": "confidence"
@@ -10044,6 +10155,7 @@
     "version": "9.3.0",
     "page": 22,
     "paragraph": "5.14.1",
+    "text": "The concealment of lamps shall be prohibited, with the exception of the main-beam headlamps, the dipped-beam headlamps and the front fog lamps, which may be concealed when they are not in use.",
     "score": 0.181,
     "cut": 0.25,
     "stage": "confidence"
@@ -10053,6 +10165,7 @@
     "version": "9.3.0",
     "page": 57,
     "paragraph": "6.16.4.3",
+    "text": "In length: at the front of the vehicle.",
     "score": 0.18,
     "cut": 0.25,
     "stage": "confidence"
@@ -10062,6 +10175,7 @@
     "version": "9.3.0",
     "page": 19,
     "paragraph": "5.2",
+    "text": "The illuminating lamps described in paragraphs 2.5.1., 2.5.2. and 2.5.10. shall be so installed that correct adjustment of their orientation can easily be carried out.",
     "score": 0.179,
     "cut": 0.25,
     "stage": "confidence"
@@ -10071,6 +10185,7 @@
     "version": "9.3.0",
     "page": 26,
     "paragraph": "5.23.1",
+    "text": "In the case where a light source module includes a holder for an approved replaceable light source according to Regulation No. 37, this light source shall be replaceable as required in paragraph 5.23. above.",
     "score": 0.179,
     "cut": 0.25,
     "stage": "confidence"
@@ -10080,6 +10195,7 @@
     "version": "9.3.0",
     "page": 37,
     "paragraph": "6.3.4.3",
+    "text": "In length: at the front of the vehicle. This requirement shall be deemed to be satisfied if the light emitted does not cause discomfort to the driver either directly, or indirectly through the devices for indirect vision and/or other reflecting surfaces of the vehicle.",
     "score": 0.177,
     "cut": 0.25,
     "stage": "confidence"
@@ -10089,6 +10205,7 @@
     "version": "9.3.0",
     "page": 21,
     "paragraph": "5.8",
+    "text": "The maximum height above the ground shall be measured from the highest point and the minimum height from the lowest point of the apparent surface in the direction of the reference axis.",
     "score": 0.176,
     "cut": 0.25,
     "stage": "confidence"
@@ -10098,6 +10215,7 @@
     "version": "9.3.0",
     "page": 28,
     "paragraph": "5.28.5",
+    "text": "In the case of an interdependent lamp system the geometric visibility requirements shall be fulfilled when all its interdependent lamps are operated together.",
     "score": 0.176,
     "cut": 0.25,
     "stage": "confidence"
@@ -10107,6 +10225,7 @@
     "version": "9.3.0",
     "page": 56,
     "paragraph": "6.16.2",
+    "text": "Additional retro-reflecting devices and materials (including two retro-reflectors not complying with paragraph 6.16.4. below), are permitted provided they do not impair the effectiveness of the mandatory lighting and light-signalling devices.",
     "score": 0.175,
     "cut": 0.25,
     "stage": "confidence"
@@ -10116,6 +10235,7 @@
     "version": "9.3.0",
     "page": 42,
     "paragraph": "6.5.4.2.3",
+    "text": "and to 2,100 mm for the direction-indicator lamps of categories 1, 1a, 1b, 2a and 2b.",
     "score": 0.174,
     "cut": 0.25,
     "stage": "confidence"
@@ -10125,6 +10245,7 @@
     "version": "9.3.0",
     "page": 49,
     "paragraph": "6.9.4.4",
+    "text": "Where the front position lamp and another lamp are reciprocally incorporated, the apparent surface in the direction of the reference axis of the other lamp shall be used to verify compliance with the positioning requirements (paragraphs 6.9.4.1. to 6.9.4.3.).",
     "score": 0.174,
     "cut": 0.25,
     "stage": "confidence"
@@ -10134,6 +10255,7 @@
     "version": "9.3.0",
     "page": 22,
     "paragraph": "5.10.4.2",
+    "text": "For the visibility of white light towards the rear of a vehicle, with the exception of reversing lamps and white side conspicuity markings, there shall be no direct visibility of the apparent surface of a white lamp if viewed by an observer moving within Zone 2 in a transverse plane situated 25 m behind the vehicle (see Annex 4);",
     "score": 0.172,
     "cut": 0.25,
     "stage": "confidence"
@@ -10143,6 +10265,7 @@
     "version": "9.3.0",
     "page": 52,
     "paragraph": "6.12.3",
+    "text": "Arrangement Either two lamps at the front and two lamps at the rear, or one lamp on each side.",
     "score": 0.168,
     "cut": 0.25,
     "stage": "confidence"
@@ -10152,6 +10275,7 @@
     "version": "9.3.0",
     "page": 44,
     "paragraph": "6.6.4.1",
+    "text": "Width: As specified in paragraph 6.5.4.1.",
     "score": 0.164,
     "cut": 0.25,
     "stage": "confidence"
@@ -10161,6 +10285,7 @@
     "version": "9.3.0",
     "page": 27,
     "paragraph": "5.28.2",
+    "text": "If measurements are taken closer to the lamp, the direction of observation shall be shifted parallel to achieve the same accuracy.",
     "score": 0.161,
     "cut": 0.25,
     "stage": "confidence"
@@ -10170,6 +10295,7 @@
     "version": "9.3.0",
     "page": 58,
     "paragraph": "6.18.1",
+    "text": "In addition, on M1 and N1 category vehicles less than 6 m in length, side-marker lamps shall be used, if they supplement the reduced geometric visibility requirements of front position lamps conforming to paragraph 6.9.5.2. and rear position lamps conforming to paragraph 6.10.5.2.",
     "score": 0.159,
     "cut": 0.25,
     "stage": "confidence"
@@ -10179,6 +10305,7 @@
     "version": "9.3.0",
     "page": 45,
     "paragraph": "6.6.4.2",
+    "text": "Height: As specified in paragraph 6.5.4.2.",
     "score": 0.158,
     "cut": 0.25,
     "stage": "confidence"
@@ -10188,6 +10315,7 @@
     "version": "9.3.0",
     "page": 19,
     "paragraph": "5.5",
+    "text": "In the absence of specific instructions lamps constituting a pair shall:",
     "score": 0.157,
     "cut": 0.25,
     "stage": "confidence"
@@ -10197,6 +10325,7 @@
     "version": "9.3.0",
     "page": 37,
     "paragraph": "6.3.5",
+    "text": "The presence of partitions or other items of equipment near the front fog lamp shall not give rise to secondary effects causing discomfort to other road users.",
     "score": 0.157,
     "cut": 0.25,
     "stage": "confidence"
@@ -10206,6 +10335,7 @@
     "version": "9.3.0",
     "page": 40,
     "paragraph": "6.5.2",
+    "text": "The devices shall be type-approved according to the 01 or subsequent series of amendments to UN Regulation No. 6, or to the 00 or subsequent series of amendments to UN Regulation No. 148.",
     "score": 0.153,
     "cut": 0.25,
     "stage": "confidence"
@@ -10215,6 +10345,7 @@
     "version": "9.3.0",
     "page": 45,
     "paragraph": "6.6.7.3",
+    "text": "On M1 and N1 vehicles less than 6 m in length, with an arrangement complying with paragraph 6.5.5.2. above, the amber side-marker lamps, when mounted, shall also flash at the same frequency (in phase) with the direction-indicator lamps.",
     "score": 0.15,
     "cut": 0.25,
     "stage": "confidence"
@@ -10224,6 +10355,7 @@
     "version": "9.3.0",
     "page": 58,
     "paragraph": "6.17.4.3",
+    "text": "However, for motor vehicles the length of which does not exceed 6 m, it is sufficient to have one side retro-reflector fitted within the first third and/or one within the last third of the vehicle length.",
     "score": 0.147,
     "cut": 0.25,
     "stage": "confidence"
@@ -10233,6 +10365,7 @@
     "version": "9.3.0",
     "page": 80,
     "paragraph": "6.27.9.1",
+    "text": "The answer-back signal shall be provided by approved lighting and light-signalling devices and exterior courtesy lamps where in all these cases, the maximum luminous intensity per lamp does not exceed 700 cd on or above the HH line. However, front fog lamps, rear fog lamps and stop lamps are not permitted to be used.",
     "score": 0.147,
     "cut": 0.25,
     "stage": "confidence"
@@ -10242,6 +10375,7 @@
     "version": "9.3.0",
     "page": 37,
     "paragraph": "6.3.2",
+    "text": "Class \"F3\" and type-approved according to the 03 or subsequent series of amendments to UN Regulation No. 19, or to the 00 or subsequent series of amendments to UN Regulation No. 149.",
     "score": 0.146,
     "cut": 0.25,
     "stage": "confidence"
@@ -10251,6 +10385,7 @@
     "version": "9.3.0",
     "page": 19,
     "paragraph": "5.4",
+    "text": "In the absence of specific instructions, the height and orientation of the lamps shall be verified with the vehicle unladen and placed on a flat, horizontal surface, in the condition defined in paragraphs 2.3.10., 2.3.10.1. and 2.3.10.2. and, in the case where an AFS is installed, with the system in its neutral state.",
     "score": 0.145,
     "cut": 0.25,
     "stage": "confidence"
@@ -10260,6 +10395,7 @@
     "version": "9.3.0",
     "page": 38,
     "paragraph": "6.3.6.1.1.1",
+    "text": "The vertical inclination of the cut-off to be set in the unladen vehicle state with one person in the driver\u00b4s seat shall be \u2013 1.0 per cent or lower.",
     "score": 0.145,
     "cut": 0.25,
     "stage": "confidence"
@@ -10269,6 +10405,7 @@
     "version": "9.3.0",
     "page": 45,
     "paragraph": "6.6.5",
+    "text": "Geometric visibility As specified in paragraph 6.5.5.",
     "score": 0.144,
     "cut": 0.25,
     "stage": "confidence"
@@ -10278,6 +10415,7 @@
     "version": "9.3.0",
     "page": 43,
     "paragraph": "6.5.6",
+    "text": "Orientation According to the specifications for installation by the manufacturer, if any.",
     "score": 0.143,
     "cut": 0.25,
     "stage": "confidence"
@@ -10287,6 +10425,7 @@
     "version": "9.3.0",
     "page": 45,
     "paragraph": "6.6.4.3",
+    "text": "Length: As specified in paragraph 6.5.4.3.",
     "score": 0.143,
     "cut": 0.25,
     "stage": "confidence"
@@ -10296,6 +10435,7 @@
     "version": "9.3.0",
     "page": 27,
     "paragraph": "5.27",
+    "text": "For vehicles of M and N categories the applicant shall demonstrate to the Technical Service responsible for type approval testing that the electric power supply conditions for the devices indicated in 2.5.1., 2.5.2., 2.5.4., 2.5.6. and 2.5.7. above comply, when the electrical system of the vehicle is in a constant voltage operating condition, representative for the relevant category of powered vehicle as specified by the applicant, with the following provisions:",
     "score": 0.141,
     "cut": 0.25,
     "stage": "confidence"
@@ -10305,6 +10445,7 @@
     "version": "9.3.0",
     "page": 20,
     "paragraph": "5.7.1.3.1",
+    "text": "Any horizontal or vertical straight line passing through the projections of the apparent surfaces of these functions on a plane perpendicular to the reference axis, shall not intersect more than two borderlines separating adjacent areas of different colour;",
     "score": 0.139,
     "cut": 0.25,
     "stage": "confidence"
@@ -10314,6 +10455,7 @@
     "version": "9.3.0",
     "page": 38,
     "paragraph": "6.3.6.1.2.1",
+    "text": "Initial aiming: between -2.0 per cent and -2.5 per cent.",
     "score": 0.139,
     "cut": 0.25,
     "stage": "confidence"
@@ -10323,6 +10465,7 @@
     "version": "9.3.0",
     "page": 37,
     "paragraph": "6.3.6",
+    "text": "Orientation Toward the front.",
     "score": 0.137,
     "cut": 0.25,
     "stage": "confidence"
@@ -10332,6 +10475,7 @@
     "version": "9.3.0",
     "page": 62,
     "paragraph": "6.20.7",
+    "text": "The cornering lamps shall be so connected that they cannot be switched ON unless the main-beam headlamps or the dipped-beam headlamps are switched ON at the same time.",
     "score": 0.132,
     "cut": 0.25,
     "stage": "confidence"
@@ -10341,6 +10485,7 @@
     "version": "9.3.0",
     "page": 20,
     "paragraph": "5.7.2.3",
+    "text": "Single lamps as defined in paragraph 2.4.11.1., subparagraph (d) shall fulfil the requirements of paragraph 5.7.2.1.",
     "score": 0.129,
     "cut": 0.25,
     "stage": "confidence"
@@ -10350,6 +10495,7 @@
     "version": "9.3.0",
     "page": 21,
     "paragraph": "5.8.1",
+    "text": "For the purposes of reducing the geometric visibility angles, the position of a lamp with regard to height above the ground, shall be measured from the H plane.",
     "score": 0.127,
     "cut": 0.25,
     "stage": "confidence"
@@ -10359,6 +10505,7 @@
     "version": "9.3.0",
     "page": 60,
     "paragraph": "6.19.7.1",
+    "text": "The daytime running lamps shall be switched ON automatically when the device which starts and/or stops the propulsion system is set in a position which makes it possible for the propulsion system to operate and neither of the following exist: (a) The front fog lamps are switched ON; (b) The headlamps are manually switched ON, except when they are used to give intermittent luminous warnings at short intervals; (c) Conditions of Annex 13 for automatic switching ON of dipped-beam headlamps exist.",
     "score": 0.127,
     "cut": 0.25,
     "stage": "confidence"
@@ -10368,6 +10515,7 @@
     "version": "9.3.0",
     "page": 52,
     "paragraph": "6.12.1",
+    "text": "Presence On motor vehicles not exceeding 6m in length, optional. On all other vehicles, prohibited.",
     "score": 0.122,
     "cut": 0.25,
     "stage": "confidence"
@@ -10377,6 +10525,7 @@
     "version": "9.3.0",
     "page": 53,
     "paragraph": "6.12.6",
+    "text": "Orientation Such that the lamps meet the requirements for visibility forwards and rearwards.",
     "score": 0.122,
     "cut": 0.25,
     "stage": "confidence"
@@ -10386,6 +10535,7 @@
     "version": "9.3.0",
     "page": 57,
     "paragraph": "6.17.2",
+    "text": "Additional retro-reflecting devices and materials (including two retro-reflectors not complying with paragraph 6.17.4. below), are permitted provided they do not impair the effectiveness of the mandatory lighting and light-signalling devices.",
     "score": 0.12,
     "cut": 0.25,
     "stage": "confidence"
@@ -10395,6 +10545,7 @@
     "version": "9.3.0",
     "page": 62,
     "paragraph": "6.20.5",
+    "text": "Geometric visibility Defined by angles \u03b1 and \u03b2 as specified in paragraph 2.10.7.: \u03b1 = 10\u00b0 upwards and downwards, \u03b2 = 30\u00b0 to 60\u00b0 outwards.",
     "score": 0.119,
     "cut": 0.25,
     "stage": "confidence"
@@ -10404,6 +10555,7 @@
     "version": "9.3.0",
     "page": 21,
     "paragraph": "5.8.3",
+    "text": "The position, as regards width, will be determined from that edge of the apparent surface in the direction of the reference axis which is the furthest from the median longitudinal plane of the vehicle when referred to the overall width, and from the inner edges of the apparent surface in the direction of the reference axis when referred to the distance between lamps.",
     "score": 0.118,
     "cut": 0.25,
     "stage": "confidence"
@@ -10413,6 +10565,7 @@
     "version": "9.3.0",
     "page": 45,
     "paragraph": "6.6.6",
+    "text": "Orientation As specified in paragraph 6.5.6.",
     "score": 0.117,
     "cut": 0.25,
     "stage": "confidence"
@@ -10422,6 +10575,7 @@
     "version": "9.3.0",
     "page": 62,
     "paragraph": "6.20.6",
+    "text": "Orientation Such that the lamps meet the requirements for geometric visibility.",
     "score": 0.114,
     "cut": 0.25,
     "stage": "confidence"
