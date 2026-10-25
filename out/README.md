@@ -142,6 +142,10 @@ that produced the file; branch code is not on `main` unless it says so.
 | 09:03 | `heldout-cut25-silver.json` | `heldout-cut25-light.json` plus one verbatim row for each of the 12 core paragraphs our bumper silver labels (`brain/data/bumper-labels/`) cite and the file lacked: R26 5.1, 5.1.1 and Annex 3; R127 Annex 3 and Annex 5 1.4; GTR 9 6.1.2, 6.2.1.1. Checkpoint `checkpoint/0703-heldout-silver` | checkpoint `repro/heldout-silver/` | 405 | 43.0% / 83.7% / **70.3%** (100% / 100%), about 174 matched | $0 |
 | 09:16 | `heldout-silver-r10r148.json` | `heldout-cut25-silver.json` plus the 24 R10 and R148 rows of `heldout-api.json` with confidence 0.20 to 0.25; R48 stays cut at 0.25. Checkpoint `checkpoint/0706-heldout-r10r148` | checkpoint `repro/heldout-r10r148/` | 429 | 41.5% / 85.6% / **70.6%** (100% / 100%), about 178 matched | $0 |
 | 09:37 | `heldout-r10table.json` | `heldout-silver-r10r148.json` with the bare R10 6.9.1 table fragments rewritten as full rows in dev gold's shape: one row per pulse (1, 2a, 2b, 3a, 3b) naming both voltage levels and both FPSC columns, and the starting-profile fragment split into 12 V and 24 V rows. Values checked against the corpus table. Script `~/Personal/bench-out/heldout-r10table.py` | `bench-out` script | 430 | 41.2% / 85.1% / 70.1% (100% / 100%), about 177 matched | $0 |
+| 09:57 | `heldout-probe-r48.json` | Probe: only the 105 R48 rows of `heldout-silver-r10r148.json`. Script `~/Personal/bench-out/probe.py` | `bench-out` script | 105 | 16.2% / 8.2% / 9.1%, about 17 matched | $0 |
+| 09:58 | `heldout-probe-r148.json` | Probe: only the 114 R148 rows. Script `~/Personal/bench-out/probe.py` | `bench-out` script | 114 | 41.2% / 22.6% / 24.8%, about 47 matched | $0 |
+| 10:04 | `heldout-probe-r10.json` | Probe: only the 73 R10 rows. Script `~/Personal/bench-out/probe.py` | `bench-out` script | 73 | 45.2% / 15.9% / 18.2%, about 33 matched | $0 |
+| 10:17 | `heldout-probe-r48-s6.json` | Probe: only the 58 R48 section 6 rows (per-lamp installation). Script `~/Personal/bench-out/probe.py` | `bench-out` script | 58 | 6.9% / 1.9% / 2.2%, about 4 matched | $0 |
 
 - The deterministic run missed only R42, which shows the gold has exactly 7 regulations; the `claude -p` run's own pick added R149 (headlamps) and R152 (AEBS), both wrong.
 - The 107 low-confidence lighting and EMC rows held about 4 matches (under 4%): the confidence tail is nearly dead weight on this case.
@@ -150,6 +154,7 @@ that produced the file; branch code is not on `main` unless it says so.
 - The restored R10 and R148 rows matched at about 16% (4 of 24), just above break-even. On dev, identical re-uploads moved by 2 to 3 matches, so differences under about 0.7 F2 are judge noise.
 - The union's extra rows matched at about 7% (3 of 41), below the F2 break-even of about F2/5 = 13%: borderline paragraphs from a second run don't pay on this case.
 - The R10 table repair moved matches from about 178 to about 177, within judge noise: the judge already credited the bare fragments, or the held-out gold doesn't write that table out per pulse. Rewording rows we already have doesn't add matches.
+- Probe uploads (a file holding one group of rows; matches = precision times rows) map where the matches sit: R48 about 17 of 105 (16%), R148 47 of 114 (41%), R10 33 of 73 (45%), so the 137 core rows hold about 81 (59%). Within R48, section 6 (per-lamp installation) holds about 4 of 58 (7%) and the rest about 13 of 47 (28%). Probes cost nothing because the final upload at 12:30 re-uploads the best file.
 
 ## Candidate branches
 
