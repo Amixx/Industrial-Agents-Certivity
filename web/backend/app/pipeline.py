@@ -25,12 +25,12 @@ STUB_CASE = "dev-rear-lamp"
 STUB_LIMIT = 20
 
 # Models for a pipeline run on the server: the brain's strong tier (profile, regulation review,
-# relevance, expert filter, section cut) and its bulk tier (rewrite).
+# expert filter, section cut) and its bulk tier (relevance, rewrite).
 STRONG_MODEL = "claude-sonnet-5-5"
 BULK_MODEL = "claude-haiku-5-5"
 # A run starts only with this much budget left, and stops spending at RUN_CAP_USD.
-RUN_RESERVE_USD = 4.0
-RUN_CAP_USD = 5.0
+RUN_RESERVE_USD = 1.5
+RUN_CAP_USD = 2.0
 # Seconds without brain output before the stream repeats its last event, so proxies keep it open.
 HEARTBEAT_S = 15
 
@@ -90,7 +90,7 @@ def _env(budget: float) -> dict[str, str]:
         BRAIN_LLM="anthropic" if uses_llm() else "",
         BRAIN_MODEL_STRONG=STRONG_MODEL,
         BRAIN_MODEL_BULK=BULK_MODEL,
-        BRAIN_RELEVANCE_TIER="strong",
+        BRAIN_RELEVANCE_TIER="bulk",
         BRAIN_JEV="1" if uses_jev() else "0",
         RUN_PRICES=json.dumps(spend.PRICES),
         RUN_BUDGET_USD=str(budget),
