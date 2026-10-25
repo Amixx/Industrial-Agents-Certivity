@@ -36,7 +36,7 @@ Measures:
 | 6 | Plain sentence extraction converts as well as split and quote | refuted | Reach → matches: no-LLM 157 → 107, sentence-pick 181 → 142, splitless 175 → 140, ours 183 → 156 | none |
 | 7 | Fewer, coarser rows score better | refuted | Splitless −9, sentence-pick −14 | none |
 | 8 | The judge pairs only within paragraphs (capacity bounds matches) | refuted as a hard rule | `thesis-nolabels`: the same 317 texts cited as paragraph 1 still match 93. Pairing across paragraphs happens, so capacity is a soft guide, not a bound | none |
-| 9 | Under-splitting costs matches | open | Capacity 170 against reach 183. Amp: 7 slots from merged separate obligations, 6 from obligations or cases we don't write at all | Targeted extraction of missing clauses |
+| 9 | Under-splitting costs matches, and adding the missing obligations wins them back | refuted locally for a broad pass | Capacity 170 against reach 183. Amp: 7 slots from merged separate obligations, 6 from obligations we don't write at all. An Opus pass adding every uncovered obligation as an exact quote (`bench-out/thesis/coverage.py`) added 108 rows for +8 capacity: 7% per row, below the 14.5% break-even. p_section doesn't pick out the useful ones | Only a much more targeted repair |
 | 10 | Over-split paragraphs waste rows | supported | Subset of the 80 rows on 27 paragraphs where ours > gold (39 gold rows): 24 matches | Gold-free rules: 20 and 21 |
 | 11 | A stronger or different rewrite model helps | no effect detectable | Sonnet, Sol, local models and Fable all land at 140–154, inside ±7 | none |
 | 12 | Voting over several runs helps | shelved | The 7-run vote (146) also split R10 table rows, so it's confounded | none |
