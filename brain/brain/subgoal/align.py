@@ -7,7 +7,7 @@ version's, as when a parser glues paragraphs together), then similar (amended, s
 from __future__ import annotations
 
 import difflib
-from collections import defaultdict
+from collections import Counter, defaultdict
 from collections.abc import Sequence
 from dataclasses import dataclass
 from typing import Literal
@@ -19,6 +19,7 @@ from .text import Op, bare, norm, sentences, substantive, word_ops
 Kind = Literal["unchanged", "amended", "new", "deleted"]
 
 MIN_SIMILARITY = 0.5  # a new unit closer than this to an old one is its amended version
+SAME_PARAGRAPH = 0.4  # the same, within one paragraph number: a provision rewritten in place
 MERGED_COVER = 0.8  # share of a unit's words its pieces must cover to count as merged
 
 
@@ -47,7 +48,10 @@ def body(p: Paragraph) -> tuple[str, str]:
     text = norm(p.text)
     heading = norm(p.heading or "")
     if heading and not heading.endswith(":") and text.startswith(heading):
-        return heading, text[len(heading) :].strip()
+        rest = text[len(heading) :].strip()
+        # A "heading" that runs into lowercase text is the first line of a sentence.
+        if not rest or not rest[0].islower():
+            return heading, rest
     return "", text
 
 
@@ -124,20 +128,32 @@ def align(old: Sequence[Paragraph], new: Sequence[Paragraph]) -> list[Link]:
         matcher.set_seq2(kb[j])  # type: ignore[arg-type]
         for i in rest_a:
             matcher.set_seq1(ka[i])  # type: ignore[arg-type]
-            if (
-                matcher.real_quick_ratio() < MIN_SIMILARITY
-                or matcher.quick_ratio() < MIN_SIMILARITY
-            ):
+            same = a[i].label == b[j].label
+            floor = SAME_PARAGRAPH if same else MIN_SIMILARITY
+            if matcher.real_quick_ratio() < floor or matcher.quick_ratio() < floor:
                 continue
             ratio = matcher.ratio()
-            if ratio >= MIN_SIMILARITY:
-                scored.append((ratio, a[i].label == b[j].label, i, j))
-    # Within the same paragraph first, then across paragraphs; best score first in each.
-    for _, _, i, j in sorted(scored, key=lambda t: (not t[1], -t[0], t[2], t[3])):
+            if ratio >= floor:
+                scored.append((ratio, same, i, j))
+
+    # Within the same paragraph first, then across paragraphs, best score first in each.
+    strong = [t for t in scored if t[0] >= MIN_SIMILARITY]
+    for _, _, i, j in sorted(strong, key=lambda t: (not t[1], -t[0], t[2], t[3])):
         if i not in done and j not in claimed:
             pairs[i, j] = True
             done.add(i)
             claimed.add(j)
+    # A provision rewritten in place: the one old unit left in a paragraph and the one new unit
+    # left under the same label, if they are at least SAME_PARAGRAPH alike.
+    left_a = Counter(a[i].label for i in range(len(a)) if i not in done and ka[i])
+    left_b = Counter(b[j].label for j in range(len(b)) if j not in claimed and kb[j])
+    for ratio, same, i, j in scored:
+        label = a[i].label
+        if same and ratio < MIN_SIMILARITY and left_a[label] == 1 and left_b[label] == 1:
+            if i not in done and j not in claimed:
+                pairs[i, j] = True
+                done.add(i)
+                claimed.add(j)
 
     by_old: dict[int, list[int]] = defaultdict(list)
     for i, j in sorted(pairs):

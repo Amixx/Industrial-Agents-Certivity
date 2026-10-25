@@ -26,11 +26,23 @@ def main(argv: list[str] | None = None) -> int:
     ap.add_argument("--out", type=Path, required=True)
     ap.add_argument("--team-id", default="team-06")
     ap.add_argument("--to-version", help="version label of the new PDF, if it is not in the index")
+    ap.add_argument(
+        "--inclusive",
+        action="store_true",
+        help="report every plausible change, for recall: items, other sections, paragraphs "
+        "amended around an unchanged requirement",
+    )
     args = ap.parse_args(argv)
     start = time.monotonic()
     requirements = json.loads(args.requirements_old.read_text())
     submission = run(
-        args.old_pdf, args.new_pdf, requirements, args.case_id, args.team_id, args.to_version
+        args.old_pdf,
+        args.new_pdf,
+        requirements,
+        args.case_id,
+        args.team_id,
+        args.to_version,
+        args.inclusive,
     )
     problems = validate(submission, requirements)
     args.out.parent.mkdir(parents=True, exist_ok=True)

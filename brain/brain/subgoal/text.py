@@ -12,11 +12,22 @@ Op = tuple[Literal["replace", "insert", "delete"], str, str, int]
 
 MAX_TEXT = 2000  # schemas/submission_subgoal.schema.json: new_text maxLength
 ITEM = r"\((?:[a-z]|[ivx]{1,4})\)\s"  # "(a) ", "(iv) "
-# A unit ends after . ; : (not after a paragraph number such as "5.1.5."), after a comma before an
-# item marker, or anywhere before an item marker that starts a capitalised item.
-UNIT_END = re.compile(rf"(?<=[.;:])(?<!\d\.)\s+(?=[A-Z(])|(?<=,)\s+(?={ITEM})|\s+(?={ITEM}[A-Z])")
-# A footnote marker glued to a word: "vehicle6", "6This" (not "M1" or "N2G").
-FOOTNOTE = re.compile(r"(?<=[a-z]{3})\d{1,2}\b|\b\d{1,2}(?=[A-Z][a-z])")
+# A unit ends after . ; : (after a paragraph number such as "5.1.5." only before a capitalised
+# word, not before "(a) to (d)"), after a comma before an item marker, or anywhere before an item
+# marker that starts a capitalised item.
+UNIT_END = re.compile(
+    rf"(?<=[.;:])(?<!\d\.)\s+(?=[A-Z(])|(?<=\d\.)\s+(?=[A-Z][a-z])|(?<=,)\s+(?={ITEM})"
+    rf"|\s+(?={ITEM}[A-Z])"
+)
+# A footnote marker glued to a word or a closing quote: "vehicle6", "6This", '"DETA"1' (not "M1"
+# or "N2G").
+FOOTNOTE = re.compile(r"(?<=[a-z]{3})\d{1,2}\b|(?<=\w[\"”’)])\d{1,2}\b|\b\d{1,2}(?=[A-Z][a-z])")
+NUMBER_WORDS = {
+    w: str(k)
+    for k, w in enumerate(
+        "zero one two three four five six seven eight nine ten eleven twelve".split()
+    )
+}
 
 
 def norm(text: str) -> str:
@@ -24,10 +35,11 @@ def norm(text: str) -> str:
 
 
 def bare(text: str) -> list[str]:
-    """Lower-case words without punctuation, with "70%" and "6 seconds" spelled one way."""
+    """Lower-case words without punctuation, with "70%" and "6 seconds" spelled one way, and
+    number words as digits ("three" and "3")."""
     text = text.replace("%", " per cent ").replace("µ", "μ")
     text = re.sub(r"(\d)\s*(?:seconds?|sec)\b", r"\1 s", text)
-    return re.sub(r"[^\w]+", " ", text).lower().split()
+    return [NUMBER_WORDS.get(w, w) for w in re.sub(r"[^\w]+", " ", text).lower().split()]
 
 
 def sentences(text: str) -> list[str]:

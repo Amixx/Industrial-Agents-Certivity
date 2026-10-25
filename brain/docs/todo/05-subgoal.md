@@ -341,11 +341,15 @@ fetch.
 
    ```bash
    f=heldout                                   # the real folder name
-   uv run python -m brain.subgoal --old-pdf ../subgoal/$f/old.pdf --new-pdf ../subgoal/$f/new.pdf \
+   uv run python -m brain.subgoal --inclusive --old-pdf ../subgoal/$f/old.pdf --new-pdf ../subgoal/$f/new.pdf \
      --requirements-old ../subgoal/$f/requirements_old.json --case-id subgoal-$f \
      --out ../out/subgoal-$f-det.json 2> ../out/subgoal-$f-det.log
    cat ../out/subgoal-$f-det.log
    ```
+
+   Use `--inclusive` for the held-out case: it reports every change the diff sees, which only
+   helps, as precision is not judged (on 25 Oct it took the held-out flag recall from 64.1% to
+   81.2%). Without it the command gives the dev-exact output.
 
    The command exits 1 and prints `invalid: ...` if the file fails `tools/validate.py`. If it
    stops with `pass --to-version`, the new PDF is not in `regulations/index.json`: take the
@@ -366,3 +370,14 @@ fetch.
 
 Rehearsed on dev at 23:35 from a clean environment (`env -i`, steps 2 and 3 with `f=dev`): valid,
 3 s in all, output byte-identical to `out/subgoal-dev-det-v2.json`.
+
+**Held-out (UN R171), 25 Oct.** Platform uploads of the sub-goal held-out case, each recorded in
+`out/README.md` with its reasoning:
+
+| Upload | File | Flag recall | Flag precision | Change accuracy |
+|---|---|---|---|---|
+| not recorded | `out/subgoal-heldout-det-v2.json` | 59.4% | 73.1% | 94.1% |
+| 08:43 | `out/subgoal-heldout-det-v3.json` | 60.9% | 52.7% | 91.4% |
+| 08:55 | `out/subgoal-heldout-det-v4.json` | 64.1% | 65.1% | 94.6% |
+| 09:03 | `out/subgoal-heldout-inclusive-v5.json` | 78.1% | 32.7% | 89.1% |
+| 09:13 | `out/subgoal-heldout-inclusive-v6.json` | 81.2% | 22.8% | 87.5% |

@@ -23,7 +23,14 @@ from brain.ingest import parse_pdf
 from brain.paths import INDEX, TOOLS
 
 from .align import Kind, Link, Span, align, kind, units
-from .changes import added_changes, fuse, map_requirements, obligations, system_name, top
+from .changes import (
+    added_changes,
+    fuse,
+    map_requirements,
+    obligations,
+    system_name,
+    top,
+)
 from .text import Op, bare, describe, fit, quote, sentences, shorten, substantive, word_ops
 
 __all__ = [
@@ -70,6 +77,7 @@ def diff_assessment(
     new_pdf: Path,
     requirements: Sequence[dict[str, Any]],
     to_version: str | None = None,
+    inclusive: bool = False,
 ) -> list[dict[str, Any]]:
     """The changes to a set of requirements when their regulation moves from `old_pdf` to
     `new_pdf`. Modified rows also carry `old_span` and `new_span`, the text before and after."""
@@ -83,9 +91,25 @@ def diff_assessment(
     links = align(old, new)
     sections = {top(r["source"]["paragraph"]) for r in requirements}
     modified = map_requirements(
-        requirements, old, links, regulation, to_version, new=new, system=system_name(new)
+        requirements,
+        old,
+        links,
+        regulation,
+        to_version,
+        new=new,
+        system=system_name(new),
+        inclusive=inclusive,
     )
-    return modified + added_changes(links, sections, regulation, to_version)
+    consumed = {i for c in modified for i in c.pop("new_units", [])}
+    added = added_changes(
+        links,
+        sections,
+        regulation,
+        to_version,
+        consumed=consumed,
+        inclusive=inclusive,
+    )
+    return modified + added
 
 
 def run(
@@ -95,11 +119,12 @@ def run(
     case_id: str,
     team_id: str = "team-06",
     to_version: str | None = None,
+    inclusive: bool = False,
 ) -> dict[str, Any]:
     """The sub-goal submission for one pair of regulation versions."""
     changes = [
         {k: v for k, v in c.items() if k not in ("old_span", "new_span")}
-        for c in diff_assessment(old_pdf, new_pdf, requirements, to_version)
+        for c in diff_assessment(old_pdf, new_pdf, requirements, to_version, inclusive)
     ]
     return {"team_id": team_id, "case_id": case_id, "changes": changes}
 

@@ -1,0 +1,2 @@
+117 old requirements, 228 changes {'modified': 56, 'removed': 4, 'added': 168}, 1.3 s -> ../out/subgoal-heldout-inclusive-v6.json
+uv run python -m brain.subgoal --inclusive --old-pdf  --new-pdf    --case-id   1.28s user 0.12s system 99% cpu 1.411 total

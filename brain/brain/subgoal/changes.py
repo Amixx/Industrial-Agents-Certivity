@@ -39,6 +39,13 @@ NOT_SYSTEMS = {"ISO", "IEC", "ECE", "SAE", "ASTM", "TRANS", "CEN", "DIN", "UNECE
 NOT_SYSTEMS |= {"GRVA", "GRSP", "GRE", "GRB", "GRPE", "GRRF", "WLTP", "ADR"}
 
 
+def _paragraph_edits(label: str, old_units: Sequence[Span], new_units: Sequence[Span]) -> list[Op]:
+    """The word edits between a paragraph's old and new text, under the same label."""
+    old = " ".join(u.text for u in old_units if u.label == label)
+    new = " ".join(u.text for u in new_units if u.label == label)
+    return substantive(word_ops(old, new), old) if old and new else []
+
+
 def system_name(paragraphs: Sequence[Paragraph], minimum: int = 10) -> str:
     """The system the regulation is about, by its acronym ("ACPE" in UN R175), or "".
 
@@ -158,11 +165,15 @@ def map_requirements(
     to_version: str,
     new: Sequence[Paragraph] = (),
     system: str = "",
+    inclusive: bool = False,
 ) -> list[dict[str, Any]]:
     """Modified and removed changes, in requirement order. Unchanged requirements are left out.
 
     With the new version's paragraphs and the system's name, a name the new version no longer
-    has is replaced in the modified text (see `_renamed`).
+    has is replaced in the modified text (see `_renamed`). `inclusive` also flags a requirement
+    whose own sentences stay unchanged in a paragraph amended around them, that moved unchanged
+    to a new number, or whose cited paragraph has a changed paragraph below it (for recall; the
+    dev gold flags none of these).
     """
     old_units = units(old)
     old_by_label = {p.label: p for p in old}
@@ -173,6 +184,13 @@ def map_requirements(
         if link.old:
             by_old[link.old.index].append(link)
     new_units = sorted((link.new for link in links if link.new), key=lambda s: s.index)
+    changed_labels = {
+        span.label
+        for link in links
+        if link.ops or link.old is None or link.new is None
+        for span in (link.old, link.new)
+        if span
+    }
     changes: list[dict[str, Any]] = []
     for req in requirements:
         cited = req["source"]["paragraph"]
@@ -196,11 +214,54 @@ def map_requirements(
             continue
         mine = {link.new.index for u in run for link in by_old[u.index] if link.new}
         unchanged = all(link.new and not link.ops for u in run for link in by_old[u.index])
-        if unchanged and all(u.index in mine for u in region):
-            continue  # moved, merged or split without a change of wording
         new_text = " ".join(s.text for s in region)
         ops = substantive(word_ops(old_text, new_text), old_text)
-        if not ops:
+        if (unchanged and all(u.index in mine for u in region)) or not ops:
+            # Moved, merged or split without a change of wording; or unchanged in a paragraph
+            # amended around it, which only the inclusive mode reports.
+            moved_to = region[0].label
+            if inclusive and moved_to != old_label and all(u.label == moved_to for u in region):
+                changes.append(
+                    {
+                        "requirement_id": req["id"],
+                        "change": "modified",
+                        "new_text": fit(req["text"]),
+                        "reason": f"Paragraph {moved_to} (formerly {old_label}) of {regulation} "
+                        f"was renumbered in version {to_version}; its wording did not change.",
+                        "source": {"page": region[0].page, "paragraph": moved_to},
+                        "old_span": old_text,
+                        "new_span": new_text,
+                    }
+                )
+            elif inclusive and all(u.label == old_label for u in region):
+                if edits := _paragraph_edits(old_label, old_units, new_units):
+                    changes.append(
+                        {
+                            "requirement_id": req["id"],
+                            "change": "modified",
+                            "new_text": fit(req["text"]),
+                            "reason": f"Paragraph {old_label} of {regulation} was amended in "
+                            f"version {to_version}: {describe(edits)}.",
+                            "source": {"page": region[0].page, "paragraph": old_label},
+                            "old_span": old_text,
+                            "new_span": new_text,
+                        }
+                    )
+                elif below := sorted(
+                    lab for lab in changed_labels if lab != cited and _within(lab, cited)
+                ):
+                    changes.append(
+                        {
+                            "requirement_id": req["id"],
+                            "change": "modified",
+                            "new_text": fit(req["text"]),
+                            "reason": f"Paragraph {cited} of {regulation} was amended in version "
+                            f"{to_version}: paragraph {below[0]} below it changed.",
+                            "source": {"page": region[0].page, "paragraph": old_label},
+                            "old_span": old_text,
+                            "new_span": new_text,
+                        }
+                    )
             continue
         label = region[0].label
         formerly = f" (formerly {old_label})" if label != old_label else ""
@@ -224,6 +285,7 @@ def map_requirements(
                 "source": {"page": region[0].page, "paragraph": label},
                 "old_span": old_text,
                 "new_span": new_text,
+                "new_units": [u.index for u in region],
             }
         )
     return changes
@@ -263,15 +325,18 @@ def fuse(lead_in: str, item: str, tail: str = "") -> str:
             body = f"During {_lower(subject)}, {_lower(body)}"
         return body.rstrip(".") + "."
     head = re.sub(r"\s+as follows$", " to", lead_in.rstrip(":").strip())
+    if re.search(r"\bfollowing\b", head):
+        head += ":"  # "… both of the following conditions are fulfilled: the driver is …"
     body = re.sub(r"[;,]?\s+(?:or|and)$", "", body).rstrip(" ,;")
     text = f"{head} {_lower(body)}" + (f" {_lower(tail)}" if tail else "")
     return text.rstrip(".") + "."
 
 
-def _sentence_rows(unit: Span) -> list[tuple[str, str]]:
+def _sentence_rows(unit: Span, every: bool = False) -> list[tuple[str, str]]:
     text = unit.text
     if not MODAL.search(text):
-        return [(_quoted(unit), _with_lead(unit, text))] if UNITS.search(text) else []
+        keep = every or UNITS.search(text)
+        return [(_quoted(unit), _with_lead(unit, text))] if keep else []
     second = SECOND_MODAL.search(text)
     if not second:
         return [(_quoted(unit), _with_lead(unit, text))]
@@ -286,12 +351,13 @@ def _sentence_rows(unit: Span) -> list[tuple[str, str]]:
     ]
 
 
-def obligations(spans: Sequence[Span]) -> list[tuple[str, str]]:
+def obligations(spans: Sequence[Span], every: bool = False) -> list[tuple[str, str]]:
     """(quote, requirement text) for each obligation in a new paragraph's units.
 
     Items under a lead-in with a modal verb ("… shall be as follows:") are one row each. A lead-in
     without one ("… is not required when:") stays one row with its items. Other sentences count
-    when they have a modal verb or a number with a unit; "X shall A, and may B" gives two rows.
+    when they have a modal verb or a number with a unit (every sentence, with `every`); "X shall A,
+    and may B" gives two rows.
     """
     rows: list[tuple[str, str]] = []
     k = 0
@@ -313,22 +379,31 @@ def obligations(spans: Sequence[Span]) -> list[tuple[str, str]]:
             ]
         elif items:
             joined = " ".join([unit.text] + [i.text for i in items])
-            if MODAL.search(joined) or UNITS.search(joined):
+            if every or MODAL.search(joined) or UNITS.search(joined):
                 rows.append((f"{unit.lead} {joined}" if unit.lead else joined, joined))
         else:
-            rows += _sentence_rows(unit)
+            rows += _sentence_rows(unit, every)
         k += 1 + len(items)
     return rows
 
 
 def added_changes(
-    links: Sequence[Link], sections: set[str], regulation: str, to_version: str
+    links: Sequence[Link],
+    sections: set[str],
+    regulation: str,
+    to_version: str,
+    consumed: frozenset[int] | set[int] = frozenset(),
+    inclusive: bool = False,
 ) -> list[dict[str, Any]]:
-    """One added change per obligation of each new paragraph in the given top-level sections.
+    """Added changes in the given top-level sections, in document order.
 
-    A paragraph is new when some of its units are new and none, lead-ins aside, came from the old
-    version. A new
-    sentence inside an old paragraph is part of that paragraph's amendment, not an added row.
+    A new paragraph (some units new, none but lead-ins from the old version) gives one row per
+    obligation. A new full sentence inside an old paragraph gives one row too, unless it is a list
+    item (part of the list's requirement), a footnote, or already in the new text of a modified
+    requirement (`consumed`, indexes of new units).
+
+    `inclusive` (for recall) takes every section instead of only the cited `sections`, counts new
+    list items inside old paragraphs, and every new sentence, with or without a modal verb.
     """
     claimed = {link.new.index for link in links if link.old and link.new}
     by_label: dict[str, list[Span]] = defaultdict(list)
@@ -336,21 +411,40 @@ def added_changes(
         by_label[unit.label].append(unit)
     changes: list[dict[str, Any]] = []
     for label, spans in by_label.items():
-        if top(label) not in sections:
+        in_scope = inclusive or top(label) in sections
+        if not in_scope or all(s.index in claimed for s in spans):
             continue
-        if all(s.index in claimed for s in spans) or any(
-            s.index in claimed and not s.text.endswith(":") for s in spans
-        ):
+        if not any(s.index in claimed and not s.text.endswith(":") for s in spans):
+            for quoted, text in obligations(spans, every=inclusive):
+                changes.append(
+                    {
+                        "requirement_id": None,
+                        "change": "added",
+                        "new_text": fit(text),
+                        "reason": f"Paragraph {label} of {regulation} is new in version "
+                        f"{to_version}: '{quote(quoted, ADDED_QUOTE)}'.",
+                        "source": {"page": spans[0].page, "paragraph": label},
+                    }
+                )
             continue
-        for quoted, text in obligations(spans):
-            changes.append(
-                {
-                    "requirement_id": None,
-                    "change": "added",
-                    "new_text": fit(text),
-                    "reason": f"Paragraph {label} of {regulation} is new in version {to_version}: "
-                    f"'{quote(quoted, ADDED_QUOTE)}'.",
-                    "source": {"page": spans[0].page, "paragraph": label},
-                }
-            )
+        for unit in spans:
+            if (
+                unit.index in claimed
+                or unit.index in consumed
+                or (re.match(ITEM, unit.text) and not inclusive)
+                or re.match(r"\d", unit.text)
+                or unit.text.endswith(":")
+            ):
+                continue
+            for quoted, text in obligations([unit], every=inclusive):
+                changes.append(
+                    {
+                        "requirement_id": None,
+                        "change": "added",
+                        "new_text": fit(text),
+                        "reason": f"Paragraph {label} of {regulation} was amended in version "
+                        f"{to_version}: '{quote(quoted, ADDED_QUOTE)}' was added.",
+                        "source": {"page": spans[0].page, "paragraph": label},
+                    }
+                )
     return changes

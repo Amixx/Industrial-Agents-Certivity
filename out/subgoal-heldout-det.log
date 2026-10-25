@@ -1,0 +1,9 @@
+Resolving despite existing lockfile due to removal of global exclude newer
+Downloading anthropic (2.0MiB)
+Downloading pymupdf (22.8MiB)
+ Downloaded anthropic
+ Downloaded pymupdf
+Uninstalled 6 packages in 316ms
+Installed 6 packages in 54ms
+117 old requirements, 54 changes {'modified': 22, 'removed': 5, 'added': 27}, 2.9 s -> ../out/subgoal-heldout-det.json
+uv run python -m brain.subgoal --old-pdf  --new-pdf  --requirements-old       1.84s user 0.72s system 48% cpu 5.304 total

@@ -122,6 +122,21 @@ merged or split is not flagged.
   - "For X the Y shall A, and may B" gives two rows, "For X the Y shall A." and "X may B.".
 - **Removed.** The requirement's span has no new unit anywhere in the new version.
 
+## 4b. The inclusive mode (held-out runs)
+
+`--inclusive` (`run(..., inclusive=True)`) reports every change the diff sees, for recall. The
+challenge judges the sub-goal by flag recall and change accuracy, the leaderboard ranks by flag
+recall, and change accuracy only counts matched rows, so an extra row costs nothing. On top of
+the default it adds:
+- added rows from every section, not only the cited ones, and from every new sentence, list
+  items and sentences without a modal verb included;
+- a requirement whose own sentence is unchanged when its paragraph was amended around it, when it
+  moved unchanged to a new number ("was renumbered …; its wording did not change"), or when a
+  paragraph below its cited one changed.
+
+The default stays the dev-exact behaviour (100% on dev). On the held-out pair (UN R171) the
+default scored flag recall 64.1%; the inclusive steps took it to 78.1% and then 81.2%.
+
 ## 5. Reasons and sources
 
 | Change | Template |

@@ -1,0 +1,2 @@
+117 old requirements, 63 changes {'modified': 21, 'removed': 4, 'added': 38}, 1.3 s -> ../out/subgoal-heldout-det-v4.json
+uv run python -m brain.subgoal --old-pdf ../subgoal/heldout/old.pdf --new-pdf  1.27s user 0.13s system 99% cpu 1.408 total
