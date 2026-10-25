@@ -4,32 +4,16 @@
 // `facets` are the product profile labels (parts, functions, materials) the graph highlights
 // for the part, as the spec words them.
 
-export interface ExplodedPart {
-	id: string;
-	name: string;
-	material: string;
-	check: string;
-	facets: string[];
-	x: number;
-	y: number;
-	w: number;
-	h: number;
-	cx?: number;
-}
-
-export interface ExplodedAssembly {
-	name: string;
-	base: string;
-	width: number;
-	height: number;
-	parts: ExplodedPart[];
-}
+import type { ExplodedAssembly } from './assemblies.ts';
 
 export const rearLamp: ExplodedAssembly = {
 	name: 'Rear lamp',
 	base: '/exploded/rear-lamp',
 	width: 2752,
 	height: 1072,
+	order: 'rear to front',
+	lights: 'Lamp',
+	model: () => import('./lamp3d.ts').then((m) => m.lampModel()),
 	parts: [
 		{
 			id: 'fasteners',

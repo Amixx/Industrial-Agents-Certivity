@@ -1,6 +1,7 @@
 <script lang="ts">
 import type { Snippet } from 'svelte';
 import type { Assessment } from '#lib/api/types.ts';
+import { assemblyFor } from '#lib/exploded/assemblies.ts';
 import { costSummary } from '#lib/report/cost.ts';
 import { formatDate } from '#lib/ui/format.ts';
 import { page } from '$app/state';
@@ -10,7 +11,9 @@ let { assessment, children }: { assessment: Assessment; children?: Snippet } = $
 const tabs = $derived([
 	{ href: `/a/${assessment.id}`, label: 'Requirements' },
 	{ href: `/a/${assessment.id}/graph`, label: 'Graph' },
-	{ href: `/a/${assessment.id}/exploded`, label: 'Exploded view' },
+	...(assemblyFor(assessment)
+		? [{ href: `/a/${assessment.id}/exploded`, label: 'Exploded view' }]
+		: []),
 	{ href: `/a/${assessment.id}/report`, label: 'Report' },
 	{ href: `/a/${assessment.id}/coverage`, label: 'Coverage' },
 ]);
