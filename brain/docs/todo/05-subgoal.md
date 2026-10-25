@@ -381,3 +381,6 @@ Rehearsed on dev at 23:35 from a clean environment (`env -i`, steps 2 and 3 with
 | 08:55 | `out/subgoal-heldout-det-v4.json` | 64.1% | 65.1% | 94.6% |
 | 09:03 | `out/subgoal-heldout-inclusive-v5.json` | 78.1% | 32.7% | 89.1% |
 | 09:13 | `out/subgoal-heldout-inclusive-v6.json` | 81.2% | 22.8% | 87.5% |
+| 09:40 | `out/subgoal-heldout-inclusive-v7.json` | **84.4%** | 23.3% | 88.0% |
+
+v7 is the last upload, so it is the one that counts.

@@ -33,6 +33,13 @@ SECOND_MODAL = re.compile(r",\s+and\s+(?=(?:shall|must|may)\b)")
 FOR_SUBJECT = re.compile(r"^For\s+(.+?),?\s+the\s", re.I)  # "For tests without a target the ACPE …"
 PROCEDURE = re.compile(r"\b(?:procedure|test|measurement|check|inspection)", re.I)
 TAIL = re.compile(r",\s+(?=[A-Z][a-z])")  # "(b) 4 km/h rearward, As reasonably practical …"
+# A modal verb with what binds to it: "shall not", "shall aim to", "must also".
+MODAL_PHRASE = re.compile(
+    r"\b(?:shall|must|may)(?:\s+(?:not|only|also))*(?:\s+aim\s+(?:not\s+)?to)?"
+)
+# A second verb phrase after a conjunction: "… and assessed by …", "…, and shall provide …".
+CONJOINED = re.compile(r",?\s+(?:and|or|but)\s+((?:shall|must|may)\b\s*)?(\w+)")
+PARTICIPLE = re.compile(r"(?:ed|en|wn|kept|made|held|sent|set|put|done|built)$")
 ACRONYM = re.compile(r"\b[A-Z][A-Z0-9]{2,5}\b")
 # Acronyms of standards and bodies, which a regulation cites but is not about.
 NOT_SYSTEMS = {"ISO", "IEC", "ECE", "SAE", "ASTM", "TRANS", "CEN", "DIN", "UNECE", "EEC", "GRSG"}
@@ -351,6 +358,46 @@ def _sentence_rows(unit: Span, every: bool = False) -> list[tuple[str, str]]:
     ]
 
 
+def verbs(spans: Sequence[Span]) -> set[str]:
+    """The words a modal verb governs anywhere in the text ("shall provide", "may deviate")."""
+    found = set()
+    for unit in spans:
+        for m in MODAL_PHRASE.finditer(unit.text):
+            if word := re.match(r"\s+([a-z]+)", unit.text[m.end() :]):
+                found.add(word[1])
+    return found - {"be", "not", "only", "also"}
+
+
+def split_obligation(text: str, known: set[str]) -> list[str]:
+    """One sentence per verb phrase joined to the first modal verb: "X shall be documented by A
+    and assessed by B." gives "X shall be documented by A." and "X shall be assessed by B.".
+
+    A conjunct counts when it has its own modal verb, is a participle after "shall be", or starts
+    with a verb in `known`. Nouns joined by "and" stay one obligation; [] when nothing splits.
+    """
+    m = MODAL_PHRASE.search(text)
+    if not m:
+        return []
+    subject = text[: m.start()].strip()
+    modal = m[0]
+    rest = text[m.end() :]
+    if passive := re.match(r"\s+be\b", rest):
+        modal += " be"
+        rest = rest[passive.end() :]
+    cuts: list[tuple[int, int, bool]] = []  # (conjunction, verb, own modal verb)
+    for c in CONJOINED.finditer(rest):
+        word = c[2]
+        if c[1] or (PARTICIPLE.search(word) if passive else word in known):
+            cuts.append((c.start(), c.start(1) if c[1] else c.start(2), bool(c[1])))
+    if not cuts:
+        return []
+    parts = [f"{subject} {modal}{rest[: cuts[0][0]]}"]
+    for k, (_, verb, own) in enumerate(cuts):
+        end = cuts[k + 1][0] if k + 1 < len(cuts) else len(rest)
+        parts.append(f"{subject} {'' if own else modal + ' '}{rest[verb:end]}")
+    return [re.sub(r"[\s,;:.]+$", "", p) + "." for p in parts]
+
+
 def obligations(spans: Sequence[Span], every: bool = False) -> list[tuple[str, str]]:
     """(quote, requirement text) for each obligation in a new paragraph's units.
 
@@ -403,48 +450,85 @@ def added_changes(
     requirement (`consumed`, indexes of new units).
 
     `inclusive` (for recall) takes every section instead of only the cited `sections`, counts new
-    list items inside old paragraphs, and every new sentence, with or without a modal verb.
+    list items inside old paragraphs (also fused with their lead-in), every new sentence with or
+    without a modal verb, sentences already in a modified requirement, amended sentences no
+    requirement covers, and one more row per verb of a compound obligation (`split_obligation`).
     """
     claimed = {link.new.index for link in links if link.old and link.new}
+    amended = {
+        link.new.index: link.ops
+        for link in links
+        if inclusive and link.old and link.new and link.ops and link.new.index not in consumed
+    }
     by_label: dict[str, list[Span]] = defaultdict(list)
     for unit in sorted((link.new for link in links if link.new), key=lambda s: s.index):
         by_label[unit.label].append(unit)
+    known = verbs([u for spans in by_label.values() for u in spans]) if inclusive else set()
     changes: list[dict[str, Any]] = []
-    for label, spans in by_label.items():
-        in_scope = inclusive or top(label) in sections
-        if not in_scope or all(s.index in claimed for s in spans):
-            continue
-        if not any(s.index in claimed and not s.text.endswith(":") for s in spans):
-            for quoted, text in obligations(spans, every=inclusive):
+    seen: set[tuple[str, str]] = set()
+
+    def add(label: str, page: int, text: str, reason: str) -> None:
+        texts = [text, *split_obligation(text, known)] if inclusive else [text]
+        for t in texts:
+            if (label, t) not in seen:
+                seen.add((label, t))
                 changes.append(
                     {
                         "requirement_id": None,
                         "change": "added",
-                        "new_text": fit(text),
-                        "reason": f"Paragraph {label} of {regulation} is new in version "
-                        f"{to_version}: '{quote(quoted, ADDED_QUOTE)}'.",
-                        "source": {"page": spans[0].page, "paragraph": label},
+                        "new_text": fit(t),
+                        "reason": reason,
+                        "source": {"page": page, "paragraph": label},
                     }
                 )
+
+    for label, spans in by_label.items():
+        in_scope = inclusive or top(label) in sections
+        fresh = [s for s in spans if s.index not in claimed or s.index in amended]
+        if not in_scope or not fresh:
             continue
-        for unit in spans:
+        if not any(s.index in claimed and not s.text.endswith(":") for s in spans):
+            for quoted, text in obligations(spans, every=inclusive):
+                add(
+                    label,
+                    spans[0].page,
+                    text,
+                    f"Paragraph {label} of {regulation} is new in version {to_version}: "
+                    f"'{quote(quoted, ADDED_QUOTE)}'.",
+                )
+            continue
+        for k, unit in enumerate(spans):
+            if unit.index in amended:
+                for _, text in obligations([unit], every=True):
+                    add(
+                        label,
+                        unit.page,
+                        text,
+                        f"Paragraph {label} of {regulation} was amended in version {to_version}: "
+                        f"{describe(amended[unit.index])}.",
+                    )
+                continue
             if (
                 unit.index in claimed
-                or unit.index in consumed
+                or (unit.index in consumed and not inclusive)
                 or (re.match(ITEM, unit.text) and not inclusive)
                 or re.match(r"\d", unit.text)
                 or unit.text.endswith(":")
             ):
                 continue
-            for quoted, text in obligations([unit], every=inclusive):
-                changes.append(
-                    {
-                        "requirement_id": None,
-                        "change": "added",
-                        "new_text": fit(text),
-                        "reason": f"Paragraph {label} of {regulation} was amended in version "
-                        f"{to_version}: '{quote(quoted, ADDED_QUOTE)}' was added.",
-                        "source": {"page": spans[0].page, "paragraph": label},
-                    }
-                )
+            reason = (
+                f"Paragraph {label} of {regulation} was amended in version {to_version}: "
+                f"'{quote(unit.text, ADDED_QUOTE)}' was added."
+            )
+            for _, text in obligations([unit], every=inclusive):
+                add(label, spans[0].page, text, reason)
+            lead = next((s for s in reversed(spans[:k]) if not re.match(ITEM, s.text)), None)
+            if (
+                inclusive
+                and re.match(ITEM, unit.text)
+                and lead
+                and lead.text.endswith(":")
+                and MODAL.search(lead.text)
+            ):
+                add(label, spans[0].page, fuse(lead.text, unit.text), reason)
     return changes
