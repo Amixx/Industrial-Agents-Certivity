@@ -12,8 +12,9 @@ for r in rows:
     else: out.append(copy.deepcopy(r))
 seen=set(); out2=[]
 for r in out:
-    if r['text'] in seen: continue
-    seen.add(r['text']); out2.append(r)
+    k=(key(r['source']),r['text'])
+    if k in seen: continue
+    seen.add(k); out2.append(r)
 src['requirements']=[dict(r,id=f'R-{i+1:04d}') for i,r in enumerate(out2)]; src['team_id']='team-06'
 json.dump(src,open(sys.argv[2],'w'),indent=1,ensure_ascii=False)
 print('rows',len(rows),'-> shared-quote collapse',len(out),'-> exact-duplicate drop',len(out2))
