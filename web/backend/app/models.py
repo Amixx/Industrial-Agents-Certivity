@@ -1,6 +1,6 @@
 from typing import Any, Literal
 
-from pydantic import BaseModel, ConfigDict, model_serializer
+from pydantic import BaseModel, ConfigDict, Field, model_serializer
 from pydantic.alias_generators import to_camel
 
 
@@ -114,3 +114,16 @@ class Brief(Model):
 
 class BriefRequest(Model):
     requirements: list[Requirement]
+
+
+class AskRequest(Model):
+    question: str = Field(max_length=1000)
+    selection: str = Field(max_length=6000)
+    requirements: list[Requirement] = Field(max_length=2000)
+
+
+class AskAnswer(Model):
+    sentences: list[BriefSentence]
+    cost_usd: float
+    spent_usd: float
+    budget_usd: float

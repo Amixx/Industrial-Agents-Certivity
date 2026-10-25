@@ -88,6 +88,14 @@ export type BriefSection = { title: string; sentences: BriefSentence[] };
 /** Prose summary for developers; every sentence cites requirement ids. */
 export type Brief = { sections: BriefSection[] };
 
+/** A spoken answer to a question about part of a report, with what it cost. */
+export type AskAnswer = {
+	sentences: BriefSentence[];
+	costUsd: number;
+	spentUsd: number;
+	budgetUsd: number;
+};
+
 /** Download format expected by the challenge grader. */
 export type Submission = {
 	team_id: string;
@@ -107,4 +115,5 @@ export interface ApiClient {
 	checkUpdates(id: string): Promise<RegulationUpdate[]>;
 	applyUpdate(id: string, regulation: string): Promise<Assessment>;
 	getBrief(requirements: Requirement[]): Promise<Brief>;
+	ask(question: string, selection: string, requirements: Requirement[]): Promise<AskAnswer>;
 }

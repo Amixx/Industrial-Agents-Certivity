@@ -445,6 +445,7 @@ export const mock: ApiClient = {
 		return updated;
 	},
 
-	/** The brief comes from the backend even here: it is written by an LLM and cached there. */
+	/** The brief and answers come from the backend even here: an LLM writes them there. */
 	getBrief: http.getBrief,
+	ask: http.ask,
 };

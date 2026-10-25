@@ -2,6 +2,7 @@
 import { onMount } from 'svelte';
 import { api } from '#lib/api/client.ts';
 import type { Brief, Requirement } from '#lib/api/types.ts';
+import { citeLabel } from './cite.ts';
 import { pdfHref } from './pdf.ts';
 
 let { requirements }: { requirements: Requirement[] } = $props();
@@ -21,17 +22,13 @@ onMount(async () => {
 	}
 });
 
-function label(req: Requirement) {
-	return `${req.source.regulation.replace(/^UN /, '')} ${req.source.paragraph}`;
-}
-
 /** A sentence's cited requirements, one group per regulation paragraph. */
 function citations(cites: string[]) {
 	const groups = new Map<string, Requirement[]>();
 	for (const id of cites) {
 		const req = byId.get(id);
 		if (!req) continue;
-		groups.set(label(req), [...(groups.get(label(req)) ?? []), req]);
+		groups.set(citeLabel(req), [...(groups.get(citeLabel(req)) ?? []), req]);
 	}
 	return [...groups];
 }

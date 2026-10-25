@@ -4,13 +4,14 @@ from collections.abc import AsyncIterator
 from contextlib import asynccontextmanager
 from typing import Any
 
+import anthropic
 from fastapi import FastAPI, File, Form, HTTPException, UploadFile
 from fastapi.responses import FileResponse, JSONResponse, StreamingResponse
 from fastapi.staticfiles import StaticFiles
 from starlette.datastructures import UploadFile as StarletteUploadFile
 
-from . import brief, pipeline, store, updates
-from .models import Assessment, BriefRequest, PipelineEvent
+from . import ask, brief, pipeline, store, updates
+from .models import AskRequest, Assessment, BriefRequest, PipelineEvent
 from .paths import CASES, FRONTEND_BUILD, REGULATIONS
 
 
@@ -141,6 +142,22 @@ def get_brief(request: BriefRequest) -> JSONResponse:
     except (RuntimeError, OSError, subprocess.TimeoutExpired) as e:
         raise HTTPException(503, f"Brief unavailable: {e}") from e
     return JSONResponse(written.dump())
+
+
+@app.post("/api/ask")
+def ask_question(request: AskRequest) -> JSONResponse:
+    try:
+        answer = ask.ask(request.question, request.selection, request.requirements)
+    except ask.BudgetExceeded as e:
+        raise HTTPException(429, str(e)) from e
+    except (anthropic.APIError, RuntimeError) as e:
+        raise HTTPException(502, f"No answer: {e}") from e
+    return JSONResponse(answer.dump())
+
+
+@app.get("/api/spend")
+def get_spend() -> dict[str, float]:
+    return {"spentUsd": ask.spent(), "budgetUsd": ask.BUDGET_USD}
 
 
 @app.get("/api/regulations")

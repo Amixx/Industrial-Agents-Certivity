@@ -1,7 +1,17 @@
-import type { ApiClient, Assessment, Brief, PipelineEvent, RegulationUpdate } from './types.ts';
+import type {
+	ApiClient,
+	AskAnswer,
+	Assessment,
+	Brief,
+	PipelineEvent,
+	RegulationUpdate,
+} from './types.ts';
 
 async function json<T>(res: Response): Promise<T> {
-	if (!res.ok) throw new Error(`${res.status} ${res.statusText}`);
+	if (!res.ok) {
+		const body = await res.json().catch(() => null);
+		throw new Error(body?.detail ?? `${res.status} ${res.statusText}`);
+	}
 	return res.json();
 }
 
@@ -56,5 +66,13 @@ export const http: ApiClient = {
 			body: JSON.stringify({ requirements }),
 		});
 		return json<Brief>(res);
+	},
+	async ask(question, selection, requirements) {
+		const res = await fetch('/api/ask', {
+			method: 'POST',
+			headers: { 'Content-Type': 'application/json' },
+			body: JSON.stringify({ question, selection, requirements }),
+		});
+		return json<AskAnswer>(res);
 	},
 };
