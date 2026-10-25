@@ -14,7 +14,6 @@ from __future__ import annotations
 
 import argparse
 import json
-import os
 import sys
 import time
 from collections.abc import Sequence
@@ -152,18 +151,7 @@ def run(
             # p_keep enters the section cut only: a hard filter on it first drops rows the
             # section score would keep, and costs the bumper rehearsals paragraphs they cite.
             n = len(kept)
-            eligible = [d for d, pk in zip(kept, p_keep, strict=True) if pk >= keep.THRESHOLD]
-            eligible_p = [pk for pk, d in zip(p_keep, kept, strict=True) if d in eligible]
-            if path := os.environ.get("BRAIN_SECTION_SCORES"):
-                saved = json.loads(Path(path).read_text())
-                eligible_pairs = [
-                    (d, pk)
-                    for d, pk in zip(eligible, eligible_p, strict=True)
-                    if f"{d.paragraph.regulation}|{sections._key(d.paragraph.label)}" in saved
-                ]
-                eligible = [d for d, _ in eligible_pairs]
-                eligible_p = [pk for _, pk in eligible_pairs]
-            kept = sections.cut(eligible, eligible_p, sections.scores(eligible, graph, product))
+            kept = sections.cut(kept, p_keep, sections.scores(kept, graph, product))
             log(f"section cut: {len(kept)} kept of {n}")
         else:
             kept = [d for d, pk in zip(kept, p_keep, strict=True) if pk >= keep.THRESHOLD]
