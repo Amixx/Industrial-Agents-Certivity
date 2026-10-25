@@ -65,7 +65,7 @@ onMount(async () => {
 			</table>
 		{:else if assessments}
 			<p class="text-3xl leading-tight font-light">
-				No saved assessments yet. <a href="/" class="ui-link">Start one</a>
+				No saved assessments yet. <a href="/new" class="ui-link">Start one</a>
 			</p>
 		{/if}
 	</div>

@@ -19,6 +19,10 @@ export interface LampScene {
 	setExplode(value: number): void;
 	setSelected(id: string | null): void;
 	setLit(lit: boolean): void;
+	/** Keeps this share of the width, from the left, clear of the model. */
+	setInset(fraction: number): void;
+	/** Where a part's label sits in the view, in pixels from its top left. */
+	screenPoint(id: string): { x: number; y: number } | null;
 	resetView(): void;
 	dispose(): void;
 }
@@ -542,6 +546,7 @@ export function createLampScene(
 	renderer.domElement.addEventListener('pointermove', onMove);
 	renderer.domElement.addEventListener('pointerleave', onLeave);
 
+	let inset = 0;
 	const resize = () => {
 		const { clientWidth: w, clientHeight: h } = host;
 		if (!w || !h) return;
@@ -549,7 +554,11 @@ export function createLampScene(
 		labelRenderer.setSize(w, h);
 		camera.aspect = w / h;
 		// Keep the exploded stack in frame on narrow viewports.
-		camera.fov = w / h < 1.6 ? 17 * (1.6 / (w / h)) ** 0.8 : 17;
+		// An inset frame leaves the model less room to sway, so it gets some margin.
+		const aspect = (w * (1 - inset) * (inset ? 0.85 : 1)) / h;
+		camera.fov = aspect < 1.6 ? 17 * (1.6 / aspect) ** 0.8 : 17;
+		if (inset) camera.setViewOffset(w, h, (-w * inset) / 2, 0, w, h);
+		else camera.clearViewOffset();
 		camera.updateProjectionMatrix();
 	};
 	const observer = new ResizeObserver(resize);
@@ -594,6 +603,19 @@ export function createLampScene(
 					if (m instanceof THREE.MeshStandardMaterial && m.emissive.getHex() !== 0)
 						m.emissiveIntensity = lit ? (id === 'lens' ? 0.35 : 4) : 0;
 			}
+		},
+		screenPoint(id) {
+			const label = labelObjects.get(id);
+			if (!label) return null;
+			const p = label.getWorldPosition(new THREE.Vector3()).project(camera);
+			return {
+				x: ((p.x + 1) / 2) * host.clientWidth,
+				y: ((1 - p.y) / 2) * host.clientHeight,
+			};
+		},
+		setInset(fraction) {
+			inset = fraction;
+			resize();
 		},
 		resetView() {
 			camera.position.copy(CAMERA_HOME);
