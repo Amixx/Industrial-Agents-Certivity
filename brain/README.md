@@ -268,6 +268,7 @@ uv run pytest -q && uv run ruff check . && uv run mypy
 | 5 | `brain/verify.py` | Base version only; every number must appear in the source paragraph or its ancestors; dedupe; Certivity's `validate.py`. |
 | 5b | `brain/boilerplate.py` | Drops requirements whose quote only points elsewhere ("Failure provisions: See paragraph 4.6."), only brings other paragraphs into force, or spells out the approval mark. |
 | 6 | `brain/sections.py` | LLM path, after the requirement filter (`brain/keep.py`): the strong model scores the cited paragraphs of each section side by side; a requirement goes when p_keep × p_section < 0.2. |
+| 7 | `brain/consolidate.py` | Optional post-processing (`BRAIN_CONSOLIDATE=1`): the strong model merges list cases under one obligation, then shared quotes collapse to one row and exact duplicate text is dropped. Without an LLM, only the deterministic quote and text rules run. |
 | – | `brain/llm.py` | One interface for OpenAI, Anthropic and local OpenAI-compatible servers (Ollama): structured JSON output, or prompted and validated JSON where a local runner lacks it; timeouts and retries; an atomic disk cache. |
 
 ## Results on dev

@@ -20,7 +20,7 @@ from collections.abc import Sequence
 from pathlib import Path
 from typing import Any
 
-from . import boilerplate, jev, keep, llm, relevance, sections, verbatim
+from . import boilerplate, consolidate, jev, keep, llm, relevance, sections, verbatim
 from . import features as F
 from .decide import MODEL_PATH, Model
 from .graph import build
@@ -155,6 +155,8 @@ def run(
             kept = [d for d, pk in zip(kept, p_keep, strict=True) if pk >= keep.THRESHOLD]
             log(f"expert filter: {len(kept)} kept of {len(p_keep)}")
     kept = verbatim.apply(kept)
+    if consolidate.ENABLED:
+        kept = consolidate.apply(kept, graph)
     requirements = []
     for i, d in enumerate(kept, start=1):
         p = d.paragraph
