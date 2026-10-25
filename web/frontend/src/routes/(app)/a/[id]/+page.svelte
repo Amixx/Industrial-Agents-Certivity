@@ -8,7 +8,7 @@ import type { Assessment } from '#lib/api/types.ts';
 import AssessmentHeader from '#lib/components/AssessmentHeader.svelte';
 import Markdown from '#lib/components/Markdown.svelte';
 import SourceViewer from '#lib/components/SourceViewer.svelte';
-import { rearLamp } from '#lib/exploded/rearLamp.ts';
+import { assemblyFor } from '#lib/exploded/assemblies.ts';
 import { buildGraph, partCoverage, partFacets } from '#lib/graph/model.ts';
 import Ask from '#lib/report/Ask.svelte';
 import Citation from '#lib/ui/Citation.svelte';
@@ -47,6 +47,7 @@ $effect(() => {
 });
 
 const included = $derived(assessment?.regulations.filter((r) => r.included) ?? []);
+const parts = $derived((assessment && assemblyFor(assessment)?.parts) ?? []);
 
 /** Requirement ids per exploded-view part, counted the same way the 3D view counts them. */
 const partRequirements = $derived.by(() => {
@@ -54,7 +55,7 @@ const partRequirements = $derived.by(() => {
 	const graph = buildGraph(assessment);
 	const { requirements } = assessment;
 	return new Map(
-		rearLamp.parts.map((part) => [
+		parts.map((part) => [
 			part.id,
 			new Set(
 				partCoverage(partFacets(graph, part), requirements).regulations.flatMap((r) =>
@@ -64,7 +65,7 @@ const partRequirements = $derived.by(() => {
 		]),
 	);
 });
-const partFilter = $derived(rearLamp.parts.find((p) => p.id === page.url.searchParams.get('part')));
+const partFilter = $derived(parts.find((p) => p.id === page.url.searchParams.get('part')));
 
 const filtered = $derived.by(() => {
 	const q = query.trim().toLowerCase();
@@ -242,7 +243,7 @@ function onKeydown(e: KeyboardEvent) {
 						<div class="flex flex-wrap items-baseline gap-x-4 text-xs">
 							<span class="font-bold">{selected.id}</span>
 							<Citation source={selected.source} />
-							{#each rearLamp.parts.filter((p) =>
+							{#each parts.filter((p) =>
 								partRequirements.get(p.id)?.has(selected.id),
 							) as part (part.id)}
 								<a href="/a/{assessment.id}/exploded?part={part.id}" class="ui-link">{part.name}</a>

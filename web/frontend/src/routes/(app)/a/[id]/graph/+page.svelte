@@ -1,6 +1,6 @@
 <script lang="ts">
 import AssessmentHeader from '#lib/components/AssessmentHeader.svelte';
-import { rearLamp } from '#lib/exploded/rearLamp.ts';
+import { assemblyFor } from '#lib/exploded/assemblies.ts';
 import ProcessGraph from '#lib/graph/ProcessGraph.svelte';
 import { graphUpdate } from '#lib/updates/graphDiff.ts';
 import { goto } from '$app/navigation';
@@ -10,7 +10,10 @@ let { data } = $props();
 const assessment = $derived(data.assessment);
 
 /** A part picked in the exploded view arrives as ?part=<id>. */
-const part = $derived(rearLamp.parts.find((p) => p.id === page.url.searchParams.get('part')));
+const part = $derived(
+	assessment &&
+		assemblyFor(assessment)?.parts.find((p) => p.id === page.url.searchParams.get('part')),
+);
 
 /** An update run arrives as ?update=<run>: the graph lights what it changes. */
 const update = $derived(assessment && data.update ? graphUpdate(assessment, data.update) : null);

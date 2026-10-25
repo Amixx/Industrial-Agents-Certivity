@@ -2,9 +2,9 @@
 import { onMount, untrack } from 'svelte';
 import type { PartCoverage } from '#lib/graph/model.ts';
 import { goto } from '$app/navigation';
-import type { LampScene } from './lamp3d.ts';
+import type { ExplodedAssembly } from './assemblies.ts';
 import PartHoverCard from './PartHoverCard.svelte';
-import type { ExplodedAssembly } from './rearLamp.ts';
+import type { ExplodedScene } from './scene3d.ts';
 
 let {
 	assembly,
@@ -22,7 +22,7 @@ let {
 } = $props();
 
 let host: HTMLDivElement | undefined = $state();
-let scene: LampScene | null = $state(null);
+let scene: ExplodedScene | null = $state(null);
 let explode = $state(0);
 let selectedId: string | null = $state(untrack(() => initialPart));
 let lit = $state(false);
@@ -43,23 +43,26 @@ function track(e: PointerEvent) {
 
 onMount(() => {
 	let disposed = false;
-	let created: LampScene | null = null;
+	let created: ExplodedScene | null = null;
 	// three.js is only needed here, so it loads with this view.
-	import('./lamp3d.ts').then(({ createLampScene }) => {
-		if (disposed || !host) return;
-		created = createLampScene(
-			host,
-			assembly.parts.map((p, i) => ({ id: p.id, number: pad(i), name: p.name })),
-			// A part clicked in the model opens its regulations in the graph; empty space clears.
-			(id) => {
-				if (id) goto(graphHref(id));
-				else selectedId = null;
-			},
-			(id) => (hoveredId = id),
-		);
-		scene = created;
-		setTimeout(() => (explode = 1), 500);
-	});
+	Promise.all([import('./scene3d.ts'), assembly.model()]).then(
+		([{ createExplodedScene }, model]) => {
+			if (disposed || !host) return;
+			created = createExplodedScene(
+				host,
+				model,
+				assembly.parts.map((p, i) => ({ id: p.id, number: pad(i), name: p.name })),
+				// A part clicked in the model opens its regulations in the graph; empty space clears.
+				(id) => {
+					if (id) goto(graphHref(id));
+					else selectedId = null;
+				},
+				(id) => (hoveredId = id),
+			);
+			scene = created;
+			setTimeout(() => (explode = 1), 500);
+		},
+	);
 	return () => {
 		disposed = true;
 		created?.dispose();
@@ -74,7 +77,7 @@ $effect(() => scene?.setLit(lit));
 <svelte:window onpointermove={track} />
 
 <div class="ui-grid min-h-0 flex-1 pt-6 pb-6">
-	<aside class="col-span-3 flex min-h-0 flex-col overflow-auto">
+	<aside class="col-span-3 flex min-h-0 flex-col overflow-auto max-md:hidden">
 		<div class="ui-section pb-3">
 			<span class="ui-label">Exploded view, 3D</span>
 			<p class="mt-1 text-xs">
@@ -119,7 +122,7 @@ $effect(() => scene?.setLit(lit));
 		{/if}
 	</aside>
 
-	<div class="col-span-9 flex min-h-0 flex-col">
+	<div class="col-span-9 flex min-h-0 flex-col max-md:col-span-12">
 		<div bind:this={host} class="lamp3d relative min-h-0 flex-1 cursor-grab active:cursor-grabbing">
 			{#if !scene}
 				<p class="absolute inset-0 grid place-items-center text-xs">Loading model</p>
@@ -145,7 +148,7 @@ $effect(() => scene?.setLit(lit));
 					max="1"
 					step="0.01"
 					bind:value={explode}
-					class="w-56 accent-accent"
+					class="w-40 accent-accent md:w-56"
 					aria-label="Explode distance"
 				>
 				<span>Exploded</span>
@@ -156,14 +159,16 @@ $effect(() => scene?.setLit(lit));
 					class="ui-toggle {lit ? '' : 'ui-toggle-on'}"
 					onclick={() => (lit = false)}
 				>
-					Lamp off
+					{assembly.lights}
+					off
 				</button>
 				<button
 					type="button"
 					class="ui-toggle {lit ? 'ui-toggle-on' : ''}"
 					onclick={() => (lit = true)}
 				>
-					Lamp on
+					{assembly.lights}
+					on
 				</button>
 			</div>
 			<button

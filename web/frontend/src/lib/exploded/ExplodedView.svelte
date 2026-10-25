@@ -1,5 +1,5 @@
 <script lang="ts">
-import type { ExplodedAssembly } from './rearLamp.ts';
+import type { ExplodedAssembly } from './assemblies.ts';
 
 let { assembly }: { assembly: ExplodedAssembly } = $props();
 
@@ -25,6 +25,8 @@ const k = $derived(stageW / assembly.width);
 const zoom = $derived(stageH ? Math.min(1.6, Math.max(1, ((areaH - 40) * 0.92) / stageH)) : 1);
 // Labels sit on an even column grid under the stage; each part's centre falls in its own column.
 const column = $derived(stageW / assembly.parts.length);
+/** Too narrow for names and checks, so the labels show just their number; the table below has the rest. */
+const compact = $derived(column < 72);
 
 const clamp = (v: number, lo = 0, hi = 1) => Math.min(hi, Math.max(lo, v));
 const seg = (p: number, a: number, b: number) => clamp((p - a) / (b - a));
@@ -37,8 +39,9 @@ const centre = $derived(assembly.width / 2);
 const layers = $derived(
 	assembly.parts.map((part, i) => {
 		const cx = part.cx ?? part.x + part.w / 2;
-		// Once assembled the parts sit a few pixels apart along the stack, rear to the left.
-		const home = centre + (i - mid) * 12;
+		// Once assembled the parts sit a few pixels apart along the stack, rear to the left,
+		// unless the assembly says where each one goes.
+		const home = part.home ?? centre + (i - mid) * 12;
 		const lead = (mid - Math.abs(i - mid)) * 0.02;
 		const e = ease(seg(progress, 0.1 + lead, 0.55 + lead));
 		const reveal = ease(seg(progress, 0.6 + i * 0.03, 0.72 + i * 0.03));
@@ -98,7 +101,7 @@ const pad = (n: number) => String(n + 1).padStart(2, '0');
 						<span class="ui-label">Exploded view</span>
 						<p class="mt-1 text-2xl font-bold tracking-tight">
 							{assembly.parts.length}
-							parts, rear to front
+							parts, {assembly.order}
 						</p>
 					</div>
 					<p class="max-w-xs text-right text-xs">Each part with the check it has to pass.</p>
@@ -130,6 +133,7 @@ const pad = (n: number) => String(n + 1).padStart(2, '0');
 								style:width="{layer.part.w * k}px"
 								style:height="{layer.part.h * k}px"
 								style:transform="translate3d({layer.dx}px, 0, 0)"
+								style:z-index={assembly.firstOnTop ? layers.length - layer.i : undefined}
 							>
 						{/each}
 					</div>
@@ -147,15 +151,21 @@ const pad = (n: number) => String(n + 1).padStart(2, '0');
 							class="absolute border-t border-line pt-2 text-xs"
 							style:top="{stageH + 32}px"
 							style:left="{layer.i * column}px"
-							style:width="{column - 16}px"
+							style:width="{column - (compact ? 4 : 16)}px"
 							style:opacity={layer.reveal}
 							style:transform="translateY({(1 - layer.reveal) * 10}px)"
 						>
-							<div class="text-2xl leading-none font-light text-accent tabular-nums">
+							<div
+								class="{compact
+									? 'text-sm'
+									: 'text-2xl'} leading-none font-light text-accent tabular-nums"
+							>
 								{pad(layer.i)}
 							</div>
-							<div class="mt-2 font-bold">{layer.part.name}</div>
-							<div class="mt-0.5 leading-snug">{layer.part.check}</div>
+							{#if !compact}
+								<div class="mt-2 font-bold">{layer.part.name}</div>
+								<div class="mt-0.5 leading-snug">{layer.part.check}</div>
+							{/if}
 						</div>
 					{/each}
 				</div>
