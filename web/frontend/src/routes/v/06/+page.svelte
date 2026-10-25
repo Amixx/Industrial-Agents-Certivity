@@ -140,6 +140,7 @@ const total = $derived(app.result?.requirements.length ?? 0);
 
 			<div class="mt-4 grid grid-cols-2 gap-3">
 				<button
+					type="submit"
 					disabled={app.loading}
 					class="cc-typed h-11 border-2 border-cv-ink-950 bg-cv-ink-950 text-sm font-bold tracking-wider text-white hover:bg-cv-ink-800 disabled:cursor-wait disabled:bg-cv-ink-800"
 				>

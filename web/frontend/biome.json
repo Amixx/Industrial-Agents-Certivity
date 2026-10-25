@@ -1,5 +1,5 @@
 {
-	"$schema": "https://biomejs.dev/schemas/2.5.15/schema.json",
+	"$schema": "https://biomejs.dev/schemas/2.6.3/schema.json",
 	"files": {
 		"includes": [
 			"**",
@@ -18,6 +18,9 @@
 	"javascript": {
 		"formatter": { "quoteStyle": "single" }
 	},
+	"css": {
+		"parser": { "tailwindDirectives": true }
+	},
 	"html": {
 		"experimentalFullSupportEnabled": true,
 		"formatter": { "enabled": true }
@@ -27,6 +30,10 @@
 		"rules": {}
 	},
 	"overrides": [
+		{
+			"includes": ["src/routes/v/**"],
+			"linter": { "rules": { "a11y": { "useSemanticElements": "off" } } }
+		},
 		{
 			"includes": ["**/*.svelte"],
 			"linter": {

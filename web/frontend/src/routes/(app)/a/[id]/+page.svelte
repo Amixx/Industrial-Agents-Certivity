@@ -13,6 +13,9 @@ import { buildGraph, partCoverage, partFacets } from '#lib/graph/model.ts';
 import Ask from '#lib/report/Ask.svelte';
 import Citation from '#lib/ui/Citation.svelte';
 import { page } from '$app/state';
+import type { PageProps } from './$types';
+
+let { params }: PageProps = $props();
 
 let assessment = $state<Assessment | null>(null);
 let loaded = $state(false);
@@ -23,7 +26,7 @@ let regulationFilter: string | null = $state(null);
 let specOpen = $state(false);
 
 $effect(() => {
-	const id = page.params.id!;
+	const id = params.id;
 	loaded = false;
 	api.getAssessment(id).then((a) => {
 		assessment = a;

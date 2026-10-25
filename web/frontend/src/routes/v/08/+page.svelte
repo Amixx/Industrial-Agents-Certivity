@@ -142,6 +142,7 @@ function toggle(id: string, on: boolean) {
 						>
 						<div class="mt-auto flex flex-col gap-2 pt-2">
 							<button
+								type="submit"
 								disabled={app.loading}
 								class="border border-cv-ink-950 bg-cv-ink-950 py-2 font-['Public_Sans'] text-xs font-semibold tracking-[0.16em] text-white uppercase hover:bg-cv-teal-700 disabled:opacity-60"
 							>

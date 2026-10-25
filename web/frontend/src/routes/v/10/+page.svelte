@@ -201,6 +201,7 @@ function onKeydown(e: KeyboardEvent) {
 							class="file-in"
 						>
 						<button
+							type="submit"
 							disabled={app.loading}
 							class="mt-auto h-10 rounded-sm bg-cv-ink-950 text-[14px] font-medium text-white hover:bg-cv-teal-700 disabled:opacity-60"
 						>

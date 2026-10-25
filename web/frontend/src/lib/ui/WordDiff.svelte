@@ -19,8 +19,10 @@ const parts = $derived.by(() => {
 	let i = 0;
 	let j = 0;
 	while (i < a.length && j < b.length) {
-		if (a[i] === b[j]) push(a[i++], 'same'), j++;
-		else if (lcs[i + 1][j] >= lcs[i][j + 1]) push(a[i++], 'del');
+		if (a[i] === b[j]) {
+			push(a[i++], 'same');
+			j++;
+		} else if (lcs[i + 1][j] >= lcs[i][j + 1]) push(a[i++], 'del');
 		else push(b[j++], 'ins');
 	}
 	while (i < a.length) push(a[i++], 'del');

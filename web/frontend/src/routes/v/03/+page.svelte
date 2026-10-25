@@ -292,6 +292,7 @@ function selectRegulation(reg: string) {
 						</div>
 						<div class="flex w-28 flex-col gap-1.5">
 							<button
+								type="submit"
 								disabled={app.loading}
 								class="h-7 bg-cv-mint-300 text-[12px] tracking-[0.2em] text-cv-ink-950 hover:bg-cv-teal-400 disabled:opacity-60"
 							>

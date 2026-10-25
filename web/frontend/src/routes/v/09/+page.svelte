@@ -204,6 +204,7 @@ const pad = (n: number, w = 3) => String(n).padStart(w, '0');
 
 			<div class="grid grid-cols-2 gap-2">
 				<button
+					type="submit"
 					disabled={app.loading}
 					class="h-9 bg-cv-teal-500 text-xs font-bold tracking-[0.2em] text-cv-ink-950 uppercase hover:bg-cv-mint-300 disabled:bg-cv-ink-800 disabled:text-cv-mint-50/60"
 				>

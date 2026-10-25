@@ -219,6 +219,7 @@ function onKey(e: KeyboardEvent) {
 				</div>
 				<div class="flex gap-1.5">
 					<button
+						type="submit"
 						disabled={app.loading}
 						class="h-6 flex-1 bg-cv-teal-700 font-medium text-white hover:bg-cv-ink-800 disabled:opacity-60"
 					>

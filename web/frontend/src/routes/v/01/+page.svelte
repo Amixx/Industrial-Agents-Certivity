@@ -113,6 +113,7 @@ const selectedUrl = $derived(app.selected ? app.pdfUrl(app.selected.source) : nu
 
 		<div class="flex flex-col justify-end gap-2 bg-cv-mint-50 p-2">
 			<button
+				type="submit"
 				disabled={app.loading}
 				class="h-8 border border-cv-ink-800 bg-cv-ink-800 px-4 text-xs font-medium tracking-wider text-cv-mint-50 uppercase hover:bg-cv-ink-950 disabled:opacity-60"
 			>

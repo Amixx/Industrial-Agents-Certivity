@@ -9,14 +9,16 @@ import type {
 } from '#lib/api/types.ts';
 import AssessmentHeader from '#lib/components/AssessmentHeader.svelte';
 import WordDiff from '#lib/ui/WordDiff.svelte';
-import { page } from '$app/state';
+import type { PageProps } from './$types';
+
+let { params }: PageProps = $props();
 
 let assessment = $state<Assessment | null>(null);
 let updates: RegulationUpdate[] | null = $state(null);
 let applying: string | null = $state(null);
 
 $effect(() => {
-	const id = page.params.id!;
+	const id = params.id;
 	api.getAssessment(id).then((a) => (assessment = a));
 	api.checkUpdates(id).then((u) => (updates = u));
 });
