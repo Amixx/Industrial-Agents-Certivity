@@ -206,7 +206,7 @@ def main(argv: list[str] | None = None) -> int:
     ap.add_argument("case", help="folder with spec.md and optionally exploded_view.png")
     ap.add_argument("-o", "--out")
     ap.add_argument("--team-id", default="team-00")
-    ap.add_argument("--llm", choices=["api", "claude-cli"], required=True)
+    ap.add_argument("--llm", choices=["api", "claude-cli", "local"], required=True)
     ap.add_argument("--no-llm", action="store_true")
     ap.add_argument("--threshold", type=float)
     ap.add_argument("--include", nargs="*", default=[], help="force regulations in, e.g. 'UN R42'")

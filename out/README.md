@@ -128,6 +128,19 @@ that produced the file; branch code is not on `main` unless it says so.
 | 23:57 | `rear-lamp-swing-H-vote3.json` | The same three runs, 3 of 3 | `swing/h_vote.py` | 253 | 111 / 0.548 | not uploaded | $0 |
 | 23:58 | `rear-lamp-swing-L-w85-drop12.json` | Sonnet weight 0.85, drop test-procedure and installation classes | `swing/l_filter.py` | 345 | 130 / 0.588 | not uploaded | $0 |
 
+## Held-out run log (front bumper)
+
+25 Oct 2026, CET. Gold is hidden; the platform's recall gives about 208 gold rows. **The last valid upload counts**, so the final upload must be the best file. Matched = precision times rows.
+
+| Upload | File | Method | Code | Rows | Platform: P / R / F2 (regs P / R) | Spend |
+|---|---|---|---|---|---|---|
+| 08:02 | `heldout-det.json` | Deterministic floor, `--no-llm` | `main` @ `5aff4b6` | 1284 | 7.7% / 47.6% / 23.4% (100% / 85.7%) | $0 |
+| 08:16 | `heldout-api.json` (+ `.log`) | kb config on the API, Opus for strong and bulk, reads the case image, `--include` the 7 regulations (R42, R26, R127, R10, R48, R148, GTR 9). Checkpoint `checkpoint/0655-heldout-api` | `main` @ `5aff4b6` | 550 | 32.9% / 87.0% / **65.5%** (100% / 100%), about 181 matched | $11.60 API |
+| 08:18 | `heldout-union.json` | `heldout-api.json` plus the 41 rows of the 33 paragraphs only a `claude -p` kb run selected (`heldout-kb-cli.log`; its R149 and R152 rows dropped) | `bench-out` script | 591 | 31.1% / 88.5% / 64.7% (100% / 100%), about 184 matched | subscription ($28 API-equivalent) |
+
+- The deterministic run missed only R42, which shows the gold has exactly 7 regulations; the `claude -p` run's own pick added R149 (headlamps) and R152 (AEBS), both wrong.
+- The union's extra rows matched at about 7% (3 of 41), below the F2 break-even of about F2/5 = 13%: borderline paragraphs from a second run don't pay on this case.
+
 ## Candidate branches
 
 The branches that rebuild each top candidate, and why each is kept: [CANDIDATES.md](CANDIDATES.md).

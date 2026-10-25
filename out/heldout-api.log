@@ -1,0 +1,7 @@
+[brain 08:10:48] profile: Front bumper module — exterior body/trim module combining fascia (cover part), energy-management structure (absorber, lower stiffener) and integrated sensing, lighting and electronics; 55 terms; electronics=True
+[brain 08:11:19] regulations: UN R10 0.95, UN R26 0.85, UN R48 0.85, UN R148 0.85, UN R127 0.85, UN R42 0.75, UN GTR 9 0.50
+[brain 08:12:59] paragraphs selected: 476
+[brain 08:14:38] requirements: 810 kept, 30 dropped
+[brain 08:15:29] section cut: 612 kept of 810
+[brain 08:15:29] pointer, umbrella and approval-mark rows: 11 dropped
+[brain 08:15:41] wrote /Users/imantsliepins/Personal/bench-out/heldout-api.json (550 requirements); 298.4s, 242 LLM calls + 0 cached, $11.60 ($11.60 with a cold cache)

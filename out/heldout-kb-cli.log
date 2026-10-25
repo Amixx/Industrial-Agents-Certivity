@@ -1,0 +1,8 @@
+[profile] BRAIN_LLM=claude-cli reads no images; exploded_view.png is not used
+[brain 08:01:18] profile: Front bumper: an exterior body and trim module that combines the fascia, an energy-management structure, and built-in sensing, lighting and electronics; 57 terms; electronics=True
+[brain 08:01:58] regulations: UN R10 0.95, UN R26 0.90, UN R127 0.90, UN R42 0.90, UN R48 0.85, UN R148 0.85, UN GTR 9 0.70, UN R149 0.50, UN R152 0.50
+[brain 08:08:05] paragraphs selected: 642
+[brain 08:14:34] requirements: 1148 kept, 59 dropped
+[brain 08:17:31] section cut: 794 kept of 1148
+[brain 08:17:32] pointer, umbrella and approval-mark rows: 13 dropped
+[brain 08:17:46] wrote /Users/imantsliepins/Personal/bench-out/heldout-kb.json (727 requirements); 1002.1s, 320 LLM calls + 0 cached, $28.00 ($28.00 with a cold cache)
