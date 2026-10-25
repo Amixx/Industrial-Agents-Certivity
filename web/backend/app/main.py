@@ -48,7 +48,7 @@ def get_case(case: str) -> dict[str, str | None]:
         raise HTTPException(404, "Unknown case")
     image = folder / "exploded_view.png"
     return {
-        "spec": (folder / "spec.md").read_text(),
+        "spec": (folder / "spec.md").read_text(encoding="utf-8"),
         "image_url": f"/api/cases/{case}/image" if image.is_file() else None,
     }
 
@@ -174,7 +174,7 @@ def get_spend() -> dict[str, float]:
 
 @app.get("/api/regulations")
 def regulations() -> Any:
-    return json.loads((REGULATIONS / "index.json").read_text())
+    return json.loads((REGULATIONS / "index.json").read_text(encoding="utf-8"))
 
 
 app.mount("/pdfs", StaticFiles(directory=REGULATIONS / "pdf"), name="pdfs")

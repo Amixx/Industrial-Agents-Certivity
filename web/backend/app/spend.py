@@ -47,7 +47,7 @@ def cost(model: str, usage: Usage) -> float:
 def spent() -> float:
     if not _LEDGER.is_file():
         return 0.0
-    total: float = json.loads(_LEDGER.read_text())["total_usd"]
+    total: float = json.loads(_LEDGER.read_text(encoding="utf-8"))["total_usd"]
     return total
 
 
@@ -70,11 +70,13 @@ def record(cost: float) -> float:
     """Add `cost` to the ledger and return the new total."""
     with _lock:
         ledger = (
-            json.loads(_LEDGER.read_text()) if _LEDGER.is_file() else {"total_usd": 0, "calls": 0}
+            json.loads(_LEDGER.read_text(encoding="utf-8"))
+            if _LEDGER.is_file()
+            else {"total_usd": 0, "calls": 0}
         )
         ledger["total_usd"] += cost
         ledger["calls"] += 1
         DATA_DIR.mkdir(parents=True, exist_ok=True)
-        _LEDGER.write_text(json.dumps(ledger))
+        _LEDGER.write_text(json.dumps(ledger), encoding="utf-8")
         total: float = ledger["total_usd"]
         return total

@@ -168,7 +168,7 @@ def key(requirements: list[Requirement]) -> str:
 
 def cached(requirements: list[Requirement]) -> Brief | None:
     path = BRIEFS / f"{key(requirements)}.json"
-    return Brief.model_validate_json(path.read_text()) if path.is_file() else None
+    return Brief.model_validate_json(path.read_text(encoding="utf-8")) if path.is_file() else None
 
 
 def brief_for(requirements: list[Requirement]) -> Brief:
@@ -176,8 +176,8 @@ def brief_for(requirements: list[Requirement]) -> Brief:
     path = BRIEFS / f"{digest}.json"
     with _locks.setdefault(digest, threading.Lock()):
         if path.is_file():
-            return Brief.model_validate_json(path.read_text())
+            return Brief.model_validate_json(path.read_text(encoding="utf-8"))
         brief = _generate(requirements)
         BRIEFS.mkdir(parents=True, exist_ok=True)
-        path.write_text(json.dumps(brief.dump(), indent=1) + "\n")
+        path.write_text(json.dumps(brief.dump(), indent=1) + "\n", encoding="utf-8")
         return brief
