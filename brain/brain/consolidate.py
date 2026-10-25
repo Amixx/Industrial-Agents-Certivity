@@ -17,6 +17,8 @@ from .rewrite import Draft
 
 ENABLED = os.environ.get("BRAIN_CONSOLIDATE") == "1"
 BATCH = 30
+# The submission platform rejects requirement text over 2,000 characters.
+MAX_TEXT = 2000
 
 ITEM = re.compile(r"^\s*\(?([a-z]|[ivx]{1,4}|\d{1,2})\)\s")
 MODAL = re.compile(r"\b(shall|must|may|is required|are required)\b", re.I)
@@ -84,7 +86,9 @@ def _merge(drafts: Sequence[Draft], graph: Graph) -> list[Draft]:
     if not candidates:
         return list(drafts)
     requests = [
-        (key, graph.paragraphs[rows[0].paragraph.id].text) for key, rows in candidates.items()
+        (key, graph.paragraphs[rows[0].paragraph.id].text)
+        for key, rows in candidates.items()
+        if len(re.sub(r"\s+", " ", graph.paragraphs[rows[0].paragraph.id].text).strip()) <= MAX_TEXT
     ]
     decisions: dict[str, str] = {}
     for start in range(0, len(requests), BATCH):
