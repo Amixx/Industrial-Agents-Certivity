@@ -146,6 +146,11 @@ that produced the file; branch code is not on `main` unless it says so.
 | 09:58 | `heldout-probe-r148.json` | Probe: only the 114 R148 rows. Script `~/Personal/bench-out/probe.py` | `bench-out` script | 114 | 41.2% / 22.6% / 24.8%, about 47 matched | $0 |
 | 10:04 | `heldout-probe-r10.json` | Probe: only the 73 R10 rows. Script `~/Personal/bench-out/probe.py` | `bench-out` script | 73 | 45.2% / 15.9% / 18.2%, about 33 matched | $0 |
 | 10:17 | `heldout-probe-r48-s6.json` | Probe: only the 58 R48 section 6 rows (per-lamp installation). Script `~/Personal/bench-out/probe.py` | `bench-out` script | 58 | 6.9% / 1.9% / 2.2%, about 4 matched | $0 |
+| 10:38 | `heldout-probe-r148-s3.json` | Probe: only the 32 R148 section 3 rows (approval and other markings). Script `~/Personal/bench-out/probe.py` | `bench-out` script | 32 | 71.9% / 11.1% / 13.3%, about 23 matched | $0 |
+| 10:58 | `heldout-cut-r48s6.json` | `heldout-silver-r10r148.json` without the 58 R48 section 6 rows. Script `~/Personal/bench-out/probe.py` | `bench-out` script | 371 | 46.1% / 82.2% / **71.1%** (100% / 100%), about 171 matched | $0 |
+| 10:59 | `heldout-probe-r148-s4.json` | Probe: only the 37 R148 section 4 rows (general lamp design). Script `~/Personal/bench-out/probe.py` | `bench-out` script | 37 | 54.1% / 9.6% / 11.5%, about 20 matched | $0 |
+| 11:05 | `heldout-probe-r148-rest.json` | Probe: only the 45 R148 section 5 and annex rows (per-function photometry and colour, test annexes). Script `~/Personal/bench-out/probe.py` | `bench-out` script | 45 | 6.7% / 1.4% / 1.7%, about 3 matched | $0 |
+| 11:18 | `heldout-cut2.json` | `heldout-silver-r10r148.json` without R48 section 6 and R148 section 5 and annexes (103 rows). Checkpoint `checkpoint/0738-heldout-cut2`. Script `~/Personal/bench-out/probe.py` | `bench-out` script | 326 | 52.5% / 82.2% / **73.8%** (100% / 100%), about 171 matched | $0 |
 
 - The deterministic run missed only R42, which shows the gold has exactly 7 regulations; the `claude -p` run's own pick added R149 (headlamps) and R152 (AEBS), both wrong.
 - The 107 low-confidence lighting and EMC rows held about 4 matches (under 4%): the confidence tail is nearly dead weight on this case.
@@ -155,6 +160,8 @@ that produced the file; branch code is not on `main` unless it says so.
 - The union's extra rows matched at about 7% (3 of 41), below the F2 break-even of about F2/5 = 13%: borderline paragraphs from a second run don't pay on this case.
 - The R10 table repair moved matches from about 178 to about 177, within judge noise: the judge already credited the bare fragments, or the held-out gold doesn't write that table out per pulse. Rewording rows we already have doesn't add matches.
 - Probe uploads (a file holding one group of rows; matches = precision times rows) map where the matches sit: R48 about 17 of 105 (16%), R148 47 of 114 (41%), R10 33 of 73 (45%), so the 137 core rows hold about 81 (59%). Within R48, section 6 (per-lamp installation) holds about 4 of 58 (7%) and the rest about 13 of 47 (28%). Probes cost nothing because the final upload at 12:30 re-uploads the best file.
+- R148 splits sharply: markings (section 3) about 23 of 32 (72%), general lamp design (section 4) 20 of 37 (54%), per-function photometry and annexes 3 of 45 (7%). For a bumper the expert lists what the lamp must carry and how it is built, not each function's photometric table.
+- Cutting both dead blocks (R48 section 6, R148 section 5 and annexes: 103 rows, about 7 matches by probe) gave 73.8%, against 70.6%. The full uploads lost about 7 matches, matching the probe sum: probe uploads of whole paragraph groups add up.
 
 ## Candidate branches
 

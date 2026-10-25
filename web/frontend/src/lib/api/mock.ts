@@ -448,4 +448,5 @@ export const mock: ApiClient = {
 	/** The brief and answers come from the backend even here: an LLM writes them there. */
 	getBrief: http.getBrief,
 	ask: http.ask,
+	read: http.read,
 };

@@ -56,7 +56,7 @@ _tasks: set[asyncio.Task[None]] = set()  # keeps runs alive after their stream i
 
 def run(spec: str | None, image: bytes | None) -> dict[str, Any]:
     """Turn a product spec and exploded-view image into a main-submission payload."""
-    expected = json.loads((CASES / STUB_CASE / "expected.json").read_text())
+    expected = json.loads((CASES / STUB_CASE / "expected.json").read_text(encoding="utf-8"))
     return {
         "team_id": expected["team_id"],
         "case_id": "web",
@@ -65,7 +65,9 @@ def run(spec: str | None, image: bytes | None) -> dict[str, Any]:
 
 
 def regulation_index() -> list[dict[str, Any]]:
-    index: list[dict[str, Any]] = json.loads((REGULATIONS / "index.json").read_text())
+    index: list[dict[str, Any]] = json.loads(
+        (REGULATIONS / "index.json").read_text(encoding="utf-8")
+    )
     return index
 
 
@@ -74,7 +76,7 @@ def _title(regulation: str) -> str:
 
 
 def case_requirements() -> list[Requirement]:
-    expected = json.loads((CASES / STUB_CASE / "expected.json").read_text())
+    expected = json.loads((CASES / STUB_CASE / "expected.json").read_text(encoding="utf-8"))
     return [Requirement.model_validate(r) for r in expected["requirements"]]
 
 
@@ -193,7 +195,7 @@ async def _run(
             spec_path, image_path, out_path = (
                 Path(tmp, n) for n in ("spec.md", f"image{suffix}", "out")
             )
-            spec_path.write_text(spec)
+            spec_path.write_text(spec, encoding="utf-8")
             if image:
                 image_path.write_bytes(image)
             proc = await asyncio.create_subprocess_exec(
@@ -228,7 +230,7 @@ async def _run(
             code = await proc.wait()
             if not out_path.exists():
                 raise RuntimeError(f"brain exited with code {code} before any output")
-            result = json.loads(out_path.read_text())
+            result = json.loads(out_path.read_text(encoding="utf-8"))
         cost = RunCost.model_validate(result["cost"])
         spend.record(cost.total_usd)
         if result["error"]:

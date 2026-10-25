@@ -1,0 +1,747 @@
+{
+ "team_id": "team-06",
+ "case_id": "heldout-front-bumper",
+ "requirements": [
+  {
+   "id": "R-0355",
+   "text": "The lamps must be so designed and constructed that in normal conditions of use, and notwithstanding the vibrations to which they may be subjected in such use, their satisfactory operation remains assured and they retain the characteristics prescribed by this Regulation.",
+   "source": {
+    "regulation": "UN R148",
+    "version": "1.6.0",
+    "page": 10,
+    "paragraph": "4.3"
+   },
+   "confidence": 0.484,
+   "quote": "The lamps must be so designed and constructed that in normal conditions of use, and notwithstanding the vibrations to which they may be subjected in such use, their satisfactory operation remains assured and they retain the characteristics prescribed by this Regulation.",
+   "atomic": [
+    "The signalling lamps shall be so designed and constructed that in normal conditions of use, and notwithstanding the vibrations to which they may be subjected in such use, their satisfactory operation remains assured.",
+    "The signalling lamps shall be so designed and constructed that in normal conditions of use, and notwithstanding the vibrations to which they may be subjected in such use, they retain the characteristics prescribed by this Regulation."
+   ]
+  },
+  {
+   "id": "R-0356",
+   "text": "If a front position lamp incorporates one or more infrared radiation generators, the photometric and colour requirements for this front position lamp shall be met with and without the operation of the infrared radiation generator(s).",
+   "source": {
+    "regulation": "UN R148",
+    "version": "1.6.0",
+    "page": 11,
+    "paragraph": "4.5.4"
+   },
+   "confidence": 0.281,
+   "quote": "If a front position lamp incorporates one or more infrared radiation generators, the photometric and colour requirements for this front position lamp shall be met with and without the operation of the infrared radiation generator(s).",
+   "atomic": [
+    "If a front position lamp incorporates one or more infrared radiation generators, the photometric requirements for this front position lamp shall be met with the infrared radiation generator(s) operating.",
+    "If a front position lamp incorporates one or more infrared radiation generators, the photometric requirements for this front position lamp shall be met without the infrared radiation generator(s) operating.",
+    "If a front position lamp incorporates one or more infrared radiation generators, the colour requirements for this front position lamp shall be met with the infrared radiation generator(s) operating.",
+    "If a front position lamp incorporates one or more infrared radiation generators, the colour requirements for this front position lamp shall be met without the infrared radiation generator(s) operating."
+   ]
+  },
+  {
+   "id": "R-0357",
+   "text": "On request of the applicant, the internal structure of the optical components and/or the texture of the outer lens inside of the apparent surface of a lamp (function) may incorporate only one manufacturer logo build by transparent or non-transparent components provided that all requirements for the specific function of this Regulation are fulfilled",
+   "source": {
+    "regulation": "UN R148",
+    "version": "1.6.0",
+    "page": 11,
+    "paragraph": "4.5.5"
+   },
+   "confidence": 0.41,
+   "quote": "On request of the applicant, the internal structure of the optical components and/or the texture of the outer lens inside of the apparent surface of a lamp (function) may incorporate only one manufacturer logo build by transparent or non-transparent components provided that all requirements for the specific function of this Regulation are fulfilled",
+   "atomic": [
+    "Where a signalling lamp incorporates a manufacturer logo, the signalling lamp shall incorporate only one manufacturer logo.",
+    "Where a signalling lamp incorporates a manufacturer logo, the signalling lamp shall fulfil all requirements for the specific function of this Regulation."
+   ]
+  },
+  {
+   "id": "R-0358",
+   "text": "(a) Irrespective of the marking requirements in paragraph 3.3., only the logo of the brand name of the vehicle manufacturer or the body manufacturer is allowed.",
+   "source": {
+    "regulation": "UN R148",
+    "version": "1.6.0",
+    "page": 11,
+    "paragraph": "4.5.5"
+   },
+   "confidence": 0.41,
+   "quote": "(a) Irrespective of the marking requirements in paragraph 3.3., only the logo of the brand name of the vehicle manufacturer or the body manufacturer is allowed."
+  },
+  {
+   "id": "R-0359",
+   "text": "(b) Size: the enclosed light emitting surface of the logo (incorporating transparent and non-transparent components of the logo) of such a lamp in the direction of the reference axis shall not exceed 100 cm2.",
+   "source": {
+    "regulation": "UN R148",
+    "version": "1.6.0",
+    "page": 11,
+    "paragraph": "4.5.5"
+   },
+   "confidence": 0.41,
+   "quote": "(b) Size: the enclosed light emitting surface of the logo (incorporating transparent and non-transparent components of the logo) of such a lamp in the direction of the reference axis shall not exceed 100 cm2."
+  },
+  {
+   "id": "R-0360",
+   "text": "(d) Stop lamps, direction indicator lamps, and reversing lamps shall not incorporate a logo.",
+   "source": {
+    "regulation": "UN R148",
+    "version": "1.6.0",
+    "page": 11,
+    "paragraph": "4.5.5"
+   },
+   "confidence": 0.41,
+   "quote": "(d) Stop lamps, direction indicator lamps, and reversing lamps shall not incorporate a logo."
+  },
+  {
+   "id": "R-0361",
+   "text": "In case of failure of any one light source in a single lamp containing more than one light source, at least one of the following provisions shall apply: (a) The light intensity complies with the minimum intensity required in the pertinent table of standard light distribution as shown in Annex 3 and when all light sources are illuminated the maximum intensities shall not be exceeded; or (b) A signal for activation of a tell-tale indicating failure, as indicated in paragraphs 6.4.8., 6.7.8., 6.9.8, 6.10.8., 6.11.8., 6.12.8., 6.13.8. and 6.18.8. of UN Regulation No. 48, is produced. In this case a note in the communication form states that the lamp is only for use on a vehicle fitted with a tell-tale indicating failure.",
+   "source": {
+    "regulation": "UN R148",
+    "version": "1.6.0",
+    "page": 11,
+    "paragraph": "4.6.1.2"
+   },
+   "confidence": 0.392,
+   "quote": "In case of failure of any one light source in a single lamp containing more than one light source, at least one of the following provisions shall apply: (a) The light intensity complies with the minimum intensity required in the pertinent table of standard light distribution as shown in Annex 3 and when all light sources are illuminated the maximum intensities shall not be exceeded; or (b) A signal for activation of a tell-tale indicating failure, as indicated in paragraphs 6.4.8., 6.7.8., 6.9.8, 6.10.8., 6.11.8., 6.12.8., 6.13.8. and 6.18.8. of UN Regulation No. 48, is produced. In this case a note in the communication form states that the lamp is only for use on a vehicle fitted with a tell-tale indicating failure."
+  },
+  {
+   "id": "R-0362",
+   "text": "For daytime running lamps, instead of the requirements of paragraph 4.6.1.2. and in addition to the requirements of paragraph 4.6.1.1., the following provisions apply: In case of failure of any one light source in a single lamp containing more than one light source, at least one of the following provisions shall apply: (a) The light intensity at the points of standard light distribution defined in paragraph 2.2. of Annex 3 shall be at least 80 per cent of the minimum intensity required; or (b) A signal for activation of a tell-tale indicating failure, as indicated in paragraph 6.19.8. of UN Regulation No. 48, is produced. In this case a note in the communication form states that the lamp is only for use on a vehicle fitted with a tell-tale indicating failure.",
+   "source": {
+    "regulation": "UN R148",
+    "version": "1.6.0",
+    "page": 11,
+    "paragraph": "4.6.1.3"
+   },
+   "confidence": 0.389,
+   "quote": "For daytime running lamps, instead of the requirements of paragraph 4.6.1.2. and in addition to the requirements of paragraph 4.6.1.1., the following provisions apply: In case of failure of any one light source in a single lamp containing more than one light source, at least one of the following provisions shall apply: (a) The light intensity at the points of standard light distribution defined in paragraph 2.2. of Annex 3 shall be at least 80 per cent of the minimum intensity required; or (b) A signal for activation of a tell-tale indicating failure, as indicated in paragraph 6.19.8. of UN Regulation No. 48, is produced. In this case a note in the communication form states that the lamp is only for use on a vehicle fitted with a tell-tale indicating failure."
+  },
+  {
+   "id": "R-0363",
+   "text": "For direction-indicator lamps of categories 1, 1a, 1b, 2a, 2b, 11, 11a, 11b, 11c and 12, instead of the requirements of paragraph 4.6.1.2. and in addition to the requirements of paragraph 4.6.1.1., the following provisions apply: A signal for activation of the tell-tale prescribed in paragraph 6.5.8. of Regulation No. 48 or paragraph 6.3.8. of Regulation No. 53 shall be produced on the basis of either option a), b) or c) (notwithstanding the provisions stated in paragraph 4.6.): (a) Any one light source has failed; (b) In the case of a lamp designed for only two light sources, the intensity in the axis of reference is less than 50 per cent of the minimum intensity required; (c) As a consequence of a failure of one or more light sources, the intensity in one of the following directions as indicated in paragraph 2.1. of Annex 3, is less than the minimum intensity required: (i) H=0°, V=0° (ii) H=20° outwards to the outside of the vehicle, V= +5° (iii) H=10° inwards to the inside of the vehicle, V= 0°.",
+   "source": {
+    "regulation": "UN R148",
+    "version": "1.6.0",
+    "page": 11,
+    "paragraph": "4.6.1.4"
+   },
+   "confidence": 0.366,
+   "quote": "For direction-indicator lamps of categories 1, 1a, 1b, 2a, 2b, 11, 11a, 11b, 11c and 12, instead of the requirements of paragraph 4.6.1.2. and in addition to the requirements of paragraph 4.6.1.1., the following provisions apply: A signal for activation of the tell-tale prescribed in paragraph 6.5.8. of Regulation No. 48 or paragraph 6.3.8. of Regulation No. 53 shall be produced on the basis of either option a), b) or c) (notwithstanding the provisions stated in paragraph 4.6.): (a) Any one light source has failed; (b) In the case of a lamp designed for only two light sources, the intensity in the axis of reference is less than 50 per cent of the minimum intensity required; (c) As a consequence of a failure of one or more light sources, the intensity in one of the following directions as indicated in paragraph 2.1. of Annex 3, is less than the minimum intensity required: (i) H=0°, V=0° (ii) H=20° outwards to the outside of the vehicle, V= +5° (iii) H=10° inwards to the inside of the ve"
+  },
+  {
+   "id": "R-0364",
+   "text": "The lamp shall only be equipped with: - replaceable light source(s) approved according to UN Regulations Nos. 37, 99 and/or 128, provided that no restriction on the use is made at the time of application for type approval, and/or - light source module(s) and/or - non-replaceable light source(s)",
+   "source": {
+    "regulation": "UN R148",
+    "version": "1.6.0",
+    "page": 12,
+    "paragraph": "4.7.1"
+   },
+   "confidence": 0.437,
+   "quote": "The lamp shall only be equipped with: - replaceable light source(s) approved according to UN Regulations Nos. 37, 99 and/or 128, provided that no restriction on the use is made at the time of application for type approval, and/or - light source module(s) and/or - non-replaceable light source(s)",
+   "atomic": [
+    "The signalling lamp shall not be equipped with any light source other than replaceable light source(s) approved according to UN Regulations Nos. 37, 99 and/or 128, light source module(s) or non-replaceable light source(s).",
+    "Where the signalling lamp is equipped with replaceable light source(s), the replaceable light source(s) shall be approved according to UN Regulations Nos. 37, 99 and/or 128, provided that no restriction on the use is made at the time of application for type approval."
+   ]
+  },
+  {
+   "id": "R-0365",
+   "text": "(a) The design of the lamp shall be such that the light source(s) can be fixed in no other position but the correct one;",
+   "source": {
+    "regulation": "UN R148",
+    "version": "1.6.0",
+    "page": 12,
+    "paragraph": "4.7.2.2"
+   },
+   "confidence": 0.4,
+   "quote": "(a) The design of the lamp shall be such that the light source(s) can be fixed in no other position but the correct one;"
+  },
+  {
+   "id": "R-0366",
+   "text": "(b) The light source(s) holder shall conform to the characteristics given in IEC Publication 60061. The holder data sheet relevant to the category of light source(s) prescribed, applies.",
+   "source": {
+    "regulation": "UN R148",
+    "version": "1.6.0",
+    "page": 12,
+    "paragraph": "4.7.2.2"
+   },
+   "confidence": 0.4,
+   "quote": "(b) The light source(s) holder shall conform to the characteristics given in IEC Publication 60061. The holder data sheet relevant to the category of light source(s) prescribed, applies."
+  },
+  {
+   "id": "R-0367",
+   "text": "In addition, where a category of LED substitute light source(s) is also prescribed, the holder data sheet relevant to the category of LED substitute light source(s) applies.",
+   "source": {
+    "regulation": "UN R148",
+    "version": "1.6.0",
+    "page": 12,
+    "paragraph": "4.7.2.2"
+   },
+   "confidence": 0.4,
+   "quote": "In addition, where a category of LED substitute light source(s) is also prescribed, the holder data sheet relevant to the category of LED substitute light source(s) applies."
+  },
+  {
+   "id": "R-0368",
+   "text": "Light Signalling Devices shall not generate radiated or power line disturbances, which cause a malfunction of other electric/electronic systems of the vehicle.",
+   "source": {
+    "regulation": "UN R148",
+    "version": "1.6.0",
+    "page": 13,
+    "paragraph": "4.7.2.3"
+   },
+   "confidence": 0.51,
+   "quote": "Light Signalling Devices shall not generate radiated or power line disturbances, which cause a malfunction of other electric/electronic systems of the vehicle.",
+   "atomic": [
+    "The light signalling devices shall not generate radiated disturbances which cause a malfunction of other electric/electronic systems of the vehicle.",
+    "The light signalling devices shall not generate power line disturbances which cause a malfunction of other electric/electronic systems of the vehicle."
+   ]
+  },
+  {
+   "id": "R-0369",
+   "text": "(a) it can only be fitted in the designated and correct position",
+   "source": {
+    "regulation": "UN R148",
+    "version": "1.6.0",
+    "page": 13,
+    "paragraph": "4.7.2.4"
+   },
+   "confidence": 0.436,
+   "quote": "(a) it can only be fitted in the designated and correct position"
+  },
+  {
+   "id": "R-0370",
+   "text": "and can only be removed with the use of tool(s)",
+   "source": {
+    "regulation": "UN R148",
+    "version": "1.6.0",
+    "page": 13,
+    "paragraph": "4.7.2.4"
+   },
+   "confidence": 0.436,
+   "quote": "and can only be removed with the use of tool(s)"
+  },
+  {
+   "id": "R-0371",
+   "text": "(b) it is tamperproof",
+   "source": {
+    "regulation": "UN R148",
+    "version": "1.6.0",
+    "page": 13,
+    "paragraph": "4.7.2.4"
+   },
+   "confidence": 0.436,
+   "quote": "(b) it is tamperproof"
+  },
+  {
+   "id": "R-0372",
+   "text": "(c) regardless of the use of tool(s), it is not interchangeable with: - any replaceable UN approved light source",
+   "source": {
+    "regulation": "UN R148",
+    "version": "1.6.0",
+    "page": 13,
+    "paragraph": "4.7.2.4"
+   },
+   "confidence": 0.436,
+   "quote": "(c) regardless of the use of tool(s), it is not interchangeable with: - any replaceable UN approved light source"
+  },
+  {
+   "id": "R-0373",
+   "text": "- any other replaceable light source module having different characteristics that is located in the same lamp housing.",
+   "source": {
+    "regulation": "UN R148",
+    "version": "1.6.0",
+    "page": 13,
+    "paragraph": "4.7.2.4"
+   },
+   "confidence": 0.436,
+   "quote": "- any other replaceable light source module having different characteristics that is located in the same lamp housing."
+  },
+  {
+   "id": "R-0374",
+   "text": "(d) when the light source module is removed and replaced by another module provided by the applicant and bearing the same light source module identification code, the photometric requirements of device shall be met.",
+   "source": {
+    "regulation": "UN R148",
+    "version": "1.6.0",
+    "page": 13,
+    "paragraph": "4.7.2.4"
+   },
+   "confidence": 0.436,
+   "quote": "(d) when the light source module is removed and replaced by another module provided by the applicant and bearing the same light source module identification code, the photometric requirements of device shall be met."
+  },
+  {
+   "id": "R-0386",
+   "text": "(a) On the reference axis (HV), be not less than the minimum specified in the table of the pertinent function in paragraph 5.;",
+   "source": {
+    "regulation": "UN R148",
+    "version": "1.6.0",
+    "page": 14,
+    "paragraph": "4.8.3.1"
+   },
+   "confidence": 0.575,
+   "quote": "(a) On the reference axis (HV), be not less than the minimum specified in the table of the pertinent function in paragraph 5.;"
+  },
+  {
+   "id": "R-0387",
+   "text": "(b) In no direction where the lamp is visible, exceed the maximum, specified in the table of the pertinent function in paragraph 5.;",
+   "source": {
+    "regulation": "UN R148",
+    "version": "1.6.0",
+    "page": 14,
+    "paragraph": "4.8.3.1"
+   },
+   "confidence": 0.575,
+   "quote": "(b) In no direction where the lamp is visible, exceed the maximum, specified in the table of the pertinent function in paragraph 5.;"
+  },
+  {
+   "id": "R-0388",
+   "text": "(c) Outside the reference axis, - be not less than the product of the minimum specified in the table of the pertinent function in paragraph 5., by the percentage specified in the pertinent light distribution figure reproduced in Annex 3 for each direction in question, or - be not less than the intensity value as specified in the pertinent light distribution figure reproduced in Annex 3 for each direction in question;",
+   "source": {
+    "regulation": "UN R148",
+    "version": "1.6.0",
+    "page": 14,
+    "paragraph": "4.8.3.1"
+   },
+   "confidence": 0.575,
+   "quote": "(c) Outside the reference axis, - be not less than the product of the minimum specified in the table of the pertinent function in paragraph 5., by the percentage specified in the pertinent light distribution figure reproduced in Annex 3 for each direction in question, or - be not less than the intensity value as specified in the pertinent light distribution figure reproduced in Annex 3 for each direction in question;"
+  },
+  {
+   "id": "R-0389",
+   "text": "(d) Within the angles of geometric visibility defined in the tables in Annex 2, be not less than the minimum specified in the table of the pertinent function in paragraph 5.",
+   "source": {
+    "regulation": "UN R148",
+    "version": "1.6.0",
+    "page": 14,
+    "paragraph": "4.8.3.1"
+   },
+   "confidence": 0.575,
+   "quote": "(d) Within the angles of geometric visibility defined in the tables in Annex 2, be not less than the minimum specified in the table of the pertinent function in paragraph 5."
+  },
+  {
+   "id": "R-0390",
+   "text": "The provisions of the relevant paragraphs of Annex 3 on local variations of intensity shall be observed.",
+   "source": {
+    "regulation": "UN R148",
+    "version": "1.6.0",
+    "page": 14,
+    "paragraph": "4.8.3.1"
+   },
+   "confidence": 0.575,
+   "quote": "The provisions of the relevant paragraphs of Annex 3 on local variations of intensity shall be observed."
+  },
+  {
+   "id": "R-0394",
+   "text": "Outside the range specified in paragraph 5.; and 4.8.3.4.2. Exceeding the respective steady luminous intensity maximum specified in paragraph 5. for the specific lamp: (a) For systems depending only on daytime and night-time conditions: under night-time conditions; (b) For other systems: under standard conditions2. 2Good visibility (meteorological optical range MOR > 2,000 m defined according to WMO, Guide to Meteorological Instruments and Methods of Observation, Sixth Edition, ISBN: 92-63-16008-2, pp 1.9.1/1.9.11, Geneva 1996) and clean lens.",
+   "source": {
+    "regulation": "UN R148",
+    "version": "1.6.0",
+    "page": 15,
+    "paragraph": "4.8.3.4.1"
+   },
+   "confidence": 0.305,
+   "quote": "Outside the range specified in paragraph 5.; and 4.8.3.4.2. Exceeding the respective steady luminous intensity maximum specified in paragraph 5. for the specific lamp: (a) For systems depending only on daytime and night-time conditions: under night-time conditions; (b) For other systems: under standard conditions2. 2Good visibility (meteorological optical range MOR > 2,000 m defined according to WMO, Guide to Meteorological Instruments and Methods of Observation, Sixth Edition, ISBN: 92-63-16008-2, pp 1.9.1/1.9.11, Geneva 1996) and clean lens."
+  },
+  {
+   "id": "R-0396",
+   "text": "The colour of the light emitted shall be measured inside the field of the light distribution grid defined for the specific function in the relevant paragraph of Annex 3.",
+   "source": {
+    "regulation": "UN R148",
+    "version": "1.6.0",
+    "page": 16,
+    "paragraph": "4.9"
+   },
+   "confidence": 0.383,
+   "quote": "The colour of the light emitted shall be measured inside the field of the light distribution grid defined for the specific function in the relevant paragraph of Annex 3."
+  },
+  {
+   "id": "R-0397",
+   "text": "To check these colorimetric characteristics, the test procedure described in paragraph 4.8. shall be applied. However, for lamps equipped with non-replaceable light sources, the colorimetric characteristics should be verified with the light sources present in the lamp, in accordance with relevant subparagraphs of paragraph 4.8.",
+   "source": {
+    "regulation": "UN R148",
+    "version": "1.6.0",
+    "page": 16,
+    "paragraph": "4.9"
+   },
+   "confidence": 0.383,
+   "quote": "To check these colorimetric characteristics, the test procedure described in paragraph 4.8. shall be applied. However, for lamps equipped with non-replaceable light sources, the colorimetric characteristics should be verified with the light sources present in the lamp, in accordance with relevant subparagraphs of paragraph 4.8."
+  },
+  {
+   "id": "R-0398",
+   "text": "Outside this field no sharp variation of colour shall be observed.",
+   "source": {
+    "regulation": "UN R148",
+    "version": "1.6.0",
+    "page": 16,
+    "paragraph": "4.9"
+   },
+   "confidence": 0.383,
+   "quote": "Outside this field no sharp variation of colour shall be observed."
+  },
+  {
+   "id": "R-0399",
+   "text": "For lamps (functions) using different light source technologies, the colorimetric characteristics shall be checked for each light source technology separately according to the applicable provisions in paragraphs 4.8.1. and 4.8.2.",
+   "source": {
+    "regulation": "UN R148",
+    "version": "1.6.0",
+    "page": 16,
+    "paragraph": "4.9.1"
+   },
+   "confidence": 0.268,
+   "quote": "For lamps (functions) using different light source technologies, the colorimetric characteristics shall be checked for each light source technology separately according to the applicable provisions in paragraphs 4.8.1. and 4.8.2."
+  },
+  {
+   "id": "R-0354",
+   "text": "The requirements contained in sections 5 \"General specifications\" and 6 \"Individual specifications\" (and in the Annexes referenced in the said sections) of UN Regulations Nos. 48, 53, 74 or 86, and their series of amendments in force at the time of application for the lamp type approval shall apply to this Regulation. The requirements pertinent to each lamp and to the category/ies of vehicle on which the lamp is intended to be installed shall be applied, where its verification at the moment of lamp type approval is feasible.",
+   "source": {
+    "regulation": "UN R148",
+    "version": "1.6.0",
+    "page": 10,
+    "paragraph": "4.2"
+   },
+   "confidence": 0.203,
+   "quote": "The requirements contained in sections 5 \"General specifications\" and 6 \"Individual specifications\" (and in the Annexes referenced in the said sections) of UN Regulations Nos. 48, 53, 74 or 86, and their series of amendments in force at the time of application for the lamp type approval shall apply to this Regulation. The requirements pertinent to each lamp and to the category/ies of vehicle on which the lamp is intended to be installed shall be applied, where its verification at the moment of lamp type approval is feasible.",
+   "atomic": [
+    "Where its verification at the moment of lamp type approval is feasible, the signalling lamp shall meet the requirements of section 5 \"General specifications\" (and the Annexes referenced therein) of UN Regulation No. 48 in force at the time of application, pertinent to the lamp and to the category/ies of vehicle on which the lamp is intended to be installed.",
+    "Where its verification at the moment of lamp type approval is feasible, the signalling lamp shall meet the requirements of section 6 \"Individual specifications\" (and the Annexes referenced therein) of UN Regulation No. 48 in force at the time of application, pertinent to the lamp and to the category/ies of vehicle on which the lamp is intended to be installed."
+   ]
+  },
+  {
+   "id": "R-0382",
+   "text": "Unless otherwise specified, the voltage supplied at the lamp shall be either 6.75 V (6 Volt-Systems), 13.5 V (12 Volt-Systems) or 28 V (24 Volt-Systems).",
+   "source": {
+    "regulation": "UN R148",
+    "version": "1.6.0",
+    "page": 14,
+    "paragraph": "4.8.2"
+   },
+   "confidence": 0.208,
+   "quote": "Unless otherwise specified, the voltage supplied at the lamp shall be either 6.75 V (6 Volt-Systems), 13.5 V (12 Volt-Systems) or 28 V (24 Volt-Systems).",
+   "atomic": [
+    "Unless otherwise specified, for a 6 Volt-System the voltage supplied at the lamp for testing shall be 6.75 V.",
+    "Unless otherwise specified, for a 12 Volt-System the voltage supplied at the lamp for testing shall be 13.5 V.",
+    "Unless otherwise specified, for a 24 Volt-System the voltage supplied at the lamp for testing shall be 28 V."
+   ]
+  },
+  {
+   "id": "R-0383",
+   "text": "In case of a lamp controlled by an electronic light source control gear or a variable intensity control, the lamp shall be operated as specified by the applicant;",
+   "source": {
+    "regulation": "UN R148",
+    "version": "1.6.0",
+    "page": 14,
+    "paragraph": "4.8.2.1"
+   },
+   "confidence": 0.202,
+   "quote": "In case of a lamp controlled by an electronic light source control gear or a variable intensity control, the lamp shall be operated as specified by the applicant;"
+  },
+  {
+   "id": "R-0384",
+   "text": "4.8.2.2.1. in the case of light source module(s) or non-replaceable light source(s) the lamp shall be operated as specified by the applicant;",
+   "source": {
+    "regulation": "UN R148",
+    "version": "1.6.0",
+    "page": 14,
+    "paragraph": "4.8.2.2"
+   },
+   "confidence": 0.221,
+   "quote": "4.8.2.2.1. in the case of light source module(s) or non-replaceable light source(s) the lamp shall be operated as specified by the applicant;"
+  },
+  {
+   "id": "R-0385",
+   "text": "4.8.2.2.2. in the case of replaceable UN approved light source(s) the light sources shall be operated at the reference/objective luminous flux or alternatively at a different luminous flux with a proportional correction on the measured luminous intensities;",
+   "source": {
+    "regulation": "UN R148",
+    "version": "1.6.0",
+    "page": 14,
+    "paragraph": "4.8.2.2"
+   },
+   "confidence": 0.221,
+   "quote": "4.8.2.2.2. in the case of replaceable UN approved light source(s) the light sources shall be operated at the reference/objective luminous flux or alternatively at a different luminous flux with a proportional correction on the measured luminous intensities;"
+  },
+  {
+   "id": "R-0391",
+   "text": "When an assembly of two independent lamps, to be type approved as lamps marked \"D\" and having the same function, is deemed to be a single lamp, it shall comply with the requirements for: (a) Maximum intensity if all lamps together are lit;",
+   "source": {
+    "regulation": "UN R148",
+    "version": "1.6.0",
+    "page": 15,
+    "paragraph": "4.8.3.2"
+   },
+   "confidence": 0.231,
+   "quote": "When an assembly of two independent lamps, to be type approved as lamps marked \"D\" and having the same function, is deemed to be a single lamp, it shall comply with the requirements for: (a) Maximum intensity if all lamps together are lit;"
+  },
+  {
+   "id": "R-0392",
+   "text": "(b) Minimum intensity if either lamp has failed.",
+   "source": {
+    "regulation": "UN R148",
+    "version": "1.6.0",
+    "page": 15,
+    "paragraph": "4.8.3.2"
+   },
+   "confidence": 0.231,
+   "quote": "(b) Minimum intensity if either lamp has failed."
+  }
+ ],
+ "regulations": [
+  {
+   "regulation": "UN R10",
+   "version": "7.2.0",
+   "probability": 0.95,
+   "selected": true,
+   "rationale": "The module contains radar, camera, PDC, heating, lighting and keyless electronics, so it is an ESA needing EMC approval. (Electromagnetic compatibility. Scope: This Regulation applies to: Vehicles of categories L, M, N O, T, R and S1 with regard to electromagnetic compatibility; Components and separate technical units intended to be fitted in these vehicles with the limitation given in paragrap... Spec terms 20.5, obligation base 27.6.)"
+  },
+  {
+   "regulation": "UN R26",
+   "version": "4.0.0",
+   "probability": 0.85,
+   "selected": true,
+   "rationale": "The front bumper fascia and grille are exterior bodywork on an M1 vehicle and are subject to external projection requirements. (Vehicle approval. Scope: This Regulation applies to external projections of category M1 vehicles. It does not apply to exterior devices for indirect vision or to the ball of towing devices. The purpose of this Regulation is to reduce the risk or seriousness of b... Spec terms 20.5, obligation base 19.1.)"
+  },
+  {
+   "regulation": "UN R48",
+   "version": "9.3.0",
+   "probability": 0.85,
+   "selected": true,
+   "rationale": "Integrated signalling lamps (side markers, direction indicators, position lamps) installed on an M1 vehicle fall under the lighting installation rules. (Installation regulation. Scope: This Regulation applies to vehicles of categories M, N, and to their trailers (category O) with regard to the installation of lighting and light-signalling devices. Spec terms 11.4, obligation base 18.2.)"
+  },
+  {
+   "regulation": "UN R148",
+   "version": "1.6.0",
+   "probability": 0.85,
+   "selected": true,
+   "rationale": "Integrated direction indicators, position lamps and side marker lamps are light-signalling devices approved under R148. (Device approval. Scope: This Regulation applies to the following light-signalling devices (lamps): • Rear-registration plate illuminating lamps • Direction indicator lamps • Position lamps • Stop lamps • End-outline marker lamps • Reversing lamps • Manoeuvring... Spec terms 10.1, obligation base 12.0.)"
+  },
+  {
+   "regulation": "UN R127",
+   "version": "4.3.0",
+   "probability": 0.85,
+   "selected": true,
+   "rationale": "The bumper's fascia and absorber form the M1 frontal surface tested for pedestrian leg impact. (Vehicle approval. Scope: This Regulation applies to motor vehicles of categories M1 and N1. However, vehicles of category N1 where the driver’s position \"R-point\" is either forward of the front axle or longitudinally rearwards of the front axle transverse centre... Spec terms 9.4, obligation base 8.8.)"
+  },
+  {
+   "regulation": "UN R42",
+   "version": "0.2.0",
+   "probability": 0.75,
+   "selected": true,
+   "rationale": "This regulation governs the low-speed collision behaviour of M1 front protective devices, i.e. the bumper. (Vehicle approval. Scope: This Regulation applies to vehicles of category M1 with regard to the behaviour of their front and rear protective devices when involved in a collision at low speed. Spec terms 2.7, obligation base 3.9.)"
+  },
+  {
+   "regulation": "UN GTR 9",
+   "version": "0.3.0",
+   "probability": 0.5,
+   "selected": true,
+   "rationale": "GTR 9 sets pedestrian frontal surface requirements equivalent to R127 and directly relevant to the bumper design. (Global technical regulation. Scope: This global technical regulation (gtr) shall apply to the frontal surfaces of power driven vehicles of category 1-1 with a gross vehicle mass exceeding 500 kg; and of category 1-2 with a gross vehicle mass exceeding 500 kg but not exceed... Spec terms 14.7, obligation base 10.4.)"
+  },
+  {
+   "regulation": "UN R94",
+   "version": "5.1.0",
+   "probability": 0.3,
+   "selected": false,
+   "rationale": "The bumper's energy-management structure contributes to frontal crash behaviour, but this is a vehicle-level occupant protection test rather than a product requirement. (Vehicle approval. Scope: This Regulation applies to vehicles of category M1 of a total permissible mass not exceeding 3,500 kg and to vehicles of category N1 of a total permissible mass not exceeding 2,500 kg; other vehicles may be approved at the request of the... Spec terms 2.1, obligation base 0.0.)"
+  },
+  {
+   "regulation": "UN R152",
+   "version": "2.5.0",
+   "probability": 0.3,
+   "selected": false,
+   "rationale": "The bumper carries radar and camera sensors, but AEBS approval is of the vehicle system rather than the bumper module. (Vehicle approval. Scope: This Regulation applies to the approval of vehicles of Category M1 and N1 with regard to an on-board system to (a) Avoid or mitigate the severity of a rear-end in lane collision with a passenger car, (b) Avoid or mitigate the severity of... Spec terms 1.0, obligation base 0.0.)"
+  },
+  {
+   "regulation": "UN R149",
+   "version": "1.6.0",
+   "probability": 0.25,
+   "selected": false,
+   "rationale": "No headlamps, fog lamps or cornering lamps are explicitly listed; the integrated lighting is signalling and decorative. (Device approval. Scope: This Regulation applies to the following road illumination devices (lamps): • Headlamps emitting a driving-beam and/or an asymmetrical passing-beam for vehicles of categories L, M, N and T • Adaptive front-lighting systems (AFS) for vehi... Spec terms 2.4, obligation base 0.0.)"
+  },
+  {
+   "regulation": "UN R150",
+   "version": "1.2.1",
+   "probability": 0.2,
+   "selected": false,
+   "rationale": "No retro-reflectors are listed among the parts. (Device approval. Scope: This Regulation applies to retro-reflective devices as: • Retro-reflectors of the Classes IA, IB, IIIA, IIIB and IVA • Retro-reflective Marking Materials of the Classes C, D, E and F, D/E • Retro-reflective Marking Plates for Heavy and L... Spec terms 0.9, obligation base 0.0.)"
+  },
+  {
+   "regulation": "UN R100",
+   "version": "5.0.0",
+   "probability": 0.15,
+   "selected": false,
+   "rationale": "Only the charge port flap is integrated; electric powertrain safety concerns other systems. (Device approval. Scope: Part I: Safety requirements with respect to the electric power train of road vehicles of categories M, N and O1, with a maximum design speed exceeding 25 km/h, equipped with electric power train, excluding vehicles permanently connected... Spec terms 2.1, obligation base 1.8.)"
+  },
+  {
+   "regulation": "UN R161",
+   "version": "0.5.0",
+   "probability": 0.1,
+   "selected": false,
+   "rationale": "The keyless aerial is only an antenna; anti-theft device approval concerns other vehicle systems. (Vehicle approval. Scope: This Regulation applies to: Approval of a vehicle of category M1 and N1 with regard to its devices to prevent unauthorized use. The fitting of devices to vehicles of other categories is optional but any such device fitted is required to... Spec terms 1.6, obligation base 2.4.)"
+  },
+  {
+   "regulation": "UN R157",
+   "version": "1.4.0",
+   "probability": 0.1,
+   "selected": false,
+   "rationale": "ALKS is a vehicle system, even though the bumper carries sensors for it. (Vehicle approval. Scope: This Regulation applies to the type approval of vehicles of Category M and N1 with regards to their Automated Lane Keeping System. Spec terms 1.7, obligation base 0.0.)"
+  },
+  {
+   "regulation": "UN R128",
+   "version": "0.11.0",
+   "probability": 0.1,
+   "selected": false,
+   "rationale": "The lamp light sources are built into the lamps, and no replaceable LED light source is supplied. (Light sources. Scope: This Regulation applies to LED light sources shown in Annex 1 and intended for use in approved lamps of power-driven vehicles and of their trailers. Spec terms 1.1, obligation base 0.0.)"
+  },
+  {
+   "regulation": "UN R155",
+   "version": "0.2.0",
+   "probability": 0.1,
+   "selected": false,
+   "rationale": "Cyber security is a vehicle-level management system requirement, not a product requirement for the bumper. (Vehicle approval. Scope: This Regulation applies to vehicles, with regard to cyber security, of the Categories M and N. This Regulation also applies to vehicles of Category O if fitted with at least one electronic control unit. This Regulation also applies to ve... Spec terms 0.0, obligation base 0.0.)"
+  },
+  {
+   "regulation": "UN R116",
+   "version": "1.3.0",
+   "probability": 0.08,
+   "selected": false,
+   "rationale": "The keyless aerial is not an anti-theft device in itself. (Vehicle approval. Scope: This Regulation applies to: PART I - Approval of a vehicle of category M1 and N1 with regard to its devices to prevent unauthorized use. PART II - Approval of vehicle alarm systems (VAS) which are intended to be permanently fitted to veh... Spec terms 1.6, obligation base 0.0.)"
+  }
+ ],
+ "profile": {
+  "product": "Front bumper module — exterior body/trim module combining fascia (cover part), energy-management structure (absorber, lower stiffener) and integrated sensing, lighting and electronics",
+  "vehicle_categories": [
+   "M1"
+  ],
+  "functions": [
+   "Styling / exterior appearance",
+   "Impact & energy management",
+   "crash and pedestrian protection",
+   "Sensing & driver assistance carrier",
+   "radar, LIDAR, camera, PDC, thermal",
+   "Lighting integration",
+   "signalling, decorative, functional",
+   "Thermal / airflow management",
+   "Feature integration",
+   "towing cover, keyless-entry aerial, EV charge port",
+   "Impact and energy management (crash protection)",
+   "Pedestrian protection",
+   "Underrun protection (lower stiffener)",
+   "Sensing and driver assistance carrier (radar, LIDAR, camera, PDC, thermal)",
+   "Lighting integration (signalling, decorative, functional)",
+   "License plate mounting",
+   "Towing device access cover",
+   "Keyless entry aerial integration",
+   "EV charge port (\"fuel filler cap\") integration"
+  ],
+  "parts": [
+   "Cover part",
+   "fascia",
+   "Grill",
+   "Radiator",
+   "Absorber",
+   "Lower stiffener",
+   "underrun protection",
+   "License plate area / holder",
+   "Towing device cover",
+   "Camera",
+   "Radar sensor",
+   "Radar / LIDAR sensor",
+   "incl. heating",
+   "PDC sensor",
+   "Pedestrian impact sensors",
+   "Temperature / thermal sensor",
+   "Lighting — decorative",
+   "Lighting — signalling",
+   "Side",
+   "Aerial",
+   "keyless entry",
+   "\"Fuel filler cap\"",
+   "for EVs",
+   "Cover part (fascia)",
+   "(Radiator) Grill",
+   "Lower stiffener (underrun protection)",
+   "Radar / LIDAR sensor incl. heating",
+   "Lighting (decorative)",
+   "(Side) Lighting (signalling)",
+   "Aerial (keyless entry)",
+   "\"Fuel filler cap\" (for EVs)",
+   "Wiring harness",
+   "Sensor brackets / housings",
+   "Sensor lenses / radomes",
+   "Fasteners / clips"
+  ],
+  "materials": [
+   "Cover part (fascia): PP / PP-EPDM (talc-filled), painted",
+   "Grill: PP, ABS or PC/ABS",
+   "Absorber: Expanded polypropylene (EPP) foam",
+   "Lower stiffener / beam: Steel, aluminium, or PP-GF",
+   "License plate holder: PP / ABS",
+   "Towing device cover: Painted PP",
+   "Sensor brackets / housings: PP, PA, or PA-GF",
+   "Sensor lenses / radomes: PC or PMMA",
+   "Lighting housings / lenses: PC (lens), PP/PA (housing)",
+   "Fasteners / clips: PA, POM, or steel"
+  ],
+  "electronics": true,
+  "keywords": [
+   "bumper (front)",
+   "styling / exterior appearance",
+   "impact & energy management",
+   "crash and pedestrian protection",
+   "sensing & driver assistance carrier",
+   "radar, lidar, camera, pdc, thermal",
+   "lighting integration",
+   "signalling, decorative, functional",
+   "thermal / airflow management",
+   "feature integration",
+   "towing cover, keyless-entry aerial, ev charge port",
+   "cover part",
+   "fascia",
+   "grill",
+   "radiator",
+   "absorber",
+   "lower stiffener",
+   "underrun protection",
+   "license plate area / holder",
+   "towing device cover",
+   "camera",
+   "radar sensor",
+   "radar / lidar sensor",
+   "incl. heating",
+   "pdc sensor",
+   "pedestrian impact sensors",
+   "temperature / thermal sensor",
+   "lighting — decorative",
+   "lighting — signalling",
+   "side",
+   "aerial",
+   "keyless entry",
+   "\"fuel filler cap\"",
+   "for evs",
+   "electrical/electronic sub-assembly",
+   "esa",
+   "bumper",
+   "front protective device",
+   "pedestrian protection",
+   "front underrun protection",
+   "external projections",
+   "electronic sub-assembly",
+   "electromagnetic compatibility",
+   "radar",
+   "lidar",
+   "parking distance control",
+   "side marker lamp",
+   "direction indicator",
+   "front position lamp",
+   "decorative lighting",
+   "space for mounting front registration plate",
+   "towing device",
+   "electric charging inlet",
+   "energy absorber",
+   "grille"
+  ]
+ },
+ "run": {
+  "wall_s": 298.4,
+  "provider": "anthropic",
+  "calls": 242,
+  "cache_hits": 0,
+  "input_tokens": 1401638,
+  "output_tokens": 326463,
+  "cost_usd": 11.6041,
+  "cold_cost_usd": 11.6041,
+  "unpriced_calls": 0
+ }
+}

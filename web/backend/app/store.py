@@ -15,11 +15,11 @@ applied: dict[str, list[str]] = {}
 
 
 def load() -> None:
-    showcase = Assessment.model_validate_json(_SHOWCASE.read_text())
+    showcase = Assessment.model_validate_json(_SHOWCASE.read_text(encoding="utf-8"))
     assessments[showcase.id] = showcase
     if not _FILE.is_file():
         return
-    raw = json.loads(_FILE.read_text())
+    raw = json.loads(_FILE.read_text(encoding="utf-8"))
     for item in raw["assessments"]:
         assessment = Assessment.model_validate(item)
         assessments[assessment.id] = assessment
@@ -29,7 +29,8 @@ def load() -> None:
 def save() -> None:
     DATA_DIR.mkdir(parents=True, exist_ok=True)
     _FILE.write_text(
-        json.dumps({"assessments": [a.dump() for a in assessments.values()], "applied": applied})
+        json.dumps({"assessments": [a.dump() for a in assessments.values()], "applied": applied}),
+        encoding="utf-8",
     )
 
 

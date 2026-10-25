@@ -40,7 +40,10 @@ def _fake_updates() -> list[RegulationUpdate]:
 
 def catalogue() -> list[RegulationUpdate]:
     if _REAL_FILE.is_file():
-        return [RegulationUpdate.model_validate(u) for u in json.loads(_REAL_FILE.read_text())]
+        return [
+            RegulationUpdate.model_validate(u)
+            for u in json.loads(_REAL_FILE.read_text(encoding="utf-8"))
+        ]
     return _fake_updates()
 
 
