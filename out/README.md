@@ -214,7 +214,7 @@ use `brain/brain/subgoal/score.py` (at the time `brain/eval/subgoal_score.py`).
 | 25 Oct 11:03 | `subgoal-heldout-inclusive-v11.json` | v10 plus: a deeming provision ("The driver is deemed to have insufficient engagement when this leads to:") binds like a modal verb, so its new items (d) and (e) of 5.5.4.2.8.2 become rows with their lead-in; in a split, "demonstrate them" takes the first verb's object ("demonstrate such strategies") | `main` @ `914623f` plus uncommitted changes | 186 (60 modified, 4 removed, 122 added); v10 plus 2 rows, 1 row reworded | (11:09:39) flag recall 90.6%, flag precision 31.2%, change accuracy 90.7% (58 matched, 3 fewer than v10) | $0 |
 | 25 Oct 11:22 | `subgoal-heldout-inclusive-v12.json` | v10 with added rows only from the annexes the old requirements cite (a citation by table id such as `tb:678427e5…` counts the annex of its page, here Annex 3); the 52 Annex 4 rows go | `main` @ `113e712` with v11's rules taken out, plus this rule | 132 (60 modified, 4 removed, 68 added); exactly v10 without its Annex 4 rows | (about 12:02) flag recall 90.6%, flag precision 43.9%, change accuracy 88.9% (58 matched) | $0 |
 | 25 Oct 11:26 | `subgoal-heldout-inclusive-v13.json` | v12 plus three splits: bullets under a lead-in are one row each (Annex 3 Appendix 2 5.2.2); parallel "that" clauses are one row each, "…, and that …" (5.5.4.2.7.2 (b)) and "that A ensures … and B ensure …" with the same verb (5.5.4.1.9.2) | `main` @ `113e712` plus uncommitted changes | 135 (60 modified, 4 removed, 71 added); 3 rows of v12 replaced by 6 | (11:49:33) flag recall 90.6%, flag precision 43.0%, change accuracy 87.0% (58 matched, 3 fewer than v10) | $0 |
-| 25 Oct 12:08 | `subgoal-heldout-inclusive-v14.json` | v10 plus: a requirement flagged because its paragraph was amended around it gets the paragraph's replacements applied when it holds a replaced phrase of two words or more (R-013: "transition into 'stand-by' mode" becomes "leave the 'active' mode, with the exception of the driver unavailability response") | `main` @ `1c95725` plus this rule | 184; v10 with one row's `new_text` changed (R-013) | not uploaded | $0 |
+| 25 Oct 12:08 | `subgoal-heldout-inclusive-v14.json` | v10 plus: a requirement flagged because its paragraph was amended around it gets the paragraph's replacements applied when it holds a replaced phrase of two words or more (R-013: "transition into 'stand-by' mode" becomes "leave the 'active' mode, with the exception of the driver unavailability response") | `main` @ `1c95725` plus this rule | 184; v10 with one row's `new_text` changed (R-013) | (12:10:22) flag recall 93.8%, flag precision 32.6%, change accuracy 87.5% (60 matched) | $0 |
 
 ## What is measured
 
@@ -813,6 +813,9 @@ weak match for the gold's R-013 row. v14 applies the paragraph's replacements of
 more to such a requirement; on this pair that changes R-013 only. Given the three-row spread
 between uploads, one upload cannot show a one-row gain; v14 replaces v10 only if it scores 61 or
 more.
+
+Uploaded at 12:10:22: flag recall 93.8% (60 of 64), flag precision 32.6%, change accuracy 87.5%.
+Within the spread of v10's results; v10 is uploaded again next.
 
 ### Cost per run
 
