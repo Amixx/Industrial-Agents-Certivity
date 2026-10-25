@@ -1,6 +1,7 @@
 <script lang="ts">
 import type { Snippet } from 'svelte';
 import type { Assessment } from '#lib/api/types.ts';
+import { costSummary } from '#lib/report/cost.ts';
 import { formatDate } from '#lib/ui/format.ts';
 import { page } from '$app/state';
 
@@ -18,6 +19,11 @@ const tabs = $derived([
 		<div class="font-bold">Assessment</div>
 		<div class="tabular-nums">{formatDate(assessment.createdAt)}</div>
 		<div class="tabular-nums">#{assessment.id}</div>
+		{#if assessment.cost}
+			<div class="tabular-nums" title="Model cost of the pipeline run">
+				Run cost {costSummary(assessment.cost)}
+			</div>
+		{/if}
 	</div>
 	<a
 		href="/a/{assessment.id}"

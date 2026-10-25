@@ -8,6 +8,7 @@ import Cover from '#lib/report/Cover.svelte';
 import Profile from '#lib/report/Profile.svelte';
 import Regulations from '#lib/report/Regulations.svelte';
 import RequirementGroup from '#lib/report/RequirementGroup.svelte';
+import RunCost from '#lib/report/RunCost.svelte';
 import { page } from '$app/state';
 
 const id = $derived(page.params.id ?? '');
@@ -87,6 +88,9 @@ const pageCaseCss = $derived(caseLabel.replace(/[^\p{L}\p{N} ._-]/gu, ''));
 		<Cover {assessment} />
 		<Profile profile={assessment.profile} />
 		<Regulations regulations={assessment.regulations} />
+		{#if assessment.cost}
+			<RunCost cost={assessment.cost} />
+		{/if}
 		<Brief requirements={assessment.requirements} />
 		<section>
 			<h2>Requirements</h2>

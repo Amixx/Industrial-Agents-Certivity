@@ -6,6 +6,8 @@ export type Requirement = {
 	source: Source;
 	testCase?: string;
 	rationale?: string;
+	/** The regulation's own wording, from the PDF. */
+	quote?: string;
 };
 
 export type Profile = {
@@ -38,9 +40,29 @@ export type Assessment = {
 	regulations: RegulationDecision[];
 	requirements: Requirement[];
 	status: AssessmentStatus;
+	/** What the pipeline run spent on model calls; empty `models` for a run without a model. */
+	cost?: RunCost;
 };
 
-export type PipelineStep = 'profile' | 'selection' | 'paragraphs' | 'requirements' | 'done';
+export type ModelCost = {
+	model: string;
+	calls: number;
+	input: number;
+	output: number;
+	cacheWrite: number;
+	cacheRead: number;
+	costUsd: number;
+};
+
+export type RunCost = { totalUsd: number; models: ModelCost[] };
+
+export type PipelineStep =
+	| 'profile'
+	| 'selection'
+	| 'paragraphs'
+	| 'requirements'
+	| 'done'
+	| 'failed';
 
 export type PipelineEvent = {
 	step: PipelineStep;

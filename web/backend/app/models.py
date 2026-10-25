@@ -22,6 +22,7 @@ class Requirement(Model):
     id: str
     text: str
     source: Source
+    quote: str | None = None
     test_case: str | None = None
     rationale: str | None = None
 
@@ -43,6 +44,21 @@ class RegulationDecision(Model):
     requirement_count: int
 
 
+class ModelCost(Model):
+    model: str
+    calls: int
+    input: int
+    output: int
+    cache_write: int
+    cache_read: int
+    cost_usd: float
+
+
+class RunCost(Model):
+    total_usd: float
+    models: list[ModelCost]
+
+
 class Assessment(Model):
     id: str
     created_at: str
@@ -53,6 +69,7 @@ class Assessment(Model):
     regulations: list[RegulationDecision]
     requirements: list[Requirement]
     status: Literal["running", "complete", "failed"]
+    cost: RunCost | None = None
 
 
 class Partial(Model):
@@ -63,7 +80,7 @@ class Partial(Model):
 
 
 class PipelineEvent(Model):
-    step: Literal["profile", "selection", "paragraphs", "requirements", "done"]
+    step: Literal["profile", "selection", "paragraphs", "requirements", "done", "failed"]
     message: str
     progress: float
     assessment_id: str | None = None

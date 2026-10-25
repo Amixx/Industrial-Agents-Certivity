@@ -1,0 +1,109 @@
+"""Runs `brain.pipeline.run` for the web backend, inside the brain's own environment.
+
+    brain/.venv/bin/python web/backend/brain_runner.py SPEC IMAGE OUT
+
+IMAGE may be an empty string. RUN_PRICES (JSON: model -> USD per million tokens for input,
+output, cache write, cache read) lists the only models an API call may use; a call to any other
+model fails. Calls go out without server-side fallbacks, so a declined request never moves to
+another model. Once the run's spend reaches RUN_BUDGET_USD, further calls fail.
+
+Progress goes to stderr: the brain's own log lines, plus a `[cost] calls=N usd=X` line every few
+calls. OUT receives {"submission", "error", "cost"} whether or not the run succeeds.
+"""
+
+import json
+import os
+import sys
+import threading
+import traceback
+from pathlib import Path
+from typing import Any
+
+import anthropic.resources.beta.messages as beta_messages
+import anthropic.resources.messages as messages
+from brain.pipeline import run
+
+PRICES: dict[str, list[float]] = json.loads(os.environ["RUN_PRICES"])
+BUDGET_USD = float(os.environ["RUN_BUDGET_USD"])
+COST_EVERY = 10  # calls between [cost] lines
+
+_lock = threading.Lock()
+_usage: dict[str, dict[str, int]] = {}
+
+
+def _cost(model: str, u: dict[str, int]) -> float:
+    price_in, price_out, price_write, price_read = PRICES[model]
+    tokens = (
+        u["input"] * price_in
+        + u["output"] * price_out
+        + u["cache_write"] * price_write
+        + u["cache_read"] * price_read
+    )
+    return tokens / 1_000_000
+
+
+def _total() -> float:
+    return sum(_cost(model, u) for model, u in _usage.items())
+
+
+def _summary() -> dict[str, Any]:
+    models = [
+        {"model": model, **u, "cost_usd": _cost(model, u)} for model, u in sorted(_usage.items())
+    ]
+    return {"total_usd": _total(), "models": models}
+
+
+def _guard(create: Any) -> Any:
+    def guarded(self: Any, **kw: Any) -> Any:
+        model = kw.get("model")
+        if model not in PRICES:
+            raise RuntimeError(f"model {model} is not allowed on the server")
+        kw.pop("fallbacks", None)
+        betas = [b for b in kw.pop("betas", []) if not b.startswith("server-side-fallback")]
+        if betas:
+            kw["betas"] = betas
+        with _lock:
+            if _total() >= BUDGET_USD:
+                raise RuntimeError(f"run budget of ${BUDGET_USD:.2f} reached")
+        response = create(self, **kw)
+        u = response.usage
+        with _lock:
+            row = _usage.setdefault(
+                model,
+                {"calls": 0, "input": 0, "output": 0, "cache_write": 0, "cache_read": 0},
+            )
+            row["calls"] += 1
+            row["input"] += u.input_tokens
+            row["output"] += u.output_tokens
+            row["cache_write"] += u.cache_creation_input_tokens or 0
+            row["cache_read"] += u.cache_read_input_tokens or 0
+            calls = sum(r["calls"] for r in _usage.values())
+            if calls % COST_EVERY == 0:
+                print(f"[cost] calls={calls} usd={_total():.4f}", file=sys.stderr, flush=True)
+        return response
+
+    return guarded
+
+
+beta_messages.Messages.create = _guard(beta_messages.Messages.create)  # type: ignore[method-assign]
+messages.Messages.create = _guard(messages.Messages.create)  # type: ignore[method-assign]
+
+
+def main() -> int:
+    spec, image, out = sys.argv[1:4]
+    result: dict[str, Any] = {"submission": None, "error": None}
+    try:
+        result["submission"] = run(
+            Path(spec).read_text(), Path(image) if image else None, case_id="web"
+        )
+    except Exception as e:
+        traceback.print_exc()
+        result["error"] = f"{type(e).__name__}: {e}"
+    with _lock:
+        result["cost"] = _summary()
+    Path(out).write_text(json.dumps(result))
+    return 0 if result["error"] is None else 1
+
+
+if __name__ == "__main__":
+    raise SystemExit(main())

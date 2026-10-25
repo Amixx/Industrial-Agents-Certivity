@@ -1,6 +1,9 @@
-"""A short prose brief for product developers, written by one `claude -p` call over an
-assessment's requirements. Every sentence cites the requirement ids it rests on; briefs are cached
-on disk by the requirement set they were written from.
+"""A short prose brief for product developers, written by one model call over an assessment's
+requirements. Every sentence cites the requirement ids it rests on; briefs are cached on disk by
+the requirement set they were written from.
+
+With ANTHROPIC_API_KEY set (the server), the call goes to the API on API_MODEL and its cost into
+the spend ledger. Without it (a developer's machine), it goes through `claude -p` on CLI_MODEL.
 """
 
 import hashlib
@@ -10,10 +13,14 @@ import subprocess
 import threading
 from typing import Any
 
+import anthropic
+
+from . import spend
 from .models import Brief, Requirement
 from .paths import BRIEFS
 
-MODEL = "claude-opus-5-5"
+API_MODEL = "claude-sonnet-5-5"
+CLI_MODEL = "claude-opus-5-5"
 TIMEOUT = 600  # seconds per call
 ATTEMPTS = 3
 
@@ -91,11 +98,29 @@ def problems(brief: Brief, ids: set[str]) -> list[str]:
     return found
 
 
+def _complete_api(prompt: str) -> dict[str, Any]:
+    spend.check()
+    response = anthropic.Anthropic().messages.create(
+        model=API_MODEL,
+        max_tokens=16000,
+        system=SYSTEM,
+        messages=[{"role": "user", "content": prompt}],
+        output_config={"effort": "medium", "format": {"type": "json_schema", "schema": SCHEMA}},
+    )
+    spend.record(spend.cost(API_MODEL, response.usage))
+    if response.stop_reason != "end_turn":
+        raise RuntimeError(f"Brief stopped early: {response.stop_reason}")
+    result: dict[str, Any] = json.loads(next(b.text for b in response.content if b.type == "text"))
+    return result
+
+
 def _complete(prompt: str) -> dict[str, Any]:
+    if os.environ.get("ANTHROPIC_API_KEY"):
+        return _complete_api(prompt)
     env = {k: v for k, v in os.environ.items() if k != "ANTHROPIC_API_KEY"}
     cmd = [
         "claude", "-p", prompt,
-        "--model", MODEL,
+        "--model", CLI_MODEL,
         "--system-prompt", SYSTEM,
         "--tools", "",
         "--strict-mcp-config",
@@ -137,7 +162,7 @@ def _generate(requirements: list[Requirement]) -> Brief:
 
 def key(requirements: list[Requirement]) -> str:
     payload = [r.model_dump(include={"id", "text", "source"}) for r in requirements]
-    blob = json.dumps({"model": MODEL, "system": SYSTEM, "requirements": payload}, sort_keys=True)
+    blob = json.dumps({"system": SYSTEM, "requirements": payload}, sort_keys=True)
     return hashlib.sha256(blob.encode()).hexdigest()[:16]
 
 

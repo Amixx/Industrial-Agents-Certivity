@@ -86,7 +86,7 @@ function toggle(section: number, sentence: number, label: string) {
 									<span>Paragraph {req.source.paragraph}</span>
 									<span>Page {req.source.page}</span>
 								</p>
-								<p class="passage">{req.text}</p>
+								<p class="passage">{req.quote ?? req.text}</p>
 								<p class="links">
 									{#if href}
 										<a {href} target="_blank" rel="noreferrer"

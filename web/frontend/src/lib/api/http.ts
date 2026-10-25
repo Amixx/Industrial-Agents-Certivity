@@ -36,6 +36,7 @@ export const http: ApiClient = {
 			buffer = lines.pop() ?? '';
 			for (const line of lines.filter(Boolean)) {
 				const event: PipelineEvent = JSON.parse(line);
+				if (event.step === 'failed') throw new Error(event.message);
 				id = event.assessmentId ?? id;
 				onEvent(event);
 			}

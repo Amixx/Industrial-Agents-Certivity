@@ -10,8 +10,8 @@ from fastapi.responses import FileResponse, JSONResponse, StreamingResponse
 from fastapi.staticfiles import StaticFiles
 from starlette.datastructures import UploadFile as StarletteUploadFile
 
-from . import ask, brief, pipeline, store, updates
-from .models import AskRequest, Assessment, BriefRequest, PipelineEvent
+from . import ask, brief, pipeline, spend, store, updates
+from .models import AskRequest, Assessment, BriefRequest
 from .paths import CASES, FRONTEND_BUILD, REGULATIONS
 
 
@@ -81,14 +81,8 @@ async def create_assessment(
     image_bytes = await image.read() if image else None
 
     async def stream() -> AsyncIterator[str]:
-        async for item in pipeline.run_assessment(spec_text, image_bytes, case_name or None):
-            if isinstance(item, PipelineEvent):
-                yield json.dumps(item.dump()) + "\n"
-                continue
-            if image_bytes:
-                store.store_image(item.id, image_bytes)
-                item = item.model_copy(update={"image_url": f"/api/assessments/{item.id}/image"})
-            store.put(item)
+        async for event in pipeline.run_assessment(spec_text, image_bytes, case_name or None):
+            yield json.dumps(event.dump()) + "\n"
 
     return StreamingResponse(stream(), media_type="application/x-ndjson")
 
@@ -139,7 +133,13 @@ def apply_update(assessment_id: str, regulation: str) -> JSONResponse:
 def get_brief(request: BriefRequest) -> JSONResponse:
     try:
         written = brief.brief_for(request.requirements)
-    except (RuntimeError, OSError, subprocess.TimeoutExpired) as e:
+    except (
+        RuntimeError,
+        OSError,
+        subprocess.TimeoutExpired,
+        spend.BudgetExceeded,
+        anthropic.APIError,
+    ) as e:
         raise HTTPException(503, f"Brief unavailable: {e}") from e
     return JSONResponse(written.dump())
 
@@ -148,7 +148,7 @@ def get_brief(request: BriefRequest) -> JSONResponse:
 def ask_question(request: AskRequest) -> JSONResponse:
     try:
         answer = ask.ask(request.question, request.selection, request.requirements)
-    except ask.BudgetExceeded as e:
+    except spend.BudgetExceeded as e:
         raise HTTPException(429, str(e)) from e
     except (anthropic.APIError, RuntimeError) as e:
         raise HTTPException(502, f"No answer: {e}") from e
@@ -157,7 +157,7 @@ def ask_question(request: AskRequest) -> JSONResponse:
 
 @app.get("/api/spend")
 def get_spend() -> dict[str, float]:
-    return {"spentUsd": ask.spent(), "budgetUsd": ask.BUDGET_USD}
+    return {"spentUsd": spend.spent(), "budgetUsd": spend.BUDGET_USD}
 
 
 @app.get("/api/regulations")
