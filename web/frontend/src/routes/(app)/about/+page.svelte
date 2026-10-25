@@ -1,6 +1,7 @@
 <script lang="ts">
 import { cubicOut } from 'svelte/easing';
 import { Tween } from 'svelte/motion';
+import EngineDiagram from '#lib/components/EngineDiagram.svelte';
 
 // Who does the work in each stage, one column each in the table.
 const parts = ['Language model', 'Jev', 'Obligation base', 'Rules'] as const;
@@ -127,14 +128,30 @@ const path = front.map((r, i) => `${i ? 'L' : 'M'}${x(r.cost)} ${y(r.f2)}`).join
 
 	<section class="reveal ui-grid ui-section mt-12" use:reveal>
 		<div class="col-span-12 lg:col-span-3">
+			<span class="ui-label text-[13px]">How it works</span>
+			<h2 class="ui-display mt-3 text-[2.25rem]">One paragraph, <i>traced</i></h2>
+		</div>
+		<div class="col-span-12 lg:col-span-9">
+			<p class="max-w-[60ch] leading-relaxed text-muted">
+				Follow one real paragraph of UN R42 from its PDF page to a cited requirement, on the front
+				bumper case. Models make the judgement calls; code owns the checks, the cuts and the
+				citation, which no model ever touches. Press play, pick a stage, or use the arrow keys.
+			</p>
+		</div>
+		<div class="col-span-12 mt-8">
+			<EngineDiagram />
+		</div>
+	</section>
+
+	<section class="reveal ui-grid ui-section mt-12" use:reveal>
+		<div class="col-span-12 lg:col-span-3">
 			<span class="ui-label text-[13px]">Architecture</span>
 			<h2 class="ui-display mt-3 text-[2.25rem]">The engine</h2>
 		</div>
 		<div class="col-span-12 lg:col-span-9">
 			<p class="max-w-[60ch] leading-relaxed text-muted">
-				The spec and its exploded view go in, the requirement list comes out. In between, seven
-				stages run in order. A mark shows which part does the work in each one; pick a part to
-				trace it.
+				The same flow, grouped into seven stages by who does the work. A mark shows which part
+				works in each one; pick a part to trace it.
 			</p>
 			<div class="mt-6 flex flex-wrap items-center gap-2" role="group" aria-label="Trace a part">
 				{#each parts as p}

@@ -25,6 +25,7 @@ from brain.paths import INDEX, TOOLS
 from .align import Kind, Link, Span, align, kind, units
 from .changes import (
     added_changes,
+    cited_sections,
     fuse,
     map_requirements,
     obligations,
@@ -89,7 +90,7 @@ def diff_assessment(
     old = parse_pdf(old_pdf, regulation, version_of(old_pdf) or "old", "base")
     new = parse_pdf(new_pdf, regulation, to_version, "latest")
     links = align(old, new)
-    sections = {top(r["source"]["paragraph"]) for r in requirements}
+    sections = cited_sections(requirements, old)
     modified = map_requirements(
         requirements,
         old,

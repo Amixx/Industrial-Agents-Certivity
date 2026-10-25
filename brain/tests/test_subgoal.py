@@ -29,7 +29,14 @@ from brain.subgoal import (
     validate,
     word_ops,
 )
-from brain.subgoal.changes import resolve_pronoun, split_clauses, split_obligation
+from brain.subgoal.changes import (
+    cited_sections,
+    resolve_pronoun,
+    split_bullets,
+    split_clauses,
+    split_obligation,
+    split_that,
+)
 from brain.subgoal.score import score
 from brain.subgoal.survey import synthetic_pairs
 
@@ -829,10 +836,13 @@ def test_inclusive_mode_adds_fused_items_every_section_and_only_obligations() ->
     ]
     links = align(old, new)
     assert added_changes(links, {"5"}, "UN R1", "2.0.0") == []
-    rows = added_changes(links, {"5"}, "UN R1", "2.0.0", inclusive=True)
+    rows = added_changes(links, {"5", "Annex 4"}, "UN R1", "2.0.0", inclusive=True)
     # A sentence without a modal verb (2.28) is not an obligation; the new item takes its lead-in.
     assert [r["source"]["paragraph"] for r in rows] == ["5.1", "Annex 4 3", "16.1"]
     assert rows[0]["new_text"] == "X shall be red provided it is warm."
+    # An annex no old requirement cites adds nothing, even in the inclusive mode.
+    rows = added_changes(links, {"5"}, "UN R1", "2.0.0", inclusive=True)
+    assert [r["source"]["paragraph"] for r in rows] == ["5.1", "16.1"]
 
 
 def test_inclusive_mode_flags_an_untouched_sentence_in_a_paragraph_amended_in_place() -> None:
@@ -1042,30 +1052,45 @@ def test_infinitives_joined_by_and_stay_one_obligation() -> None:
     )
 
 
-def test_inclusive_mode_counts_a_deeming_lead_in_as_an_obligation() -> None:
-    old = [
-        para(
-            "5.8", "The driver is deemed to be tired when this leads to: (a) One stop; or (b) Two."
-        )
+def test_a_citation_by_table_id_counts_the_section_of_its_page() -> None:
+    old = [para("5.1", "X shall be red.", page=3), para("Annex 3 2", "Y shall be blue.", page=9)]
+    reqs = [
+        {"id": "R-1", "text": "X shall be red.", "source": {"page": 3, "paragraph": "5.1"}},
+        {"id": "R-2", "text": "Y shall be blue.", "source": {"page": 9, "paragraph": "tb:ab12"}},
     ]
-    new = [
-        para(
-            "5.8",
-            "The driver is deemed to be tired when this leads to: (a) One stop; (b) Two; or "
-            "(c) One warning after a manoeuvre.",
-        )
-    ]
-    rows = added_changes(align(old, new), {"5"}, "UN R1", "2.0.0", inclusive=True)
-    assert [r["new_text"] for r in rows] == [
-        "The driver is deemed to be tired when this leads to one warning after a manoeuvre."
-    ]
+    assert cited_sections(reqs, old) == {"5", "Annex 3"}
 
 
-def test_split_verb_takes_the_first_object_for_them() -> None:
-    assert split_obligation(
-        "The manufacturer shall document such strategies and demonstrate them to the authority.",
-        {"demonstrate"},
+def test_bullets_under_a_lead_in_are_one_row_each() -> None:
+    assert split_bullets(
+        "The evidence shall include situations where: • The driver is cancelling a manoeuvre; "
+        "• The driver is aborting a manoeuvre."
     ) == [
-        "The manufacturer shall document such strategies.",
-        "The manufacturer shall demonstrate such strategies to the authority.",
+        "The evidence shall include situations where the driver is cancelling a manoeuvre.",
+        "The evidence shall include situations where the driver is aborting a manoeuvre.",
     ]
+    assert split_bullets("The system shall warn the driver.") == []
+
+
+def test_parallel_that_clauses_are_one_row_each() -> None:
+    assert split_that(
+        "The system shall check that the driver looks ahead, and that this does not degrade."
+    ) == [
+        "The system shall check that the driver looks ahead.",
+        "The system shall check that this does not degrade.",
+    ]
+    assert (
+        split_that(
+            "X shall show that the driver is awake by: that the eyes move, and that this lasts."
+        )[1]
+        == "X shall show that the driver is awake by: that this lasts."
+    )
+    # Two clauses with the same verb: "… that A ensures X and B ensure Y".
+    assert split_that(
+        "The manufacturer shall show that the timing ensures a response and the strategies "
+        "employed ensure the drivers notice it."
+    ) == [
+        "The manufacturer shall show that the timing ensures a response.",
+        "The manufacturer shall show that the strategies employed ensure the drivers notice it.",
+    ]
+    assert split_that("The system shall check that the lane and the road are free.") == []

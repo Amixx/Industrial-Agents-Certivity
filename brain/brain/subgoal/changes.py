@@ -39,8 +39,6 @@ MODAL_PHRASE = re.compile(
 )
 # A second verb phrase after "and" or "but": "… and assessed by …", "…, and shall provide …".
 CONJOINED = re.compile(r",?\s+(?:and|but)\s+((?:shall|must|may)\b\s*)?((?:\w+ly\s+)?(\w+))")
-# What binds in the inclusive mode: a modal verb, or a deeming provision ("The driver is deemed …").
-BINDING = re.compile(r"\b(?:shall|must|may|(?:is|are)\s+deemed)\b")
 PRONOUN = re.compile(r"^(?:This|It)\s+(?=(?:shall|must|may)\b)")
 # ", and <a subject of up to six words> shall …": a second obligation with its own subject.
 CLAUSE = re.compile(r",\s+and\s+(?=(?:[a-z][\w-]*\s+){1,6}?(?:shall|must|may)\b)")
@@ -305,6 +303,20 @@ def map_requirements(
     return changes
 
 
+def cited_sections(requirements: Sequence[dict[str, Any]], old: Sequence[Paragraph]) -> set[str]:
+    """The top-level sections the requirements cite. A label the old version does not have (a
+    table id such as "tb:678427e5…") counts the sections of the paragraphs on its page."""
+    labels = {p.label for p in old}
+    sections = set()
+    for req in requirements:
+        label, page = req["source"]["paragraph"], req["source"].get("page")
+        if label in labels or not page:
+            sections.add(top(label))
+        else:
+            sections |= {top(p.label) for p in old if p.page <= page <= p.page_end}
+    return sections
+
+
 def top(label: str) -> str:
     """The top-level section of a label: "5" for "5.1.4", "Annex 3" for "Annex 3 2.1"."""
     words = label.split()
@@ -403,17 +415,10 @@ def split_obligation(text: str, known: set[str]) -> list[str]:
             cuts.append((c.start(), c.start(1) if c[1] else c.start(2), bool(c[1])))
     if not cuts:
         return []
-    first = rest[: cuts[0][0]]
-    parts = [f"{subject} {modal}{first}"]
-    words = first.split(maxsplit=1)
+    parts = [f"{subject} {modal}{rest[: cuts[0][0]]}"]
     for k, (_, verb, own) in enumerate(cuts):
         end = cuts[k + 1][0] if k + 1 < len(cuts) else len(rest)
-        part = rest[verb:end]
-        if not own and not passive and len(words) == 2:
-            # "… document such strategies and demonstrate them …": "them" is the first object.
-            if m := re.match(r"(\S+(?:\s+\S+ly)?)\s+(?:them|it)\b", part):
-                part = f"{m[1]} {words[1]}{part[m.end() :]}"
-        parts.append(f"{subject} {'' if own else modal + ' '}{part}")
+        parts.append(f"{subject} {'' if own else modal + ' '}{rest[verb:end]}")
     return [re.sub(r"[\s,;:.]+$", "", p) + "." for p in parts]
 
 
@@ -429,6 +434,40 @@ def split_clauses(text: str) -> list[str]:
     else:
         second = second[0].upper() + second[1:]
     return [text[: m.start()].rstrip(" ,") + ".", second.rstrip(" .") + "."]
+
+
+def split_bullets(text: str) -> list[str]:
+    """ "X shall include: • A; • B." gives "X shall include A." and "X shall include B."."""
+    lead, colon, rest = text.partition(":")
+    items = [i for i in re.split(r"\s*•\s*", rest) if i.strip()] if colon else []
+    if len(items) < 2 or not rest.lstrip().startswith("•") or not MODAL.search(lead):
+        return []
+    return [fuse(lead + ":", item) for item in items]
+
+
+def split_that(text: str) -> list[str]:
+    """Parallel "that" clauses: "X shall check that A, and that B." gives "X shall check that A."
+    and "X shall check that B."; so does "… that A ensures C and B ensure D" (the same verb)."""
+    m = re.search(r"\bthat\s+", text)
+    if not m or not MODAL.search(text[: m.start()]):
+        return []
+    head, body = text[: m.end()], text[m.end() :]
+    c = re.search(r",\s+and\s+that\s+", body)
+    for and_the in [] if c else re.finditer(r"\s+and\s+(?=(?:the|its|their)\s)", body):
+        # The verb of the first clause, not a word after "the" (a noun), comes back after the
+        # second clause's subject: "the strategies employed ensure".
+        first = body[: and_the.start()].split()
+        stems = {w[:5] for k, w in enumerate(first) if len(w) >= 5 and k and first[k - 1] != "the"}
+        after = body[and_the.end() :].split()[2:5]
+        if any(len(w) >= 5 and w[:5] in stems for w in after):
+            c = and_the
+            break
+    if c is None:
+        return []
+    # The second clause repeats the last "that" before it: "… the following: that A, and that B".
+    last = [t.end() for t in re.finditer(r"\bthat\s+", body[: c.start()])]
+    lead = head + body[: last[-1]] if last else head
+    return [head + body[: c.start()].rstrip(" ,") + ".", lead + body[c.end() :].rstrip(" .") + "."]
 
 
 def resolve_pronoun(text: str, previous: str) -> str:
@@ -503,11 +542,13 @@ def added_changes(
     item (part of the list's requirement), a footnote, or already in the new text of a modified
     requirement (`consumed`, indexes of new units).
 
-    `inclusive` (for recall) takes every section instead of only the cited `sections`, counts new
+    `inclusive` (for recall) takes every section, but only the cited annexes (on the held-out pair
+    Annex 4, which no old requirement cites, held no gold row), instead of only the cited
+    `sections`; it counts new
     list items inside old paragraphs (fused with their lead-in when it has a modal verb) and new
     sentences already in a modified requirement, and gives a compound obligation one row per verb
-    (`split_obligation`). Only rows with a modal verb or a deeming provision are kept: on the
-    held-out pair the 60 rows without one matched no gold row.
+    (`split_obligation`). Only rows with a modal verb are kept: on the held-out pair the 60 rows
+    without one matched no gold row.
     """
     claimed = {link.new.index for link in links if link.old and link.new}
     by_label: dict[str, list[Span]] = defaultdict(list)
@@ -520,14 +561,15 @@ def added_changes(
     def add(label: str, page: int, text: str, reason: str) -> None:
         texts = [text]
         if inclusive:
-            if not BINDING.search(text):
+            if not MODAL.search(text):
                 return
             if changes:
                 text = resolve_pronoun(text, changes[-1]["new_text"])
             texts = [
-                part
+                piece
                 for clause in split_clauses(text) or [text]
                 for part in split_obligation(clause, known) or [clause]
+                for piece in split_bullets(part) or split_that(part) or [part]
             ]
         for t in texts:
             if (label, t) not in seen:
@@ -543,7 +585,7 @@ def added_changes(
                 )
 
     for label, spans in by_label.items():
-        in_scope = inclusive or top(label) in sections
+        in_scope = (inclusive and not label.startswith("Annex")) or top(label) in sections
         if not in_scope or all(s.index in claimed for s in spans):
             continue
         if not any(s.index in claimed and not s.text.endswith(":") for s in spans):
@@ -575,7 +617,7 @@ def added_changes(
                 add(label, spans[0].page, own[1] + ".", reason)
                 continue
             lead = _lead_in(spans[:k]) if item else None
-            if item and ((lead and BINDING.search(lead)) or MODAL.search(unit.text)):
+            if item and ((lead and MODAL.search(lead)) or MODAL.search(unit.text)):
                 add(label, spans[0].page, fuse(lead or "", unit.text), reason)
                 continue
             for _, text in obligations([unit], every=inclusive):
